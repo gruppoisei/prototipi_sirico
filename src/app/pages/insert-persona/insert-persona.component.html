@@ -1,0 +1,58 @@
+
+<div class="outer">
+    <form [formGroup]="insertPersona">
+        <h2 class="text-4xl font-bold mb-10">Inserimento Dati Anagrafici</h2>
+        <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
+                <input formControlName = "nome" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nome" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Cognome</label>
+                <input formControlName = "cognome"type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cognome" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Data di nascita</label>
+                <input formControlName ="dataNascita" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Data di nascita" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Codice fiscale</label>
+                <input formControlName ="codiceFiscale" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Data di nascita" required />
+            </div>  
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Luogo di nascita</label>
+                <input formControlName ="luogoNascita" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Luogo di nascita" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Comune residenza</label>
+                <input formControlName = "comuneResidenza" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Comune residenza" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo residenza</label>
+                <input formControlName = "indirizzoResidenza" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Indirizzo residenza" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Comune domicilio</label>
+                <input formControlName = "comuneDomicilio" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Comune domicilio" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo domicilio</label>
+                <input formControlName = "indirizzoDomicilio" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Indirizzo domicilio" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Cap residenza</label>
+                <input formControlName = "capResidenza" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cap residenza" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Email aziendale</label>
+                <input formControlName = "emailAziendale" type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Email aziendale" required />
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Società</label>
+                <input formControlName = "societaId" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Email aziendale" required />
+            </div>
+        </div>
+    
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Aggiungi persona</button>
+    </form>
+</div>
