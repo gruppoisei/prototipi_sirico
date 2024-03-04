@@ -20,9 +20,9 @@ export class AuthService {
     return this.http.post<Utente>(`${this.baseUrl}Login/InsertUser`,userObj)
   }
 
-  insertPersona(personaObj : Persona) : Observable<Persona>
+  insertPersona(personaObj : Persona) : Observable<any>
   {
-    return this.http.post<Persona>("mettere url", personaObj)
+    return this.http.post<Persona>(`${this.baseUrl}Persona/AddPersona`, personaObj)
   }
 
 
