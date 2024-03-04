@@ -5,14 +5,16 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/login/login.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { HttpClientModule } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InsertUtenteComponent,
-    InsertPersonaComponent
+    InsertUtenteComponent
   ],
   imports: [
     BrowserModule,

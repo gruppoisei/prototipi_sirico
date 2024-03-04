@@ -1,9 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
+import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
-  {path: "inserimento-persona", component: InsertPersonaComponent},
+  {
+    path: "", 
+    redirectTo: '/login',
+    pathMatch: 'full'
+  }, 
+  {
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "insertutente",
+    component: InsertUtenteComponent
+  },
+  {
+    path: "homepage",
+    component: HomepageComponent
+  }
 ];
 
 @NgModule({
