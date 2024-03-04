@@ -10,7 +10,7 @@ import { InsertUtenteService } from '../../service/insert-utente.service';
   styleUrl: './insert-utente.component.scss'
 })
 
-export class InsertUtenteComponent implements OnInit{
+export class InsertUtenteComponent {
 
 
   insertForm!: FormGroup;

@@ -14,7 +14,9 @@ import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.co
   declarations: [
     AppComponent,
     InsertUtenteComponent,
-    InsertPersonaComponent
+    InsertPersonaComponent,
+    LoginComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
