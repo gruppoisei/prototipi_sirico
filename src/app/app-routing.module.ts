@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 
 const routes: Routes = [
   {
     path: "", 
     redirectTo: '/login',
     pathMatch: 'full'
+  }, 
+  {
+    path: "insertpersona", 
+    component:InsertPersonaComponent
   }, 
   {
     path: "login",
