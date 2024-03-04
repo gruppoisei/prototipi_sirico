@@ -1,2 +1,10 @@
-<app-insert-utente></app-insert-utente>
-<router-outlet />
+ 
+ <div>
+    <div class="dropdown-content" *ngIf="isDropdownOpen">
+        <div (click)="onItemClick('homepage')" [class.active]="selectedItem === 'homepage'"> Home </div> <br>
+        <div (click)="onItemClick('login')" [class.active]="selectedItem === 'login'"> Login </div> <br>
+        <div (click)="onItemClick('insertutente')" [class.active]="selectedItem === 'insertutente'"> Inserisci Utente </div> <br>
+    </div>
+
+    <router-outlet></router-outlet>
+</div>
