@@ -18,12 +18,14 @@ export class LoginComponent {
     this.authenticationService.login(this.user, this.pass)
     .subscribe(
       response => {
+        // console.log(response);
         console.log("autenticazione riuscita!");
         //impostare token
         this.router.navigate(['/homepage']);
       },
       error => {
-        console.log("nome utente o password non corretti.");
+        console.log(error);
+        // console.log("nome utente o password non corretti.");
       }
     );
   }
