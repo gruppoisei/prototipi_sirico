@@ -6,7 +6,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
-import { HomepageComponent } from './pages/insert-persona/homepage/homepage.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 
