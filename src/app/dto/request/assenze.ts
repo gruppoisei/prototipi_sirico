@@ -1,7 +1,7 @@
 export interface Richiesta {
  //   RiasFkPersonaid: number;
     RiasFkTiporichiesta: number;                //REQUIRED
- //   RiasFkResponsabileidApprovazione: number;
+ //   RiasFkResponsabileidApprovazione: number; //REQUIRED
  //   RiasApprovato: boolean;
     RiasDataorainizioassenza: string;           //
     RiasDataorafineassenza: string;             //

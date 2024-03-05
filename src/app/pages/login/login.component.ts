@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit{
   doLogin() {
     this.auth.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value)
     .subscribe({
-      next:(res) =>
-      {
+      next:(res) => {
         console.log(res.message);
         this.router.navigate(['/homepage']);
       },

@@ -2,54 +2,78 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Richiesta } from '../../dto/request/assenze';
 import { Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RichiestaAutorizzazioneService } from '../../service/richiesta-autorizzazione.service';
 
 @Component({
   selector: 'app-richiesta-assenza-utente',
   templateUrl: './richiesta-assenza-utente.component.html',
-  styleUrls: ['./richiesta-assenza-utente.component.scss']
+  styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
 export class RichiestaAssenzaUtenteComponent {
-
   formData: Richiesta = {
-  //  RiasFkPersonaid: null,
+    //  RiasFkPersonaid: null,
     RiasFkTiporichiesta: 0,
- //   RiasFkResponsabileidApprovazione: null,
- //   RiasApprovato: false,
+    //   RiasFkResponsabileidApprovazione: null,
+    //   RiasApprovato: false,
     RiasDataorainizioassenza: '',
     RiasDataorafineassenza: '',
     RiasNote: '',
     RiasSysuser: '',
-//    RiasSysdate: '',
-//   RiasFlagattivo: false,
-    AndpDocumentipersonas: ''
+    //    RiasSysdate: '',
+    //   RiasFlagattivo: false,
+    AndpDocumentipersonas: '',
   };
 
-  constructor(private http: HttpClient) { }
+  tipiRichiesta: any;
+  richiestaAssenzeService: any;
+
+  constructor(
+    private http: HttpClient,
+    private richiestaAutorizzazioneService: RichiestaAutorizzazioneService
+  ) {}
+
+  ngOnInit(): void {
+    this.getAllTipoRichiesta();
+  }
 
   submitForm() {
-    this.http.post<any>('RichiestaAutorizzazione/RichiestaAssenza', this.formData)
-      .subscribe(
-        response => {
-          console.log('Dati inviati con successo:', response);
+    this.http
+      .post<any>('RichiestaAutorizzazione/RichiestaAssenza', this.formData)
+      .subscribe({
+        next: (res) => {
+          console.log('Dati inviati con successo:', res);
           // Resetta i campi del modulo dopo l'invio
           this.formData = {
-          //  RiasRichiestaassenzaid: null,
-          //  RiasFkPersonaid: null,
+            //  RiasRichiestaassenzaid: null,
+            //  RiasFkPersonaid: null,
             RiasFkTiporichiesta: 0,
-          //  RiasFkResponsabileidApprovazione: null,
-          //  RiasApprovato: false,
+            //  RiasFkResponsabileidApprovazione: null,
+            //  RiasApprovato: false,
             RiasDataorainizioassenza: '',
             RiasDataorafineassenza: '',
             RiasNote: '',
             RiasSysuser: '',
-          //  RiasSysdate: '',
-          //  RiasFlagattivo: false,
-            AndpDocumentipersonas: ''
+            //  RiasSysdate: '',
+            //  RiasFlagattivo: false,
+            AndpDocumentipersonas: '',
+            //
           };
         },
-        error => {
-          console.error('Errore durante l\'invio dei dati:', error);
-        }
-      );
+        error: (err) => {
+          console.log("Errore durante l'invio dei dati:" + err);
+        },
+      });
+  }
+
+  getAllTipoRichiesta() {
+    this.richiestaAssenzeService.getAllTipoRichiesta().subscribe(
+      (response: any) => {
+        this.tipiRichiesta = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di assenza:', error);
+      }
+    );
   }
 }
