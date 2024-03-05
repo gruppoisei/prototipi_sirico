@@ -9,6 +9,17 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
+import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
+import { GiornoCalendarioComponent } from './pages/rapportino/giorno-calendario/giorno-calendario.component';
+//import { AttivitaGiornoComponent } from './pages/rapportino/attivita-giorno/attivita-giorno.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -16,14 +27,27 @@ import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.co
     InsertUtenteComponent,
     InsertPersonaComponent,
     LoginComponent,
-    HomepageComponent
+    HomepageComponent,
+    CalendarioComponent,
+    GiornoCalendarioComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    MatBadgeModule,
+    MatButtonModule,
+    MatDialogModule
+
+
+
+
+
   ],
   providers: [
     provideAnimationsAsync()
