@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Richiesta } from '../../dto/request/assenze';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-richiesta-assenza-utente',
