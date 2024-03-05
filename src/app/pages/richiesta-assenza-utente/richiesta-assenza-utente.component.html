@@ -1,10 +1,39 @@
-
 <div class="container">
     <h2>Inserisci Richiesta</h2>
     <form (ngSubmit)="submitForm()">
-      <label>RiasRichiestaassenzaid</label>
-      <input type="number" [(ngModel)]="formData.RiasNote" name="RiasNote" required>
-      <!-- Aggiungi altri campi del modulo qui -->
+      <!-- <label>RiasFkPersonaid</label>
+      <input type="number" [(ngModel)]="formData.RiasFkPersonaid" name="RiasFkPersonaid" required> -->
+  
+      <label>RiasFkTiporichiesta</label>
+      <input type="number" [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
+  
+      <!-- <label>RiasFkResponsabileidApprovazione</label>
+      <input type="number" [(ngModel)]="formData.RiasFkResponsabileidApprovazione" name="RiasFkResponsabileidApprovazione" required>
+  
+      <label>RiasApprovato</label>
+      <input type="checkbox" [(ngModel)]="formData.RiasApprovato" name="RiasApprovato"> -->
+  
+      <label>RiasDataorainizioassenza</label>
+      <input type="text" [(ngModel)]="formData.RiasDataorainizioassenza" name="RiasDataorainizioassenza" required>
+  
+      <label>RiasDataorafineassenza</label>
+      <input type="text" [(ngModel)]="formData.RiasDataorafineassenza" name="RiasDataorafineassenza" required>
+  
+      <label>RiasNote</label>
+      <input type="text" [(ngModel)]="formData.RiasNote" name="RiasNote" required>
+  
+      <label>RiasSysuser</label>
+      <input type="text" [(ngModel)]="formData.RiasSysuser" name="RiasSysuser" required>
+  
+      <!-- <label>RiasSysdate</label>
+      <input type="text" [(ngModel)]="formData.RiasSysdate" name="RiasSysdate" required>
+  
+      <label>RiasFlagattivo</label>
+      <input type="checkbox" [(ngModel)]="formData.RiasFlagattivo" name="RiasFlagattivo"> -->
+  
+      <label>AndpDocumentipersonas</label>
+      <input type="text" [(ngModel)]="formData.AndpDocumentipersonas" name="AndpDocumentipersonas" required>
+  
       <button type="submit">Invia Richiesta</button>
     </form>
   </div>

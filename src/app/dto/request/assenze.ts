@@ -1,14 +1,14 @@
 export interface Richiesta {
  //   RiasFkPersonaid: number;
-    RiasFkTiporichiesta: number;
+    RiasFkTiporichiesta: number;                //REQUIRED
  //   RiasFkResponsabileidApprovazione: number;
  //   RiasApprovato: boolean;
-    RiasDataorainizioassenza: string;
-    RiasDataorafineassenza: string;
-    RiasNote: string;
-    RiasSysuser: string;
+    RiasDataorainizioassenza: string;           //
+    RiasDataorafineassenza: string;             //
+    RiasNote: string;                           //
+    RiasSysuser: string;                        //REQUIRED
  //   RiasSysdate: string;
  //   RiasFlagattivo: boolean;
-    AndpDocumentipersonas: string;
+    AndpDocumentipersonas: string;              //
   }
   
