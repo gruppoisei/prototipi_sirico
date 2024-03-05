@@ -1,0 +1,37 @@
+<div class="my-10 flex justify-center">
+
+    
+    <!-- <select required (input)="CambiaMese($event)" >
+        <option ngDefaultControl value=0>--Seleziona Tipo--</option>
+        <option required *ngFor="let mese of listaMesi;index as i" [value]="mese"> {{mese | date:"yyyy LLLL"}}</option>
+    </select > -->
+    <mat-form-field>
+        <mat-label>Scegli Mese</mat-label>
+        <mat-select (valueChange)="CambiaMese($event)" [(value)]="giornoDefault" >
+            <div *ngFor="let mese of listaMesi;index as i" >
+
+                <mat-option   [value]="mese">
+                    {{mese | date:"yyyy LLLL"}}
+                </mat-option>
+            </div>
+        </mat-select>
+    </mat-form-field>
+    
+</div>
+<div class="flex ">
+
+    <div class="flex  flex-wrap w-[1200px] min-w-[1200px] ">
+
+        
+        
+        <div *ngFor=" let test of giorniMesePassato " class="cubo cuboLast p-2">{{test}}</div>
+        
+        <div *ngFor=" let test of giorniMeseCorrente; index as i " class="cubo cubocURRENT p-2"><app-giorno-calendario [giorno]="giorniLav[i + 1]"/></div>
+        
+        <div *ngFor=" let test of giorniMeseSeguente " class="cubo cuboNext p-2">{{test}}</div>
+        
+    </div>
+</div>
+
+
+

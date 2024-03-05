@@ -4,7 +4,8 @@ import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.compo
 import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
-import { RichiestaAutorizzazioneComponent } from './pages/richiesta-autorizzazione/richiesta-autorizzazione.component';
+import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
+import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
 
 const routes: Routes = [
   {
@@ -29,8 +30,12 @@ const routes: Routes = [
     component: HomepageComponent
   },
   {
-    path: "richiestaautorizzazione",
-    component:  RichiestaAutorizzazioneComponent
+    path: "richiestaassenzasegreteria",
+    component:  RichiestaAssenzaSegreteriaComponent
+  },
+  {
+    path: "richiestaassenzautente",
+    component:  RichiestaAssenzaUtenteComponent
   }
 ];
 
