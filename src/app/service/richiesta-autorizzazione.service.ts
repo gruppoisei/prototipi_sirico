@@ -93,3 +93,4 @@ export interface RichiestaEntity {
   RiasFlagattivo: boolean
   AndpDocumentipersonas: string
 }
+

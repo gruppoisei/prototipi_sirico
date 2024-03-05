@@ -9,7 +9,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
-import { RichiestaAutorizzazioneComponent } from './pages/richiesta-autorizzazione/richiesta-autorizzazione.component';
+import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
+import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +20,16 @@ import { RichiestaAutorizzazioneComponent } from './pages/richiesta-autorizzazio
     InsertPersonaComponent,
     LoginComponent,
     HomepageComponent,
-    RichiestaAutorizzazioneComponent
+    RichiestaAssenzaUtenteComponent,
+    RichiestaAssenzaSegreteriaComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     provideAnimationsAsync()

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-richiesta-autorizzazione',
-  templateUrl: './richiesta-autorizzazione.component.html',
-  styleUrl: './richiesta-autorizzazione.component.scss',
+  selector: 'app-richiesta-assenza-segreteria',
+  templateUrl: './richiesta-assenza-segreteria.component.html',
+  styleUrl: './richiesta-assenza-segreteria.component.scss',
 })
-export class RichiestaAutorizzazioneComponent {
+export class RichiestaAssenzaSegreteriaComponent {
   
   idRichiesta: any;
   idPersona: any;
