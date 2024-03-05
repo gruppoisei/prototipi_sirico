@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../service/authentication.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordComponent } from '../forgot-password-dialog/forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit{
 
   loginForm !: FormGroup
 
-  constructor(private auth: AuthenticationService, private router: Router, private fb : FormBuilder) { }
+  constructor(public dialog: MatDialog, private auth: AuthenticationService, private router: Router, private fb : FormBuilder) { }
 
 
   ngOnInit(): void {
@@ -42,6 +44,6 @@ export class LoginComponent implements OnInit{
   }
 
   openForgotPassword() {
-    throw new Error('Method not implemented.');
+    const dialogRef = this.dialog.open(ForgotPasswordComponent);
     }
 }
