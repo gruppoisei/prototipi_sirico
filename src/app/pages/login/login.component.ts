@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit{
 
+
   loginForm !: FormGroup
 
   constructor(private auth: AuthenticationService, private router: Router, private fb : FormBuilder) { }
@@ -39,4 +40,8 @@ export class LoginComponent implements OnInit{
       }
     })
   }
+
+  openForgotPassword() {
+    throw new Error('Method not implemented.');
+    }
 }
