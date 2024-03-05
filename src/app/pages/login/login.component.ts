@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../service/authentication.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,27 +9,35 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 
-export class LoginComponent {
-    user: string = '';
-    pass: string = '';
+export class LoginComponent implements OnInit{
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  loginForm !: FormGroup
+
+  constructor(private auth: AuthenticationService, private router: Router, private fb : FormBuilder) { }
+
+
+  ngOnInit(): void {
+
+    this.loginForm = this.fb.group({
+      username : ['',Validators.required],
+      password : ['',Validators.required]
+    })
+
+     }
+
 
   doLogin() {
-    this.authenticationService.login(this.user, this.pass)
-    .subscribe(
-      response => {
-        // console.log(response);
-        console.log("autenticazione riuscita!");
-        //impostare token
+    this.auth.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value)
+    .subscribe({
+      next:(res) =>
+      {
+        console.log(res.message);
         this.router.navigate(['/homepage']);
       },
-      error => {
-        console.log(error);
-        // console.log("nome utente o password non corretti.");
+      error : (err) =>
+      {
+        console.log(err.error.message);
       }
-    );
+    })
   }
-
-
 }

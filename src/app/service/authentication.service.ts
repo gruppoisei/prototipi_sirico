@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,17 +8,11 @@ import { Observable } from 'rxjs';
 
 export class AuthenticationService {
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-  };
-
   constructor( private http: HttpClient ) { }
 
   // Login da DB
   login(username: string, password: string): Observable<any> {
     const body = { username, password }
-    return this.http.post<any>('http://localhost:5112/AccessoUtente/'+username+"?", body);
+    return this.http.post<any>('http://localhost:5143/Login/AccessoUtente/', {Username:username,password:password});
   }
 }
