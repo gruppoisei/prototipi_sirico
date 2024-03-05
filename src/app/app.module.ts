@@ -6,9 +6,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
+<<<<<<< HEAD
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { GiornoCalendarioComponent } from './pages/rapportino/giorno-calendario/giorno-calendario.component';
 //import { AttivitaGiornoComponent } from './pages/rapportino/attivita-giorno/attivita-giorno.component';
@@ -20,6 +21,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+=======
+import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
+import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
+import { MenuComponent } from './menu/menu.component';
+>>>>>>> bf238f01175f770e3dea164866af0e2b4c68896e
 
 @NgModule({
   declarations: [
@@ -28,9 +34,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InsertPersonaComponent,
     LoginComponent,
     HomepageComponent,
+<<<<<<< HEAD
     CalendarioComponent,
     GiornoCalendarioComponent,
     
+=======
+    RichiestaAssenzaUtenteComponent,
+    RichiestaAssenzaSegreteriaComponent,
+    MenuComponent
+>>>>>>> bf238f01175f770e3dea164866af0e2b4c68896e
   ],
   imports: [
     BrowserModule,
@@ -38,6 +50,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+<<<<<<< HEAD
     MatSelectModule,
     BrowserAnimationsModule,
     MatBadgeModule,
@@ -48,6 +61,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
+=======
+>>>>>>> bf238f01175f770e3dea164866af0e2b4c68896e
   ],
   providers: [
     provideAnimationsAsync()
