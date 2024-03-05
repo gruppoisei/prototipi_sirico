@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 
 export class AuthenticationService {
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient, private para : HttpParams ) { }
 
+  
   // Login da DB
   login(username: string, password: string): Observable<any> {
-    const body = { username, password }
-    return this.http.post<any>('http://localhost:5143/Login/AccessoUtente/', {Username:username,password:password});
+    const body = { Username: username, password: password };
+    return this.http.post<any>('http://localhost:5143/Login/AccessoUtente/', body );
   }
 }
