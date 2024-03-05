@@ -27,7 +27,7 @@ export class RichiestaAssenzaUtenteComponent {
   constructor(private http: HttpClient) { }
 
   submitForm() {
-    this.http.post<any>('url_del_tuo_backend', this.formData)
+    this.http.post<any>('RichiestaAutorizzazione/RichiestaAssenza', this.formData)
       .subscribe(
         response => {
           console.log('Dati inviati con successo:', response);
