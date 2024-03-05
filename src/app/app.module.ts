@@ -9,6 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
+import { RichiestaAutorizzazioneComponent } from './pages/richiesta-autorizzazione/richiesta-autorizzazione.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.co
     InsertUtenteComponent,
     InsertPersonaComponent,
     LoginComponent,
-    HomepageComponent
+    HomepageComponent,
+    RichiestaAutorizzazioneComponent
   ],
   imports: [
     BrowserModule,
