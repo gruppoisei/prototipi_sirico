@@ -12,12 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
 export class RichiestaAssenzaUtenteComponent {
-
+  idRichiesta: any;
   ore: string[] = [];
+  richiesta: Richiesta[] = [];
   tipiRichiesta: [{ ritrTiporichiestaassenzaid: number; ritrDescrizioneassenza: string }] | undefined;
   formData: Richiesta = {
     //  RiasFkPersonaid: null,
-    RiasFkTiporichiesta: 0,
+    RiasFkTiporichiesta: 1,
     //  RiasFkResponsabileidApprovazione: null,
     //  RiasApprovato: false,
     // RiasDataorainizioassenza: '',
@@ -61,36 +62,8 @@ export class RichiestaAssenzaUtenteComponent {
   }
 
   submitForm() {
-
-    // console.log(`questi sono i dati modificati di ora inizio e ora fine ${this.formData.OraInizio} e ${this.formData.OraFine}`);
-    // console.log(`questo è il form che invio: ${this.formData.OraInizio} e ${this.formData.OraFine}`);
-    this.http
-      .post<any>('http://localhost:5143/RichiestaAutorizzazione/RichiestaAssenza', this.formData, this.httpOptions)
-      .subscribe({
-        next: (res) => {
-          console.log('Dati inviati con successo:', res);
-          // Reset dei campi del modulo dopo l'invio
-          this.formData = {
-            //  RiasRichiestaassenzaid: null,
-            //  RiasFkPersonaid: null,
-            RiasFkTiporichiesta: 0,
-            //  RiasFkResponsabileidApprovazione: null,
-            //  RiasApprovato: false,
-            OraFine: null,
-            OraInizio: null,
-            DataFine: '',
-            DataInizio: '',
-            RiasNote: '',
-            RiasSysuser: 'Edo',
-            //  RiasSysdate: '',
-            //  RiasFlagattivo: false,
-            //AndpDocumentipersonas: '',
-          };
-        },
-        error: (err) => {
-          console.log("Errore durante l'invio dei dati:" + err);
-        },
-      });
+    this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
+    console.log('id richiesta: ' + this.idRichiesta);
   }
 
   getAllTipoRichiesta() {
@@ -130,3 +103,5 @@ export class RichiestaAssenzaUtenteComponent {
     };
   }
 }
+
+
