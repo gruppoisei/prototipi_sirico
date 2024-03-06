@@ -1,46 +1,45 @@
 <div class="container">
-    <h2>Inserisci Richiesta</h2>
-    <form (ngSubmit)="submitForm()">
-      <!-- <label>RiasFkPersonaid</label>
-      <input type="number" [(ngModel)]="formData.RiasFkPersonaid" name="RiasFkPersonaid" required> -->
+  <h2>Inserisci Richiesta</h2>
+  <form (ngSubmit)="submitForm()">
+    <label>Tipo Richiesta</label>
+    <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
+      <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
+    </select>
 
-      <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
-        <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.id">{{ tipo.descrizione }}</option>
-      </select>
-      
-      <!-- <label>RiasFkResponsabileidApprovazione</label>
-      <input type="number" [(ngModel)]="formData.RiasFkResponsabileidApprovazione" name="RiasFkResponsabileidApprovazione" required>
-  
-      <label>RiasApprovato</label>
-      <input type="checkbox" [(ngModel)]="formData.RiasApprovato" name="RiasApprovato"> -->
-  
-      <label>RiasDataorainizioassenza
-        <input type="datetime-local" name="mydatetime" value="1/03/2024" >
-      </label>
-      <!-- <input type="text" [(ngModel)]="formData.RiasDataorainizioassenza" name="RiasDataorainizioassenza" required> -->
+    <div class="row">
+      <div class="column">
+        <label>Dal giorno: </label>
+        <input type="date" [(ngModel)]="formData.DataInizio" name="Datainizio" required>
+      </div>
+      <div class="column">
+        <label>Al giorno: </label>
+        <input type="date" [(ngModel)]="formData.DataFine" name="Datafine" required>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="column">
+        <label>Ora Inizio</label>
+        <select [(ngModel)]="formData.OraInizio" name="OraInizio" required>
+          <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
+        </select>
+      </div>
+      <div class="column">
+        <label>Ora Fine</label>
+        <select [(ngModel)]="formData.OraFine" name="OraFine" required>
+          <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
+        </select>
+      </div>
+    </div>
 
-      <input type="submit" value="Invia">
-  
-      <label>RiasDataorafineassenza</label>
-      <input type="text" [(ngModel)]="formData.RiasDataorafineassenza" name="RiasDataorafineassenza" required>
-  
-      <label>RiasNote</label>
-      <input type="text" [(ngModel)]="formData.RiasNote" name="RiasNote">
-  
-      <!-- <label>RiasSysuser</label>
-      <input type="text" [(ngModel)]="formData.RiasSysuser" name="RiasSysuser"> -->
-  
-      <!-- <label>RiasSysdate</label>
-      <input type="text" [(ngModel)]="formData.RiasSysdate" name="RiasSysdate" required>
-  
-      <label>RiasFlagattivo</label>
-      <input type="checkbox" [(ngModel)]="formData.RiasFlagattivo" name="RiasFlagattivo"> -->
-  
-      <label>AndpDocumentipersonas</label>
-      <input type="text" [(ngModel)]="formData.AndpDocumentipersonas" name="AndpDocumentipersonas" required>
-  
+    <label>Note</label>
+    <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
+
+    <div class="buttons">
       <button type="submit">Invia Richiesta</button>
-    </form>
-  </div>
-  
+      <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
+      <button type="button" (click)="chiudiForm()">Chiudi</button>
+      <!-- <button type="button" (click)="getAllTipoRichiesta()">Tipi</button> -->
+    </div>
+  </form>
+</div>

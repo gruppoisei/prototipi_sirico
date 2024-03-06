@@ -13,27 +13,21 @@ export class RichiestaAutorizzazioneService {
     }),
   };
 
-  private apiUrl = 'http://localhost:5112/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
-  persone: Richiesta[] = [];
+  private apiUrl = 'http://localhost:5143/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
+  richiesta: Richiesta[] = [];
   constructor(private Http: HttpClient) {}
 
   // INSERIMENTO RICHIESTA ASSENZA
   addRichiesta(richiesta: Richiesta): Observable<Richiesta> {
-    //console.log(persona.datanascita);
     console.log(richiesta);
     var body = JSON.stringify(richiesta);
     console.log(body);
-
-    return this.Http.post<Richiesta>(
-      `${this.apiUrl}/RichiestaAssenza`,
-      body,
-      this.httpOptions
-    );
+    return this.Http
+      .post<any>(`${this.apiUrl}/RichiestaAssenza`, body, this.httpOptions)
   }
 
   // INSERIMENTO TIPO RICHIESTA
   addTipo(tipo: Richiesta): Observable<Richiesta> {
-    //console.log(persona.datanascita);
     console.log(tipo);
     var body = JSON.stringify(tipo);
     console.log(body);
@@ -47,7 +41,6 @@ export class RichiestaAutorizzazioneService {
 
   // INSERIMENTO APPROVAZIONE RICHIESTA
   addApprovazione(idRichiesta: number, risosta: boolean): Observable<any> {
-    //console.log(persona.datanascita);
     console.log(risosta);
     var body = JSON.stringify(risosta);
     console.log(body);
