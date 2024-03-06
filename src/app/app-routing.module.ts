@@ -36,6 +36,10 @@ const routes: Routes = [
   {
     path: "richiestaassenzautente",
     component:  RichiestaAssenzaUtenteComponent
+  },
+  {
+    path: "",
+    component: HomepageComponent 
   }
 ];
 

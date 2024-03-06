@@ -24,6 +24,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-p
 import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

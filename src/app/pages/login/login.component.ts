@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ForgotPasswordComponent } from '../forgot-password-dialog/forgot-password/forgot-password.component';
 import ValidateForm from '../../helpers/validateform';
 import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
+import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-login-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -50,19 +51,23 @@ export class LoginComponent implements OnInit{
 
         },
         error:(err)=>
-        {
-          debugger;
-          console.log(err.error);
+        {debugger
+          this.dialog.open(ErrorLoginDialogComponent,
+            {
+              data: {errorMessage : err?.error},
+              width: 'auto',
+              height: 'auto'
+            })
         }
       })
     }
     else
-    {
+    { 
       ValidateForm.validateAllFormFields(this.loginForm);
       this.dialog.open(ResponseDialogComponent,
         {
-          width: '15%',
-          height: '20%',
+          width: 'auto',
+          height: 'auto',
         });
     }
   }
