@@ -21,6 +21,8 @@ import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utent
 import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
 import { MenuComponent } from './menu/menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-password/forgot-password.component';
+import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
+import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-p
     RichiestaAssenzaUtenteComponent,
     RichiestaAssenzaSegreteriaComponent,
     MenuComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResponseDialogComponent,
+    ErrorLoginDialogComponent
   ],
   imports: [
     BrowserModule,
