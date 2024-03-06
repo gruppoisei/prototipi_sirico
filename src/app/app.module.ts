@@ -23,6 +23,11 @@ import { MenuComponent } from './menu/menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-password/forgot-password.component';
 import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-dialog.component';
+import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
+import { AggiungiAssenzaComponent } from './pages/rapportino/aggiungi-assenza/aggiungi-assenza.component';
+import { AggiungiReperibilitaComponent } from './pages/rapportino/aggiungi-reperibilita/aggiungi-reperibilita.component';
+import { ListaAttivitaComponent } from './pages/rapportino/lista-attivita/lista-attivita.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,11 @@ import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-d
     MenuComponent,
     ForgotPasswordComponent,
     ResponseDialogComponent,
-    ErrorLoginDialogComponent
+    ErrorLoginDialogComponent,
+    AggiungiAttivitaComponent,
+    AggiungiAssenzaComponent,
+    AggiungiReperibilitaComponent,
+    ListaAttivitaComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +59,8 @@ import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-d
     BrowserAnimationsModule,
     MatBadgeModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule,
 
   ],
   providers: [
