@@ -1,24 +1,51 @@
 
+
 <div class="datadiv">
 <p class="p-2 m-2"> {{data.giornoData}} </p>
 </div>
 
 <div class="datadiv">
-
-<p class="p-2 m-2">{{data.ingresso}}</p>
-<p class="p-2 m-2">{{data.inizioPausa}}</p>
-<p class="p-2 m-2">{{data.finePausa}}</p>
-<p class="p-2 m-2">{{data.uscita}}</p>
+ 
+<input type="time"  class="p-2 m-2"[(ngModel)]="entrata"> 
+<input type="time" class="p-2 m-2"[(ngModel)]="inizioPausa">
+<input type="time" class="p-2 m-2"[(ngModel)]="finePausa">
+<input type="time"class="p-2 m-2"[(ngModel)]="uscita">
 
 
 </div>
-
+<hr>
 <div>
 
-<button mat-raised-button type="button">  Aggiungi Ordinario  </button>
-<button mat-raised-button type="button">  Aggiungi Assenza </button>
-<button mat-raised-button type="button">  Aggiungi Reperibilità </button>
+<button class="A" mat-raised-button color="primary" type="button" (click)="MostraOrdinario()">  Aggiungi Ordinario  </button>
+<button class="B" mat-raised-button color="accent" type="button">  Aggiungi Assenza </button>
+<button class="C" mat-raised-button color="warn" type="button">  Aggiungi Reperibilità </button>
 
+
+
+</div>
+<hr>
+
+<div *ngIf="showOrdinario">
+
+    <div class="datadiv">
+    <input class="p-2 m-2"type="text" [(ngModel)]="Commessa">
+    <input class="p-2 m-2" type="text" [(ngModel)]="Sede">
+    <input class="p-2 m-2" type="time" [(ngModel)]="oreOrd">
+    <input class="p-2 m-2" type="time" [(ngModel)]="oreStra">
+    </div>
+
+
+    <section class="example-section">
+        <mat-slide-toggle
+            class="example-margin"
+            [color]="color"
+            [checked]="checked"
+            [disabled]="disabled">
+          Smart-working
+        </mat-slide-toggle>
+      </section>
+
+     <button type="submit"> Aggiungi </button>
 
 
 </div>
