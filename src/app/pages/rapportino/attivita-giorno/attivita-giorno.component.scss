@@ -1,0 +1,22 @@
+
+.datadiv{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+}
+
+.A, .B, .C{
+    margin: 12px;
+}
+
+.A{
+    background-color: rgb(237, 136, 136);
+}
+
+.B {
+    background-color: rgb(154, 154, 225);
+}
+.C{
+    background-color: rgb(158, 230, 158);
+}
