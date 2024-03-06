@@ -7,7 +7,7 @@ import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.co
 import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
 import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
-import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
+// import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
 
 const routes: Routes = [
   {
@@ -40,15 +40,10 @@ const routes: Routes = [
     component:  RichiestaAssenzaUtenteComponent
   },
 
-  {
-    path: "rapportino",
-    component:  CalendarioComponent
-  },
-
-  {
-    path: "aggiungi-attivita",
-    component:  AggiungiAttivitaComponent
-  },
+  // {
+  //   path: "rapportino",
+  //   component:  CalendarioComponent
+  // },
 
 
 
