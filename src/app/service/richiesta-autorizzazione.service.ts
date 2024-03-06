@@ -13,7 +13,7 @@ export class RichiestaAutorizzazioneService {
     }),
   };
 
-  private apiUrl = 'http://localhost:5112/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
+  private apiUrl = 'http://localhost:5143/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
   persone: Richiesta[] = [];
   constructor(private Http: HttpClient) {}
 
@@ -25,7 +25,7 @@ export class RichiestaAutorizzazioneService {
     console.log(body);
 
     return this.Http.post<Richiesta>(
-      `${this.apiUrl}/RichiestaAssenza`,
+      `http://localhost:5143/RichiestaAutorizzazione/RichiestaAssenza`,
       body,
       this.httpOptions
     );
