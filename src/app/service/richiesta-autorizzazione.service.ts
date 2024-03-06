@@ -64,8 +64,8 @@ export class RichiestaAutorizzazioneService {
   }
 
   // GET RICHIESTE BY ID PERSONA
-  GetByIdPersona(idPersona: any): Observable<Richiesta> {
-    return this.Http.get<Richiesta>(`${this.apiUrl}/GetByPersonaId/${idPersona}`);
+  GetByIdResponsabile(idPersona: any): Observable<Richiesta> {
+    return this.Http.get<Richiesta>(`${this.apiUrl}/GetResponsabileId/${idPersona}`);
   }
 
   GetResponsabileId(SysUser: any): Observable<any> {

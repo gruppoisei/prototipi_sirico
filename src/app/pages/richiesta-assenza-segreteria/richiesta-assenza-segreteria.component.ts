@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RichiestaAutorizzazioneService } from '../../service/richiesta-autorizzazione.service';
 
 @Component({
   selector: 'app-richiesta-assenza-segreteria',
@@ -10,7 +11,9 @@ export class RichiestaAssenzaSegreteriaComponent {
   idRichiesta: any;
   idPersona: any;
   expandedSection: string = '';
-  constructor() {}
+  richieste: any[] = [];
+
+  constructor(private richiestaAutorizzazioneService: RichiestaAutorizzazioneService) {}
 
   expandSection(section: string) {
     console.log(section);
@@ -18,23 +21,39 @@ export class RichiestaAssenzaSegreteriaComponent {
     //console.log(expandSection);
   }
 
-  inserisciRichiesta() {
-    console.log('Inserisci Richiesta');
-  }
-
   approvaRichiesta() {
     console.log('Approva Richiesta con id Richiesta = ' + this.idRichiesta);
   }
 
-  getByRichiestaId() {
+  getByRichiestaId(idRichiesta: any) {
     console.log('Cerca Richiesta con id Richiesta= ' + this.idRichiesta);
-  }
-
-  getByPersonaId() {
     console.log('Cerca Richiesta con id persona = ' + this.idPersona);
+    this.richiestaAutorizzazioneService.GetByIdRichiesta(idRichiesta).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.richieste = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di assenza:', error);
+      }
+    );
   }
 
-  getall() {
-    console.log('Stampa Tutte le Richieste');
+  getByResponsabileId(idPersona: any) {
+    console.log('Cerca Richiesta con id persona = ' + this.idPersona);
+    this.richiestaAutorizzazioneService.GetByIdResponsabile(idPersona).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.richieste = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di assenza:', error);
+      }
+    );
   }
+
+   getall() {
+  //   console.log('Stampa Tutte le Richieste');
+  //   this.richieste = this.richiestaAutorizzazioneService.GetAll().subscribe(res => this.richieste);
+   }
 }

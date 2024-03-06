@@ -2,18 +2,18 @@
     <button (click)="expandSection('byidrichiesta')" class="search-button">Ricerca per ID Richiesta</button>
     <button (click)="expandSection('byidpersona')" class="search-button">Ricerca per ID Persona</button>
     <button (click)="expandSection('all')" class="search-button">Prendi tutti i dati</button>
-
+    <!--Approva richiesta dopo averle stampate tutte-->
     <div>
         <div class="expanded-section" *ngIf="expandedSection === 'byidrichiesta'">
             <h1>Ricerca per ID Richiesta</h1>
             <input [(ngModel)]="idRichiesta" type="number" placeholder="Inserisci l'ID richiesta">
-            <button (click)="getByRichiestaId()">Cerca</button>
+            <button (click)="getByRichiestaId(idRichiesta)">Cerca</button>
         </div>
 
         <div class="expanded-section" *ngIf="expandedSection === 'byidpersona'">
             <h1>Ricerca per ID Persona</h1>
             <input [(ngModel)]="idPersona" type="number" placeholder="Inserisci l'ID persona">
-            <button (click)="getByPersonaId()">Cerca</button>
+            <button (click)="getByResponsabileId(idPersona)">Cerca</button>
         </div>
 
         <div class="expanded-section" *ngIf="expandedSection === 'all'">
