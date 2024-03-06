@@ -28,7 +28,8 @@ export class GiornoCalendarioComponent {
   
   
   ClickMe(){
-    console.log(this.giorno)
+    const dialogRef=
+    this.dialog.open(AttivitaGiornoComponent, {data: this.giorno})
   }
 }
 

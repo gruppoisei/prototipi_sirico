@@ -6,6 +6,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
 import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
+import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,15 @@ const routes: Routes = [
   {
     path: "richiestaassenzautente",
     component:  RichiestaAssenzaUtenteComponent
-  }
+  },
+
+  {
+    path: "rapportino",
+    component:  CalendarioComponent
+  },
+
+
+
 ];
 
 @NgModule({
