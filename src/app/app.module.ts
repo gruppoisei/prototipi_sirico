@@ -30,6 +30,7 @@ import { ListaAttivitaComponent } from './pages/rapportino/lista-attivita/lista-
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { ResponseResetPasswordDialogComponent } from './ui/response-reset-password-dialog/response-reset-password-dialog.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MatInputModule } from "@angular/material/input";
     // AggiungiAttivitaComponent,
     // AggiungiAssenzaComponent,
     // AggiungiReperibilitaComponent,
-    ListaAttivitaComponent
+    ListaAttivitaComponent,
+    ResponseResetPasswordDialogComponent
   ],
   imports: [
     BrowserModule,
