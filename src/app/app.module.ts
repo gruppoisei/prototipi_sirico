@@ -28,6 +28,8 @@ import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-d
 // import { AggiungiReperibilitaComponent } from './pages/rapportino/aggiungi-reperibilita/aggiungi-reperibilita.component';
 import { ListaAttivitaComponent } from './pages/rapportino/lista-attivita/lista-attivita.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 
 
 @NgModule({
@@ -62,6 +64,10 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatButtonModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule
+    
+    
 
   ],
   providers: [

@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit{
         {debugger
           this.dialog.open(ErrorLoginDialogComponent,
             {
-              data: {errorMessage : err?.error},
+              data: {errorMessage : err?.error.message},
               width: 'auto',
               height: 'auto'
             })
