@@ -132,7 +132,4 @@ export class RichiestaAssenzaUtenteComponent {
   }
 }
 
-function uploadDoc(input: InputFunction) {
-  throw new Error('Function not implemented.');
-}
 
