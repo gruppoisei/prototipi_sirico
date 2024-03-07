@@ -20,6 +20,6 @@ export class AuthenticationService {
 
   resetPasswordReset(username:string)
   {
-    return this.http.post<any>(`${this.baseUrl}ResetPasswordUtente/`, username)
+    return this.http.post<any>(`${this.baseUrl}ResetPasswordUtente/${username}`,{} )
   }
 }

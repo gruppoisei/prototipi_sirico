@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../service/authentication.service';
+import ValidateForm from '../../../helpers/validateform';
+import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -13,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit{
  
   resetPasswordControl !: FormGroup
 
-  constructor(private reset : AuthenticationService, private fb: FormBuilder,)
+  constructor(private reset : AuthenticationService, private fb: FormBuilder, private dialog : MatDialog)
   {
 
   }
@@ -25,11 +28,43 @@ export class ForgotPasswordComponent implements OnInit{
   }
 
 
-requestNewPassword()
+  getEmailByUsername()
+  {
+
+  }
+
+  requestPasswordEmail()
+  {
+    this.resetPassword()
+  }
+
+resetPassword()
 {
   if(this.resetPasswordControl.valid)
   {
-    this.reset.resetPasswordReset(this.resetPasswordControl.get('username')?.value)
+    debugger
+    const username = this.resetPasswordControl.get('username')?.value
+    this.reset.resetPasswordReset(username)
+    .subscribe(
+      {
+        next:(res)=>
+        {
+          
+        },
+        error:(err)=>
+        {
+          console.log(err)
+        }
+      })
+  }
+  else
+  {
+    ValidateForm.validateAllFormFields(this.resetPasswordControl);
+      this.dialog.open(ResponseDialogComponent,
+        {
+          width: 'auto',
+          height: 'auto',
+        });
   }
 }
 
