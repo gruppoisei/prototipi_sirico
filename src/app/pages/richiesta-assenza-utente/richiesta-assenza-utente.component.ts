@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, input, InputFunction } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Richiesta } from '../../dto/request/assenze';
 import { Input } from '@angular/core';
@@ -12,6 +12,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
 export class RichiestaAssenzaUtenteComponent {
+  OraFine: any = null;
+  OraInizio: any = null;
+  DataFine: string = '';
+  DataInizio: string = '';
+  fileInput: any;
   idRichiesta: any;
   ore: string[] = [];
   richiesta: Richiesta[] = [];
@@ -21,18 +26,17 @@ export class RichiestaAssenzaUtenteComponent {
     RiasFkTiporichiesta: 1,
     //  RiasFkResponsabileidApprovazione: null,
     //  RiasApprovato: false,
-    // RiasDataorainizioassenza: '',
-    // RiasDataorafineassenza: '',
-    OraFine: null,
-    OraInizio: null,
-    DataFine: '',
-    DataInizio: '',
+    RiasDataorainizioassenza: '',
+    RiasDataorafineassenza: '',
     RiasNote: '',
     RiasSysuser: 'Edo',
     //  RiasSysdate: '',
     //  RiasFlagattivo: false,
-      //AndpDocumentipersonas: '',
+    //AndpDocumentipersonas: '',
+    fileName:'',
+    filePath:''
   };
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,7 +46,8 @@ export class RichiestaAssenzaUtenteComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private richiestaAutorizzazioneService: RichiestaAutorizzazioneService
+    private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
+    private elementRef: ElementRef
   ) {
     this.generaOre();
   }
@@ -62,6 +67,8 @@ export class RichiestaAssenzaUtenteComponent {
   }
 
   submitForm() {
+    this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
+    this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
     this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
     console.log('id richiesta: ' + this.idRichiesta);
   }
@@ -77,6 +84,23 @@ export class RichiestaAssenzaUtenteComponent {
       }
     );
   }
+  
+
+   ngAfterViewInit() {
+    this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
+  }
+
+  uploadDoc() {     //ATTENZIONE: IL BACKEND NON SI ASPETTA QUESTI CAMPI, LI IGNORERÀ!!
+    const inputElement: HTMLInputElement = this.fileInput;
+    const file: File | null = inputElement.files ? inputElement.files[0] : null;
+    if (file) {
+      this.formData.fileName = file.name;
+      this.formData.filePath = URL.createObjectURL(file);
+      console.log('Nome del file:', this.formData.fileName);
+      console.log('Percorso del file:', this.formData.filePath);
+    }
+  } 
+
 
   chiudiForm() {
     console.log('Chiusura della finestra');
@@ -84,24 +108,31 @@ export class RichiestaAssenzaUtenteComponent {
   }
 
   eliminaRichiesta() {
-    console.log('Elimina premuto, pulisco campi ');
+    console.log('Elimina premuto, pulisco campi '); 
+    this.OraFine = null;
+    this.OraInizio = null;
+    this.DataFine = '';
+    this.DataInizio = '';
     this.formData = {
       //  RiasRichiestaassenzaid: null,
       //  RiasFkPersonaid: null,
       RiasFkTiporichiesta: 0,
       //  RiasFkResponsabileidApprovazione: null,
       //  RiasApprovato: false,
-      OraFine: null,
-      OraInizio: null,
-      DataFine: '',
-      DataInizio: '',
+      RiasDataorainizioassenza: '',
+      RiasDataorafineassenza: '',
       RiasNote: '',
       RiasSysuser: 'Edo',
       //  RiasSysdate: '',
       //  RiasFlagattivo: false,
       //AndpDocumentipersonas: '',
+      fileName:'',
+      filePath:''
     };
   }
 }
 
+function uploadDoc(input: InputFunction) {
+  throw new Error('Function not implemented.');
+}
 

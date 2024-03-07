@@ -42,7 +42,16 @@ const routes: Routes = [
   {
     path: "",
     component: HomepageComponent 
-  }
+  },
+
+  {
+    path: "rapportino",
+    component: CalendarioComponent
+  },
+
+
+
+
 ];
 
 @NgModule({
