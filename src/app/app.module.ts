@@ -31,6 +31,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ResponseResetPasswordDialogComponent } from './ui/response-reset-password-dialog/response-reset-password-dialog.component';
+import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ResponseResetPasswordDialogComponent } from './ui/response-reset-passwo
     // AggiungiAssenzaComponent,
     // AggiungiReperibilitaComponent,
     ListaAttivitaComponent,
-    ResponseResetPasswordDialogComponent
+    ResponseResetPasswordDialogComponent,
+    ModificaPasswordComponent,
   ],
   imports: [
     BrowserModule,
