@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
 
-
 export class RichiestaAssenzaUtenteComponent {
   
   OraFine: any = null;
@@ -97,7 +96,6 @@ export class RichiestaAssenzaUtenteComponent {
     );
   }
 
-
   ngAfterViewInit() {
     this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
   }
@@ -111,8 +109,6 @@ export class RichiestaAssenzaUtenteComponent {
     }
   }
   
-
-
   chiudiForm() {
     console.log('Chiusura della finestra');
     this.router.navigate(['/homepage']);
