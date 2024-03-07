@@ -1,3 +1,11 @@
+.dialog{
+    margin: 20px;
+    padding: 20px;
+    
+}
+
+
+
 
 .datadiv{
     display: flex;
@@ -8,15 +16,10 @@
 
 .A, .B, .C{
     margin: 12px;
+    
+    
 }
 
-.A{
-    background-color: rgb(237, 136, 136);
-}
-
-.B {
-    background-color: rgb(154, 154, 225);
-}
-.C{
-    background-color: rgb(158, 230, 158);
+.example-section, .aggiungi{
+    margin: 12px;
 }
