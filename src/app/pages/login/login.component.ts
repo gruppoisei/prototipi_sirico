@@ -35,12 +35,13 @@ export class LoginComponent implements OnInit{
   doLogin() {
     if(this.loginForm.valid)
     {
+      debugger
       this.auth.login(this.loginForm.value)
       .subscribe({
         next:(res) =>
         {
           const flagPassword = res;
-          if(flagPassword == 1)
+          if(flagPassword == 0)
           {
             this.dialog.open(ForgotPasswordComponent)
           }
