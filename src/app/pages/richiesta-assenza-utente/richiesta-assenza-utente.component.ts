@@ -67,8 +67,8 @@ export class RichiestaAssenzaUtenteComponent {
   }
 
   submitForm() {
-    this.formData.RiasDataorainizioassenza = this.DataInizio + ' ' + this.OraInizio;
-    this.formData.RiasDataorafineassenza = this.DataFine + ' ' + this.OraFine;
+    this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
+    this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
     this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
     console.log('id richiesta: ' + this.idRichiesta);
   }
@@ -86,7 +86,7 @@ export class RichiestaAssenzaUtenteComponent {
   }
   
 
-  ngAfterViewInit() {
+   ngAfterViewInit() {
     this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
   }
 
@@ -99,7 +99,7 @@ export class RichiestaAssenzaUtenteComponent {
       console.log('Nome del file:', this.formData.fileName);
       console.log('Percorso del file:', this.formData.filePath);
     }
-  }
+  } 
 
 
   chiudiForm() {
