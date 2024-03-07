@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { GiornoLavorativo } from '../../../dto/response/giorno-lavorativo';
 import { MatDialog } from '@angular/material/dialog';
 import { AttivitaGiornoComponent } from '../attivita-giorno/attivita-giorno.component';
+import { GiornoDiLavoro } from '../../../dto/request/calendario';
 
 @Component({
   selector: 'app-giorno-calendario',

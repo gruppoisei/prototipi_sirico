@@ -1,0 +1,16 @@
+<mat-form-field>
+    <mat-label>Scegli Mese</mat-label>
+    <mat-select (valueChange)="CambiaMese($event)" [(value)]="giornoRiferimento" >
+        <div *ngFor="let mese of listaMesi;index as i" >
+
+            <mat-option   [value]="mese">
+                {{mese | date:"yyyy LLLL"}}
+            </mat-option>
+        </div>
+    </mat-select>
+</mat-form-field>
+
+
+
+<div *ngFor="let giornoa of rapportinoService.risposta.listaGiorniLavoroMese">1</div>
+<button (click)="test()">clicca</button>
