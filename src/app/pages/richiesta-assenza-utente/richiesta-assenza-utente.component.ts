@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
   templateUrl: './richiesta-assenza-utente.component.html',
   styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
+
+
 export class RichiestaAssenzaUtenteComponent {
+  
+  
   OraFine: any = null;
   OraInizio: any = null;
   DataFine: string = '';
@@ -33,9 +37,14 @@ export class RichiestaAssenzaUtenteComponent {
     //  RiasSysdate: '',
     //  RiasFlagattivo: false,
     //AndpDocumentipersonas: '',
-    fileName:'',
-    filePath:''
+    fileName: '',
+    filePath: ''
+
+    
   };
+
+  @ViewChild('myFile')
+  myInputFile!: ElementRef;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -50,6 +59,7 @@ export class RichiestaAssenzaUtenteComponent {
     private elementRef: ElementRef
   ) {
     this.generaOre();
+    
   }
 
   ngOnInit(): void {
@@ -57,7 +67,7 @@ export class RichiestaAssenzaUtenteComponent {
     const today = new Date();
     const formattedDate = today.toISOString().split('T')[0];
   }
-  
+
   generaOre() {
     // Genera un array di ore con intervallo di 30 minuti
     for (let i = 0; i < 24; i++) {
@@ -84,9 +94,9 @@ export class RichiestaAssenzaUtenteComponent {
       }
     );
   }
-  
 
-   ngAfterViewInit() {
+
+  ngAfterViewInit() {
     this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
   }
 
@@ -99,37 +109,51 @@ export class RichiestaAssenzaUtenteComponent {
       console.log('Nome del file:', this.formData.fileName);
       console.log('Percorso del file:', this.formData.filePath);
     }
-  } 
-
-
+  }
+  
   chiudiForm() {
     console.log('Chiusura della finestra');
     this.router.navigate(['/homepage']);
   }
 
   eliminaRichiesta() {
-    console.log('Elimina premuto, pulisco campi '); 
-    this.OraFine = null;
-    this.OraInizio = null;
-    this.DataFine = '';
-    this.DataInizio = '';
-    this.formData = {
-      //  RiasRichiestaassenzaid: null,
-      //  RiasFkPersonaid: null,
-      RiasFkTiporichiesta: 0,
-      //  RiasFkResponsabileidApprovazione: null,
-      //  RiasApprovato: false,
-      RiasDataorainizioassenza: '',
-      RiasDataorafineassenza: '',
-      RiasNote: '',
-      RiasSysuser: 'Edo',
-      //  RiasSysdate: '',
-      //  RiasFlagattivo: false,
-      //AndpDocumentipersonas: '',
-      fileName:'',
-      filePath:''
-    };
+    if (confirm('I campi verranno resettati. Si desidera procedere?')) {
+      console.log('Elimina premuto, pulisco campi ');
+      this.OraFine = null;
+      this.OraInizio = null;
+      this.DataFine = '';
+      this.DataInizio = '';
+      this.formData = {
+        //  RiasRichiestaassenzaid: null,
+        //  RiasFkPersonaid: null,
+        RiasFkTiporichiesta: 0,
+        //  RiasFkResponsabileidApprovazione: null,
+        //  RiasApprovato: false,
+        RiasDataorainizioassenza: '',
+        RiasDataorafineassenza: '',
+        RiasNote: '',
+        RiasSysuser: 'Edo',
+        //  RiasSysdate: '',
+        //  RiasFlagattivo: false,
+        //AndpDocumentipersonas: '',
+        fileName: '',
+        filePath: ''
+      };
+      this.resetDoc();
+
+    } else {
+      // Do nothing!
+      console.log('Operazione annullata');
+    }
+
   }
+
+  resetDoc() {
+    console.log(this.myInputFile.nativeElement.files);
+    this.myInputFile.nativeElement.value = "";
+    console.log(this.myInputFile.nativeElement.files);
+  }
+
 }
 
 
