@@ -172,10 +172,6 @@ disabled: any;
       
     ]
 
-
-
-
-
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GiornoLavorativo, private router: Router) {}
 
@@ -201,10 +197,6 @@ this.showReperibilita= !this.showReperibilita
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-
-
-
 
 }
 
