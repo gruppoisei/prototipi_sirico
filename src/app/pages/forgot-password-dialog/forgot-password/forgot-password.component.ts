@@ -4,6 +4,8 @@ import { AuthenticationService } from '../../../service/authentication.service';
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
+import { ResponseResetPasswordDialogComponent } from '../../../ui/response-reset-password-dialog/response-reset-password-dialog.component';
 
 
 
@@ -27,18 +29,7 @@ export class ForgotPasswordComponent implements OnInit{
       })
   }
 
-
-  getEmailByUsername()
-  {
-
-  }
-
-  requestPasswordEmail()
-  {
-    this.resetPassword()
-  }
-
-resetPassword()
+  requestResetPassword()
 {
   if(this.resetPasswordControl.valid)
   {
@@ -49,11 +40,22 @@ resetPassword()
       {
         next:(res)=>
         {
-          
+          this.dialog.open(ResponseResetPasswordDialogComponent,
+            {
+              data : {email : res.message},
+              width : 'auto',
+              height : 'auto'
+            })
         },
         error:(err)=>
         {
-          console.log(err)
+          debugger
+          this.dialog.open(ErrorLoginDialogComponent,
+            {
+              data: {errorMessage : err?.error.message},
+              width: 'auto',
+              height: 'auto'
+            })
         }
       })
   }
@@ -63,7 +65,7 @@ resetPassword()
       this.dialog.open(ResponseDialogComponent,
         {
           width: 'auto',
-          height: 'auto',
+          height: 'auto'
         });
   }
 }

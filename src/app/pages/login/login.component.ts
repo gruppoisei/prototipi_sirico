@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit{
 
         },
         error:(err)=>
-        {debugger
+        {
           this.dialog.open(ErrorLoginDialogComponent,
             {
               data: {errorMessage : err?.error.message},

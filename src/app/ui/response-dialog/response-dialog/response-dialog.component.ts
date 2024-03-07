@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './response-dialog.component.scss'
 })
 export class ResponseDialogComponent {
-  data: any;
 }
