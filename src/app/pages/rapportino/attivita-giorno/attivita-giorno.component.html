@@ -1,17 +1,19 @@
-<div class="dialog"> 
+<div class="dialog">
   <div class="datadiv">
     <p mat-dialog-title>{{ data.giornoData }}</p>
   </div>
 
   <mat-dialog-content>
-      <div class="datadiv">
-        <div>
+    <div class="datadiv">
+      <div>
         <label> Ora entrata </label>
         <mat-form-field>
           <mat-label> ora entrata </mat-label>
           <mat-select>
             @for (oraEntrata of oraEntrata; track oraEntrata) {
-              <mat-option [value]="oraEntrata.value">{{oraEntrata.viewValue}}</mat-option>
+            <mat-option [value]="oraEntrata.value">{{
+              oraEntrata.viewValue
+            }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -22,7 +24,9 @@
           <mat-label> ora inizio pausa </mat-label>
           <mat-select>
             @for (oraInizioPausa of oraInizioPausa; track oraInizioPausa) {
-              <mat-option [value]="oraInizioPausa.value">{{oraInizioPausa.viewValue}}</mat-option>
+            <mat-option [value]="oraInizioPausa.value">{{
+              oraInizioPausa.viewValue
+            }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -34,7 +38,9 @@
           <mat-label> ora fine pausa </mat-label>
           <mat-select>
             @for (oraFinePausa of oraFinePausa; track oraFinePausa) {
-              <mat-option [value]="oraFinePausa.value">{{oraFinePausa.viewValue}}</mat-option>
+            <mat-option [value]="oraFinePausa.value">{{
+              oraFinePausa.viewValue
+            }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -46,45 +52,57 @@
           <mat-label> ora uscita </mat-label>
           <mat-select>
             @for (oraUscita of oraUscita; track oraUscita) {
-              <mat-option [value]="oraUscita.value">{{oraUscita.viewValue}}</mat-option>
+            <mat-option [value]="oraUscita.value">{{
+              oraUscita.viewValue
+            }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
       </div>
     </div>
 
-    
-
-    
     <hr />
     <div class="flex justify-center">
-      <button class="A" mat-raised-button color="primary" type="button"
-        (click)="MostraOrdinario()">Aggiungi Ordinario</button>
+      <button
+        class="A"
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="MostraOrdinario()"
+      >
+        Aggiungi Ordinario
+      </button>
 
       <button class="B" mat-raised-button color="accent" type="button">
         Aggiungi Assenza
       </button>
 
-      <button class="C" mat-raised-button color="warn" type="button" (click)="AggiungiReperibilita()">
+      <button
+        class="C"
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="AggiungiReperibilita()"
+      >
         Aggiungi Reperibilità
       </button>
     </div>
     <hr />
 
     <div *ngIf="showOrdinario">
-      
       <div class="datadiv">
         <div class="c">
           <label>Commessa</label>
-           <mat-form-field>
+          <mat-form-field>
             <mat-label> commessa </mat-label>
             <mat-select>
               @for (commessa of commessa; track commessa) {
-                <mat-option [value]="commessa.value">{{commessa.viewValue}}</mat-option>
+              <mat-option [value]="commessa.value">{{
+                commessa.viewValue
+              }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
-          
         </div>
 
         <div class="c">
@@ -93,7 +111,7 @@
             <mat-label>sedi</mat-label>
             <mat-select>
               @for (sede of sedi; track sede) {
-                <mat-option [value]="sede.value">{{sede.viewValue}}</mat-option>
+              <mat-option [value]="sede.value">{{ sede.viewValue }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -105,11 +123,12 @@
             <mat-label>ore ordinarie</mat-label>
             <mat-select>
               @for (oreOrdinaria of oreOrdinarie; track oreOrdinaria) {
-                <mat-option [value]="oreOrdinarie.values">{{oreOrdinaria.viewValue}}</mat-option>
+              <mat-option [value]="oreOrdinarie.values">{{
+                oreOrdinaria.viewValue
+              }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
-          
         </div>
 
         <div class="OS">
@@ -117,8 +136,11 @@
           <mat-form-field>
             <mat-label>ore straordinarie</mat-label>
             <mat-select>
-              @for (oreStraordinaria of oreStraordinarie; track oreStraordinaria) {
-                <mat-option [value]="oreOrdinarie.values">{{oreStraordinaria.viewValue}}</mat-option>
+              @for (oreStraordinaria of oreStraordinarie; track
+              oreStraordinaria) {
+              <mat-option [value]="oreOrdinarie.values">{{
+                oreStraordinaria.viewValue
+              }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -139,11 +161,59 @@
       <button class="aggiungi" mat-raised-button color="primary" type="button">
         Aggiungi
       </button>
-    
-   
-   
-    
-  </div>
-</mat-dialog-content>
-  </div>
+    </div>
 
+    <div *ngIf="showReperibilita">
+    <div class="commessaRep">
+      <label>Commessa</label>
+          <mat-form-field>
+            <mat-label> commessa </mat-label>
+            <mat-select>
+              @for (commessa of commessa; track commessa) {
+              <mat-option [value]="commessa.value">{{
+                commessa.viewValue
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+    </div>
+    
+    <div class="inizioReperibilità">
+      <label> inizio reperibilità </label>
+          <mat-form-field>
+            <mat-label>inizio reperibilità</mat-label>
+            <mat-select>
+              @for (oraFinePausa of oraFinePausa; track oraFinePausa) {
+              <mat-option [value]="oraFinePausa.values">{{
+                oraFinePausa.viewValue
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+    </div>
+    
+    <div class="FineReperibilità">
+
+      <label> fine reperibilità </label>
+      <mat-form-field>
+        <mat-label>fine reperibilità</mat-label>
+        <mat-select>
+          @for (oraFinePausa of oraFinePausa; track oraFinePausa) {
+          <mat-option [value]="oraFinePausa.values">{{
+            oraFinePausa.viewValue
+          }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+
+
+    </div>
+    
+    <button class="aggiungi2" mat-raised-button color="warn" type="button">
+      Aggiungi
+    </button>
+
+    </div>
+  </mat-dialog-content>
+</div>
