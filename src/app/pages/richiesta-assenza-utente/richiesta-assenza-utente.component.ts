@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, input, InputFunction } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Richiesta } from '../../dto/request/assenze';
 import { Input } from '@angular/core';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
 export class RichiestaAssenzaUtenteComponent {
+
+  fileInput: any;
   idRichiesta: any;
   ore: string[] = [];
   richiesta: Richiesta[] = [];
@@ -31,8 +33,11 @@ export class RichiestaAssenzaUtenteComponent {
     RiasSysuser: 'Edo',
     //  RiasSysdate: '',
     //  RiasFlagattivo: false,
-      //AndpDocumentipersonas: '',
+    //AndpDocumentipersonas: '',
+    fileName:'',
+    filePath:''
   };
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,7 +47,8 @@ export class RichiestaAssenzaUtenteComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private richiestaAutorizzazioneService: RichiestaAutorizzazioneService
+    private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
+    private elementRef: ElementRef
   ) {
     this.generaOre();
   }
@@ -77,6 +83,21 @@ export class RichiestaAssenzaUtenteComponent {
       }
     );
   }
+  
+  ngAfterViewInit() {
+    this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
+  }
+
+  uploadDoc() {     //ATTENZIONE: IL BACKEND NON SI ASPETTA QUESTI CAMPI, LI IGNORERÀ!!
+    const inputElement: HTMLInputElement = this.fileInput;
+    const file: File | null = inputElement.files ? inputElement.files[0] : null;
+    if (file) {
+      this.formData.fileName = file.name;
+      this.formData.filePath = URL.createObjectURL(file);
+      console.log('Nome del file:', this.formData.fileName);
+      console.log('Percorso del file:', this.formData.filePath);
+    }
+  }
 
   chiudiForm() {
     console.log('Chiusura della finestra');
@@ -100,8 +121,13 @@ export class RichiestaAssenzaUtenteComponent {
       //  RiasSysdate: '',
       //  RiasFlagattivo: false,
       //AndpDocumentipersonas: '',
+      fileName:'',
+      filePath:''
     };
   }
 }
 
+function uploadDoc(input: InputFunction) {
+  throw new Error('Function not implemented.');
+}
 

@@ -35,11 +35,20 @@
     <label>Note</label>
     <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
 
+<!--     <label>fileName</label>
+    <textarea [(ngModel)]="formData.fileName" name="fileName"></textarea>
+
+    <label>filePath</label>
+    <textarea [(ngModel)]="formData.filePath" name="filePath"></textarea> -->
+
+    <label>Upload File</label>
+    <input type="file" id="fileInput" (change)="uploadDoc()">
+
+
     <div class="buttons">
       <button type="submit">Invia Richiesta</button>
       <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
       <button type="button" (click)="chiudiForm()">Chiudi</button>
-      <!-- <button type="button" (click)="getAllTipoRichiesta()">Tipi</button> -->
     </div>
   </form>
 </div>
