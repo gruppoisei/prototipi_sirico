@@ -9,24 +9,24 @@
     <div class="row">
       <div class="column">
         <label>Dal giorno: </label>
-        <input type="date" [(ngModel)]="formData.DataInizio" name="Datainizio" required>
+        <input type="date" [(ngModel)]="DataInizio" name="Datainizio" required>
       </div>
       <div class="column">
         <label>Al giorno: </label>
-        <input type="date" [(ngModel)]="formData.DataFine" name="Datafine" required>
+        <input type="date" [(ngModel)]="DataFine" name="Datafine" required>
       </div>
     </div>
 
     <div class="row">
       <div class="column">
         <label>Ora Inizio</label>
-        <select [(ngModel)]="formData.OraInizio" name="OraInizio" required>
+        <select [(ngModel)]="OraInizio" name="OraInizio" required>
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
       <div class="column">
         <label>Ora Fine</label>
-        <select [(ngModel)]="formData.OraFine" name="OraFine" required>
+        <select [(ngModel)]="OraFine" name="OraFine" required>
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
@@ -41,8 +41,8 @@
     <label>filePath</label>
     <textarea [(ngModel)]="formData.filePath" name="filePath"></textarea> -->
 
-    <label>Upload File</label>
-    <input type="file" id="fileInput" (change)="uploadDoc()">
+ <!--   <label>Upload File</label>
+    <input type="file" id="fileInput" (change)="uploadDoc()"> -->
 
 
     <div class="buttons">

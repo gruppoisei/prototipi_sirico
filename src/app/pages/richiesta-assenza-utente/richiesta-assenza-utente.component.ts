@@ -12,7 +12,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./richiesta-assenza-utente.component.scss'],
 })
 export class RichiestaAssenzaUtenteComponent {
-
+  OraFine: any = null;
+  OraInizio: any = null;
+  DataFine: string = '';
+  DataInizio: string = '';
   fileInput: any;
   idRichiesta: any;
   ore: string[] = [];
@@ -23,19 +26,15 @@ export class RichiestaAssenzaUtenteComponent {
     RiasFkTiporichiesta: 1,
     //  RiasFkResponsabileidApprovazione: null,
     //  RiasApprovato: false,
-    // RiasDataorainizioassenza: '',
-    // RiasDataorafineassenza: '',
-    OraFine: null,
-    OraInizio: null,
-    DataFine: '',
-    DataInizio: '',
+    RiasDataorainizioassenza: '',
+    RiasDataorafineassenza: '',
     RiasNote: '',
     RiasSysuser: 'Edo',
     //  RiasSysdate: '',
     //  RiasFlagattivo: false,
     //AndpDocumentipersonas: '',
-    fileName:'',
-    filePath:''
+    //fileName:'',
+    //filePath:''
   };
 
   httpOptions = {
@@ -68,6 +67,8 @@ export class RichiestaAssenzaUtenteComponent {
   }
 
   submitForm() {
+    this.formData.RiasDataorainizioassenza = this.DataInizio + ' ' + this.OraInizio;
+    this.formData.RiasDataorafineassenza = this.DataFine + ' ' + this.OraFine;
     this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
     console.log('id richiesta: ' + this.idRichiesta);
   }
@@ -84,6 +85,7 @@ export class RichiestaAssenzaUtenteComponent {
     );
   }
   
+  /*
   ngAfterViewInit() {
     this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
   }
@@ -98,6 +100,7 @@ export class RichiestaAssenzaUtenteComponent {
       console.log('Percorso del file:', this.formData.filePath);
     }
   }
+*/
 
   chiudiForm() {
     console.log('Chiusura della finestra');
@@ -105,24 +108,26 @@ export class RichiestaAssenzaUtenteComponent {
   }
 
   eliminaRichiesta() {
-    console.log('Elimina premuto, pulisco campi ');
+    console.log('Elimina premuto, pulisco campi '); 
+    this.OraFine = null;
+    this.OraInizio = null;
+    this.DataFine = '';
+    this.DataInizio = '';
     this.formData = {
       //  RiasRichiestaassenzaid: null,
       //  RiasFkPersonaid: null,
       RiasFkTiporichiesta: 0,
       //  RiasFkResponsabileidApprovazione: null,
       //  RiasApprovato: false,
-      OraFine: null,
-      OraInizio: null,
-      DataFine: '',
-      DataInizio: '',
+      RiasDataorainizioassenza: '',
+      RiasDataorafineassenza: '',
       RiasNote: '',
       RiasSysuser: 'Edo',
       //  RiasSysdate: '',
       //  RiasFlagattivo: false,
       //AndpDocumentipersonas: '',
-      fileName:'',
-      filePath:''
+      //fileName:'',
+      //filePath:''
     };
   }
 }
