@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 
 export class RichiestaAssenzaUtenteComponent {
   
-  
   OraFine: any = null;
   OraInizio: any = null;
   DataFine: string = '';
@@ -37,20 +36,11 @@ export class RichiestaAssenzaUtenteComponent {
     //  RiasSysdate: '',
     //  RiasFlagattivo: false,
     //AndpDocumentipersonas: '',
-    fileName: '',
-    filePath: ''
-
-    
+    fileName: ''
   };
 
   @ViewChild('myFile')
   myInputFile!: ElementRef;
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
 
   constructor(
     private http: HttpClient,
@@ -59,7 +49,6 @@ export class RichiestaAssenzaUtenteComponent {
     private elementRef: ElementRef
   ) {
     this.generaOre();
-    
   }
 
   ngOnInit(): void {
@@ -79,8 +68,21 @@ export class RichiestaAssenzaUtenteComponent {
   submitForm() {
     this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
     this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
-    this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
+    //this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
+    this.inviaRichiesta(this.formData);
     console.log('id richiesta: ' + this.idRichiesta);
+  }
+
+  inviaRichiesta(body: Richiesta){
+    this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
+      (response: any) => {
+        console.log(response);
+        //altro?
+      },
+      (error: any) => {
+        console.error('errore nell\'invio della richiesta: ', error);
+      }
+    )
   }
 
   getAllTipoRichiesta() {
@@ -105,12 +107,12 @@ export class RichiestaAssenzaUtenteComponent {
     const file: File | null = inputElement.files ? inputElement.files[0] : null;
     if (file) {
       this.formData.fileName = file.name;
-      this.formData.filePath = URL.createObjectURL(file);
       console.log('Nome del file:', this.formData.fileName);
-      console.log('Percorso del file:', this.formData.filePath);
     }
   }
   
+
+
   chiudiForm() {
     console.log('Chiusura della finestra');
     this.router.navigate(['/homepage']);
@@ -136,8 +138,7 @@ export class RichiestaAssenzaUtenteComponent {
         //  RiasSysdate: '',
         //  RiasFlagattivo: false,
         //AndpDocumentipersonas: '',
-        fileName: '',
-        filePath: ''
+        fileName: ''
       };
       this.resetDoc();
 
@@ -152,6 +153,26 @@ export class RichiestaAssenzaUtenteComponent {
     console.log(this.myInputFile.nativeElement.files);
     this.myInputFile.nativeElement.value = "";
     console.log(this.myInputFile.nativeElement.files);
+    console.log('Elimina premuto, pulisco campi '); 
+    this.OraFine = null;
+    this.OraInizio = null;
+    this.DataFine = '';
+    this.DataInizio = '';
+    this.formData = {
+      //  RiasRichiestaassenzaid: null,
+      //  RiasFkPersonaid: null,
+      RiasFkTiporichiesta: 0,
+      //  RiasFkResponsabileidApprovazione: null,
+      //  RiasApprovato: false,
+      RiasDataorainizioassenza: '',
+      RiasDataorafineassenza: '',
+      RiasNote: '',
+      RiasSysuser: 'Edo',
+      //  RiasSysdate: '',
+      //  RiasFlagattivo: false,
+      //AndpDocumentipersonas: '',
+      fileName:''
+    };
   }
 
 }
