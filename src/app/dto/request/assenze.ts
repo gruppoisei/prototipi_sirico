@@ -10,6 +10,6 @@ export interface Richiesta {
   //   RiasSysdate: string;
   //   RiasFlagattivo: boolean;
   //AndpDocumentipersonas: string; //
- // fileName: string;
- // filePath: string;
+  fileName: string;
+  filePath: string;
 }

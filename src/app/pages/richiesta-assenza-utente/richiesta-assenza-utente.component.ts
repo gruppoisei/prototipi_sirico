@@ -33,8 +33,8 @@ export class RichiestaAssenzaUtenteComponent {
     //  RiasSysdate: '',
     //  RiasFlagattivo: false,
     //AndpDocumentipersonas: '',
-    //fileName:'',
-    //filePath:''
+    fileName:'',
+    filePath:''
   };
 
   httpOptions = {
@@ -85,7 +85,7 @@ export class RichiestaAssenzaUtenteComponent {
     );
   }
   
-  /*
+
   ngAfterViewInit() {
     this.fileInput = this.elementRef.nativeElement.querySelector('#fileInput');
   }
@@ -100,7 +100,7 @@ export class RichiestaAssenzaUtenteComponent {
       console.log('Percorso del file:', this.formData.filePath);
     }
   }
-*/
+
 
   chiudiForm() {
     console.log('Chiusura della finestra');
@@ -126,8 +126,8 @@ export class RichiestaAssenzaUtenteComponent {
       //  RiasSysdate: '',
       //  RiasFlagattivo: false,
       //AndpDocumentipersonas: '',
-      //fileName:'',
-      //filePath:''
+      fileName:'',
+      filePath:''
     };
   }
 }

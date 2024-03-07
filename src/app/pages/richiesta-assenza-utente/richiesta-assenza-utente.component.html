@@ -41,9 +41,10 @@
     <label>filePath</label>
     <textarea [(ngModel)]="formData.filePath" name="filePath"></textarea> -->
 
- <!--   <label>Upload File</label>
-    <input type="file" id="fileInput" (change)="uploadDoc()"> -->
-
+    <div class="uploadcontainer">
+      <label>Upload File</label>
+      <input type="file" id="fileInput" (change)="uploadDoc()"> 
+    </div>
 
     <div class="buttons">
       <button type="submit">Invia Richiesta</button>
