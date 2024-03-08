@@ -1,7 +1,10 @@
 <div>
+  
     <div class="flex flex-row">
       <p class="flex- grow">{{giorno.giornoData}}</p>
-      <button (click)="ClickMe()" class="p-2 m-2 bg-red-600 w-2 h-2"></button> 
+  
+
+      <button (click)="ClickMe()" class="p-2 m-2 bg-red-600 w-2 h-2" ></button> 
     </div>
     <div *ngFor="let attivita of giorno.listaAttivita" class="bg-lime-500 m-2 p-2 rounded-md">
       
