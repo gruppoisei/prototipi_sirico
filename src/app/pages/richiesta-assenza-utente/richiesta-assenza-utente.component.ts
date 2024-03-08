@@ -67,19 +67,17 @@ export class RichiestaAssenzaUtenteComponent {
   submitForm() {
     this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
     this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
-    //this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
     this.inviaRichiesta(this.formData);
-    console.log('id richiesta: ' + this.idRichiesta);
   }
 
   inviaRichiesta(body: Richiesta){
     this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
       (response: any) => {
         console.log(response);
-        alert("Richiesta inserita correttamente!");
+        alert(response);
       },
       (error: any) => {
-        alert(`${error}`);
+        //alert(error);   //gestiamolo in maniera diversa, il form non può essere inviato se mancano campi
         console.error('errore nell\'invio della richiesta: ', error);
       }
     )
@@ -150,6 +148,26 @@ export class RichiestaAssenzaUtenteComponent {
     console.log(this.myInputFile.nativeElement.files);
     this.myInputFile.nativeElement.value = "";
   }
+
+  checkFormValidity(): boolean {
+    return (
+      this.formData.RiasFkTiporichiesta &&
+      this.DataInizio &&
+      this.DataFine &&
+      this.OraInizio &&
+      this.OraFine &&
+      this.formData.RiasNote
+    );
+  }
+
+checkDateTimeValidity(): boolean {
+  const startDate = new Date(this.DataInizio + 'T' + this.OraInizio);
+  const endDate = new Date(this.DataFine + 'T' + this.OraFine);
+
+  return startDate < endDate;
+}
+
+
 }
 
 

@@ -35,19 +35,13 @@
     <label>Note</label>
     <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
 
-<!--     <label>fileName</label>
-    <textarea [(ngModel)]="formData.fileName" name="fileName"></textarea>
-
-    <label>filePath</label>
-    <textarea [(ngModel)]="formData.filePath" name="filePath"></textarea> -->
-
     <div class="uploadcontainer">
       <label>Upload File</label>
       <input type="file" #myFile id="fileInput" (change)="uploadDoc()"> 
     </div> 
 
     <div class="buttons">
-      <button type="submit">Invia Richiesta</button>
+      <button type="submit" [class.disabled]="!checkFormValidity() || !checkDateTimeValidity()">Invia Richiesta</button>
       <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
       <button type="button" (click)="chiudiForm()">Chiudi</button>
     </div>
