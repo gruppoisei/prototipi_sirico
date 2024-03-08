@@ -1,31 +1,31 @@
 <div class="container">
   <h2>Inserisci Richiesta</h2>
   <form (ngSubmit)="submitForm()">
-    <label>Tipo Richiesta</label>
+    <label>Tipo Richiesta (obligatorio)</label>
     <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
       <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
     </select>
 
     <div class="row">
       <div class="column">
-        <label>Dal giorno: </label>
+        <label>Dal giorno:  (obligatorio)</label>
         <input type="date" [(ngModel)]="DataInizio" name="Datainizio" [class.invalid]="checkDateTimeValidity()" (focus)="dateinizioFileTouched = true" required>
       </div>
       <div class="column">
-        <label>Al giorno: </label>
+        <label>Al giorno:  (obligatorio)</label>
         <input type="date" [(ngModel)]="DataFine" name="Datafine" [class.invalid]="checkDateTimeValidity()" (focus)="datefineFileTouched = true" required>
       </div>
     </div>
 
     <div class="row">
       <div class="column">
-        <label>Ora Inizio</label>
+        <label>Ora Inizio (obligatorio)</label>
         <select [(ngModel)]="OraInizio" name="OraInizio" [class.invalid]="!dateinizioFileTouched && !checkDateTimeValidity()" (focus)="orainizioFileTouched = true" required>
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
       <div class="column">
-        <label>Ora Fine</label>
+        <label>Ora Fine (obligatorio)</label>
         <select [(ngModel)]="OraFine" name="OraFine" [class.invalid]="!orafineFileTouched && !checkDateTimeValidity()" (focus)="orafineFileTouched = true" required>
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
@@ -36,7 +36,7 @@
       Attenzione, la data di inizio assenza è successiva alla data della fine dell'assenza!
     </div>
 
-    <label>Note</label>
+    <label>Note (obligatorio)</label>
     <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
 
     <div class="uploadcontainer">
