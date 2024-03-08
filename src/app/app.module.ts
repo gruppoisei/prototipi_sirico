@@ -33,6 +33,7 @@ import { MatInputModule } from "@angular/material/input";
 import { ResponseResetPasswordDialogComponent } from './ui/response-reset-password-dialog/response-reset-password-dialog.component';
 import { TestComponent } from './pages/rapportino/test/test.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -71,8 +72,8 @@ import { ModificaPasswordComponent } from './pages/modifica-password/modifica-pa
     MatDialogModule,
     MatSlideToggleModule,
     MatFormFieldModule,
-    MatInputModule
-    
+    MatInputModule,
+    MatIconModule
     
 
   ],
