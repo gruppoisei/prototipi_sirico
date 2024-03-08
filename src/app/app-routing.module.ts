@@ -54,10 +54,6 @@ const routes: Routes = [
     path: "modifica-password",
     component: ModificaPasswordComponent
   }
-
-
-
-
 ];
 
 @NgModule({
