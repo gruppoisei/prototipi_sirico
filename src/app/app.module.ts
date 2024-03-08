@@ -34,6 +34,7 @@ import { ResponseResetPasswordDialogComponent } from './ui/response-reset-passwo
 import { TestComponent } from './pages/rapportino/test/test.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import {MatIconModule} from '@angular/material/icon';
+import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {MatIconModule} from '@angular/material/icon';
     ListaAttivitaComponent,
     ResponseResetPasswordDialogComponent,
     TestComponent,
-    ModificaPasswordComponent
+    ModificaPasswordComponent,
+    NewPasswordResponseDialogComponent
   ],
   imports: [
     BrowserModule,

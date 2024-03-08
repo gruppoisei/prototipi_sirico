@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -15,11 +15,16 @@ export class AuthenticationService {
   
   // Login da DB
   login(loginObj:any): Observable<any> {
-    return this.http.post<any>('http://localhost:5143/Login/AccessoUtente/', loginObj );
+    return this.http.post<any>(`${this.baseUrl}AccessoUtente/`, loginObj );
   }
 
-  resetPasswordReset(username:string)
+  resetPasswordReset(username:string) : Observable<any>
   {
     return this.http.post<any>(`${this.baseUrl}ResetPasswordUtente/${username}`,{} )
+  }
+
+  newPassword(newPasswordObj:any) : Observable<any>
+  {
+    return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj)
   }
 }

@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit{
           const flagPassword = res;
           if(flagPassword == 0)
           {
-            this.dialog.open(ModificaPasswordComponent)
+            this.router.navigate(["/modifica-password"])
           }
           else
           {
