@@ -148,6 +148,26 @@ export class RichiestaAssenzaUtenteComponent {
     console.log(this.myInputFile.nativeElement.files);
     this.myInputFile.nativeElement.value = "";
   }
+
+  checkFormValidity(): boolean {
+    return (
+      this.formData.RiasFkTiporichiesta &&
+      this.DataInizio &&
+      this.DataFine &&
+      this.OraInizio &&
+      this.OraFine &&
+      this.formData.RiasNote
+    );
+  }
+
+checkDateTimeValidity(): boolean {
+  const startDate = new Date(this.DataInizio + 'T' + this.OraInizio);
+  const endDate = new Date(this.DataFine + 'T' + this.OraFine);
+
+  return startDate < endDate;
+}
+
+
 }
 
 

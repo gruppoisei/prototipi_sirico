@@ -41,7 +41,7 @@
     </div> 
 
     <div class="buttons">
-      <button type="submit">Invia Richiesta</button>
+      <button type="submit" [class.disabled]="!checkFormValidity() || !checkDateTimeValidity()">Invia Richiesta</button>
       <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
       <button type="button" (click)="chiudiForm()">Chiudi</button>
     </div>
