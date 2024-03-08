@@ -178,6 +178,8 @@ disabled: any;
 
 MostraOrdinario() {
   this.showOrdinario= !this.showOrdinario 
+  this.showReperibilita= false
+
 
 }
   entrata= "9:00";
@@ -192,6 +194,7 @@ myDatePickerFrom: any;
 
 AggiungiReperibilita(){
 this.showReperibilita= !this.showReperibilita
+this.showOrdinario= false
 }
   
   onNoClick(): void {
