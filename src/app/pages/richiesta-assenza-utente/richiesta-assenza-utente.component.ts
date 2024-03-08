@@ -69,8 +69,21 @@ export class RichiestaAssenzaUtenteComponent {
   submitForm() {
     this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
     this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
-    this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
+    //this.idRichiesta = this.richiestaAutorizzazioneService.addRichiesta(this.formData).subscribe(richieste => this.richiesta.push(richieste));
+    this.inviaRichiesta(this.formData);
     console.log('id richiesta: ' + this.idRichiesta);
+  }
+
+  inviaRichiesta(body: any) {
+    this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
+      (response: any) => {
+        console.log(response);
+        //altro?
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di assenza:', error);
+      }
+    );
   }
 
   getAllTipoRichiesta() {
