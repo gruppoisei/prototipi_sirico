@@ -21,13 +21,13 @@ export class TestComponent {
     console.log("completo")
     console.log(this.rapportinoService.risposta)
     console.log("parziale")
-    console.log(this.rapportinoService.giorniMese)
+    console.log(this.rapportinoService.risposta.listaGiorniLavoroMese)
   }
 
   CambiaMese(event: any) {
     console.log(event)
     this.giornoRiferimento = event;
-    this.rapportinoService.AggiornaGiorniMese(this.giornoRiferimento)
+    // this.rapportinoService.AggiornaGiorniMese(this.)
   }
 
 }

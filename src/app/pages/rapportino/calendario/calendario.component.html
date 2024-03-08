@@ -23,10 +23,18 @@
     <div class="flex  flex-wrap w-[1200px] min-w-[1200px] ">
 
         
+        <div class="giorni bg-yellow-300  ">Lunedi</div>
+        <div class="giorni bg-yellow-300 ">Martedi</div>
+        <div class="giorni bg-yellow-300 ">Mercoledi</div>
+        <div class="giorni bg-yellow-300 ">Giovedi</div>
+        <div class="giorni bg-yellow-300 ">Venerdi</div>
+        <div class="giorni bg-yellow-300 ">Sabato</div>
+        <div class="giorni bg-yellow-300 ">Domenica</div>
+
         
         <div *ngFor=" let test of giorniMesePassato " class="cubo cuboLast p-2">{{test}}</div>
         
-        <div *ngFor=" let test of giorniMeseCorrente; index as i " class="cubo cubocURRENT p-2"><app-giorno-calendario [giorno]="giorniLav[i + 1]"/></div>
+        <div *ngFor=" let test of rapportinoService.risposta.listaGiorniLavoroMese; index as i " class="cubo cubocURRENT p-2"><app-giorno-calendario [giorno]="rapportinoService.risposta.listaGiorniLavoroMese[i]"/></div>
         
         <div *ngFor=" let test of giorniMeseSeguente " class="cubo cuboNext p-2">{{test}}</div>
         
