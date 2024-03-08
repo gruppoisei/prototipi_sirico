@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RapportinoService } from '../../../service/rapportino.service';
+import { GiornoDiLavoro } from '../../../dto/request/calendario';
 
 @Component({
   selector: 'app-test',
@@ -20,13 +21,13 @@ export class TestComponent {
     console.log("completo")
     console.log(this.rapportinoService.risposta)
     console.log("parziale")
-    console.log(this.rapportinoService.risposta.listaGiorniLavoroMese[0])
+    console.log(this.rapportinoService.risposta.listaGiorniLavoroMese)
   }
 
   CambiaMese(event: any) {
     console.log(event)
     this.giornoRiferimento = event;
-    this.rapportinoService.AggiornaGiorniMese(this.giornoRiferimento)
+    // this.rapportinoService.AggiornaGiorniMese(this.)
   }
 
 }

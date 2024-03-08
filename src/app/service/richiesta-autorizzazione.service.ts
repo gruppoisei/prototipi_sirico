@@ -7,10 +7,10 @@ import { Richiesta } from '../dto/request/assenze';
   providedIn: 'root',
 })
 export class RichiestaAutorizzazioneService {
-  httpOptions = {
+  httpOptions: Object = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    }),
+    }), responseType: 'text'
   };
 
   private apiUrl = 'http://localhost:5143/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
@@ -18,12 +18,8 @@ export class RichiestaAutorizzazioneService {
   constructor(private Http: HttpClient) {}
 
   // INSERIMENTO RICHIESTA ASSENZA
-  addRichiesta(richiesta: Richiesta): Observable<number> {
-    //debugger;
-    console.log(richiesta);
-    var body = JSON.stringify(richiesta);
-    console.log(body);
-    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, body, this.httpOptions);
+  addRichiesta(richiesta: Richiesta): Observable<any> {
+    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, JSON.stringify(richiesta), this.httpOptions);
   }
 
   // INSERIMENTO TIPO RICHIESTA

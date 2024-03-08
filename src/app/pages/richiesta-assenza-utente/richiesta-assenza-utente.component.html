@@ -9,45 +9,43 @@
     <div class="row">
       <div class="column">
         <label>Dal giorno: </label>
-        <input type="date" [(ngModel)]="DataInizio" name="Datainizio" required>
+        <input type="date" [(ngModel)]="DataInizio" name="Datainizio" [class.invalid]="checkDateTimeValidity()" (focus)="dateinizioFileTouched = true" required>
       </div>
       <div class="column">
         <label>Al giorno: </label>
-        <input type="date" [(ngModel)]="DataFine" name="Datafine" required>
+        <input type="date" [(ngModel)]="DataFine" name="Datafine" [class.invalid]="checkDateTimeValidity()" (focus)="datefineFileTouched = true" required>
       </div>
     </div>
 
     <div class="row">
       <div class="column">
         <label>Ora Inizio</label>
-        <select [(ngModel)]="OraInizio" name="OraInizio" required>
+        <select [(ngModel)]="OraInizio" name="OraInizio" [class.invalid]="!dateinizioFileTouched && !checkDateTimeValidity()" (focus)="orainizioFileTouched = true" required>
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
       <div class="column">
         <label>Ora Fine</label>
-        <select [(ngModel)]="OraFine" name="OraFine" required>
+        <select [(ngModel)]="OraFine" name="OraFine" [class.invalid]="!orafineFileTouched && !checkDateTimeValidity()" (focus)="orafineFileTouched = true" required>
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
     </div>
 
+    <div *ngIf="checkDateTimeValidity()" class="errordate">
+      Attenzione, la data di inizio assenza è successiva alla data della fine dell'assenza!
+    </div>
+
     <label>Note</label>
     <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
 
-<!--     <label>fileName</label>
-    <textarea [(ngModel)]="formData.fileName" name="fileName"></textarea>
-
-    <label>filePath</label>
-    <textarea [(ngModel)]="formData.filePath" name="filePath"></textarea> -->
-
     <div class="uploadcontainer">
       <label>Upload File</label>
-      <input type="file" id="fileInput" (change)="uploadDoc()"> 
-    </div>
+      <input type="file" #myFile id="fileInput" (change)="uploadDoc()"> 
+    </div> 
 
     <div class="buttons">
-      <button type="submit">Invia Richiesta</button>
+      <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
       <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
       <button type="button" (click)="chiudiForm()">Chiudi</button>
     </div>

@@ -1,4 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
+// import { BrowserModule } from '@angular/platform-browser';
+// import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +12,8 @@ import { NgIf } from '@angular/common';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { GiornoDiLavoro } from '../../../dto/request/calendario';
+import { RapportinoService } from '../../../service/rapportino.service';
 
 
 
@@ -22,6 +26,15 @@ import {MatSelectModule} from '@angular/material/select';
   ],
 })
 export class AttivitaGiornoComponent {
+
+
+
+// giorno = new Date(this.rapportinoService.risposta.rapportino.dataRapportino!.getFullYear(),
+// this.rapportinoService.risposta.rapportino.dataRapportino!.getMonth(),
+// this.data.dataNumero)
+giorno = new Date()
+
+
 Commessa: any;
 Sede: any;
 oreOrd: any;
@@ -173,7 +186,7 @@ disabled: any;
     ]
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GiornoLavorativo, private router: Router) {}
+    @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {}
 
 
 MostraOrdinario() {
