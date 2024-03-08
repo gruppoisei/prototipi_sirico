@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from '../forgot-password-dialog/forgot-passwo
 import ValidateForm from '../../helpers/validateform';
 import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-login-dialog.component';
+import { ModificaPasswordComponent } from '../modifica-password/modifica-password.component';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit{
           const flagPassword = res;
           if(flagPassword == 0)
           {
-            this.dialog.open(ForgotPasswordComponent)
+            this.dialog.open(ModificaPasswordComponent)
           }
           else
           {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from '../../helpers/validateform';
 
 @Component({
@@ -8,8 +8,10 @@ import ValidateForm from '../../helpers/validateform';
   styleUrl: './modifica-password.component.scss'
 })
 export class ModificaPasswordComponent {
+
+
 submitChangePasssword() {
-throw new Error('Method not implemented.');
+
 }
 
   cambioPasswordForm !: FormGroup;
@@ -20,13 +22,15 @@ throw new Error('Method not implemented.');
       username: ['', Validators.required],
       nuovaPassword: ['', Validators.required],
       confermaPassword: ['', Validators.required],
-    },{validator: this.passwordMatchValidator})
+    },
+    {
+      validators: this.passwordMatchValidator
+    })
   }
 
-  passwordMatchValidator(formGroup: FormGroup) {
-    const nuovaPassword = formGroup.get('nuovaPassword')?.value;
-    const confermaPassword = formGroup.get('confermaPassword')?.value;
-    return nuovaPassword === confermaPassword ? null : { passwordMismatch: true };
+  passwordMatchValidator(control: AbstractControl) {
+    return control.get('nuovaPassword')?.value ===
+    control.get('confermaPassword')?.value ? null : {mismatch : true}
   }
 
   isFieldValid(field: string) {
@@ -35,5 +39,6 @@ throw new Error('Method not implemented.');
       !this.cambioPasswordForm.get(field)?.valid
     );
   }
+  
 
 }
