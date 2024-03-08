@@ -18,12 +18,13 @@ export class RichiestaAutorizzazioneService {
   constructor(private Http: HttpClient) {}
 
   // INSERIMENTO RICHIESTA ASSENZA
-  addRichiesta(richiesta: Richiesta): Observable<Richiesta> {
+  addRichiesta(richiesta: Richiesta): Observable<any> {
+    //debugger;
     console.log(richiesta);
     var body = JSON.stringify(richiesta);
     console.log(body);
-    return this.Http
-      .post<any>(`${this.apiUrl}/RichiestaAssenza`, body, this.httpOptions)
+    console.log(this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, body, this.httpOptions))
+    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, body, this.httpOptions);
   }
 
   // INSERIMENTO TIPO RICHIESTA
