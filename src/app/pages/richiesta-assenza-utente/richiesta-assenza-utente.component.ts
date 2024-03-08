@@ -152,7 +152,7 @@ export class RichiestaAssenzaUtenteComponent {
       this.DataFine &&
       this.OraInizio &&
       this.OraFine &&
-      this.formData.RiasNote
+      this.formData.RiasNote 
     );
   }
 
