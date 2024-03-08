@@ -11,4 +11,5 @@ export interface Richiesta {
   //   RiasFlagattivo: boolean;
   //AndpDocumentipersonas: string; //
   fileName: string;
+  filePath: string;
 }

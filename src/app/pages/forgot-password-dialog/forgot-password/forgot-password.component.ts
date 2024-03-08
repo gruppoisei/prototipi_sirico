@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../service/authentication.service';
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
