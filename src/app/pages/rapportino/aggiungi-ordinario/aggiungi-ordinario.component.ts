@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -24,6 +24,10 @@ imports:[MatButtonModule,CommonModule,MatSlideToggle,MatCheckboxModule,MatFormFi
 })
 export class AggiungiOrdinarioComponent {
 
+  @Input()
+  giornoLavorativoId!:number
+
+
   color: any;
   checked: any;
   disabled: any;
@@ -38,5 +42,10 @@ export class AggiungiOrdinarioComponent {
 
   }
 
+  Qualcosa(){
+
+
+
+  }
 
 }

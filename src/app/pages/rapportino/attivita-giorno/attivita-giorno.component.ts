@@ -37,23 +37,6 @@ giorno = new Date()
 
 
 
-// Commessa: any;
-// Sede: any;
-// oreOrd: any;
-// oreStra: any;
-// color: any;
-// checked: any;
-// disabled: any;
-// oraEntrata: string="";
-// oraUscita: string="";
-// inizioPausa: string="";
-// finePausa:string="";
-// pickerFrom: any;
-// myDatePickerFrom: any;
-
-
-   
-
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CalendarioRequest, GiornoDiLavoro } from '../dto/request/calendario';
+import { AttivitaGiorno, CalendarioRequest, GiornoDiLavoro } from '../dto/request/calendario';
 import { DatePipe } from '@angular/common';
 import { tap } from 'rxjs';
 
@@ -52,9 +52,9 @@ export class RapportinoService {
    }
 
 
-   AggiungiAttivitaGiorno(body:any)
+   AggiungiAttivitaGiorno(attivitaDaInserire:AttivitaGiorno)
    {
-    this.http.post<any>("indirizzo controller",body).subscribe(
+    this.http.post<any>("indirizzo controller",attivitaDaInserire).subscribe(
       
     )
 

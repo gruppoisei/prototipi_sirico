@@ -1,7 +1,7 @@
 <div class="dialog">
   <div class="datadiv">
     <p mat-dialog-title>{{ giorno }}</p>
-
+    <p>giorno ID = {{data.giornoLavorativoId}}</p>
     <p mat-dialog-title>{{ giorno | date:"EEEE dd  LLLL yyyy"}}</p>
   </div>
 
@@ -87,7 +87,7 @@
 
 
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario> </app-aggiungi-ordinario>
+      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!"> </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showReperibilita">
