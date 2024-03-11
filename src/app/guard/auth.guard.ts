@@ -4,7 +4,7 @@ import { AuthenticationService } from '../service/authentication.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   console.log("Guardia chiamata")
-  debugger
+  //debugger
   const auth = inject(AuthenticationService)
   console.log('Is Authenticated:', auth.getIsAuthenticated());
   if(!auth.getIsAuthenticated)

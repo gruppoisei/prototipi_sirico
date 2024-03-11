@@ -27,7 +27,7 @@ export class RichiestaAssenzaSegreteriaComponent {
   }
 
   mostraModalApprovazione(id: any): void {
-    //this.idRichiesta = id;
+    this.idRichiesta = id;
     console.log("lavoro su richiesta " + id);
     this.dialog.open(this.approvalModal);
   }
@@ -36,9 +36,9 @@ export class RichiestaAssenzaSegreteriaComponent {
     this.dialog.closeAll();
   }
 
-  approvaRichiesta(id: any) {
-    console.log("approvo richiesta " + id);
-    this.richiestaAutorizzazioneService.addApprovazione(id, true, '').subscribe(
+  approvaRichiesta() {
+    console.log("approvo richiesta " + this.idRichiesta);
+    this.richiestaAutorizzazioneService.addApprovazione(this.idRichiesta, true, '').subscribe(
       (response) => {
         this.getAllStessoResponsabile(this.userName);
         this.chiudiModal();
@@ -50,13 +50,13 @@ export class RichiestaAssenzaSegreteriaComponent {
     );
   }
 
-  rifiutaRichiesta(id: any) {
+  rifiutaRichiesta() {
     if (!this.motivazione) {
       alert('Inserisci una motivazione per il rifiuto.');
       return;
     }
 
-    this.richiestaAutorizzazioneService.addApprovazione(id, false, this.motivazione).subscribe(
+    this.richiestaAutorizzazioneService.addApprovazione(this.idRichiesta, false, this.motivazione).subscribe(
       (response) => {
         this.getAllStessoResponsabile(this.userName);
         this.chiudiModal();
