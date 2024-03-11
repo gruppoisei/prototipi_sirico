@@ -18,16 +18,16 @@ export class GiornoCalendarioComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
-  //     data: {giorno :this.giorno},
-  //   });
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
+      data: {giorno :this.giorno},
+    });
     
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(this.giorno)
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(this.giorno)
+    });
+  }
   
   
   ClickMe(){
