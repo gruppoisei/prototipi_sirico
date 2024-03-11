@@ -1,19 +1,19 @@
 <div class="container">
-    <button (click)="expandSection('byidrichiesta')" class="search-button">Ricerca per ID Richiesta</button>
+    <button (click)="expandSection('DaModificare')" class="search-button">Stampa tutte le richieste da modificare</button>
     <button (click)="expandSection('byidpersona')" class="search-button">Ricerca per ID Persona</button>
     <button (click)="expandSection('all')" class="search-button">Prendi tutti i dati</button>
     <!--Approva richiesta dopo averle stampate tutte-->
     <div>
-        <div class="expanded-section" *ngIf="expandedSection === 'byidrichiesta'">
+        <div class="expanded-section" *ngIf="expandedSection === 'DaModificare'">
             <h1>Ricerca per ID Richiesta</h1>
-            <input [(ngModel)]="idRichiesta" type="number" placeholder="Inserisci l'ID richiesta">
-            <button (click)="getByRichiestaId(idRichiesta)">Cerca</button>
+            <input [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
+            <button (click)="getAllStessoResponsabile(userName)">Cerca</button>
         </div>
 
         <div class="expanded-section" *ngIf="expandedSection === 'byidpersona'">
             <h1>Ricerca per ID Persona</h1>
-            <input [(ngModel)]="idPersona" type="number" placeholder="Inserisci l'ID persona">
-            <button (click)="getByResponsabileId(idPersona)">Cerca</button>
+            <input [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
+            <button (click)="getAllStessoResponsabile(userName)">Cerca</button>
         </div>
 
         <div class="expanded-section" *ngIf="expandedSection === 'all'">
@@ -24,7 +24,59 @@
 
         <br>
         
-        <div *ngIf="output_getall && output_getall.length > 0">
+        <div *ngIf="(output_getall && output_getall.length)">
+            <h2>Richieste Da Esaminare</h2>
+            <h2></h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Data e ora inizio: </th>
+                  <th>Data e ora fine: </th>
+                  <th>Richiedente</th>
+                  <th>Note</th>
+                  <th>Richiesta per:</th>
+                  <th>Id:</th>
+                  <th>Approvazione</th>
+                  <th>flagAttivo</th>
+                  <th>approvazione</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let id of output_getall">
+                 <h2>{{ id.flagAttivo }} {{ id.approvazione }} {{ (id.FlagAttivo === true && id.Approvazione === false ) }}</h2>
+                <!-- <div *ngIf="id.FlagAttivo === true && id.Approvazione === false">  -->
+
+                    <td>{{ id.dataOraFineAssenza }}</td>
+                    <td>{{ id.dataOraInizioAssenza }}</td>
+                    <td>{{ id.nomePersona }}</td>
+                    <td>{{ id.note }}</td>
+                    <td>{{ id.tipoRichiesta }}</td>  
+                    <td>{{ id.idRichiesta }}</td>    
+                    <td>{{ id.flagAttivo }}</td>    
+                    <td>{{ id.approvazione }}</td>    
+                    <td>        
+                    <div>
+                        <button (click)="mostraModalApprovazione(id.idRichiesta)" >Modifica</button>
+                      <ng-template #approvalModal let-modal class="modal-container">
+                      <h1>Approvare o rifiutare richiesta</h1>
+                      <p>Inserisci la motivazione:</p>
+                      <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
+                      <button (click)="approvaRichiesta()">Approva</button>
+                      <button (click)="rifiutaRichiesta()">Rifiuta</button>
+                    </ng-template>
+                    <div class="container">
+                    </div>
+                    </div> 
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+<!--
+          <div *ngIf="output_getall && output_getall.length > 0">
+            <h2>Richieste Approvate</h2>
             <table>
               <thead>
                 <tr>
@@ -39,6 +91,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let id of output_getall">
+                  <td *ngIf="id.FlagAttivo === 1 && id.Approvato === 1">{{ id.dataOraFineAssenza }}</td>
                   <td>{{ id.dataOraFineAssenza }}</td>
                   <td>{{ id.dataOraInizioAssenza }}</td>
                   <td>{{ id.nomePersona }}</td>
@@ -47,7 +100,7 @@
                   <td>{{ id.idRichiesta }}</td>  
                   <td>        
                     <div>
-                        <button *ngIf="!id.riasApprovato" (click)="mostraModalApprovazione(id.idRichiesta)" >Modifica</button>
+                        <button (click)="mostraModalApprovazione(id.idRichiesta)" >Modifica</button>
                       <ng-template #approvalModal let-modal class="modal-container">
                       <h1>Approvare o rifiutare richiesta</h1>
                       <p>Inserisci la motivazione:</p>
@@ -63,6 +116,49 @@
               </tbody>
             </table>
           </div>
+
+          <div *ngIf="output_getall && output_getall.length > 0">
+            <h2>Richieste Rifiutate</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Data e ora inizio: </th>
+                  <th>Data e ora fine: </th>
+                  <th>Richiedente</th>
+                  <th>____________Note____________</th>
+                  <th>Richiesta per:</th>
+                  <th>Id:</th>
+                  <th>Approvazione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let id of output_getall">
+                  <td *ngIf="id.FlagAttivo === 0 && id.Approvato === 0">{{ id.dataOraFineAssenza }}</td>
+                  <td>{{ id.dataOraFineAssenza }}</td>
+                  <td>{{ id.dataOraInizioAssenza }}</td>
+                  <td>{{ id.nomePersona }}</td>
+                  <td>{{ id.note }}</td>
+                  <td>{{ id.tipoRichiesta }}</td>  
+                  <td>{{ id.idRichiesta }}</td>  
+                  <td>        
+                    <div>
+                        <button (click)="mostraModalApprovazione(id.idRichiesta)" >Modifica</button>
+                      <ng-template #approvalModal let-modal class="modal-container">
+                      <h1>Approvare o rifiutare richiesta</h1>
+                      <p>Inserisci la motivazione:</p>
+                      <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
+                      <button (click)="approvaRichiesta()">Approva</button>
+                      <button (click)="rifiutaRichiesta()">Rifiuta</button>
+                    </ng-template>
+                    <div class="container">
+                    </div>
+                    </div> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+-->
           <div *ngIf="!(output_getall && output_getall.length > 0)">
             Nessun dato disponibile
           </div>
