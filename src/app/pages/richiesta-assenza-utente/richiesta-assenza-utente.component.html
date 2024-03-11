@@ -5,70 +5,47 @@
     <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
       <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
     </select>
-
+ 
     <div class="row">
       <div class="column">
-<<<<<<< HEAD
-        <label>Dal giorno: </label>
-        <input type="date" [(ngModel)]="DataInizio" name="Datainizio" required>
-      </div>
-      <div class="column">
-        <label>Al giorno: </label>
-        <input type="date" [(ngModel)]="DataFine" name="Datafine" required>
-=======
         <label>Dal giorno:  (obligatorio)</label>
         <input type="date" [(ngModel)]="DataInizio" name="Datainizio" [class.invalid]="checkDateTimeValidity()" (focus)="dateinizioFileTouched = true" required>
       </div>
       <div class="column">
         <label>Al giorno:  (obligatorio)</label>
         <input type="date" [(ngModel)]="DataFine" name="Datafine" [class.invalid]="checkDateTimeValidity()" (focus)="datefineFileTouched = true" required>
->>>>>>> bb1a03a2c1c3b9e720e3dc00524d894c6bc9c6c6
       </div>
     </div>
-
+ 
     <div class="row">
       <div class="column">
-<<<<<<< HEAD
-        <label>Ora Inizio</label>
-        <select [(ngModel)]="OraInizio" name="OraInizio" required>
-=======
         <label>Ora Inizio (obligatorio)</label>
         <select [(ngModel)]="OraInizio" name="OraInizio" [class.invalid]="!dateinizioFileTouched && !checkDateTimeValidity()" (focus)="orainizioFileTouched = true" required>
->>>>>>> bb1a03a2c1c3b9e720e3dc00524d894c6bc9c6c6
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
       <div class="column">
-<<<<<<< HEAD
-        <label>Ora Fine</label>
-        <select [(ngModel)]="OraFine" name="OraFine" required>
-=======
         <label>Ora Fine (obligatorio)</label>
         <select [(ngModel)]="OraFine" name="OraFine" [class.invalid]="!orafineFileTouched && !checkDateTimeValidity()" (focus)="orafineFileTouched = true" required>
->>>>>>> bb1a03a2c1c3b9e720e3dc00524d894c6bc9c6c6
           <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
         </select>
       </div>
     </div>
-
-<<<<<<< HEAD
-    <label>Note</label>
-=======
+ 
     <div *ngIf="checkDateTimeValidity()" class="errordate">
       Attenzione, la data di inizio assenza è successiva alla data della fine dell'assenza!
     </div>
-
+ 
     <label>Note (obligatorio)</label>
->>>>>>> bb1a03a2c1c3b9e720e3dc00524d894c6bc9c6c6
     <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
-
+ 
     <div class="uploadcontainer">
       <label>Upload File</label>
-      <input type="file" #myFile id="fileInput" (change)="uploadDoc()"> 
-    </div> 
-
+      <input type="file" #myFile id="fileInput" (change)="uploadDoc()">
+    </div>
+ 
     <div class="buttons">
-      <button type="submit" [class.disabled]="!checkFormValidity() || !checkDateTimeValidity()">Invia Richiesta</button>
+      <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
       <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
       <button type="button" (click)="chiudiForm()">Chiudi</button>
     </div>

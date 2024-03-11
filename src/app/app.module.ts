@@ -34,11 +34,8 @@ import { ResponseResetPasswordDialogComponent } from './ui/response-reset-passwo
 import { TestComponent } from './pages/rapportino/test/test.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import {MatIconModule} from '@angular/material/icon';
-<<<<<<< HEAD
 import { AggiungiOrdinarioComponent } from './pages/rapportino/aggiungi-ordinario/aggiungi-ordinario.component';
-=======
-import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
->>>>>>> b1202d2e871d85854ceaf850d41bb239cac6efea
+//import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
 
 
 @NgModule({
@@ -63,11 +60,8 @@ import { NewPasswordResponseDialogComponent } from './ui/new-password-response-d
     ResponseResetPasswordDialogComponent,
     TestComponent,
     ModificaPasswordComponent,
-<<<<<<< HEAD
     AggiungiOrdinarioComponent
-=======
-    NewPasswordResponseDialogComponent
->>>>>>> b1202d2e871d85854ceaf850d41bb239cac6efea
+    //NewPasswordResponseDialogComponent
   ],
   imports: [
     BrowserModule,
