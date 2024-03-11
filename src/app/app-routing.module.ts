@@ -8,6 +8,7 @@ import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-s
 import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
+import { authGuard } from './guard/auth.guard';
 // import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   }, 
   {
     path: "insertpersona", 
-    component:InsertPersonaComponent
+    component:InsertPersonaComponent,
+    canActivate: [authGuard]
   }, 
   {
     path: "login",
@@ -26,7 +28,8 @@ const routes: Routes = [
   },
   {
     path: "insertutente",
-    component: InsertUtenteComponent
+    component: InsertUtenteComponent,
+    canActivate: [authGuard]
   },
   {
     path: "homepage",
@@ -34,11 +37,13 @@ const routes: Routes = [
   },
   {
     path: "richiestaassenzasegreteria",
-    component:  RichiestaAssenzaSegreteriaComponent
+    component:  RichiestaAssenzaSegreteriaComponent,
+    canActivate: [authGuard]
   },
   {
     path: "richiestaassenzautente",
-    component:  RichiestaAssenzaUtenteComponent
+    component:  RichiestaAssenzaUtenteComponent,
+    canActivate: [authGuard]
   },
   {
     path: "",
@@ -47,12 +52,14 @@ const routes: Routes = [
 
   {
     path: "rapportino",
-    component: CalendarioComponent
+    component: CalendarioComponent,
+    canActivate: [authGuard]
   },
 
   {
     path: "modifica-password",
-    component: ModificaPasswordComponent
+    component: ModificaPasswordComponent,
+    canActivate: [authGuard]
   }
 ];
 

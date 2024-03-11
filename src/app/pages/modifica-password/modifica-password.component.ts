@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import ValidateForm from '../../helpers/validateform';
 
 @Component({
   selector: 'app-modifica-password',
