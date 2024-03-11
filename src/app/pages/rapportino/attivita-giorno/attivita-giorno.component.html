@@ -3,7 +3,7 @@
     <p mat-dialog-title>{{ giorno }}</p>
 <button (click)="test()"> test </button>
 
-    <!-- <p mat-dialog-title>{{ giorno | date:"EEEE dd  LLLL yyyy"}}</p> -->
+    <p mat-dialog-title>{{ giorno | date:"EEEE dd  LLLL yyyy"}}</p>
   </div>
 
   <mat-dialog-content>
@@ -13,7 +13,7 @@
         <mat-form-field>
           <mat-label> ora entrata </mat-label>
           <mat-select [(value)]="entrata">
-            <mat-option *ngFor="let orario of orari" [value]="orario">{{
+            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
                orario
              }}</mat-option>
           </mat-select>
@@ -23,8 +23,8 @@
         <label> Ora inizio pausa </label>
         <mat-form-field>
           <mat-label> ora inizio pausa </mat-label>
-          <mat-select [(value)]="inizioPausaa">
-            <mat-option *ngFor="let orario of orari" [value]="orario">{{
+          <mat-select [(value)]="inizioPausa">
+            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
                orario
              }}</mat-option>
           </mat-select>
@@ -35,8 +35,8 @@
         <label> Ora fine pausa </label>
         <mat-form-field>
           <mat-label> ora fine pausa </mat-label>
-          <mat-select [(value)]="finePausaa">
-            <mat-option *ngFor="let orario of orari" [value]="orario">{{
+          <mat-select [(value)]="finePausa">
+            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
                orario
              }}</mat-option>
           </mat-select>
@@ -48,7 +48,7 @@
         <mat-form-field>
           <mat-label> ora uscita </mat-label>
           <mat-select [(value)]="uscita">
-           <mat-option *ngFor="let orario of orari" [value]="orario">{{
+           <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
               orario
             }}</mat-option>
             
@@ -86,60 +86,11 @@
     <hr />
 
     <div *ngIf="showOrdinario">
-      <!-- <app-aggiungi-ordinario> </app-aggiungi-ordinario> -->
+      <app-aggiungi-ordinario> </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showReperibilita">
-    <div class="commessaRep">
-      <label>Commessa</label>
-          <mat-form-field>
-            <mat-label> commessa </mat-label>
-            <mat-select>
-              @for (commessa of commesse; track commessa) {
-              <mat-option [value]="commessa.value">{{
-                commessa.viewValue
-              }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-    </div>
     
-    <div class="inizioReperibilità">
-      <label> inizio reperibilità </label>
-          <mat-form-field>
-            <mat-label>inizio reperibilità</mat-label>
-            <mat-select>
-              @for (oraFinePausa of finePausa; track oraFinePausa) {
-              <mat-option [value]="oraFinePausa.valueOf">{{
-                oraFinePausa
-              }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-    </div>
-    
-    <div class="FineReperibilità">
-
-      <label> fine reperibilità </label>
-      <mat-form-field>
-        <mat-label>fine reperibilità</mat-label>
-        <mat-select>
-          @for (oraFinePausa of finePausa; track oraFinePausa) {
-          <mat-option [value]="oraFinePausa.valueOf">{{
-            oraFinePausa
-          }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-
-
-
-    </div>
-    
-    <button class="aggiungi2" mat-raised-button color="warn" type="button">
-      Aggiungi
-    </button>
-
     </div>
   </mat-dialog-content>
 </div>

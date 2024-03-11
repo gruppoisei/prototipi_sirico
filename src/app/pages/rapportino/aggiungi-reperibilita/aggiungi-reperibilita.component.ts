@@ -11,30 +11,18 @@ import {MatInputModule} from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { RapportinoService } from '../../../service/rapportino.service';
 
-
-
 @Component({
-  selector: 'app-aggiungi-ordinario',
-  templateUrl: './aggiungi-ordinario.component.html',
-  styleUrl: './aggiungi-ordinario.component.scss',
+  selector: 'app-aggiungi-reperibilita',
+  templateUrl: './aggiungi-reperibilita.component.html',
+  styleUrl: './aggiungi-reperibilita.component.scss',
   standalone:true,
-imports:[MatButtonModule,CommonModule,MatSlideToggle,MatCheckboxModule,MatFormFieldModule,MatInputModule,MatSelectModule,FormsModule, ReactiveFormsModule]
+  imports:[MatButtonModule,CommonModule,MatSlideToggle,MatCheckboxModule,MatFormFieldModule,MatInputModule,MatSelectModule,FormsModule, ReactiveFormsModule]
+
 })
-export class AggiungiOrdinarioComponent {
-
-  color: any;
-  checked: any;
-  disabled: any;
-
-  sede?:number
-  commessa?:number
-
-  
-
+export class AggiungiReperibilitaComponent {
 
   constructor(private rapportinoService:RapportinoService){
-
+    
   }
-
-
+  
 }

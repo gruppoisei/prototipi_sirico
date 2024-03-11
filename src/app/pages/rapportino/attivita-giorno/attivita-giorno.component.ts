@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
-// import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { GiornoDiLavoro } from '../../../dto/request/calendario';
 import { RapportinoService } from '../../../service/rapportino.service';
-import { AppModule } from '../../../app.module';
+import { AggiungiOrdinarioComponent } from "../aggiungi-ordinario/aggiungi-ordinario.component";
 
 
 
@@ -22,70 +22,55 @@ import { AppModule } from '../../../app.module';
     templateUrl: './attivita-giorno.component.html',
     styleUrl: './attivita-giorno.component.scss',
     standalone: true,
-    imports: [ AppModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule,]
+    imports: [CommonModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent]
 })
 export class AttivitaGiornoComponent {
+  entrata= "9:00";
+  inizioPausa= "12:00"
+  finePausa="13:00"
+  uscita="18:00"
+  showOrdinario= false;
+  showReperibilita= false;
 
-
-
-// giorno = new Date(this.rapportinoService.risposta.rapportino.dataRapportino!.getFullYear(),
-// this.rapportinoService.risposta.rapportino.dataRapportino!.getMonth(),
-// this.data.dataNumero)
 giorno = new Date()
 
 
-Commessa: any;
-Sede: any;
-oreOrd: any;
-oreStra: any;
-color: any;
-checked: any;
-disabled: any;
-oraEntrata: string="";
-oraUscita: string="";
-inizioPausa: string="";
-finePausa:string="";
 
+// Commessa: any;
+// Sede: any;
+// oreOrd: any;
+// oreStra: any;
+// color: any;
+// checked: any;
+// disabled: any;
+// oraEntrata: string="";
+// oraUscita: string="";
+// inizioPausa: string="";
+// finePausa:string="";
+// pickerFrom: any;
+// myDatePickerFrom: any;
 
-
-  selected!: FormControl<any>;
-  sedi: any[] = [
-    {value: '0', viewValue: 'smart-working'},
-    {value: '1', viewValue: 'Roma'},
-    {value: '2', viewValue: 'Milano'},
-  ]
-    commesse: any[] = [
-      {value: '0', viewValue: 'XXX'},
-      {value: '1', viewValue: 'YYY'},
-      {value: '2', viewValue: 'ZZZ'},
-    ]
-
-
-    orari: string[]= [
-      '9:00', '9:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'
-   ]
 
    
 
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {}
+    @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {
+    //   let datePipe = new DatePipe('en-US');
+    // const dateFormatted = datePipe.transform(this.rapportinoService.risposta.rapportino.dataRapportino!, 'full');
+    // console.log("provaaaaa " + dateFormatted)
+//       this.giorno = new Date(this.rapportinoService.risposta.rapportino.dataRapportino!.getFullYear(),
+// this.rapportinoService.risposta.rapportino.dataRapportino!.getMonth(),
+// this.data.dataNumero)
+    }
 
 
 MostraOrdinario() {
   this.showOrdinario= !this.showOrdinario 
   this.showReperibilita= false
-
-
 }
-  entrata= "9:00";
-  inizioPausaa= "12:00"
-  finePausaa="13:00"
-  uscita="18:00"
-  showOrdinario= false;
-  showReperibilita= false;
-pickerFrom: any;
-myDatePickerFrom: any;
+  
+
 
 
 AggiungiReperibilita(){
@@ -97,10 +82,7 @@ this.showOrdinario= false
     this.dialogRef.close();
   }
 
-test(){
 
-  console.log ("ora entrata:"+ this.entrata+ "inizio pausa:"+this.inizioPausaa+"finepausa:"+this.finePausaa+"ora uscita:"+this.uscita)
-}
 
 
 }
