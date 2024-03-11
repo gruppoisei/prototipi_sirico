@@ -109,7 +109,11 @@ export class RichiestaAssenzaUtenteComponent {
   }
   
   chiudiForm() {
+<<<<<<< HEAD
     console.log('Chiusura della finestra');
+=======
+    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
+>>>>>>> bb1a03a2c1c3b9e720e3dc00524d894c6bc9c6c6
     this.router.navigate(['/homepage']);
   }
 
