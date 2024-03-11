@@ -21,7 +21,12 @@ import { RapportinoService } from '../../../service/rapportino.service';
 })
 export class AggiungiReperibilitaComponent {
 
-  constructor(private rapportinoService:RapportinoService){
+  inizioReperibilita?: string
+  fineReperibilita?: string 
+  commessa?: number
+
+
+  constructor(public  rapportinoService:RapportinoService){
     
   }
   

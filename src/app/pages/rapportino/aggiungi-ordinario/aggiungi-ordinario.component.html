@@ -1,14 +1,13 @@
-<!-- <div class="datadiv">
+<div class="datadiv">
     <div class="c">
       <label>Commessa</label>
       <mat-form-field>
         <mat-label> commessa </mat-label>
-        <mat-select>
-          @for (commessa of commesse; track commessa) {
-          <mat-option [value]="commessa.value">{{
+        <mat-select [(value)]="commessa">
+          <mat-option *ngFor="let commessa of rapportinoService.commesse" [value]="commessa.value">{{
             commessa.viewValue
           }}</mat-option>
-          }
+          
         </mat-select>
       </mat-form-field>
     </div>
@@ -17,24 +16,45 @@
       <label>sedi</label>
       <mat-form-field>
         <mat-label>sedi</mat-label>
-        <mat-select>
-          @for (sede of sedi; track sede) {
-          <mat-option [value]="sede.value">{{ sede.viewValue }}</mat-option>
-          }
+        <mat-select [(value)]="sede">
+          <mat-option *ngFor="let sede of rapportinoService.sedi" [value]="sede.value">{{
+            sede.viewValue }} </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
 
-    <div class="OO">
-      <label> ore ordinarie </label>
-      <input type="number">
-    </div>
 
-    <div class="OS">
-      <label> ore straordinarie </label>
-      <input type="number">
+
     </div>
+    <div>
+    <mat-form-field class="oreOrd">
+      <mat-label>ore ordinarie</mat-label>
+      <input matInput type="number" [(ngModel)]="oreOrd">
+      @if (oreOrd >0) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="oreOrd= 0 ">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
   </div>
+
+  <div>
+    <mat-form-field class="oreStra">
+      <mat-label>ore straordinarie</mat-label>
+      <input matInput type="number" [(ngModel)]="oreStra">
+      @if (oreStra >0) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="oreStra= 0 ">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+  </div>
+
+
+</div>
+
+
+
+
 
   <section class="example-section">
     <mat-slide-toggle
@@ -49,4 +69,4 @@
 
   <button class="aggiungi" mat-raised-button color="primary" type="button">
     Aggiungi
-  </button> -->
+  </button>

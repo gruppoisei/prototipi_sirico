@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { GiornoDiLavoro } from '../../../dto/request/calendario';
 import { RapportinoService } from '../../../service/rapportino.service';
 import { AggiungiOrdinarioComponent } from "../aggiungi-ordinario/aggiungi-ordinario.component";
+import { AggiungiReperibilitaComponent } from "../aggiungi-reperibilita/aggiungi-reperibilita.component";
 
 
 
@@ -22,7 +23,7 @@ import { AggiungiOrdinarioComponent } from "../aggiungi-ordinario/aggiungi-ordin
     templateUrl: './attivita-giorno.component.html',
     styleUrl: './attivita-giorno.component.scss',
     standalone: true,
-    imports: [CommonModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent]
+    imports: [CommonModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent, AggiungiReperibilitaComponent]
 })
 export class AttivitaGiornoComponent {
   entrata= "9:00";
