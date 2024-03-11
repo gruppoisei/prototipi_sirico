@@ -44,7 +44,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let id of output_getall">
-                 <h2>{{ id.flagAttivo }} {{ id.approvazione }} {{ (id.FlagAttivo === true && id.Approvazione === false ) }}</h2>
+                 <h2>{{ id.flagAttivo }} {{ id.approvazione }} {{ ((id.FlagAttivo === true) && (id.Approvazione === false)) }}</h2>
                 <!-- <div *ngIf="id.FlagAttivo === true && id.Approvazione === false">  -->
 
                     <td>{{ id.dataOraFineAssenza }}</td>
