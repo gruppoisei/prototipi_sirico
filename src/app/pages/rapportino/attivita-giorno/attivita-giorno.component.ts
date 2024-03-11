@@ -32,6 +32,8 @@ export class AttivitaGiornoComponent {
   uscita="18:00"
   showOrdinario= false;
   showReperibilita= false;
+  
+
 
 giorno = new Date()
 
@@ -66,8 +68,14 @@ this.showOrdinario= false
     this.dialogRef.close();
   }
 
+Conferma(){
+  
+}
 
 
+Annulla(){
+
+}
 
 }
 
