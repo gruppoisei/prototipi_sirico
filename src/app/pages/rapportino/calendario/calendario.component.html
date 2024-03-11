@@ -34,7 +34,8 @@
         
         <div *ngFor=" let test of giorniMesePassato " class="cubo cuboLast p-2">{{test}}</div>
         
-        <div *ngFor=" let test of rapportinoService.risposta.listaGiorniLavoroMese; index as i " class="cubo cubocURRENT p-2"><app-giorno-calendario [giorno]="rapportinoService.risposta.listaGiorniLavoroMese[i]"/></div>
+        <div *ngFor=" let test of rapportinoService.risposta.listaGiorniLavoroMese; index as i " class="cubo cubocURRENT p-2">
+            <app-giorno-calendario [giorno]="rapportinoService.risposta.listaGiorniLavoroMese[i]"/></div>
         
         <div *ngFor=" let test of giorniMeseSeguente " class="cubo cuboNext p-2">{{test}}</div>
         

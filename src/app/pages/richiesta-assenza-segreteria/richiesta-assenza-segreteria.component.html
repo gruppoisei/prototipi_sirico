@@ -31,26 +31,34 @@
                   <th>Data e ora inizio: </th>
                   <th>Data e ora fine: </th>
                   <th>Richiedente</th>
-                  <!-- <th>RichiedenteID</th> -->
-                  <th>Responsabile associato</th>
-                  <th>Note</th>
-                  <th>RichiestaID</th>
+                  <th>____________Note____________</th>
+                  <th>Richiesta per:</th>
+                  <th>Id:</th>
                   <th>Approvazione</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let id of output_getall">
-                  <td>{{ id.riasDataorainizioassenza }}</td>
-                  <td>{{ id.riasDataorafineassenza }}</td>
-                  <!-- <td>{{ id.riasFkPersona }}</td> -->
-                  <td>{{ id.riasFkPersonaid }}</td>
-                  <td>{{ id.riasFkResponsabileidApprovazione }}</td>
-                  <td>{{ id.riasNote }}</td>
-                  <td>{{ id.riasRichiestaassenzaid }}</td>              
-                  <div>
-                    <button *ngIf="!id.riasApprovato" (click)="approvaRichiesta(id.riasRichiestaassenzaid, motivazione)">Modifica</button>
-                    <span *ngIf="id.riasApprovato">Approvato!</span>
-                  </div>
+                  <td>{{ id.dataOraFineAssenza }}</td>
+                  <td>{{ id.dataOraInizioAssenza }}</td>
+                  <td>{{ id.nomePersona }}</td>
+                  <td>{{ id.note }}</td>
+                  <td>{{ id.tipoRichiesta }}</td>  
+                  <td>{{ id.idRichiesta }}</td>  
+                  <td>        
+                    <div>
+                        <button *ngIf="!id.riasApprovato" (click)="mostraModalApprovazione(id.idRichiesta)" >Modifica</button>
+                      <ng-template #approvalModal let-modal class="modal-container">
+                      <h1>Approvare o rifiutare richiesta</h1>
+                      <p>Inserisci la motivazione:</p>
+                      <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
+                      <button (click)="approvaRichiesta()">Approva</button>
+                      <button (click)="rifiutaRichiesta()">Rifiuta</button>
+                    </ng-template>
+                    <div class="container">
+                    </div>
+                    </div> 
+                  </td>
                 </tr>
               </tbody>
             </table>

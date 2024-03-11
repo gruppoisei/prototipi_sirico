@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { RichiestaAutorizzazioneService } from '../../service/richiesta-autorizzazione.service';
-
-
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-richiesta-assenza-segreteria',
@@ -18,35 +17,55 @@ export class RichiestaAssenzaSegreteriaComponent {
   richieste: any[] = [];
   output_getall : any;
   motivazione: string = '';
+  @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
 
-  constructor(private richiestaAutorizzazioneService: RichiestaAutorizzazioneService) {}
+  constructor(private richiestaAutorizzazioneService: RichiestaAutorizzazioneService, private dialog: MatDialog) {}
 
   expandSection(section: string) {
     console.log(section);
     this.expandedSection = section;
-    //console.log(expandSection);
   }
 
-  approvaRichiesta(id: any, motivazione: string) {
-    console.log(id);
-    
+  mostraModalApprovazione(id: any): void {
+    this.idRichiesta = id;
+    console.log("lavoro su richiesta " + id);
+    this.dialog.open(this.approvalModal);
+  }
 
+  chiudiModal(): void {
+    this.dialog.closeAll();
+  }
 
+  approvaRichiesta() {
+    console.log("approvo richiesta " + this.idRichiesta);
+    this.richiestaAutorizzazioneService.addApprovazione(this.idRichiesta, true, '').subscribe(
+      (response) => {
+        this.getAllStessoResponsabile(this.userName);
+        this.chiudiModal();
+      },
+      (error) => {
+        console.error('Errore durante l\'approvazione della richiesta:', error);
+        this.chiudiModal();
+      }
+    );
+  }
 
-
-    
-    if (confirm('Approvare la richiesta di Assenza?')){
-      this.richiestaAutorizzazioneService.addApprovazione(id, true, '').subscribe(
-        (response) => {
-          alert('Richiesta numero ' + id + ' approvata con successo. ' + response);
-        },
-        (error) => {
-          alert('Errore durante l\'approvazione della richiesta: ' + error);
-        });
-    } else {
-      //chiedere stringa motivazione
-      this.richiestaAutorizzazioneService.addApprovazione(id, false, motivazione);
+  rifiutaRichiesta() {
+    if (!this.motivazione) {
+      alert('Inserisci una motivazione per il rifiuto.');
+      return;
     }
+
+    this.richiestaAutorizzazioneService.addApprovazione(this.idRichiesta, false, this.motivazione).subscribe(
+      (response) => {
+        this.getAllStessoResponsabile(this.userName);
+        this.chiudiModal();
+      },
+      (error) => {
+        console.error('Errore durante il rifiuto della richiesta:', error);
+        this.chiudiModal();
+      }
+    );
   }
 
   getByRichiestaId(idRichiesta: any) {
