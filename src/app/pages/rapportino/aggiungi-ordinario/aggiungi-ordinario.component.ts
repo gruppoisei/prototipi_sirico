@@ -10,6 +10,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { RapportinoService } from '../../../service/rapportino.service';
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 
@@ -18,7 +20,7 @@ import { RapportinoService } from '../../../service/rapportino.service';
   templateUrl: './aggiungi-ordinario.component.html',
   styleUrl: './aggiungi-ordinario.component.scss',
   standalone:true,
-imports:[MatButtonModule,CommonModule,MatSlideToggle,MatCheckboxModule,MatFormFieldModule,MatInputModule,MatSelectModule,FormsModule, ReactiveFormsModule]
+imports:[MatButtonModule,CommonModule,MatSlideToggle,MatCheckboxModule,MatFormFieldModule,MatInputModule,MatSelectModule,FormsModule, ReactiveFormsModule,MatIconModule]
 })
 export class AggiungiOrdinarioComponent {
 
@@ -28,11 +30,11 @@ export class AggiungiOrdinarioComponent {
 
   sede?:number
   commessa?:number
+  oreOrd= 0
+  oreStra= 0
 
-  
 
-
-  constructor(private rapportinoService:RapportinoService){
+  constructor(public rapportinoService:RapportinoService){
 
   }
 

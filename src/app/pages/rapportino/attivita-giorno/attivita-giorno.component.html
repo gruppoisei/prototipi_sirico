@@ -79,16 +79,19 @@
         type="button"
         (click)="AggiungiReperibilita()"
       >
-        Aggiungi Reperibilità
+      Aggiungi Reperibilità
       </button>
     </div>
     <hr />
+
+
 
     <div *ngIf="showOrdinario">
       <app-aggiungi-ordinario> </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showReperibilita">
+    <app-aggiungi-reperibilita></app-aggiungi-reperibilita>
     
     </div>
   </mat-dialog-content>

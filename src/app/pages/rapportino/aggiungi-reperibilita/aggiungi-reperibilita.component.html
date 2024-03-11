@@ -1,46 +1,41 @@
-<!-- <div class="commessaRep">
+<div class="commessaRep">
     <label>Commessa</label>
-        <mat-form-field>
-          <mat-label> commessa </mat-label>
-          <mat-select>
-            @for (commessa of commesse; track commessa) {
-            <mat-option [value]="commessa.value">{{
-              commessa.viewValue
-            }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+    <mat-form-field>
+      <mat-label> commessa </mat-label>
+      <mat-select [(value)]="commessa">
+        <mat-option *ngFor="let commessa of rapportinoService.commesse" [value]="commessa.value">{{
+          commessa.viewValue
+        }}</mat-option>
+        
+      </mat-select>
+    </mat-form-field>
   </div>
   
   <div class="inizioReperibilità">
     <label> inizio reperibilità </label>
-        <mat-form-field>
-          <mat-label>inizio reperibilità</mat-label>
-          <mat-select>
-            @for (ora of inizioPause; track oraFinePausa) {
-            <mat-option [value]="oraFinePausa.valueOf">{{
-              oraFinePausa
-            }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+    <mat-form-field>
+      <mat-label> ora inizio reperibilità</mat-label>
+      <mat-select [(value)]="inizioReperibilita">
+        <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
+           orario
+         }}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   
   <div class="FineReperibilità">
 
     <label> fine reperibilità </label>
     <mat-form-field>
-      <mat-label>fine reperibilità</mat-label>
-      <mat-select>
-        @for (ora of finePausa; track oraFinePausa) {
-        <mat-option [value]="oraFinePausa.valueOf">{{
-          oraFinePausa
-        }}</mat-option>
-        }
+      <mat-label> ora fine reperibilità</mat-label>
+      <mat-select [(value)]="fineReperibilita">
+        <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
+           orario
+         }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   
   <button class="aggiungi2" mat-raised-button color="warn" type="button">
     Aggiungi
-  </button> -->
+  </button>
