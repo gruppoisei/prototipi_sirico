@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Arraygiorni, GiornoLavorativo } from '../../../dto/response/giorno-lavorativo';
 import { RapportinoService } from '../../../service/rapportino.service';
 
 @Component({

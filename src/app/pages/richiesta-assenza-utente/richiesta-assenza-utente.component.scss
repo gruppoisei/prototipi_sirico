@@ -30,24 +30,6 @@
       box-sizing: border-box;
     }
 
-     input[type="date"].invalid, 
-    select[type="time"].invalid {
-      border: 1px solid red;
-    }
-
-    .errordate {
-      text-align: center;
-      color: red;
-      font-size: 21px;
-    }
-/*     select {
-      border: 1px solid #ccc;
-      border-radius:5px;
-    }
-    select:invalid{
-      border-color: red;
-    } */
-
     .row {
       display: flex;
 

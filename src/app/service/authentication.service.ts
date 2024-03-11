@@ -1,4 +1,4 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
@@ -29,7 +29,7 @@ export class AuthenticationService {
     );
   }
 
-  resetPasswordReset(username:string) : Observable<any>
+  resetPasswordReset(username:string)
   {
     return this.http.post<any>(`${this.baseUrl}ResetPasswordUtente/${username}`,{} )
   }

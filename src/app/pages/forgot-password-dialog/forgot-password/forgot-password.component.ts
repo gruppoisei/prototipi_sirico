@@ -33,6 +33,7 @@ export class ForgotPasswordComponent implements OnInit{
 {
   if(this.resetPasswordControl.valid)
   {
+    debugger
     const username = this.resetPasswordControl.get('username')?.value
     this.reset.resetPasswordReset(username)
     .subscribe(
@@ -48,6 +49,7 @@ export class ForgotPasswordComponent implements OnInit{
         },
         error:(err)=>
         {
+          debugger
           this.dialog.open(ErrorLoginDialogComponent,
             {
               data: {errorMessage : err?.error.message},

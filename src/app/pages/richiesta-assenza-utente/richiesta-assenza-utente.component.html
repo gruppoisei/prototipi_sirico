@@ -5,7 +5,7 @@
     <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
       <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
     </select>
-
+ 
     <div class="row">
       <div class="column">
         <label>Dal giorno:  (obligatorio)</label>
@@ -16,7 +16,7 @@
         <input type="date" [(ngModel)]="DataFine" name="Datafine" [class.invalid]="checkDateTimeValidity()" (focus)="datefineFileTouched = true" required>
       </div>
     </div>
-
+ 
     <div class="row">
       <div class="column">
         <label>Ora Inizio (obligatorio)</label>
@@ -31,19 +31,19 @@
         </select>
       </div>
     </div>
-
+ 
     <div *ngIf="checkDateTimeValidity()" class="errordate">
       Attenzione, la data di inizio assenza è successiva alla data della fine dell'assenza!
     </div>
-
+ 
     <label>Note (obligatorio)</label>
     <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
-
+ 
     <div class="uploadcontainer">
       <label>Upload File</label>
-      <input type="file" #myFile id="fileInput" (change)="uploadDoc()"> 
-    </div> 
-
+      <input type="file" #myFile id="fileInput" (change)="uploadDoc()">
+    </div>
+ 
     <div class="buttons">
       <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
       <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
