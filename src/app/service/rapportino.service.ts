@@ -3,24 +3,15 @@ import { Injectable } from '@angular/core';
 import { AttivitaGiorno, CalendarioRequest, GiornoDiLavoro } from '../dto/request/calendario';
 import { DatePipe } from '@angular/common';
 import { tap } from 'rxjs';
+import { InfoPersona } from '../dto/request/InfoPersona';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RapportinoService {
+  infoPersona!:InfoPersona
   
-  
-  
-  sedi: any[] = [
-    {value: '0', viewValue: 'smart-working'},
-    {value: '1', viewValue: 'Roma'},
-    {value: '2', viewValue: 'Milano'},
-  ]
-    commesse: any[] = [
-      {value: '0', viewValue: 'XXX'},
-      {value: '1', viewValue: 'YYY'},
-      {value: '2', viewValue: 'ZZZ'},
-    ]
+
 
 
     orari: string[]= [
@@ -34,6 +25,7 @@ export class RapportinoService {
 
   constructor(private http:HttpClient) {
     // this.AggiornaGiorniMese(new Date())
+    this.RaccogliInfoPersona()
 
    }
 
@@ -58,5 +50,14 @@ export class RapportinoService {
       
     )
 
+   }
+
+
+   RaccogliInfoPersona()
+   {
+    this.http.get<InfoPersona>("http://localhost:5143/Vistamese/InfoPersonaSedeAttivita?personaId=1").subscribe(
+        res => this.infoPersona = res
+      )
+  
    }
 }
