@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit{
 
 
   loginForm !: FormGroup
-
+  isAuthenticated : boolean = false
   constructor(public dialog: MatDialog, private auth: AuthenticationService, private router: Router, private fb : FormBuilder) { }
 
 
@@ -29,14 +29,12 @@ export class LoginComponent implements OnInit{
       username : ['',Validators.required],
       password : ['',Validators.required]
     })
-
      }
 
 
   doLogin() {
     if(this.loginForm.valid)
     {
-      debugger
       this.auth.login(this.loginForm.value)
       .subscribe({
         next:(res) =>
@@ -44,7 +42,7 @@ export class LoginComponent implements OnInit{
           const flagPassword = res;
           if(flagPassword == 0)
           {
-            this.dialog.open(ModificaPasswordComponent)
+            this.router.navigate(["modifica-password"])
           }
           else
           {
