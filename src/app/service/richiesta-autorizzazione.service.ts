@@ -17,17 +17,16 @@ export class RichiestaAutorizzazioneService {
   richiesta: Richiesta[] = [];
   constructor(private Http: HttpClient) {}
 
-  // INSERIMENTO RICHIESTA ASSENZA
   addRichiesta(richiesta: Richiesta): Observable<any> {
     return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, JSON.stringify(richiesta), this.httpOptions);
   }
 
-  // INSERIMENTO TIPO RICHIESTA
+  addApprovazione(idRichiesta: number, risposta: boolean, motivazione: string): Observable<any> {
+    return this.Http.post<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}`, { risposta, motivazione } , this.httpOptions);
+  }
+  
   addTipo(tipo: Richiesta): Observable<Richiesta> {
-    console.log(tipo);
     var body = JSON.stringify(tipo);
-    console.log(body);
-
     return this.Http.post<Richiesta>(
       `${this.apiUrl}/TipoRichiestaAssenza`,
       body,
@@ -35,31 +34,14 @@ export class RichiestaAutorizzazioneService {
     );
   }
 
-  // INSERIMENTO APPROVAZIONE RICHIESTA
-  addApprovazione(idRichiesta: number, risosta: boolean): Observable<any> {
-    console.log(risosta);
-    var body = JSON.stringify(risosta);
-    console.log(body);
-
-    return this.Http.post<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}`, body, this.httpOptions );
-  }
-
-  //GET ALL TIPI RICHIESTE PER STAMPARLI
   getAllTipoRichiesta(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetAllTipiRichiesta`);
   }
 
-  // GET ALL RICHIESTE ASSENZE (TUTTI GLI UTENTI, PUò ESSERE USATO DA SEGRETERIA)
-  GetAll(): Observable<Richiesta> {
-    return this.Http.get<Richiesta>(`${this.apiUrl}/GetAll`);
-  }
-
-  // GET RICHIESTE BY ID RICHIESTA
   GetByIdRichiesta(idRichiesta: any): Observable<Richiesta> {
     return this.Http.get<Richiesta>(`${this.apiUrl}/GetByRichiestaId/${idRichiesta}`);
   }
 
-  // GET RICHIESTE BY ID PERSONA
   GetByIdResponsabile(idPersona: any): Observable<Richiesta> {
     return this.Http.get<Richiesta>(`${this.apiUrl}/GetResponsabileId/${idPersona}`);
   }
@@ -67,20 +49,8 @@ export class RichiestaAutorizzazioneService {
   GetResponsabileId(SysUser: any): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetResponsabileId/${SysUser}`);
   }
-}
 
- 
-/* export interface RichiestaEntity {
-  RiasRichiestaassenzaid: number;
-  RiasFkPersonaid: number;
-  RiasFkTiporichiesta: number;
-  RiasFkResponsabileidApprovazione: number;
-  RiasApprovato: boolean;
-  RiasDataorainizioassenza: string;
-  RiasDataorafineassenza: string;
-  RiasNote: string;
-  RiasSysuser: string;
-  RiasSysdate: string;
-  RiasFlagattivo: boolean;
-  AndpDocumentipersonas: string;
-}  */
+  GetAllStessoResponsabile(userName: string): Observable<any> {
+    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${userName}`);
+  }
+}

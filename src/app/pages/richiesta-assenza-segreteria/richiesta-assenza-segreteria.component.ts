@@ -1,17 +1,23 @@
 import { Component } from '@angular/core';
 import { RichiestaAutorizzazioneService } from '../../service/richiesta-autorizzazione.service';
 
+
+
 @Component({
   selector: 'app-richiesta-assenza-segreteria',
   templateUrl: './richiesta-assenza-segreteria.component.html',
   styleUrl: './richiesta-assenza-segreteria.component.scss',
+  
 })
 export class RichiestaAssenzaSegreteriaComponent {
   
   idRichiesta: any;
   idPersona: any;
+  userName: any;
   expandedSection: string = '';
   richieste: any[] = [];
+  output_getall : any;
+  motivazione: string = '';
 
   constructor(private richiestaAutorizzazioneService: RichiestaAutorizzazioneService) {}
 
@@ -21,8 +27,26 @@ export class RichiestaAssenzaSegreteriaComponent {
     //console.log(expandSection);
   }
 
-  approvaRichiesta() {
-    console.log('Approva Richiesta con id Richiesta = ' + this.idRichiesta);
+  approvaRichiesta(id: any, motivazione: string) {
+    console.log(id);
+    
+
+
+
+
+    
+    if (confirm('Approvare la richiesta di Assenza?')){
+      this.richiestaAutorizzazioneService.addApprovazione(id, true, '').subscribe(
+        (response) => {
+          alert('Richiesta numero ' + id + ' approvata con successo. ' + response);
+        },
+        (error) => {
+          alert('Errore durante l\'approvazione della richiesta: ' + error);
+        });
+    } else {
+      //chiedere stringa motivazione
+      this.richiestaAutorizzazioneService.addApprovazione(id, false, motivazione);
+    }
   }
 
   getByRichiestaId(idRichiesta: any) {
@@ -52,8 +76,10 @@ export class RichiestaAssenzaSegreteriaComponent {
     );
   }
 
-   getall() {
-  //   console.log('Stampa Tutte le Richieste');
-  //   this.richieste = this.richiestaAutorizzazioneService.GetAll().subscribe(res => this.richieste);
-   }
+  getAllStessoResponsabile(userName: string) {
+    this.richiestaAutorizzazioneService.GetAllStessoResponsabile(userName).subscribe(res => {
+      this.output_getall = res;
+      console.log(this.output_getall);
+    })
+  }
 }
