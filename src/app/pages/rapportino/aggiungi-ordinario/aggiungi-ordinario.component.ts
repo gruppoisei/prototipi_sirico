@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { RapportinoService } from '../../../service/rapportino.service';
 import {MatIconModule} from '@angular/material/icon';
+import { AttivitaGiorno } from '../../../dto/response/AttivitaGiorno';
 
 
 
@@ -43,9 +44,15 @@ export class AggiungiOrdinarioComponent {
   }
 
   Qualcosa(){
+    let attivitaDaAggiungere:AttivitaGiorno = {
+      giornoLavorativoId: this.giornoLavorativoId,
+      attivitaPersonaId:1,
+      sedeLavoroPersonaId:this.sede!,
+      oreLavorate:this.oreOrd,
+      orestraordinario:this.oreStra!,
+    }
 
-
-
+      this.rapportinoService.AggiungiAttivitaGiorno(attivitaDaAggiungere)
   }
 
 }
