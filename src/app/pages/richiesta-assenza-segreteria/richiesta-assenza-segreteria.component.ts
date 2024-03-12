@@ -23,6 +23,7 @@ export class RichiestaAssenzaSegreteriaComponent {
   hidemotivazione: boolean = true;
   motivazione: string = '';
   selezione: number = 0;
+  editable: number = 0;   // quando è 1 l'elemento è approvabile, quando è 2 è rifiutabile, quando è 3 entrambe
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
 
   constructor(
@@ -40,15 +41,14 @@ export class RichiestaAssenzaSegreteriaComponent {
     this.expandedSection = section;
   } */
 
-  mostraModalApprovazione(id: any): void {
+  mostraModalApprovazione(id: any, numero:number): void {
     this.idRichiesta = id;
-    this.dialog.open(this.approvalModal);
+    this.editable = numero;
     console.log('lavoro su richiesta ' + id);
     this.dialog.open(this.approvalModal, {      
       //panelClass: 'custom-modalbox'
       width: '60vw',
       height: '60vh'
-
     })
   }
 

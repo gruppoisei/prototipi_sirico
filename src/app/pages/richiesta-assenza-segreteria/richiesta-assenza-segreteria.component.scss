@@ -84,7 +84,7 @@ table {
     margin: 0 auto;
     align-items: center; 
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px; 
   }
 
   .button {
@@ -99,7 +99,23 @@ table {
     transition: background-color 0.3s ease;
     justify-content: center;
     margin: 0 auto;
-    align-items: center; 
+    align-items: center;
+  }
+
+  .button-modal {
+    padding: 20px 10px;
+    width: 200px;
+    height: 75px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    margin-bottom: 30px; 
   }
 
   .modal-input{
@@ -115,6 +131,7 @@ table {
     justify-content: center;
     margin: 0 auto;
     align-items: center; 
+    color: black;
   }
 
   td button:hover {
