@@ -10,6 +10,7 @@ import { CalendarioComponent } from './pages/rapportino/calendario/calendario.co
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import { authGuard } from './guard/auth.guard';
 // import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
+import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,11 @@ const routes: Routes = [
   {
     path: "modifica-password",
     component: ModificaPasswordComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "gestione-dipendente",
+    component: GestioneDipendenteComponent,
     canActivate: [authGuard]
   }
 ];
