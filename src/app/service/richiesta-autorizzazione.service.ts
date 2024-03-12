@@ -21,8 +21,9 @@ export class RichiestaAutorizzazioneService {
     return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, JSON.stringify(richiesta), this.httpOptions);
   }
 
-  addApprovazione(idRichiesta: number, risposta: boolean, motivazione: string): Observable<any> {
-    return this.Http.post<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}`, { risposta, motivazione } , this.httpOptions);
+  addApprovazione(idRichiesta: number, approvazione: boolean, motivazione: string): Observable<any> {
+    console.log('approvo richiesta ' + idRichiesta + approvazione );
+    return this.Http.get<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}?approvazione=${approvazione}`);
   }
   
   addTipo(tipo: Richiesta): Observable<Richiesta> {
@@ -38,19 +39,18 @@ export class RichiestaAutorizzazioneService {
     return this.Http.get<any>(`${this.apiUrl}/GetAllTipiRichiesta`);
   }
 
-  GetByIdRichiesta(idRichiesta: any): Observable<Richiesta> {
+ /*  GetByIdRichiesta(idRichiesta: any): Observable<Richiesta> {
     return this.Http.get<Richiesta>(`${this.apiUrl}/GetByRichiestaId/${idRichiesta}`);
   }
 
   GetByIdResponsabile(idPersona: any): Observable<Richiesta> {
     return this.Http.get<Richiesta>(`${this.apiUrl}/GetResponsabileId/${idPersona}`);
-  }
-
+  } 
   GetResponsabileId(SysUser: any): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetResponsabileId/${SysUser}`);
-  }
+  } */
 
-  GetAllStessoResponsabile(userName: string): Observable<any> {
-    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${userName}`);
+  GetByUserEScelta(userName: string, selezione: number): Observable<any> {
+    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${userName}?selezione=${selezione}`);
   }
 }
