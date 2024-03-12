@@ -73,8 +73,7 @@ Annulla(){
 }
 
 EliminaAttivita(attivitaId:number){
-  console.log(attivitaId)
-    this.rapportinoService.EliminaAttivita(attivitaId)
+    this.rapportinoService.EliminaAttivita(attivitaId,this.giornoLavorativoId)
 }
 
 

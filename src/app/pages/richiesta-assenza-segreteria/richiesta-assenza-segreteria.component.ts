@@ -27,7 +27,7 @@ export class RichiestaAssenzaSegreteriaComponent {
   constructor(
     private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   salvaUsername(nome: string) {
     this.userName = nome;
@@ -41,8 +41,14 @@ export class RichiestaAssenzaSegreteriaComponent {
 
   mostraModalApprovazione(id: any): void {
     this.idRichiesta = id;
-    console.log('lavoro su richiesta ' + id);
     this.dialog.open(this.approvalModal);
+    console.log('lavoro su richiesta ' + id);
+    this.dialog.open(this.approvalModal, {      
+      //panelClass: 'custom-modalbox'
+      height: '350px',
+      width: '500px'
+
+    })
   }
 
   chiudiModal(): void {
@@ -56,13 +62,11 @@ export class RichiestaAssenzaSegreteriaComponent {
       .subscribe(
         (response) => {
           this.getAllStessoResponsabile(this.userName, this.selezione);
-          console.log(response);
           this.chiudiModal();
         },
         (error) => {
-          console.error(
-            "Errore durante l'approvazione della richiesta:",
-            error
+          alert(
+            "Errore durante l'approvazione della richiesta:" + error
           );
           this.chiudiModal();
         }
@@ -121,27 +125,7 @@ export class RichiestaAssenzaSegreteriaComponent {
   }
 
   cerca() {
-    console.log(
-      'ricerca per username ' + this.selezione + ' e criterio ' + this.userName
-    );
-    switch (this.selezione) {
-      case 1: { //da modificare
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-      case 2: { //approvate
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-      case 3: {   //rifiutate
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-      default: {  //stampa tutto
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-    }
+    this.getAllStessoResponsabile(this.userName, this.selezione);
   }
 
   getAllStessoResponsabile(userName: string, selezione: number) {
