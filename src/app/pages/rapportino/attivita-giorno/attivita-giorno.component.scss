@@ -35,3 +35,22 @@
     display: flex;
     align-content: center;
 }
+
+.MostraAttivita{
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    
+}
+
+
+.attivita{
+    display: flex;
+    flex-direction: row;
+    margin: 12px;
+    padding: 12px;
+    
+    background-color: rgb(230, 221, 221);
+    border: 2px;
+    align-content: flex-start
+}

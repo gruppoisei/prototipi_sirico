@@ -9,7 +9,7 @@ import { GiornoDiLavoro } from '../../../dto/request/calendario';
   templateUrl: './giorno-calendario.component.html',
   styleUrl: './giorno-calendario.component.scss',
   
-
+  
 })
 export class GiornoCalendarioComponent {
 

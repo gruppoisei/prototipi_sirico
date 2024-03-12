@@ -46,10 +46,10 @@ export class AggiungiOrdinarioComponent {
   Qualcosa(){
     let attivitaDaAggiungere:AttivitaGiorno = {
       giornoLavorativoId: this.giornoLavorativoId,
-      attivitaPersonaId:1,
+      attivitaPersonaId:this.commessa!,
       sedeLavoroPersonaId:this.sede!,
       oreLavorate:this.oreOrd,
-      orestraordinario:this.oreStra!,
+      oreStraordinario:this.oreStra!,
     }
 
       this.rapportinoService.AggiungiAttivitaGiorno(attivitaDaAggiungere)

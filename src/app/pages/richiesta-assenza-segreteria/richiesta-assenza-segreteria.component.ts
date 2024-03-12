@@ -27,7 +27,7 @@ export class RichiestaAssenzaSegreteriaComponent {
   constructor(
     private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   salvaUsername(nome: string) {
     this.userName = nome;
@@ -42,6 +42,13 @@ export class RichiestaAssenzaSegreteriaComponent {
   mostraModalApprovazione(id: any): void {
     this.idRichiesta = id;
     this.dialog.open(this.approvalModal);
+    console.log('lavoro su richiesta ' + id);
+    this.dialog.open(this.approvalModal, {      
+      //panelClass: 'custom-modalbox'
+      height: '350px',
+      width: '500px'
+
+    })
   }
 
   chiudiModal(): void {
