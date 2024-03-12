@@ -68,4 +68,12 @@ export class RapportinoService {
         res => {alert ("attività eliminata"); console.log(res)}
     )
    }
+
+   EliminaGiorno(giornoId: number){
+      this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaGiorno", giornoId).subscribe(
+        res => { alert ("gioirno eliminato"); console.log(res)}
+      )
+   }
+   
+
 }
