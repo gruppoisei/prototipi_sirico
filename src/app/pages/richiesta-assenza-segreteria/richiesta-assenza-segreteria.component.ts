@@ -20,6 +20,7 @@ export class RichiestaAssenzaSegreteriaComponent {
   //richiestefiltrate: any;
   //arrayvuoto: any;
   output_getall: any;
+  hidemotivazione: boolean = true;
   motivazione: string = '';
   selezione: number = 0;
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
@@ -45,13 +46,15 @@ export class RichiestaAssenzaSegreteriaComponent {
     console.log('lavoro su richiesta ' + id);
     this.dialog.open(this.approvalModal, {      
       //panelClass: 'custom-modalbox'
-      height: '350px',
-      width: '500px'
+      width: '60vw',
+      height: '60vh'
 
     })
   }
 
   chiudiModal(): void {
+    this.motivazione = '';
+    this.hidemotivazione = true;
     this.dialog.closeAll();
   }
 
@@ -71,6 +74,10 @@ export class RichiestaAssenzaSegreteriaComponent {
           this.chiudiModal();
         }
       );
+  }
+
+  hidedmodalbutton(){
+    this.hidemotivazione = false;
   }
 
   rifiutaRichiesta() {
@@ -129,7 +136,6 @@ export class RichiestaAssenzaSegreteriaComponent {
   }
 
   getAllStessoResponsabile(userName: string, selezione: number) {
-    console.log(userName, selezione);
     this.richiestaAutorizzazioneService.GetByUserEScelta(userName, selezione).subscribe((res) => {
       this.output_getall = res;
     });

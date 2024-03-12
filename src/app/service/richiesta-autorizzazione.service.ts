@@ -22,7 +22,6 @@ export class RichiestaAutorizzazioneService {
   }
 
   addApprovazione(idRichiesta: number, approvazione: boolean, motivazione: string): Observable<any> {
-    console.log('approvo richiesta ' + idRichiesta + approvazione );
     return this.Http.get<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}?approvazione=${approvazione}`);
   }
   

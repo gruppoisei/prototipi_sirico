@@ -52,7 +52,7 @@
                 <td>
                   <div>
                     <button (click)="mostraModalApprovazione(id.idRichiesta)">Modifica</button>
-                    <ng-template #approvalModal let-modal class="modal-container">
+                    <ng-template #approvalModal let-modal>
                       <h1>Approvare o rifiutare richiesta</h1>
                       <p>Inserisci la motivazione:</p>
                       <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
@@ -85,23 +85,25 @@
       </thead>
       <tbody>
         <tr *ngFor="let id of output_getall">
-          <td>{{ id.dataOraFineAssenza }}</td>
           <td>{{ id.dataOraInizioAssenza }}</td>
+          <td>{{ id.dataOraFineAssenza }}</td>
           <td>{{ id.nomePersona }}</td>
           <td>{{ id.note }}</td>
           <td>{{ id.tipoRichiesta }}</td>
           <td>{{ id.idRichiesta }}</td>
           <td>
             <div>
-              <button class="modifica-button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && id.flagAttivo">Modifica</button>
-              <button class="rifiuta-button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="id.approvazione && id.flagAttivo">Rifiuta</button>
-              <button class="approva-button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo">Approva</button>
-              <ng-template #approvalModal let-modal class="modal-container">
-                <h1>Approvare o rifiutare richiesta</h1>
-                <p>Inserisci la motivazione:</p>
-                <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
-                <button (click)="approvaRichiesta()">Approva</button>
-                <button (click)="rifiutaRichiesta()">Rifiuta</button>
+              <button class="button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && id.flagAttivo">Modifica</button>
+              <button class="button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="id.approvazione && id.flagAttivo">Rifiuta</button>
+              <button class="button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo">Approva</button>
+              <ng-template #approvalModal let-modal>
+                <h1 class="modal-testo">Approvare o rifiutare richiesta</h1>
+                <button class="button" (click)="approvaRichiesta()" *ngIf="!id.approvazione && !id.flagAttivo">Approva</button>
+                <button class="button" (click)="hidedmodalbutton()" *ngIf="id.approvazione && id.flagAttivo">Rifiuta</button>
+                <p class="modal-testo" *ngIf="!hidemotivazione">Inserisci la motivazione:</p>
+                <input class="modal-input" [(ngModel)]="motivazione" type="text" placeholder="Motivazione" *ngIf="!hidemotivazione">
+                <button class="button" (click)="rifiutaRichiesta()" *ngIf="!hidemotivazione">Salva e rifiuta</button>
+                <button class="button" (click)="chiudiModal()">Annulla</button>
               </ng-template>
               <div class="container">
               </div>
