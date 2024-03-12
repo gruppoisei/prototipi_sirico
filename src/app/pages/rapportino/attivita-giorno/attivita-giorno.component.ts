@@ -11,10 +11,12 @@ import { NgIf,NgFor } from '@angular/common';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { GiornoDiLavoro } from '../../../dto/request/calendario';
+import { AttivitaGiorno, GiornoDiLavoro } from '../../../dto/request/calendario';
 import { RapportinoService } from '../../../service/rapportino.service';
 import { AggiungiOrdinarioComponent } from "../aggiungi-ordinario/aggiungi-ordinario.component";
 import { AggiungiReperibilitaComponent } from "../aggiungi-reperibilita/aggiungi-reperibilita.component";
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -23,7 +25,7 @@ import { AggiungiReperibilitaComponent } from "../aggiungi-reperibilita/aggiungi
     templateUrl: './attivita-giorno.component.html',
     styleUrl: './attivita-giorno.component.scss',
     standalone: true,
-    imports: [CommonModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent, AggiungiReperibilitaComponent]
+    imports: [CommonModule,MatIconModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent, AggiungiReperibilitaComponent, MatCardModule]
 })
 export class AttivitaGiornoComponent {
   entrata= "9:00";
@@ -33,7 +35,8 @@ export class AttivitaGiornoComponent {
   showOrdinario= false;
   showReperibilita= false;
 
-
+  @Input()
+  giornoLavorativoId!:number
 
 
 
@@ -51,7 +54,7 @@ MostraOrdinario() {
 
 
 
-AggiungiReperibilita(){
+MostraReperibilita(){
 this.showReperibilita= !this.showReperibilita
 this.showOrdinario= false
 }
@@ -68,6 +71,11 @@ Conferma(){
 Annulla(){
 
 }
+
+EliminaAttivita(attivitaId:number){
+    this.rapportinoService.EliminaAttivita(attivitaId,this.giornoLavorativoId)
+}
+
 
 }
 

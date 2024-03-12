@@ -2,7 +2,13 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    align-items: center; 
+    align-items: center;
+    margin-top: 50px; 
+}
+.container testo {
+  padding: 10px 20px;
+  border: 2px;
+  color: #888888;
 }
 
 .search-button {
@@ -72,17 +78,62 @@ table {
     background-color: #f2f2f2;
   }
   
-  /* Stile per i pulsanti nella cella di approvazione */
-  td button {
-    padding: 5px 10px;
+  .modal-testo{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center; 
+    font-size: 1.5rem;
+    margin-bottom: 30px; 
+  }
+
+  .button {
+    padding: 20px 10px;
+    width: 200px;
+    height: 75px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
   }
-  
+
+  .button-modal {
+    padding: 20px 10px;
+    width: 200px;
+    height: 75px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    margin-bottom: 30px; 
+  }
+
+  .modal-input{
+    padding: 20px 10px;
+    max-width: 75vw;
+    height: 75px;
+    background-color: #dddddd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center; 
+    color: black;
+  }
+
   td button:hover {
     background-color: #0056b3;
   }
@@ -100,16 +151,6 @@ table {
     padding: 20px;
     max-width: 400px;
     margin: 0 auto;
-  }
-  
-  .modal-container h1 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .modal-container p {
-    font-size: 1rem;
-    margin-bottom: 10px;
   }
   
   .modal-container input[type="text"] {
@@ -132,5 +173,20 @@ table {
   
   .modal-container button:hover {
     background-color: #0056b3;
+  }
+
+  .inserimento-responsabile {
+    margin-right: 100px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
+  }
+
+  select {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
   }
   

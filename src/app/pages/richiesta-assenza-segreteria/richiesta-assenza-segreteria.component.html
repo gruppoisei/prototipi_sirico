@@ -1,12 +1,13 @@
 <div class="container">
-  <div>
-    <input [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
-    <button (click)="salvaUsername(userName)" class="search-button">Login</button>
+  <div class="testo">
+    Nome responsabile:
+    <input class="inserimento-responsabile" [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
+    <!--<button (click)="salvaUsername(userName)" class="search-button">Login</button>-->
   </div>
   <div>
     <select name="Seleziona il filtro" required>
       <option (click)="scelta(0)">Stampa tutto</option>
-      <option (click)="scelta(1)">Richieste da modificare</option>
+      <option (click)="scelta(1)">Richieste da approvare</option>
       <option (click)="scelta(2)">Richieste approvate</option>
       <option (click)="scelta(3)">Richieste rifiutate</option>
     </select>
@@ -15,62 +16,9 @@
   <div>
     <button (click)="cerca()" class="search-button">Cerca!</button>
   </div>
-
+</div>
+<div class="container">
   <div>
-    <div class="expanded-section" *ngIf="expandedSection === 'DaModificare'">
-      <h1>Ricerca richieste da modificare : </h1>
-      getall
-      <div *ngIf="(output_getall && output_getall.length)">
-        <h2>Richieste Da Esaminare</h2>
-        <h2></h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Data e ora inizio: </th>
-              <th>Data e ora fine: </th>
-              <th>Richiedente</th>
-              <th>Note</th>
-              <th>Richiesta per:</th>
-              <th>Id:</th>
-              <th>Approvazione</th>
-              <th>flagAttivo</th>
-              <th>approvazione</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let id of output_getall">
-              <h2>{{ id.flagAttivo }} {{ id.approvazione }} {{ id.flagAttivo && !id.approvazione }}</h2>
-              <div *ngIf="id.flagAttivo && !id.approvazione">
-                <td>{{ id.dataOraFineAssenza }}</td>
-                <td>{{ id.dataOraInizioAssenza }}</td>
-                <td>{{ id.nomePersona }}</td>
-                <td>{{ id.note }}</td>
-                <td>{{ id.tipoRichiesta }}</td>
-                <td>{{ id.idRichiesta }}</td>
-                <td>{{ id.flagAttivo }}</td>
-                <td>{{ id.approvazione }}</td>
-                <td>
-                  <div>
-                    <button (click)="mostraModalApprovazione(id.idRichiesta)">Modifica</button>
-                    <ng-template #approvalModal let-modal class="modal-container">
-                      <h1>Approvare o rifiutare richiesta</h1>
-                      <p>Inserisci la motivazione:</p>
-                      <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
-                      <button (click)="approvaRichiesta()">Approva</button>
-                      <button (click)="rifiutaRichiesta()">Rifiuta</button>
-                    </ng-template>
-                    <div class="container">
-                    </div>
-                  </div>
-                </td>
-              </div>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <h2>Richieste Da Esaminare</h2>
-    <h2></h2>
     <table>
       <thead>
         <tr>
@@ -81,39 +29,43 @@
           <th>Richiesta per:</th>
           <th>Id:</th>
           <th>Approvazione</th>
+          <th>stato approvazione</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let id of output_getall">
-          <td>{{ id.dataOraFineAssenza }}</td>
           <td>{{ id.dataOraInizioAssenza }}</td>
+          <td>{{ id.dataOraFineAssenza }}</td>
           <td>{{ id.nomePersona }}</td>
           <td>{{ id.note }}</td>
           <td>{{ id.tipoRichiesta }}</td>
           <td>{{ id.idRichiesta }}</td>
+          <td  *ngIf="id.approvazione && id.flagAttivo">Approvata</td>
+          <td  *ngIf="!id.approvazione && !id.flagAttivo">Rifiutata</td>
+          <td  *ngIf="!id.approvazione && id.flagAttivo">Da Approvare</td>
           <td>
             <div>
-              <button (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && id.flagAttivo">Modifica</button>
-              <button (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="id.approvazione && id.flagAttivo">Rifiuta</button>
-              <button (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo">Approva</button>
-              <ng-template #approvalModal let-modal class="modal-container">
-                <h1>Approvare o rifiutare richiesta</h1>
-                <p>Inserisci la motivazione:</p>
-                <input [(ngModel)]="motivazione" type="text" placeholder="Motivazione">
-                <button (click)="approvaRichiesta()">Approva</button>
-                <button (click)="rifiutaRichiesta()">Rifiuta</button>
+              <button class="button" (click)="mostraModalApprovazione(id.idRichiesta, 3)" *ngIf="!id.approvazione && id.flagAttivo" >Modifica</button>
+              <button class="button" (click)="mostraModalApprovazione(id.idRichiesta, 2)" *ngIf="id.approvazione && id.flagAttivo" >Rifiuta</button>
+              <button class="button" (click)="mostraModalApprovazione(id.idRichiesta, 1)" *ngIf="!id.approvazione && !id.flagAttivo" >Approva</button>
+              <ng-template #approvalModal let-modal>
+                <h1 class="modal-testo">Approvare o rifiutare richiesta</h1>
+                <button class="button-modal" (click)="approvaRichiesta()" *ngIf="((editable == 1) || (editable == 3)) && (hidemotivazione)">Approva</button> <br>
+                <button class="button-modal" (click)="hidedmodalbutton()" *ngIf="((editable == 2) || (editable == 3)) && (hidemotivazione)">Rifiuta</button> <br>
+                <p class="modal-testo" *ngIf="!hidemotivazione">Inserisci la motivazione:</p>
+                <input class="modal-input" [(ngModel)]="motivazione" type="text" placeholder="Motivazione" *ngIf="!hidemotivazione"> <br>
+                <button class="button-modal" (click)="rifiutaRichiesta()" *ngIf="!hidemotivazione">Salva e rifiuta</button>
+                <button class="button-modal" (click)="chiudiModal()">Annulla</button>
               </ng-template>
-              <div class="container">
-              </div>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <div *ngIf="!(output_getall && output_getall.length > 0)">
-    Nessun dato disponibile
-  </div>
 
+<div *ngIf="!(output_getall && output_getall.length > 0)">
+  Nessun dato disponibile
+</div>
+</div>
 </div>

@@ -36,6 +36,7 @@ import { ModificaPasswordComponent } from './pages/modifica-password/modifica-pa
 import {MatIconModule} from '@angular/material/icon';
 import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
 import { authGuard } from './guard/auth.guard';
+import {MatCardModule} from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 
 
@@ -79,7 +80,8 @@ import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestion
     MatSlideToggleModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
     
 
   ],

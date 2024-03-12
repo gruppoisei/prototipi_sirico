@@ -20,14 +20,16 @@ export class RichiestaAssenzaSegreteriaComponent {
   //richiestefiltrate: any;
   //arrayvuoto: any;
   output_getall: any;
+  hidemotivazione: boolean = true;
   motivazione: string = '';
   selezione: number = 0;
+  editable: number = 0;   // quando è 1 l'elemento è approvabile, quando è 2 è rifiutabile, quando è 3 entrambe
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
 
   constructor(
     private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   salvaUsername(nome: string) {
     this.userName = nome;
@@ -39,13 +41,20 @@ export class RichiestaAssenzaSegreteriaComponent {
     this.expandedSection = section;
   } */
 
-  mostraModalApprovazione(id: any): void {
+  mostraModalApprovazione(id: any, numero:number): void {
     this.idRichiesta = id;
+    this.editable = numero;
     console.log('lavoro su richiesta ' + id);
-    this.dialog.open(this.approvalModal);
+    this.dialog.open(this.approvalModal, {      
+      //panelClass: 'custom-modalbox'
+      width: '60vw',
+      height: '60vh'
+    })
   }
 
   chiudiModal(): void {
+    this.motivazione = '';
+    this.hidemotivazione = true;
     this.dialog.closeAll();
   }
 
@@ -56,17 +65,19 @@ export class RichiestaAssenzaSegreteriaComponent {
       .subscribe(
         (response) => {
           this.getAllStessoResponsabile(this.userName, this.selezione);
-          console.log(response);
           this.chiudiModal();
         },
         (error) => {
-          console.error(
-            "Errore durante l'approvazione della richiesta:",
-            error
+          alert(
+            "Errore durante l'approvazione della richiesta:" + error
           );
           this.chiudiModal();
         }
       );
+  }
+
+  hidedmodalbutton(){
+    this.hidemotivazione = false;
   }
 
   rifiutaRichiesta() {
@@ -121,31 +132,10 @@ export class RichiestaAssenzaSegreteriaComponent {
   }
 
   cerca() {
-    console.log(
-      'ricerca per username ' + this.selezione + ' e criterio ' + this.userName
-    );
-    switch (this.selezione) {
-      case 1: { //da modificare
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-      case 2: { //approvate
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-      case 3: {   //rifiutate
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-      default: {  //stampa tutto
-        this.getAllStessoResponsabile(this.userName, this.selezione);
-        break;
-      }
-    }
+    this.getAllStessoResponsabile(this.userName, this.selezione);
   }
 
   getAllStessoResponsabile(userName: string, selezione: number) {
-    console.log(userName, selezione);
     this.richiestaAutorizzazioneService.GetByUserEScelta(userName, selezione).subscribe((res) => {
       this.output_getall = res;
     });

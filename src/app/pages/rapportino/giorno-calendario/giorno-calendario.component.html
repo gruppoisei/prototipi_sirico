@@ -1,15 +1,19 @@
 <div>
   
     <div class="flex flex-row">
-      <p class="flex- grow">{{giorno.dataNumero}}</p>
-  
+      <p class="flex- grow font-bold text-2xl">{{giorno.dataNumero}}</p>
+
+      <hr>
 
       <button (click)="ClickMe()" >  <mat-icon>create</mat-icon>  </button> 
+      <button (click)="Delete(giorno.giornoLavorativoId!)" >  <mat-icon color="warn">delete</mat-icon>  </button> 
     </div>
-    <div *ngFor="let attivita of giorno.listaAttivitaGiorno" class="bg-lime-500 m-2 p-2 rounded-md">
+    <div *ngFor="let attivita of giorno.listaAttivitaGiorno" class="container text-xs m-1 p-1">
       
-      <div>{{attivita.nomeProgetto}}</div>
-      <div>{{attivita.sedeLavoro}} - ore {{attivita.oreLavorate}}</div>
+      <div class="AP row border-bottom m-[1px] p-[1px] "><span>{{attivita.nomeProgetto}}</span></div>
+      
+      <div class="AS row border-bottom flex m-[1px] p-[1px]"><span class="grow">aa{{attivita.sedeLavoro}}</span> <span> {{attivita.oreLavorate}} h</span></div>
+     
     </div>
     
   </div>

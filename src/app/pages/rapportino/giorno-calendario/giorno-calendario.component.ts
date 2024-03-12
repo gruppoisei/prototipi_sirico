@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AttivitaGiornoComponent } from '../attivita-giorno/attivita-giorno.component';
 import { GiornoDiLavoro } from '../../../dto/request/calendario';
+import { RapportinoService } from '../../../service/rapportino.service';
 
 
 @Component({
@@ -9,14 +10,14 @@ import { GiornoDiLavoro } from '../../../dto/request/calendario';
   templateUrl: './giorno-calendario.component.html',
   styleUrl: './giorno-calendario.component.scss',
   
-
+  
 })
 export class GiornoCalendarioComponent {
 
   @Input()
   giorno!: GiornoDiLavoro
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,private rapportinoService:RapportinoService) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
@@ -36,6 +37,11 @@ export class GiornoCalendarioComponent {
       {
         height: "600px", 
         data: this.giorno})
+  }
+
+  Delete(giornoId:number){
+    console.log(giornoId)
+    this.rapportinoService.EliminaGiorno(giornoId)
   }
 
 

@@ -76,7 +76,7 @@
         mat-raised-button
         color="warn"
         type="button"
-        (click)="AggiungiReperibilita()"
+        (click)="MostraReperibilita()"
       >
       Aggiungi Reperibilità
       </button>
@@ -94,6 +94,23 @@
     
     </div>
   </mat-dialog-content>
+
+<div class="MostraAttivita"> 
+
+  <mat-card *ngFor="let attivita of data.listaAttivitaGiorno"  class="attivita">
+    <mat-card-content >ordinario</mat-card-content>
+    <mat-card-content>{{attivita.nomeProgetto}}</mat-card-content>
+    <mat-card-content>{{attivita.sedeLavoro}}</mat-card-content>
+    <mat-card-content>{{attivita.oreLavorate}}</mat-card-content>
+    <mat-card-content><button (click)="EliminaAttivita(attivita.attivitaId!)"><mat-icon>delete</mat-icon></button></mat-card-content>
+
+  </mat-card>
+
+
+
+</div>
+
+
 
   <button
   class="D"
