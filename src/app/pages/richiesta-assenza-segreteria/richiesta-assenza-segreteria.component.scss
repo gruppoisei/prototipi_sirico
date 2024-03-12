@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    align-items: center; 
+    align-items: center;
+    margin-top: 50px; 
 }
 .container testo {
   padding: 10px 20px;
@@ -155,5 +156,20 @@ table {
   
   .modal-container button:hover {
     background-color: #0056b3;
+  }
+
+  .inserimento-responsabile {
+    margin-right: 100px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
+  }
+
+  select {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
   }
   

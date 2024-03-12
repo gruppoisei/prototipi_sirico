@@ -1,6 +1,7 @@
 <div class="container">
   <div class="testo">
-    <input [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
+    Nome responsabile:
+    <input class="inserimento-responsabile" [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
     <!--<button (click)="salvaUsername(userName)" class="search-button">Login</button>-->
   </div>
   <div>
@@ -15,7 +16,8 @@
   <div>
     <button (click)="cerca()" class="search-button">Cerca!</button>
   </div>
-
+</div>
+<div class="container">
   <div>
     <div class="expanded-section" *ngIf="expandedSection === 'DaModificare'">
       <h1>Ricerca richieste da modificare : </h1>
@@ -105,17 +107,15 @@
                 <button class="button" (click)="rifiutaRichiesta()" *ngIf="!hidemotivazione">Salva e rifiuta</button>
                 <button class="button" (click)="chiudiModal()">Annulla</button>
               </ng-template>
-              <div class="container">
-              </div>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <div *ngIf="!(output_getall && output_getall.length > 0)">
-    Nessun dato disponibile
-  </div>
 
+<div *ngIf="!(output_getall && output_getall.length > 0)">
+  Nessun dato disponibile
+</div>
+</div>
 </div>

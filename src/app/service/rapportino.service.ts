@@ -11,7 +11,7 @@ import { AttivitaGiorno } from '../dto/response/AttivitaGiorno';
 })
 export class RapportinoService {
   infoPersona!:InfoPersona
-  
+  risposta:CalendarioRequest = new CalendarioRequest()
 
 
 
@@ -21,8 +21,7 @@ export class RapportinoService {
 
 
 
-  risposta:CalendarioRequest = new CalendarioRequest()
-  count = 0
+  
 
   constructor(private http:HttpClient) {
     // this.AggiornaGiorniMese(new Date())
@@ -36,9 +35,7 @@ export class RapportinoService {
     this.http.get<CalendarioRequest>(`http://localhost:5143/Vistamese/GetAllInfoMese?personaId=1&dataRiferimentostring=${dateFormatted}`)
     .pipe(
       tap((v) => {
-        console.log("vedi risposta: " + this.count );
-        console.log(v);
-        this.count++
+        
         this.risposta = v;
       }),
     ).subscribe()
@@ -63,9 +60,28 @@ export class RapportinoService {
    }
 
 
-   EliminaAttivita(attivitaId:number){
+   EliminaAttivita(attivitaId:number,giornoLavorativoId:number){
     this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaAttivitaGiornaliera",attivitaId).subscribe(
-        res => {alert ("attività eliminata"); console.log(res)}
+        res => {
+          if(res.status == 200){
+            console.log("prima")
+            console.log(this.risposta.listaGiorniLavoroMese.find(giorno => giorno.giornoLavorativoId ==giornoLavorativoId))
+            this.risposta.listaGiorniLavoroMese.map(giorno => giorno.listaAttivitaGiorno.filter(attivita => {return attivita.attivitaId != attivitaId} ))
+            console.log(this.risposta.listaGiorniLavoroMese.find(giorno => giorno.giornoLavorativoId ==giornoLavorativoId))
+            
+            console.log("dopo")
+            console.log()
+           
+          }
+        }
     )
    }
+
+   EliminaGiorno(giornoId: number){
+      this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaGiorno", giornoId).subscribe(
+        res => { alert ("gioirno eliminato"); console.log(res)}
+      )
+   }
+   
+
 }
