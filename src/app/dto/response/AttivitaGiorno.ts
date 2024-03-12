@@ -3,6 +3,6 @@ export interface AttivitaGiorno {
 attivitaPersonaId: number;
 sedeLavoroPersonaId: number;
 oreLavorate: number;
-orestraordinario: number;
+oreStraordinario: number;
 
 }

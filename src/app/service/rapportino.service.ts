@@ -61,4 +61,11 @@ export class RapportinoService {
       )
   
    }
+
+
+   EliminaAttivita(attivitaId:number){
+    this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaAttivitaGiornaliera",attivitaId).subscribe(
+        res => {alert ("attività eliminata"); console.log(res)}
+    )
+   }
 }
