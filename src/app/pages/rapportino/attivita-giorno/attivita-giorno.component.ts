@@ -33,19 +33,13 @@ export class AttivitaGiornoComponent {
   showOrdinario= false;
   showReperibilita= false;
 
-giorno = new Date()
 
 
 
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {
-    //   let datePipe = new DatePipe('en-US');
-    // const dateFormatted = datePipe.transform(this.rapportinoService.risposta.rapportino.dataRapportino!, 'full');
-    // console.log("provaaaaa " + dateFormatted)
-//       this.giorno = new Date(this.rapportinoService.risposta.rapportino.dataRapportino!.getFullYear(),
-// this.rapportinoService.risposta.rapportino.dataRapportino!.getMonth(),
-// this.data.dataNumero)
+
     }
 
 
@@ -66,8 +60,14 @@ this.showOrdinario= false
     this.dialogRef.close();
   }
 
+Conferma(){
+  
+}
 
 
+Annulla(){
+
+}
 
 }
 

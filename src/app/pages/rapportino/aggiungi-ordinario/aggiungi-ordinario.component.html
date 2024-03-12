@@ -4,8 +4,8 @@
       <mat-form-field>
         <mat-label> commessa </mat-label>
         <mat-select [(value)]="commessa">
-          <mat-option *ngFor="let commessa of rapportinoService.commesse" [value]="commessa.value">{{
-            commessa.viewValue
+          <mat-option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">{{
+            commessa.nomeProgetto
           }}</mat-option>
           
         </mat-select>
@@ -17,8 +17,8 @@
       <mat-form-field>
         <mat-label>sedi</mat-label>
         <mat-select [(value)]="sede">
-          <mat-option *ngFor="let sede of rapportinoService.sedi" [value]="sede.value">{{
-            sede.viewValue }} </mat-option>
+          <mat-option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">{{
+            sede.nomeSedeLavoro }} </mat-option>
         </mat-select>
       </mat-form-field>
 

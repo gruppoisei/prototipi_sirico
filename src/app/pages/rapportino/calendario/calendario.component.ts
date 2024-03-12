@@ -40,6 +40,8 @@ export class CalendarioComponent {
   }
 
   AggiornaBox() {
+
+
     this.rapportinoService.AggiornaGiorniMese(this.giornoRiferimento)
 
     this.primoDelMese = new Date(
@@ -47,11 +49,15 @@ export class CalendarioComponent {
       this.giornoRiferimento.getMonth(),
       1
     );
+
     this.ultimoDelMese = new Date(
       this.giornoRiferimento.getFullYear(),
       this.giornoRiferimento.getMonth() + 1,
       0
     );
+      
+      console.log("prova");
+      console.log(this.giornoRiferimento.getDay() - 1);
 
     this.giorniMesePassato = Array(this.giornoRiferimento.getDay() - 1)
       .fill(0)
@@ -65,13 +71,6 @@ export class CalendarioComponent {
 
 
 
-    // this.giorniMeseCorrente = Array(this.ultimoDelMese.getDate())
-    //   .fill(0)
-    //   .map((x, i) => {
-    //     return i + 1;
-    //   });
-
-
 
     if (this.ultimoDelMese.getDay() == 0) {
       this.giorniMeseSeguente = [];
@@ -82,6 +81,8 @@ export class CalendarioComponent {
           return i + 1;
         });
     }
+
+    console.log()
   }
 
 
@@ -89,27 +90,27 @@ export class CalendarioComponent {
     this.listaMesi[0] = new Date(
       this.giornoRiferimento.getFullYear(),
       this.giornoRiferimento.getMonth() - 1,
-      this.giornoRiferimento.getDate()
+      1
     );
     this.listaMesi[1] = new Date(
       this.giornoRiferimento.getFullYear(),
       this.giornoRiferimento.getMonth(),
-      this.giornoRiferimento.getDate()
+      1
     );
     this.listaMesi[2] = new Date(
       this.giornoRiferimento.getFullYear(),
       this.giornoRiferimento.getMonth() + 1,
-      this.giornoRiferimento.getDate()
+      1
     );
     this.listaMesi[3] = new Date(
       this.giornoRiferimento.getFullYear(),
       this.giornoRiferimento.getMonth() + 2,
-      this.giornoRiferimento.getDate()
+      1
     );
     this.listaMesi[4] = new Date(
       this.giornoRiferimento.getFullYear(),
       this.giornoRiferimento.getMonth() + 3,
-      this.giornoRiferimento.getDate()
+      1
     );
   }
 

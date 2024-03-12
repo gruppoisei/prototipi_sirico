@@ -12,7 +12,7 @@
 
 }
 
-.A, .B, .C{
+.A, .B, .C, .D, .E{
     margin: 12px;
     
     
@@ -27,9 +27,10 @@
     
 }
 
-.c{
-    margin: 12px;
+.D, .E{
+    float: right;
 }
+
 .commessaRep, .inizioReperibilità, .fineReperibilita, .aggiungi2 {
     display: flex;
     align-content: center;

@@ -1,8 +1,7 @@
 <div class="dialog">
   <div class="datadiv">
-    <p mat-dialog-title>{{ giorno }}</p>
-    <p>giorno ID = {{data.giornoLavorativoId}}</p>
-    <p mat-dialog-title>{{ giorno | date:"EEEE dd  LLLL yyyy"}}</p>
+    
+    <p mat-dialog-title>{{data.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
   </div>
 
   <mat-dialog-content>
@@ -95,4 +94,27 @@
     
     </div>
   </mat-dialog-content>
+
+  <button
+  class="D"
+  mat-raised-button
+  color="basic"
+  type="button"
+  (click)="Conferma()"
+>
+Conferma
+</button>
+
+<button
+class="E"
+mat-raised-button
+color="warn"
+type="button"
+(click)="Annulla()"
+>
+Annulla
+</button>
+
+
+
 </div>
