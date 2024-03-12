@@ -1,33 +1,11 @@
-<div class = "flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-4/6 lg:py-0">
-    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
-        <form >
-        <h2 class="text-4xl font-bold mb-10">Gestione Dipendente</h2>
-        <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
-            <input formControlName = "nome" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nome" required />
-        </div>
-        <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Cognome</label>
-            <input formControlName = "cognome"type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cognome" required />
-        </div>
-        <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Codice Fiscale</label>
-            <input formControlName ="codiceFiscale" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Data di nascita" required />
-        </div>
-        <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Comune Residenza</label>
-            <input formControlName ="comuneResidenza" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Data di nascita" required />
-        </div>  
-        <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
-            <input formControlName ="email" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Luogo di nascita" required />
-        </div>
-        <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Società</label>
-            <input formControlName = "societaId" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Comune residenza" required />
-        </div>
-        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
-        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cerca</button>
-        </form>
+<form class="max-w-md mx-auto">
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+    <div class="flex flex-row">
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Nome" required />
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Cognome" required />
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Codice Fiscale" required />
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="comune residenza" required />
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="e-mail" required />
+        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="società" required />
     </div>
-</div>
+</form>
