@@ -36,6 +36,8 @@ import { ModificaPasswordComponent } from './pages/modifica-password/modifica-pa
 import {MatIconModule} from '@angular/material/icon';
 import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
 import { authGuard } from './guard/auth.guard';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 @NgModule({
@@ -77,7 +79,8 @@ import { authGuard } from './guard/auth.guard';
     MatSlideToggleModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
     
 
   ],
