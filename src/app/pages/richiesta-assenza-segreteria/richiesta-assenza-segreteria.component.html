@@ -1,7 +1,7 @@
 <div class="container">
-  <div>
+  <div class="testo">
     <input [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
-    <button (click)="salvaUsername(userName)" class="search-button">Login</button>
+    <!--<button (click)="salvaUsername(userName)" class="search-button">Login</button>-->
   </div>
   <div>
     <select name="Seleziona il filtro" required>
@@ -93,9 +93,9 @@
           <td>{{ id.idRichiesta }}</td>
           <td>
             <div>
-              <button (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && id.flagAttivo">Modifica</button>
-              <button (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="id.approvazione && id.flagAttivo">Rifiuta</button>
-              <button (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo">Approva</button>
+              <button class="modifica-button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && id.flagAttivo">Modifica</button>
+              <button class="rifiuta-button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="id.approvazione && id.flagAttivo">Rifiuta</button>
+              <button class="approva-button" (click)="mostraModalApprovazione(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo">Approva</button>
               <ng-template #approvalModal let-modal class="modal-container">
                 <h1>Approvare o rifiutare richiesta</h1>
                 <p>Inserisci la motivazione:</p>

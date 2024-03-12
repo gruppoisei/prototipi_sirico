@@ -4,6 +4,11 @@
     margin: 0 auto;
     align-items: center; 
 }
+.container testo {
+  padding: 10px 20px;
+  border: 2px;
+  color: #888888;
+}
 
 .search-button {
     margin: 0 10px;
@@ -16,6 +21,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
 
 .search-button:hover {
     background-color: #0056b3;
