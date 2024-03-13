@@ -9,23 +9,30 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 
 export class GestioneDipendenteComponent implements OnInit{
+
   ricercaForm!: FormGroup;
-ricercaFiltrata() {
-throw new Error('Method not implemented.');
-}
+  constructor(private fb : FormBuilder){}
 
-constructor(private fb : FormBuilder){}
+  ngOnInit(): void {
 
-ngOnInit(): void {
-
-  this.ricercaForm = this.fb.group({
-    nome : [''],
-    cognome : [''],
-    codicefiscale : [''],
-    comuneresidenza : [''],
-    email : [''],
-    societa : ['']
+    this.ricercaForm = this.fb.group({
+      nome : [''],
+      cognome : [''],
+      codiceFiscale : [''],
+      comuneResidenza : [''],
+      emailAziendale : [''],
+      societa : ['']
   })
    }
+
+  clearSearch()
+  {
+    this.ricercaForm.reset();
+  }
+      
+  ricercaFiltrata()
+  {
+
+  }
 
 }

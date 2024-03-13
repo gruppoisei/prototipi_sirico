@@ -19,7 +19,7 @@ const routes: Routes = [
     pathMatch: 'full'
   }, 
   {
-    path: "insertpersona", 
+    path: "nuova-persona", 
     component:InsertPersonaComponent,
     canActivate: [authGuard]
   }, 
