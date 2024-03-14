@@ -5,6 +5,8 @@ import { Persona } from '../../dto/request/persona';
 import { RegioneService } from '../../service/regione.service';
 import { PaesiService } from '../../service/paesi.service';
 import { SocietaService } from '../../service/societa.service';
+import { ProvinceService } from '../../service/province.service';
+import { ComuniService } from '../../service/comuni.service';
 
 @Component({
   selector: 'app-insert-persona',
@@ -13,13 +15,22 @@ import { SocietaService } from '../../service/societa.service';
 })
 export class InsertPersonaComponent implements OnInit{
 
+
+
   insertPersona !: FormGroup;
   nuovaPersona ?: Persona
   listRegioni: any;
   listPaese: any;
   listSocieta: any;
+  listProvince: any;
+  selectedRegion: any;
+  listProvinceResidenza: any;
+  listProvinceDomicilio: any;
+  listComuniNascita: any;
+  listComuniResidenza: any;
+  listComuniDomicilio: any;
 
-constructor(private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese: PaesiService, private serviceSocieta: SocietaService)
+constructor(private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
 {}
   ngOnInit(): void {
    this.insertPersona = this.fb.group(
@@ -40,23 +51,82 @@ constructor(private fb : FormBuilder,private auth: AuthService, private serviceR
     })
 
     this.serviceRegione.getRegioni().subscribe
-    ((data: any)=>
+    ((regioni: any)=>
     {
-      this.listRegioni = data;
+      this.listRegioni = regioni;
     })
 
     this.servicePaese.getAllPaesi().subscribe
-    ((data: any)=>
+    ((paese: any)=>
     {
-      this.listPaese = data;
+      this.listPaese = paese;
     })
+
     this.serviceSocieta.getAllSocieta().subscribe
-    ((data : any)=>
+    ((societa : any)=>
     {
-      this.listSocieta = data;
+      this.listSocieta = societa;
     })
+  }
 
+  onRegionChangeDomicilio(event : any)
+  {
+    const idRegione = event.target.value
+    this.serviceProvince.getProvinceByRegione(idRegione).subscribe
+    ((province : any)=>
+    {
+      this.listProvinceDomicilio = province
+    })
+  }
 
+  onRegionChangeResidenza(event : any)
+  {
+    const idRegione = event.target.value
+    this.serviceProvince.getProvinceByRegione(idRegione).subscribe
+    ((province : any)=>
+    {
+      this.listProvinceResidenza = province
+    })
+  }
+
+  onRegionChangeNascita(event : any)
+  {
+    const idRegione = event.target.value
+    this.serviceProvince.getProvinceByRegione(idRegione).subscribe
+    ((province : any)=>
+    {
+      this.listProvince = province
+    })
+  }
+
+  onChangeProvinciaDomicilio(event:any)
+  {
+    const idProvince = event.target.value
+    this.serviceComune.getComuniByProvinceId(idProvince).subscribe
+    ((comuni : any)=>
+    {
+      this.listComuniDomicilio = comuni
+    })
+  }
+  
+  onChangeProvinciaResidenza(event: any)
+  {
+    const idProvince = event.target.value
+    this.serviceComune.getComuniByProvinceId(idProvince).subscribe
+    ((comuni : any)=>
+    {
+      this.listComuniResidenza = comuni
+    })
+  }
+    
+  onProvinciaNascitaChage(event: any)
+  {
+    const idProvince = event.target.value
+    this.serviceComune.getComuniByProvinceId(idProvince).subscribe
+    ((comuni : any)=>
+    {
+      this.listComuniNascita = comuni
+    })
   }
 
   insertUser()
