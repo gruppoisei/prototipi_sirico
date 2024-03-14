@@ -18,11 +18,9 @@
     </mat-form-field>
     
 </div>
-<div class="flex ">
 
-    <div class="flex  flex-wrap w-[1200px] min-w-[1200px] ">
+<div class= "flex  flex-wrap w-[1200px] min-w-[1200px]">
 
-        
         <div class="giorni">Lunedi</div>
         <div class="giorni">Martedi</div>
         <div class="giorni">Mercoledi</div>
@@ -32,14 +30,14 @@
         <div class="giorni">Domenica</div>
 
         
-        <div *ngFor=" let test of giorniMesePassato " class="cubo cuboLast p-2 font-bold text-2xl">{{test}}</div>
+        <div *ngFor=" let test of rapportinoService.giorniMesePassato " class="cubo cuboLast p-2 font-bold text-2xl">{{test}}</div>
         
         <div *ngFor=" let test of rapportinoService.risposta.listaGiorniLavoroMese; index as i " class="cubo cubocURRENT p-2">
             <app-giorno-calendario [giorno]="rapportinoService.risposta.listaGiorniLavoroMese[i]"/></div>
         
-        <div *ngFor=" let test of giorniMeseSeguente " class="cubo cuboNext p-2 font-bold text-2xl">{{test}}</div>
+        <div *ngFor=" let test of rapportinoService.giorniMeseSeguente " class="cubo cuboNext p-2 font-bold text-2xl">{{test}}</div>
         
-    </div>
+    
     
 </div>
 

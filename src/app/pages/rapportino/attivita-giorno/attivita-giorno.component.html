@@ -86,7 +86,7 @@
 
 
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!"> </app-aggiungi-ordinario>
+      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showReperibilita">
@@ -117,7 +117,7 @@
   mat-raised-button
   color="basic"
   type="button"
-  (click)="Conferma()"
+  (click)="ConfermaGiorno()"
 >
 Conferma
 </button>
@@ -127,7 +127,7 @@ class="E"
 mat-raised-button
 color="warn"
 type="button"
-(click)="Annulla()"
+(click)="AnnullaGiorno()"
 >
 Annulla
 </button>

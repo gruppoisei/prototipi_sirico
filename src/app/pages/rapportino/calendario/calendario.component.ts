@@ -9,107 +9,105 @@ import { RapportinoService } from '../../../service/rapportino.service';
 export class CalendarioComponent {
 
   listaMesi: Date[] = [];
-  giornoRiferimento = new Date();
+  // giornoRiferimento = new Date();
 
   // giorniLav:GiornoLavorativo[] = []
-  primoDelMese = new Date();
-  ultimoDelMese = new Date();
+  // primoDelMese = new Date();
+  // ultimoDelMese = new Date();
 
-  giorniMesePassato: number[] = [];
-  giorniMeseCorrente: number[] = [];
-  giorniMeseSeguente: number[] = [];
+  // giorniMesePassato: number[] = [];
+  // giorniMeseSeguente: number[] = [];
 
   giornoDefault: Date = new Date();
   constructor(public rapportinoService:RapportinoService) {
     this.TrovaMesiDaVisualizzare()
     this.giornoDefault = this.listaMesi[1];
-    this.AggiornaBox();
+    this.rapportinoService.AggiornaBox();
   }
 
-  CreazioneArrayGiorni(num: number) {
-    let giorni: number[] = [];
-    for (let i = 0; i < num; i++) {
-      giorni.push(i);
-    }
-    return giorni;
-  }
+  // CreazioneArrayGiorni(num: number) {
+  //   let giorni: number[] = [];
+  //   for (let i = 0; i < num; i++) {
+  //     giorni.push(i);
+  //   }
+  //   return giorni;
+  // }
 
   CambiaMese(event: any) {
-    this.giornoRiferimento = event;
-    this.AggiornaBox();
+    this.rapportinoService.giornoRiferimento = event;
+    this.rapportinoService.AggiornaBox();
   }
 
-  AggiornaBox() {
+  // AggiornaBox() {
 
 
-    this.rapportinoService.AggiornaGiorniMese(this.giornoRiferimento)
+  //   this.rapportinoService.AggiornaGiorniMese(this.rapportinoService.giornoRiferimento)
 
-    this.primoDelMese = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth(),
-      1
-    );
+  //   this.primoDelMese = new Date(
+  //     this.giornoRiferimento.getFullYear(),
+  //     this.giornoRiferimento.getMonth(),
+  //     1
+  //   );
 
-    this.ultimoDelMese = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth() + 1,
-      0
-    );
-      
-      console.log("prova");
-      console.log(this.giornoRiferimento.getDay() - 1);
+  //   this.ultimoDelMese = new Date(
+  //     this.giornoRiferimento.getFullYear(),
+  //     this.giornoRiferimento.getMonth() + 1,
+  //     0
+  //   );
+  //   console.log("prova")
+  //   console.log(this.primoDelMese.getDay() - 1)
 
-    this.giorniMesePassato = Array(this.giornoRiferimento.getDay() - 1)
-      .fill(0)
-      .map((x, i) => {
-        return new Date(
-          this.primoDelMese.getFullYear(),
-          this.primoDelMese.getMonth(),
-          this.primoDelMese.getDate() - this.giornoRiferimento.getDay() + i + 1
-        ).getDate();
-      });
-
+  //   this.giorniMesePassato = Array(this.primoDelMese.getDay() - 1)
+  //     .fill(0)
+  //     .map((x, i) => {
+  //       return new Date(
+  //         this.primoDelMese.getFullYear(),
+  //         this.primoDelMese.getMonth(),
+  //         this.primoDelMese.getDate() - this.primoDelMese.getDay() + i +1
+  //       ).getDate();
+  //     });
 
 
 
-    if (this.ultimoDelMese.getDay() == 0) {
-      this.giorniMeseSeguente = [];
-    } else {
-      this.giorniMeseSeguente = Array(7 - this.ultimoDelMese.getDay())
-        .fill(0)
-        .map((x, i) => {
-          return i + 1;
-        });
-    }
 
-    console.log()
-  }
+  //   if (this.ultimoDelMese.getDay() == 0) {
+  //     this.giorniMeseSeguente = [];
+  //   } else {
+  //     this.giorniMeseSeguente = Array(7 - this.ultimoDelMese.getDay())
+  //       .fill(0)
+  //       .map((x, i) => {
+  //         return i + 1;
+  //       });
+  //   }
+
+  //   console.log()
+  // }
 
 
   TrovaMesiDaVisualizzare(){
     this.listaMesi[0] = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth() - 1,
+      this.rapportinoService.giornoRiferimento.getFullYear(),
+      this.rapportinoService.giornoRiferimento.getMonth() - 1,
       1
     );
     this.listaMesi[1] = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth(),
+      this.rapportinoService.giornoRiferimento.getFullYear(),
+      this.rapportinoService.giornoRiferimento.getMonth(),
       1
     );
     this.listaMesi[2] = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth() + 1,
+      this.rapportinoService.giornoRiferimento.getFullYear(),
+      this.rapportinoService.giornoRiferimento.getMonth() + 1,
       1
     );
     this.listaMesi[3] = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth() + 2,
+      this.rapportinoService.giornoRiferimento.getFullYear(),
+      this.rapportinoService.giornoRiferimento.getMonth() + 2,
       1
     );
     this.listaMesi[4] = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth() + 3,
+      this.rapportinoService.giornoRiferimento.getFullYear(),
+      this.rapportinoService.giornoRiferimento.getMonth() + 3,
       1
     );
   }

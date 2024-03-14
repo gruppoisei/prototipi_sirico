@@ -39,6 +39,7 @@ import { authGuard } from './guard/auth.guard';
 import {MatCardModule} from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
+import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-
     NewPasswordResponseDialogComponent,
     GestioneDipendenteComponent,
     GestioneContrattoComponent,
+    InsertContrattoComponent,
 
   ],
   imports: [
