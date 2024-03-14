@@ -1,57 +1,103 @@
-<div class="outer">
-    <form [formGroup]="insertPersona">
-        <h2 class="text-4xl font-bold mb-10">Inserimento Dati Anagrafici</h2>
-        <div class="grid gap-6 mb-6 md:grid-cols-3">
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
-                <input formControlName = "nome" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nome" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Cognome</label>
-                <input formControlName = "cognome"type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cognome" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Data di nascita</label>
-                <input formControlName ="dataNascita" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Data di nascita" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Codice fiscale</label>
-                <input formControlName ="codiceFiscale" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Data di nascita" required />
-            </div>  
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Luogo di nascita</label>
-                <input formControlName ="luogoNascita" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Luogo di nascita" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Comune residenza</label>
-                <input formControlName = "comuneResidenza" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Comune residenza" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo residenza</label>
-                <input formControlName = "indirizzoResidenza" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Indirizzo residenza" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Comune domicilio</label>
-                <input formControlName = "comuneDomicilio" type = "text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Comune domicilio" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo domicilio</label>
-                <input formControlName = "indirizzoDomicilio" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Indirizzo domicilio" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Cap residenza</label>
-                <input formControlName = "capResidenza" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cap residenza" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Email aziendale</label>
-                <input formControlName = "emailAziendale" type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Email aziendale" required />
-            </div>
-            <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Società</label>
-                <input formControlName = "societaId" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Email aziendale" required />
-            </div>
-        </div>
+<div class = "flex justify-center my-10 text-4xl font-bold">
+    <h2>Inserito nuovo dipendente</h2>
+</div>
+<div class = "flex flex-row justify-center">
+<form class="w-full max-w-2xl">
+    <div class="flex w-full flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name">Nome</label>
+        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-first-name" type="text" placeholder="Scrivi un nome...">
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-last-name">Cognome</label>
+        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-last-name" type="text" placeholder="Scrivi un cognome...">
+      </div>
+      <div class = "w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-born-date">Data di nascita</label>
+        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-born-date" type="date">
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cf">Codice Fiscale</label>
+        <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-cf" type="text" placeholder="Scrivi il codice fiscale...">
+      </div>
+    </div>
 
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Aggiungi persona</button>
-    </form>
+    <div class="flex w-full flex-nowrap -mx-3 mb-6">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-state">Paese di nascita</label>
+            <div class="relative">
+              <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+               focus:border-sky-500 focus:ring-sky-500" id="grid-state">
+                <option selected>--Seleziona--</option>
+                <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">
+                    {{pae.gepaDenominazione}}
+                </option>
+              </select>
+            </div>
+          </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-regione">Regione</label>
+        <div class="relative">
+          <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-regione">
+            <option selected>--Seleziona--</option>
+            <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">
+                {{reg.gereDeno}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-provincia">Provincia residenza</label>
+        <div class="relative">
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
+            <option selected>--Seleziona--</option>
+            <option></option>
+          </select>
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-comuneResidenza">Comune residenza</label>
+        <div class="relative">
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
+            <option selected>--Seleziona--</option>
+            <option></option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex w-full flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-indirizzo-residenza">Indirizzo residenza</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-first-name" type="text" placeholder="Scrivi l'indirizzo di residenza...">
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-last-name">Numero civico</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-last-name" type="text" placeholder="Scrivi un cognome...">
+        </div>
+        <div class = "w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-born-date">Data di nascita</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-born-date" type="date">
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cf">Codice Fiscale</label>
+          <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-cf" type="text" placeholder="Scrivi il codice fiscale...">
+        </div>
+      </div>
+  </form>
+</div>
+
+<div class = "flex justify-center mt-10">
+    <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Aggiungi persona</button>
 </div>
