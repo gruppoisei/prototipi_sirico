@@ -54,21 +54,30 @@ export class AggiungiOrdinarioComponent {
       oreLavorate:this.oreOrd,
       oreStraordinario:this.oreStra!,
     }
-      let nuovaAttivitaId =this.rapportinoService.AggiungiAttivitaGiorno(attivitaDaAggiungere)
-      console.log("2:")
-
-      console.log(nuovaAttivitaId)
-      if(nuovaAttivitaId>0)
-      {
-        let aggiornoComponenteAttivitaGiorno = new AttivitaGiornoCalendario();
-        aggiornoComponenteAttivitaGiorno.attivitaId = nuovaAttivitaId;
-        aggiornoComponenteAttivitaGiorno.oreLavorate = attivitaDaAggiungere.oreLavorate
-        aggiornoComponenteAttivitaGiorno.oreStraordinario = attivitaDaAggiungere.oreStraordinario
-        aggiornoComponenteAttivitaGiorno.sedeLavoro = this.rapportinoService.infoPersona.listaSedeLavoroPersona.find(e => e.sedeLavodoPersonaId == attivitaDaAggiungere.sedeLavoroPersonaId)?.nomeSedeLavoro
-        aggiornoComponenteAttivitaGiorno.nomeProgetto = this.rapportinoService.infoPersona.listaAttivitaProgettoPersona.find(e => e.attivitaProgettoPersonaId == attivitaDaAggiungere.attivitaPersonaId)?.nomeProgetto
+      this.rapportinoService.AggiungiAttivitaGiorno(attivitaDaAggiungere).subscribe(
+        res =>{
+          try {
+            if (res > 0) {
+              this.rapportinoService.AggiornaBox();
+              alert('tutto bene');
+              let aggiornoComponenteAttivitaGiorno = new AttivitaGiornoCalendario();
+             aggiornoComponenteAttivitaGiorno.attivitaId = res;
+              aggiornoComponenteAttivitaGiorno.oreLavorate = attivitaDaAggiungere.oreLavorate
+              aggiornoComponenteAttivitaGiorno.oreStraordinario = attivitaDaAggiungere.oreStraordinario
+              aggiornoComponenteAttivitaGiorno.sedeLavoro = this.rapportinoService.infoPersona.listaSedeLavoroPersona.find(e => e.sedeLavodoPersonaId == attivitaDaAggiungere.sedeLavoroPersonaId)?.nomeSedeLavoro
+              aggiornoComponenteAttivitaGiorno.nomeProgetto = this.rapportinoService.infoPersona.listaAttivitaProgettoPersona.find(e => e.attivitaProgettoPersonaId == attivitaDaAggiungere.attivitaPersonaId)?.nomeProgetto
         
          this.mandaNuovaAttivitaInserita.emit(aggiornoComponenteAttivitaGiorno)
+              
+            }
+          } catch (e) {
+            console.log(e);        
+          }
+        }
+      )
+      
+        
       }
   }
 
-}
+

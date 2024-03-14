@@ -40,7 +40,7 @@
     display: flex;
     padding: 10px;
     margin: 10px;
-    
+    flex-direction: column;
 }
 
 
@@ -49,8 +49,13 @@
     flex-direction: row;
     margin: 12px;
     padding: 12px;
-    
-    background-color: rgb(230, 221, 221);
+    width: 1000px;
     border: 2px;
-    align-content: flex-start
+    background-color: teal;
+     color:white
+}
+
+
+.qualcosa{
+    flex-grow: 1;
 }

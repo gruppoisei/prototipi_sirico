@@ -7,12 +7,18 @@
 }
 
 .AP{
-    background-color: green;
+    background-color: teal;
     color: white;
+    flex-grow: 4
+    margin 2px;
+    padding: 2px;
 }
 
 .AS{
-    background-color: green;
+    background-color: teal;
     color: rgb(236, 218, 81);
-
+    flex-grow: 4
+    margin 2px;
+    padding:2px;
 }
+
