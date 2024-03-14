@@ -12,6 +12,7 @@ export interface Contratto {
     costopresuntoannuo: number | null;     // lo includiamo, ma non lo passiamo
     costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo
     CodsValoredistacco: number | null;     // percentuale
+    AnsoSocietaDistaccoid: number | null;
     CodsDatainiziodistacco: string | null;
     CodsDatafinedistacco: string | null;
     CodiNote: string | null

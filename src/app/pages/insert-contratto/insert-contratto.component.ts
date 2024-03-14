@@ -30,6 +30,7 @@ submitForm() {
   tipiCcnl: [{ coccCcnlid: number; coccDesc: string }] | undefined;
   tipiLivello: [{ coliLivelloid: number; coliLivellocontratto: string }] | undefined;
   tipiRuolo: [{ anruRuoloid: number; anruRuolodesc: string }] | undefined;
+  tipiSocietaDistacco: [{ ansoSocietaid: number; ansoRagionesociale: string }] | undefined;
   
 
   formData: Contratto = {
@@ -46,6 +47,7 @@ submitForm() {
     costopresuntoannuo: null,
     costopresuntogiorno: null,
     CodsValoredistacco: null,
+    AnsoSocietaDistaccoid: null,
     CodsDatainiziodistacco: null,
     CodsDatafinedistacco: null,
     CodiNote: null
@@ -95,6 +97,7 @@ submitForm() {
       costopresuntoannuo: null,
       costopresuntogiorno: null,
       CodsValoredistacco: null,
+      AnsoSocietaDistaccoid: null,
       CodsDatainiziodistacco: null,
       CodsDatafinedistacco: null,
       CodiNote: null
@@ -113,6 +116,7 @@ submitForm() {
       (response: any) => {
         console.log(response);
         this.tipiSocieta = response;
+        this.tipiSocietaDistacco = response;
         },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di contratto:', error);
