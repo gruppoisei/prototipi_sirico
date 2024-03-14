@@ -55,17 +55,16 @@ export class CalendarioComponent {
       this.giornoRiferimento.getMonth() + 1,
       0
     );
-      
-      console.log("prova");
-      console.log(this.giornoRiferimento.getDay() - 1);
+    console.log("prova")
+    console.log(this.primoDelMese.getDay() - 1)
 
-    this.giorniMesePassato = Array(this.giornoRiferimento.getDay() - 1)
+    this.giorniMesePassato = Array(this.primoDelMese.getDay() - 1)
       .fill(0)
       .map((x, i) => {
         return new Date(
           this.primoDelMese.getFullYear(),
           this.primoDelMese.getMonth(),
-          this.primoDelMese.getDate() - this.giornoRiferimento.getDay() + i + 1
+          this.primoDelMese.getDate() - this.primoDelMese.getDay() + i +1
         ).getDate();
       });
 
