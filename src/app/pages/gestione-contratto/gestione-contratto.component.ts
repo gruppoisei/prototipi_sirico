@@ -1,19 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-gestione-contratto',
   templateUrl: './gestione-contratto.component.html',
   styleUrl: './gestione-contratto.component.scss'
 })
-export class GestioneContrattoComponent {
+export class GestioneContrattoComponent implements OnInit{
 
-  eliminaForm() {
-throw new Error('Method not implemented.');
-}
+  ricercaForm!: FormGroup;
+  constructor(private fb : FormBuilder){}
 
-  chiudiForm() {
-throw new Error('Method not implemented.');
-}
+  ngOnInit(): void {
 
+    this.ricercaForm = this.fb.group({
+      nome : [''],
+      cognome : [''],
+      codiceFiscale : [''],      
+      societa : ['']
+  })
+   }
+
+  clearSearch()
+  {
+    this.ricercaForm.reset();
+  }
+      
+  ricercaFiltrata()
+  {
+
+  }
 
 }

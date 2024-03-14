@@ -12,6 +12,7 @@ import { authGuard } from './guard/auth.guard';
 // import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
+import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,11 @@ const routes: Routes = [
   {
     path: "gestione-contratto",
     component: GestioneContrattoComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "nuovo-contratto",
+    component: InsertContrattoComponent,
     canActivate: [authGuard]
   }
 ];

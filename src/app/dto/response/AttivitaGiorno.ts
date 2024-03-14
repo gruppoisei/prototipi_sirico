@@ -1,4 +1,4 @@
-export interface AttivitaGiorno {
+export interface AttivitaGiornoResponse {
     giornoLavorativoId : number;
 attivitaPersonaId: number;
 sedeLavoroPersonaId: number;

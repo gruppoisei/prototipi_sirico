@@ -11,13 +11,14 @@ import { NgIf,NgFor } from '@angular/common';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { AttivitaGiorno, GiornoDiLavoro } from '../../../dto/request/calendario';
+import { AttivitaGiornoCalendario, GiornoDiLavoro } from '../../../dto/request/calendario';
 import { RapportinoService } from '../../../service/rapportino.service';
 import { AggiungiOrdinarioComponent } from "../aggiungi-ordinario/aggiungi-ordinario.component";
 import { AggiungiReperibilitaComponent } from "../aggiungi-reperibilita/aggiungi-reperibilita.component";
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { GiornoLavorativo } from '../../../dto/request/giornolavorativo';
+import { AttivitaGiornoResponse } from '../../../dto/response/AttivitaGiorno';
 
 
 
@@ -76,6 +77,12 @@ ConfermaGiorno(){
 
 }
 
+AttivitaOrdinariaAggiunta(AttivitaDaAggiungere:AttivitaGiornoCalendario){
+  this.data.listaAttivitaGiorno.push(AttivitaDaAggiungere)
+  console.log("3:")
+
+  console.log(this.data.listaAttivitaGiorno)
+}
 
 AnnullaGiorno(){
 
@@ -83,6 +90,8 @@ AnnullaGiorno(){
 
 EliminaAttivita(attivitaId:number){
     this.rapportinoService.EliminaAttivita(attivitaId,this.data.giornoLavorativoId!)
+
+    this.data.listaAttivitaGiorno = this.data.listaAttivitaGiorno.filter(attivita =>  attivita.attivitaId != attivitaId );
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -11,7 +11,8 @@ import {MatInputModule} from '@angular/material/input';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { RapportinoService } from '../../../service/rapportino.service';
 import {MatIconModule} from '@angular/material/icon';
-import { AttivitaGiorno } from '../../../dto/response/AttivitaGiorno';
+import {  AttivitaGiornoResponse } from '../../../dto/response/AttivitaGiorno';
+import { AttivitaGiornoCalendario } from '../../../dto/request/calendario';
 
 
 
@@ -24,6 +25,8 @@ import { AttivitaGiorno } from '../../../dto/response/AttivitaGiorno';
 imports:[MatButtonModule,CommonModule,MatSlideToggle,MatCheckboxModule,MatFormFieldModule,MatInputModule,MatSelectModule,FormsModule, ReactiveFormsModule,MatIconModule]
 })
 export class AggiungiOrdinarioComponent {
+  @Output() mandaNuovaAttivitaInserita = new EventEmitter<AttivitaGiornoCalendario>()
+
 
   @Input()
   giornoLavorativoId!:number
@@ -44,15 +47,37 @@ export class AggiungiOrdinarioComponent {
   }
 
   AggiungiAttivitaGiorno(){
-    let attivitaDaAggiungere:AttivitaGiorno = {
+    let attivitaDaAggiungere:AttivitaGiornoResponse = {
       giornoLavorativoId: this.giornoLavorativoId,
       attivitaPersonaId:this.commessa!,
       sedeLavoroPersonaId:this.sede!,
       oreLavorate:this.oreOrd,
       oreStraordinario:this.oreStra!,
     }
-    console.log(attivitaDaAggiungere)
-      this.rapportinoService.AggiungiAttivitaGiorno(attivitaDaAggiungere)
+      this.rapportinoService.AggiungiAttivitaGiorno(attivitaDaAggiungere).subscribe(
+        res =>{
+          try {
+            if (res > 0) {
+              this.rapportinoService.AggiornaBox();
+              alert('tutto bene');
+              let aggiornoComponenteAttivitaGiorno = new AttivitaGiornoCalendario();
+             aggiornoComponenteAttivitaGiorno.attivitaId = res;
+              aggiornoComponenteAttivitaGiorno.oreLavorate = attivitaDaAggiungere.oreLavorate
+              aggiornoComponenteAttivitaGiorno.oreStraordinario = attivitaDaAggiungere.oreStraordinario
+              aggiornoComponenteAttivitaGiorno.sedeLavoro = this.rapportinoService.infoPersona.listaSedeLavoroPersona.find(e => e.sedeLavodoPersonaId == attivitaDaAggiungere.sedeLavoroPersonaId)?.nomeSedeLavoro
+              aggiornoComponenteAttivitaGiorno.nomeProgetto = this.rapportinoService.infoPersona.listaAttivitaProgettoPersona.find(e => e.attivitaProgettoPersonaId == attivitaDaAggiungere.attivitaPersonaId)?.nomeProgetto
+        
+         this.mandaNuovaAttivitaInserita.emit(aggiornoComponenteAttivitaGiorno)
+              
+            }
+          } catch (e) {
+            console.log(e);        
+          }
+        }
+      )
+      
+        
+      }
   }
 
-}
+

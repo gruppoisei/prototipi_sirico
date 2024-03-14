@@ -1,0 +1,160 @@
+<h1 class="titles">Gestione dati contratto</h1>
+ <form (ngSubmit)="submitForm()"> 
+<!-- COLONNA DI SINITRA -->
+<!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI SINISTRA -->
+<div class="row">
+    <div class="column">
+        <div class="textcolumn1">
+            Nome*:
+        </div>
+        <div class="textcolumn1">
+            Cognome*:
+        </div>
+        <div class="textcolumn1">
+            Società*:
+        </div>
+        <div class="textcolumn1">
+            Data inizio contratto*:
+        </div>
+        <div class="textcolumn1">
+            Data fine contratto*:
+        </div>  
+        <div class="textcolumn1">
+            Tipo contratto*:
+        </div>
+        <div class="textcolumn1">
+            CCNL*:
+        </div>
+        <div class="textcolumn1">
+            Livello*:
+        </div>      
+    </div>
+    <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI SINISTRA -->
+    <div class="column">
+        <div class="fieldcolumn1">
+            <input [(ngModel)]="formData.AnpeNome" class="box" type="text" name="Nome">
+        </div>
+        <div class="fieldcolumn1">
+            <input [(ngModel)]="formData.AnpeCognome" class="box" type="text" name="Cognome">
+        </div>
+        <div class="fieldcolumn1">
+            <select [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required> <!--DA FARE-->
+                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}</option>
+            </select>
+            <!--
+                <select [(ngModel)]="formData.CotcTipocontrattoid" class="box" name="tipocontratto" required>
+                <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto }}</option>
+                </select>
+            -->
+        </div>
+        <div class="fieldcolumn1">
+            <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto">
+        </div>
+        <div class="fieldcolumn1">
+            <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto">
+        </div>
+        <div class="fieldcolumn1">
+            <select [(ngModel)]="formData.CotcTipocontrattoid" class="box" name="tipocontratto" required>
+                <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto }}</option>
+            </select>
+        </div>
+        <div class="fieldcolumn1">
+            <select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL" required>
+                <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
+            </select>
+        </div>
+        <div class="fieldcolumn1">
+            <select [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
+                <option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">{{ tipo.coliLivellocontratto }}</option>                
+            </select>
+        </div>
+    </div>
+<!-- COLONNA DI DESTRA -->
+<!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI DESTRA -->
+    <div class="column">
+        <div class="textcolumn1">
+            Tipo lavoratore*:
+        </div>
+        <div class="textcolumn1">
+            RAL*:
+        </div>
+        <div class="textcolumn1">
+            Costo presunto annuo*:
+        </div>
+        <div class="textcolumn1">
+            Costo presunto giorno*:
+        </div>
+        <div class="inlinetextcolumn1">
+            In distacco:
+        </div>
+        <div class="textcolumn1">
+            Cliente distacco*:
+        </div>  
+        <div class="textcolumn1">
+            Data inizio distacco*:
+        </div>
+        <div class="textcolumn1">
+            Data fine distacco*:
+        </div>
+        <div class="textcolumn1">
+            Note:
+        </div>                
+    </div>
+    <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
+    <div class="column">
+        <div class="fieldcolumn2">            
+            <select [(ngModel)]="formData.AnruRuoloid" class="box" name="tipolavoratore" required>
+                <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>               
+            </select>
+        </div>
+        <div class="fieldcolumn2">
+            <input [(ngModel)]="formData.CodiRalcompenso" class="box" type="number" name="RAL" required>
+        </div>
+        <div class="fieldcolumn2">
+            <input [(ngModel)]="formData.costopresuntoannuo" class="box" type="number" name="costopresuntoannuo" required>
+        </div>
+        <div class="fieldcolumn2">
+            <input [(ngModel)]="formData.costopresuntogiorno" class="box" type="number" name="costopresuntogiorno" required>
+        </div>
+        <div class="fieldcolumn2">
+            <tr>                
+                {{uncheck}}
+                <input [(ngModel)]="uncheck" (onclick)="check(uncheck)" class="inlinecheckbox" type="checkbox" name="indistacco">
+                <td class="inlinefields">Percentuale*:</td>
+                <input [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox" type="number" name="Percentuale" required>
+            </tr>                        
+        </div>
+        <div class="fieldcolumn2">
+            <select [disabled]="!uncheck"  class="box" name="clientedistacco">
+                <option value="placeholder1">placeholder1</option>
+                <option value="placeholder2">placeholder2</option>
+            </select>
+        </div>
+        <div class="fieldcolumn2">
+            <input [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck"  class="box" type="date" name="datainiziodistacco" required>
+        </div>
+        <div class="fieldcolumn2">
+            <input [(ngModel)]="formData.CodsDatafinedistacco" [disabled]="!uncheck" class="box" type="date" name="datafinedistacco" required>
+        </div>
+        <div class="fieldcolumn2">
+          <textarea [(ngModel)]="formData.CodiNote" contenteditable="true" maxlength="65535" class="box" type="text" name="Note"></textarea>  
+            <!--<textarea rows="15" cols="50" style="max-height:100px;min-height:25px;max-width:220px; resize: none"
+            contenteditable="true" class="box" type="text" name="Note"></textarea>-->
+            <!--<input class="box" maxlength="65535" type="text" name="Note"> -->
+        </div>
+    </div>
+</div>
+ 
+<div>    
+    <button class="buttons" type="submit">Salva scheda contratto</button>
+    <button class="buttons" type="button" (click)="clearForm()">Elimina scheda contratto</button>    
+    <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
+</div>
+</form>
+<!--
+<div class="buttons">
+    <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
+    <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
+    <button type="button" (click)="chiudiForm()">Chiudi</button>
+  </div>
+-->
