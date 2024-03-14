@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Persona } from '../../dto/request/persona';
+import { RegioneService } from '../../service/regione.service';
+import { PaesiService } from '../../service/paesi.service';
+import { SocietaService } from '../../service/societa.service';
 
 @Component({
   selector: 'app-insert-persona',
@@ -12,8 +15,11 @@ export class InsertPersonaComponent implements OnInit{
 
   insertPersona !: FormGroup;
   nuovaPersona ?: Persona
+  listRegioni: any;
+  listPaese: any;
+  listSocieta: any;
 
-constructor(private fb : FormBuilder,private auth: AuthService)
+constructor(private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese: PaesiService, private serviceSocieta: SocietaService)
 {}
   ngOnInit(): void {
    this.insertPersona = this.fb.group(
@@ -32,6 +38,25 @@ constructor(private fb : FormBuilder,private auth: AuthService)
       emailAziendale : ['',Validators.required],
       societaId : ['',Validators.required]
     })
+
+    this.serviceRegione.getRegioni().subscribe
+    ((data: any)=>
+    {
+      this.listRegioni = data;
+    })
+
+    this.servicePaese.getAllPaesi().subscribe
+    ((data: any)=>
+    {
+      this.listPaese = data;
+    })
+    this.serviceSocieta.getAllSocieta().subscribe
+    ((data : any)=>
+    {
+      this.listSocieta = data;
+    })
+
+
   }
 
   insertUser()
