@@ -25,20 +25,23 @@ submitForm() {
   uncheck: any;
 
   contratto: Contratto[] = [];
+  tipiSocieta: [{ ansoSocietaid: number; ansoRagionesociale: string }] | undefined;
   tipiContratto: [{ cotcTipocontrattoid: number; cotcContratto: string }] | undefined;
-  selezioneTipoContratto = 0;
   tipiCcnl: [{ coccCcnlid: number; coccDesc: string }] | undefined;
   tipiLivello: [{ coliLivelloid: number; coliLivellocontratto: string }] | undefined;
+  tipiRuolo: [{ anruRuoloid: number; anruRuolodesc: string }] | undefined;
   
 
   formData: Contratto = {
     AnpeNome: null,
     AnpeCognome: null,
+    AnsoSocietaid: null,
     CodiDatainiziocontratto: null,
     CodiDatafinecontratto: null,
     CotcTipocontrattoid: null,
     CoccCcnlid: 0,
     ColiLivelloid: null,
+    AnruRuoloid: null,
     CodiRalcompenso: null,
     costopresuntoannuo: null,
     costopresuntogiorno: null,
@@ -54,9 +57,11 @@ submitForm() {
 
   ngOnInit(): void {
     this.reset();
+    this.getAllTipoSocieta();
     this.getAllTipoContratto();
-    this.getAllTipoCcnl();  
-    //this.getAllTipoLivello();
+    this.getAllTipoCcnl();
+    //this.getAllTipoLivello(); 
+    this.getAllTipoRuolo();     
   }
 
 
@@ -79,11 +84,13 @@ submitForm() {
     this.formData = {
       AnpeNome: null,
       AnpeCognome: null,
+      AnsoSocietaid: null,
       CodiDatainiziocontratto: null,
       CodiDatafinecontratto: null,
       CotcTipocontrattoid: null,
       CoccCcnlid: 0,
       ColiLivelloid: null,
+      AnruRuoloid: null,
       CodiRalcompenso: null,
       costopresuntoannuo: null,
       costopresuntogiorno: null,
@@ -99,6 +106,18 @@ submitForm() {
   closeForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
       this.router.navigate(['/homepage']);
+  }
+
+  getAllTipoSocieta() {
+    this.inserimentoContrattoService.getAllTipoSocieta().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiSocieta = response;
+        },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di contratto:', error);
+      }
+    );
   }
 
   getAllTipoContratto() {
@@ -130,6 +149,18 @@ submitForm() {
       (response: any) => {
         console.log(response);
         this.tipiLivello = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di ccnl:', error);
+      }
+    );
+  }
+
+  getAllTipoRuolo() {
+    this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiRuolo = response;
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di ccnl:', error);
