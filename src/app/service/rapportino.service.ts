@@ -1,15 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {  CalendarioRequest, GiornoDiLavoro } from '../dto/request/calendario';
 import { DatePipe } from '@angular/common';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { InfoPersona } from '../dto/request/InfoPersona';
 import { AttivitaGiorno } from '../dto/response/AttivitaGiorno';
+import { GiornoLavorativo } from '../dto/request/giornolavorativo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RapportinoService {
+  httpOptions: Object = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }), responseType: 'text'
+  };
   infoPersona!:InfoPersona
   risposta:CalendarioRequest = new CalendarioRequest()
 
@@ -19,13 +25,12 @@ export class RapportinoService {
       '08:30','09:00', '09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'
    ]
 
-
-
-  
+   
 
   constructor(private http:HttpClient) {
     // this.AggiornaGiorniMese(new Date())
     this.RaccogliInfoPersona()
+    
 
    }
 
@@ -44,8 +49,8 @@ export class RapportinoService {
 
    AggiungiAttivitaGiorno(attivitaDaInserire:AttivitaGiorno)
    {
-    this.http.post<any>("http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera",attivitaDaInserire).subscribe(
-      res => {alert("tutto bene");console.log(res)}
+    this.http.post<any>("http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera",attivitaDaInserire,this.httpOptions).subscribe(
+      res => {alert("tutto bene");this.AggiornaBox()}
     )
 
    }
@@ -61,16 +66,17 @@ export class RapportinoService {
 
 
    EliminaAttivita(attivitaId:number,giornoLavorativoId:number){
-    this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaAttivitaGiornaliera",attivitaId).subscribe(
+    this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaAttivitaGiornaliera",attivitaId,this.httpOptions).subscribe(
         res => {
           if(res.status == 200){
-            console.log("prima")
-            console.log(this.risposta.listaGiorniLavoroMese.find(giorno => giorno.giornoLavorativoId ==giornoLavorativoId))
-            this.risposta.listaGiorniLavoroMese.map(giorno => giorno.listaAttivitaGiorno.filter(attivita => {return attivita.attivitaId != attivitaId} ))
-            console.log(this.risposta.listaGiorniLavoroMese.find(giorno => giorno.giornoLavorativoId ==giornoLavorativoId))
+            // console.log("prima")
+            // console.log(this.risposta.listaGiorniLavoroMese.find(giorno => giorno.giornoLavorativoId ==giornoLavorativoId))
+            // this.risposta.listaGiorniLavoroMese.map(giorno => giorno.listaAttivitaGiorno.filter(attivita => {return attivita.attivitaId != attivitaId} ))
+            // console.log(this.risposta.listaGiorniLavoroMese.find(giorno => giorno.giornoLavorativoId ==giornoLavorativoId))
             
-            console.log("dopo")
-            console.log()
+            // console.log("dopo")
+            // console.log()
+            this.AggiornaBox()
            
           }
         }
@@ -78,10 +84,77 @@ export class RapportinoService {
    }
 
    EliminaGiorno(giornoId: number){
-      this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaGiorno", giornoId).subscribe(
-        res => { alert ("gioirno eliminato"); console.log(res)}
+      this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaGiorno", giornoId,this.httpOptions).subscribe(
+        res => { alert ("giorno eliminato"); this.AggiornaBox()}
       )
    }
    
+   ConfermaGiorno(giorno:GiornoLavorativo){
+      this.http.put<any>("", giorno).subscribe(
+        res => { alert ("giorno confermato");this.AggiornaBox()}
+      )
 
+   }
+
+
+
+
+
+
+
+
+
+   giornoRiferimento = new Date();
+
+   primoDelMese = new Date();
+   ultimoDelMese = new Date();
+ 
+   giorniMesePassato: number[] = [];
+   giorniMeseSeguente: number[] = [];
+
+
+
+
+   AggiornaBox() {
+
+
+    this.AggiornaGiorniMese(this.giornoRiferimento)
+
+    this.primoDelMese = new Date(
+      this.giornoRiferimento.getFullYear(),
+      this.giornoRiferimento.getMonth(),
+      1
+    );
+
+    this.ultimoDelMese = new Date(
+      this.giornoRiferimento.getFullYear(),
+      this.giornoRiferimento.getMonth() + 1,
+      0
+    );
+   
+
+    this.giorniMesePassato = Array(this.primoDelMese.getDay() - 1)
+      .fill(0)
+      .map((x, i) => {
+        return new Date(
+          this.primoDelMese.getFullYear(),
+          this.primoDelMese.getMonth(),
+          this.primoDelMese.getDate() - this.primoDelMese.getDay() + i +1
+        ).getDate();
+      });
+
+
+
+
+    if (this.ultimoDelMese.getDay() == 0) {
+      this.giorniMeseSeguente = [];
+    } else {
+      this.giorniMeseSeguente = Array(7 - this.ultimoDelMese.getDay())
+        .fill(0)
+        .map((x, i) => {
+          return i + 1;
+        });
+    }
+
+  }
 }
