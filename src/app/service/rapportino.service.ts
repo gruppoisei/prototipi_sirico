@@ -66,30 +66,9 @@ export class RapportinoService {
       .subscribe();
   }
 
-  AggiungiAttivitaGiorno(attivitaDaInserire: AttivitaGiornoResponse): number {
-    var nuovaAttivitaId = 0;
-    this.http.post<any>('http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera', attivitaDaInserire)
-      .subscribe({
-        next: (res) =>{ 
-        console.log("1:")
-        console.log(res)
-
-        try {
-          if (res > 0) {
-            nuovaAttivitaId = res;
-            this.AggiornaBox();
-            alert('tutto bene');
-            
-          }
-        } catch (e) {
-          console.log(e);
-          
-        }
-      
-
-      }
-      });
-      return nuovaAttivitaId;
+  AggiungiAttivitaGiorno(attivitaDaInserire: AttivitaGiornoResponse): Observable<number> {
+    
+    return this.http.post<number>('http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera', attivitaDaInserire)
   }
 
   RaccogliInfoPersona() {
@@ -108,9 +87,9 @@ export class RapportinoService {
         this.httpOptions
       )
       .subscribe((res) => {
-        if (res.status == 200) {
+        
           this.AggiornaBox();
-        }
+        
       });
   }
 

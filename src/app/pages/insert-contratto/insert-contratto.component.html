@@ -38,10 +38,9 @@
             <input [(ngModel)]="formData.AnpeCognome" class="box" type="text" name="Cognome">
         </div>
         <div class="fieldcolumn1">
-            <select class="box" name="Societa" required> <!--DA FARE-->
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
+            <select [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required> 
+                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}</option>
+            </select>            
         </div>
         <div class="fieldcolumn1">
             <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto">
@@ -51,7 +50,7 @@
         </div>
         <div class="fieldcolumn1">
             <select [(ngModel)]="formData.CotcTipocontrattoid" class="box" name="tipocontratto" required>
-                <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo. cotcContratto }}</option>
+                <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto }}</option>
             </select>
         </div>
         <div class="fieldcolumn1">
@@ -98,10 +97,9 @@
     </div>
     <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
     <div class="column">
-        <div class="fieldcolumn2">
-            <select class="box" name="tipolavoratore" required> <!--DA FARE-->
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
+        <div class="fieldcolumn2">            
+            <select [(ngModel)]="formData.AnruRuoloid" class="box" name="tipolavoratore" required>
+                <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>               
             </select>
         </div>
         <div class="fieldcolumn2">
@@ -115,17 +113,16 @@
         </div>
         <div class="fieldcolumn2">
             <tr>                
-                UNCHECK {{uncheck}}
+                <!--{{uncheck}}-->
                 <input [(ngModel)]="uncheck" (onclick)="check(uncheck)" class="inlinecheckbox" type="checkbox" name="indistacco">
                 <td class="inlinefields">Percentuale*:</td>
                 <input [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox" type="number" name="Percentuale" required>
             </tr>                        
         </div>
         <div class="fieldcolumn2">
-            <select [disabled]="!uncheck"  class="box" name="clientedistacco">
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
+            <select [(ngModel)]="formData.AnsoSocietaDistaccoid" [disabled]="!uncheck" class="box" name="clientedistacco" required> 
+                <option *ngFor="let tipo of tipiSocietaDistacco" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}</option>
+            </select>           
         </div>
         <div class="fieldcolumn2">
             <input [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck"  class="box" type="date" name="datainiziodistacco" required>

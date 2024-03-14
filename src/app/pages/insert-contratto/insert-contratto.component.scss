@@ -43,6 +43,10 @@ h1 {
     //word-wrap: break-word;  
 }
 
+[disabled] {
+    background-color: grey;
+}
+
 [contenteditable="true"] {
     //-moz-box-sizing: border-box;
     //border: 1px solid black;
