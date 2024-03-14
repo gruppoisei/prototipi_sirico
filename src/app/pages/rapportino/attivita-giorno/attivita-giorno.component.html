@@ -86,7 +86,7 @@
 
 
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!"> </app-aggiungi-ordinario>
+      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showReperibilita">

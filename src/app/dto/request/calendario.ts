@@ -15,11 +15,11 @@ export class GiornoDiLavoro{
     oraInizioPausa = "13:00";
     oraFinePausa = "14:00";
     oraUscita = "18:00";
-    listaAttivitaGiorno:AttivitaGiorno[] = []
+    listaAttivitaGiorno:AttivitaGiornoCalendario[] = []
 }
 
 
-export class AttivitaGiorno{
+export class AttivitaGiornoCalendario{
 
     attivitaId?:number;
     nomeProgetto?:string;
