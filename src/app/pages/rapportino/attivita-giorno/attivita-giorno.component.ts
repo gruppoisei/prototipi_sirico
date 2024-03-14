@@ -90,6 +90,8 @@ AnnullaGiorno(){
 
 EliminaAttivita(attivitaId:number){
     this.rapportinoService.EliminaAttivita(attivitaId,this.data.giornoLavorativoId!)
+
+    this.data.listaAttivitaGiorno = this.data.listaAttivitaGiorno.filter(attivita =>  attivita.attivitaId != attivitaId );
 }
 
 
