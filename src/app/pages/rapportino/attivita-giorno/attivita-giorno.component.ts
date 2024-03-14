@@ -39,8 +39,6 @@ export class AttivitaGiornoComponent {
   
 
 
-  @Input()
-  giornoLavorativoId!:number
 
 
 
@@ -84,7 +82,7 @@ AnnullaGiorno(){
 }
 
 EliminaAttivita(attivitaId:number){
-    this.rapportinoService.EliminaAttivita(attivitaId,this.giornoLavorativoId)
+    this.rapportinoService.EliminaAttivita(attivitaId,this.data.giornoLavorativoId!)
 }
 
 
