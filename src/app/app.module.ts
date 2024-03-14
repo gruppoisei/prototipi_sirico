@@ -38,6 +38,7 @@ import { NewPasswordResponseDialogComponent } from './ui/new-password-response-d
 import { authGuard } from './guard/auth.guard';
 import {MatCardModule} from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
+import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestion
     ModificaPasswordComponent,
     NewPasswordResponseDialogComponent,
     GestioneDipendenteComponent,
+    GestioneContrattoComponent,
 
   ],
   imports: [
