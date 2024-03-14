@@ -18,8 +18,15 @@ export class InsertContrattoService {
   
 
   getAllTipoContratto(): Observable<any> {
-    console.log("2");
     return this.Http.get<any>(`${this.apiUrl}/GetTipoContratto`);
+  }
+
+  getAllTipoCcnl(): Observable<any> {
+    return this.Http.get<any>(`${this.apiUrl}/GetCCNL`);
+  }
+
+  getAllTipoLivello(idTipoLivello: number): Observable<any> {
+    return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/`+idTipoLivello);
   }
 
 }

@@ -4,6 +4,8 @@ export interface Contratto {
     CodiDatainiziocontratto: string | null;
     CodiDatafinecontratto: string | null;
     CotcTipocontrattoid: number | null;
+    CoccCcnlid: number;
+    ColiLivelloid: number | null;
     CodiRalcompenso: number | null;
     costopresuntoannuo: number | null;     // lo includiamo, ma non lo passiamo
     costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo

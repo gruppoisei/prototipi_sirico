@@ -26,6 +26,10 @@ submitForm() {
 
   contratto: Contratto[] = [];
   tipiContratto: [{ cotcTipocontrattoid: number; cotcContratto: string }] | undefined;
+  selezioneTipoContratto = 0;
+  tipiCcnl: [{ coccCcnlid: number; coccDesc: string }] | undefined;
+  tipiLivello: [{ coliLivelloid: number; coliLivellocontratto: string }] | undefined;
+  
 
   formData: Contratto = {
     AnpeNome: null,
@@ -33,6 +37,8 @@ submitForm() {
     CodiDatainiziocontratto: null,
     CodiDatafinecontratto: null,
     CotcTipocontrattoid: null,
+    CoccCcnlid: 0,
+    ColiLivelloid: null,
     CodiRalcompenso: null,
     costopresuntoannuo: null,
     costopresuntogiorno: null,
@@ -49,9 +55,11 @@ submitForm() {
   ngOnInit(): void {
     this.reset();
     this.getAllTipoContratto();
+    this.getAllTipoCcnl();  
+    //this.getAllTipoLivello();
   }
 
- 
+
  check(uncheck: any) {
    if (uncheck == null) { this.uncheck = true; }
    else if (uncheck == true ) { this.uncheck = false; }
@@ -64,6 +72,7 @@ submitForm() {
     else {
       console.log('Operazione annullata');
     }
+    //console.log("JASDAD    " + this.formData.CotcTipocontrattoid);
   }
 
   reset() {
@@ -73,6 +82,8 @@ submitForm() {
       CodiDatainiziocontratto: null,
       CodiDatafinecontratto: null,
       CotcTipocontrattoid: null,
+      CoccCcnlid: 0,
+      ColiLivelloid: null,
       CodiRalcompenso: null,
       costopresuntoannuo: null,
       costopresuntogiorno: null,
@@ -95,12 +106,39 @@ submitForm() {
       (response: any) => {
         console.log(response);
         this.tipiContratto = response;
-      },
+        },
       (error: any) => {
-        console.error('Errore durante il recupero dei tipi di assenza:', error);
+        console.error('Errore durante il recupero dei tipi di contratto:', error);
       }
     );
   }
+
+  getAllTipoCcnl() {
+    this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiCcnl = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di ccnl:', error);
+      }
+    );
+  }
+
+  getAllTipoLivello() {
+    this.inserimentoContrattoService.getAllTipoLivello(this.formData.CoccCcnlid).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiLivello = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di ccnl:', error);
+      }
+    );
+  }
+
+  
+  
 
   insertContratto() {
 

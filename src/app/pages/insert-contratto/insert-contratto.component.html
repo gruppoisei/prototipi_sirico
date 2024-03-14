@@ -38,7 +38,7 @@
             <input [(ngModel)]="formData.AnpeCognome" class="box" type="text" name="Cognome">
         </div>
         <div class="fieldcolumn1">
-            <select formControlName = "societa" class="box" name="Societa" required> <!--DA FARE-->
+            <select class="box" name="Societa" required> <!--DA FARE-->
                 <option value="placeholder1">placeholder1</option>
                 <option value="placeholder2">placeholder2</option>
             </select>
@@ -55,15 +55,13 @@
             </select>
         </div>
         <div class="fieldcolumn1">
-            <select formControlName = "societa" class="box" name="CCNL" required> <!--DA FARE-->
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
+            <select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL" required>
+                <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
             </select>
         </div>
         <div class="fieldcolumn1">
-            <select formControlName = "societa" class="box" name="Livello" required> <!--DA FARE-->
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
+            <select [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
+                <option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">{{ tipo.coliLivellocontratto }}</option>                
             </select>
         </div>
     </div>
