@@ -1,175 +1,24 @@
-<h1 class="titles">Gestione dati contratto</h1>
-
-<form class="max-w-md mx-auto">
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
-    <div class="flex flex-row">
-        <input type="search" id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Nome" required />
-        <input type="search" id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Cognome" required />
-    </div>
-</form>
-
-<!-- COLONNA DI SINITRA -->
-<!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI SINISTRA -->
-<div class="row">
-    <div class="column" style="background-color: orange">
-        <h2>ALL TEXTS COLUMN 1</h2>
-        <div class="textcolumn1">
-            Nome*:
-        </div>
-        <div class="textcolumn1">
-            Cognome*:
-        </div>
-        <div class="textcolumn1">
-            Società*:
-        </div>
-        <div class="textcolumn1">
-            Data inizio contratto*:
-        </div>
-        <div class="textcolumn1">
-            Data fine contratto*:
-        </div>   
-        <div class="textcolumn1">
-            Tipo contratto*:
-        </div> 
-        <div class="textcolumn1">
-            CCNL*:
-        </div> 
-        <div class="textcolumn1">
-            Livello*:
-        </div>      
-    </div>
-    <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI SINISTRA -->
-    <div class="column" style="background-color: orangered">
-        <h2>ALL FIELDS COLUMN 1</h2>
-        <div class="fieldcolumn1">
-            <input class="box" type="text" name="Nome">
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="text" name="Cognome">
-        </div>
-        <div class="fieldcolumn1">
-            <select class="box" name="Societa" required>
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="date" name="datainiziocontratto">
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="date" name="datafinecontratto">
-        </div>
-        <div class="fieldcolumn1">
-            <select class="box" name="tipocontratto" required>
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <select class="box" name="CCNL" required>
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <select class="box" name="Livello" required>
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
-        </div>
-    </div>
-<!-- COLONNA DI DESTRA -->
-<!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI DESTRA -->
-    <div class="column" style="background-color: lightblue">
-        <h2>ALL TEXTS COLUMN 2</h2>
-        <div class="textcolumn1">
-            Tipo lavoratore*:
-        </div>
-        <div class="textcolumn1">
-            RAL*:
-        </div>
-        <div class="textcolumn1">
-            Costo presunto annuo*:
-        </div>
-        <div class="textcolumn1">
-            Costo presunto giorno*:
-        </div>
-        <div class="inlinetextcolumn1">
-            In distacco*:
-        </div>
-        <div class="textcolumn1">
-            Cliente distacco:
-        </div>   
-        <div class="textcolumn1">
-            Data inizio distacco*:
-        </div> 
-        <div class="textcolumn1">
-            Data fine distacco:
-        </div>
-        <div class="textcolumn1">
-            Note:
-        </div>                
-    </div>
-    <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
-    <div class="column" style="background-color: blue">
-        <h2>ALL FIELDS COLUMN 2</h2>
-        <div class="fieldcolumn1">
-            <select class="box" name="tipolavoratore" required>
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="number" name="RAL" required>
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="number" name="costopresuntoannuo" required>
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="number" name="costopresuntogiorno" required>
-        </div>
-        <div class="fieldcolumn1">
-            <tr>
-                <input class="inlinecheckbox" type="checkbox" name="indistacco" required>
-                <td class="inlinefields">Percentuale*:</td>
-                <input class="inlinebox" type="number" name="Percentuale" required>
-            </tr>                        
-        </div>
-        <div class="fieldcolumn1">
-            <select class="box" name="clientedistacco">
-                <option value="placeholder1">placeholder1</option>
-                <option value="placeholder2">placeholder2</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="date" name="datainiziodistacco" required>
-        </div>
-        <div class="fieldcolumn1">
-            <input class="box" type="date" name="datafinedistacco">
-        </div>
-        <div class="fieldcolumn1">
-          <textarea contenteditable="true" maxlength="65535" class="box" type="text" name="Note"></textarea>  
-            <!--<textarea rows="15" cols="50" style="max-height:100px;min-height:25px;max-width:220px; resize: none" 
-            contenteditable="true" class="box" type="text" name="Note"></textarea>-->
-            <!--<input class="box" maxlength="65535" type="text" name="Note"> --> 
-        </div>
-    </div>
+<div class = "flex justify-center my-10 text-4xl font-bold">
+    <h2>Ricerca contratti</h2>
 </div>
-
-<div>    
-    <button class="buttons" type="submit">Salva scheda contratto</button>
-    <button class="buttons" type="button" (click)="eliminaForm()">Elimina scheda contratto</button>    
-    <button class="buttons" type="button" (click)="chiudiForm()">Chiudi</button>
+<div class = "flex flex-row justify-center my-10">
+    <form [formGroup]="ricercaForm" (ngSubmit)="ricercaFiltrata()" class="w-3/4">
+        <div class="flex flex-row justify-end mt-10">
+            <a routerLink="/nuovo-contratto"><button mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
+        </div>
+        <div class = "flex flex-row mb-5">
+            <!--<input formControlName = "comuneResidenza" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per comune di residenza..." required />
+            <input formControlName = "emailAziendale" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per email aziendale..." required />-->
+            <input formControlName = "societa" type="search" class="mx-5 w-1/2 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per società..." required />
+        </div>
+        <div class="flex flex-row mb-5">
+            <input formControlName = "nome" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per nome..." required />
+            <input formControlName = "cognome" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per cognome..." required />
+            <input formControlName = "codiceFiscale" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per codice fiscale..." required />
+        </div>        
+        <div class = "flex flex-row justify-end mt-10">
+            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            <button type="submit" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+        </div>
+    </form>
 </div>
-
-<!--
-<div class="buttons">
-    <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
-    <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
-    <button type="button" (click)="chiudiForm()">Chiudi</button>
-  </div>
--->
