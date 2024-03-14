@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { tap } from 'rxjs';
 import { InfoPersona } from '../dto/request/InfoPersona';
 import { AttivitaGiorno } from '../dto/response/AttivitaGiorno';
+import { GiornoLavorativo } from '../dto/request/giornolavorativo';
 
 @Injectable({
   providedIn: 'root'
@@ -79,9 +80,14 @@ export class RapportinoService {
 
    EliminaGiorno(giornoId: number){
       this.http.put<any>("http://localhost:5143/AttivitaGiorno/EliminaGiorno", giornoId).subscribe(
-        res => { alert ("gioirno eliminato"); console.log(res)}
+        res => { alert ("giorno eliminato"); console.log(res)}
       )
    }
    
+   ConfermaGiorno(giorno:GiornoLavorativo){
+      this.http.put<any>("", giorno).subscribe(
+        res => { alert ("giorno confermato"); console.log(res)}
+      )
 
+   }
 }

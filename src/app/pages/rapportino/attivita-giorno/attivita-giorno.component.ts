@@ -17,6 +17,7 @@ import { AggiungiOrdinarioComponent } from "../aggiungi-ordinario/aggiungi-ordin
 import { AggiungiReperibilitaComponent } from "../aggiungi-reperibilita/aggiungi-reperibilita.component";
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { GiornoLavorativo } from '../../../dto/request/giornolavorativo';
 
 
 
@@ -34,6 +35,9 @@ export class AttivitaGiornoComponent {
   uscita="18:00"
   showOrdinario= false;
   showReperibilita= false;
+  giorno?: GiornoLavorativo
+  
+
 
   @Input()
   giornoLavorativoId!:number
@@ -63,12 +67,19 @@ this.showOrdinario= false
     this.dialogRef.close();
   }
 
-Conferma(){
+ConfermaGiorno(){ 
+  this.giorno!.giornoLavoroId= this.data.giornoLavorativoId
+  this.giorno!.oraEntrata= this.entrata
+  this.giorno!.oraInizioPausa= this.inizioPausa
+  this.giorno!.oraFinePausa= this.finePausa
+  this.giorno!.oraUscita= this.uscita 
   
+
+
 }
 
 
-Annulla(){
+AnnullaGiorno(){
 
 }
 

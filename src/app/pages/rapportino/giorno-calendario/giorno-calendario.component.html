@@ -3,11 +3,11 @@
     <div class="flex flex-row">
       <p class="flex- grow font-bold text-2xl">{{giorno.dataNumero}}</p>
 
-      <hr>
-
       <button (click)="ClickMe()" >  <mat-icon>create</mat-icon>  </button> 
       <button (click)="Delete(giorno.giornoLavorativoId!)" >  <mat-icon color="warn">delete</mat-icon>  </button> 
     </div>
+
+    <hr>
     <div *ngFor="let attivita of giorno.listaAttivitaGiorno" class="container text-xs m-1 p-1">
       
       <div class="AP row border-bottom m-[1px] p-[1px] "><span>{{attivita.nomeProgetto}}</span></div>
