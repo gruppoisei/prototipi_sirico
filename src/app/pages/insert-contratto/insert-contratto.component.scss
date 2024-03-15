@@ -64,11 +64,10 @@ h1 {
     //box-sizing: border-box;
 }
 
-.mat-icon {
-    margin-left: 10px;
-    margin-top: 5px;
-    height: 20px;
-    width: 20px;
+.material-icons {
+    padding-left: 10px;
+    //display: inline-block;
+    font-size: 30px;
 }
 
 textarea {

@@ -54,7 +54,8 @@ submitForm() {
     AnsoSocietaDistaccoid: null,
     CodsDatainiziodistacco: null,
     CodsDatafinedistacco: null,
-    CodiNote: null
+    CodiNote: null,
+    CodiSysuser: "Edo"
   };
 
   constructor(private fb: FormBuilder, private router: Router, private inserimentoContrattoService: InsertContrattoService) {
@@ -111,7 +112,8 @@ submitForm() {
       AnsoSocietaDistaccoid: null,
       CodsDatainiziodistacco: null,
       CodsDatafinedistacco: null,
-      CodiNote: null
+      CodiNote: null,
+      CodiSysuser: "Edo"
     };
     this.uncheck = false;
   }
