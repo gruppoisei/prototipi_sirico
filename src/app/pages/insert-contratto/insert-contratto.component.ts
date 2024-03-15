@@ -69,14 +69,17 @@ export class InsertContrattoComponent implements OnInit {
     CodsDatainiziodistacco: null,
     CodsDatafinedistacco: null,
     CodiNote: null,
-    CodiSysuser: "Edo"
+    CodiSysuser: "Edo",
+    CodiFlagAttiva: null,
+    CodsFlagAttiva: 0,
+    CodsClienteId: null
   };
 
   formDataDialog: any = {
     personaid: null,
     nome: null,
     cognome: null,
-    codiceFiscale: null  
+    codiceFiscale: null
   }
 
   constructor(
@@ -98,7 +101,7 @@ export class InsertContrattoComponent implements OnInit {
     this.disable_fields = true;
     this.uncheck = false;
 
-    
+
   }
 
   /*
@@ -143,8 +146,11 @@ export class InsertContrattoComponent implements OnInit {
       CodsDatainiziodistacco: null,
       CodsDatafinedistacco: null,
       CodiNote: null,
-      CodiSysuser: "Edo"
-    };    
+      CodiSysuser: "Edo",
+      CodiFlagAttiva: null,
+      CodsFlagAttiva: 0,
+      CodsClienteId: null
+    };
   }
 
   closeForm() {
