@@ -23,6 +23,7 @@ submitForm() {
 
   checkbox: any;
   uncheck: any;
+  disable_fields: any;
 
   contratto: Contratto[] = [];
   tipiSocieta: [{ ansoSocietaid: number; ansoRagionesociale: string }] | undefined;
@@ -36,6 +37,7 @@ submitForm() {
   formData: Contratto = {
     AnpeNome: null,
     AnpeCognome: null,
+    AnpeCodicefiscale: null,
     AnsoSocietaid: null,
     CodiDatainiziocontratto: null,
     CodiDatafinecontratto: null,
@@ -44,6 +46,8 @@ submitForm() {
     ColiLivelloid: null,
     AnruRuoloid: null,
     CodiRalcompenso: null,
+    CodiMonteore: null,
+    smartworking: null,
     costopresuntoannuo: null,
     costopresuntogiorno: null,
     CodsValoredistacco: null,
@@ -63,14 +67,19 @@ submitForm() {
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
     //this.getAllTipoLivello(); 
-    this.getAllTipoRuolo();     
+    this.getAllTipoRuolo(); 
+    this.disable_fields = true; 
+    this.uncheck = false;  
   }
 
-
+/*
  check(uncheck: any) {
    if (uncheck == null) { this.uncheck = true; }
    else if (uncheck == true ) { this.uncheck = false; }
    }
+
+   // (onClick = check(uncheck);
+*/
 
   clearForm() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
@@ -78,14 +87,14 @@ submitForm() {
     }
     else {
       console.log('Operazione annullata');
-    }
-    //console.log("JASDAD    " + this.formData.CotcTipocontrattoid);
+    }   
   }
 
   reset() {
     this.formData = {
       AnpeNome: null,
       AnpeCognome: null,
+      AnpeCodicefiscale: null,
       AnsoSocietaid: null,
       CodiDatainiziocontratto: null,
       CodiDatafinecontratto: null,
@@ -94,6 +103,8 @@ submitForm() {
       ColiLivelloid: null,
       AnruRuoloid: null,
       CodiRalcompenso: null,
+      CodiMonteore: null,
+      smartworking: false,
       costopresuntoannuo: null,
       costopresuntogiorno: null,
       CodsValoredistacco: null,
