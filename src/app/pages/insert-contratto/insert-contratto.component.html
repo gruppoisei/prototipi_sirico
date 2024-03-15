@@ -1,181 +1,200 @@
-<h1 class="titles">Gestione dati contratto</h1>
- <form (ngSubmit)="submitForm()"> 
-<!-- COLONNA DI SINITRA -->
-<!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI SINISTRA -->
-<div class="row">
-    <div class="column">
-        <div class="textcolumn1">
-            Codice fiscale:
+<h1 class="flex justify-center my-10 text-4xl font-bold">Gestione dati contratto</h1>
+<form (ngSubmit)="submitForm()">
+    <!-- COLONNA DI SINITRA -->
+    <!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI SINISTRA -->
+    <div class="row">
+        <div class="column">
+            <div class="textcolumn1">
+                Codice fiscale:
+            </div>
+            <div class="textcolumn1">
+                Nome:
+            </div>
+            <div class="textcolumn1">
+                Cognome:
+            </div>
+            <div class="textcolumn1">
+                Società*:
+            </div>
+            <div class="textcolumn1">
+                Data inizio contratto*:
+            </div>
+            <div class="textcolumn1">
+                Data fine contratto*:
+            </div>
+            <div class="textcolumn1">
+                Tipo contratto*:
+            </div>
+            <div class="textcolumn1">
+                CCNL*:
+            </div>
+            <div class="textcolumn1">
+                Livello*:
+            </div>
+            <div class="textcolumn1">
+                Tipo lavoratore*:
+            </div>
         </div>
-        <div class="textcolumn1">
-            Nome:
+        <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI SINISTRA -->
+        <div class="column">
+            <div class="fieldcolumn0">
+                <tr>
+                    <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeCodicefiscale" class="box" type="text"
+                        name="CodiceFiscale">
+                    <button type="button" (click)="showModalApprovazione()"
+                        class="material-icons">person_add_alt_1</button>
+                </tr>
+            </div>
+            <div class="fieldcolumn1">
+                <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome" class="box" type="text" name="Nome">
+            </div>
+            <div class="fieldcolumn1">
+                <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeCognome" class="box" type="text"
+                    name="Cognome">
+            </div>
+            <div class="fieldcolumn1">
+                <select [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required>
+                    <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
+                    </option>
+                </select>
+            </div>
+            <div class="fieldcolumn1">
+                <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date"
+                    name="datainiziocontratto">
+            </div>
+            <div class="fieldcolumn1">
+                <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto">
+            </div>
+            <div class="fieldcolumn1">
+                <select [(ngModel)]="formData.CotcTipocontrattoid" class="box" name="tipocontratto" required>
+                    <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto
+                        }}</option>
+                </select>
+            </div>
+            <div class="fieldcolumn1">
+                <select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"
+                    required>
+                    <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
+                </select>
+            </div>
+            <div class="fieldcolumn1">
+                <select [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
+                    <option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">{{ tipo.coliLivellocontratto
+                        }}</option>
+                </select>
+            </div>
+            <div class="fieldcolumn2">
+                <select [(ngModel)]="formData.AnruRuoloid" class="box" name="tipolavoratore" required>
+                    <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>
+                </select>
+            </div>
         </div>
-        <div class="textcolumn1">
-            Cognome:
-        </div>        
-        <div class="textcolumn1">
-            Società*:
+        <!-- COLONNA DI DESTRA -->
+        <!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI DESTRA -->
+        <div class="column">
+            <div class="textcolumn1">
+                RAL*:
+            </div>
+            <div class="textcolumn1">
+                Monteore:
+            </div>
+            <div class="textcolumn1">
+                Smart Working:
+            </div>
+            <div class="textcolumn1">
+                Costo presunto annuo*:
+            </div>
+            <div class="textcolumn1">
+                Costo presunto giorno*:
+            </div>
+            <div class="inlinetextcolumn1">
+                In distacco:
+            </div>
+            <div *ngIf="!uncheck" class="textcolumn1">
+                Cliente distacco:
+            </div>
+            <div *ngIf="uncheck" class="textcolumn1">
+                Cliente distacco*:
+            </div>
+            <div *ngIf="!uncheck" class="textcolumn1">
+                Data inizio distacco:
+            </div>
+            <div *ngIf="uncheck" class="textcolumn1">
+                Data inizio distacco*:
+            </div>
+            <div *ngIf="!uncheck" class="textcolumn1">
+                Data fine distacco:
+            </div>
+            <div *ngIf="uncheck" class="textcolumn1">
+                Data fine distacco*:
+            </div>
+            <div class="textcolumn1">
+                Note:
+            </div>
         </div>
-        <div class="textcolumn1">
-            Data inizio contratto*:
-        </div>
-        <div class="textcolumn1">
-            Data fine contratto*:
-        </div>  
-        <div class="textcolumn1">
-            Tipo contratto*:
-        </div>
-        <div class="textcolumn1">
-            CCNL*:
-        </div>
-        <div class="textcolumn1">
-            Livello*:
-        </div>  
-        <div class="textcolumn1">
-            Tipo lavoratore*:
-        </div>    
-    </div>
-    <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI SINISTRA -->
-    <div class="column">
-        <div class="fieldcolumn1">
-            <tr>
-                <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeCodicefiscale" class="box" type="text" name="CodiceFiscale">
-                <button type="button" class="material-icons">person_add_alt_1</button>
-            </tr>
-        </div>
-        <div class="fieldcolumn1">
-            <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome" class="box" type="text" name="Nome">
-        </div>
-        <div class="fieldcolumn1">
-            <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeCognome" class="box" type="text" name="Cognome">
-        </div>        
-        <div class="fieldcolumn1">
-            <select [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required> 
-                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}</option>
-            </select>            
-        </div>
-        <div class="fieldcolumn1">
-            <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto">
-        </div>
-        <div class="fieldcolumn1">
-            <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto">
-        </div>
-        <div class="fieldcolumn1">
-            <select [(ngModel)]="formData.CotcTipocontrattoid" class="box" name="tipocontratto" required>
-                <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto }}</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL" required>
-                <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
-            </select>
-        </div>
-        <div class="fieldcolumn1">
-            <select [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
-                <option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">{{ tipo.coliLivellocontratto }}</option>                
-            </select>
-        </div>
-        <div class="fieldcolumn2">            
-            <select [(ngModel)]="formData.AnruRuoloid" class="box" name="tipolavoratore" required>
-                <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>               
-            </select>
-        </div>
-    </div>
-<!-- COLONNA DI DESTRA -->
-<!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI DESTRA -->
-    <div class="column">        
-        <div class="textcolumn1">
-            RAL*:
-        </div>
-        <div class="textcolumn1">
-            Monteore:
-        </div>
-        <div class="textcolumn1">
-            Smart Working:
-        </div>
-        <div class="textcolumn1">
-            Costo presunto annuo*:
-        </div>
-        <div class="textcolumn1">
-            Costo presunto giorno*:
-        </div>
-        <div class="inlinetextcolumn1">
-            In distacco:
-        </div>
-        <div *ngIf="!uncheck" class="textcolumn1">
-            Cliente distacco:
-        </div>
-        <div *ngIf="uncheck" class="textcolumn1">
-            Cliente distacco*:
-        </div>  
-        <div *ngIf="!uncheck" class="textcolumn1">
-            Data inizio distacco:
-        </div>
-        <div *ngIf="uncheck" class="textcolumn1">
-            Data inizio distacco*:
-        </div>
-        <div *ngIf="!uncheck" class="textcolumn1">
-            Data fine distacco:
-        </div>
-        <div *ngIf="uncheck" class="textcolumn1">
-            Data fine distacco*:
-        </div>
-        <div class="textcolumn1">
-            Note:
-        </div>                
-    </div>
-    <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
-    <div class="column">        
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.CodiRalcompenso" class="box" type="number" name="RAL" required>
-        </div>
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.CodiMonteore" class="box" type="number" name="Monteore" required>
-        </div>
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.smartworking" class="inlinecheckbox" type="checkbox" name="smartworking">
-            <!--{{formData.smartworking}}-->
-        </div>        
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.costopresuntoannuo" class="box" type="number" name="costopresuntoannuo" required>
-        </div>
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.costopresuntogiorno" class="box" type="number" name="costopresuntogiorno" required>
-        </div>
-        <div class="fieldcolumn2">
-            <tr>                
-                <!--{{uncheck}}-->
-                <input [(ngModel)]="uncheck" class="inlinecheckbox" type="checkbox" name="indistacco">
-                <td *ngIf="!uncheck" class="inlinefields">Percentuale:</td>
-                <td *ngIf="uncheck" class="inlinefields">Percentuale*:</td>                
-                <input [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox" type="number" name="Percentuale" required>
-            </tr>                        
-        </div>
-        <div class="fieldcolumn2">
-            <select [(ngModel)]="formData.AnsoSocietaDistaccoid" [disabled]="!uncheck" class="box" name="clientedistacco" required> 
-                <option *ngFor="let tipo of tipiSocietaDistacco" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}</option>
-            </select>           
-        </div>
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck"  class="box" type="date" name="datainiziodistacco" required>
-        </div>
-        <div class="fieldcolumn2">
-            <input [(ngModel)]="formData.CodsDatafinedistacco" [disabled]="!uncheck" class="box" type="date" name="datafinedistacco" required>
-        </div>
-        <div class="fieldcolumn2">
-          <textarea [(ngModel)]="formData.CodiNote" contenteditable="true" maxlength="65535" class="box" type="text" name="Note"></textarea>  
-            <!--<textarea rows="15" cols="50" style="max-height:100px;min-height:25px;max-width:220px; resize: none"
+        <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
+        <div class="column">
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.CodiRalcompenso" class="box" type="number" name="RAL" inputmode="numeric"
+                    oninput="this.value = this.value.replace(/\D+/g, '')" required>
+            </div>
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.CodiMonteore" class="box" type="number" name="Monteore" inputmode="numeric"
+                    oninput="this.value = this.value.replace(/\D+/g, '')" required>
+            </div>
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.smartworking" class="inlinecheckbox" type="checkbox" name="smartworking">
+                {{formData.smartworking}}
+            </div>
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.costopresuntoannuo" class="box" type="number" name="costopresuntoannuo"
+                    inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
+            </div>
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.costopresuntogiorno" class="box" type="number" name="costopresuntogiorno"
+                    inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
+            </div>
+            <div class="fieldcolumn2">
+                <tr>
+                    <input [(ngModel)]="uncheck" class="inlinecheckbox" type="checkbox" name="indistacco">
+                    {{uncheck}}
+                    <td *ngIf="!uncheck" class="inlinefields">Percentuale:</td>
+                    <td *ngIf="uncheck" class="inlinefields">Percentuale*:</td>
+                    <input [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox"
+                        type="number" name="Percentuale" inputmode="numeric"
+                        oninput="this.value = this.value.replace(/\D+/g, '')" required>
+                </tr>
+            </div>
+            <div class="fieldcolumn2">
+                <select [(ngModel)]="formData.AnsoSocietaDistaccoid" [disabled]="!uncheck" class="box"
+                    name="clientedistacco" required>
+                    <option *ngFor="let tipo of tipiSocietaDistacco" [value]="tipo.ansoSocietaid">{{
+                        tipo.ansoRagionesociale }}</option>
+                </select>
+            </div>
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck" class="box" type="date"
+                    name="datainiziodistacco" required>
+            </div>
+            <div class="fieldcolumn2">
+                <input [(ngModel)]="formData.CodsDatafinedistacco" [disabled]="!uncheck" class="box" type="date"
+                    name="datafinedistacco" required>
+            </div>
+            <div class="fieldcolumn2">
+                <textarea [(ngModel)]="formData.CodiNote" contenteditable="true" maxlength="65535" class="box"
+                    type="text" name="Note"></textarea>
+                <!--<textarea rows="15" cols="50" style="max-height:100px;min-height:25px;max-width:220px; resize: none"
             contenteditable="true" class="box" type="text" name="Note"></textarea>-->
-            <!--<input class="box" maxlength="65535" type="text" name="Note"> -->
+                <!--<input class="box" maxlength="65535" type="text" name="Note"> -->
+            </div>
         </div>
     </div>
-</div>
- 
-<div>    
-    <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
-    <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
-    <button class="buttons" type="submit">Salva</button>        
-</div>
+
+    <div class="bottom-buttons">
+        <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
+        <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
+        <button class="buttons" type="submit">Salva</button>
+    </div>
 </form>
 <!--
 <div class="buttons">
@@ -184,3 +203,65 @@
     <button type="button" (click)="chiudiForm()">Chiudi</button>
   </div>
 -->
+
+<!-- DIALOG BOX OPEN WHEN CLICKING MAT-ICON -->
+<ng-template #approvalModal let-modal>
+    <div class="flex justify-center my-10 text-4xl font-bold">
+        <h1>Gestione dipendenti senza contratto</h1>
+    </div>
+    <div class="flex flex-row justify-center my-10">
+        <form (ngSubmit)="ricercaFiltrata(formDataDialog.nome, formDataDialog.cognome, formDataDialog.codiceFiscale)" class="w-3/4">
+            <div class="flex flex-row mb-5">
+                <input [(ngModel)]="formDataDialog.nome" type="search" name="nome"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per nome..." required />
+                <input [(ngModel)]="formDataDialog.cognome" type="search" name="cognome"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per cognome..." required />
+                <input [(ngModel)]="formDataDialog.codiceFiscale" type="search" name="codiceFiscale"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per codice fiscale..." required />
+            </div>
+            <div class="flex flex-row justify-end mt-10">
+                <button type="submit"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+                <button type="button" (click)="clearSearch()"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Annulla</button>
+                <button type="button" (click)="closeModal()"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
+            </div>
+            <br>
+            <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center my-10">
+                Nessun dato disponibile
+            </div>
+            <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
+                <table class="w-3/4 text-base text-left rtl:text-right">
+                    <thead class="text-sm uppercase text-white bg-blue-600">
+                        <tr>
+                            <!--<th scope="col" class="px-6 py-3">Id</th>-->
+                            <th scope="col" class="px-6 py-3">Nome</th>
+                            <th scope="col" class="px-6 py-3">Cognome</th>
+                            <th scope="col" class="px-6 py-3">Codice Fiscale</th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <tr *ngFor="let dipendente of dipendentiSenzaContratto" class="bg-white border-b">                            
+                            <!--<td class="px-6 py-4">{{ dipendente.anpePersonaid }}</td>-->
+                            <td class="px-6 py-4">{{ dipendente.anpeNome }}</td>
+                            <td class="px-6 py-4">{{ dipendente.anpeCognome }}</td>
+                            <td class="px-6 py-4">{{ dipendente.anpeCodicefiscale }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <!--
+        <button class="button-modal" (click)="approvaRichiesta()" *ngIf="((editable == 1) || (editable == 3)) && (hidemotivazione)">Approva</button> <br>
+    <button class="button-modal" (click)="hidedmodalbutton()" *ngIf="((editable == 2) || (editable == 3)) && (hidemotivazione)">Rifiuta</button> <br>
+    <p class="modal-testo" *ngIf="!hidemotivazione">Inserisci la motivazione:</p>
+    <input class="modal-input" [(ngModel)]="motivazione" type="text" placeholder="Motivazione" *ngIf="!hidemotivazione"> <br>
+    <button class="button-modal" (click)="rifiutaRichiesta()" *ngIf="!hidemotivazione">Salva e rifiuta</button>
+    <button class="button-modal" (click)="chiudiModal()">Annulla</button>
+    -->
+</ng-template>
