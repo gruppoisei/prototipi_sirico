@@ -60,7 +60,15 @@ export class AggiungiOrdinarioComponent {
   }
  
 
-  constructor(public rapportinoService: RapportinoService) {}
+  constructor(public rapportinoService: RapportinoService) {
+    this.attivitaDaAggiungere = {
+      giornoLavorativoId: this.giornoLavorativoId,
+      attivitaPersonaId:-1,
+      sedeLavoroPersonaId:-1,
+      oreLavorate:0,
+      oreStraordinario:0,
+    }
+  }
 
   AggiungiAttivitaGiorno() {
     if (
@@ -68,6 +76,7 @@ export class AggiungiOrdinarioComponent {
       this.attivitaDaAggiungere.attivitaPersonaId != -1 &&
       (this.attivitaDaAggiungere.oreLavorate > 0 || this.attivitaDaAggiungere.oreStraordinario > 0)
     ) {
+      this.attivitaDaAggiungere.giornoLavorativoId = this.giornoLavorativoId
       
       this.rapportinoService
         .AggiungiAttivitaGiorno(this.attivitaDaAggiungere)
