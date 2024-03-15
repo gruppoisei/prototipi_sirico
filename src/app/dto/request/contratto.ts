@@ -21,4 +21,7 @@ export interface Contratto {
     CodsDatafinedistacco: string | null;
     CodiNote: string | null;
     CodiSysuser: string;
+    CodiFlagAttiva: number | null;
+    CodsFlagAttiva: number;
+    CodsClienteId: number | null;
   }
