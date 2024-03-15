@@ -37,6 +37,7 @@ submitForm() {
   formData: Contratto = {
     AnpeNome: null,
     AnpeCognome: null,
+    AnpePersonaid: null,
     AnpeCodicefiscale: null,
     AnsoSocietaid: null,
     CodiDatainiziocontratto: null,
@@ -95,6 +96,7 @@ submitForm() {
     this.formData = {
       AnpeNome: null,
       AnpeCognome: null,
+      AnpePersonaid: null,
       AnpeCodicefiscale: null,
       AnsoSocietaid: null,
       CodiDatainiziocontratto: null,

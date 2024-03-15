@@ -2,7 +2,7 @@ export interface Contratto {
     AnpeNome: string | null;
     AnpeCognome: string | null;
     AnpeCodicefiscale: string | null;
-    AnpePersonaid: number;
+    AnpePersonaid: number | null;
     AnsoSocietaid: string | null;
     CodiDatainiziocontratto: string | null;
     CodiDatafinecontratto: string | null;
@@ -20,5 +20,5 @@ export interface Contratto {
     CodsDatainiziodistacco: string | null;
     CodsDatafinedistacco: string | null;
     CodiNote: string | null;
-    CosiSysuser: string;
+    CodiSysuser: string;
   }
