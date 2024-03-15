@@ -50,28 +50,27 @@ export class AggiungiOrdinarioComponent {
   checked: any;
   disabled: any;
 
-  sede?: number;
-  commessa?: number;
-  oreOrd = 0;
-  oreStra = 0;
+
+  attivitaDaAggiungere: AttivitaGiornoResponse =  {
+    giornoLavorativoId: this.giornoLavorativoId,
+    attivitaPersonaId:-1,
+    sedeLavoroPersonaId:-1,
+    oreLavorate:0,
+    oreStraordinario:0,
+  }
+ 
 
   constructor(public rapportinoService: RapportinoService) {}
 
   AggiungiAttivitaGiorno() {
     if (
-      this.sede != undefined &&
-      this.commessa != undefined &&
-      (this.oreOrd > 0 || this.oreStra > 0)
+      this.attivitaDaAggiungere.sedeLavoroPersonaId != -1 &&
+      this.attivitaDaAggiungere.attivitaPersonaId != -1 &&
+      (this.attivitaDaAggiungere.oreLavorate > 0 || this.attivitaDaAggiungere.oreStraordinario > 0)
     ) {
-      let attivitaDaAggiungere: AttivitaGiornoResponse = {
-        giornoLavorativoId: this.giornoLavorativoId,
-        attivitaPersonaId: this.commessa!,
-        sedeLavoroPersonaId: this.sede!,
-        oreLavorate: this.oreOrd,
-        oreStraordinario: this.oreStra!,
-      };
+      
       this.rapportinoService
-        .AggiungiAttivitaGiorno(attivitaDaAggiungere)
+        .AggiungiAttivitaGiorno(this.attivitaDaAggiungere)
         .subscribe((res) => {
           try {
             if (res > 0) {
@@ -81,31 +80,32 @@ export class AggiungiOrdinarioComponent {
                 new AttivitaGiornoCalendario();
               aggiornoComponenteAttivitaGiorno.attivitaId = res;
               aggiornoComponenteAttivitaGiorno.oreLavorate =
-                attivitaDaAggiungere.oreLavorate;
+                this.attivitaDaAggiungere.oreLavorate;
               aggiornoComponenteAttivitaGiorno.oreStraordinario =
-                attivitaDaAggiungere.oreStraordinario;
+                this.attivitaDaAggiungere.oreStraordinario;
               aggiornoComponenteAttivitaGiorno.sedeLavoro =
                 this.rapportinoService.infoPersona.listaSedeLavoroPersona.find(
                   (e) =>
                     e.sedeLavodoPersonaId ==
-                    attivitaDaAggiungere.sedeLavoroPersonaId
+                    this.attivitaDaAggiungere.sedeLavoroPersonaId
                 )?.nomeSedeLavoro;
               aggiornoComponenteAttivitaGiorno.nomeProgetto =
                 this.rapportinoService.infoPersona.listaAttivitaProgettoPersona.find(
                   (e) =>
                     e.attivitaProgettoPersonaId ==
-                    attivitaDaAggiungere.attivitaPersonaId
+                    this.attivitaDaAggiungere.attivitaPersonaId
                 )?.nomeProgetto;
 
               this.mandaNuovaAttivitaInserita.emit(
                 aggiornoComponenteAttivitaGiorno
               );
 
-
-              this.sede = undefined;
-              this.commessa = undefined;
-              this.oreOrd = 0;
-              this.oreStra = 0;
+              console.log("aaaaa")
+                  console.log(aggiornoComponenteAttivitaGiorno.attivitaId)
+              this.attivitaDaAggiungere.attivitaPersonaId=-1;
+              this.attivitaDaAggiungere.sedeLavoroPersonaId=-1;
+              this.attivitaDaAggiungere.oreLavorate=0;
+              this.attivitaDaAggiungere.oreStraordinario=0;
             }
           } catch (e) {
             console.log(e);

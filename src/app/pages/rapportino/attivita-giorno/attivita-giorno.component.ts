@@ -31,19 +31,17 @@ import { AggiungiAssenzaComponent } from "../aggiungi-assenza/aggiungi-assenza.c
     imports: [CommonModule, MatIconModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent, AggiungiReperibilitaComponent, MatCardModule, AggiungiAssenzaComponent]
 })
 export class AttivitaGiornoComponent {
-  entrata= "9:00";
-  inizioPausa= "12:00"
-  finePausa="13:00"
-  uscita="18:00"
+  
   showOrdinario= false;
   showReperibilita= false;
   showAssenza=false;
-  giorno?: GiornoLavorativo
-  
-
-
-
-
+  giorno: GiornoLavorativo = {
+    giornoLavoroId:this.data.giornoLavorativoId,
+    oraEntrata:"9:00",
+    oraInizioPausa:"12:00",
+    oraFinePausa:"13:00",
+    oraUscita:"18:00",
+  }
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {
@@ -63,9 +61,6 @@ MostraAssenza() {
 
 }
   
-
-
-
 MostraReperibilita(){
 this.showReperibilita= !this.showReperibilita
 this.showOrdinario= false
@@ -109,8 +104,8 @@ VerificaGiorno(){
   let ore =0
   let mezzore =0
   let sommaOreAttivita = 0
-  ore = Number(this.uscita.split(":")[0])-Number(this.entrata.split(":")[0])-(Number(this.finePausa.split(":")[0])-Number(this.inizioPausa.split(":")[0]))
-  mezzore = (Number(this.uscita.split(":")[1])-Number(this.entrata.split(":")[1])-(Number(this.finePausa.split(":")[1])-Number(this.inizioPausa.split(":")[1])))/60
+  ore = Number(this.giorno.oraUscita!.split(":")[0])-Number(this.giorno.oraEntrata!.split(":")[0])-(Number(this.giorno.oraFinePausa!.split(":")[0])-Number(this.giorno.oraInizioPausa!.split(":")[0]))
+  mezzore = (Number(this.giorno.oraUscita!.split(":")[1])-Number(this.giorno.oraEntrata!.split(":")[1])-(Number(this.giorno.oraFinePausa!.split(":")[1])-Number(this.giorno.oraInizioPausa!.split(":")[1])))/60
   
   
   for(let i =0;i<this.data.listaAttivitaGiorno.length ;i++)
@@ -119,15 +114,15 @@ VerificaGiorno(){
     console.log("count "+i+": " + this.data.listaAttivitaGiorno[i].oreStraordinario)
     console.log(this.data.listaAttivitaGiorno)
     console.log(this.rapportinoService.infoPersona.listaSedeLavoroPersona)
-    // sommaOreAttivita = sommaOreAttivita + this.data.listaAttivitaGiorno[i].oreLavorate +this.data.listaAttivitaGiorno[i].oreStraordinario
+    sommaOreAttivita = sommaOreAttivita + this.data.listaAttivitaGiorno[i].oreLavorate +this.data.listaAttivitaGiorno[i].oreStraordinario
   }
   console.log("somma attivita: "+sommaOreAttivita)
   console.log("somma ore: "+(ore+mezzore))
   if(sommaOreAttivita > 8 && sommaOreAttivita == (ore+mezzore))
   {
-    alert("ok")
+    console.log("ok")
   }else{
-    alert("errore")
+    console.log("errore")
   }
 
 }
