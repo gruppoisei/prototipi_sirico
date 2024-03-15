@@ -67,11 +67,12 @@ this.showOrdinario= false
   }
 
 ConfermaGiorno(){ 
-  this.giorno!.giornoLavoroId= this.data.giornoLavorativoId
-  this.giorno!.oraEntrata= this.entrata
-  this.giorno!.oraInizioPausa= this.inizioPausa
-  this.giorno!.oraFinePausa= this.finePausa
-  this.giorno!.oraUscita= this.uscita 
+  this.VerificaGiorno();
+  // this.giorno!.giornoLavoroId= this.data.giornoLavorativoId
+  // this.giorno!.oraEntrata= this.entrata
+  // this.giorno!.oraInizioPausa= this.inizioPausa
+  // this.giorno!.oraFinePausa= this.finePausa
+  // this.giorno!.oraUscita= this.uscita 
   
 
 
@@ -79,9 +80,7 @@ ConfermaGiorno(){
 
 AttivitaOrdinariaAggiunta(AttivitaDaAggiungere:AttivitaGiornoCalendario){
   this.data.listaAttivitaGiorno.push(AttivitaDaAggiungere)
-  console.log("3:")
-
-  console.log(this.data.listaAttivitaGiorno)
+  
 }
 
 AnnullaGiorno(){
@@ -92,6 +91,34 @@ EliminaAttivita(attivitaId:number){
     this.rapportinoService.EliminaAttivita(attivitaId,this.data.giornoLavorativoId!)
 
     this.data.listaAttivitaGiorno = this.data.listaAttivitaGiorno.filter(attivita =>  attivita.attivitaId != attivitaId );
+}
+
+
+VerificaGiorno(){
+  let ore =0
+  let mezzore =0
+  let sommaOreAttivita = 0
+  ore = Number(this.uscita.split(":")[0])-Number(this.entrata.split(":")[0])-(Number(this.finePausa.split(":")[0])-Number(this.inizioPausa.split(":")[0]))
+  mezzore = (Number(this.uscita.split(":")[1])-Number(this.entrata.split(":")[1])-(Number(this.finePausa.split(":")[1])-Number(this.inizioPausa.split(":")[1])))/60
+  
+  
+  for(let i =0;i<this.data.listaAttivitaGiorno.length ;i++)
+  {
+    console.log("count "+i+": " + this.data.listaAttivitaGiorno[i].oreLavorate)
+    console.log("count "+i+": " + this.data.listaAttivitaGiorno[i].oreStraordinario)
+    console.log(this.data.listaAttivitaGiorno)
+    console.log(this.rapportinoService.infoPersona.listaSedeLavoroPersona)
+    // sommaOreAttivita = sommaOreAttivita + this.data.listaAttivitaGiorno[i].oreLavorate +this.data.listaAttivitaGiorno[i].oreStraordinario
+  }
+  console.log("somma attivita: "+sommaOreAttivita)
+  console.log("somma ore: "+(ore+mezzore))
+  if(sommaOreAttivita > 8 && sommaOreAttivita == (ore+mezzore))
+  {
+    alert("ok")
+  }else{
+    alert("errore")
+  }
+
 }
 
 

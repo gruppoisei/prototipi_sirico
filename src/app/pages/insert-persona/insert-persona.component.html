@@ -2,33 +2,80 @@
     <h2>Inserito nuovo dipendente</h2>
 </div>
 <div class = "flex flex-row justify-center">
-<form class="w-full max-w-2xl">
-    <div class="flex w-full flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name">Nome</label>
-        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" id="grid-first-name" type="text" placeholder="Scrivi un nome...">
-      </div>
-      <div class="w-full md:w-1/2 px-3 mb-6">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-last-name">Cognome</label>
-        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" id="grid-last-name" type="text" placeholder="Scrivi un cognome...">
-      </div>
-      <div class = "w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-born-date">Data di nascita</label>
-        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" id="grid-born-date" type="date">
-      </div>
-      <div class="w-full md:w-1/2 px-3 mb-6">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cf">Codice Fiscale</label>
-        <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" id="grid-cf" type="text" placeholder="Scrivi il codice fiscale...">
-      </div>
-    </div>
+<form class="w-full max-w-3xl">
 
-    <div class="flex w-full flex-nowrap -mx-3 mb-6">
+<!--Nome, cognome, data nascita e cf-->    
+    <div class="flex w-full flex-wrap -mx-3 mb-6">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name">Nome</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-first-name" type="text" placeholder="Scrivi un nome...">
+        </div>
+        <div div class="w-full md:w-1/2 px-3 mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-last-name">Cognome</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-last-name" type="text" placeholder="Scrivi un cognome...">
+        </div>
+        <div class = "w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-born-date">Data di nascita</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+         focus:border-sky-500 focus:ring-sky-500" id="grid-born-date" type="date">
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cf">Codice Fiscale</label>
+            <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-cf" type="text" placeholder="Scrivi il codice fiscale...">
+        </div>
+    </div>
+    
+<!--Dati anagrafici per il luogo di nascita-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-state">Paese di nascita</label>
+            <div class="relative">
+              <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+               focus:border-sky-500 focus:ring-sky-500" id="grid-state">
+                <option selected>--Seleziona--</option>
+                <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
+              </select>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-regione">Regione di nascita</label>
+            <div class="relative">
+                <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeNascita($event)" >
+                    <option selected>--Seleziona--</option>
+                    <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-provincia">Provincia di nascita</label>
+            <div class="relative">
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza" (change)="onProvinciaNascitaChage($event)">
+                    <option selected>--Seleziona--</option>
+                    <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvince">{{pro.geprDeno}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-comuneResidenza">Comune di nascita</label>
+            <div class="relative">
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+            focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
+                    <option selected>--Seleziona--</option>
+                    <option [value]="com.gecoComuneid" *ngFor="let com of listComuniNascita">{{com.gecoDeno}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+<!--Dati riguardo la residenza-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-state">Paese di residenza</label>
             <div class="relative">
               <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                focus:border-sky-500 focus:ring-sky-500" id="grid-state">
@@ -40,11 +87,11 @@
             </div>
           </div>
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-regione">Regione</label>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-regione">Regione di residenza</label>
         <div class="relative">
           <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500" id="grid-regione">
-            <option selected>--Seleziona--</option>
+           focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeResidenza($event)" >
+            <option value = "" selected>--Seleziona--</option>
             <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">
                 {{reg.gereDeno}}
             </option>
@@ -52,12 +99,12 @@
         </div>
       </div>
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-provincia">Provincia residenza</label>
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-provincia-residenza">Provincia residenza</label>
         <div class="relative">
           <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
-            <option selected>--Seleziona--</option>
-            <option></option>
+           focus:border-sky-500 focus:ring-sky-500" id="grid-provincia-residenza" (change)="onChangeProvinciaResidenza($event)">
+           <option selected>--Seleziona--</option>
+           <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceResidenza">{{pro.geprDeno}}</option>
           </select>
         </div>
       </div>
@@ -67,34 +114,130 @@
           <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
             <option selected>--Seleziona--</option>
-            <option></option>
+            <option [value]="com.gecoComuneid" *ngFor="let com of listComuniResidenza">{{com.gecoDeno}}</option>
           </select>
         </div>
       </div>
     </div>
 
-    <div class="flex w-full flex-wrap -mx-3 mb-6">
+<!--Dati riguardo il domicilio-->
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-state">Paese di domicilio</label>
+            <div class="relative">
+              <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+               focus:border-sky-500 focus:ring-sky-500" id="grid-state">
+                <option selected>--Seleziona--</option>
+                <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
+              </select>
+            </div>
+          </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-regione">Regione di domicilio</label>
+        <div class="relative">
+          <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeDomicilio($event)">
+            <option value = "" selected>--Seleziona--</option>
+            <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-provincia">Provincia domicilio</label>
+        <div class="relative">
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza" (change)="onChangeProvinciaDomicilio($event)">
+            <option selected>--Seleziona--</option>
+            <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceDomicilio">{{pro.geprDeno}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-first-name" for="grid-comuneResidenza">Comune domicilio</label>
+        <div class="relative">
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
+            <option selected>--Seleziona--</option>
+            <option [value]="com.gecoComuneid" *ngFor="let com of listComuniDomicilio">{{com.gecoDeno}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+<!--Dati per indirizzo di residenza-->
+    <div class="flex w-full flex-nowrap -mx-3 mb-5">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-indirizzo-residenza">Indirizzo residenza</label>
           <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500" id="grid-first-name" type="text" placeholder="Scrivi l'indirizzo di residenza...">
+           focus:border-sky-500 focus:ring-sky-500" id="grid-indirizzo-residenza" type="text" placeholder="Scrivi l'indirizzo di residenza...">
         </div>
-        <div class="w-full md:w-1/2 px-3 mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-last-name">Numero civico</label>
+        <div class="w-full md:w-1/4 px-3 mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico">Numero civico</label>
           <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500" id="grid-last-name" type="text" placeholder="Scrivi un cognome...">
+           focus:border-sky-500 focus:ring-sky-500" id="grid-n-civico" type="text" placeholder="N.Civico">
         </div>
-        <div class = "w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-born-date">Data di nascita</label>
+        <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-res">CAP residenza</label>
           <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500" id="grid-born-date" type="date">
-        </div>
-        <div class="w-full md:w-1/2 px-3 mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cf">Codice Fiscale</label>
-          <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500" id="grid-cf" type="text" placeholder="Scrivi il codice fiscale...">
+           focus:border-sky-500 focus:ring-sky-500" id="grid-cap-res" type="text" placeholder="00100">
         </div>
       </div>
+<!--Dati per indirizzo di domicilio-->      
+      <div class="flex w-full flex-nowrap -mx-3 mb-5">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-indirizzo-domicilio">Indirizzo domicilio</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-indirizzo-domicilio" type="text" placeholder="Scrivi l'indirizzo di domicilio...">
+        </div>
+        <div class="w-full md:w-1/4 px-3 mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico-dom">Numero domicilio</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-n-civico-dom" type="text" placeholder="N.Civico">
+        </div>
+        <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-dom">CAP domicilio</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-cap-dom" type="text" placeholder="00100">
+        </div>
+    </div>
+
+<!--Numeri di telefono-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-telefono1">N.telefono 1</label>
+            <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-n-telefono1" type="text" placeholder="Scrivi il numero di telefono...">
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-telefono1">N.telefono 2</label>
+            <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-n-telefono1" type="text" placeholder="Scrivi il numero di telefono...">
+        </div>
+    </div>
+
+<!--Email e società-->
+    <div class="flex w-full flex-nowrap -mx-3 mb-6 mt-6">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-telefono1">Email aziendale</label>
+            <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-email-aziendale" type="email" placeholder="Scrivi l'email aziendale...">
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-telefono1">Email personale</label>
+            <input maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" id="grid-email-personale" type="email" placeholder="Scrivi l'email personale...">
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-societa">Società</label>
+            <select name = "societa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+             focus:border-sky-500 focus:ring-sky-500" id="grid-societa">
+              <option selected>--Seleziona--</option>
+              <option [value]="soc.gereRegioneid" *ngFor= "let soc of listSocieta">
+                  {{soc.ansoRagionesociale}}
+              </option>
+            </select>
+          </div>
+    </div>
+    
   </form>
 </div>
 
