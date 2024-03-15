@@ -40,6 +40,7 @@ import {MatCardModule} from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
+import { OrdinaGiorniPipe } from './pages/rapportino/ordina-giorni.pipe';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { InsertContrattoComponent } from './pages/insert-contratto/insert-contra
     GestioneDipendenteComponent,
     GestioneContrattoComponent,
     InsertContrattoComponent,
+    OrdinaGiorniPipe,
 
   ],
   imports: [

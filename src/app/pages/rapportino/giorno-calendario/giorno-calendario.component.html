@@ -1,7 +1,7 @@
 <div>
   
     <div class="flex flex-row">
-      <p class="flex- grow font-bold text-2xl">{{giorno.dataNumero}}</p>
+      <p class="flex- grow font-bold text-2xl" [class.Provasss]="giornoFestivo">{{giorno.dataNumero}}</p>
 
       <button (click)="ClickMe()" >  <mat-icon>create</mat-icon>  </button> 
       <button (click)="Delete(giorno.giornoLavorativoId!)" >  <mat-icon color="warn">delete</mat-icon>  </button> 

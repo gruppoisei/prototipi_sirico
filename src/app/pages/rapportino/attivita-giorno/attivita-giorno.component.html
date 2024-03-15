@@ -67,7 +67,7 @@
         Aggiungi Ordinario
       </button>
 
-      <button class="B" mat-raised-button color="accent" type="button"> 
+      <button class="B" mat-raised-button color="accent" type="button" (click)="MostraAssenza()"> 
         Aggiungi Assenza
       </button>
 
@@ -87,6 +87,11 @@
 
     <div *ngIf="showOrdinario">
       <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
+    </div>
+
+    <div *ngIf="showAssenza">
+
+      <app-aggiungi-assenza></app-aggiungi-assenza>
     </div>
 
     <div *ngIf="showReperibilita">

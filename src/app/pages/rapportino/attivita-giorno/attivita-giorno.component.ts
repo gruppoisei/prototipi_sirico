@@ -19,6 +19,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { GiornoLavorativo } from '../../../dto/request/giornolavorativo';
 import { AttivitaGiornoResponse } from '../../../dto/response/AttivitaGiorno';
+import { AggiungiAssenzaComponent } from "../aggiungi-assenza/aggiungi-assenza.component";
 
 
 
@@ -27,7 +28,7 @@ import { AttivitaGiornoResponse } from '../../../dto/response/AttivitaGiorno';
     templateUrl: './attivita-giorno.component.html',
     styleUrl: './attivita-giorno.component.scss',
     standalone: true,
-    imports: [CommonModule,MatIconModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent, AggiungiReperibilitaComponent, MatCardModule]
+    imports: [CommonModule, MatIconModule, NgFor, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, ReactiveFormsModule, FormsModule, MatSlideToggle, NgIf, MatFormFieldModule, MatCheckboxModule, MatInputModule, MatSelectModule, AggiungiOrdinarioComponent, AggiungiReperibilitaComponent, MatCardModule, AggiungiAssenzaComponent]
 })
 export class AttivitaGiornoComponent {
   entrata= "9:00";
@@ -36,6 +37,7 @@ export class AttivitaGiornoComponent {
   uscita="18:00"
   showOrdinario= false;
   showReperibilita= false;
+  showAssenza=false;
   giorno?: GiornoLavorativo
   
 
@@ -52,6 +54,13 @@ export class AttivitaGiornoComponent {
 MostraOrdinario() {
   this.showOrdinario= !this.showOrdinario 
   this.showReperibilita= false
+  this.showAssenza = false
+}
+MostraAssenza() {
+  this.showAssenza= !this.showAssenza 
+  this.showReperibilita= false
+  this.showOrdinario= false
+
 }
   
 
@@ -60,6 +69,8 @@ MostraOrdinario() {
 MostraReperibilita(){
 this.showReperibilita= !this.showReperibilita
 this.showOrdinario= false
+this.showAssenza = false
+
 }
   
   onNoClick(): void {
