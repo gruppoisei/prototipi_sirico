@@ -23,15 +23,10 @@ import { MenuComponent } from './menu/menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-password/forgot-password.component';
 import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-dialog.component';
-// import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
-// import { AggiungiAssenzaComponent } from './pages/rapportino/aggiungi-assenza/aggiungi-assenza.component';
-// import { AggiungiReperibilitaComponent } from './pages/rapportino/aggiungi-reperibilita/aggiungi-reperibilita.component';
-import { ListaAttivitaComponent } from './pages/rapportino/lista-attivita/lista-attivita.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ResponseResetPasswordDialogComponent } from './ui/response-reset-password-dialog/response-reset-password-dialog.component';
-import { TestComponent } from './pages/rapportino/test/test.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import {MatIconModule} from '@angular/material/icon';
 import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
@@ -58,12 +53,7 @@ import { OrdinaGiorniPipe } from './pages/rapportino/ordina-giorni.pipe';
     ForgotPasswordComponent,
     ResponseDialogComponent,
     ErrorLoginDialogComponent,
-    // AggiungiAttivitaComponent,
-    // AggiungiAssenzaComponent,
-    // AggiungiReperibilitaComponent,
-    ListaAttivitaComponent,
     ResponseResetPasswordDialogComponent,
-    TestComponent,
     ModificaPasswordComponent,
     NewPasswordResponseDialogComponent,
     GestioneDipendenteComponent,
