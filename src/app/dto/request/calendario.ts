@@ -2,10 +2,10 @@
 
 export class CalendarioRequest {
     
-    listaAttivitaPersona: AttivitaPersona[] = []
     rapportino: Rapportino = new Rapportino()
     giorniFestivi: string[] = []
     listaGiorniLavoroMese: GiornoDiLavoro[] = []
+    listaAssenzeMese:AssenzaMese[] = []
 }
 
 export class GiornoDiLavoro{
@@ -16,8 +16,25 @@ export class GiornoDiLavoro{
     oraFinePausa = "14:00";
     oraUscita = "18:00";
     listaAttivitaGiorno:AttivitaGiornoCalendario[] = []
+    listaAssenzeGiorno:AssenzaGiorno[] = []
 }
 
+
+export interface AssenzaGiorno{
+    assenzaId:number
+    oraInizio:string
+    oraFine:string
+}
+
+// public class AssenzaGiorno
+// {
+//     public int? assenzaId { get; set; }
+//     public string? oraInizio { get; set; }
+
+//     public string? oraFine { get; set; }
+
+
+// }
 
 export class AttivitaGiornoCalendario{
 
@@ -36,7 +53,13 @@ export class Rapportino{
     definitivoRapportino?:boolean
 }
 
-export class AttivitaPersona {
-    attivitaPersonaId?:number;
-    nomeProgetto?:string;
+export interface AssenzaMese
+{
+    assenzaId:number
+    tipoRichiestaId:number
+    responsabileApprovazione:string
+    statoApprovazione:boolean
+    dataInizio:Date
+    dataFine:Date
+
 }

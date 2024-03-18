@@ -37,6 +37,9 @@ export class GiornoCalendarioComponent {
 
       const find = this.rapportinoService.risposta.giorniFestivi.findIndex(e=> e == this.giornoString)
       this.giornoFestivo =(this.dataGiorno!.getDay() ==6 ||this.dataGiorno!.getDay() ==0 || find != -1 )
+      if(!this.giornoFestivo){
+        this.rapportinoService.giorniValidiMese +=1
+      }
       
 
         
@@ -46,7 +49,7 @@ export class GiornoCalendarioComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
-      data: {giorno :this.giorno},
+      data: {giorno :this.giorno,giornoFestivo:this.giornoFestivo},
     });
     
 
