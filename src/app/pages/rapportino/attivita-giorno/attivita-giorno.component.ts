@@ -36,8 +36,7 @@ export class AttivitaGiornoComponent {
   showReperibilita= false;
   showAssenza=false;
   giorno: GiornoLavorativo = {
-    // giornoLavoroId:this.data.giorno.giornoLavorativoId,
-    giornoLavoroId:0,
+    giornoLavoroId:this.data.giorno.giornoLavorativoId,
     oraEntrata:"9:00",
     oraInizioPausa:"12:00",
     oraFinePausa:"13:00",
@@ -115,26 +114,63 @@ EliminaAttivita(attivitaId:number){
     this.data.giorno.listaAttivitaGiorno = this.data.giorno.listaAttivitaGiorno.filter(attivita =>  attivita.attivitaId != attivitaId );
 }
 
+EliminaAssenza(assenzaId:number)
+{
+
+
+}
 
 VerificaGiorno():boolean{
-  let ore =0
-  let mezzore =0
-  let sommaOreAttivita = 0
-  ore = Number(this.giorno.oraUscita!.split(":")[0])-Number(this.giorno.oraEntrata!.split(":")[0])-(Number(this.giorno.oraFinePausa!.split(":")[0])-Number(this.giorno.oraInizioPausa!.split(":")[0]))
-  mezzore = (Number(this.giorno.oraUscita!.split(":")[1])-Number(this.giorno.oraEntrata!.split(":")[1])-(Number(this.giorno.oraFinePausa!.split(":")[1])-Number(this.giorno.oraInizioPausa!.split(":")[1])))/60
+  let oreGiornoConvertiteDaTempo =0
+ 
+  let sommaOreAttivitaAssenze = 0
+  //conversione in ore lavorate gli orari giornata
+  oreGiornoConvertiteDaTempo = Number(this.giorno.oraUscita!.split(":")[0])-Number(this.giorno.oraEntrata!.split(":")[0])-(Number(this.giorno.oraFinePausa!.split(":")[0])-Number(this.giorno.oraInizioPausa!.split(":")[0]))+((Number(this.giorno.oraUscita!.split(":")[1])-Number(this.giorno.oraEntrata!.split(":")[1])-(Number(this.giorno.oraFinePausa!.split(":")[1])-Number(this.giorno.oraInizioPausa!.split(":")[1])))/60)
+
   
-  
+  this.data.giorno.listaAssenzeGiorno.forEach(assenza => {
+    
+    // if(assenza.)
+    let start = assenza.oraInizio
+    let end = assenza.oraFine
+    let oretotali
+
+    if(assenza.oraInizio < this.giorno.oraEntrata! ){
+      start = this.giorno.oraEntrata!
+    }
+    if(assenza.oraFine <this.giorno.oraUscita!)
+    {
+      end = this.giorno.oraUscita!
+    }
+
+    oretotali = Number(end.split(":")[0])-Number(start.split(":")[0]) - ((Number(end.split(":")[1])-Number(start.split(":")[1]))/60) 
+
+    //sottraggo tempo pausa
+    if(assenza.oraInizio < this.giorno.oraInizioPausa! && assenza.oraFine > this.giorno.oraInizioPausa! )
+    {
+      start = this.giorno.oraInizioPausa!
+      end = this.giorno.oraFinePausa!
+      if(assenza.oraInizio < this.giorno.oraInizioPausa! && assenza.oraFine > this.giorno.oraInizioPausa! && assenza.oraFine <this.giorno.oraFinePausa!)
+      {
+        end = assenza.oraFine
+        //somma tempo parziale rispetto a inizio pausa
+      }
+
+      //sottraggo pausa
+      oretotali = oretotali -(Number(this.giorno.oraFinePausa!.split(":")[0])-Number(this.giorno.oraInizioPausa!.split(":")[0]) - ((Number(this.giorno.oraFinePausa!.split(":")[1])-Number(this.giorno.oraInizioPausa!.split(":")[1]))/60) )
+    }
+    sommaOreAttivitaAssenze = oretotali
+  })
+
+
+  //somma delle ore attivita complessive
   for(let i =0;i<this.data.giorno.listaAttivitaGiorno.length ;i++)
   {
-    console.log("count "+i+": " + this.data.giorno.listaAttivitaGiorno[i].oreLavorate)
-    console.log("count "+i+": " + this.data.giorno.listaAttivitaGiorno[i].oreStraordinario)
-    console.log(this.data.giorno.listaAttivitaGiorno)
-    console.log(this.rapportinoService.infoPersona.listaSedeLavoroPersona)
-    sommaOreAttivita = sommaOreAttivita + this.data.giorno.listaAttivitaGiorno[i].oreLavorate +this.data.giorno.listaAttivitaGiorno[i].oreStraordinario
+  
+    sommaOreAttivitaAssenze = sommaOreAttivitaAssenze + this.data.giorno.listaAttivitaGiorno[i].oreLavorate +this.data.giorno.listaAttivitaGiorno[i].oreStraordinario
   }
-  console.log("somma attivita: "+sommaOreAttivita)
-  console.log("somma ore: "+(ore+mezzore))
-  if(sommaOreAttivita > 8 && sommaOreAttivita == (ore+mezzore))
+  
+  if(sommaOreAttivitaAssenze > 8 && sommaOreAttivitaAssenze == oreGiornoConvertiteDaTempo)
   {
     return true
   }else{
@@ -146,4 +182,6 @@ VerificaGiorno():boolean{
 
 
 }
+
+
 

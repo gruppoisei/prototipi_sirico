@@ -5,7 +5,6 @@ export class CalendarioRequest {
     rapportino: Rapportino = new Rapportino()
     giorniFestivi: string[] = []
     listaGiorniLavoroMese: GiornoDiLavoro[] = []
-    listaAssenzeMese:AssenzaMese[] = []
 }
 
 export class GiornoDiLavoro{
@@ -24,17 +23,12 @@ export interface AssenzaGiorno{
     assenzaId:number
     oraInizio:string
     oraFine:string
+    tipoRichiestaId:number
+    statoApprovazione:boolean
+    // responsabileApprovazione:number
 }
 
-// public class AssenzaGiorno
-// {
-//     public int? assenzaId { get; set; }
-//     public string? oraInizio { get; set; }
 
-//     public string? oraFine { get; set; }
-
-
-// }
 
 export class AttivitaGiornoCalendario{
 
@@ -53,13 +47,3 @@ export class Rapportino{
     definitivoRapportino?:boolean
 }
 
-export interface AssenzaMese
-{
-    assenzaId:number
-    tipoRichiestaId:number
-    responsabileApprovazione:string
-    statoApprovazione:boolean
-    dataInizio:Date
-    dataFine:Date
-
-}

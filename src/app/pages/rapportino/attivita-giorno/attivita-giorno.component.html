@@ -99,6 +99,19 @@
     <div class="qualcosa"><button (click)="EliminaAttivita(attivita.attivitaId!)"><mat-icon>delete</mat-icon></button></div>
 
   </div>
+
+  <div class="MostraAssenza">
+    <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" class="attivita bg-teal-dark text-light">
+      <div class="qualcosa"> {{assenza.oraInizio}} </div>
+      <div class="qualcosa"> {{assenza.oraInizio}} </div>
+      <div class="qualcosa"> {{assenza.tipoRichiestaId}} </div>
+      <div class="qualcosa"><button (click)="EliminaAssenza(assenza.assenzaId)"><mat-icon>delete</mat-icon></button></div>
+
+    </div>
+
+  </div>
+
+
 </div>
   
   <button
