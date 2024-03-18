@@ -5,52 +5,40 @@
 
   <mat-dialog-content>
     <div class="datadiv">
-      <div>
-        <label> Ora entrata </label>
-        <mat-form-field>
-          <mat-label> ora entrata </mat-label>
-          <mat-select [(value)]="giorno.oraEntrata">
-            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-               orario
-             }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div>
-        <label> Ora inizio pausa </label>
-        <mat-form-field>
-          <mat-label> ora inizio pausa </mat-label>
-          <mat-select [(value)]="giorno.oraInizioPausa">
-            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-               orario
-             }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="O">
+        <label > Ora entrata </label>
+        <select [(value)]="giorno.oraEntrata">
+          <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
+            orario
+          }}</option>
+        </select>
       </div>
 
-      <div>
+      <div class="O">
+        <label > Ora inizio pausa </label>
+        <select [(value)]="giorno.oraInizioPausa">
+        <option  *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
+          orario
+        }}</option>
+        </select>
+      </div>
+
+      <div  class="O">
         <label> Ora fine pausa </label>
-        <mat-form-field>
-          <mat-label> ora fine pausa </mat-label>
-          <mat-select [(value)]="giorno.oraFinePausa">
-            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-               orario
-             }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <select [(value)]="giorno.oraFinePausa">
+        <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
+          orario
+        }}</option>
+        </select>
       </div>
       
-      <div>
-        <label> Ora uscita</label>
-        <mat-form-field>
-          <mat-label> ora uscita </mat-label>
-          <mat-select [(value)]="giorno.oraUscita">
-           <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-              orario
-            }}</mat-option>
-            
-          </mat-select>
-        </mat-form-field>
+      <div class="O">
+        <label > Ora uscita</label>
+        <select  [(value)]="giorno.oraUscita">
+        <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
+          orario
+        }}</option>
+        </select>
       </div>
     </div>
 

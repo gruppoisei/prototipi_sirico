@@ -1,10 +1,17 @@
-.datadiv{
-    display: flex;
-    justify-content: center;
-    align-content: center;
+
+ .datadiv{
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     padding: 10px;
+     margin:auto;
+     max-width: 800px;
+    }
+
+
+.oreO, .oreS, .commessa, .sede {
+    margin: 10px;
     padding: 10px;
-    margin:10px;
-    
 }
 
 .SW, .aggiungi{
@@ -15,13 +22,31 @@
     padding: 10px;
     margin:10px;
 }
+label {
+    display: block;
+    margin-bottom: 10px;
+  }
 
-.aggiungi{
-    margin: 10px;
-    padding: 10px;
-}
+  select,
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
 
-.oreOrd, .oreStra{
-    margin: 10px;
-    padding: 10px;
-}
+  select,
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+
