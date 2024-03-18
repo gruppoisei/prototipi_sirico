@@ -4,6 +4,7 @@ import { ricercaDipendente } from '../../dto/request/ricercaDipendente';
 import { PersonaService } from '../../service/persona.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-login-dialog.component';
+import { DeleteDipendenteDialogComponent } from '../delete-dipendente-dialog/delete-dipendente-dialog.component';
 
 
 @Component({
@@ -14,9 +15,11 @@ import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-log
 
 export class GestioneDipendenteComponent implements OnInit{
 
+
   ricercaForm!: FormGroup;
   constructor(private fb : FormBuilder, private personaService : PersonaService, private dialog : MatDialog){}
   datiPersona: any[] = []
+  idPersona : number | null = null;
   
   ngOnInit(): void {
     this.ricercaForm = this.fb.group({
@@ -26,9 +29,20 @@ export class GestioneDipendenteComponent implements OnInit{
       GecoDeno: [''],
       AnpeEmailaziendale: [''],
       AnsoRagionesociale: ['']
-  })
-   }
+    })
+  }
 
+  openDialogDelete(personaId : number) {
+    this.idPersona = personaId
+    this.dialog.open(DeleteDipendenteDialogComponent,
+      {
+        data: {personaId: this.idPersona},
+        width: 'auto',
+        height: 'auto'
+      })
+      console.log(this.idPersona)
+    }
+  
   clearSearch()
   {
     this.ricercaForm.reset();
@@ -44,6 +58,7 @@ export class GestioneDipendenteComponent implements OnInit{
         next:(res) => 
         {
           this.datiPersona = res.map((persona : any)=>({
+            AnpePersonaid: persona.anpePersonaid,
             AnpeNome:persona.anpeNome,
             AnpeCognome: persona.anpeCognome,
             AnpeCodicefiscale: persona.anpeCodicefiscale,

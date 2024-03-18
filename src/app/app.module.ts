@@ -38,6 +38,7 @@ import { InsertContrattoComponent } from './pages/insert-contratto/insert-contra
 import { MessageResponseDialogComponent } from './ui/message-response-dialog/message-response-dialog.component';
 import { OrdinaGiorniPipe } from './pages/rapportino/ordina-giorni.pipe';
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
+import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialo
     MessageResponseDialogComponent,
     OrdinaGiorniPipe,
     DeleteDipendenteDialogComponent,
+    DeleteDipendenteResponseDialogComponent,
 
   ],
   imports: [
