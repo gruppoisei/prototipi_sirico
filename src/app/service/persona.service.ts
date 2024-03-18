@@ -33,5 +33,10 @@ export class PersonaService {
     const params = this.creaHttpParams(queryParams)
     return this.http.get<any>(this.baseUrlVP + 'GetVistaFiltrata', {params: params})
   }
+
+  disabilitaPersonaById(personaId : number)
+  {
+    return this.http.put<any>(`${this.baseUrlP}DisabilitaPersonaById/${personaId}`, {})
+  }
   
 }

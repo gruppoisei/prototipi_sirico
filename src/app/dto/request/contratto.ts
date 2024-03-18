@@ -6,17 +6,17 @@ export interface Contratto {
     AnsoSocietaid: string | null;
     CodiDatainiziocontratto: string | null;
     CodiDatafinecontratto: string | null;
-    CotcTipocontrattoid: number | null;
+    codiFkCotctipocontrattoid: number | null;
     CoccCcnlid: number;
     ColiLivelloid: number | null;
     AnruRuoloid: string | null;
     CodiRalcompenso: number | null;
     CodiMonteore: number | null;
-    smartworking: boolean | null;
+    CodiSmartworking: boolean | null;
     costopresuntoannuo: number | null;     // lo includiamo, ma non lo passiamo
     costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo
     CodsValoredistacco: number | null;     // percentuale
-    AnsoSocietaDistaccoid: number | null;
+    ansoSocietaDistaccoid: number | null;
     CodsDatainiziodistacco: string | null;
     CodsDatafinedistacco: string | null;
     CodiNote: string | null;

@@ -36,55 +36,59 @@ import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestion
 import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
 import { MessageResponseDialogComponent } from './ui/message-response-dialog/message-response-dialog.component';
-import { OrdinaGiorniPipe } from './pages/rapportino/ordina-giorni.pipe';
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
+import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        InsertUtenteComponent,
-        InsertPersonaComponent,
-        LoginComponent,
-        HomepageComponent,
-        CalendarioComponent,
-        GiornoCalendarioComponent,
-        RichiestaAssenzaUtenteComponent,
-        RichiestaAssenzaSegreteriaComponent,
-        MenuComponent,
-        ForgotPasswordComponent,
-        ResponseDialogComponent,
-        ErrorLoginDialogComponent,
-        ResponseResetPasswordDialogComponent,
-        ModificaPasswordComponent,
-        NewPasswordResponseDialogComponent,
-        GestioneDipendenteComponent,
-        GestioneContrattoComponent,
-        InsertContrattoComponent,
-        MessageResponseDialogComponent,
-        DeleteDipendenteDialogComponent,
-    ],
-    providers: [
-        provideAnimationsAsync(),
-    ],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatSelectModule,
-        BrowserAnimationsModule,
-        MatBadgeModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatCardModule,
-        OrdinaGiorniPipe
-    ]
+  declarations: [
+    AppComponent,
+    InsertUtenteComponent,
+    InsertPersonaComponent,
+    LoginComponent,
+    HomepageComponent,
+    CalendarioComponent,
+    GiornoCalendarioComponent,
+    RichiestaAssenzaUtenteComponent,
+    RichiestaAssenzaSegreteriaComponent,
+    MenuComponent,
+    ForgotPasswordComponent,
+    ResponseDialogComponent,
+    ErrorLoginDialogComponent,
+    ResponseResetPasswordDialogComponent,
+    ModificaPasswordComponent,
+    NewPasswordResponseDialogComponent,
+    GestioneDipendenteComponent,
+    GestioneContrattoComponent,
+    InsertContrattoComponent,
+    MessageResponseDialogComponent,
+    DeleteDipendenteDialogComponent,
+    DeleteDipendenteResponseDialogComponent,
+
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    MatBadgeModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    
+
+  ],
+  providers: [
+    provideAnimationsAsync(),
+    
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

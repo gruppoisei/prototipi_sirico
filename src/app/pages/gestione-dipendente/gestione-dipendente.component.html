@@ -2,7 +2,7 @@
     <h2>Ricerca dipendenti</h2>
 </div>
 <div class = "flex flex-row justify-center my-10">
-    <form [formGroup]="ricercaForm" (ngSubmit)="ricercaFiltrata()" class="w-3/4">
+    <form [formGroup]="ricercaForm" class="w-3/4">
         <div class="flex flex-row justify-end mt-10">
             <a routerLink="/nuova-persona"><button mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
@@ -18,7 +18,7 @@
         </div>
         <div class = "flex flex-row justify-end mt-10">
             <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
-            <button type="submit" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
         </div>
     </form>
 </div>
@@ -43,7 +43,7 @@
                 <tr *ngFor="let persona of datiPersona" class="bg-white border-b">
                     <td class="px-6 py-4 flex gap-5">
                         <button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
-                        <button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                        <button mat-icon (click)="openDialogDelete(persona.AnpePersonaid)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
                     <td class="px-6 py-4">{{ persona.AnpeNome }}</td>
                     <td class="px-6 py-4">{{ persona.AnpeCognome }}</td>
