@@ -34,6 +34,7 @@ export class InsertPersonaComponent implements OnInit{
   listComuniResidenza: any;
   listComuniDomicilio: any;
   showDomicilio: any;
+  
 
 constructor(private dialog: MatDialog,private location: Location, private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
 {}
@@ -47,8 +48,12 @@ constructor(private dialog: MatDialog,private location: Location, private fb : F
         AnpeDatanascita: ['', Validators.required],
         AnpeCodicefiscale: ['', Validators.required],
         AnpeFkGepaPaeseidPaesenascita: ['', Validators.required],
+        RegioneNascita: ['',Validators.required],
+        ProvinciaNascita: ['',Validators.required],
         AnpeFkGecoComuneidComunenascita: ['', Validators.required],
         AnpeFkGepaPaeseidPaeseresidenza: ['', Validators.required],
+        RegioneResidenza: ['', Validators.required],
+        ProvinciaResidenza: ['', Validators.required],
         AnpeFkGecoComuneidComuneresidenza: ['', Validators.required],
         AnpeIndirizzoresidenza:['', Validators.required],
         AnpeNumerocivicoresidenza: ['', Validators.required],
