@@ -19,6 +19,7 @@ export class InsertContrattoComponent implements OnInit {
   uncheck: any;
   disable_fields: any;
 
+  checkDateValidity: boolean = false;
   dateinizioTouched: boolean = false;
   datefineTouched: boolean = false;
 
@@ -46,8 +47,8 @@ export class InsertContrattoComponent implements OnInit {
     AnpePersonaid: null,
     AnpeCodicefiscale: null,
     AnsoSocietaid: null,
-    CodiDatainiziocontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en'),
-    CodiDatafinecontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en'),
+    CodiDatainiziocontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+    CodiDatafinecontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     codiFkCotctipocontrattoid: null,
     CoccCcnlid: 0,
     ColiLivelloid: null,
@@ -271,11 +272,22 @@ export class InsertContrattoComponent implements OnInit {
 
   
   checkDateTimeValidity(): boolean {
-    const startDate = new Date(this.formData.CodiDatainiziocontratto);
+    /*const startDate = new Date(this.formData.CodiDatainiziocontratto);
     const endDate = new Date(this.formData.CodiDatafinecontratto);
     console.log(startDate,endDate);
- 
-    return ((startDate > endDate) && (this.dateinizioTouched && this.datefineTouched));
+    if (startDate > endDate) { console.log("entrato")}*/
+
+    console.log(this.formData.CodiDatainiziocontratto.split(',')[0])
+    const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
+    const endDate = Date.parse(this.formData.CodiDatafinecontratto);
+    if (startDate < endDate) { 
+      console.log("entrato");
+      return true;
+    }
+    return false;
+    
+    //return ((startDate > endDate) && (this.dateinizioTouched && this.datefineTouched));
+    //return true;
   }
 
 
