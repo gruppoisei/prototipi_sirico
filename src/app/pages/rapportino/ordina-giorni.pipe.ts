@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'ordinaGiorni'
+  standalone:true,
+  name: 'ordinaGiorni',
+  
 })
 export class OrdinaGiorniPipe implements PipeTransform {
 

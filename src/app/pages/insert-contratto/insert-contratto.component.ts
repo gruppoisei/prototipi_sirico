@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import {formatDate} from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Contratto } from '../../dto/request/contratto';
 import { InsertContrattoService } from '../../service/insert-contratto.service';
@@ -17,6 +18,10 @@ export class InsertContrattoComponent implements OnInit {
   
   uncheck: any;
   disable_fields: any;
+
+  checkDateValidity: boolean = false;
+  dateinizioTouched: boolean = false;
+  datefineTouched: boolean = false;
 
   tipiSocieta: [{ ansoSocietaid: number; ansoRagionesociale: string }] | undefined;
   tipiContratto: [{ cotcTipocontrattoid: number; cotcContratto: string }] | undefined;
@@ -42,8 +47,8 @@ export class InsertContrattoComponent implements OnInit {
     AnpePersonaid: null,
     AnpeCodicefiscale: null,
     AnsoSocietaid: null,
-    CodiDatainiziocontratto: null,
-    CodiDatafinecontratto: null,
+    CodiDatainiziocontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+    CodiDatafinecontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     codiFkCotctipocontrattoid: null,
     CoccCcnlid: 0,
     ColiLivelloid: null,
@@ -109,8 +114,8 @@ export class InsertContrattoComponent implements OnInit {
       AnpePersonaid: null,
       AnpeCodicefiscale: null,
       AnsoSocietaid: null,
-      CodiDatainiziocontratto: null,
-      CodiDatafinecontratto: null,
+      CodiDatainiziocontratto: new Date().toLocaleString(),
+      CodiDatafinecontratto: new Date().toLocaleString(),
       codiFkCotctipocontrattoid: null,
       CoccCcnlid: 0,
       ColiLivelloid: null,
@@ -265,6 +270,25 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
+  
+  checkDateTimeValidity(): boolean {
+    /*const startDate = new Date(this.formData.CodiDatainiziocontratto);
+    const endDate = new Date(this.formData.CodiDatafinecontratto);
+    console.log(startDate,endDate);
+    if (startDate > endDate) { console.log("entrato")}*/
+
+    console.log(this.formData.CodiDatainiziocontratto.split(',')[0])
+    const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
+    const endDate = Date.parse(this.formData.CodiDatafinecontratto);
+    if (startDate < endDate) { 
+      console.log("entrato");
+      return true;
+    }
+    return false;
+    
+    //return ((startDate > endDate) && (this.dateinizioTouched && this.datefineTouched));
+    //return true;
+  }
 
 
 

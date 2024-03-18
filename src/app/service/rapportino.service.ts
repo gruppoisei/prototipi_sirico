@@ -6,6 +6,7 @@ import { Observable, delay, tap } from 'rxjs';
 import { InfoPersona } from '../dto/request/InfoPersona';
 import { AttivitaGiornoResponse } from '../dto/response/AttivitaGiorno';
 import { GiornoLavorativo } from '../dto/request/giornolavorativo';
+import { GiorniDaCopiare } from '../dto/request/copiaGiorni';
 
 @Injectable({
   providedIn: 'root',
@@ -55,17 +56,16 @@ export class RapportinoService {
   }
 
   AggiornaGiorniMese(giorno: Date) {
-    // this.giorniValidiMese = 0
-    // this.giorniConfermati = 0
+    this.giorniValidiMese = 0
+    this.giorniConfermati = 0
     let datePipe = new DatePipe('en-US');
-    const dateFormatted = datePipe.transform(giorno, 'yyyy/MM/dd');
+    const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
     this.http
-      .get<CalendarioRequest>(
-        `http://localhost:5143/Vistamese/GetAllInfoMese?personaId=1&dataRiferimentostring=${dateFormatted}`
-      )
+      .get<CalendarioRequest>(`http://localhost:5143/Vistamese/GetAllInfoMese?personaId=1&dataRiferimentostring=${dateFormatted}`)
       .pipe(
         tap((v) => {
           this.risposta = v;
+          console.log(v)
         })
       )
       .subscribe();
@@ -116,6 +116,14 @@ export class RapportinoService {
       alert('giorno confermato');
       this.AggiornaBox();
     });
+  }
+
+  CopiaGiorni(body:GiorniDaCopiare){
+    this.http.post('http://localhost:5143/Vistamese/CopiaAttivitaGiorno',body).subscribe((res) =>{
+      this.AggiornaBox();
+      
+    }
+    )
   }
 
   giornoRiferimento = new Date();
