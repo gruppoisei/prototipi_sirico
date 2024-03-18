@@ -36,7 +36,8 @@ export class AttivitaGiornoComponent {
   showReperibilita= false;
   showAssenza=false;
   giorno: GiornoLavorativo = {
-    giornoLavoroId:this.data.giorno.giornoLavorativoId,
+    // giornoLavoroId:this.data.giorno.giornoLavorativoId,
+    giornoLavoroId:0,
     oraEntrata:"9:00",
     oraInizioPausa:"12:00",
     oraFinePausa:"13:00",
@@ -45,7 +46,10 @@ export class AttivitaGiornoComponent {
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {giorno:GiornoDiLavoro,giornoFestivo:boolean},public rapportinoService:RapportinoService) {
-      this.giorno.giornoLavoroId = this.data.giorno.giornoLavorativoId
+      console.log(data.giorno)
+      
+      if(data.giorno.giornoLavorativoId != undefined)
+      this.giorno.giornoLavoroId = data.giorno.giornoLavorativoId
       if(this.data.giorno.oraEntrata != null && this.data.giorno.oraEntrata != undefined)
       {
         this.giorno.oraEntrata = this.data.giorno.oraEntrata

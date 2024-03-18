@@ -49,7 +49,7 @@ export class GiornoCalendarioComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
-      data: {giorno :this.giorno,giornoFestivo:this.giornoFestivo},
+      data: {giorno:this.giorno,giornoFestivo:this.giornoFestivo},
     });
     
 
@@ -60,11 +60,13 @@ export class GiornoCalendarioComponent {
   
   
   ClickMe(){
+    console.log(this.giorno)
+
     const dialogRef=
     this.dialog.open(AttivitaGiornoComponent, 
       {
         height: "600px", 
-        data: this.giorno})
+        data: {giorno:this.giorno,giornoFestivo:this.giornoFestivo}})
   }
 
   Delete(giornoId:number){
