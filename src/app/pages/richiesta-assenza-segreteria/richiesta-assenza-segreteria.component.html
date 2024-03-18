@@ -4,18 +4,24 @@
     <input class="inserimento-responsabile" [(ngModel)]="userName" type="text" placeholder="Inserisci il tuo Nome Utente">
     <!--<button (click)="salvaUsername(userName)" class="search-button">Login</button>-->
   </div>
-  <div>
-    <select name="Seleziona il filtro" required>
-      <option (click)="scelta(0)">Stampa tutto</option>
-      <option (click)="scelta(1)">Richieste da approvare</option>
-      <option (click)="scelta(2)">Richieste approvate</option>
-      <option (click)="scelta(3)">Richieste rifiutate</option>
-    </select>
+  <div class="flex justify-center">
+    <div class="mr-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Seleziona il filtro</mat-label>
+        <mat-select (selectionChange)="scelta($event.value)">
+          <mat-option value="0">Stampa tutto</mat-option>
+          <mat-option value="1">Richieste da approvare</mat-option>
+          <mat-option value="2">Richieste approvate</mat-option>
+          <mat-option value="3">Richieste rifiutate</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div>
+      <button (click)="cerca()" class="search-button">Cerca!</button>
+    </div>
   </div>
-
-  <div>
-    <button (click)="cerca()" class="search-button">Cerca!</button>
-  </div>
+  
 </div>
 <div class="container">
   <div>
@@ -48,7 +54,7 @@
               <div>
                 <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-yellow-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 3)" *ngIf="!id.approvazione && id.flagAttivo"><mat-icon>edit</mat-icon></button>
                 <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 2)" *ngIf="id.approvazione && id.flagAttivo"><mat-icon>close</mat-icon></button>
-                <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 1)" *ngIf="!id.approvazione && !id.flagAttivo"><mat-icon>check</mat-icon></button>
+                <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="approvaDiretto(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo"><mat-icon>check</mat-icon></button>
                 <ng-template #approvalModal let-modal>
                   <h1 class="modal-testo">Approvare o rifiutare richiesta</h1>
                   <button class="button-modal" (click)="approvaRichiesta()" *ngIf="((editable == 1) || (editable == 3)) && (hidemotivazione)">Approva</button> <br>
