@@ -20,6 +20,9 @@ export class RapportinoService {
   infoPersona!: InfoPersona;
   risposta: CalendarioRequest = new CalendarioRequest();
 
+  giorniValidiMese = 0
+  giorniConfermati = 0
+
   orari: string[] = [
     '08:30',
     '09:00',
@@ -52,6 +55,8 @@ export class RapportinoService {
   }
 
   AggiornaGiorniMese(giorno: Date) {
+    // this.giorniValidiMese = 0
+    // this.giorniConfermati = 0
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy/MM/dd');
     this.http
@@ -107,7 +112,7 @@ export class RapportinoService {
   }
 
   ConfermaGiorno(giorno: GiornoLavorativo) {
-    this.http.put<any>('', giorno).subscribe((res) => {
+    this.http.put<any>('http://localhost:5143/AttivitaGiorno/ConfermaGiorno', giorno).subscribe((res) => {
       alert('giorno confermato');
       this.AggiornaBox();
     });

@@ -7,6 +7,12 @@ import { PaesiService } from '../../service/paesi.service';
 import { SocietaService } from '../../service/societa.service';
 import { ProvinceService } from '../../service/province.service';
 import { ComuniService } from '../../service/comuni.service';
+import {Location} from '@angular/common';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import ValidateForm from '../../helpers/validateform';
+import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 
 @Component({
   selector: 'app-insert-persona',
@@ -14,8 +20,6 @@ import { ComuniService } from '../../service/comuni.service';
   styleUrl: './insert-persona.component.scss'
 })
 export class InsertPersonaComponent implements OnInit{
-
-
 
   insertPersona !: FormGroup;
   nuovaPersona ?: Persona
@@ -29,26 +33,37 @@ export class InsertPersonaComponent implements OnInit{
   listComuniNascita: any;
   listComuniResidenza: any;
   listComuniDomicilio: any;
+  showDomicilio: any;
 
-constructor(private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
+constructor(private dialog: MatDialog,private location: Location, private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
 {}
-  ngOnInit(): void {
-   this.insertPersona = this.fb.group(
-    {
-      nome : ['',Validators.required],
-      cognome : ['',Validators.required],
-      dataNascita : ['',Validators.required],
-      luogoNascita : ['',Validators.required],
-      codiceFiscale : ['',Validators.required],
-      comuneResidenza : ['',Validators.required],
-      indirizzoResidenza : ['',Validators.required],
-      numeroCivicoResidenza : ['',Validators.required],
-      comuneDomicilio : ['',Validators.required],
-      indirizzoDomicilio : ['',Validators.required],
-      capResidenza : ['',Validators.required],
-      emailAziendale : ['',Validators.required],
-      societaId : ['',Validators.required]
-    })
+
+  ngOnInit(): void 
+  {
+    this.insertPersona = this.fb.group(
+      {
+        AnpeNome: ['', Validators.required],
+        AnpeCognome: ['', Validators.required],
+        AnpeDatanascita: ['', Validators.required],
+        AnpeCodicefiscale: ['', Validators.required],
+        AnpeFkGepaPaeseidPaesenascita: ['', Validators.required],
+        AnpeFkGecoComuneidComunenascita: ['-', Validators.required],
+        AnpeFkGepaPaeseidPaeseresidenza: ['', Validators.required],
+        AnpeFkGecoComuneidComuneresidenza: ['', Validators.required],
+        AnpeIndirizzoresidenza:['', Validators.required],
+        AnpeNumerocivicoresidenza: ['', Validators.required],
+        AnpeCapresidenza: ['', Validators.required],
+        AnpeFkGepaPaeseidPaesedomicilio: [null],
+        AnpeFkGecoComuneidComunedomicilio: [null], 
+        AnpeIndirizzodomicilio: [null],
+        AnpeNumerocivicodomicilio: [null],
+        AnpeCapdomicilio: [null],
+        AnpeNtelefono1: ['', Validators.required],
+        AnpeNtelefono2: [''],
+        AnpeEmailaziendale: ['', Validators.required],
+        AnpeEmailpersonale: [''],
+        AnpeFkAnsoSocietaid: ['', Validators.required]
+      })
 
     this.serviceRegione.getRegioni().subscribe
     ((regioni: any)=>
@@ -69,6 +84,10 @@ constructor(private fb : FormBuilder,private auth: AuthService, private serviceR
     })
   }
 
+  onCheckboxChange(event: any) {
+    this.showDomicilio = event.target.checked;
+    }
+
   onRegionChangeDomicilio(event : any)
   {
     const idRegione = event.target.value
@@ -77,6 +96,55 @@ constructor(private fb : FormBuilder,private auth: AuthService, private serviceR
     {
       this.listProvinceDomicilio = province
     })
+  }
+
+  insertUser()
+  {
+    if(this.insertPersona.valid)
+    {
+      this.auth.insertPersona(this.insertPersona.value)
+      .subscribe(
+        {
+          next:(res) =>
+            {
+              this.dialog.open(MessageResponseDialogComponent,
+                {
+                  data: {successMessage : res.message},
+                  width: 'auto',
+                  height: 'auto'
+                })
+              this.insertPersona.reset();
+            },
+            error:(err) => 
+            {
+             this.dialog.open(MessageResponseDialogComponent,
+              {
+                data: {errorMessage : err?.error.message},
+                width: 'auto',
+                height: 'auto'
+              })
+            }
+        })
+    }
+    else
+    {
+      ValidateForm.validateAllFormFields(this.insertPersona);
+      this.dialog.open(ResponseDialogComponent,
+        {
+          width: 'auto',
+          height: 'auto',
+        });
+    }
+  }
+
+  clearSearch()
+  {
+    this.insertPersona.reset();
+  }
+
+  goBack() : void
+  {
+    this.location.back();
   }
 
   onRegionChangeResidenza(event : any)
@@ -128,59 +196,4 @@ constructor(private fb : FormBuilder,private auth: AuthService, private serviceR
       this.listComuniNascita = comuni
     })
   }
-
-  insertUser()
-  {
-    this.nuovaPersona = this.creaPersona()
-
-    this.auth.insertPersona(this.nuovaPersona)
-    .subscribe(
-      {
-        next:(res) =>
-          {
-            console.log(res.message)
-            this.insertPersona.reset();
-          },
-          error:(err) => 
-          {
-            console.log(err.error.message)
-          }
-      })
-  }
-
-  creaPersona(): Persona {
-
-    let persona : Persona = {
-      nome: this.insertPersona.get('nome')?.value,
-      personaId: null,
-      cognome: this.insertPersona.get('cognome')?.value,
-      dataNascita: this.insertPersona.get('dataNascita')?.value,
-      societaId: this.insertPersona.get('societaId')?.value,
-      codiceFiscale: this.insertPersona.get('codiceFiscale')?.value,
-      luogoNascita: null,
-      //comuneNascita: null,
-      //comuneResidenza: null,
-      //comuneDomicilio: null,
-      //toponimoResidenza: null,
-      //toponimoDomicilio: null,
-      indirizzoResidenza: this.insertPersona.get('indirizzoResidenza')?.value,
-      numeroCivicoResidenza: this.insertPersona.get('numeroCivicoResidenza')?.value,
-      capResidenza: this.insertPersona.get('capResidenza')?.value,
-      indirizzoDomicilio: this.insertPersona.get('indirizzoDomicilio')?.value,
-      numeroCivicoDomicilio:  this.insertPersona.get('numeroCivicoResidenza')?.value,
-      capDomicilio: this.insertPersona.get('capResidenza')?.value,
-      //telefono1: null,
-      //telefono2: null,
-      emailAziendale: this.insertPersona.get('emailAziendale')?.value,
-      //emailPersonale: null,
-      //sysuser: 'test'
-      provinciaNascita : null
-    }
-
-    return persona;
-
-  }
-
 }
-
-

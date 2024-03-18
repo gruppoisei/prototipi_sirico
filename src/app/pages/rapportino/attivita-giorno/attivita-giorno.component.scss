@@ -59,3 +59,18 @@
 .qualcosa{
     flex-grow: 1;
 }
+
+select,
+      input[type="number"],
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      .O{
+        margin: 12px;
+        padding: 12px;
+      }
