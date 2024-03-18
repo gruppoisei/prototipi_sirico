@@ -4,6 +4,7 @@ import { AttivitaGiornoComponent } from '../attivita-giorno/attivita-giorno.comp
 import { GiornoDiLavoro } from '../../../dto/request/calendario';
 import { RapportinoService } from '../../../service/rapportino.service';
 import { timer } from 'rxjs';
+import { CopiaGiornoDialogComponent } from '../copia-giorno-dialog/copia-giorno-dialog.component';
 
 
 @Component({
@@ -47,16 +48,16 @@ export class GiornoCalendarioComponent {
     
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
-      data: {giorno:this.giorno,giornoFestivo:this.giornoFestivo},
-    });
+  // openDialog(): void {
+  //   const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
+  //     data: {giorno:this.giorno,giornoFestivo:this.giornoFestivo},
+  //   });
     
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(this.giorno)
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log(this.giorno)
+  //   });
+  // }
   
   
   ClickMe(){
@@ -67,6 +68,17 @@ export class GiornoCalendarioComponent {
       {
         height: "600px", 
         data: {giorno:this.giorno,giornoFestivo:this.giornoFestivo}})
+  }
+
+  CopiaGiorno()
+  {
+    const dialogRef=
+    this.dialog.open(CopiaGiornoDialogComponent, 
+      {
+        width: "600px",
+        data:this.giorno.giornoLavorativoId
+      })
+     
   }
 
   Delete(giornoId:number){
