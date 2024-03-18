@@ -12,23 +12,12 @@ import { InsertContrattoService } from '../../service/insert-contratto.service';
   styleUrl: './insert-contratto.component.scss'
 })
 
-export class InsertContrattoComponent implements OnInit {
-
-  /*
-    myGroup = new FormGroup({
-      firstName: new FormControl()
-  });
-   */
-
-  submitForm() {
-    console.log(this.formData);
-  }
-
-  checkbox: any;
+export class InsertContrattoComponent implements OnInit {  
+  
+  
   uncheck: any;
   disable_fields: any;
 
-  //contratto: Contratto[] = [];
   tipiSocieta: [{ ansoSocietaid: number; ansoRagionesociale: string }] | undefined;
   tipiContratto: [{ cotcTipocontrattoid: number; cotcContratto: string }] | undefined;
   tipiCcnl: [{ coccCcnlid: number; coccDesc: string }] | undefined;
@@ -38,14 +27,14 @@ export class InsertContrattoComponent implements OnInit {
 
   // DIALOG
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
-  //ricercaForm!: FormGroup;
   output_ricercaFiltrata: any;
-  dipendentiSenzaContratto: [{
+
+  dipendentiSenzaContratto!: [{
     anpePersonaid: number;
     anpeNome: string;
     anpeCognome: string;
-    anpeCodicefiscale: string
-  }] | undefined;
+    anpeCodicefiscale: string;
+  }];
 
   formData: Contratto = {
     AnpeNome: null,
@@ -55,17 +44,17 @@ export class InsertContrattoComponent implements OnInit {
     AnsoSocietaid: null,
     CodiDatainiziocontratto: null,
     CodiDatafinecontratto: null,
-    CotcTipocontrattoid: null,
+    codiFkCotctipocontrattoid: null,
     CoccCcnlid: 0,
     ColiLivelloid: null,
     AnruRuoloid: null,
     CodiRalcompenso: null,
     CodiMonteore: null,
-    smartworking: null,
+    CodiSmartworking: null,
     costopresuntoannuo: null,
     costopresuntogiorno: null,
     CodsValoredistacco: null,
-    AnsoSocietaDistaccoid: null,
+    ansoSocietaDistaccoid: null,
     CodsDatainiziodistacco: null,
     CodsDatafinedistacco: null,
     CodiNote: null,
@@ -96,22 +85,12 @@ export class InsertContrattoComponent implements OnInit {
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
-    //this.getAllTipoLivello(); 
-    this.getAllTipoRuolo();
+    //this.getAllTipoRuolo();
     this.disable_fields = true;
     this.uncheck = false;
-
+    this.dipendentiSenzaContratto;
 
   }
-
-  /*
-   check(uncheck: any) {
-     if (uncheck == null) { this.uncheck = true; }
-     else if (uncheck == true ) { this.uncheck = false; }
-     }
-  
-     // (onClick = check(uncheck);
-  */
 
   clearForm() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
@@ -132,17 +111,17 @@ export class InsertContrattoComponent implements OnInit {
       AnsoSocietaid: null,
       CodiDatainiziocontratto: null,
       CodiDatafinecontratto: null,
-      CotcTipocontrattoid: null,
+      codiFkCotctipocontrattoid: null,
       CoccCcnlid: 0,
       ColiLivelloid: null,
       AnruRuoloid: null,
       CodiRalcompenso: null,
       CodiMonteore: null,
-      smartworking: false,
+      CodiSmartworking: false,
       costopresuntoannuo: null,
       costopresuntogiorno: null,
       CodsValoredistacco: null,
-      AnsoSocietaDistaccoid: null,
+      ansoSocietaDistaccoid: null,
       CodsDatainiziodistacco: null,
       CodsDatafinedistacco: null,
       CodiNote: null,
@@ -166,7 +145,7 @@ export class InsertContrattoComponent implements OnInit {
         this.tipiSocietaDistacco = response;
       },
       (error: any) => {
-        console.error('Errore durante il recupero dei tipi di contratto:', error);
+        console.error('Errore durante il recupero dei tipi di societa:', error);
       }
     );
   }
@@ -202,11 +181,12 @@ export class InsertContrattoComponent implements OnInit {
         this.tipiLivello = response;
       },
       (error: any) => {
-        console.error('Errore durante il recupero dei tipi di ccnl:', error);
+        console.error('Errore durante il recupero dei tipi di livello:', error);
       }
     );
   }
 
+/*
   getAllTipoRuolo() {
     this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
       (response: any) => {
@@ -214,10 +194,11 @@ export class InsertContrattoComponent implements OnInit {
         this.tipiRuolo = response;
       },
       (error: any) => {
-        console.error('Errore durante il recupero dei tipi di ccnl:', error);
+        console.error('Errore durante il recupero dei tipi di ruolo:', error);
       }
     );
   }
+  */
 
   // DIALOG FUNCTIONS
 
@@ -233,22 +214,20 @@ export class InsertContrattoComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  clearSearch() {
-    //this.formDataDialog.reset();
-    /*this.formDataDialog = this.fb.group({
-      nome: '',
-      cognome: '',
-      codiceFiscale: ''
-    })*/
-    this.formDataDialog = {
-      nome: null,
-      cognome: null,
-      codiceFiscale: null
+  clearSearch() {    
+    if (confirm('I campi verranno resettati. Si desidera procedere?')) {
+      this.formDataDialog = {
+        nome: null,
+        cognome: null,
+        codiceFiscale: null
+      }
+    }
+    else {
+      console.log('Operazione annullata');
     }
   }
 
   ricercaFiltrata(name: string, surname: string, cf: string) {
-    console.log('1: name:' + name + '; surname:' + surname + '; cf:' + cf);
     this.inserimentoContrattoService.getAllDipendentiSenzaContratto(name, surname, cf).subscribe(
       (response: any) => {
         console.log(response);
@@ -261,12 +240,29 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
-
+  autoFillFields(array_index: number) {
+    this.formData.AnpeCodicefiscale = this.dipendentiSenzaContratto[array_index].anpeCodicefiscale;
+    this.formData.AnpeNome = this.dipendentiSenzaContratto[array_index].anpeNome;
+    this.formData.AnpeCognome = this.dipendentiSenzaContratto[array_index].anpeCognome;
+    this.formData.AnpePersonaid = this.dipendentiSenzaContratto[array_index].anpePersonaid;    
+    this.closeModal();
+  }
 
 
 
   insertContratto() {
-
+    //console.log(this.formData);
+    if (this.uncheck == false) { this.formData.CodsFlagAttiva = 0}
+    else { this.formData.CodsFlagAttiva = 1 }
+    this.formData.CodsClienteId = this.formData.ansoSocietaDistaccoid;
+    this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
+      (response: any) => {
+        console.log(response);        
+      },
+      (error: any) => {
+        console.error("Errore durante l'inserimento del nuovo contratto:", error);
+      }
+    );
   }
 
 

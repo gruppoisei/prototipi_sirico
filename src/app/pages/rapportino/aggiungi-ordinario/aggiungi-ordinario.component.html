@@ -1,44 +1,28 @@
 
-
 <div class="datadiv">
-    <div class="c">
+    <div class="commessa">
       <label>Commessa</label>
-      <mat-form-field>
-        <mat-label> commessa </mat-label>
-        <mat-select [(value)]="attivitaDaAggiungere.attivitaPersonaId">
-          <mat-option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">{{
-            commessa.nomeProgetto
-          }}</mat-option>
-          
-        </mat-select>
-      </mat-form-field>
+      <select [(value)]="attivitaDaAggiungere.attivitaPersonaId">
+        <option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">{{ commessa.nomeProgetto }}</option>
+      </select>
     </div>
 
-    <div class="c">
-      <label>sedi</label>
-      <mat-form-field>
-        <mat-label>sedi</mat-label>
-        <mat-select [(value)]="attivitaDaAggiungere.sedeLavoroPersonaId">
-          <mat-option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">{{
-            sede.nomeSedeLavoro }} </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-
+    <div class="sede">
+      <label>sede</label>
+      <select [(value)]="attivitaDaAggiungere.sedeLavoroPersonaId">
+      <option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">{{
+            sede.nomeSedeLavoro }}</option>
+      </select>
     </div>
-    <div>
-    <mat-form-field class="oreOrd">
-      <mat-label>ore ordinarie</mat-label>
-      <input matInput step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreLavorate">
-    </mat-form-field>
+    
+    <div class="oreO">
+    <label>ore ordinarie</label>
+    <input  step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreLavorate">
   </div>
 
-  <div>
-    <mat-form-field class="oreStra">
-      <mat-label>ore straordinarie</mat-label>
-      <input matInput step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreStraordinario">
-    </mat-form-field>
+  <div class="oreS">
+    <label>ore straordinarie</label>
+    <input step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreStraordinario">
   </div>
 
 
