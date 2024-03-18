@@ -1,5 +1,5 @@
 <h1 class="flex justify-center my-10 text-4xl font-bold">Gestione dati contratto</h1>
-<form (ngSubmit)="submitForm()">
+<form (ngSubmit)="insertContratto()">
     <!-- COLONNA DI SINITRA -->
     <!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI SINISTRA -->
     <div class="row">
@@ -39,18 +39,19 @@
         <div class="column">
             <div class="fieldcolumn0">
                 <tr>
-                    <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeCodicefiscale" class="box" type="text"
-                        name="CodiceFiscale">
+                    <input [value]="formData.AnpeCodicefiscale" [disabled]="disable_fields"
+                        [(ngModel)]="formData.AnpeCodicefiscale" class="box" type="text" name="CodiceFiscale">
                     <button type="button" (click)="showModalApprovazione()"
                         class="material-icons">person_add_alt_1</button>
                 </tr>
             </div>
             <div class="fieldcolumn1">
-                <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome" class="box" type="text" name="Nome">
+                <input [value]="formData.AnpeNome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome"
+                    class="box" type="text" name="Nome">
             </div>
             <div class="fieldcolumn1">
-                <input [disabled]="disable_fields" [(ngModel)]="formData.AnpeCognome" class="box" type="text"
-                    name="Cognome">
+                <input [value]="formData.AnpeCognome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeCognome"
+                    class="box" type="text" name="Cognome">
             </div>
             <div class="fieldcolumn1">
                 <select [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required>
@@ -66,7 +67,7 @@
                 <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto">
             </div>
             <div class="fieldcolumn1">
-                <select [(ngModel)]="formData.CotcTipocontrattoid" class="box" name="tipocontratto" required>
+                <select [(ngModel)]="formData.codiFkCotctipocontrattoid" class="box" name="tipocontratto" required>
                     <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto
                         }}</option>
                 </select>
@@ -85,7 +86,11 @@
             </div>
             <div class="fieldcolumn2">
                 <select [(ngModel)]="formData.AnruRuoloid" class="box" name="tipolavoratore" required>
-                    <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>
+                    <!--<option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>-->
+                    <option [value]="0">Dirigente</option>
+                    <option [value]="1">Quadro</option>
+                    <option [value]="2">Impiegato</option>
+                    <option [value]="3">Operaio</option>
                 </select>
             </div>
         </div>
@@ -143,8 +148,8 @@
                     oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.smartworking" class="inlinecheckbox" type="checkbox" name="smartworking">
-                {{formData.smartworking}}
+                <input [(ngModel)]="formData.CodiSmartworking" class="inlinecheckbox" type="checkbox" name="smartworking">
+                {{formData.CodiSmartworking}}
             </div>
             <div class="fieldcolumn2">
                 <input [(ngModel)]="formData.costopresuntoannuo" class="box" type="number" name="costopresuntoannuo"
@@ -166,7 +171,7 @@
                 </tr>
             </div>
             <div class="fieldcolumn2">
-                <select [(ngModel)]="formData.AnsoSocietaDistaccoid" [disabled]="!uncheck" class="box"
+                <select [(ngModel)]="formData.ansoSocietaDistaccoid" [disabled]="!uncheck" class="box"
                     name="clientedistacco" required>
                     <option *ngFor="let tipo of tipiSocietaDistacco" [value]="tipo.ansoSocietaid">{{
                         tipo.ansoRagionesociale }}</option>
@@ -191,9 +196,9 @@
     </div>
 
     <div class="bottom-buttons">
-        <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
-        <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="submit">Salva</button>
+        <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
+        <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
     </div>
 </form>
 <!--
@@ -210,7 +215,8 @@
         <h1>Gestione dipendenti senza contratto</h1>
     </div>
     <div class="flex flex-row justify-center my-10">
-        <form (ngSubmit)="ricercaFiltrata(formDataDialog.nome, formDataDialog.cognome, formDataDialog.codiceFiscale)" class="w-3/4">
+        <form (ngSubmit)="ricercaFiltrata(formDataDialog.nome, formDataDialog.cognome, formDataDialog.codiceFiscale)"
+            class="w-3/4">
             <div class="flex flex-row mb-5">
                 <input [(ngModel)]="formDataDialog.nome" type="search" name="nome"
                     class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -242,26 +248,24 @@
                             <th scope="col" class="px-6 py-3">Nome</th>
                             <th scope="col" class="px-6 py-3">Cognome</th>
                             <th scope="col" class="px-6 py-3">Codice Fiscale</th>
+                            <th scope="col" class="px-6 py-3"></th>
                         </tr>
                     </thead>
-                    <tbody>                        
-                        <tr *ngFor="let dipendente of dipendentiSenzaContratto" class="bg-white border-b">                            
+                    <tbody>
+                        <tr *ngFor="let dipendente of dipendentiSenzaContratto; index as i" class="bg-white border-b">
                             <!--<td class="px-6 py-4">{{ dipendente.anpePersonaid }}</td>-->
                             <td class="px-6 py-4">{{ dipendente.anpeNome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCognome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCodicefiscale }}</td>
+                            <td class="px-6 py-4>">
+                                <button type="button" (click)="autoFillFields(i)"
+                                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">ACCETTA
+                                </button>
+                            </td>
                         </tr>
-                    </tbody>
+                    </tbody>                   
                 </table>
             </div>
         </form>
-    </div>
-    <!--
-        <button class="button-modal" (click)="approvaRichiesta()" *ngIf="((editable == 1) || (editable == 3)) && (hidemotivazione)">Approva</button> <br>
-    <button class="button-modal" (click)="hidedmodalbutton()" *ngIf="((editable == 2) || (editable == 3)) && (hidemotivazione)">Rifiuta</button> <br>
-    <p class="modal-testo" *ngIf="!hidemotivazione">Inserisci la motivazione:</p>
-    <input class="modal-input" [(ngModel)]="motivazione" type="text" placeholder="Motivazione" *ngIf="!hidemotivazione"> <br>
-    <button class="button-modal" (click)="rifiutaRichiesta()" *ngIf="!hidemotivazione">Salva e rifiuta</button>
-    <button class="button-modal" (click)="chiudiModal()">Annulla</button>
-    -->
+    </div>    
 </ng-template>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { Contratto } from '../dto/request/contratto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,14 +33,15 @@ export class InsertContrattoService {
   getAllTipoLivello(idTipoLivello: number): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + idTipoLivello);
   }
-
+/*
   getAllTipoRuolo(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetTipoLavoratore`);
   }
+*/
 
   // DIALOG BOX
   getAllDipendentiSenzaContratto(name: string, surname: string, cf: string): Observable<any> {
-    console.log('2: name:' + name + '; surname:' + surname + '; cf:' + cf);
+    //console.log('2: name:' + name + '; surname:' + surname + '; cf:' + cf);
     var ampersand = false; 
     var stringURL = 'http://localhost:5143/GestioneContratto/DipendentiSenzaContratto';
 
@@ -80,5 +82,13 @@ export class InsertContrattoService {
   createApiURL() {
 
   }
+
+  insertNuovoContratto(nuovoContratto: Contratto): Observable<Contratto> {
+    var body = JSON.stringify(nuovoContratto);
+    console.log('body: ' + body);
+    return this.Http.post<Contratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
+  }
+
+  
 
 }
