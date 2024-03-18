@@ -4,8 +4,8 @@ export interface Contratto {
     AnpeCodicefiscale: string | null;
     AnpePersonaid: number | null;
     AnsoSocietaid: string | null;
-    CodiDatainiziocontratto: string | null;
-    CodiDatafinecontratto: string | null;
+    CodiDatainiziocontratto: string;
+    CodiDatafinecontratto: string;
     codiFkCotctipocontrattoid: number | null;
     CoccCcnlid: number;
     ColiLivelloid: number | null;

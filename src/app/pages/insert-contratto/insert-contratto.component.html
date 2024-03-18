@@ -61,10 +61,11 @@
             </div>
             <div class="fieldcolumn1">
                 <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date"
-                    name="datainiziocontratto">
+                    name="datainiziocontratto" [class.invalid]="checkDateTimeValidity()" (focus)="dateinizioTouched = true">
             </div>
             <div class="fieldcolumn1">
-                <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto">
+                <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto"
+                [class.invalid]="checkDateTimeValidity()" (focus)="datefineTouched = true">
             </div>
             <div class="fieldcolumn1">
                 <select [(ngModel)]="formData.codiFkCotctipocontrattoid" class="box" name="tipocontratto" required>
@@ -196,7 +197,7 @@
     </div>
 
     <div class="bottom-buttons">
-        <button class="buttons" type="submit">Salva</button>
+        <button class="buttons" type="submit" [disabled]="checkDateTimeValidity()">Salva</button>
         <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
     </div>
