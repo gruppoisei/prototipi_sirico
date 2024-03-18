@@ -38,57 +38,55 @@ import { InsertContrattoComponent } from './pages/insert-contratto/insert-contra
 import { MessageResponseDialogComponent } from './ui/message-response-dialog/message-response-dialog.component';
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
 import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
+import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    InsertUtenteComponent,
-    InsertPersonaComponent,
-    LoginComponent,
-    HomepageComponent,
-    CalendarioComponent,
-    GiornoCalendarioComponent,
-    RichiestaAssenzaUtenteComponent,
-    RichiestaAssenzaSegreteriaComponent,
-    MenuComponent,
-    ForgotPasswordComponent,
-    ResponseDialogComponent,
-    ErrorLoginDialogComponent,
-    ResponseResetPasswordDialogComponent,
-    ModificaPasswordComponent,
-    NewPasswordResponseDialogComponent,
-    GestioneDipendenteComponent,
-    GestioneContrattoComponent,
-    InsertContrattoComponent,
-    MessageResponseDialogComponent,
-    DeleteDipendenteDialogComponent,
-    DeleteDipendenteResponseDialogComponent,
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatSelectModule,
-    BrowserAnimationsModule,
-    MatBadgeModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatCardModule,
-    
-
-  ],
-  providers: [
-    provideAnimationsAsync(),
-    
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        InsertUtenteComponent,
+        InsertPersonaComponent,
+        LoginComponent,
+        HomepageComponent,
+        CalendarioComponent,
+        GiornoCalendarioComponent,
+        RichiestaAssenzaUtenteComponent,
+        RichiestaAssenzaSegreteriaComponent,
+        MenuComponent,
+        ForgotPasswordComponent,
+        ResponseDialogComponent,
+        ErrorLoginDialogComponent,
+        ResponseResetPasswordDialogComponent,
+        ModificaPasswordComponent,
+        NewPasswordResponseDialogComponent,
+        GestioneDipendenteComponent,
+        GestioneContrattoComponent,
+        InsertContrattoComponent,
+        MessageResponseDialogComponent,
+        DeleteDipendenteDialogComponent,
+        DeleteDipendenteResponseDialogComponent,
+    ],
+    providers: [
+        provideAnimationsAsync(),
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatSelectModule,
+        BrowserAnimationsModule,
+        MatBadgeModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatCardModule,
+        OrdinaGiorniPipe
+    ]
 })
 export class AppModule { }
