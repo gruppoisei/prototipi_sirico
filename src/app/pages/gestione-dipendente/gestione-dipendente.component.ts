@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ricercaDipendente } from '../../dto/request/ricercaDipendente';
 import { PersonaService } from '../../service/persona.service';
@@ -40,7 +40,10 @@ export class GestioneDipendenteComponent implements OnInit{
         width: 'auto',
         height: 'auto'
       })
-      console.log(this.idPersona)
+      .afterClosed().subscribe(()=>
+      {
+        this.ricercaFiltrata();
+      })
     }
   
   clearSearch()
@@ -65,7 +68,7 @@ export class GestioneDipendenteComponent implements OnInit{
             GecoDeno: persona.gecoDeno,
             AnpeEmailaziendale: persona.anpeEmailaziendale,
             AnsoRagionesociale: persona.ansoRagionesociale,
-          }))
+          }));
         },
         error:(err) =>
         {
@@ -74,9 +77,8 @@ export class GestioneDipendenteComponent implements OnInit{
               data: {errorMessage : err?.error.message},
               width: 'auto',
               height: 'auto'
-            })
+            });
         }
-      })
+      });
   }
-
 }

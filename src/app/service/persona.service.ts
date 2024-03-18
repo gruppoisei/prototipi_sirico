@@ -36,7 +36,6 @@ export class PersonaService {
 
   disabilitaPersonaById(personaId : number)
   {
-    debugger
     return this.http.put<any>(`${this.baseUrlP}DisabilitaPersonaById/${personaId}`, {})
   }
   

@@ -35,7 +35,7 @@
             <div class="relative">
               <select formControlName="AnpeFkGepaPaeseidPaesenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                focus:border-sky-500 focus:ring-sky-500" id="grid-state">
-                <option selected>--Seleziona--</option>
+                <option value="" disable selected hidden>Scegli un'opzione</option>
                 <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
               </select>
             </div>
@@ -45,7 +45,7 @@
             <div class="relative">
                 <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                 focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeNascita($event)" >
-                    <option selected>--Seleziona--</option>
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
                     <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
                 </select>
             </div>
@@ -55,7 +55,7 @@
             <div class="relative">
                 <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
               focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza" (change)="onProvinciaNascitaChage($event)">
-                    <option selected>--Seleziona--</option>
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
                     <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvince">{{pro.geprDeno}}</option>
                 </select>
             </div>
@@ -65,7 +65,7 @@
             <div class="relative">
                 <select formControlName="AnpeFkGecoComuneidComunenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
-                    <option selected>--Seleziona--</option>
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
                     <option [value]="com.gecoComuneid" *ngFor="let com of listComuniNascita">{{com.gecoDeno}}</option>
                 </select>
             </div>
@@ -79,7 +79,7 @@
             <div class="relative">
               <select formControlName="AnpeFkGepaPaeseidPaeseresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                focus:border-sky-500 focus:ring-sky-500" id="grid-state">
-                <option selected>--Seleziona--</option>
+               <option value="" disable selected hidden>Scegli un'opzione</option>
                 <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">
                     {{pae.gepaDenominazione}}
                 </option>
@@ -91,7 +91,7 @@
         <div class="relative">
           <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeResidenza($event)" >
-            <option value = "" selected>--Seleziona--</option>
+           <option value="" disable selected hidden>Scegli un'opzione</option>
             <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">
                 {{reg.gereDeno}}
             </option>
@@ -103,7 +103,7 @@
         <div class="relative">
           <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500" id="grid-provincia-residenza" (change)="onChangeProvinciaResidenza($event)">
-           <option selected>--Seleziona--</option>
+           <option value="" disable selected hidden>Scegli un'opzione</option>
            <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceResidenza">{{pro.geprDeno}}</option>
           </select>
         </div>
@@ -113,7 +113,7 @@
         <div class="relative">
           <select formControlName="AnpeFkGecoComuneidComuneresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
-            <option selected>--Seleziona--</option>
+            <option value="" disable selected hidden>Scegli un'opzione</option>
             <option [value]="com.gecoComuneid" *ngFor="let com of listComuniResidenza">{{com.gecoDeno}}</option>
           </select>
         </div>
@@ -152,7 +152,7 @@
           <div class="relative">
             <select formControlName="AnpeFkGepaPaeseidPaesedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500" id="grid-state">
-              <option selected>--Seleziona--</option>
+              <option value="null" disable selected hidden>Scegli un'opzione</option>
               <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
             </select>
           </div>
@@ -162,7 +162,7 @@
       <div class="relative">
         <select name = "regioni" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
         focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeDomicilio($event)">
-          <option value = "" selected>--Seleziona--</option>
+          <option value="null" disable selected hidden>Scegli un'opzione</option>
           <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
         </select>
       </div>
@@ -172,8 +172,8 @@
       <div class="relative">
         <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
         focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza" (change)="onChangeProvinciaDomicilio($event)">
-          <option selected>--Seleziona--</option>
-          <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceDomicilio">{{pro.geprDeno}}</option>
+        <option value="null" disable selected hidden>Scegli un'opzione</option>
+        <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceDomicilio">{{pro.geprDeno}}</option>
         </select>
       </div>
     </div>
@@ -182,8 +182,8 @@
       <div class="relative">
         <select formControlName="AnpeFkGecoComuneidComunedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
         focus:border-sky-500 focus:ring-sky-500" id="grid-comuneResidenza">
-          <option selected>--Seleziona--</option>
-          <option [value]="com.gecoComuneid" *ngFor="let com of listComuniDomicilio">{{com.gecoDeno}}</option>
+        <option value="null" disable selected hidden>Scegli un'opzione</option>
+        <option [value]="com.gecoComuneid" *ngFor="let com of listComuniDomicilio">{{com.gecoDeno}}</option>
         </select>
       </div>
     </div>
@@ -238,8 +238,8 @@
             <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-societa">Società</label>
             <select formControlName="AnpeFkAnsoSocietaid" name = "societa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
              focus:border-sky-500 focus:ring-sky-500" id="grid-societa">
-              <option selected>--Seleziona--</option>
-              <option [value]="soc.ansoSocietaid" *ngFor= "let soc of listSocieta">
+             <option value="null" disable selected hidden>Scegli un'opzione</option>
+             <option [value]="soc.ansoSocietaid" *ngFor= "let soc of listSocieta">
                   {{soc.ansoRagionesociale}}
               </option>
             </select>

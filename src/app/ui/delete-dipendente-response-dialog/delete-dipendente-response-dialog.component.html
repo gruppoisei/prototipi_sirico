@@ -1,1 +1,10 @@
-<p>delete-dipendente-response-dialog works!</p>
+<ng-container *ngIf="errorMessage; else succesTitle">
+    <h2 class = "text-red-500" mat-dialog-title>Errore!</h2>
+    </ng-container>
+    <ng-template #succesTitle>
+        <h2 class = "text-green-500" mat-dialog-title>Successo!</h2>
+    </ng-template>
+    <mat-dialog-content>{{errorMessage || successMessage}}</mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close class = "btn btn-primary">Chiudi</button>
+    </mat-dialog-actions>
