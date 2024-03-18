@@ -24,6 +24,10 @@ h1 {
     text-align: right;
 }
 
+.fieldcolumn0 {
+    margin-top: 25px;
+}
+
 .fieldcolumn1 {
     margin-top: 29px;
 }
@@ -64,7 +68,13 @@ h1 {
     //box-sizing: border-box;
 }
 
+.material-icons {
+    padding-left: 10px;
+    //font-size: 30px;
+}
+
 textarea {
+    padding-left: 10px;
     resize: none;
     max-height: 100px;
     max-width: 220px;    
@@ -90,6 +100,7 @@ textarea {
 
 .inlinebox {
     margin-left: 10px;
+    padding-left: 10px;
     height: 25px;
     width: 65px;
     border: 1px solid black;
@@ -97,7 +108,6 @@ textarea {
 
 
 .buttons {
-    float: right;
     margin: 25px 25px 25px 0;
     padding: 10px;
     border-radius: 10px;
@@ -118,6 +128,10 @@ button[type="submit"] {
     &:hover {
         background-color: #035fc1;
     }
+}
+
+.bottom-buttons {
+   text-align: center;
 }
 
 /*

@@ -4,7 +4,7 @@ export class CalendarioRequest {
     
     listaAttivitaPersona: AttivitaPersona[] = []
     rapportino: Rapportino = new Rapportino()
-    giorniFestivi: Date[] = []
+    giorniFestivi: string[] = []
     listaGiorniLavoroMese: GiornoDiLavoro[] = []
 }
 

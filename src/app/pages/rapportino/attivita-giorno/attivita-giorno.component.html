@@ -1,6 +1,5 @@
 <div class="dialog">
   <div class="datadiv">
-    
     <p mat-dialog-title>{{data.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
   </div>
 
@@ -10,7 +9,7 @@
         <label> Ora entrata </label>
         <mat-form-field>
           <mat-label> ora entrata </mat-label>
-          <mat-select [(value)]="entrata">
+          <mat-select [(value)]="giorno.oraEntrata">
             <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
                orario
              }}</mat-option>
@@ -21,7 +20,7 @@
         <label> Ora inizio pausa </label>
         <mat-form-field>
           <mat-label> ora inizio pausa </mat-label>
-          <mat-select [(value)]="inizioPausa">
+          <mat-select [(value)]="giorno.oraInizioPausa">
             <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
                orario
              }}</mat-option>
@@ -33,19 +32,19 @@
         <label> Ora fine pausa </label>
         <mat-form-field>
           <mat-label> ora fine pausa </mat-label>
-          <mat-select [(value)]="finePausa">
+          <mat-select [(value)]="giorno.oraFinePausa">
             <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
                orario
              }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
+      
       <div>
         <label> Ora uscita</label>
         <mat-form-field>
           <mat-label> ora uscita </mat-label>
-          <mat-select [(value)]="uscita">
+          <mat-select [(value)]="giorno.oraUscita">
            <mat-option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
               orario
             }}</mat-option>
@@ -67,7 +66,7 @@
         Aggiungi Ordinario
       </button>
 
-      <button class="B" mat-raised-button color="accent" type="button"> 
+      <button class="B" mat-raised-button color="accent" type="button" (click)="MostraAssenza()"> 
         Aggiungi Assenza
       </button>
 
@@ -87,6 +86,11 @@
 
     <div *ngIf="showOrdinario">
       <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
+    </div>
+
+    <div *ngIf="showAssenza">
+
+      <app-aggiungi-assenza></app-aggiungi-assenza>
     </div>
 
     <div *ngIf="showReperibilita">

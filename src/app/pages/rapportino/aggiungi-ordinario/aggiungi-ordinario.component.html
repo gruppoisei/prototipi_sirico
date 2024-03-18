@@ -5,7 +5,7 @@
       <label>Commessa</label>
       <mat-form-field>
         <mat-label> commessa </mat-label>
-        <mat-select [(value)]="commessa">
+        <mat-select [(value)]="attivitaDaAggiungere.attivitaPersonaId">
           <mat-option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">{{
             commessa.nomeProgetto
           }}</mat-option>
@@ -18,7 +18,7 @@
       <label>sedi</label>
       <mat-form-field>
         <mat-label>sedi</mat-label>
-        <mat-select [(value)]="sede">
+        <mat-select [(value)]="attivitaDaAggiungere.sedeLavoroPersonaId">
           <mat-option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">{{
             sede.nomeSedeLavoro }} </mat-option>
         </mat-select>
@@ -30,24 +30,14 @@
     <div>
     <mat-form-field class="oreOrd">
       <mat-label>ore ordinarie</mat-label>
-      <input matInput type="number" [(ngModel)]="oreOrd">
-      @if (oreOrd >0) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="oreOrd= 0 ">
-          <mat-icon>close</mat-icon>
-        </button>
-      }
+      <input matInput step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreLavorate">
     </mat-form-field>
   </div>
 
   <div>
     <mat-form-field class="oreStra">
       <mat-label>ore straordinarie</mat-label>
-      <input matInput type="number" [(ngModel)]="oreStra">
-      @if (oreStra >0) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="oreStra= 0 ">
-          <mat-icon>close</mat-icon>
-        </button>
-      }
+      <input matInput step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreStraordinario">
     </mat-form-field>
   </div>
 

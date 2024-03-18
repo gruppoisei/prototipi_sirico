@@ -1,7 +1,7 @@
 <div>
   
     <div class="flex flex-row">
-      <p class="flex- grow font-bold text-2xl">{{giorno.dataNumero}}</p>
+      <p class="flex- grow font-bold text-2xl" [class.Provasss]="giornoFestivo">{{giorno.dataNumero}}</p>
 
       <button (click)="ClickMe()" >  <mat-icon>create</mat-icon>  </button> 
       <button (click)="Delete(giorno.giornoLavorativoId!)" >  <mat-icon color="warn">delete</mat-icon>  </button> 
@@ -12,7 +12,7 @@
       
       <div class="AP row border-bottom m-[1px] p-[1px] "><span>{{attivita.nomeProgetto}}</span></div>
       
-      <div class="AS row border-bottom flex m-[1px] p-[1px]"><span class="grow">aa{{attivita.sedeLavoro}}</span> <span> {{attivita.oreLavorate}} h</span></div>
+      <div class="AS row border-bottom flex m-[1px] p-[1px]"><span class="grow">{{attivita.sedeLavoro}}</span> <span> {{attivita.oreLavorate}} h</span></div>
      
     </div>
     
