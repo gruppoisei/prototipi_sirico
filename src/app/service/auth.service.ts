@@ -15,15 +15,13 @@ export class AuthService {
   constructor(private http : HttpClient) { }
 
 
-  insertUser(userObj:Utente) : Observable<Utente>
+  /*insertUser(userObj:Utente) : Observable<Utente>
   {
     return this.http.post<Utente>(`${this.baseUrl}Login/InsertUser`,userObj)
-  }
+  }*/
 
-  insertPersona(personaObj : Persona) : Observable<any>
+  insertPersona(personaObj: any) : Observable<any>
   {
-    return this.http.post<Persona>(`${this.baseUrl}Persona/AddPersona`, personaObj)
+    return this.http.post<any>(`${this.baseUrl}Persona/AddPersona`, personaObj)
   }
-
-
 }
