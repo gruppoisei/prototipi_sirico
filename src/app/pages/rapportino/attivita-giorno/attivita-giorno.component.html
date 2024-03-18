@@ -1,6 +1,8 @@
 <div class="dialog">
   <div class="datadiv">
-    <p mat-dialog-title>{{data.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
+    <p mat-dialog-title>{{data.giorno.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
+    <p mat-dialog-title> {{giorno.giornoLavoroId}} </p>
+    
   </div>
 
   <mat-dialog-content>
@@ -85,7 +87,7 @@
 
 
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
+      <app-aggiungi-ordinario [giornoLavorativoId]="data.giorno.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showAssenza">
@@ -101,7 +103,7 @@
 
  <div class="MostraAttivita"> 
 
-  <div  *ngFor="let attivita of data.listaAttivitaGiorno"  class="attivita bg-teal-dark text-light">
+  <div  *ngFor="let attivita of data.giorno.listaAttivitaGiorno"  class="attivita bg-teal-dark text-light">
     <div class="qualcosa">ordinario</div>
     <div class="qualcosa">{{attivita.nomeProgetto}}</div>
     <div class="qualcosa">{{attivita.sedeLavoro}}</div>

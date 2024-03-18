@@ -36,7 +36,7 @@ export class AttivitaGiornoComponent {
   showReperibilita= false;
   showAssenza=false;
   giorno: GiornoLavorativo = {
-    giornoLavoroId:this.data.giornoLavorativoId,
+    giornoLavoroId:this.data.giorno.giornoLavorativoId,
     oraEntrata:"9:00",
     oraInizioPausa:"12:00",
     oraFinePausa:"13:00",
@@ -44,8 +44,16 @@ export class AttivitaGiornoComponent {
   }
 
   constructor(public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GiornoDiLavoro,public rapportinoService:RapportinoService) {
-
+    @Inject(MAT_DIALOG_DATA) public data: {giorno:GiornoDiLavoro,giornoFestivo:boolean},public rapportinoService:RapportinoService) {
+      this.giorno.giornoLavoroId = this.data.giorno.giornoLavorativoId
+      if(this.data.giorno.oraEntrata != null && this.data.giorno.oraEntrata != undefined)
+      {
+        this.giorno.oraEntrata = this.data.giorno.oraEntrata
+        this.giorno.oraInizioPausa = this.data.giorno.oraInizioPausa
+        this.giorno.oraFinePausa = this.data.giorno.oraFinePausa
+        this.giorno.oraUscita = this.data.giorno.oraUscita
+        console.log(this.giorno)
+      }
     }
 
 
@@ -73,34 +81,38 @@ this.showAssenza = false
   }
 
 ConfermaGiorno(){ 
-  this.VerificaGiorno();
-  // this.giorno!.giornoLavoroId= this.data.giornoLavorativoId
-  // this.giorno!.oraEntrata= this.entrata
-  // this.giorno!.oraInizioPausa= this.inizioPausa
-  // this.giorno!.oraFinePausa= this.finePausa
-  // this.giorno!.oraUscita= this.uscita 
+  if(this.VerificaGiorno())
+  {
+
+
+  }else{
+
+
+
+  }
+  
   
 
 
 }
 
 AttivitaOrdinariaAggiunta(AttivitaDaAggiungere:AttivitaGiornoCalendario){
-  this.data.listaAttivitaGiorno.push(AttivitaDaAggiungere)
+  this.data.giorno.listaAttivitaGiorno.push(AttivitaDaAggiungere)
   
 }
 
 AnnullaGiorno(){
-
+  this.dialogRef.close();
 }
 
 EliminaAttivita(attivitaId:number){
-    this.rapportinoService.EliminaAttivita(attivitaId,this.data.giornoLavorativoId!)
+    this.rapportinoService.EliminaAttivita(attivitaId,this.data.giorno.giornoLavorativoId!)
 
-    this.data.listaAttivitaGiorno = this.data.listaAttivitaGiorno.filter(attivita =>  attivita.attivitaId != attivitaId );
+    this.data.giorno.listaAttivitaGiorno = this.data.giorno.listaAttivitaGiorno.filter(attivita =>  attivita.attivitaId != attivitaId );
 }
 
 
-VerificaGiorno(){
+VerificaGiorno():boolean{
   let ore =0
   let mezzore =0
   let sommaOreAttivita = 0
@@ -108,21 +120,22 @@ VerificaGiorno(){
   mezzore = (Number(this.giorno.oraUscita!.split(":")[1])-Number(this.giorno.oraEntrata!.split(":")[1])-(Number(this.giorno.oraFinePausa!.split(":")[1])-Number(this.giorno.oraInizioPausa!.split(":")[1])))/60
   
   
-  for(let i =0;i<this.data.listaAttivitaGiorno.length ;i++)
+  for(let i =0;i<this.data.giorno.listaAttivitaGiorno.length ;i++)
   {
-    console.log("count "+i+": " + this.data.listaAttivitaGiorno[i].oreLavorate)
-    console.log("count "+i+": " + this.data.listaAttivitaGiorno[i].oreStraordinario)
-    console.log(this.data.listaAttivitaGiorno)
+    console.log("count "+i+": " + this.data.giorno.listaAttivitaGiorno[i].oreLavorate)
+    console.log("count "+i+": " + this.data.giorno.listaAttivitaGiorno[i].oreStraordinario)
+    console.log(this.data.giorno.listaAttivitaGiorno)
     console.log(this.rapportinoService.infoPersona.listaSedeLavoroPersona)
-    sommaOreAttivita = sommaOreAttivita + this.data.listaAttivitaGiorno[i].oreLavorate +this.data.listaAttivitaGiorno[i].oreStraordinario
+    sommaOreAttivita = sommaOreAttivita + this.data.giorno.listaAttivitaGiorno[i].oreLavorate +this.data.giorno.listaAttivitaGiorno[i].oreStraordinario
   }
   console.log("somma attivita: "+sommaOreAttivita)
   console.log("somma ore: "+(ore+mezzore))
   if(sommaOreAttivita > 8 && sommaOreAttivita == (ore+mezzore))
   {
-    console.log("ok")
+    return true
   }else{
-    console.log("errore")
+    return false
+
   }
 
 }
