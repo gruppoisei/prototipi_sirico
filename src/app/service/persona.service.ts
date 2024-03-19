@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { ricercaDipendente } from '../dto/request/ricercaDipendente';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ export class PersonaService {
   baseUrlVP = 'http://localhost:5143/VistaPersone/'
   baseUrlP = 'http://localhost:5143/Persona/'
   private data = signal('');
+  private dipendenteSubject = new BehaviorSubject<any>(null);
+  dipendente$ = this.dipendenteSubject.asObservable();
 
 
   constructor(private http : HttpClient) { }
@@ -18,7 +20,6 @@ export class PersonaService {
   setData(data : string)
   {
     this.data.set(data);
-    console.log('data '+ data);
   }
 
   getData()
@@ -50,6 +51,21 @@ export class PersonaService {
   {
     return this.http.put<any>(`${this.baseUrlP}DisabilitaPersonaById/${personaId}`, {})
   }
-  
-  
+
+  getPersonaById(personaId : number)
+  {
+    return this.http.get<any>(`${this.baseUrlP}GetPersonaById/${personaId}`).subscribe(
+      {
+        next:(res) =>
+        {
+          this.dipendenteSubject.next(res);
+          console.log(this.dipendenteSubject)
+          console.log(this.dipendente$)
+        },
+        error:(err) => 
+        {
+          console.log(err)
+        }
+      });
+  }
 }

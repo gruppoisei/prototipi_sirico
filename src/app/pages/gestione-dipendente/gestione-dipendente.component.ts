@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ricercaDipendente } from '../../dto/request/ricercaDipendente';
 import { PersonaService } from '../../service/persona.service';
@@ -37,6 +37,12 @@ export class GestioneDipendenteComponent implements OnInit{
 
   sendTitoloModificaPersona() {
       this.personaService.setData('Modifica dipendente')
+    }
+
+  getDipendente(personaId: number)
+    {
+      this.idPersona = personaId;
+      this.personaService.getPersonaById(this.idPersona)
     }
 
   openDialogDelete(personaId : number) {

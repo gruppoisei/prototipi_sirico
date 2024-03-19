@@ -34,16 +34,12 @@ export class InsertPersonaComponent implements OnInit{
   listComuniResidenza: any;
   listComuniDomicilio: any;
   showDomicilio: any;
-  data;
-  /*subscription: Subscription;*/
-
-  
+  data;  
 
 constructor(private personaService : PersonaService, private dialog: MatDialog,private location: Location, private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
 {
   this.data = this.personaService.getData();
 }
-  
 
   ngOnInit(): void 
   {
@@ -75,6 +71,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,p
         AnpeEmailpersonale: [''],
         AnpeFkAnsoSocietaid: ['', Validators.required]
       })
+
+      
 
     this.serviceRegione.getRegioni().subscribe
     ((regioni: any)=>

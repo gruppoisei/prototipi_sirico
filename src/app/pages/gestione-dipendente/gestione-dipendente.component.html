@@ -26,8 +26,8 @@
 <div class = "flex justify-center my-10 text-4xl font-bold">
     <h2>Elenco dipendenti</h2>
 </div>
-    <div class="flex flex-row justify-center my-10">
-        <table class="w-4/5 text-base text-left rtl:text-right">
+    <div class="flex flex-row justify-center">
+        <table class="w-4/5 text-base text-left rtl:text-right my-10">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">Azioni</th>
@@ -42,7 +42,7 @@
             <tbody>
                 <tr *ngFor="let persona of datiPersona" class="bg-white border-b">
                     <td class="px-6 py-4 flex gap-3">
-                        <a routerLink="/nuova-persona" (click)="sendTitoloModificaPersona()"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
+                        <a routerLink="/nuova-persona" (click)="sendTitoloModificaPersona(); getDipendente(persona.AnpePersonaid)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
                         <button mat-icon (click)="openDialogDelete(persona.AnpePersonaid)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
                     <td class="px-6 py-4">{{ persona.AnpeNome }}</td>
