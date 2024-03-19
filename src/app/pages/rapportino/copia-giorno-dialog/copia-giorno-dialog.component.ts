@@ -4,14 +4,14 @@ import { RapportinoService } from '../../../service/rapportino.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GiorniDaCopiare } from '../../../dto/request/copiaGiorni';
 import { OrdinaGiorniPipe } from '../ordina-giorni.pipe';
-
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-copia-giorno-dialog',
     standalone: true,
     templateUrl: './copia-giorno-dialog.component.html',
     styleUrl: './copia-giorno-dialog.component.scss',
-    imports: [CommonModule, OrdinaGiorniPipe]
+    imports: [CommonModule, OrdinaGiorniPipe, MatButtonModule]
 })
 export class CopiaGiornoDialogComponent {
 

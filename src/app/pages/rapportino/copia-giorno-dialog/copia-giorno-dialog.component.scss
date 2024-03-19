@@ -1,9 +1,35 @@
+
+
+
+
+.giorni{
+    margin:3px;
+    padding:3px; 
+}
+
 .questoGiorno{
-    background-color: red;
+    background-color: rgb(222, 83, 83);
+    margin:3px;
+    padding:3px;
 }
 
 
 .giornoGiaPieno{
-    background-color: green;
+    background-color: rgb(62, 142, 62);
+    margin:3px;
+    padding:3px;
 }
 
+.cg{
+    background-color: rgb(225, 238, 238);
+    margin: 12px;
+    padding: 12px;
+    display: flex;
+}
+
+.button{
+    margin: 12px;
+    padding: 12px;
+    float: right;
+   
+}
