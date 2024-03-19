@@ -1,11 +1,13 @@
 
-<div class="flex flex-wrap">
+<div class="cg flex flex-wrap">
 
     <div *ngFor="let giorno of rapportinoService.risposta.listaGiorniLavoroMese | ordinaGiorni : 'dataNumero' "[class.giornoGiaPieno]="giorno.listaAttivitaGiorno.length > 0 && giorno.giornoLavorativoId != this.data" [class.questoGiorno]="giorno.giornoLavorativoId == this.data">
         <label> {{giorno.dataNumero}} </label>
         <input [disabled]="giorno.giornoLavorativoId == data" type="checkbox"  (change)="AggiungiNumero(giorno.giornoLavorativoId!)"/> 
     </div>
     <div>
-        <button  (click)="CopiaGiorni()">Conferma</button>
+        <button class="button" mat-raised-button
+        color="basic"
+        type="button"(click)="CopiaGiorni()">Conferma</button>
     </div>
 </div>
