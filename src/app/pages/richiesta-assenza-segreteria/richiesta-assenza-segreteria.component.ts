@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-richiesta-assenza-segreteria',
   templateUrl: './richiesta-assenza-segreteria.component.html',
-  styleUrl: './richiesta-assenza-segreteria.component.scss',
+  styleUrl: './richiesta-assenza-segreteria.component.scss'
 })
 export class RichiestaAssenzaSegreteriaComponent {
   idRichiesta: any;

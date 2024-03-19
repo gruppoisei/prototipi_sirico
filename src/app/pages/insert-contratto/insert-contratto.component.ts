@@ -1,21 +1,22 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Injectable, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {formatDate} from '@angular/common';
+import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Contratto } from '../../dto/request/contratto';
 import { InsertContrattoService } from '../../service/insert-contratto.service';
+import { GestioneContrattoComponent } from '../gestione-contratto/gestione-contratto.component';
 
 
 @Component({
   selector: 'app-insert-contratto',
   templateUrl: './insert-contratto.component.html',
-  styleUrl: './insert-contratto.component.scss'
+  styleUrl: './insert-contratto.component.scss',
+  providers: [GestioneContrattoComponent]
 })
 
-export class InsertContrattoComponent implements OnInit {  
-  
-  
+export class InsertContrattoComponent implements OnInit {
+
   uncheck: any;
   disable_fields: any;
 
@@ -42,10 +43,10 @@ export class InsertContrattoComponent implements OnInit {
   }];
 
   formData: Contratto = {
-    AnpeNome: null,
-    AnpeCognome: null,
+    AnpeNome: "",
+    AnpeCognome: "",
     AnpePersonaid: null,
-    AnpeCodicefiscale: null,
+    AnpeCodicefiscale: "",
     AnsoSocietaid: null,
     CodiDatainiziocontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     CodiDatafinecontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
@@ -66,7 +67,14 @@ export class InsertContrattoComponent implements OnInit {
     CodiSysuser: "Edo",
     CodiFlagAttiva: null,
     CodsFlagAttiva: 0,
-    CodsClienteId: null
+    CodsClienteId: null,
+    // altro
+    CodiContrattopersid: null,
+    TipoContratto: null,
+    DescrizioneCCNL: null,
+    LivelloContratto: null,
+    SocietaDistacco: "",
+    SocietaPersona: ""
   };
 
   formDataDialog: any = {
@@ -75,26 +83,29 @@ export class InsertContrattoComponent implements OnInit {
     cognome: null,
     codiceFiscale: null
   }
+  activeRoute: any;
+  
+  gestioneContratto: any;
 
   constructor(
-    private fb: FormBuilder,
+    //private fb: FormBuilder,
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.reset();
+    /*this.reset();
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
-    this.getAllTipoCcnl();
+    this.getAllTipoCcnl();*/
     //this.getAllTipoRuolo();
     this.disable_fields = true;
     this.uncheck = false;
     this.dipendentiSenzaContratto;
-
+    //this.dipendentiConContratto;
   }
 
   clearForm() {
@@ -109,10 +120,10 @@ export class InsertContrattoComponent implements OnInit {
 
   reset() {
     this.formData = {
-      AnpeNome: null,
-      AnpeCognome: null,
+      AnpeNome: "",
+      AnpeCognome: "",
       AnpePersonaid: null,
-      AnpeCodicefiscale: null,
+      AnpeCodicefiscale: "",
       AnsoSocietaid: null,
       CodiDatainiziocontratto: new Date().toLocaleString(),
       CodiDatafinecontratto: new Date().toLocaleString(),
@@ -133,7 +144,14 @@ export class InsertContrattoComponent implements OnInit {
       CodiSysuser: "Edo",
       CodiFlagAttiva: null,
       CodsFlagAttiva: 0,
-      CodsClienteId: null
+      CodsClienteId: null,
+      // altro
+      CodiContrattopersid: null,
+      TipoContratto: null,
+      DescrizioneCCNL: null,
+      LivelloContratto: null,
+      SocietaDistacco: "",
+      SocietaPersona: ""
     };
   }
 
@@ -191,19 +209,19 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
-/*
-  getAllTipoRuolo() {
-    this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
-      (response: any) => {
-        console.log(response);
-        this.tipiRuolo = response;
-      },
-      (error: any) => {
-        console.error('Errore durante il recupero dei tipi di ruolo:', error);
-      }
-    );
-  }
-  */
+  /*
+    getAllTipoRuolo() {
+      this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
+        (response: any) => {
+          console.log(response);
+          this.tipiRuolo = response;
+        },
+        (error: any) => {
+          console.error('Errore durante il recupero dei tipi di ruolo:', error);
+        }
+      );
+    }
+    */
 
   // DIALOG FUNCTIONS
 
@@ -219,7 +237,7 @@ export class InsertContrattoComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  clearSearch() {    
+  clearSearch() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.formDataDialog = {
         nome: null,
@@ -249,20 +267,18 @@ export class InsertContrattoComponent implements OnInit {
     this.formData.AnpeCodicefiscale = this.dipendentiSenzaContratto[array_index].anpeCodicefiscale;
     this.formData.AnpeNome = this.dipendentiSenzaContratto[array_index].anpeNome;
     this.formData.AnpeCognome = this.dipendentiSenzaContratto[array_index].anpeCognome;
-    this.formData.AnpePersonaid = this.dipendentiSenzaContratto[array_index].anpePersonaid;    
+    this.formData.AnpePersonaid = this.dipendentiSenzaContratto[array_index].anpePersonaid;
     this.closeModal();
   }
 
-
-
   insertContratto() {
     //console.log(this.formData);
-    if (this.uncheck == false) { this.formData.CodsFlagAttiva = 0}
+    if (this.uncheck == false) { this.formData.CodsFlagAttiva = 0 }
     else { this.formData.CodsFlagAttiva = 1 }
     this.formData.CodsClienteId = this.formData.ansoSocietaDistaccoid;
     this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
       (response: any) => {
-        console.log(response);        
+        console.log(response);
       },
       (error: any) => {
         console.error("Errore durante l'inserimento del nuovo contratto:", error);
@@ -270,26 +286,21 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
-  
-  checkDateTimeValidity(): boolean {
-    /*const startDate = new Date(this.formData.CodiDatainiziocontratto);
-    const endDate = new Date(this.formData.CodiDatafinecontratto);
-    console.log(startDate,endDate);
-    if (startDate > endDate) { console.log("entrato")}*/
-
-    console.log(this.formData.CodiDatainiziocontratto.split(',')[0])
+  checkDateTimeValidity(): boolean {    
     const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
     const endDate = Date.parse(this.formData.CodiDatafinecontratto);
-    if (startDate < endDate) { 
+    if (this.dateinizioTouched && this.datefineTouched) {
+      this.checkDateValidity = true;
+    }
+    if (startDate < endDate) {
       console.log("entrato");
       return true;
     }
     return false;
-    
-    //return ((startDate > endDate) && (this.dateinizioTouched && this.datefineTouched));
-    //return true;
   }
 
-
+  prova() {
+    console.log("PROVA:" + this.gestioneContratto.dipendentiConContratto);
+  }
 
 }
