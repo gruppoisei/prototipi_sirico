@@ -59,8 +59,6 @@ export class PersonaService {
         next:(res) =>
         {
           this.dipendenteSubject.next(res);
-          console.log(this.dipendenteSubject)
-          console.log(this.dipendente$)
         },
         error:(err) => 
         {
