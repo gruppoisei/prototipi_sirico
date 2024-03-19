@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ricercaDipendente } from '../dto/request/ricercaDipendente';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,21 @@ export class PersonaService {
 
   baseUrlVP = 'http://localhost:5143/VistaPersone/'
   baseUrlP = 'http://localhost:5143/Persona/'
+  private data = signal('');
 
 
   constructor(private http : HttpClient) { }
+
+  setData(data : string)
+  {
+    this.data.set(data);
+    console.log('data '+ data);
+  }
+
+  getData()
+  {
+    return this.data;
+  }
 
   private creaHttpParams(parametri : ricercaDipendente):HttpParams
   {
@@ -38,5 +50,6 @@ export class PersonaService {
   {
     return this.http.put<any>(`${this.baseUrlP}DisabilitaPersonaById/${personaId}`, {})
   }
+  
   
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Persona } from '../../dto/request/persona';
@@ -8,11 +8,11 @@ import { SocietaService } from '../../service/societa.service';
 import { ProvinceService } from '../../service/province.service';
 import { ComuniService } from '../../service/comuni.service';
 import {Location} from '@angular/common';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import ValidateForm from '../../helpers/validateform';
 import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
+import { PersonaService } from '../../service/persona.service';
 
 @Component({
   selector: 'app-insert-persona',
@@ -34,10 +34,16 @@ export class InsertPersonaComponent implements OnInit{
   listComuniResidenza: any;
   listComuniDomicilio: any;
   showDomicilio: any;
+  data;
+  /*subscription: Subscription;*/
+
   
 
-constructor(private dialog: MatDialog,private location: Location, private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
-{}
+constructor(private personaService : PersonaService, private dialog: MatDialog,private location: Location, private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
+{
+  this.data = this.personaService.getData();
+}
+  
 
   ngOnInit(): void 
   {
