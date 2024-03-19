@@ -1,7 +1,7 @@
 <div class="dialog">
   <div class="datadiv">
     <p mat-dialog-title>{{data.giorno.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
-    <p mat-dialog-title> {{giorno.giornoLavoroId}} </p>
+    <p mat-dialog-title> <button (click)="Prova()">prova</button> </p>
     
   </div>
 
@@ -101,10 +101,10 @@
   </div>
 
   <div class="MostraAssenza">
-    <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" class="attivita bg-teal-dark text-light">
+    <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione !=true" [class.assenzaRifiutata]="assenza.statoApprovazione == false" [class.assenzaConfermata]="assenza.statoApprovazione ==true" class="attivita text-light">
       <div class="qualcosa"> {{assenza.oraInizio}} </div>
-      <div class="qualcosa"> {{assenza.oraInizio}} </div>
-      <div class="qualcosa"> {{assenza.tipoRichiestaId}} </div>
+      <div class="qualcosa"> {{assenza.oraFine}} </div>
+      <div class="qualcosa"> {{assenza.assenzaId}} </div>
       <div class="qualcosa"><button (click)="EliminaAssenza(assenza.assenzaId)"><mat-icon>delete</mat-icon></button></div>
 
     </div>

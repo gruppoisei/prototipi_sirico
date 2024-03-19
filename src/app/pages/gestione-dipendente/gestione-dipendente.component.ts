@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ricercaDipendente } from '../../dto/request/ricercaDipendente';
 import { PersonaService } from '../../service/persona.service';
@@ -15,7 +15,6 @@ import { DeleteDipendenteDialogComponent } from '../delete-dipendente-dialog/del
 
 export class GestioneDipendenteComponent implements OnInit{
 
-
   ricercaForm!: FormGroup;
   constructor(private fb : FormBuilder, private personaService : PersonaService, private dialog : MatDialog){}
   datiPersona: any[] = []
@@ -31,6 +30,20 @@ export class GestioneDipendenteComponent implements OnInit{
       AnsoRagionesociale: ['']
     })
   }
+
+  sendTitoloNuovaPersona() {
+    this.personaService.setData('Inserimento nuovo dipendente')
+    }
+
+  sendTitoloModificaPersona() {
+      this.personaService.setData('Modifica dipendente')
+    }
+
+  getDipendente(personaId: number)
+    {
+      this.idPersona = personaId;
+      this.personaService.getPersonaById(this.idPersona)
+    }
 
   openDialogDelete(personaId : number) {
     this.idPersona = personaId

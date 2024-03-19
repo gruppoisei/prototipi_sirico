@@ -14,5 +14,10 @@
       
       <div class="AS row border-bottom flex m-[1px] p-[1px]"><span class="grow">{{attivita.sedeLavoro}}</span> <span> {{attivita.oreLavorate}} h</span></div>
     </div>
-    
+    <div>
+
+      <div *ngFor="let assenza of giorno.listaAssenzeGiorno" class="container text-xs m-1 p-1">
+      <div class="bg-red-600 row border-bottom m-[1px] p-[1px] ">assenza</div>
+      </div>
+    </div>
   </div>

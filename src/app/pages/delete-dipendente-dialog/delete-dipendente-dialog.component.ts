@@ -2,7 +2,6 @@ import { Component, EventEmitter, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { PersonaService } from '../../service/persona.service';
 import { DeleteDipendenteResponseDialogComponent } from '../../ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-dipendente-dialog',
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class DeleteDipendenteDialogComponent {
   
-  constructor(@Inject (MAT_DIALOG_DATA) public data : {personaId: number}, private personaService: PersonaService, private dialog : MatDialog, private router : Router){}
+  constructor(@Inject (MAT_DIALOG_DATA) public data : {personaId: number}, private personaService: PersonaService, private dialog : MatDialog){}
 
   disabilitaDipendente() : void
   {

@@ -61,16 +61,17 @@ export class AggiungiOrdinarioComponent {
  
 
   constructor(public rapportinoService: RapportinoService) {
-    this.attivitaDaAggiungere = {
-      giornoLavorativoId: this.giornoLavorativoId,
-      attivitaPersonaId:-1,
-      sedeLavoroPersonaId:-1,
-      oreLavorate:0,
-      oreStraordinario:0,
-    }
+    // this.attivitaDaAggiungere = {
+    //   giornoLavorativoId: this.giornoLavorativoId,
+    //   attivitaPersonaId:-1,
+    //   sedeLavoroPersonaId:-1,
+    //   oreLavorate:0,
+    //   oreStraordinario:0,
+    // }
   }
 
   AggiungiAttivitaGiorno() {
+  
     if (
       this.attivitaDaAggiungere.sedeLavoroPersonaId != -1 &&
       this.attivitaDaAggiungere.attivitaPersonaId != -1 &&
@@ -109,8 +110,6 @@ export class AggiungiOrdinarioComponent {
                 aggiornoComponenteAttivitaGiorno
               );
 
-              console.log("aaaaa")
-                  console.log(aggiornoComponenteAttivitaGiorno.attivitaId)
               this.attivitaDaAggiungere.attivitaPersonaId=-1;
               this.attivitaDaAggiungere.sedeLavoroPersonaId=-1;
               this.attivitaDaAggiungere.oreLavorate=0;

@@ -47,8 +47,8 @@ export class RichiestaAssenzaSegreteriaComponent {
     console.log('lavoro su richiesta ' + id);
     this.dialog.open(this.approvalModal, {      
       //panelClass: 'custom-modalbox'
-      width: '60vw',
-      height: '60vh'
+      width: '50vw',
+      height: '50vh'
     })
   }
 
@@ -56,6 +56,11 @@ export class RichiestaAssenzaSegreteriaComponent {
     this.motivazione = '';
     this.hidemotivazione = true;
     this.dialog.closeAll();
+  }
+
+  approvaDiretto(idDaApprovare: number){
+    this.idRichiesta = idDaApprovare;
+    this.approvaRichiesta();
   }
 
   approvaRichiesta() {
