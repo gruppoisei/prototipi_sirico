@@ -2,14 +2,14 @@
 <div class="datadiv">
     <div class="commessa">
       <label>Commessa</label>
-      <select [(value)]="attivitaDaAggiungere.attivitaPersonaId">
+      <select [(ngModel)]="this.attivitaDaAggiungere.attivitaPersonaId">
         <option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">{{ commessa.nomeProgetto }}</option>
       </select>
     </div>
 
     <div class="sede">
       <label>sede</label>
-      <select [(value)]="attivitaDaAggiungere.sedeLavoroPersonaId">
+      <select [(ngModel)]="this.attivitaDaAggiungere.sedeLavoroPersonaId">
       <option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">{{
             sede.nomeSedeLavoro }}</option>
       </select>
