@@ -51,6 +51,17 @@ h1 {
     background-color: grey;
 }
 
+.validazione {      // alla modifica di validazione, modificare validazione_textcolumn
+    color: red;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.validazione_textcolumn {
+    color: white;
+    font-size: 25px;
+}
+
 button[type="submit"].disabled {
     background-color: #e9e9e9;
     color: #ccc;

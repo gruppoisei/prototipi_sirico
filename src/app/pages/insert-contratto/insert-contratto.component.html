@@ -19,9 +19,11 @@
             <div class="textcolumn1">
                 Data inizio contratto*:
             </div>
+            <div class="validazione_textcolumn" *ngIf="checkDateValidity && !checkDateTimeValidity()">0</div>
             <div class="textcolumn1">
                 Data fine contratto*:
             </div>
+            <div class="validazione_textcolumn" *ngIf="checkDateValidity && !checkDateTimeValidity()">0</div>
             <div class="textcolumn1">
                 Tipo contratto*:
             </div>
@@ -60,12 +62,18 @@
                 </select>
             </div>
             <div class="fieldcolumn1">
-                <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date"
-                    name="datainiziocontratto" (focus)="dateinizioTouched = true">
+                <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto"
+                    (focus)="dateinizioTouched = true">
+            </div>
+            <div class="validazione" *ngIf="checkDateValidity && !checkDateTimeValidity()">
+                Data di inizio assenza successiva alla data di fine assenza
             </div>
             <div class="fieldcolumn1">
                 <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto"
-                (focus)="datefineTouched = true">
+                    (focus)="datefineTouched = true">
+            </div>
+            <div class="validazione" *ngIf="checkDateValidity && !checkDateTimeValidity()">
+                Data di inizio assenza successiva alla data di fine assenza
             </div>
             <div class="fieldcolumn1">
                 <select [(ngModel)]="formData.codiFkCotctipocontrattoid" class="box" name="tipocontratto" required>
@@ -149,8 +157,9 @@
                     oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.CodiSmartworking" class="inlinecheckbox" type="checkbox" name="smartworking">
-                {{formData.CodiSmartworking}}
+                <input [(ngModel)]="formData.CodiSmartworking" class="inlinecheckbox" type="checkbox"
+                    name="smartworking">
+                <!--{{formData.CodiSmartworking}}-->
             </div>
             <div class="fieldcolumn2">
                 <input [(ngModel)]="formData.costopresuntoannuo" class="box" type="number" name="costopresuntoannuo"
@@ -163,12 +172,12 @@
             <div class="fieldcolumn2">
                 <tr>
                     <input [(ngModel)]="uncheck" class="inlinecheckbox" type="checkbox" name="indistacco">
-                    {{uncheck}}
+                    <!--{{uncheck}}-->
                     <td *ngIf="!uncheck" class="inlinefields">Percentuale:</td>
                     <td *ngIf="uncheck" class="inlinefields">Percentuale*:</td>
                     <input [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox"
                         type="number" name="Percentuale" inputmode="numeric"
-                        oninput="this.value = this.value.replace(/\D+/g, '')" required>
+                        oninput="this.value = this.value.replace(/\D+/g, '')" required> %
                 </tr>
             </div>
             <div class="fieldcolumn2">
@@ -200,6 +209,8 @@
         <button class="buttons" type="submit" [class.disabled]="!checkDateTimeValidity()">Salva</button>
         <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
+        <button class="buttons" type="button" (click)="prova()">PROVA</button>
+            
     </div>
 </form>
 <!--
@@ -236,7 +247,7 @@
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Annulla</button>
                 <button type="button" (click)="closeModal()"
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
-            </div>
+                </div>
             <br>
             <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center my-10">
                 Nessun dato disponibile
@@ -264,9 +275,9 @@
                                 </button>
                             </td>
                         </tr>
-                    </tbody>                   
+                    </tbody>
                 </table>
             </div>
         </form>
-    </div>    
+    </div>
 </ng-template>
