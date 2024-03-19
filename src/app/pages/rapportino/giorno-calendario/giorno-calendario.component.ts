@@ -38,7 +38,7 @@ export class GiornoCalendarioComponent {
       this.giornoFestivo =(this.dataGiorno!.getDay() ==6 ||this.dataGiorno!.getDay() ==0 || find != -1 )
       if(!this.giornoFestivo) {this.rapportinoService.giorniValidiMese +=1}
       
-      if(this.giorno.oraEntrata != null || this.giorno.oraEntrata != undefined) {this.rapportinoService.giorniConfermati +=1}
+      if((this.giorno.listaAttivitaGiorno.length > 0 || this.giorno.listaAssenzeGiorno.length > 0) &&  !this.giornoFestivo  ) {this.rapportinoService.giorniConfermati +=1}
       
 
         

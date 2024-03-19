@@ -71,8 +71,7 @@ export class AggiungiOrdinarioComponent {
   }
 
   AggiungiAttivitaGiorno() {
-    console.log(this.attivitaDaAggiungere)
-    console.log(this.giornoLavorativoId)
+  
     if (
       this.attivitaDaAggiungere.sedeLavoroPersonaId != -1 &&
       this.attivitaDaAggiungere.attivitaPersonaId != -1 &&
@@ -111,8 +110,6 @@ export class AggiungiOrdinarioComponent {
                 aggiornoComponenteAttivitaGiorno
               );
 
-              console.log("aaaaa")
-                  console.log(aggiornoComponenteAttivitaGiorno.attivitaId)
               this.attivitaDaAggiungere.attivitaPersonaId=-1;
               this.attivitaDaAggiungere.sedeLavoroPersonaId=-1;
               this.attivitaDaAggiungere.oreLavorate=0;
