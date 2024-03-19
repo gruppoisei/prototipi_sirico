@@ -35,7 +35,6 @@ export class AggiungiAssenzaComponent {
   datefineFileTouched: boolean = false;
   orainizioFileTouched: boolean = false;
   orafineFileTouched: boolean = false;
- 
   @ViewChild('myFile')
   myInputFile!: ElementRef;
  
@@ -62,8 +61,9 @@ export class AggiungiAssenzaComponent {
   }
  
   submitForm() {
-    this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
-    this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
+    this.formData.RiasDataorainizioassenza = this.DataInizio + "T" + this.OraInizio + ':00';
+    console.log(this.formData.RiasDataorainizioassenza)
+    this.formData.RiasDataorafineassenza = this.DataFine +"T"+  this.OraFine + ':00';
     this.inviaRichiesta(this.formData);
     this.resetForm();
   }

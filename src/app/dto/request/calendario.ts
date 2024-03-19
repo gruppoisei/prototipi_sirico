@@ -23,9 +23,9 @@ export interface AssenzaGiorno{
     assenzaId:number
     oraInizio:string
     oraFine:string
-    tipoRichiestaId:number
+    tipoRichiestaId:string
+    responsabileApprovazione:string
     statoApprovazione:boolean
-    // responsabileApprovazione:number
 }
 
 
