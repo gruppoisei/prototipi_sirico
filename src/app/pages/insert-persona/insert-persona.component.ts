@@ -13,6 +13,7 @@ import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 import { PersonaService } from '../../service/persona.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-insert-persona',
@@ -36,10 +37,14 @@ export class InsertPersonaComponent implements OnInit{
   showDomicilio: any;
   data;
 
-constructor(private personaService : PersonaService, private dialog: MatDialog,private location: Location, private fb : FormBuilder,private auth: AuthService, private serviceRegione: RegioneService, private servicePaese:PaesiService, private serviceSocieta:SocietaService, private serviceProvince:ProvinceService, private serviceComune:ComuniService)
-{
-  this.data = this.personaService.getData();
-}
+
+constructor(private personaService : PersonaService, private dialog: MatDialog,
+  private location: Location, private fb : FormBuilder,
+  private auth: AuthService, private serviceRegione: RegioneService,
+  private servicePaese:PaesiService, private serviceSocieta:SocietaService,
+  private serviceProvince:ProvinceService, private serviceComune:ComuniService)
+  
+{this.data= this.personaService.getData();}
 
 
   ngOnInit(): void 
@@ -107,30 +112,31 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,p
   populateForm(dipendente: any)
   {
     const dataNascita = new Date(dipendente.anpeDatanascita);
-    const offset = dataNascita.getTimezoneOffset() * 60000; // in millisecondi
+    const offset = dataNascita.getTimezoneOffset() * 60000;
     const dataNascitaConOffset = new Date(dataNascita.getTime() - offset);
     const dataFormattata = dataNascitaConOffset.toISOString().split('T')[0];
 
-      this.insertPersona.patchValue({
-      AnpeNome: dipendente.anpeNome,
-      AnpeCognome: dipendente.anpeCognome,
-      AnpeDatanascita: dataFormattata,
-      AnpeCodicefiscale: dipendente.anpeCodicefiscale,
-      AnpeFkGepaPaeseidPaesenascita: dipendente.anpeFkGepaPaeseidPaesenascita,
-      AnpeFkGecoComuneidComunenascita: dipendente.anpeFkGecoComuneidComunenascita,
-      AnpeFkGepaPaeseidPaeseresidenza: dipendente.anpeFkGepaPaeseidPaeseresidenza,
-      RegioneResidenza: dipendente.regioneResidenza,
-      ProvinciaResidenza: dipendente.provinciaResidenza,
-      AnpeFkGecoComuneidComuneresidenza: dipendente.anpeFkGecoComuneidComuneresidenza,
-      AnpeIndirizzoresidenza: dipendente.anpeIndirizzoresidenza,
-      AnpeNumerocivicoresidenza: dipendente.anpeNumerocivicoresidenza,
-      AnpeCapresidenza: dipendente.anpeCapresidenza,
-      AnpeNtelefono1: dipendente.anpeNtelefono1,
-      AnpeNtelefono2: dipendente.anpeNtelefono2,
-      AnpeEmailaziendale: dipendente.anpeEmailaziendale,
-      AnpeEmailpersonale: dipendente.anpeEmailpersonale,
-      AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
-    })
+      this.insertPersona.patchValue(
+        {
+          AnpeNome: dipendente.anpeNome,
+          AnpeCognome: dipendente.anpeCognome,
+          AnpeDatanascita: dataFormattata,
+          AnpeCodicefiscale: dipendente.anpeCodicefiscale,
+          AnpeFkGepaPaeseidPaesenascita: dipendente.anpeFkGepaPaeseidPaesenascita,
+          AnpeFkGecoComuneidComunenascita: dipendente.anpeFkGecoComuneidComunenascita,
+          AnpeFkGepaPaeseidPaeseresidenza: dipendente.anpeFkGepaPaeseidPaeseresidenza,
+          RegioneResidenza: dipendente.regioneResidenza,
+          ProvinciaResidenza: dipendente.provinciaResidenza,
+          AnpeFkGecoComuneidComuneresidenza: dipendente.anpeFkGecoComuneidComuneresidenza,
+          AnpeIndirizzoresidenza: dipendente.anpeIndirizzoresidenza,
+          AnpeNumerocivicoresidenza: dipendente.anpeNumerocivicoresidenza,
+          AnpeCapresidenza: dipendente.anpeCapresidenza,
+          AnpeNtelefono1: dipendente.anpeNtelefono1,
+          AnpeNtelefono2: dipendente.anpeNtelefono2,
+          AnpeEmailaziendale: dipendente.anpeEmailaziendale,
+          AnpeEmailpersonale: dipendente.anpeEmailpersonale,
+          AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
+        })
     }
 
   onCheckboxChange(event: any) {
@@ -184,6 +190,11 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,p
           height: 'auto',
         });
     }
+  }
+
+  ngOnDestroy()
+  {
+    this.personaService.clearDipendente();
   }
 
   clearSearch()
