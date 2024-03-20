@@ -78,6 +78,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,p
       {
         if(dipendente)
         {
+          this.showDomicilio = true;
+          
           this.populateForm(dipendente);
         }
       });
