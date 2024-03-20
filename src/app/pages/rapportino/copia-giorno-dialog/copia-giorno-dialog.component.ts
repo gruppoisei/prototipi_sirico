@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GiorniDaCopiare } from '../../../dto/request/copiaGiorni';
 import { OrdinaGiorniPipe } from '../ordina-giorni.pipe';
 import { MatButtonModule } from '@angular/material/button';
+import { GiornoDiLavoro } from '../../../dto/request/calendario';
 
 @Component({
     selector: 'app-copia-giorno-dialog',
@@ -22,8 +23,8 @@ export class CopiaGiornoDialogComponent {
 
 
   constructor(public dialogRef: MatDialogRef<CopiaGiornoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:number,public rapportinoService:RapportinoService) {
-      this.giorniDaCopiare.giornoDaCopiareId = data
+    @Inject(MAT_DIALOG_DATA) public data:{giorno:GiornoDiLavoro,giornoFestivo:boolean},public rapportinoService:RapportinoService) {
+      this.giorniDaCopiare.giornoDaCopiareId = data.giorno.giornoLavorativoId!
       
     }
       

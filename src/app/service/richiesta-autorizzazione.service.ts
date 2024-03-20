@@ -18,8 +18,9 @@ export class RichiestaAutorizzazioneService {
   constructor(private Http: HttpClient) {}
 
   addRichiesta(richiesta: Richiesta): Observable<any> {
-    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, JSON.stringify(richiesta), this.httpOptions);
+    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, richiesta, this.httpOptions);
   }
+  
 
   addApprovazione(idRichiesta: number, approvazione: boolean, motivazione: string): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}?approvazione=${approvazione}`);

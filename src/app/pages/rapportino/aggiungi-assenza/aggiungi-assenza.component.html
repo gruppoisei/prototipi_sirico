@@ -9,32 +9,30 @@
       <div class="row">
         <div class="column">
           <label>Dal giorno:  (obligatorio)</label>
-          <input type="date"  [(ngModel)]="DataInizio" name="Datainizio" [class.invalid]="checkDateTimeValidity()" (focus)="dateinizioFileTouched = true" required>
+          <input type="date"  [(ngModel)]="DataInizio" name="Datainizio" required>
         </div>
         <div class="column">
           <label>Al giorno:  (obligatorio)</label>
-          <input type="date" [(ngModel)]="DataFine"  name="Datafine" [class.invalid]="checkDateTimeValidity()" (focus)="datefineFileTouched = true" required>
+          <input type="date" [(ngModel)]="DataFine"  name="Datafine"  required>
         </div>
       </div>
    
       <div class="row">
         <div class="column">
           <label>Ora Inizio (obligatorio)</label>
-          <select [(ngModel)]="OraInizio" name="OraInizio" [class.invalid]="!dateinizioFileTouched && !checkDateTimeValidity()" (focus)="orainizioFileTouched = true" required>
+          <select [(ngModel)]="OraInizio" name="OraInizio"   required>
             <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
           </select>
         </div>
         <div class="column">
           <label>Ora Fine (obligatorio)</label>
-          <select [(ngModel)]="OraFine" name="OraFine" [class.invalid]="!orafineFileTouched && !checkDateTimeValidity()" (focus)="orafineFileTouched = true" required>
+          <select [(ngModel)]="OraFine" name="OraFine" required>
             <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
           </select>
         </div>
       </div>
    
-      <div *ngIf="checkDateTimeValidity()" class="errordate">
-        Attenzione, la data di inizio assenza è successiva alla data della fine dell'assenza!
-      </div>
+     
    
       <label>Note (obligatorio)</label>
       <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
@@ -45,7 +43,7 @@
       </div>
    
       <div class="buttons">
-        <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
+        <button type="submit" >Invia Richiesta</button>
         <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
         <button type="button" (click)="chiudiForm()">Chiudi</button>
       </div>
