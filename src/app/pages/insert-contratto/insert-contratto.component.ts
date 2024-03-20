@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { Contratto } from '../../dto/request/contratto';
+import { inserimentoContratto } from '../../dto/response/inserimentoContratto';
+import { ricercaContratto } from '../../dto/request/ricercaContratto';
 import { InsertContrattoService } from '../../service/insert-contratto.service';
 import { GestioneContrattoComponent } from '../gestione-contratto/gestione-contratto.component';
 
@@ -42,7 +43,7 @@ export class InsertContrattoComponent implements OnInit {
     anpeCodicefiscale: string;
   }];
 
-  formData: Contratto = {
+  formData: inserimentoContratto = {
     AnpeNome: "",
     AnpeCognome: "",
     AnpePersonaid: null,
@@ -69,12 +70,14 @@ export class InsertContrattoComponent implements OnInit {
     CodsFlagAttiva: 0,
     CodsClienteId: null,
     // altro
+    /*
     CodiContrattopersid: null,
     TipoContratto: null,
     DescrizioneCCNL: null,
     LivelloContratto: null,
     SocietaDistacco: "",
     SocietaPersona: ""
+    */
   };
 
   formDataDialog: any = {
@@ -85,7 +88,7 @@ export class InsertContrattoComponent implements OnInit {
   }
   activeRoute: any;
   
-  gestioneContratto: any;
+  //gestioneContratto: any;
 
   constructor(
     //private fb: FormBuilder,
@@ -97,15 +100,20 @@ export class InsertContrattoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.reset();
+    this.reset();
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
-    this.getAllTipoCcnl();*/
+    this.getAllTipoCcnl();
     //this.getAllTipoRuolo();
     this.disable_fields = true;
     this.uncheck = false;
     this.dipendentiSenzaContratto;
     //this.dipendentiConContratto;
+
+    ///var objectContratto = this.router.url.split("=")[1];
+    //console.log(JSON.parse(objectContratto));
+    //console.log(JSON.parse(objectContratto)); //this.route.snapshot.paramMap.get('my_object'))
+    //console.log(JSON.parse(this.router.parseUrl(this.router.url).queryParams['myObject']));
   }
 
   clearForm() {
@@ -146,12 +154,14 @@ export class InsertContrattoComponent implements OnInit {
       CodsFlagAttiva: 0,
       CodsClienteId: null,
       // altro
+      /*
       CodiContrattopersid: null,
       TipoContratto: null,
       DescrizioneCCNL: null,
       LivelloContratto: null,
       SocietaDistacco: "",
       SocietaPersona: ""
+      */
     };
   }
 
@@ -299,8 +309,15 @@ export class InsertContrattoComponent implements OnInit {
     return false;
   }
 
+  prova_output: any;
+  object_output: any = this.inserimentoContrattoService.dipendenteConContratto$;
+
   prova() {
-    console.log("PROVA:" + this.gestioneContratto.dipendentiConContratto);
+    this.prova_output = true;
+    console.log(this.prova_output);
+    console.log("PROVA:" + this.inserimentoContrattoService.dipendenteConContratto$);
+    //this.object_output = this.inserimentoContrattoService.dipendenteConContratto$;
+    console.log("cf:" + this.object_output.anpeCodicefiscale);
   }
 
 }

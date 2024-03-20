@@ -1,4 +1,4 @@
-export interface Contratto {
+export interface inserimentoContratto {
     AnpeNome: string;
     AnpeCognome: string;
     AnpeCodicefiscale: string;
@@ -23,20 +23,7 @@ export interface Contratto {
     CodiSysuser: string;
     CodiFlagAttiva: number | null;
     CodsFlagAttiva: number;                 // uncheck
-    CodsClienteId: number | null;
-    // altro
-    // Proprietà relative alla tabella CODI_CONTRATTOPERS
-    CodiContrattopersid: number | null;
-
-    // Proprietà relative alla tabella CODS_DISTACCO
-    //public int? CodsDistaccoid { get; set; }
-
-    // Altre proprietà relative alle tabelle chiamate
-    TipoContratto: string | null;
-    DescrizioneCCNL: string | null;
-    LivelloContratto: string | null;
-    SocietaDistacco: string;         
-    SocietaPersona: string;  
+    CodsClienteId: number | null;    
   }
 
      
