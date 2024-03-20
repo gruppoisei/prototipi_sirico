@@ -61,7 +61,8 @@ export class AttivitaGiornoComponent {
   showOrdinario = false;
   showReperibilita = false;
   showAssenza = false;
-
+  verificaGiornoCompletoInizio = "00:00"
+  verificaGiornoCompletoFine = "23:59"
   giorno: GiornoLavorativo = {
     giornoLavoroId: this.data.giorno.giornoLavorativoId,
     oraEntrata: '09:00',
@@ -107,7 +108,11 @@ export class AttivitaGiornoComponent {
     this.showAssenza = false;
   }
 
-  
+  AssenzaAggiunta()
+  {
+    this.dialogRef.close()
+    this.rapportinoService.AggiornaBox()
+  }
 
   ConfermaGiorno() {
     if (this.VerificaGiorno()) {
@@ -136,7 +141,11 @@ export class AttivitaGiornoComponent {
       );
   }
 
-  EliminaAssenza(assenzaId: number) {}
+  EliminaAssenza(assenzaId: number) {
+    this.rapportinoService.EliminaAssenza(assenzaId)
+      this.dialogRef.close()
+    
+  }
 
   VerificaGiorno(): boolean {
     let oreGiornoConvertiteDaTempo = 0;

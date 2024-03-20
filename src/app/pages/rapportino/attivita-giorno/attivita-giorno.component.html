@@ -79,7 +79,7 @@
 
     <div *ngIf="showAssenza">
 
-      <app-aggiungi-assenza></app-aggiungi-assenza>
+      <app-aggiungi-assenza (nuovaAssenzaInserita)="AssenzaAggiunta()"></app-aggiungi-assenza>
     </div>
 
     <div *ngIf="showReperibilita">
@@ -101,9 +101,12 @@
 
   <div class="MostraAssenza">
     <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione !=true" [class.assenzaRifiutata]="assenza.statoApprovazione == false" [class.assenzaConfermata]="assenza.statoApprovazione ==true" class="attivita text-light">
-      <div class="qualcosa"> {{assenza.oraInizio}} </div>
-      <div class="qualcosa"> {{assenza.oraFine}} </div>
-      <div class="qualcosa"> {{assenza.assenzaId}} </div>
+      <div class="qualcosa"> {{assenza.tipoRichiesta}} </div>
+      <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora inizio: {{assenza.oraInizio}} </div>
+      <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora fine:  {{assenza.oraFine}} </div>
+      <div *ngIf="assenza.oraInizio == verificaGiornoCompletoInizio && assenza.oraFine == verificaGiornoCompletoFine" class="qualcosa">
+        giornata completa
+      </div>
       <div class="qualcosa"><button (click)="EliminaAssenza(assenza.assenzaId)"><mat-icon>delete</mat-icon></button></div>
 
     </div>

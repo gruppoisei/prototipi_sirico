@@ -23,7 +23,6 @@ export class CalendarioComponent {
   ConfermaMese()
   {
     this.rapportinoService.ConfermaMese()
-    
   }
 
   CambiaMese(event: any) {
