@@ -43,7 +43,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   private auth: AuthService, private serviceRegione: RegioneService,
   private servicePaese:PaesiService, private serviceSocieta:SocietaService,
   private serviceProvince:ProvinceService, private serviceComune:ComuniService)
-  
+
 {this.data= this.personaService.getData();}
 
 
@@ -84,8 +84,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         if(dipendente)
         {
           this.showDomicilio = true;
-          
-          this.populateForm(dipendente);
+          this.populateForm(dipendente);         
         }
       });
       
@@ -111,6 +110,16 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
 
   populateForm(dipendente: any)
   {
+    let idProvinciaNascita : number
+    
+    this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunenascita).subscribe
+    ((provincia : number)=>
+    {
+      idProvinciaNascita = provincia
+      console.log(idProvinciaNascita)
+    })
+
+
     const dataNascita = new Date(dipendente.anpeDatanascita);
     const offset = dataNascita.getTimezoneOffset() * 60000;
     const dataNascitaConOffset = new Date(dataNascita.getTime() - offset);
