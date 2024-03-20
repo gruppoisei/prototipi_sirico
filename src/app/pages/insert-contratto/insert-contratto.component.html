@@ -210,9 +210,22 @@
         <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
         <button class="buttons" type="button" (click)="prova()">PROVA</button>
-            
+
     </div>
 </form>
+
+
+<div *ngIf="prova_output == true">
+    {{object_output.anpeCodicefiscale}}
+    {{object_output.anpeNome}}
+    <!--<div *ngFor="let dipendenteConContratto of object_output">
+        {{dipendenteConContratto.anpeCodicefiscale}}
+        {{dipendenteConContratto.anpeCodicefiscale}}
+        {{dipendenteConContratto.anpeCodicefiscale}}
+    </div>-->
+</div>
+
+
 <!--
 <div class="buttons">
     <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
@@ -247,7 +260,7 @@
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Annulla</button>
                 <button type="button" (click)="closeModal()"
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
-                </div>
+            </div>
             <br>
             <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center my-10">
                 Nessun dato disponibile

@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { InsertContrattoService } from '../../service/insert-contratto.service';
-import { Contratto } from '../../dto/request/contratto';
+//import { inserimentoContratto } from '../../dto/response/inserimentoContratto';
+import { BehaviorSubject } from 'rxjs';
+import { ricercaContratto } from '../../dto/request/ricercaContratto';
 
 
 @Component({
@@ -16,10 +18,9 @@ import { Contratto } from '../../dto/request/contratto';
 
 export class GestioneContrattoComponent implements OnInit {
   
-  //ricercaForm!: FormGroup;
   output_ricercaFiltrata: any;
     
-  dipendentiConContratto!: [{
+ dipendentiConContratto!: [{
     //anpePersonaid: number;
     nome: string;
     cognome: string;
@@ -39,7 +40,28 @@ export class GestioneContrattoComponent implements OnInit {
     societaPersona: string;
   }];
 
-  formData: Contratto = {
+  dipendenteConContratto$!: [{
+    //anpePersonaid: number;
+    nome: string;
+    cognome: string;
+    codiceFiscale: string;
+    codiDatainiziocontratto: string;
+    codiDatafinecontratto: string;
+    tipoContratto: string;
+    descrizioneCCNL: string;
+    livelloContratto: string;
+    societaDistacco: string;
+    codiRalcompenso: number;
+    smartWorking: number;
+    codsValoredistacco: number;
+    codsDatainiziodistacco: string;
+    codsDatafinedistacco: string;
+    codiNote: string;
+    societaPersona: string;
+  }];
+
+
+  formData: ricercaContratto = {
     AnpeNome: "",
     AnpeCognome: "",
     AnpePersonaid: null,
@@ -65,13 +87,14 @@ export class GestioneContrattoComponent implements OnInit {
     CodiFlagAttiva: null,
     CodsFlagAttiva: 0,
     CodsClienteId: null,
-    // altro
+    // altro    
     CodiContrattopersid: null,
     TipoContratto: null,
     DescrizioneCCNL: null,
     LivelloContratto: null,
     SocietaDistacco: "",
     SocietaPersona: ""
+    
   }
   //static dipendentiConContratto: string;
 
@@ -87,23 +110,43 @@ export class GestioneContrattoComponent implements OnInit {
 
   }
   
+
   ricercaFiltrata(name: string, surname: string, cf: string, society: string) {
     this.inserimentoContrattoService.getAllContrattiBy(name, surname, cf, society).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.dipendentiConContratto = response;
-        this.output_ricercaFiltrata = true;
+        this.dipendenteConContratto$ = response;
+        console.log('dipendentiConContratto:' + this.dipendentiConContratto);
+        console.log('dipendenteConContratto$:' + this.dipendenteConContratto$);
+        /*
+        this.inserimentoContrattoService.dipendenteConContratto$.subscribe (prova => 
+          {
+            prova = response
+            console.log("prova_subscribe:" + prova)
+          });
+        */
+        this.output_ricercaFiltrata = true;        
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di contratto:', error);
       }
     );
   }
-
+  /*
+  ricercaFiltrataPROVA(name: string, surname: string, cf: string, society: string) {
+    console.log('ricercaFiltrataPROVA');
+    this.inserimentoContrattoService.getAllContrattiByPROVA(name, surname, cf, society);
+    console.log('inserimentoContrattoService.dipendenteConContratto$:' + this.inserimentoContrattoService.dipendenteConContratto$);
+    this.dipendentiConContratto = this.dipendenteConContratto$;
+    //console.log('dipendenteConContrattoSubject:' + this.inserimentoContrattoService.dipendenteConContrattoSubject);
+  }
+*/
   modifyFields(index: any) {
     console.log('Metodo non ancora implementato. Index:' + index);
     console.log(this.dipendentiConContratto[index]);
-    this.router.navigate(['/nuovo-contratto']);
+    console.log(this.inserimentoContrattoService.dipendenteConContratto$);
+    this.router.navigate(['/nuovo-contratto']);//, {myObject: JSON.stringify(this.dipendentiConContratto[index])}]);
   }
 
   reset() {
@@ -134,12 +177,14 @@ export class GestioneContrattoComponent implements OnInit {
       CodsFlagAttiva: 0,
       CodsClienteId: null,
       // altro
+      
       CodiContrattopersid: null,
       TipoContratto: null,
       DescrizioneCCNL: null,
       LivelloContratto: null,
       SocietaDistacco: "",
       SocietaPersona: ""
+      
     };
   }
 
