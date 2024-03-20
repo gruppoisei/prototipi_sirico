@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AttivitaGiornoComponent } from '../attivita-giorno/attivita-giorno.component';
 import { GiornoDiLavoro } from '../../../dto/request/calendario';
 import { RapportinoService } from '../../../service/rapportino.service';
-import { timer } from 'rxjs';
 import { CopiaGiornoDialogComponent } from '../copia-giorno-dialog/copia-giorno-dialog.component';
 
 
@@ -11,8 +10,6 @@ import { CopiaGiornoDialogComponent } from '../copia-giorno-dialog/copia-giorno-
   selector: 'app-giorno-calendario',
   templateUrl: './giorno-calendario.component.html',
   styleUrl: './giorno-calendario.component.scss',
-  
-  
 })
 export class GiornoCalendarioComponent {
 
@@ -21,6 +18,9 @@ export class GiornoCalendarioComponent {
   dataGiorno?:Date = new Date()
   giornoFestivo:boolean = false
   giornoString:string=""
+
+  orarioDiLavoro = 0
+  oreLavorate = 0
 
 
   constructor(public dialog: MatDialog,private rapportinoService:RapportinoService){}
@@ -36,29 +36,32 @@ export class GiornoCalendarioComponent {
 
       const find = this.rapportinoService.risposta.giorniFestivi.findIndex(e=> e == this.giornoString)
       this.giornoFestivo =(this.dataGiorno!.getDay() ==6 ||this.dataGiorno!.getDay() ==0 || find != -1 )
-      if(!this.giornoFestivo) {this.rapportinoService.giorniValidiMese +=1}
+      if(!this.giornoFestivo) {this.rapportinoService.giorniValidiMese +=1}else this.giorno.listaAssenzeGiorno = []
       
       if((this.giorno.listaAttivitaGiorno.length > 0 || this.giorno.listaAssenzeGiorno.length > 0) &&  !this.giornoFestivo  ) {this.rapportinoService.giorniConfermati +=1}
       
+      if(this.giorno.oraEntrata != undefined || this.giorno.oraEntrata !=null ){
+        this.oreLavorate =  Number(this.giorno.oraUscita!.split(':')[0]) -
+        Number(this.giorno.oraEntrata!.split(':')[0]) -
+        (Number(this.giorno.oraFinePausa!.split(':')[0]) -
+          Number(this.giorno.oraInizioPausa!.split(':')[0])) +
+        (Number(this.giorno.oraUscita!.split(':')[1]) -
+          Number(this.giorno.oraEntrata!.split(':')[1]) -
+          (Number(this.giorno.oraFinePausa!.split(':')[1]) -
+            Number(this.giorno.oraInizioPausa!.split(':')[1]))) /
+          60;
 
+          this.rapportinoService.oreConfermate += this.oreLavorate
+      }
         
     }
     
 
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
-  //     data: {giorno:this.giorno,giornoFestivo:this.giornoFestivo},
-  //   });
-    
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(this.giorno)
-  //   });
   }
   
   
   ClickMe(){
-
+    
     const dialogRef=
     this.dialog.open(AttivitaGiornoComponent, 
       {
@@ -71,10 +74,8 @@ export class GiornoCalendarioComponent {
     const dialogRef=
     this.dialog.open(CopiaGiornoDialogComponent, 
       {
-        width: "600px",
-        data:this.giorno.giornoLavorativoId
-      })
-     
+        width: "800px",
+        data:{giorno:this.giorno,giornoFestivo:this.giornoFestivo}})
   }
 
   Delete(giornoId:number){

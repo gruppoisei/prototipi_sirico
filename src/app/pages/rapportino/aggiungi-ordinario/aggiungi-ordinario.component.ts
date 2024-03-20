@@ -53,21 +53,15 @@ export class AggiungiOrdinarioComponent {
 
   attivitaDaAggiungere: AttivitaGiornoResponse =  {
     giornoLavorativoId: this.giornoLavorativoId,
-    attivitaPersonaId:-1,
-    sedeLavoroPersonaId:-1,
+    attivitaPersonaId:0,
+    sedeLavoroPersonaId:0,
     oreLavorate:0,
     oreStraordinario:0,
   }
  
 
   constructor(public rapportinoService: RapportinoService) {
-    // this.attivitaDaAggiungere = {
-    //   giornoLavorativoId: this.giornoLavorativoId,
-    //   attivitaPersonaId:-1,
-    //   sedeLavoroPersonaId:-1,
-    //   oreLavorate:0,
-    //   oreStraordinario:0,
-    // }
+   
   }
 
   AggiungiAttivitaGiorno() {

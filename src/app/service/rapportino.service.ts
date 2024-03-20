@@ -23,6 +23,9 @@ export class RapportinoService {
 
   giorniValidiMese = 0
   giorniConfermati = 0
+  
+  // oreValideMese = giorniValidiMese * 8
+  oreConfermate = 0
 
   orari: string[] = [
     '08:30',
@@ -53,11 +56,14 @@ export class RapportinoService {
 
   constructor(private http: HttpClient) {
     this.RaccogliInfoPersona();
+
   }
 
   AggiornaGiorniMese(giorno: Date) {
     this.giorniValidiMese = 0
     this.giorniConfermati = 0
+    // this.oreValideMese = 0
+    this.oreConfermate = 0
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
     this.http
@@ -97,7 +103,12 @@ export class RapportinoService {
         
       });
   }
-
+ConfermaMese()
+{
+  this.http.post('http://localhost:5143/Vistamese/ConfermaRapportino',this.risposta.rapportino.rapportinoId,this.httpOptions).subscribe(
+    res => alert(res)
+  )
+}
   EliminaGiorno(giornoId: number) {
     this.http
       .put<any>(

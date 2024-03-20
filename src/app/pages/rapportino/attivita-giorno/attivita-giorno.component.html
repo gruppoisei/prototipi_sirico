@@ -4,12 +4,11 @@
     <p mat-dialog-title> <button (click)="Prova()">prova</button> </p>
     
   </div>
-
   <mat-dialog-content>
     <div class="datadiv">
       <div class="O">
         <label > Ora entrata </label>
-        <select [(value)]="giorno.oraEntrata">
+        <select [(ngModel)]="giorno.oraEntrata">
           <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
             orario
           }}</option>
@@ -18,7 +17,7 @@
 
       <div class="O">
         <label > Ora inizio pausa </label>
-        <select [(value)]="giorno.oraInizioPausa">
+        <select [(ngModel)]="giorno.oraInizioPausa">
         <option  *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
           orario
         }}</option>
@@ -27,7 +26,7 @@
 
       <div  class="O">
         <label> Ora fine pausa </label>
-        <select [(value)]="giorno.oraFinePausa">
+        <select [(ngModel)]="giorno.oraFinePausa">
         <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
           orario
         }}</option>
@@ -36,7 +35,7 @@
       
       <div class="O">
         <label > Ora uscita</label>
-        <select  [(value)]="giorno.oraUscita">
+        <select  [(ngModel)]="giorno.oraUscita">
         <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
           orario
         }}</option>

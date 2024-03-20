@@ -64,7 +64,7 @@ export class AttivitaGiornoComponent {
 
   giorno: GiornoLavorativo = {
     giornoLavoroId: this.data.giorno.giornoLavorativoId,
-    oraEntrata: '9:00',
+    oraEntrata: '09:00',
     oraInizioPausa: '12:00',
     oraFinePausa: '13:00',
     oraUscita: '18:00',
@@ -107,12 +107,11 @@ export class AttivitaGiornoComponent {
     this.showAssenza = false;
   }
 
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
+  
 
   ConfermaGiorno() {
     if (this.VerificaGiorno()) {
+
     } else {
     }
   }
@@ -156,8 +155,6 @@ export class AttivitaGiornoComponent {
         60;
     
     this.data.giorno.listaAssenzeGiorno.forEach((assenza) => {
-      // if(assenza.)
-      console.log(assenza)
       let start = assenza.oraInizio;
       let end = assenza.oraFine;
       let oretotali;
@@ -222,6 +219,6 @@ export class AttivitaGiornoComponent {
 
 
   Prova(){
-    console.log(this.giorno)
+    console.log(this.data.giorno)
   }
 }
