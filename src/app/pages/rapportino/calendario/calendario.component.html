@@ -14,16 +14,23 @@
 
 
 
-<div class="gglavmese bg-yellow-400 rounded-r-3xl  py-6 px-10 w-fit h-fit flex justify-center flex-col">
+<div class="gglavmese rounded-r-3xl  py-6 px-10 w-fit h-fit flex justify-center flex-col">
+  
+  <div *ngFor="let progetto of rapportinoService.oreProgetto">
+  <div>{{progetto.nomeProgetto}}: ore {{progetto.oreProgetto}}</div>
+  </div>
+
 
   <div>giorni lavorativi mese: {{rapportinoService.giorniConfermati}}/{{rapportinoService.giorniValidiMese}} </div>
-  <button *ngIf="rapportinoService.giorniConfermati==rapportinoService.giorniValidiMese" [disabled]="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese >0" class="rounded-full bg-amber-50 p-3 m-3" (click)="ConfermaMese()">Conferma Rapportino</button>
-  <div *ngIf="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese >0" class="rounded-full bg-slate-400 p-3 m-3">Conferma Rapportino</div>
+  <div>ore lavorate mese: {{rapportinoService.oreLavorateMese}}/{{rapportinoService.oreMinimeTotali}}</div>
+  <div>ore straordinario mese: {{rapportinoService.oreStraordinarioMese}}</div>
+  <button class=" border-t-2 border-black" *ngIf="rapportinoService.giorniConfermati==rapportinoService.giorniValidiMese" [disabled]="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese >0" class="rounded-full bg-amber-50 p-3 m-3" (click)="ConfermaMese()">Conferma Rapportino</button>
+  <div class=" border-t-2 border-black" *ngIf="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese >0" class="rounded-full bg-slate-400 p-3 m-3">Conferma Rapportino</div>
 </div>
 
 
 
-<div class="flex flex-wrap w-[1200px] min-w-[1200px]">
+<div class="container flex flex-wrap w-[1200px] min-w-[1200px]">
   <div class="giorni">Lunedi</div>
   <div class="giorni">Martedi</div>
   <div class="giorni">Mercoledi</div>
@@ -31,8 +38,7 @@
   <div class="giorni">Venerdi</div>
   <div class="giorni">Sabato</div>
   <div class="giorni">Domenica</div>
-
-  <div
+<div
     *ngFor="let giorno of rapportinoService.giorniMesePassato"
     class="cubo cuboLast p-2 font-bold text-2xl"
   >
