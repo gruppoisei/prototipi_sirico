@@ -112,11 +112,15 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   loadComuni(): void 
   {
     this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniNascita = comuni);
+    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniResidenza = comuni);
+    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniDomicilio = comuni);
   }
 
   loadProvince(): void
   {
-    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvince = province)    
+    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvince = province);  
+    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvinceResidenza = province);
+    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvinceDomicilio = province);  
   }
   
   
