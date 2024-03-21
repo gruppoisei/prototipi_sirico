@@ -9,14 +9,7 @@
       "
       class="flex flex-row"
     >
-      <button
-        [class.giornoConfermato]="validatoreOreGiorno && !giornoFestivo"
-        [class.giornoNONConfermato]="!validatoreOreGiorno && !giornoFestivo"
-        [class.giornoErroreFestivo]="erroreGiornoFestivo"
-        (click)="ClickMe()"
-      >
-        <mat-icon>create</mat-icon>
-      </button>
+      
 
       <button (click)="ClickMe()" >  <mat-icon [class.giornoConfermato]="validatoreOreGiorno && !giornoFestivo" [class.giornoNONConfermato]="!validatoreOreGiorno && !giornoFestivo" [class.giornoErroreFestivo]="erroreGiornoFestivo" >create</mat-icon>  </button> 
       
