@@ -13,7 +13,7 @@ export interface ricercaContratto {
     CodiRalcompenso: number | null;
     CodiMonteore: number | null;
     CodiSmartworking: boolean | null;
-    costopresuntoannuo: number | null;     // lo includiamo, ma non lo passiamo
+    costopresuntomese: number | null;     // lo includiamo, ma non lo passiamo
     costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo
     CodsValoredistacco: number | null;     // percentuale
     ansoSocietaDistaccoid: number | null;

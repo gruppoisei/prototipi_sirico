@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Richiesta } from '../../../dto/request/assenze';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RichiestaAutorizzazioneService } from '../../../service/richiesta-autorizzazione.service';
+import { RapportinoService } from '../../../service/rapportino.service';
+import { AttivitaGiornoCalendario } from '../../../dto/request/calendario';
 
 @Component({
   selector: 'app-aggiungi-assenza',
@@ -36,6 +38,10 @@ export class AggiungiAssenzaComponent {
   orainizioFileTouched: boolean = false;
   orafineFileTouched: boolean = false;
  
+
+  @Output() nuovaAssenzaInserita =
+    new EventEmitter();
+
   @ViewChild('myFile')
   myInputFile!: ElementRef;
  
@@ -43,7 +49,7 @@ export class AggiungiAssenzaComponent {
     private http: HttpClient,
     private router: Router,
     private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
   ) {
     this.generaOre();
   }
@@ -71,7 +77,7 @@ export class AggiungiAssenzaComponent {
   inviaRichiesta(body: Richiesta){
     this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
       (response: any) => {
-        console.log(response);
+        this.nuovaAssenzaInserita.emit()
         alert(response);
       },
       (error: any) => {
@@ -110,7 +116,7 @@ export class AggiungiAssenzaComponent {
     this.router.navigate(['/homepage']);
   }
  
-  eliminaRichiesta() {
+  ResetRichiestaAssenza() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.resetForm();
     } else {
@@ -119,7 +125,7 @@ export class AggiungiAssenzaComponent {
     }
  
   }
- 
+
   resetDoc() {
     console.log(this.myInputFile.nativeElement.files);
     this.myInputFile.nativeElement.value = "";

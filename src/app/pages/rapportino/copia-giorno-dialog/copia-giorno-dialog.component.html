@@ -1,5 +1,5 @@
 <div class="">
-  <div class="flex-grow">
+  <div class="flex-grow p-2 m-2">
     giorno da copiare: {{ data.giorno.dataNumero }}
     {{
       rapportinoService.risposta.rapportino.dataRapportino | date : "LLLL yyyy"
@@ -25,6 +25,13 @@
       </div>
     </div>
     <div class="cg flex flex-wrap border-red-600 border-2 w-96">
+      <div class="giorni h-8 w-11 text-center">mar</div>
+      <div class="giorni h-8 w-11 text-center">mer</div>
+      <div class="giorni h-8 w-11 text-center">lun</div>
+      <div class="giorni h-8 w-11 text-center">giov</div>
+      <div class="giorni h-8 w-11 text-center">ven</div>
+      <div class="giorni h-8 w-11 text-center">sab</div>
+      <div class="giorni h-8 w-11 text-center">dom</div>
       <div
         *ngFor="let giorni of rapportinoService.giorniMesePassato"
         class="giorni h-11 w-11 bg-slate-300"
@@ -39,7 +46,10 @@
           giorno.listaAttivitaGiorno.length > 0 &&
           giorno.giornoLavorativoId != data.giorno.giornoLavorativoId
         "
-        [class.questoGiorno]="giorno.giornoLavorativoId == data.giorno.giornoLavorativoId || data.giornoFestivo"
+        [class.questoGiorno]="
+          giorno.giornoLavorativoId == data.giorno.giornoLavorativoId ||
+          data.giornoFestivo
+        "
       >
         <label> {{ giorno.dataNumero }} </label>
         <input
@@ -48,6 +58,7 @@
           (change)="AggiungiNumero(giorno.giornoLavorativoId!)"
         />
       </div>
+
       <div
         *ngFor="let giorni of rapportinoService.giorniMeseSeguente"
         class="giorni h-11 w-11 bg-slate-300"

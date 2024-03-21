@@ -61,7 +61,8 @@ export class AttivitaGiornoComponent {
   showOrdinario = false;
   showReperibilita = false;
   showAssenza = false;
-
+  verificaGiornoCompletoInizio = "00:00"
+  verificaGiornoCompletoFine = "23:59"
   giorno: GiornoLavorativo = {
     giornoLavoroId: this.data.giorno.giornoLavorativoId,
     oraEntrata: '09:00',
@@ -107,11 +108,15 @@ export class AttivitaGiornoComponent {
     this.showAssenza = false;
   }
 
-  
+  AssenzaAggiunta()
+  {
+    this.dialogRef.close()
+    this.rapportinoService.AggiornaBox()
+  }
 
   ConfermaGiorno() {
     if (this.VerificaGiorno()) {
-
+      this.rapportinoService.ConfermaGiorno(this.giorno)
     } else {
     }
   }
@@ -136,12 +141,15 @@ export class AttivitaGiornoComponent {
       );
   }
 
-  EliminaAssenza(assenzaId: number) {}
+  EliminaAssenza(assenzaId: number) {
+    this.rapportinoService.EliminaAssenza(assenzaId)
+      this.dialogRef.close()
+    
+  }
 
-  VerificaGiorno(): boolean {
+  VerificaGiorno() {
     let oreGiornoConvertiteDaTempo = 0;
 
-    let sommaOreAttivitaAssenze = 0;
     //conversione in ore lavorate gli orari giornata
     oreGiornoConvertiteDaTempo =
       Number(this.giorno.oraUscita!.split(':')[0]) -
@@ -153,68 +161,15 @@ export class AttivitaGiornoComponent {
         (Number(this.giorno.oraFinePausa!.split(':')[1]) -
           Number(this.giorno.oraInizioPausa!.split(':')[1]))) /
         60;
-    
-    this.data.giorno.listaAssenzeGiorno.forEach((assenza) => {
-      let start = assenza.oraInizio;
-      let end = assenza.oraFine;
-      let oretotali;
 
-      if (assenza.oraInizio < this.giorno.oraEntrata!) {
-        start = this.giorno.oraEntrata!;
-      }
-      if (assenza.oraFine < this.giorno.oraUscita!) {
-        end = this.giorno.oraUscita!;
-      }
-
-      oretotali =
-        Number(end.split(':')[0]) -
-        Number(start.split(':')[0]) -
-        (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
-
-      //sottraggo tempo pausa
-      if (
-        assenza.oraInizio < this.giorno.oraInizioPausa! &&
-        assenza.oraFine > this.giorno.oraInizioPausa!
-      ) {
-        start = this.giorno.oraInizioPausa!;
-        end = this.giorno.oraFinePausa!;
-        if (
-          assenza.oraInizio < this.giorno.oraInizioPausa! &&
-          assenza.oraFine > this.giorno.oraInizioPausa! &&
-          assenza.oraFine < this.giorno.oraFinePausa!
-        ) {
-          end = assenza.oraFine;
-          //somma tempo parziale rispetto a inizio pausa
-        }
-
-        //sottraggo pausa
-        oretotali =
-          oretotali -
-          (Number(this.giorno.oraFinePausa!.split(':')[0]) -
-            Number(this.giorno.oraInizioPausa!.split(':')[0]) -
-            (Number(this.giorno.oraFinePausa!.split(':')[1]) -
-              Number(this.giorno.oraInizioPausa!.split(':')[1])) /
-              60);
-      }
-      sommaOreAttivitaAssenze = oretotali;
-    });
-
-    //somma delle ore attivita complessive
-    for (let i = 0; i < this.data.giorno.listaAttivitaGiorno.length; i++) {
-      sommaOreAttivitaAssenze =
-        sommaOreAttivitaAssenze +
-        this.data.giorno.listaAttivitaGiorno[i].oreLavorate +
-        this.data.giorno.listaAttivitaGiorno[i].oreStraordinario;
-    }
-
-    if (
-      sommaOreAttivitaAssenze > 8 &&
-      sommaOreAttivitaAssenze == oreGiornoConvertiteDaTempo
-    ) {
+    if(oreGiornoConvertiteDaTempo < 8)
+    {
+      alert("numero ore assegnate alla giornata non valido")
+      return false
+    }else{
       return true;
-    } else {
-      return false;
     }
+    
   }
 
 
