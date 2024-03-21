@@ -21,11 +21,11 @@ export class RapportinoService {
   infoPersona!: InfoPersona;
   risposta: CalendarioRequest = new CalendarioRequest();
 
+
   giorniValidiMese = 0;
   giorniConfermati = 0;
 
-  // oreValideMese = giorniValidiMese * 8
-  oreConfermate = 0;
+  erroriGiorniMese = 0
 
   orari: string[] = [
     '08:30',
@@ -61,8 +61,9 @@ export class RapportinoService {
   AggiornaGiorniMese(giorno: Date) {
     this.giorniValidiMese = 0;
     this.giorniConfermati = 0;
-    this.oreConfermate = 0;
+    this.erroriGiorniMese = 0
 
+    
     // this.oreValideMese = 0
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');

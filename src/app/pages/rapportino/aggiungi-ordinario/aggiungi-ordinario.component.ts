@@ -46,6 +46,10 @@ export class AggiungiOrdinarioComponent {
   @Input()
   giornoLavorativoId!: number;
 
+
+  @Input()
+  giornoFestivo!:boolean
+
   color: any;
   checked: any;
   disabled: any;
@@ -116,4 +120,6 @@ export class AggiungiOrdinarioComponent {
       
     }else{alert("uno o più campi non validi")}
   }
+  
+ 
 }

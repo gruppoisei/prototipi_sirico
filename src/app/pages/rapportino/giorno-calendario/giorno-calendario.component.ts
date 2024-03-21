@@ -21,6 +21,8 @@ export class GiornoCalendarioComponent {
   oreLavorate = 0;
 
   validatoreOreGiorno = false;
+  erroreGiornoFestivo = false
+
 
   verificaGiornoCompletoInizio = '00:00';
   verificaGiornoCompletoFine = '23:59';
@@ -59,7 +61,14 @@ export class GiornoCalendarioComponent {
         this.rapportinoService.giorniValidiMese += 1;
         this.VerificaValiditaGiorno();
         
-      } else this.giorno.listaAssenzeGiorno = [];
+      } else { 
+        for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
+          
+            if(this.giorno.listaAttivitaGiorno[i].oreLavorate >0) {this.erroreGiornoFestivo=true;this.rapportinoService.erroriGiorniMese++}
+            
+        }
+        this.giorno.listaAssenzeGiorno = [];
+      }
     }
   }
 
@@ -98,7 +107,6 @@ export class GiornoCalendarioComponent {
           let start = assenza.oraInizio;
           let end = assenza.oraFine;
           let oretotali;
-        if(this.giorno.dataNumero == 1)debugger;
           if (assenza.oraInizio < this.giorno.oraEntrata!) {
             start = this.giorno.oraEntrata!;
           }
@@ -110,7 +118,6 @@ export class GiornoCalendarioComponent {
             Number(end.split(':')[0]) -
             Number(start.split(':')[0]) -
             (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
-            if(this.giorno.dataNumero == 1)debugger;
 
           
           //sottraggo tempo pausa
@@ -147,15 +154,10 @@ export class GiornoCalendarioComponent {
         this.giorno.listaAttivitaGiorno[i].oreLavorate +
         this.giorno.listaAttivitaGiorno[i].oreStraordinario;
     }
-    if(this.giorno.dataNumero == 1){
-      console.log("confronto")
-      console.log("ore lavorate :"+this.oreLavorate )
-      console.log("orarioDiLavoroConvertitoInOre :"+this.orarioDiLavoroConvertitoInOre )
-    }
+    
     
     if( this.oreLavorate == this.orarioDiLavoroConvertitoInOre && this.oreLavorate >=8 )
     {
-      this.rapportinoService.oreConfermate += this.oreLavorate;
       this.validatoreOreGiorno = true;
       this.rapportinoService.giorniConfermati += 1;
     }
