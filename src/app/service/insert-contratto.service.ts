@@ -51,8 +51,7 @@ export class InsertContrattoService {
     
     // controllo id contratto; se null faccio post, altrimenti put
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
-    //if (nuovoContratto.CodiContrattopersid != null) {
-      nuovoContratto.AnpePersonaid = 1;
+      //nuovoContratto.AnpePersonaid = 1;
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
       return this.Http.put<inserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);

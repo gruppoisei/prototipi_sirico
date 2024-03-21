@@ -66,7 +66,7 @@ export class InsertContrattoComponent implements OnInit {
   }];
 
   dipendentiConContratto!: {
-    //anpePersonaid: number;
+    personaId: number;
     codiContrattopersid: number;
     nome: string;
     cognome: string;
@@ -348,9 +348,12 @@ export class InsertContrattoComponent implements OnInit {
     this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
       (response: any) => {
         console.log(response);
+        alert(response);
+        this.clearForm();
       },
       (error: any) => {
         console.error("Errore durante l'inserimento del nuovo contratto:", error);
+        alert("Errore durante l'inserimento del nuovo contratto");
       }
     );
   }
@@ -387,7 +390,7 @@ export class InsertContrattoComponent implements OnInit {
     this.formData.CodiContrattopersid = this.dipendentiConContratto.codiContrattopersid;
     this.formData.AnpeCodicefiscale = this.dipendentiConContratto.codiceFiscale;
       this.formData.AnpeNome = this.dipendentiConContratto.nome;
-      //this.formData.AnpePersonaid =
+      this.formData.AnpePersonaid = this.dipendentiConContratto.personaId;
       this.formData.AnpeCognome = this.dipendentiConContratto.cognome;
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
       if (this.tipiSocieta[i].ansoRagionesociale == this.dipendentiConContratto.societaPersona) {
@@ -430,7 +433,9 @@ export class InsertContrattoComponent implements OnInit {
     // METTO COME COSTO MENSILE E GIORNALIERO UN VALORE DI DEFAULT
     this.formData.costopresuntomese = Number((this.dipendentiConContratto.codiRalcompenso / 13).toFixed(2));
       this.formData.costopresuntogiorno = Number(((this.dipendentiConContratto.codiRalcompenso / 13) / 26).toFixed(2));
-    if (this.dipendentiConContratto.codsFlagAttiva == 0) { this.uncheck = false; }
+    if (this.dipendentiConContratto.codsFlagAttiva == null || this.dipendentiConContratto.codsFlagAttiva == 0) {
+      this.uncheck = false; 
+    }
     else { this.uncheck = true; }
     this.formData.CodsValoredistacco = this.dipendentiConContratto.codsValoredistacco;
     for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
