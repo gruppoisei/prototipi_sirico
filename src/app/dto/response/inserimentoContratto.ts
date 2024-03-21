@@ -23,7 +23,8 @@ export interface inserimentoContratto {
     CodiSysuser: string;
     CodiFlagAttiva: number | null;
     CodsFlagAttiva: number;                 // uncheck
-    CodsClienteId: number | null;    
+    CodsClienteId: number | null; 
+    CodiContrattopersid: number | null;   
   }
 
      

@@ -9,7 +9,7 @@ import { ricercaContratto } from '../dto/request/ricercaContratto';
   providedIn: 'root'
 })
 export class InsertContrattoService {
-  
+
   httpOptions: Object = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export class InsertContrattoService {
   idContratto!: number;
   idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
 
-  constructor(private Http: HttpClient) {    
+  constructor(private Http: HttpClient) {
   }
 
   private apiUrl = 'http://localhost:5143/GestioneContratto'; // AGGIORNIAMO QUI L'URL
@@ -48,10 +48,21 @@ export class InsertContrattoService {
   }
 
   insertNuovoContratto(nuovoContratto: inserimentoContratto): Observable<inserimentoContratto> {
-    var body = JSON.stringify(nuovoContratto);
-    console.log('body: ' + body);
+    
     // controllo id contratto; se null faccio post, altrimenti put
-    return this.Http.post<inserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
+    if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
+    //if (nuovoContratto.CodiContrattopersid != null) {
+      nuovoContratto.AnpePersonaid = 1;
+      var body = JSON.stringify(nuovoContratto);
+      console.log('body: ' + body);
+      return this.Http.put<inserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
+    }
+    else {
+      nuovoContratto.CodiContrattopersid = 0;
+      var body = JSON.stringify(nuovoContratto);
+      console.log('body: ' + body);
+      return this.Http.post<inserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
+    }
   }
 
   getAllContrattiBy(name: string, surname: string, cf: string, society: string): Observable<any> {
