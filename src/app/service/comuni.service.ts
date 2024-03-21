@@ -14,4 +14,9 @@ export class ComuniService {
   {
     return this.http.get<any>(`${this.baseUrl}GetAllComuniByIdProvincia/${selectedProvince}`)
   }
+
+  getProvinciaByIdComune(provinciaid : number)
+  {
+    return this.http.get<any>(`${this.baseUrl}GetProvinciaByIdComune/${provinciaid}`)
+  }
 }

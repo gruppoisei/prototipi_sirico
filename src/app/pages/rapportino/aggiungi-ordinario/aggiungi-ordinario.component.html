@@ -17,7 +17,7 @@
     
     <div class="oreO">
     <label>ore ordinarie</label>
-    <input  step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreLavorate">
+    <input  step="0.5" type="number" [disabled]="giornoFestivo" [(ngModel)]="attivitaDaAggiungere.oreLavorate">
   </div>
 
   <div class="oreS">

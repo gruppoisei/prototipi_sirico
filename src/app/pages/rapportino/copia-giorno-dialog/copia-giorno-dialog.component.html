@@ -1,13 +1,72 @@
-
-<div class="cg flex flex-wrap">
-
-    <div class="giorni" *ngFor="let giorno of rapportinoService.risposta.listaGiorniLavoroMese | ordinaGiorni : 'dataNumero' "[class.giornoGiaPieno]="giorno.listaAttivitaGiorno.length > 0 && giorno.giornoLavorativoId != this.data" [class.questoGiorno]="giorno.giornoLavorativoId == this.data">
-        <label> {{giorno.dataNumero}} </label>
-        <input [disabled]="giorno.giornoLavorativoId == data" type="checkbox"  (change)="AggiungiNumero(giorno.giornoLavorativoId!)"/> 
+<div class="">
+  <div class="flex-grow">
+    giorno da copiare: {{ data.giorno.dataNumero }}
+    {{
+      rapportinoService.risposta.rapportino.dataRapportino | date : "LLLL yyyy"
+    }}
+  </div>
+  <div class="flex flex-row">
+    <div class="flex flex-row flex-wrap border-2">
+      <div class="p-2 m-2 w-fit">
+        <div>Ingresso</div>
+        <div>{{ data.giorno.oraEntrata }}</div>
+      </div>
+      <div class="p-2 m-2 w-fit">
+        <div>Inizio Pausa</div>
+        <div>{{ data.giorno.oraInizioPausa }}</div>
+      </div>
+      <div class="p-2 m-2 w-fit">
+        <div>Fine Pausa</div>
+        <div>{{ data.giorno.oraFinePausa }}</div>
+      </div>
+      <div class="p-2 m-2 w-fit">
+        <div>Uscita</div>
+        <div>{{ data.giorno.oraUscita }}</div>
+      </div>
     </div>
-    <div>
-        <button class="button" mat-raised-button
-        color="basic"
-        type="button"(click)="CopiaGiorni()">Conferma</button>
+    <div class="cg flex flex-wrap border-red-600 border-2 w-96">
+      <div
+        *ngFor="let giorni of rapportinoService.giorniMesePassato"
+        class="giorni h-11 w-11 bg-slate-300"
+      ></div>
+      <div
+        class="w-11 h-11 justify-center giorni"
+        *ngFor="
+          let giorno of rapportinoService.risposta.listaGiorniLavoroMese
+            | ordinaGiorni : 'dataNumero'
+        "
+        [class.giornoGiaPieno]="
+          giorno.listaAttivitaGiorno.length > 0 &&
+          giorno.giornoLavorativoId != data.giorno.giornoLavorativoId
+        "
+        [class.questoGiorno]="giorno.giornoLavorativoId == data.giorno.giornoLavorativoId || data.giornoFestivo"
+      >
+        <label> {{ giorno.dataNumero }} </label>
+        <input
+          [disabled]="giorno.giornoLavorativoId == data"
+          type="checkbox"
+          (change)="AggiungiNumero(giorno.giornoLavorativoId!)"
+        />
+      </div>
+
+
+
+      <div
+        *ngFor="let giorni of rapportinoService.giorniMeseSeguente"
+        class="giorni h-11 w-11 bg-slate-300"
+      ></div>
+
+      <div>
+        <button
+          class="button"
+          mat-raised-button
+          color="basic"
+          type="button"
+          (click)="CopiaGiorni()"
+        >
+          Conferma
+        </button>
+      </div>
     </div>
+  </div>
 </div>

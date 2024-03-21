@@ -4,12 +4,11 @@
     <p mat-dialog-title> <button (click)="Prova()">prova</button> </p>
     
   </div>
-
   <mat-dialog-content>
     <div class="datadiv">
       <div class="O">
         <label > Ora entrata </label>
-        <select [(value)]="giorno.oraEntrata">
+        <select [(ngModel)]="giorno.oraEntrata">
           <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
             orario
           }}</option>
@@ -18,7 +17,7 @@
 
       <div class="O">
         <label > Ora inizio pausa </label>
-        <select [(value)]="giorno.oraInizioPausa">
+        <select [(ngModel)]="giorno.oraInizioPausa">
         <option  *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
           orario
         }}</option>
@@ -27,7 +26,7 @@
 
       <div  class="O">
         <label> Ora fine pausa </label>
-        <select [(value)]="giorno.oraFinePausa">
+        <select [(ngModel)]="giorno.oraFinePausa">
         <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
           orario
         }}</option>
@@ -36,7 +35,7 @@
       
       <div class="O">
         <label > Ora uscita</label>
-        <select  [(value)]="giorno.oraUscita">
+        <select  [(ngModel)]="giorno.oraUscita">
         <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
           orario
         }}</option>
@@ -75,12 +74,12 @@
 
 
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario [giornoLavorativoId]="data.giorno.giornoLavorativoId!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
+      <app-aggiungi-ordinario [giornoLavorativoId]="data.giorno.giornoLavorativoId!" [giornoFestivo]="data.giornoFestivo" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showAssenza">
 
-      <app-aggiungi-assenza></app-aggiungi-assenza>
+      <app-aggiungi-assenza (nuovaAssenzaInserita)="AssenzaAggiunta()"></app-aggiungi-assenza>
     </div>
 
     <div *ngIf="showReperibilita">
@@ -102,9 +101,12 @@
 
   <div class="MostraAssenza">
     <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione !=true" [class.assenzaRifiutata]="assenza.statoApprovazione == false" [class.assenzaConfermata]="assenza.statoApprovazione ==true" class="attivita text-light">
-      <div class="qualcosa"> {{assenza.oraInizio}} </div>
-      <div class="qualcosa"> {{assenza.oraFine}} </div>
-      <div class="qualcosa"> {{assenza.assenzaId}} </div>
+      <div class="qualcosa"> {{assenza.tipoRichiesta}} </div>
+      <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora inizio: {{assenza.oraInizio}} </div>
+      <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora fine:  {{assenza.oraFine}} </div>
+      <div *ngIf="assenza.oraInizio == verificaGiornoCompletoInizio && assenza.oraFine == verificaGiornoCompletoFine" class="qualcosa">
+        giornata completa
+      </div>
       <div class="qualcosa"><button (click)="EliminaAssenza(assenza.assenzaId)"><mat-icon>delete</mat-icon></button></div>
 
     </div>
@@ -133,5 +135,4 @@ type="button"
 >
 Annulla
 </button>
-
 

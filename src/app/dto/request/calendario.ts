@@ -23,10 +23,11 @@ export interface AssenzaGiorno{
     assenzaId:number
     oraInizio:string
     oraFine:string
-    tipoRichiestaId:string
+    tipoRichiesta:string
     responsabileApprovazione:string
     statoApprovazione:boolean
 }
+
 
 
 
@@ -46,4 +47,6 @@ export class Rapportino{
     confermaRapportino?:boolean
     definitivoRapportino?:boolean
 }
+
+
 
