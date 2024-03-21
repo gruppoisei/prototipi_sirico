@@ -18,8 +18,8 @@
   <hr>
 
   <div>giorni lavorativi mese: {{rapportinoService.giorniConfermati}}/{{rapportinoService.giorniValidiMese}} </div>
-  <button *ngIf="rapportinoService.giorniConfermati==rapportinoService.giorniValidiMese" [disabled]="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese" class="rounded-full bg-amber-50 p-3 m-3" (click)="ConfermaMese()">Conferma Rapportino</button>
-  <div *ngIf="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese" class="conferma rounded-full bg-slate-400 p-3 m-3">Conferma Rapportino</div>
+  <button *ngIf="rapportinoService.giorniConfermati==rapportinoService.giorniValidiMese" [disabled]="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese >0" class="rounded-full bg-amber-50 p-3 m-3" (click)="ConfermaMese()">Conferma Rapportino</button>
+  <div *ngIf="rapportinoService.giorniConfermati<rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese >0" class="rounded-full bg-slate-400 p-3 m-3">Conferma Rapportino</div>
 </div>
 
 
