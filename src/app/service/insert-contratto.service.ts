@@ -2,27 +2,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { inserimentoContratto } from '../dto/response/inserimentoContratto';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 import { ricercaContratto } from '../dto/request/ricercaContratto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InsertContrattoService {
-  /*getAllDipendentiConContratto(name: string, surname: string, cf: string, society: string) {
-    throw new Error('Method not implemented.');
-  }*/
-
+  
   httpOptions: Object = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }), responseType: 'text'
   };
 
+  idContratto!: number;
+  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
 
-
-  constructor(private Http: HttpClient) {
-
+  constructor(private Http: HttpClient) {    
   }
 
   private apiUrl = 'http://localhost:5143/GestioneContratto'; // AGGIORNIAMO QUI L'URL
@@ -42,17 +39,10 @@ export class InsertContrattoService {
   getAllTipoLivello(idTipoLivello: number): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + idTipoLivello);
   }
-  /*
-    getAllTipoRuolo(): Observable<any> {
-      return this.Http.get<any>(`${this.apiUrl}/GetTipoLavoratore`);
-    }
-  */
 
   // DIALOG BOX
   getAllDipendentiSenzaContratto(name: string, surname: string, cf: string): Observable<any> {
-    //console.log('2: name:' + name + '; surname:' + surname + '; cf:' + cf);    
     var stringURL = 'http://localhost:5143/GestioneContratto/DipendentiSenzaContratto';
-
     var newUrl = this.createApiURL(name, surname, cf, "null", stringURL);
     return this.Http.get<any>(`${newUrl}`)
   }
@@ -60,60 +50,20 @@ export class InsertContrattoService {
   insertNuovoContratto(nuovoContratto: inserimentoContratto): Observable<inserimentoContratto> {
     var body = JSON.stringify(nuovoContratto);
     console.log('body: ' + body);
+    // controllo id contratto; se null faccio post, altrimenti put
     return this.Http.post<inserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
   }
 
-  private dipendenteConContrattoSubject = new BehaviorSubject<any>(null);
-  dipendenteConContratto$ = this.dipendenteConContrattoSubject.asObservable();
-
   getAllContrattiBy(name: string, surname: string, cf: string, society: string): Observable<any> {
-    //console.log('2: name:' + name + '; surname:' + surname + '; cf:' + cf);
-    var newUrl;
     var stringURL = 'http://localhost:5143/GestioneContratto/GetAllContrattiBy';
+    var newUrl = this.createApiURL(name, surname, cf, society, stringURL);
+    return this.Http.get<any>(`${newUrl}`);
+  }
 
-    newUrl = this.createApiURL(name, surname, cf, society, stringURL);
-
-    this.dipendenteConContratto$ = this.Http.get<any>(`${newUrl}`);
-    console.log("dipendenteConContratto$" + this.dipendenteConContratto$);
-    return this.dipendenteConContratto$;
+  getAllContrattiById(idContratto: number): Observable<any> {
+    var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
+    return this.Http.get<any>(`${this.apiUrl}/GetContrattiById/` + idContratto);
   }
-/*
-  getAllContrattiByPROVA(name: string, surname: string, cf: string, society: string) {
-    //
-    var newUrl;
-    var stringURL = 'http://localhost:5143/GestioneContratto/GetAllContrattiBy';
-    newUrl = this.createApiURL(name, surname, cf, society, stringURL);
-    //
-    console.log('URL CREATO');
-    this.Http.get<ricercaContratto>(`${newUrl}`).subscribe(
-      (response: any) => {
-        console.log('response:' + response);
-        this.dipendenteConContratto$ = response;
-      });        
-      //return this.dipendenteConContratto$;
-  }
-*/
-/*
-  getAllContrattiByPROVA2(name: string, surname: string, cf: string, society: string) {
-    //
-    var newUrl;
-    var stringURL = 'http://localhost:5143/GestioneContratto/GetAllContrattiBy';
-    newUrl = this.createApiURL(name, surname, cf, society, stringURL);
-    //
-    return this.Http.get<ricercaContratto>(`${newUrl}`).subscribe(
-      {
-        next: (response) => {
-          this.dipendenteConContrattoSubject.next(response);
-          console.log("response:" + response);
-          console.log("dipendenteConContrattoSubject:" + this.dipendenteConContrattoSubject.getValue());
-          console.log("dipendenteConContratto$:" + this.dipendenteConContratto$)
-        },
-        error: (err) => {
-          console.log(err)
-        }
-      });
-  }
-*/
 
   // checking parameters and creating api URL to call
   createApiURL(name: string, surname: string, cf: string, society: string, URL: string) {
@@ -158,5 +108,7 @@ export class InsertContrattoService {
     console.log('URL:' + stringURL);
     return stringURL;
   }
+
+
 
 }
