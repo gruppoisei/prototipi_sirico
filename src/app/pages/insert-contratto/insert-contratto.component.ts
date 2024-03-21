@@ -374,9 +374,9 @@ export class InsertContrattoComponent implements OnInit {
   
   autoFillformData() {
     //this.getAllTipoLivello();
-    this.formData.AnpeCodicefiscale = this.dipendentiConContratto.codiceFiscale,
-      this.formData.AnpeNome = this.dipendentiConContratto.nome,
-      this.formData.AnpeCognome = this.dipendentiConContratto.cognome
+    this.formData.AnpeCodicefiscale = this.dipendentiConContratto.codiceFiscale;
+    this.formData.AnpeNome = this.dipendentiConContratto.nome;
+    this.formData.AnpeCognome = this.dipendentiConContratto.cognome;
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
       if (this.tipiSocieta[i].ansoRagionesociale == this.dipendentiConContratto.societaPersona) {
         this.formData.AnsoSocietaid = this.tipiSocieta[i].ansoSocietaid.toString();
