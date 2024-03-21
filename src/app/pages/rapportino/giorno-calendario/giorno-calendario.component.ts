@@ -104,20 +104,26 @@ export class GiornoCalendarioComponent {
         60;
 
         this.giorno.listaAssenzeGiorno.forEach((assenza) => {
+          if(assenza.statoApprovazione != false){
           let start = assenza.oraInizio;
           let end = assenza.oraFine;
-          let oretotali;
-          if (assenza.oraInizio < this.giorno.oraEntrata!) {
-            start = this.giorno.oraEntrata!;
+          
+        
+        let oretotali;
+        if (assenza.oraInizio < this.giorno.oraEntrata!) {
+          start = this.giorno.oraEntrata!;
+          assenza.oraInizio = this.giorno.oraEntrata!
+        }
+        if (assenza.oraFine > this.giorno.oraUscita!) {
+          end = this.giorno.oraUscita!;
+          assenza.oraFine = this.giorno.oraUscita!
           }
-          if (assenza.oraFine > this.giorno.oraUscita!) {
-            end = this.giorno.oraUscita!;
-          }
-    
+          
           oretotali =
             Number(end.split(':')[0]) -
             Number(start.split(':')[0]) -
             (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
+            
 
           
           //sottraggo tempo pausa
@@ -131,8 +137,8 @@ export class GiornoCalendarioComponent {
               assenza.oraInizio < this.giorno.oraInizioPausa! &&
               assenza.oraFine > this.giorno.oraInizioPausa! &&
               assenza.oraFine < this.giorno.oraFinePausa!
-            ) {
-              end = assenza.oraFine;
+              ) {
+                end = assenza.oraFine;
               //somma tempo parziale rispetto a inizio pausa
             }
     
@@ -145,7 +151,7 @@ export class GiornoCalendarioComponent {
                   Number(this.giorno.oraInizioPausa!.split(':')[1])) /
                   60);
           }
-          this.oreLavorate += oretotali;
+          this.oreLavorate += oretotali;}
         });
 
         //somma delle ore attivita complessive

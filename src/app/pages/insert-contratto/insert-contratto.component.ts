@@ -155,39 +155,15 @@ export class InsertContrattoComponent implements OnInit {
   ngOnInit(): void {
     this.reset();
     this.getAllTipoSocieta();
-    //this.array_societa = this.getAllTipoSocieta.length;
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
-    //this.getAllTipoRuolo();
     this.disable_fields = true;
     this.uncheck = false;
     this.dipendentiSenzaContratto;
-    //this.dipendentiConContratto;
-
-
-    this.activeRoute.params.subscribe((params) => {
-      this.idContratto = params['id'];
-      //const idContratto = params['id'];
-      if (this.idContratto == 0) {     // new contract: idContratto=0 quando si crea un nuovo contratto        
-        // do nothing!
-      }
-      else {
-        console.log("Qua invoco la funzione di get e autofill per l'id" + this.idContratto);
-        this.getContrattoByidContratto(this.idContratto);        
-      }
-    });
-
-/*
-    this.subscription = 
-    this.inserimentoContrattoService.idContratto$.subscribe(idContratto => {
-    this.idContratto = idContratto;
-    console.log('idContratto:' + this.idContratto);
-  });
-*/
-//console.log('idContratto$:' + this.inserimentoContrattoService.idContratto$);
-  
-
     
+    if (this.inserimentoContrattoService.idContratto$.value != undefined) {
+      this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
+    }       
   }
 
   clearForm() {
@@ -382,28 +358,20 @@ export class InsertContrattoComponent implements OnInit {
     return false;
   }
 
-
   getContrattoByidContratto(idContratto: number) {
     this.inserimentoContrattoService.getAllContrattiById(idContratto).subscribe(
       (response: any) => {
         console.log(response);
         this.dipendentiConContratto = response;
         console.log(this.dipendentiConContratto);
-        this.autoFillformData();
-        //this.prova = response;   
+        this.autoFillformData();         
       },
       (error: any) => {
         console.error('Errore durante il recupero del contratto:', error);
       }
     );
   }
-/*
-  test() {
-    console.log('test avviato');
-    this.autoFillformData();
-    console.log('test concluso');
-  }
-*/
+  
   autoFillformData() {
     //this.getAllTipoLivello();
     this.formData.AnpeCodicefiscale = this.dipendentiConContratto.codiceFiscale,
@@ -429,13 +397,12 @@ export class InsertContrattoComponent implements OnInit {
         break;
       }
     }
-    console.log('this.formData.CoccCcnlid:' + this.formData.CoccCcnlid);
-    //this.getAllTipoLivello();
-    
-    console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
+    //console.log('this.formData.CoccCcnlid:' + this.formData.CoccCcnlid);
+
+    //console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
     for (let i = 0; i < this.tipiLivello?.length; i++) {
-      console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
-      console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);      
+      //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
+      //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
       if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
         this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
       }
@@ -451,7 +418,7 @@ export class InsertContrattoComponent implements OnInit {
     else { this.formData.CodiSmartworking = true }
     // METTO COME COSTO MENSILE E GIORNALIERO UN VALORE DI DEFAULT
     this.formData.costopresuntomese = Number((this.dipendentiConContratto.codiRalcompenso / 13).toFixed(2)),
-    this.formData.costopresuntogiorno = Number(((this.dipendentiConContratto.codiRalcompenso / 13) /26).toFixed(2))
+      this.formData.costopresuntogiorno = Number(((this.dipendentiConContratto.codiRalcompenso / 13) / 26).toFixed(2))
     if (this.dipendentiConContratto.codsFlagAttiva == 0) { this.uncheck = false; }
     else { this.uncheck = true; }
     this.formData.CodsValoredistacco = this.dipendentiConContratto.codsValoredistacco
