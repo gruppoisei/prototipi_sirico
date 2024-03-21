@@ -17,11 +17,12 @@ import { ricercaContratto } from '../../dto/request/ricercaContratto';
 
 
 export class GestioneContrattoComponent implements OnInit {
-  
+
   output_ricercaFiltrata: any;
-    
- dipendentiConContratto!: [{
+
+  dipendentiConContratto!: [{
     //anpePersonaid: number;
+    codiContrattopersid: number;
     nome: string;
     cognome: string;
     codiceFiscale: string;
@@ -38,28 +39,8 @@ export class GestioneContrattoComponent implements OnInit {
     codsDatafinedistacco: string;
     codiNote: string;
     societaPersona: string;
+    codiMonteore: number;
   }];
-
-  dipendenteConContratto$!: [{
-    //anpePersonaid: number;
-    nome: string;
-    cognome: string;
-    codiceFiscale: string;
-    codiDatainiziocontratto: string;
-    codiDatafinecontratto: string;
-    tipoContratto: string;
-    descrizioneCCNL: string;
-    livelloContratto: string;
-    societaDistacco: string;
-    codiRalcompenso: number;
-    smartWorking: number;
-    codsValoredistacco: number;
-    codsDatainiziodistacco: string;
-    codsDatafinedistacco: string;
-    codiNote: string;
-    societaPersona: string;
-  }];
-
 
   formData: ricercaContratto = {
     AnpeNome: "",
@@ -76,7 +57,7 @@ export class GestioneContrattoComponent implements OnInit {
     CodiRalcompenso: null,
     CodiMonteore: null,
     CodiSmartworking: null,
-    costopresuntoannuo: null,
+    costopresuntomese: null,
     costopresuntogiorno: null,
     CodsValoredistacco: null,
     ansoSocietaDistaccoid: null,
@@ -94,59 +75,59 @@ export class GestioneContrattoComponent implements OnInit {
     LivelloContratto: null,
     SocietaDistacco: "",
     SocietaPersona: ""
-    
+
   }
-  //static dipendentiConContratto: string;
+
+  idContract: number = 0;
 
   constructor(
-    //private fb: FormBuilder,
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-  
+      
 
   }
-  
+
 
   ricercaFiltrata(name: string, surname: string, cf: string, society: string) {
     this.inserimentoContrattoService.getAllContrattiBy(name, surname, cf, society).subscribe(
       (response: any) => {
         //console.log(response);
         this.dipendentiConContratto = response;
-        this.dipendenteConContratto$ = response;
-        console.log('dipendentiConContratto:' + this.dipendentiConContratto);
-        console.log('dipendenteConContratto$:' + this.dipendenteConContratto$);
-        /*
-        this.inserimentoContrattoService.dipendenteConContratto$.subscribe (prova => 
-          {
-            prova = response
-            console.log("prova_subscribe:" + prova)
-          });
-        */
-        this.output_ricercaFiltrata = true;        
+        this.output_ricercaFiltrata = true;
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di contratto:', error);
       }
     );
   }
-  /*
-  ricercaFiltrataPROVA(name: string, surname: string, cf: string, society: string) {
-    console.log('ricercaFiltrataPROVA');
-    this.inserimentoContrattoService.getAllContrattiByPROVA(name, surname, cf, society);
-    console.log('inserimentoContrattoService.dipendenteConContratto$:' + this.inserimentoContrattoService.dipendenteConContratto$);
-    this.dipendentiConContratto = this.dipendenteConContratto$;
-    //console.log('dipendenteConContrattoSubject:' + this.inserimentoContrattoService.dipendenteConContrattoSubject);
-  }
-*/
-  modifyFields(index: any) {
-    console.log('Metodo non ancora implementato. Index:' + index);
-    console.log(this.dipendentiConContratto[index]);
-    console.log(this.inserimentoContrattoService.dipendenteConContratto$);
-    this.router.navigate(['/nuovo-contratto']);//, {myObject: JSON.stringify(this.dipendentiConContratto[index])}]);
+  support_idContratto: number = 0;
+  modifyContract(idContratto: any) {
+    //console.log('nome: ' + this.dipendentiConContratto[idContratto].nome);
+    //console.log('codice fiscale: ' + this.dipendentiConContratto[idContratto].codiceFiscale);
+    //console.log('idContratto come parametro:' + idContratto);
+    this.idContract = idContratto
+    this.support_idContratto = this.inserimentoContrattoService.toggleidContratto2(idContratto);
+    console.log('support_idContratto:' + this.support_idContratto);
+    console.log('idContratto$ in modifyContract(idContratto):' + this.inserimentoContrattoService.idContratto$.value);
+    //console.log('idContratto$:' + this.inserimentoContrattoService.idContratto$);
+    //console.log('idContratto:' + this.inserimentoContrattoService.idContratto);
+
+    /*
+    .subscribe( () => {
+      this.conto$.next({
+        name: "Massimo",
+        surname: "Nicolardi",
+        balance: 200000,
+        iban: "IT67678ew78wewe"
+      });
+  })
+  */
+    //this.inserimentoContrattoService.toggleidContratto(idContratto);
+    this.router.navigate(['/nuovo-contratto', idContratto]);
   }
 
   reset() {
@@ -165,7 +146,7 @@ export class GestioneContrattoComponent implements OnInit {
       CodiRalcompenso: null,
       CodiMonteore: null,
       CodiSmartworking: false,
-      costopresuntoannuo: null,
+      costopresuntomese: null,
       costopresuntogiorno: null,
       CodsValoredistacco: null,
       ansoSocietaDistaccoid: null,
@@ -177,14 +158,14 @@ export class GestioneContrattoComponent implements OnInit {
       CodsFlagAttiva: 0,
       CodsClienteId: null,
       // altro
-      
+
       CodiContrattopersid: null,
       TipoContratto: null,
       DescrizioneCCNL: null,
       LivelloContratto: null,
       SocietaDistacco: "",
       SocietaPersona: ""
-      
+
     };
   }
 

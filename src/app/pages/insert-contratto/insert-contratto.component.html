@@ -82,6 +82,7 @@
                 </select>
             </div>
             <div class="fieldcolumn1">
+                <!--<select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"-->
                 <select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"
                     required>
                     <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
@@ -94,12 +95,8 @@
                 </select>
             </div>
             <div class="fieldcolumn2">
-                <select [(ngModel)]="formData.AnruRuoloid" class="box" name="tipolavoratore" required>
-                    <!--<option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>-->
-                    <option [value]="0">Dirigente</option>
-                    <option [value]="1">Quadro</option>
-                    <option [value]="2">Impiegato</option>
-                    <option [value]="3">Operaio</option>
+                <select [(ngModel)]="formData.AnruRuoloid" class="box" name="Ruolo" required>
+                    <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>
                 </select>
             </div>
         </div>
@@ -116,7 +113,7 @@
                 Smart Working:
             </div>
             <div class="textcolumn1">
-                Costo presunto annuo*:
+                Costo presunto mese*:
             </div>
             <div class="textcolumn1">
                 Costo presunto giorno*:
@@ -162,7 +159,7 @@
                 <!--{{formData.CodiSmartworking}}-->
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.costopresuntoannuo" class="box" type="number" name="costopresuntoannuo"
+                <input [(ngModel)]="formData.costopresuntomese" class="box" type="number" name="costopresuntomese"
                     inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
@@ -209,30 +206,11 @@
         <button class="buttons" type="submit" [class.disabled]="!checkDateTimeValidity()">Salva</button>
         <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
-        <button class="buttons" type="button" (click)="prova()">PROVA</button>
-
+        <!--<button class="buttons" type="button" (click)="test()">TEST</button>-->
     </div>
 </form>
 
 
-<div *ngIf="prova_output == true">
-    {{object_output.anpeCodicefiscale}}
-    {{object_output.anpeNome}}
-    <!--<div *ngFor="let dipendenteConContratto of object_output">
-        {{dipendenteConContratto.anpeCodicefiscale}}
-        {{dipendenteConContratto.anpeCodicefiscale}}
-        {{dipendenteConContratto.anpeCodicefiscale}}
-    </div>-->
-</div>
-
-
-<!--
-<div class="buttons">
-    <button type="submit" [class.disabled]="!checkFormValidity() || checkDateTimeValidity()" [disabled]="!checkFormValidity() || checkDateTimeValidity()">Invia Richiesta</button>
-    <button type="button" (click)="eliminaRichiesta()">Elimina Richiesta</button>
-    <button type="button" (click)="chiudiForm()">Chiudi</button>
-  </div>
--->
 
 <!-- DIALOG BOX OPEN WHEN CLICKING MAT-ICON -->
 <ng-template #approvalModal let-modal>
