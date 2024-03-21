@@ -29,7 +29,7 @@ export class GiornoCalendarioComponent {
 
   constructor(
     public dialog: MatDialog,
-    private rapportinoService: RapportinoService
+    public rapportinoService: RapportinoService
   ) {}
 
   ngOnInit(): void {
@@ -105,9 +105,11 @@ export class GiornoCalendarioComponent {
 
         this.giorno.listaAssenzeGiorno.forEach((assenza) => {
           if(assenza.statoApprovazione != false){
+            if(assenza.oraFine <= this.giorno.oraEntrata){
+              this.giorno.listaAssenzeGiorno = this.giorno.listaAssenzeGiorno.filter( a => a.assenzaId != assenza.assenzaId )
+            }
           let start = assenza.oraInizio;
           let end = assenza.oraFine;
-          
         
         let oretotali;
         if (assenza.oraInizio < this.giorno.oraEntrata!) {

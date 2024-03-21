@@ -21,6 +21,7 @@ export class RapportinoService {
   infoPersona!: InfoPersona;
   risposta: CalendarioRequest = new CalendarioRequest();
 
+  oggi = new Date()
 
   giorniValidiMese = 0;
   giorniConfermati = 0;
@@ -148,9 +149,9 @@ export class RapportinoService {
 
   ConfermaGiorno(giorno: GiornoLavorativo) {
     this.http
-      .put<any>('http://localhost:5143/AttivitaGiorno/ConfermaGiorno', giorno)
+      .put<any>('http://localhost:5143/AttivitaGiorno/ConfermaGiorno', giorno,this.httpOptions)
       .subscribe((res) => {
-        alert('giorno confermato');
+        alert(res);
         this.AggiornaBox();
       });
   }
