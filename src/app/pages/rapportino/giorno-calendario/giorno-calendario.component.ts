@@ -98,11 +98,11 @@ export class GiornoCalendarioComponent {
           let start = assenza.oraInizio;
           let end = assenza.oraFine;
           let oretotali;
-    
+        if(this.giorno.dataNumero == 1)debugger;
           if (assenza.oraInizio < this.giorno.oraEntrata!) {
             start = this.giorno.oraEntrata!;
           }
-          if (assenza.oraFine < this.giorno.oraUscita!) {
+          if (assenza.oraFine > this.giorno.oraUscita!) {
             end = this.giorno.oraUscita!;
           }
     
@@ -110,7 +110,9 @@ export class GiornoCalendarioComponent {
             Number(end.split(':')[0]) -
             Number(start.split(':')[0]) -
             (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
-    
+            if(this.giorno.dataNumero == 1)debugger;
+
+          
           //sottraggo tempo pausa
           if (
             assenza.oraInizio < this.giorno.oraInizioPausa! &&
@@ -145,8 +147,13 @@ export class GiornoCalendarioComponent {
         this.giorno.listaAttivitaGiorno[i].oreLavorate +
         this.giorno.listaAttivitaGiorno[i].oreStraordinario;
     }
-
-    if( this.oreLavorate == this.orarioDiLavoroConvertitoInOre && this.oreLavorate>8 )
+    if(this.giorno.dataNumero == 1){
+      console.log("confronto")
+      console.log("ore lavorate :"+this.oreLavorate )
+      console.log("orarioDiLavoroConvertitoInOre :"+this.orarioDiLavoroConvertitoInOre )
+    }
+    
+    if( this.oreLavorate == this.orarioDiLavoroConvertitoInOre && this.oreLavorate >=8 )
     {
       this.rapportinoService.oreConfermate += this.oreLavorate;
       this.validatoreOreGiorno = true;
