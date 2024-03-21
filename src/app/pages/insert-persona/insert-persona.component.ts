@@ -13,7 +13,7 @@ import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 import { PersonaService } from '../../service/persona.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-insert-persona',
@@ -36,7 +36,12 @@ export class InsertPersonaComponent implements OnInit{
   listComuniDomicilio: any;
   showDomicilio: any;
   data;
-
+  idProvinciaNascita : any;
+  idRegioneNascita : any;
+  idProvinciaResidenza: any;
+  idRegioneResidenza: any;
+  idProvinciaDomicilio: any;
+  idRegioneDomicilio: any;
 
 constructor(private personaService : PersonaService, private dialog: MatDialog,
   private location: Location, private fb : FormBuilder,
@@ -46,6 +51,10 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
 
 {this.data= this.personaService.getData();}
 
+  ngOnDestroy()
+  {
+    this.personaService.clearDipendente();
+  }
 
   ngOnInit(): void 
   {
@@ -67,7 +76,9 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeNumerocivicoresidenza: ['', Validators.required],
         AnpeCapresidenza: ['', Validators.required],
         AnpeFkGepaPaeseidPaesedomicilio: [],
-        AnpeFkGecoComuneidComunedomicilio: [], 
+        AnpeFkGecoComuneidComunedomicilio: [],
+        RegioneDomicilio: [],
+        ProvinciaDomicilio: [],
         AnpeIndirizzodomicilio: [],
         AnpeNumerocivicodomicilio: [],
         AnpeCapdomicilio: [],
@@ -78,75 +89,143 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeFkAnsoSocietaid: ['', Validators.required]
       })
 
-
       this.personaService.dipendente$.subscribe((dipendente)=>
       {
         if(dipendente)
         {
+          this.loadComuni();
+          this.loadProvince();
           this.showDomicilio = true;
-          this.populateForm(dipendente);         
+          this.populateForm(dipendente);
         }
       });
       
-
-    this.serviceRegione.getRegioni().subscribe
-    ((regioni: any)=>
-    {
-      this.listRegioni = regioni;
-    })
-
-    this.servicePaese.getAllPaesi().subscribe
-    ((paese: any)=>
-    {
-      this.listPaese = paese;
-    })
-
-    this.serviceSocieta.getAllSocieta().subscribe
-    ((societa : any)=>
-    {
-      this.listSocieta = societa;
-    })
+      this.loadData()
   }
 
-  populateForm(dipendente: any)
+  loadData(): void {
+    this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioni = regioni);
+    this.servicePaese.getAllPaesi().subscribe(paesi => this.listPaese = paesi);
+    this.serviceSocieta.getAllSocieta().subscribe(societa => this.listSocieta = societa);
+  }
+
+  loadComuni(): void 
   {
-    let idProvinciaNascita : number
-    
-    this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunenascita).subscribe
-    ((provincia : number)=>
-    {
-      idProvinciaNascita = provincia
-      console.log(idProvinciaNascita)
-    })
+    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniNascita = comuni);
+    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniResidenza = comuni);
+    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniDomicilio = comuni);
+  }
 
-
+  loadProvince(): void
+  {
+    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvince = province);  
+    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvinceResidenza = province);
+    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvinceDomicilio = province);  
+  }
+  
+  
+  populateForm(dipendente: any): void {
+    // Popolamento delle informazioni relative al luogo di nascita
+    this.populateLuogoNascita(dipendente);
+  
+    // Popolamento delle informazioni relative alla residenza
+    this.populateResidenza(dipendente);
+  
+    // Popolamento delle informazioni relative al domicilio
+    this.populateDomicilio(dipendente);
+  
+    // Formattazione della data di nascita
     const dataNascita = new Date(dipendente.anpeDatanascita);
     const offset = dataNascita.getTimezoneOffset() * 60000;
     const dataNascitaConOffset = new Date(dataNascita.getTime() - offset);
     const dataFormattata = dataNascitaConOffset.toISOString().split('T')[0];
-
-      this.insertPersona.patchValue(
-        {
-          AnpeNome: dipendente.anpeNome,
-          AnpeCognome: dipendente.anpeCognome,
-          AnpeDatanascita: dataFormattata,
-          AnpeCodicefiscale: dipendente.anpeCodicefiscale,
-          AnpeFkGepaPaeseidPaesenascita: dipendente.anpeFkGepaPaeseidPaesenascita,
-          AnpeFkGecoComuneidComunenascita: dipendente.anpeFkGecoComuneidComunenascita,
-          AnpeFkGepaPaeseidPaeseresidenza: dipendente.anpeFkGepaPaeseidPaeseresidenza,
-          RegioneResidenza: dipendente.regioneResidenza,
-          ProvinciaResidenza: dipendente.provinciaResidenza,
-          AnpeFkGecoComuneidComuneresidenza: dipendente.anpeFkGecoComuneidComuneresidenza,
-          AnpeIndirizzoresidenza: dipendente.anpeIndirizzoresidenza,
-          AnpeNumerocivicoresidenza: dipendente.anpeNumerocivicoresidenza,
-          AnpeCapresidenza: dipendente.anpeCapresidenza,
-          AnpeNtelefono1: dipendente.anpeNtelefono1,
-          AnpeNtelefono2: dipendente.anpeNtelefono2,
-          AnpeEmailaziendale: dipendente.anpeEmailaziendale,
-          AnpeEmailpersonale: dipendente.anpeEmailpersonale,
-          AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
-        })
-    }
+    
+    
+    // Popolamento delle informazioni personali
+    this.insertPersona.patchValue({
+      AnpeNome: dipendente.anpeNome,
+      AnpeCognome: dipendente.anpeCognome,
+      AnpeDatanascita: dataFormattata,
+      AnpeCodicefiscale: dipendente.anpeCodicefiscale,
+      AnpeFkGepaPaeseidPaesenascita: dipendente.anpeFkGepaPaeseidPaesenascita,
+      AnpeFkGecoComuneidComunenascita: dipendente.anpeFkGecoComuneidComunenascita,
+      AnpeFkGepaPaeseidPaeseresidenza: dipendente.anpeFkGepaPaeseidPaeseresidenza,
+      AnpeFkGecoComuneidComuneresidenza: dipendente.anpeFkGecoComuneidComuneresidenza,
+      AnpeIndirizzoresidenza: dipendente.anpeIndirizzoresidenza,
+      AnpeNumerocivicoresidenza: dipendente.anpeNumerocivicoresidenza,
+      AnpeCapresidenza: dipendente.anpeCapresidenza,
+      AnpeFkGepaPaeseidPaesedomicilio: dipendente.anpeFkGepaPaeseidPaesedomicilio,
+      AnpeFkGecoComuneidComunedomicilio: dipendente.anpeFkGecoComuneidComunedomicilio,
+      AnpeIndirizzodomicilio: dipendente.anpeIndirizzodomicilio,
+      AnpeNumerocivicodomicilio: dipendente.anpeNumerocivicodomicilio,
+      AnpeCapdomicilio: dipendente.anpeCapdomicilio,
+      AnpeNtelefono1: dipendente.anpeNtelefono1,
+      AnpeNtelefono2: dipendente.anpeNtelefono2,
+      AnpeEmailaziendale: dipendente.anpeEmailaziendale,
+      AnpeEmailpersonale: dipendente.anpeEmailpersonale,
+      AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
+    });
+  }
+  
+  populateLuogoNascita(dipendente: any): void {
+    
+    this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunenascita).subscribe({
+      next: (idProvincia) => {
+        
+        this.idProvinciaNascita = idProvincia;
+        this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaNascita).subscribe({
+          next: (idRegione) => {
+            
+            this.idRegioneNascita = idRegione;
+            this.insertPersona.patchValue({
+              RegioneNascita: this.idRegioneNascita,
+              ProvinciaNascita: this.idProvinciaNascita
+            });
+          }
+        });
+      }
+    });
+  }
+  
+  populateResidenza(dipendente: any): void {
+    
+    this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComuneresidenza).subscribe({
+      next: (idProvincia) => {
+        
+        this.idProvinciaResidenza = idProvincia;
+        this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaResidenza).subscribe({
+          next: (idRegione) => {
+            
+            this.idRegioneResidenza = idRegione;
+            this.insertPersona.patchValue({
+              RegioneResidenza: this.idRegioneResidenza,
+              ProvinciaResidenza: this.idProvinciaResidenza
+            });
+          }
+        });
+      }
+    });
+  }
+  
+  populateDomicilio(dipendente: any): void {
+    this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunedomicilio).subscribe({
+      next: (idProvincia) => {
+        
+        this.idProvinciaDomicilio = idProvincia;
+        this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaDomicilio).subscribe({
+          next: (idRegione) => {
+            
+            this.idRegioneDomicilio = idRegione;
+            this.insertPersona.patchValue({
+              RegioneDomicilio: this.idRegioneDomicilio,
+              ProvinciaDomicilio: this.idProvinciaDomicilio
+            });
+          }
+        });
+      }
+    });
+  }
+  
 
   onCheckboxChange(event: any) {
     this.showDomicilio = event.target.checked;
@@ -199,11 +278,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
           height: 'auto',
         });
     }
-  }
-
-  ngOnDestroy()
-  {
-    this.personaService.clearDipendente();
   }
 
   clearSearch()
@@ -265,4 +339,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       this.listComuniNascita = comuni
     })
   }
+
+
 }
