@@ -9,10 +9,7 @@ import { ricercaContratto } from '../dto/request/ricercaContratto';
   providedIn: 'root'
 })
 export class InsertContrattoService {
-  /*getAllDipendentiConContratto(name: string, surname: string, cf: string, society: string) {
-    throw new Error('Method not implemented.');
-  }*/
-
+  
   httpOptions: Object = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -20,52 +17,10 @@ export class InsertContrattoService {
   };
 
   idContratto!: number;
-  //public idContratto = new BehaviorSubject<any>(null);
-  //idContratto$: Observable<number>;
+  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
 
-  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(
-    this.idContratto = 10
-    //this.idContratto = this.toggleidContratto2(this.idContratto)
-  )
-
-
-
-  /*
-    idContratto = new BehaviorSubject<any>(null);
-    idContratto$ = this.idContratto.asObservable();
-  */
-  constructor(private Http: HttpClient) {
-    //this.idContratto$ = this.idContratto.asObservable();
-    /*
-    timer(0).subscribe(() => {
-      this.idContratto$.next(77);
-      console.log('idContratto$:' + this.idContratto$.value);
-      console.log('idContratto:' + this.idContratto);
-    })
-    */
+  constructor(private Http: HttpClient) {    
   }
-  
-    toggleidContratto(idContratto: number): void {
-      //this.idContratto.next(this.idContratto.getValue());
-      timer(0).subscribe(() => {
-        this.idContratto$.next(idContratto);
-        this.idContratto = this.idContratto$.value;
-        console.log('toggleidContratto() idContratto$:' + this.idContratto$.value);
-        console.log('toggleidContratto() idContratto:' + this.idContratto);
-      })
-    }
-
-    toggleidContratto2(idContratto: number): number {
-      //this.idContratto.next(this.idContratto.getValue());
-      timer(0).subscribe(() => {
-        this.idContratto$.next(idContratto);
-        this.idContratto = this.idContratto$.value;
-        console.log('toggleidContratto2() idContratto$:' + this.idContratto$.value);
-        console.log('toggleidContratto2() idContratto:' + this.idContratto);        
-      })
-      return this.idContratto$.value;
-    }
-  
 
   private apiUrl = 'http://localhost:5143/GestioneContratto'; // AGGIORNIAMO QUI L'URL
 
