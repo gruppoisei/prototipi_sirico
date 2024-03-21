@@ -14,7 +14,7 @@
       <button (click)="ClickMe()" >  <mat-icon [class.giornoConfermato]="validatoreOreGiorno && !giornoFestivo" [class.giornoNONConfermato]="!validatoreOreGiorno && !giornoFestivo" [class.giornoErroreFestivo]="erroreGiornoFestivo" >create</mat-icon>  </button> 
       
       <button *ngIf="this.giorno.listaAttivitaGiorno.length > 0 && !giornoFestivo" (click)="CopiaGiorno()" >  <mat-icon class="copy">content_copy</mat-icon>  </button> 
-      <button (click)="Delete(giorno.giornoLavorativoId!)" >  <mat-icon class="delete" >delete</mat-icon>  </button> 
+      <button (click)="Delete(giorno.giornoLavorativoId!)">  <mat-icon class="delete" >delete</mat-icon>  </button> 
     </div>
   </div>
   <hr />
@@ -28,7 +28,7 @@
 
     <div class="AS row border-bottom flex m-[1px] p-[1px]">
       <span class="grow">{{ attivita.sedeLavoro }}</span>
-      <span> {{ attivita.oreLavorate }} h</span>
+      <span> ord {{ attivita.oreLavorate }} h <p *ngIf="attivita.oreStraordinario>0">/stra {{attivita.oreStraordinario}}</p></span>
     </div>
   </div>
   <div>

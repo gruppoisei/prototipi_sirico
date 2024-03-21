@@ -21,12 +21,18 @@ export class RapportinoService {
   infoPersona!: InfoPersona;
   risposta: CalendarioRequest = new CalendarioRequest();
 
+
+  oreProgetto:{nomeProgetto:string,oreProgetto:number}[] = []
   oggi = new Date()
 
   giorniValidiMese = 0;
   giorniConfermati = 0;
-
   erroriGiorniMese = 0
+
+  oreMinimeTotali = 0
+  oreLavorateMese = 0
+  oreAssenzaMese = 0
+  oreStraordinarioMese =0
 
   orari: string[] = [
     '08:30',
@@ -64,7 +70,12 @@ export class RapportinoService {
     this.giorniConfermati = 0;
     this.erroriGiorniMese = 0
 
+    this.oreMinimeTotali = 0
+    this.oreLavorateMese = 0
+    this.oreAssenzaMese = 0
+    this.oreStraordinarioMese =0
     
+    this.oreProgetto=[]
     // this.oreValideMese = 0
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');

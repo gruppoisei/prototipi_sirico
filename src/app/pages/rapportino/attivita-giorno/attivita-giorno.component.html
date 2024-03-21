@@ -94,7 +94,8 @@
     <div class="qualcosa">ordinario</div>
     <div class="qualcosa">{{attivita.nomeProgetto}}</div>
     <div class="qualcosa">{{attivita.sedeLavoro}}</div>
-    <div class="qualcosa">{{attivita.oreLavorate}}h</div>
+    <div class="qualcosa">ord {{attivita.oreLavorate}}h</div>
+    <div *ngIf="attivita.oreStraordinario >0" class="qualcosa">stra {{attivita.oreStraordinario}}h</div>
     <div class="qualcosa"><button (click)="EliminaAttivita(attivita.attivitaId!)"><mat-icon>delete</mat-icon></button></div>
 
   </div>

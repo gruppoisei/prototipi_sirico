@@ -19,7 +19,7 @@ export class GiornoCalendarioComponent {
 
   orarioDiLavoroConvertitoInOre = 0;
   oreLavorate = 0;
-
+  oreStraordinario = 0
   validatoreOreGiorno = false;
   erroreGiornoFestivo = false
 
@@ -59,6 +59,7 @@ export class GiornoCalendarioComponent {
         find != -1;
       if (!this.giornoFestivo) {
         this.rapportinoService.giorniValidiMese += 1;
+        this.rapportinoService.oreMinimeTotali += 8
         this.VerificaValiditaGiorno();
         
       } else { 
@@ -104,7 +105,7 @@ export class GiornoCalendarioComponent {
         60;
 
         this.giorno.listaAssenzeGiorno.forEach((assenza) => {
-          if(assenza.statoApprovazione != false){
+          if(assenza.statoApprovazione == true){
             if(assenza.oraFine <= this.giorno.oraEntrata){
               this.giorno.listaAssenzeGiorno = this.giorno.listaAssenzeGiorno.filter( a => a.assenzaId != assenza.assenzaId )
             }
@@ -153,18 +154,27 @@ export class GiornoCalendarioComponent {
                   Number(this.giorno.oraInizioPausa!.split(':')[1])) /
                   60);
           }
-          this.oreLavorate += oretotali;}
+          this.oreLavorate += oretotali;
+          this.rapportinoService.oreAssenzaMese += oretotali
+          this.rapportinoService.oreLavorateMese += this.oreLavorate
+        }
         });
 
         //somma delle ore attivita complessive
     for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
       this.oreLavorate +=
-        this.giorno.listaAttivitaGiorno[i].oreLavorate +
-        this.giorno.listaAttivitaGiorno[i].oreStraordinario;
+        this.giorno.listaAttivitaGiorno[i].oreLavorate
+        this.rapportinoService.oreStraordinarioMese += this.giorno.listaAttivitaGiorno[i].oreStraordinario;
+        this.oreStraordinario += this.giorno.listaAttivitaGiorno[i].oreStraordinario
+        this.rapportinoService.oreLavorateMese += this.oreLavorate
+        let prog = this.rapportinoService.oreProgetto.findIndex(a => a.nomeProgetto == this.giorno.listaAttivitaGiorno[i].nomeProgetto)
+        if(prog == -1)
+        this.rapportinoService.oreProgetto.push({nomeProgetto:this.giorno.listaAttivitaGiorno[i].nomeProgetto!,oreProgetto:this.giorno.listaAttivitaGiorno[i].oreLavorate + this.giorno.listaAttivitaGiorno[i].oreStraordinario})
+        else this.rapportinoService.oreProgetto[i].oreProgetto += this.giorno.listaAttivitaGiorno[i].oreLavorate + this.giorno.listaAttivitaGiorno[i].oreStraordinario
     }
     
-    
-    if( this.oreLavorate == this.orarioDiLavoroConvertitoInOre && this.oreLavorate >=8 )
+    if(this.giorno.dataNumero == 15)console.log("lav " + this.oreLavorate+"stra "+this.oreStraordinario+"orario " + this.orarioDiLavoroConvertitoInOre)
+    if( (this.oreLavorate + this.oreStraordinario) == this.orarioDiLavoroConvertitoInOre && this.oreLavorate >=8 )
     {
       this.validatoreOreGiorno = true;
       this.rapportinoService.giorniConfermati += 1;
