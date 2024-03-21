@@ -75,7 +75,7 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: "nuovo-contratto",
+    path: "nuovo-contratto/:id",
     component: InsertContrattoComponent,
     canActivate: [authGuard]
   }

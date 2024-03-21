@@ -5,7 +5,7 @@
     <form
         (ngSubmit)="ricercaFiltrata(formData.AnpeNome, formData.AnpeCognome, formData.AnpeCodicefiscale, formData.SocietaDistacco)">
         <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/nuovo-contratto"><button mat-icon
+            <a routerLink="/nuovo-contratto/0"><button mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
@@ -54,6 +54,8 @@
                     <th scope="col" class="px-6 py-3">Livello Contratto</th>
                     <th scope="col" class="px-6 py-3">Società</th>
                     <th scope="col" class="px-6 py-3">RAL</th>
+                    <th scope="col" class="px-6 py-3">Monteore</th>
+                    <th scope="col" class="px-6 py-3">Smart Working</th>                    
                     <th scope="col" class="px-6 py-3">Società Distacco</th>
                     <th scope="col" class="px-6 py-3">Inizio Distacco</th>
                     <th scope="col" class="px-6 py-3">Fine Distacco</th>
@@ -64,12 +66,12 @@
             </thead>
             <tbody>
                 <!--<tr *ngFor="let dipendente of dipendentiConContratto; index as i" class="bg-white border-b">-->
-                <tr *ngFor="let dipendente of dipendentiConContratto; index as i" class="bg-white border-b">
+                <tr *ngFor="let dipendente of dipendentiConContratto" class="bg-white border-b">
                 <td class="px-6 py-4>">
                     <!--<button type="button" (click)="modifyFields(i)"
                                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">MODIFICA
                             </button>-->
-                    <button type="button" name="modifyFieldsDipendentiContratto" (click)="modifyFields(i)"
+                    <button type="button" name="modifyFieldsDipendentiContratto" (click)="modifyContract(dipendente.codiContrattopersid)"
                         class="material-icons">mode_edit</button>
                 </td>
 
@@ -88,6 +90,8 @@
                 <td class="px-6 py-4">{{ dipendente.livelloContratto }}</td>
                 <td class="px-6 py-4">{{ dipendente.societaPersona }}</td>
                 <td class="px-6 py-4">{{ dipendente.codiRalcompenso }}</td>
+                <td class="px-6 py-4">{{ dipendente.codiMonteore }}</td>
+                <td class="px-6 py-4">{{ dipendente.smartWorking }}</td>                
                 <td class="px-6 py-4">{{ dipendente.societaDistacco }}</td>
                 <td *ngIf="dipendente.codsDatainiziodistacco == null" class="px-6 py-4"></td>
                 <td *ngIf="dipendente.codsDatainiziodistacco != null" class="px-6 py-4">{{
