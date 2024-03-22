@@ -105,30 +105,31 @@ export class GiornoCalendarioComponent {
         60;
 
         this.giorno.listaAssenzeGiorno.forEach((assenza) => {
+          let start = assenza.oraInizio;
+          let end = assenza.oraFine;
+          if (assenza.oraInizio < this.giorno.oraEntrata!  ) {
+            start = this.giorno.oraEntrata!;
+            assenza.oraInizio = this.giorno.oraEntrata!
+          }
+          if (assenza.oraFine > this.giorno.oraUscita!) {
+            end = this.giorno.oraUscita!;
+            assenza.oraFine = this.giorno.oraUscita!
+            }
           if(assenza.statoApprovazione == true){
             if(assenza.oraFine <= this.giorno.oraEntrata){
               this.giorno.listaAssenzeGiorno = this.giorno.listaAssenzeGiorno.filter( a => a.assenzaId != assenza.assenzaId )
             }
-          let start = assenza.oraInizio;
-          let end = assenza.oraFine;
+          
         
         let oretotali;
-        if (assenza.oraInizio < this.giorno.oraEntrata!) {
-          start = this.giorno.oraEntrata!;
-          assenza.oraInizio = this.giorno.oraEntrata!
-        }
-        if (assenza.oraFine > this.giorno.oraUscita!) {
-          end = this.giorno.oraUscita!;
-          assenza.oraFine = this.giorno.oraUscita!
-          }
+        
+        
           
           oretotali =
             Number(end.split(':')[0]) -
             Number(start.split(':')[0]) -
             (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
             
-
-          
           //sottraggo tempo pausa
           if (
             assenza.oraInizio < this.giorno.oraInizioPausa! &&
@@ -144,7 +145,6 @@ export class GiornoCalendarioComponent {
                 end = assenza.oraFine;
               //somma tempo parziale rispetto a inizio pausa
             }
-    
             //sottraggo pausa
             oretotali =
               oretotali -
@@ -159,7 +159,6 @@ export class GiornoCalendarioComponent {
           this.rapportinoService.oreLavorateMese += this.oreLavorate
         }
         });
-
         //somma delle ore attivita complessive
     for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
       this.oreLavorate +=
@@ -173,13 +172,12 @@ export class GiornoCalendarioComponent {
         else this.rapportinoService.oreProgetto[i].oreProgetto += this.giorno.listaAttivitaGiorno[i].oreLavorate + this.giorno.listaAttivitaGiorno[i].oreStraordinario
     }
     
-    if(this.giorno.dataNumero == 15)console.log("lav " + this.oreLavorate+"stra "+this.oreStraordinario+"orario " + this.orarioDiLavoroConvertitoInOre)
-    if( (this.oreLavorate + this.oreStraordinario) == this.orarioDiLavoroConvertitoInOre && this.oreLavorate >=8 )
+    if( ((this.oreLavorate + this.oreStraordinario) == this.orarioDiLavoroConvertitoInOre) && this.oreLavorate >=8 )
     {
       this.validatoreOreGiorno = true;
       this.rapportinoService.giorniConfermati += 1;
     }
-
-
   }
+
+  
 }
