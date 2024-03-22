@@ -13,7 +13,6 @@ import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 import { PersonaService } from '../../service/persona.service';
-import { Observable, Subscription, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-insert-persona',
@@ -25,10 +24,11 @@ export class InsertPersonaComponent implements OnInit{
   insertPersona !: FormGroup;
   nuovaPersona ?: Persona
   listRegioni: any;
+  listRegioniResidenza : any
+  listRegioniDomicilio : any
   listPaese: any;
   listSocieta: any;
   listProvince: any;
-  selectedRegion: any;
   listProvinceResidenza: any;
   listProvinceDomicilio: any;
   listComuniNascita: any;
@@ -104,7 +104,10 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   }
 
   loadData(): void {
+
     this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioni = regioni);
+    this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniResidenza = regioni);
+    this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniDomicilio = regioni);
     this.servicePaese.getAllPaesi().subscribe(paesi => this.listPaese = paesi);
     this.serviceSocieta.getAllSocieta().subscribe(societa => this.listSocieta = societa);
   }
@@ -171,11 +174,11 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     
     this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunenascita).subscribe({
       next: (idProvincia) => {
-        
+        debugger
         this.idProvinciaNascita = idProvincia;
         this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaNascita).subscribe({
           next: (idRegione) => {
-            
+            debugger
             this.idRegioneNascita = idRegione;
             this.insertPersona.patchValue({
               RegioneNascita: this.idRegioneNascita,

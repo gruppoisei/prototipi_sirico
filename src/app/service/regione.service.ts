@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class RegioneService {
   
-  baseUrl = 'http://localhost:5143/Regione'
+  baseUrl = 'http://localhost:5143/Regione/'
   constructor(private http: HttpClient) 
   {}
 
   getRegioni():Observable<any[]>
   {
-    return this.http.get<any>(this.baseUrl + '/GetAllRegioni');
+    return this.http.get<any>(this.baseUrl + 'GetAllRegioni');
   }
 }

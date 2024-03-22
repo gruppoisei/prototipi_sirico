@@ -5,12 +5,11 @@
     </p>
     <div
       *ngIf="
-        !rapportinoService.risposta.rapportino.definitivoRapportino 
+        !rapportinoService.risposta.rapportino.definitivoRapportino && VerificaMeseEsatto()
       "
       class="flex flex-row"
     >
       
-
       <button (click)="ClickMe()" >  <mat-icon [class.giornoConfermato]="validatoreOreGiorno && !giornoFestivo" [class.giornoNONConfermato]="!validatoreOreGiorno && !giornoFestivo" [class.giornoErroreFestivo]="erroreGiornoFestivo" >create</mat-icon>  </button> 
       
       <button *ngIf="this.giorno.listaAttivitaGiorno.length > 0 && !giornoFestivo" (click)="CopiaGiorno()" >  <mat-icon class="copy">content_copy</mat-icon>  </button> 
