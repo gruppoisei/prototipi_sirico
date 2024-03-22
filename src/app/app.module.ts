@@ -40,6 +40,7 @@ import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialo
 import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
 import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
 import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert
         DeleteDipendenteDialogComponent,
         DeleteDipendenteResponseDialogComponent,
         InsertPersonaPROVAComponent,
+        FooterComponent,
     ],
     providers: [
         provideAnimationsAsync(),

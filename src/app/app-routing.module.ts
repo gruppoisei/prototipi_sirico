@@ -13,6 +13,8 @@ import { authGuard } from './guard/auth.guard';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
+import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
+
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
     component:InsertPersonaComponent,
     canActivate: [authGuard]
   }, 
+
+  {
+    path: "nuova-persona-sharon", 
+    component:InsertPersonaPROVAComponent,
+    canActivate: [authGuard]
+  }, 
+
+
   {
     path: "login",
     component: LoginComponent
