@@ -60,6 +60,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   {
     this.insertPersona = this.fb.group(
       {
+        AnpePersonaid: [],
         AnpeNome: ['', Validators.required],
         AnpeCognome: ['', Validators.required],
         AnpeDatanascita: ['', Validators.required],
@@ -103,8 +104,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       this.loadData()
   }
 
-  loadData(): void {
-
+  loadData(): void
+  {
     this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioni = regioni);
     this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniResidenza = regioni);
     this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniDomicilio = regioni);
@@ -146,6 +147,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     
     // Popolamento delle informazioni personali
     this.insertPersona.patchValue({
+      AnpePersonaid : dipendente.anpePersonaid,
       AnpeNome: dipendente.anpeNome,
       AnpeCognome: dipendente.anpeCognome,
       AnpeDatanascita: dataFormattata,
@@ -174,11 +176,9 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     
     this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunenascita).subscribe({
       next: (idProvincia) => {
-        debugger
         this.idProvinciaNascita = idProvincia;
         this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaNascita).subscribe({
           next: (idRegione) => {
-            debugger
             this.idRegioneNascita = idRegione;
             this.insertPersona.patchValue({
               RegioneNascita: this.idRegioneNascita,
