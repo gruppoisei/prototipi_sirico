@@ -19,8 +19,8 @@
     <div *ngFor="let progetto of rapportinoService.oreProgetto">
       <div>{{ progetto.nomeProgetto }}: ore {{ progetto.oreProgetto }}</div>
     </div>
+    <div>ore assenze mese : {{rapportinoService.oreAssenzaMese}} </div>
   </div>
-
   <div>
     <div>
       giorni lavorativi mese: {{ rapportinoService.giorniConfermati }}/{{
