@@ -48,8 +48,8 @@
             <td class="px-6 py-4">{{ id.note }}</td>
             <td class="px-6 py-4">{{ id.tipoRichiesta }}</td>
             <td class="px-6 py-4" *ngIf="id.approvazione && id.flagAttivo">Approvata</td>
-            <td class="px-6 py-4" *ngIf="!id.approvazione && !id.flagAttivo">Rifiutata</td>
-            <td class="px-6 py-4" *ngIf="!id.approvazione && id.flagAttivo">Da Approvare</td>
+            <td class="px-6 py-4" *ngIf=" id.approvazione != null && !id.approvazione && id.flagAttivo">Rifiutata</td>
+            <td class="px-6 py-4" *ngIf="id.approvazione === null && id.flagAttivo">Da Approvare</td>
             <td class="px-6 py-4 flex gap-5">
               <div>
                 <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-yellow-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 3)" *ngIf="id.approvazione === null && id.flagAttivo"><mat-icon>edit</mat-icon></button>
