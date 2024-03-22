@@ -19,6 +19,7 @@ export class InsertContrattoService {
   idContratto!: number;
   idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
 
+  
   constructor(private Http: HttpClient) {
   }
 

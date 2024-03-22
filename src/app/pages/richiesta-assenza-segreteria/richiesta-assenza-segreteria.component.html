@@ -52,9 +52,9 @@
             <td class="px-6 py-4" *ngIf="!id.approvazione && id.flagAttivo">Da Approvare</td>
             <td class="px-6 py-4 flex gap-5">
               <div>
-                <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-yellow-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 3)" *ngIf="!id.approvazione && id.flagAttivo"><mat-icon>edit</mat-icon></button>
+                <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-yellow-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 3)" *ngIf="id.approvazione === null && id.flagAttivo"><mat-icon>edit</mat-icon></button>
                 <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="mostraModalApprovazione(id.idRichiesta, 2)" *ngIf="id.approvazione && id.flagAttivo"><mat-icon>close</mat-icon></button>
-                <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="approvaDiretto(id.idRichiesta)" *ngIf="!id.approvazione && !id.flagAttivo"><mat-icon>check</mat-icon></button>
+                <button class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center" (click)="approvaDiretto(id.idRichiesta)" *ngIf=" id.approvazione != null && !id.approvazione && id.flagAttivo"><mat-icon>check</mat-icon></button>
                 <ng-template #approvalModal let-modal>
                   <h1 class="modal-testo">Approvare o rifiutare richiesta</h1>
                   <button class="button-modal" (click)="approvaRichiesta()" *ngIf="((editable == 1) || (editable == 3)) && (hidemotivazione)">Approva</button> <br>
