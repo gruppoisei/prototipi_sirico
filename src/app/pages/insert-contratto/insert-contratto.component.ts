@@ -27,6 +27,7 @@ export class InsertContrattoComponent implements OnInit {
   datefineTouched: boolean = false;
 
   contratto: any;
+  id: any;
 
   tipiSocieta!: [{ ansoSocietaid: number; ansoRagionesociale: string }];
   tipiContratto!: [{ cotcTipocontrattoid: number; cotcContratto: string }];
@@ -65,7 +66,7 @@ export class InsertContrattoComponent implements OnInit {
   }];
 
   dipendentiConContratto!: {
-    //anpePersonaid: number;
+    personaId: number;
     codiContrattopersid: number;
     nome: string;
     cognome: string;
@@ -113,9 +114,10 @@ export class InsertContrattoComponent implements OnInit {
     CodsDatafinedistacco: null,
     CodiNote: null,
     CodiSysuser: "Edo",
-    CodiFlagAttiva: null,
+    CodiFlagAttiva: 1,
     CodsFlagAttiva: 0,
     CodsClienteId: null,
+    CodiContrattopersid: null
     // altro
     /*
     CodiContrattopersid: null,
@@ -156,20 +158,21 @@ export class InsertContrattoComponent implements OnInit {
     this.reset();
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
-    this.getAllTipoCcnl();
+    this.getAllTipoCcnl();    
     this.disable_fields = true;
     this.uncheck = false;
     this.dipendentiSenzaContratto;
     
-    if (this.inserimentoContrattoService.idContratto$.value != undefined) {
+    if (this.inserimentoContrattoService.idContratto$.value != undefined && this.inserimentoContrattoService.idContratto$.value != 0) {
       this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
-    }       
+    }
   }
 
   clearForm() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.reset();
       this.uncheck = false;
+      this.inserimentoContrattoService.idContratto$.next(0);
     }
     else {
       console.log('Operazione annullata');
@@ -200,12 +203,12 @@ export class InsertContrattoComponent implements OnInit {
       CodsDatafinedistacco: null,
       CodiNote: null,
       CodiSysuser: "Edo",
-      CodiFlagAttiva: null,
+      CodiFlagAttiva: 1,
       CodsFlagAttiva: 0,
       CodsClienteId: null,
+      CodiContrattopersid: null
       // altro
       /*
-      CodiContrattopersid: null,
       TipoContratto: null,
       DescrizioneCCNL: null,
       LivelloContratto: null,
@@ -217,7 +220,7 @@ export class InsertContrattoComponent implements OnInit {
 
   closeForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['/homepage']);
+      this.router.navigate(['/gestione-contratto']);
   }
 
   getAllTipoSocieta() {
@@ -249,8 +252,7 @@ export class InsertContrattoComponent implements OnInit {
     this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
       (response: any) => {
         console.log(response);
-        this.tipiCcnl = response;
-        this.getAllTipoLivello();
+        this.tipiCcnl = response;        
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di ccnl:', error);
@@ -261,6 +263,7 @@ export class InsertContrattoComponent implements OnInit {
   getAllTipoLivello() {
     this.inserimentoContrattoService.getAllTipoLivello(this.formData.CoccCcnlid).subscribe(
       (response: any) => {
+        console.log('response get tipi livello:');
         console.log(response);
         this.tipiLivello = response;
       },
@@ -329,19 +332,28 @@ export class InsertContrattoComponent implements OnInit {
     this.formData.AnpeNome = this.dipendentiSenzaContratto[array_index].anpeNome;
     this.formData.AnpeCognome = this.dipendentiSenzaContratto[array_index].anpeCognome;
     this.formData.AnpePersonaid = this.dipendentiSenzaContratto[array_index].anpePersonaid;
+    this.inserimentoContrattoService.idContratto$.next(0);
+    //this.dipendentiConContratto.codiContrattopersid = 0;
+    //console.log('prova id contratto:' + this.dipendentiConContratto.codiContrattopersid);    
     this.closeModal();
   }
 
   insertContratto() {
     if (this.uncheck == false) { this.formData.CodsFlagAttiva = 0 }
     else { this.formData.CodsFlagAttiva = 1 }
+    //if (this.dipendentiConContratto.codiContrattopersid != undefined) {
+      //this.formData.CodiContrattopersid = this.inserimentoContrattoService.idContratto$.value;
+    //}
     this.formData.CodsClienteId = this.formData.ansoSocietaDistaccoid;
     this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
       (response: any) => {
         console.log(response);
+        alert(response);
+        this.clearForm();
       },
       (error: any) => {
         console.error("Errore durante l'inserimento del nuovo contratto:", error);
+        alert("Errore durante l'inserimento del nuovo contratto");
       }
     );
   }
@@ -364,78 +376,83 @@ export class InsertContrattoComponent implements OnInit {
         console.log(response);
         this.dipendentiConContratto = response;
         console.log(this.dipendentiConContratto);
-        this.autoFillformData();         
+        this.autoFillformData();
       },
       (error: any) => {
         console.error('Errore durante il recupero del contratto:', error);
       }
     );
   }
-  
+
   autoFillformData() {
     //this.getAllTipoLivello();
+    console.log('prova id contratto:' + this.dipendentiConContratto.codiContrattopersid);
+    this.formData.CodiContrattopersid = this.dipendentiConContratto.codiContrattopersid;
     this.formData.AnpeCodicefiscale = this.dipendentiConContratto.codiceFiscale;
-    this.formData.AnpeNome = this.dipendentiConContratto.nome;
-    this.formData.AnpeCognome = this.dipendentiConContratto.cognome;
+      this.formData.AnpeNome = this.dipendentiConContratto.nome;
+      this.formData.AnpePersonaid = this.dipendentiConContratto.personaId;
+      this.formData.AnpeCognome = this.dipendentiConContratto.cognome;
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
       if (this.tipiSocieta[i].ansoRagionesociale == this.dipendentiConContratto.societaPersona) {
         this.formData.AnsoSocietaid = this.tipiSocieta[i].ansoSocietaid.toString();
         break;
       }
-    }
+    };
     for (let i = 0; i < this.tipiContratto?.length; i++) {
       if (this.tipiContratto[i].cotcContratto == this.dipendentiConContratto.tipoContratto) {
         this.formData.codiFkCotctipocontrattoid = this.tipiContratto[i].cotcTipocontrattoid;
         break;
       }
-    }
+    };
     for (let i = 0; i < this.tipiCcnl?.length; i++) {
-      console.log(i);
       if (this.tipiCcnl[i].coccDesc == this.dipendentiConContratto.descrizioneCCNL) {
         this.formData.CoccCcnlid = this.tipiCcnl[i].coccCcnlid;
-        this.getAllTipoLivello();
         break;
       }
-    }
+    };
+    this.getAllTipoLivello();
     //console.log('this.formData.CoccCcnlid:' + this.formData.CoccCcnlid);
 
-    //console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
+    console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
     for (let i = 0; i < this.tipiLivello?.length; i++) {
       //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
       //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
       if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
         this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
       }
-    }
+    };
     // METTO COME RUOLO UN VALORE DI DEFAULT
     this.formData.AnruRuoloid = this.tipiRuolo[0].anruRuoloid.toString();
 
-    this.formData.CodiDatainiziocontratto = this.dipendentiConContratto.codiDatainiziocontratto.split("T")[0],
-      this.formData.CodiDatafinecontratto = this.dipendentiConContratto.codiDatafinecontratto.split("T")[0]
-    this.formData.CodiRalcompenso = this.dipendentiConContratto.codiRalcompenso,
-      this.formData.CodiMonteore = this.dipendentiConContratto.codiMonteore
+    this.formData.CodiDatainiziocontratto = this.dipendentiConContratto.codiDatainiziocontratto.split("T")[0];
+      this.formData.CodiDatafinecontratto = this.dipendentiConContratto.codiDatafinecontratto.split("T")[0];
+    this.formData.CodiRalcompenso = this.dipendentiConContratto.codiRalcompenso;
+      this.formData.CodiMonteore = this.dipendentiConContratto.codiMonteore;
     if (this.dipendentiConContratto.smartWorking == 0) { this.formData.CodiSmartworking = false; }
     else { this.formData.CodiSmartworking = true }
     // METTO COME COSTO MENSILE E GIORNALIERO UN VALORE DI DEFAULT
-    this.formData.costopresuntomese = Number((this.dipendentiConContratto.codiRalcompenso / 13).toFixed(2)),
-      this.formData.costopresuntogiorno = Number(((this.dipendentiConContratto.codiRalcompenso / 13) / 26).toFixed(2))
-    if (this.dipendentiConContratto.codsFlagAttiva == 0) { this.uncheck = false; }
+    this.formData.costopresuntomese = Number((this.dipendentiConContratto.codiRalcompenso / 13).toFixed(2));
+      this.formData.costopresuntogiorno = Number(((this.dipendentiConContratto.codiRalcompenso / 13) / 26).toFixed(2));
+    if (this.dipendentiConContratto.codsFlagAttiva == null || this.dipendentiConContratto.codsFlagAttiva == 0) {
+      this.uncheck = false; 
+    }
     else { this.uncheck = true; }
-    this.formData.CodsValoredistacco = this.dipendentiConContratto.codsValoredistacco
+    this.formData.CodsValoredistacco = this.dipendentiConContratto.codsValoredistacco;
     for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
       if (this.tipiSocietaDistacco[i].ansoRagionesociale == this.dipendentiConContratto.societaDistacco) {
         this.formData.ansoSocietaDistaccoid = this.tipiSocietaDistacco[i].ansoSocietaid;
       }
-    }
+    };
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
       if (this.tipiSocieta[i].ansoRagionesociale == this.dipendentiConContratto.societaPersona) {
         this.formData.AnsoSocietaid = this.tipiSocieta[i].ansoSocietaid.toString();
         break;
       }
-    }
-    this.formData.CodsDatainiziodistacco = this.dipendentiConContratto.codsDatainiziodistacco.split("T")[0],
-      this.formData.CodsDatafinedistacco = this.dipendentiConContratto.codsDatafinedistacco.split("T")[0],
-      this.formData.CodiNote = this.dipendentiConContratto.codiNote
+    };
+    this.formData.CodsDatainiziodistacco = this.dipendentiConContratto.codsDatainiziodistacco.split("T")[0];
+      this.formData.CodsDatafinedistacco = this.dipendentiConContratto.codsDatafinedistacco.split("T")[0];
+      this.formData.CodiNote = this.dipendentiConContratto.codiNote;
+      //this.getAllTipoLivello();
   }
 
 

@@ -22,7 +22,7 @@ export interface ricercaContratto {
     CodiNote: string | null;
     CodiSysuser: string;
     CodiFlagAttiva: number | null;
-    CodsFlagAttiva: number;                 // uncheck
+    CodsFlagAttiva: number | null;                 // uncheck
     CodsClienteId: number | null;
     
     // altro
