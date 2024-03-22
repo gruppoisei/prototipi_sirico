@@ -60,7 +60,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   {
     this.insertPersona = this.fb.group(
       {
-        AnpePersonaid: [],
+        AnpePersonaid: [0],
         AnpeNome: ['', Validators.required],
         AnpeCognome: ['', Validators.required],
         AnpeDatanascita: ['', Validators.required],
