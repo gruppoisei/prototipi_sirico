@@ -179,5 +179,11 @@ export class GiornoCalendarioComponent {
     }
   }
 
-  
+  VerificaMeseEsatto():boolean{
+    console.log(this.rapportinoService.oggi.getMonth())
+    console.log(this.rapportinoService.risposta.rapportino.dataRapportino)
+    let ver = this.rapportinoService.oggi.getMonth() == Number(this.rapportinoService.risposta.rapportino.dataRapportino?.toString().split("-")[1] ) -1
+    console.log(ver)
+    return ver
+  }
 }
