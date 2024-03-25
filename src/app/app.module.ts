@@ -17,8 +17,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
-import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
+import { RichiestaAssenzaUtenteComponent } from './pages/assenza/richiesta-assenza-utente/richiesta-assenza-utente.component';
+import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
 import { MenuComponent } from './menu/menu.component';
 import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-password/forgot-password.component';
 import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
@@ -39,6 +39,8 @@ import { MessageResponseDialogComponent } from './ui/message-response-dialog/mes
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
 import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
 import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
+import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
         MessageResponseDialogComponent,
         DeleteDipendenteDialogComponent,
         DeleteDipendenteResponseDialogComponent,
+        InsertPersonaPROVAComponent,
+        FooterComponent,
     ],
     providers: [
         provideAnimationsAsync(),

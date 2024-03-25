@@ -4,8 +4,8 @@ import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.compo
 import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
-import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
-import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
+import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
+import { RichiestaAssenzaUtenteComponent } from './pages/assenza/richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import { authGuard } from './guard/auth.guard';
@@ -13,6 +13,8 @@ import { authGuard } from './guard/auth.guard';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
+import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
+
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
     component:InsertPersonaComponent,
     canActivate: [authGuard]
   }, 
+
+  {
+    path: "nuova-persona-sharon", 
+    component:InsertPersonaPROVAComponent,
+    canActivate: [authGuard]
+  }, 
+
+
   {
     path: "login",
     component: LoginComponent

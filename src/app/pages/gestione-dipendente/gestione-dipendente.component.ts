@@ -53,10 +53,10 @@ export class GestioneDipendenteComponent implements OnInit{
         width: 'auto',
         height: 'auto'
       })
-      .afterClosed().subscribe(()=>
+      .afterClosed()
       {
         this.ricercaFiltrata();
-      })
+      }
     }
   
   clearSearch()
