@@ -49,15 +49,17 @@ export class InsertContrattoService {
   }
 
   insertNuovoContratto(nuovoContratto: inserimentoContratto): Observable<inserimentoContratto> {
-    
+    console.log('entrato insertNuovoContratto()');
     // controllo id contratto; se null faccio post, altrimenti put
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
+      console.log('caso put');
       //nuovoContratto.AnpePersonaid = 1;
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
       return this.Http.put<inserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
     }
     else {
+      console.log('caso post');
       nuovoContratto.CodiContrattopersid = 0;
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);

@@ -44,58 +44,58 @@
                     <input [value]="formData.AnpeCodicefiscale" [disabled]="disable_fields"
                         [(ngModel)]="formData.AnpeCodicefiscale" class="box" type="text" name="CodiceFiscale">
                     <button type="button" (click)="showModalApprovazione()"
-                        class="material-icons">person_add_alt_1</button>
+                    (change)="formValidationCheck()" class="material-icons">person_add_alt_1</button>
                 </tr>
             </div>
             <div class="fieldcolumn1">
                 <input [value]="formData.AnpeNome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome"
-                    class="box" type="text" name="Nome">
+                (change)="formValidationCheck()" class="box" type="text" name="Nome">
             </div>
             <div class="fieldcolumn1">
                 <input [value]="formData.AnpeCognome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeCognome"
-                    class="box" type="text" name="Cognome">
+                (change)="formValidationCheck()" class="box" type="text" name="Cognome">
             </div>
             <div class="fieldcolumn1">
-                <select [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required>
+                <select (change)="formValidationCheck()" [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required>
                     <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
                     </option>
                 </select>
             </div>
             <div class="fieldcolumn1">
-                <input [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto"
                     (focus)="dateinizioTouched = true">
             </div>
             <!--<div class="validazione" *ngIf="checkDateValidity && !checkDateTimeValidity()">
                 Data di inizio assenza successiva alla data di fine assenza
             </div>-->
             <div class="fieldcolumn1">
-                <input [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto"
                     (focus)="datefineTouched = true">
             </div>
             <!--<div class="validazione" *ngIf="checkDateValidity && !checkDateTimeValidity()">
                 Data di inizio assenza successiva alla data di fine assenza
             </div>-->
             <div class="fieldcolumn1">
-                <select [(ngModel)]="formData.codiFkCotctipocontrattoid" class="box" name="tipocontratto" required>
+                <select (change)="formValidationCheck()" [(ngModel)]="formData.codiFkCotctipocontrattoid" class="box" name="tipocontratto" required>
                     <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto
                         }}</option>
                 </select>
             </div>
             <div class="fieldcolumn1">
                 <!--<select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"-->
-                <select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"
+                <select (change)="formValidationCheck()" [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"
                     required>
                     <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
                 </select>
             </div>
             <div class="fieldcolumn1">
-                <select [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
+                <select (change)="formValidationCheck()" [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
                     <option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">{{ tipo.coliLivellocontratto
                         }}</option>
                 </select>
             </div>
             <div class="fieldcolumn2">
-                <select [(ngModel)]="formData.AnruRuoloid" class="box" name="Ruolo" required>
+                <select (change)="formValidationCheck()" [(ngModel)]="formData.AnruRuoloid" class="box" name="Ruolo" required>
                     <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>
                 </select>
             </div>
@@ -146,54 +146,54 @@
         <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
         <div class="column">
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.CodiRalcompenso" class="box" type="number" name="RAL" inputmode="numeric"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiRalcompenso" class="box" type="number" name="RAL" inputmode="numeric"
                     oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.CodiMonteore" class="box" type="number" name="Monteore" inputmode="numeric"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiMonteore" class="box" type="number" name="Monteore" inputmode="numeric"
                     oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.CodiSmartworking" class="inlinecheckbox" type="checkbox"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiSmartworking" class="inlinecheckbox" type="checkbox"
                     name="smartworking">
                 <!--{{formData.CodiSmartworking}}-->
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.costopresuntomese" class="box" type="number" name="costopresuntomese"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntomese" class="box" type="number" name="costopresuntomese"
                     inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.costopresuntogiorno" class="box" type="number" name="costopresuntogiorno"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntogiorno" class="box" type="number" name="costopresuntogiorno"
                     inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
             </div>
             <div class="fieldcolumn2">
                 <tr>
-                    <input [(ngModel)]="uncheck" class="inlinecheckbox" type="checkbox" name="indistacco">
+                    <input (change)="formValidationCheck()" [(ngModel)]="uncheck" class="inlinecheckbox" type="checkbox" name="indistacco">
                     <!--{{uncheck}}-->
                     <td *ngIf="!uncheck" class="inlinefields">Percentuale:</td>
                     <td *ngIf="uncheck" class="inlinefields">Percentuale*:</td>
-                    <input [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox"
+                    <input (change)="formValidationCheck()" [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox"
                         type="number" name="Percentuale" inputmode="numeric"
                         oninput="this.value = this.value.replace(/\D+/g, '')" required> %
                 </tr>
             </div>
             <div class="fieldcolumn2">
-                <select [(ngModel)]="formData.ansoSocietaDistaccoid" [disabled]="!uncheck" class="box"
+                <select (change)="formValidationCheck()" [(ngModel)]="formData.ansoSocietaDistaccoid" [disabled]="!uncheck" class="box"
                     name="clientedistacco" required>
                     <option *ngFor="let tipo of tipiSocietaDistacco" [value]="tipo.ansoSocietaid">{{
                         tipo.ansoRagionesociale }}</option>
                 </select>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck" class="box" type="date"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck" class="box" type="date"
                     name="datainiziodistacco" required>
             </div>
             <div class="fieldcolumn2">
-                <input [(ngModel)]="formData.CodsDatafinedistacco" [disabled]="!uncheck" class="box" type="date"
+                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodsDatafinedistacco" [disabled]="!uncheck" class="box" type="date"
                     name="datafinedistacco" required>
             </div>
             <div class="fieldcolumn2">
-                <textarea [(ngModel)]="formData.CodiNote" contenteditable="true" maxlength="65535" class="box"
+                <textarea [(ngModel)]="formData.CodiNote" (change)="formValidationCheck()" contenteditable="true" maxlength="65535" class="box"
                     type="text" name="Note"></textarea>
                 <!--<textarea rows="15" cols="50" style="max-height:100px;min-height:25px;max-width:220px; resize: none"
             contenteditable="true" class="box" type="text" name="Note"></textarea>-->
@@ -204,10 +204,11 @@
 
     <div class="bottom-buttons">
         <!--<button class="buttons" type="submit" [class.disabled]="!checkDateTimeValidity()">Salva</button>-->
-        <button class="buttons" type="submit">Salva</button>
+        <button class="buttons" type="submit" [disabled]="!formValidation" [class.disabled]="!formValidation" >Salva</button>
         <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
-        <!--<button class="buttons" type="button" (click)="test()">TEST</button>-->
+        <!--<button class="buttons" type="button" (click)="test()">TEST DATES</button>-->
+        <!--<button class="buttons" type="button" (click)="testDates()">TEST</button>-->
     </div>
 </form>
 
