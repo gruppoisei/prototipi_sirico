@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { inserimentoContratto } from '../../dto/response/inserimentoContratto';
-import { ricercaContratto } from '../../dto/request/ricercaContratto';
-import { InsertContrattoService } from '../../service/insert-contratto.service';
+import { inserimentoContratto } from '../../../dto/response/inserimentoContratto';
+import { ricercaContratto } from '../../../dto/request/ricercaContratto';
+import { InsertContrattoService } from '../../../service/insert-contratto.service';
 import { GestioneContrattoComponent } from '../gestione-contratto/gestione-contratto.component';
 import { Subscription } from 'rxjs';
 

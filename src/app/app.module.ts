@@ -33,8 +33,8 @@ import { NewPasswordResponseDialogComponent } from './ui/new-password-response-d
 import { authGuard } from './guard/auth.guard';
 import {MatCardModule} from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
-import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
-import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
+import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
+import { InsertContrattoComponent } from './pages/contratto/insert-contratto/insert-contratto.component';
 import { MessageResponseDialogComponent } from './ui/message-response-dialog/message-response-dialog.component';
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
 import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
