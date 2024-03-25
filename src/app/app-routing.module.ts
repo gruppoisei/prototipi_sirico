@@ -14,6 +14,10 @@ import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestion
 import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/contratto/insert-contratto/insert-contratto.component';
 import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
+import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
+import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
+import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-ruolo-utente/gestione-ruolo-utente.component';
+import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 
 
 const routes: Routes = [
@@ -27,14 +31,11 @@ const routes: Routes = [
     component:InsertPersonaComponent,
     canActivate: [authGuard]
   }, 
-
   {
     path: "nuova-persona-sharon", 
     component:InsertPersonaPROVAComponent,
     canActivate: [authGuard]
   }, 
-
-
   {
     path: "login",
     component: LoginComponent
@@ -62,13 +63,11 @@ const routes: Routes = [
     path: "",
     component: HomepageComponent 
   },
-
   {
     path: "rapportino",
     component: CalendarioComponent,
     canActivate: [authGuard]
   },
-
   {
     path: "modifica-password",
     component: ModificaPasswordComponent,
@@ -87,6 +86,26 @@ const routes: Routes = [
   {
     path: "nuovo-contratto",
     component: InsertContrattoComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "gestione-ruolo-funzione",
+    component: GestioneRuoloComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "insert-ruolo-funzione",
+    component: InsertRuoloFunzioneComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "gestione-ruolo-utente",
+    component: GestioneRuoloUtenteComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: "insert-ruolo-utente",
+    component: InsertRuoloUtenteComponent,
     canActivate: [authGuard]
   }
 ];
