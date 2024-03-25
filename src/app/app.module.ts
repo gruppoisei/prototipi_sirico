@@ -41,6 +41,8 @@ import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-
 import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
 import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
 import { FooterComponent } from './footer/footer.component';
+import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
+import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 
 
 @NgModule({
@@ -69,6 +71,8 @@ import { FooterComponent } from './footer/footer.component';
         DeleteDipendenteResponseDialogComponent,
         InsertPersonaPROVAComponent,
         FooterComponent,
+        GestioneRuoloComponent,
+        InsertRuoloFunzioneComponent,
     ],
     providers: [
         provideAnimationsAsync(),
