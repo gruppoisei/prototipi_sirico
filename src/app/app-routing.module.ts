@@ -4,8 +4,8 @@ import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.compo
 import { LoginComponent } from './pages/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
-import { RichiestaAssenzaSegreteriaComponent } from './pages/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
-import { RichiestaAssenzaUtenteComponent } from './pages/richiesta-assenza-utente/richiesta-assenza-utente.component';
+import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza /richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
+import { RichiestaAssenzaUtenteComponent } from './pages/assenza /richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import { authGuard } from './guard/auth.guard';

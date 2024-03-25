@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, input, InputFunction } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Richiesta } from '../../dto/request/assenze';
+import { Richiesta } from '../../../dto/request/assenze';
 import { Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RichiestaAutorizzazioneService } from '../../service/richiesta-autorizzazione.service';
+import { RichiestaAutorizzazioneService } from '../../../service/richiesta-autorizzazione.service';
 import { Router } from '@angular/router';
  
 @Component({
@@ -117,7 +117,6 @@ export class RichiestaAssenzaUtenteComponent {
       // Do nothing!
       console.log('Operazione annullata');
     }
- 
   }
  
   resetDoc() {
@@ -162,8 +161,4 @@ export class RichiestaAssenzaUtenteComponent {
  
     return ((startDate > endDate) && (this.dateinizioFileTouched && this.datefineFileTouched && this.orainizioFileTouched && this.orafineFileTouched));
   }
- 
- 
 }
-
-

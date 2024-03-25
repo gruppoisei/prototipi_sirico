@@ -4,7 +4,7 @@ import {
   TemplateRef,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { RichiestaAutorizzazioneService } from '../../service/richiesta-autorizzazione.service';
+import { RichiestaAutorizzazioneService } from '../../../service/richiesta-autorizzazione.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
