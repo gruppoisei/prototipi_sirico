@@ -25,20 +25,18 @@
 </div>
 <br>
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
-<div class="flex flex-row my-10"> <!--justify-center-->
+<div class="flex flex-row my-10"> 
     <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
         <table class="w-3/4 text-base text-left rtl:text-right">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
-                    <!--<th scope="col" class="px-6 py-3">Id</th>-->
                     <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Nome</th>
                 </tr>
             </thead>
             <tbody>
-                <!--<tr *ngFor="let dipendente of dipendentiConContratto; index as i" class="bg-white border-b">-->
                 <tr *ngFor="let ruolo of ruoli" class="bg-white border-b">
                     <td class="px-6 py-4>">
                         <button type="button" name="modifyFieldsRuolo" (click)="modificaRuolo(ruolo.id)" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
@@ -55,5 +53,3 @@
         </table>
     </div>
 </div>
-
--->
