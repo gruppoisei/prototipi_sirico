@@ -127,6 +127,13 @@ export class GestioneContrattoComponent implements OnInit {
     SocietaPersona: ""
   }
 
+  formDataSearch = {
+    AnpeNome: "",
+    AnpeCognome: "",
+    AnpeCodicefiscale: "",
+    AnsoSocietaid: 0
+  }
+
   constructor(
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
@@ -140,7 +147,9 @@ export class GestioneContrattoComponent implements OnInit {
     this.getAllTipoLivello();
   }
 
-  ricercaFiltrata(name: string, surname: string, cf: string, society: string) {
+  ricercaFiltrata(name: string, surname: string, cf: string, society: number) {  
+    console.log(society);
+      
     this.inserimentoContrattoService.getAllContrattiBy(name, surname, cf, society).subscribe(
       (response: any) => {
         //console.log(response);
@@ -160,7 +169,7 @@ export class GestioneContrattoComponent implements OnInit {
 
   deleteContract(idContratto: number) {
     this.getContrattoByidContratto(idContratto);
-    
+
   }
 
   getContrattoByidContratto(idContratto: number) {
@@ -188,40 +197,7 @@ export class GestioneContrattoComponent implements OnInit {
     );
   }
 
-  mappingContratto() {/*
-    this.formData.AnpeNome = this.dipendenteConContratto.nome,
-    this.formData.AnpeCognome = this.dipendenteConContratto.cognome,
-    //this.formData.AnpePersonaid non dovrebbe dare problemi
-    this.formData.AnpeCodicefiscale = this.dipendenteConContratto.codiceFiscale,
-    this.formData.AnsoSocietaid = this.dipendenteConContratto.societaPersona,
-    this.formData.CodiDatainiziocontratto = this.dipendenteConContratto.codiDatainiziocontratto,
-    this.formData.CodiDatafinecontratto = this.dipendenteConContratto.codiDatafinecontratto,
-    this.formData.codiFkCotctipocontrattoid = this.dipendenteConContratto.tipoContratto,
-    this.formData.CoccCcnlid = this.dipendenteConContratto.descrizioneCCNL,
-    this.formData.ColiLivelloid: null,
-    this.formData.AnruRuoloid: null,
-    this.formData.CodiRalcompenso: null,
-    this.formData.CodiMonteore: null,
-    this.formData.CodiSmartworking: null,
-    this.formData.costopresuntomese: null,
-    this.formData.costopresuntogiorno: null,
-    this.formData.CodsValoredistacco: null,
-    this.formData.ansoSocietaDistaccoid: null,
-    this.formData.CodsDatainiziodistacco: null,
-    this.formData.CodsDatafinedistacco: null,
-    this.formData.CodiNote: null,
-    this.formData.CodiSysuser: "Edo",
-    this.formData.CodiFlagAttiva: null,
-    this.formData.CodsFlagAttiva: 0,
-    this.formData.CodsClienteId: null,
-    // altro    
-    this.formData.CodiContrattopersid: null,
-    this.formData.TipoContratto: null,
-    this.formData.DescrizioneCCNL: null,
-    this.formData.LivelloContratto: null,
-    this.formData.SocietaDistacco: "",
-    this.formData.SocietaPersona: ""
-*/
+  mappingContratto() {
     this.inserimentoContrattoService.idContratto$.next(this.dipendenteConContratto.codiContrattopersid);
     this.formData.CodiContrattopersid = this.dipendenteConContratto.codiContrattopersid;
     this.formData.AnpeCodicefiscale = this.dipendenteConContratto.codiceFiscale;
@@ -294,139 +270,156 @@ export class GestioneContrattoComponent implements OnInit {
     this.formData.CodiNote = this.dipendenteConContratto.codiNote;
     console.log('$:' + this.inserimentoContrattoService.idContratto$.value);
     this.formData.CodiFlagAttiva = 1;
-    this.formData.CodsFlagAttiva = this.dipendenteConContratto.codsFlagAttiva;
+    if (this.dipendenteConContratto.codsFlagAttiva == null) {
+      this.dipendenteConContratto.codsFlagAttiva = 0;
+    }
+    else {
+      this.formData.CodsFlagAttiva = this.dipendenteConContratto.codsFlagAttiva;
+    }
+
     this.formData.CodsClienteId = this.dipendenteConContratto.codsClienteId;
     //"CodsClienteId": null, "TipoContratto": null, "DescrizioneCCNL": null, "LivelloContratto": null, "SocietaDistacco": "", "SocietaPersona": ""
   }
 
 
-insertContratto() {
-  console.log('entrato insertContratto()');
-  this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
-    (response: any) => {
-      console.log('response insertContratto()');
-      console.log(response);
-      alert(response);
-    },
-    (error: any) => {
-      console.error("Errore durante l'aggiornamento del nuovo contratto:", error);
-      alert("Errore durante l'aggiornamento del nuovo contratto");
-    }
-  );
-}
-
-getAllTipoSocieta() {
-  this.inserimentoContrattoService.getAllTipoSocieta().subscribe(
-    (response: any) => {
-      console.log(response);
-      this.tipiSocieta = response;
-      this.tipiSocietaDistacco = response;
-    },
-    (error: any) => {
-      console.error('Errore durante il recupero dei tipi di societa:', error);
-    }
-  );
-}
-
-getAllTipoContratto() {
-  this.inserimentoContrattoService.getAllTipoContratto().subscribe(
-    (response: any) => {
-      console.log(response);
-      this.tipiContratto = response;
-    },
-    (error: any) => {
-      console.error('Errore durante il recupero dei tipi di contratto:', error);
-    }
-  );
-}
-
-getAllTipoCcnl() {
-  this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
-    (response: any) => {
-      console.log(response);
-      this.tipiCcnl = response;
-    },
-    (error: any) => {
-      console.error('Errore durante il recupero dei tipi di ccnl:', error);
-    }
-  );
-}
-
-getAllTipoLivello() {
-  this.inserimentoContrattoService.getAllTipoLivello(this.formData.CoccCcnlid).subscribe(
-    (response: any) => {
-      console.log('response get tipi livello:');
-      console.log(response);
-      this.tipiLivello = response;
-    },
-    (error: any) => {
-      console.error('Errore durante il recupero dei tipi di livello:', error);
-    }
-  );
-}
-
-/*
-  getAllTipoRuolo() {
-    this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
+  insertContratto() {
+    console.log('entrato insertContratto()');
+    this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
       (response: any) => {
+        console.log('response insertContratto()');
         console.log(response);
-        this.tipiRuolo = response;
+        alert(response); 
+        this.ricercaFiltrata(this.formDataSearch.AnpeNome, this.formDataSearch.AnpeCognome, this.formDataSearch.AnpeCodicefiscale, this.formDataSearch.AnsoSocietaid)       
       },
       (error: any) => {
-        console.error('Errore durante il recupero dei tipi di ruolo:', error);
+        console.error("Errore durante l'aggiornamento del nuovo contratto:", error);
+        alert("Errore durante l'aggiornamento del nuovo contratto");
       }
     );
   }
-  */
 
-reset() {
-  this.formData = {
-    AnpeNome: "",
-    AnpeCognome: "",
-    AnpePersonaid: null,
-    AnpeCodicefiscale: "",
-    AnsoSocietaid: null,
-    CodiDatainiziocontratto: new Date().toLocaleString(),
-    CodiDatafinecontratto: new Date().toLocaleString(),
-    codiFkCotctipocontrattoid: null,
-    CoccCcnlid: 0,
-    ColiLivelloid: null,
-    AnruRuoloid: null,
-    CodiRalcompenso: null,
-    CodiMonteore: null,
-    CodiSmartworking: false,
-    costopresuntomese: null,
-    costopresuntogiorno: null,
-    CodsValoredistacco: null,
-    ansoSocietaDistaccoid: null,
-    CodsDatainiziodistacco: null,
-    CodsDatafinedistacco: null,
-    CodiNote: null,
-    CodiSysuser: "Edo",
-    CodiFlagAttiva: null,
-    CodsFlagAttiva: 0,
-    CodsClienteId: null,
-    // altro
-    CodiContrattopersid: null,
-    TipoContratto: null,
-    DescrizioneCCNL: null,
-    LivelloContratto: null,
-    SocietaDistacco: "",
-    SocietaPersona: ""
-  };
-}
-
-clearSearch() {
-  if (confirm('I campi verranno resettati. Si desidera procedere?')) {
-    this.reset();
+  getAllTipoSocieta() {
+    this.inserimentoContrattoService.getAllTipoSocieta().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiSocieta = response;
+        this.tipiSocietaDistacco = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di societa:', error);
+      }
+    );
   }
-  else {
-    console.log('Operazione annullata');
-  }
-}
 
-closeForm() {
-  if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-    this.router.navigate(['/homepage']);
-}
+  getAllTipoContratto() {
+    this.inserimentoContrattoService.getAllTipoContratto().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiContratto = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di contratto:', error);
+      }
+    );
+  }
+
+  getAllTipoCcnl() {
+    this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiCcnl = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di ccnl:', error);
+      }
+    );
+  }
+
+  getAllTipoLivello() {
+    this.inserimentoContrattoService.getAllTipoLivello(this.formData.CoccCcnlid).subscribe(
+      (response: any) => {
+        console.log('response get tipi livello:');
+        console.log(response);
+        this.tipiLivello = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di livello:', error);
+      }
+    );
+  }
+
+  /*
+    getAllTipoRuolo() {
+      this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
+        (response: any) => {
+          console.log(response);
+          this.tipiRuolo = response;
+        },
+        (error: any) => {
+          console.error('Errore durante il recupero dei tipi di ruolo:', error);
+        }
+      );
+    }
+    */
+
+  reset() {
+    this.formData = {
+      AnpeNome: "",
+      AnpeCognome: "",
+      AnpePersonaid: null,
+      AnpeCodicefiscale: "",
+      AnsoSocietaid: null,
+      CodiDatainiziocontratto: new Date().toLocaleString(),
+      CodiDatafinecontratto: new Date().toLocaleString(),
+      codiFkCotctipocontrattoid: null,
+      CoccCcnlid: 0,
+      ColiLivelloid: null,
+      AnruRuoloid: null,
+      CodiRalcompenso: null,
+      CodiMonteore: null,
+      CodiSmartworking: false,
+      costopresuntomese: null,
+      costopresuntogiorno: null,
+      CodsValoredistacco: null,
+      ansoSocietaDistaccoid: null,
+      CodsDatainiziodistacco: null,
+      CodsDatafinedistacco: null,
+      CodiNote: null,
+      CodiSysuser: "Edo",
+      CodiFlagAttiva: null,
+      CodsFlagAttiva: 0,
+      CodsClienteId: null,
+      // altro
+      CodiContrattopersid: null,
+      TipoContratto: null,
+      DescrizioneCCNL: null,
+      LivelloContratto: null,
+      SocietaDistacco: "",
+      SocietaPersona: ""
+    };
+  }
+
+  resetSearch() {
+    this.formDataSearch = {
+      AnpeNome: "",
+      AnpeCognome: "",
+      AnpeCodicefiscale: "",
+      AnsoSocietaid: 0
+    }
+  }
+
+  clearSearch() {
+    if (confirm('I campi verranno resettati. Si desidera procedere?')) {
+      this.resetSearch();
+      //this.reset();
+    }
+    else {
+      console.log('Operazione annullata');
+    }
+  }
+
+  closeForm() {
+    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
+      this.router.navigate(['/homepage']);
+  }
 }
