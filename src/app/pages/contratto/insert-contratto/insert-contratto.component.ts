@@ -169,6 +169,7 @@ export class InsertContrattoComponent implements OnInit {
     if (this.inserimentoContrattoService.idContratto$.value != undefined && this.inserimentoContrattoService.idContratto$.value != 0) {
       this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
     }
+    
   }
 
   clearForm() {
@@ -256,7 +257,7 @@ export class InsertContrattoComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.tipiCcnl = response;
-        //this.getAllTipoLivello();
+        //this.getAllTipoLivello();           
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di ccnl:', error);
@@ -270,6 +271,14 @@ export class InsertContrattoComponent implements OnInit {
         console.log('response get tipi livello:');
         console.log(response);
         this.tipiLivello = response;
+        console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
+        for (let i = 0; i < this.tipiLivello?.length; i++) {
+          //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
+          //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
+          if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
+            this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
+          }
+        };
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di livello:', error);
@@ -470,16 +479,17 @@ export class InsertContrattoComponent implements OnInit {
       }
     };
     this.getAllTipoLivello();
+    
     //console.log('this.formData.CoccCcnlid:' + this.formData.CoccCcnlid);
-
-    console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
-    for (let i = 0; i < this.tipiLivello?.length; i++) {
+/*
+   for (let i = 0; i < this.tipiLivello?.length; i++) {
       //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
       //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
       if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
         this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
       }
     };
+    */
     // METTO COME RUOLO UN VALORE DI DEFAULT
     this.formData.AnruRuoloid = this.tipiRuolo[0].anruRuoloid.toString();
 

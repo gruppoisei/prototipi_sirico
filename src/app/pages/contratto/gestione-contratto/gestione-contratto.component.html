@@ -3,37 +3,45 @@
 </div>
 <div class="flex flex-row justify-center my-10">
     <form
-        (ngSubmit)="ricercaFiltrata(formData.AnpeNome, formData.AnpeCognome, formData.AnpeCodicefiscale, formData.SocietaDistacco)">
-        <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/nuovo-contratto"><button mat-icon
-                    class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
-        </div>
-        <div class="flex flex-row mb-5">
-            <input [(ngModel)]="formData.SocietaDistacco" name="societa" type="search"
-                class="mx-5 w-1/2 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per società..." required />
-        </div>
-        <div class="flex flex-row mb-5">
-            <input [(ngModel)]="formData.AnpeNome" name="nome" type="search"
-                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per nome..." required />
-            <input [(ngModel)]="formData.AnpeCognome" name="cognome" type="search"
-                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per cognome..." required />
-            <input [(ngModel)]="formData.AnpeCodicefiscale" name="codiceFiscale" type="search"
-                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per codice fiscale..." required />
-        </div>
-        <div class="flex flex-row justify-end mt-10">
-            <button type="submit"
-                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
-            <button type="button" (click)="clearSearch()"
-                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
-            <button type="button" (click)="closeForm()"
-                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
+        (ngSubmit)="ricercaFiltrata(formDataSearch.AnpeNome, formDataSearch.AnpeCognome, formDataSearch.AnpeCodicefiscale, formDataSearch.AnsoSocietaid)">
+        
+            
+            <div class="flex flex-row justify-end mt-10">
+                <a routerLink="/nuovo-contratto"><button mat-icon
+                        class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
+            </div>
+            <div class="flex flex-row ms-5 ">
+                Società
+            </div>
+            <div class="flex flex-row mb-5">
+                <select [(ngModel)]="formDataSearch.AnsoSocietaid" class="box" name="Societa" required
+                class="mx-5 w-1/2 p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <option disabled selected>--Seleziona la società--</option>    
+                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
+                    </option>
+                </select>
+            </div>
+            <div class="flex flex-row mb-5">
+                <input [(ngModel)]="formDataSearch.AnpeNome" name="nome" type="search"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per nome..." required />
+                <input [(ngModel)]="formDataSearch.AnpeCognome" name="cognome" type="search"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per cognome..." required />
+                <input [(ngModel)]="formDataSearch.AnpeCodicefiscale" name="codiceFiscale" type="search"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per codice fiscale..." required />
+            </div>
+            <div class="flex flex-row justify-end mt-10">
+                <button type="submit"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+                <button type="button" (click)="clearSearch()"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+                <button type="button" (click)="closeForm()"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
 
-        </div>
-    </form>
+            </div>
+        </form>
 </div>
 <br>
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
@@ -117,20 +125,3 @@
     </div>
     <!--</form>-->
 </div>
-
-<!--
-
-    codiDatainiziocontratto: string;
-    codiDatafinecontratto: string;
-    tipoContratto: string;
-    descrizioneCCNL: string;
-    livelloContratto: string;
-    societaDistacco: string;
-    codiRalcompenso: number;
-    smartWorking: number;
-    valoreDistacco: number;
-    dataInizioDistacco: string;
-    dataFineDistacco: string;
-    note: string;
-
--->
