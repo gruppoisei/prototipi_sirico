@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-gestione-ruolo',
-  templateUrl: './gestione-ruolo.component.html',
-  styleUrl: './gestione-ruolo.component.scss'
+  selector: 'app-gestione-utente-ruolo',
+  templateUrl: './gestione-utente-ruolo.component.html',
+  styleUrl: './gestione-utente-ruolo.component.scss'
 })
-export class GestioneRuoloComponent {
+export class GestioneRuoloUtenteComponent {
 formData: any;
 closeForm() {
 throw new Error('Method not implemented.');
