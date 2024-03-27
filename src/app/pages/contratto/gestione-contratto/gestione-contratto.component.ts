@@ -98,8 +98,8 @@ export class GestioneContrattoComponent implements OnInit {
     AnpePersonaid: null,
     AnpeCodicefiscale: "",
     AnsoSocietaid: null,
-    CodiDatainiziocontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
-    CodiDatafinecontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+    CodiDatainiziocontratto: "",//formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+    CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     codiFkCotctipocontrattoid: null,
     CoccCcnlid: 0,
     ColiLivelloid: null,
@@ -111,8 +111,8 @@ export class GestioneContrattoComponent implements OnInit {
     costopresuntogiorno: null,
     CodsValoredistacco: null,
     ansoSocietaDistaccoid: null,
-    CodsDatainiziodistacco: null,
-    CodsDatafinedistacco: null,
+    CodsDatainiziodistacco: "",
+    CodsDatafinedistacco: "",
     CodiNote: null,
     CodiSysuser: "Edo",
     CodiFlagAttiva: null,
@@ -264,6 +264,9 @@ export class GestioneContrattoComponent implements OnInit {
     if (this.dipendenteConContratto.codsDatainiziodistacco != null) {
       this.formData.CodsDatainiziodistacco = this.dipendenteConContratto.codsDatainiziodistacco.split("T")[0];
     }
+    else {
+      this.formData.CodsDatainiziodistacco = "";
+    }
     if (this.dipendenteConContratto.codsDatafinedistacco != null) {
       this.formData.CodsDatafinedistacco = this.dipendenteConContratto.codsDatafinedistacco.split("T")[0];
     }
@@ -382,8 +385,8 @@ export class GestioneContrattoComponent implements OnInit {
       costopresuntogiorno: null,
       CodsValoredistacco: null,
       ansoSocietaDistaccoid: null,
-      CodsDatainiziodistacco: null,
-      CodsDatafinedistacco: null,
+      CodsDatainiziodistacco: "",
+      CodsDatafinedistacco: "",
       CodiNote: null,
       CodiSysuser: "Edo",
       CodiFlagAttiva: null,

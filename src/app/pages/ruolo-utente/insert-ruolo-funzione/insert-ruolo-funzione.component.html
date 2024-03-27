@@ -1,14 +1,14 @@
-
-    <div class="flex justify-center my-10 text-4xl font-bold">
-        <h2>Nuovo Ruolo</h2>
-    </div>
-    <div class="flex justify-center">
-        <form (ngSubmit)="ricercaFiltrata()" class="w-1/2">
+<div class="flex justify-center my-10 text-4xl font-bold">
+    <h2>Nuovo Ruolo</h2>
+</div>
+<div class="flex justify-center">
+    <form (ngSubmit)="addFunzioneToRuolo()" class="w-1/3">
         <br>
-        
-            <div class="flex flex-row ms-5 ">
-                Ruolo*
-            </div>
+
+        <div class="flex flex-row ms-5 ">
+            Ruolo*
+        </div>
+        <!--
             <div class="flex flex-row mb-5">
                 <select [(ngModel)]="formData.ruoli" name="ruoli"
                     class="mx-5 w-full p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -17,36 +17,109 @@
                     <option>ruolo2</option>
                 </select>
             </div>
-            <div class="flex flex-row ms-5 ">
-                Funzione
-            </div>
-            <div class="flex flex-row mb-5">
-                <select [(ngModel)]="formData.funzioni" name="funzioni" [disabled]="formData.funzione != ''"
-                    class="mx-5 w-full p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    required>
-                    <option>funzione1</option>
-                    <option>funzione2</option>
-                </select>
+            -->
+        <div class="flex flex-row mb-5">
+            <input [(ngModel)]="ruolo" name="ruolo" type="text"
+                class="mx-5 w-full p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Inserisci nuovo ruolo..." required />
+        </div>
+        <div class="flex flex-row ms-5 ">
+            Funzione
+        </div>
+        <div class="flex flex-row mb-5">
 
+            <select [(ngModel)]="idFunzione" name="syapIdfunzione"
+                class="mx-5 w-full p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                required>
+                <option *ngFor="let funzione of allFunzioni" [value]="funzione.syapIdfunzione">{{
+                    funzione.syapDescrizione }}
+                </option>
 
-                <input [(ngModel)]="formData.funzione" name="societa" type="search"
-                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Cerca per funzione..." required />
-            </div>
-            <div class="flex flex-row justify-center my-10">
+            </select>
+        </div>
+        <div class="flex flex-row justify-center my-10">
+            <button type="submit"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Aggiungi</button>
+            <button type="button" (click)="getAllFunzioni()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">TEST</button>
 
-
-
-                <br>
-                <div class="flex flex-row justify-end mt-10">
-                    <button type="submit"
-                        class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
-                    <button type="button" (click)="clearSearch()"
-                        class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
-                    <button type="button" (click)="closeForm()"
-                        class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
-                </div>
-            </div>
-        
+        </div>
     </form>
-    </div>
+</div>
+<div class="flex justify-center">
+    <form (ngSubmit)="addRuolo()" class="w-2/3">
+
+        <!--<div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>-->
+        <div class="flex flex-row my-10"> <!--justify-center-->
+            <!--<div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">--->
+            <table class="w-full text-base text-left rtl:text-right">
+                <thead class="text-sm uppercase text-white bg-blue-600">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">ELIMINA</th>
+                        <th scope="col" class="px-6 py-3">Funzione</th>
+                        <th scope="col" class="px-6 py-3">Lettura</th>
+                        <th scope="col" class="px-6 py-3">Voce di menù</th>
+                        <th scope="col" class="px-6 py-3">Creazione</th>
+                        <th scope="col" class="px-6 py-3">Modifica</th>
+                        <th scope="col" class="px-6 py-3">Cancellazione</th>
+                        <th scope="col" class="px-6 py-3">Ordinamento</th>
+                        <th scope="col" class="px-6 py-3">Menù padre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let element of arrayObjectRuoloFunzioni" class="bg-white border-b">
+
+                        <td class="px-6 py-4>">
+                            <button type="button" name="modifyFieldsDipendentiContratto" (click)="deleteFunzione()"
+                                class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                        </td>
+                        <td class="px-6 py-4"> {{ element.syapIdfunzione }} </td>
+                        <td class="px-6 py-4">
+                            <input type="checkbox" name="Lettura"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            {{ element.flagLettura }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type="checkbox" name="Vocedimenu"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            {{ element.flagVoceDiMenu }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type="checkbox" name="Creazione"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            {{ element.flagCreazione }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type="checkbox" name="Modifica"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            {{ element.flagModifica }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <input type="checkbox" name="Cancellazione"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            {{ element.flagCancellazione }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <select name="Ordinamento"> <!-- [(ngModel)]="formData.Lettura"  -->
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </td>
+                        <td class="px-6 py-4">
+                            <select name="Menupadre"> <!-- [(ngModel)]="formData.Lettura"  -->
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--</div>-->
+        </div>
+
+        <br> <br>
+        <div class="flex flex-row justify-center mt-10">
+
+            <button type="button" (click)="clearSearch()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            <button type="button" (click)="closeForm()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
+        </div>
+    </form>
+</div>
+<br> <br>

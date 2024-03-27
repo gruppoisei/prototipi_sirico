@@ -99,8 +99,8 @@ export class InsertContrattoComponent implements OnInit {
     AnpePersonaid: null,
     AnpeCodicefiscale: "",
     AnsoSocietaid: null,
-    CodiDatainiziocontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
-    CodiDatafinecontratto: formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+    CodiDatainiziocontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+    CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     codiFkCotctipocontrattoid: null,
     CoccCcnlid: 0,
     ColiLivelloid: null,
@@ -112,8 +112,8 @@ export class InsertContrattoComponent implements OnInit {
     costopresuntogiorno: null,
     CodsValoredistacco: null,
     ansoSocietaDistaccoid: null,
-    CodsDatainiziodistacco: null,
-    CodsDatafinedistacco: null,
+    CodsDatainiziodistacco: "",
+    CodsDatafinedistacco: "",
     CodiNote: null,
     CodiSysuser: "Edo",
     CodiFlagAttiva: 1,
@@ -169,7 +169,7 @@ export class InsertContrattoComponent implements OnInit {
     if (this.inserimentoContrattoService.idContratto$.value != undefined && this.inserimentoContrattoService.idContratto$.value != 0) {
       this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
     }
-    
+
   }
 
   clearForm() {
@@ -190,8 +190,8 @@ export class InsertContrattoComponent implements OnInit {
       AnpePersonaid: null,
       AnpeCodicefiscale: "",
       AnsoSocietaid: null,
-      CodiDatainiziocontratto: new Date().toLocaleString(),
-      CodiDatafinecontratto: new Date().toLocaleString(),
+      CodiDatainiziocontratto: "", //new Date().toLocaleString(),
+      CodiDatafinecontratto: "", //new Date().toLocaleString(),
       codiFkCotctipocontrattoid: null,
       CoccCcnlid: 0,
       ColiLivelloid: null,
@@ -203,8 +203,8 @@ export class InsertContrattoComponent implements OnInit {
       costopresuntogiorno: null,
       CodsValoredistacco: null,
       ansoSocietaDistaccoid: null,
-      CodsDatainiziodistacco: null,
-      CodsDatafinedistacco: null,
+      CodsDatainiziodistacco: "",
+      CodsDatafinedistacco: "",
       CodiNote: null,
       CodiSysuser: "Edo",
       CodiFlagAttiva: 1,
@@ -371,18 +371,18 @@ export class InsertContrattoComponent implements OnInit {
       }
     );
   }
-
-  checkDateTimeValidity(): boolean {
-    const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
-    const endDate = Date.parse(this.formData.CodiDatafinecontratto);
-    if (this.dateinizioTouched && this.datefineTouched) {
-      this.checkDateValidity = true;
-    }
-    if (startDate < endDate) {
-      return true;
-    }
-    return false;
-  }
+  /*
+    checkDateTimeValidity(): boolean {
+      const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
+      const endDate = Date.parse(this.formData.CodiDatafinecontratto);
+      if (this.dateinizioTouched && this.datefineTouched) {
+        this.checkDateValidity = true;
+      }
+      if (startDate < endDate) {
+        return true;
+      }
+      return false;
+    }*/
 
   getContrattoByidContratto(idContratto: number) {
     this.inserimentoContrattoService.getAllContrattiById(idContratto).subscribe(
@@ -398,29 +398,16 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
-  /*
-  testDates() {
-    console.log('data inizio contratto:');
-    console.log(this.formData.CodiDatainiziocontratto);
-    console.log('data fine contratto:');
-    console.log(this.formData.CodiDatafinecontratto);
-    console.log('esito confronto:');
-    console.log(this.formData.CodiDatainiziocontratto < this.formData.CodiDatafinecontratto);
-    console.log('END TEST');
-  }
-*/
-
   formValidationCheck() {
-    if
-      (
+    if (
       (this.formData.AnpeCodicefiscale != undefined && this.formData.AnpeCodicefiscale != null && this.formData.AnpeCodicefiscale != "") &&
       (this.formData.AnpeNome != undefined && this.formData.AnpeNome != null && this.formData.AnpeNome != "") &&
       (this.formData.AnpeCognome != undefined && this.formData.AnpeCognome != null && this.formData.AnpeCognome != "") &&
       (this.formData.AnsoSocietaid != undefined && this.formData.AnsoSocietaid != null && this.formData.AnsoSocietaid != "") &&
       (this.formData.CodiDatainiziocontratto != undefined && this.formData.CodiDatainiziocontratto != null && this.formData.CodiDatainiziocontratto != "") &&
-      (this.formData.CodiDatafinecontratto != undefined && this.formData.CodiDatafinecontratto != null && this.formData.CodiDatafinecontratto != "") &&
-      // check data fine contratto > data inizio contratto
-      (this.formData.CodiDatainiziocontratto < this.formData.CodiDatafinecontratto) &&
+      (this.formData.CodiDatafinecontratto != undefined && this.formData.CodiDatafinecontratto != null) &&
+      // check data fine contratto > data inizio contratto solo se this.formData.CodiDatafinecontratto != ""
+      //(this.formData.CodiDatainiziocontratto < this.formData.CodiDatafinecontratto) &&
       //
       (this.formData.codiFkCotctipocontrattoid != undefined && this.formData.codiFkCotctipocontrattoid != null && this.formData.codiFkCotctipocontrattoid.toString() != "") &&
       (this.formData.CoccCcnlid != undefined && this.formData.CoccCcnlid != null && this.formData.CoccCcnlid.toString() != "") &&
@@ -437,20 +424,50 @@ export class InsertContrattoComponent implements OnInit {
           (this.formData.CodsValoredistacco != undefined && this.formData.CodsValoredistacco != null && this.formData.CodsValoredistacco.toString() != "") &&
           (this.formData.ansoSocietaDistaccoid != undefined && this.formData.ansoSocietaDistaccoid != null && this.formData.ansoSocietaDistaccoid.toString() != "") &&
           (this.formData.CodsDatainiziodistacco != undefined && this.formData.CodsDatainiziodistacco != null && this.formData.CodsDatainiziodistacco != "") &&
-          (this.formData.CodsDatafinedistacco != undefined && this.formData.CodsDatafinedistacco != null && this.formData.CodsDatafinedistacco != "") &&
+          (this.formData.CodsDatafinedistacco != undefined && this.formData.CodsDatafinedistacco != null && this.formData.CodsDatafinedistacco != "") //&&
           // check data fine contratto > data inizio contratto
-          (this.formData.CodsDatainiziodistacco < this.formData.CodsDatafinedistacco)
+          //(this.formData.CodsDatainiziodistacco < this.formData.CodsDatafinedistacco)
           // 
         )
-      ) &&
-      (this.formData.CodiNote != undefined && this.formData.CodiNote != null && this.formData.CodiNote != "")
+      ) /*&&
+      (this.formData.CodiNote != undefined && this.formData.CodiNote != null && this.formData.CodiNote != "")*/
     ) {
       this.formValidation = true;
     }
-    else this.formValidation = false;
+    else {
+      this.formValidation = false;
+    }
+    this.formValidationCheckDates();
   }
 
-
+  formValidationCheckDates() {
+    var checkDataFineContratto = false;
+    var checkDataFineDistacco = false;
+    console.log(this.formData.CodiDatafinecontratto.toString());
+    console.log(this.formData.CodiDatafinecontratto);
+    if (this.formData.CodiDatafinecontratto != "") {
+      if (this.formData.CodiDatainiziocontratto < this.formData.CodiDatafinecontratto) {
+        checkDataFineContratto = true;
+      }
+      else {
+        checkDataFineContratto = false;
+      }
+    }
+    if (this.formData.CodsDatafinedistacco != "") {
+      if (this.formData.CodsDatainiziodistacco < this.formData.CodsDatafinedistacco) {
+        checkDataFineDistacco = true;
+      }
+      else {
+        checkDataFineDistacco = false;
+      }
+    }
+    if (checkDataFineContratto && checkDataFineDistacco) {
+      this.formValidation = true;
+    }
+    else {
+      this.formValidation = false;
+    }
+  }
 
   autoFillformData() {
     //this.getAllTipoLivello();
@@ -479,22 +496,26 @@ export class InsertContrattoComponent implements OnInit {
       }
     };
     this.getAllTipoLivello();
-    
+
     //console.log('this.formData.CoccCcnlid:' + this.formData.CoccCcnlid);
-/*
-   for (let i = 0; i < this.tipiLivello?.length; i++) {
-      //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
-      //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
-      if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
-        this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
-      }
-    };
-    */
+    /*
+       for (let i = 0; i < this.tipiLivello?.length; i++) {
+          //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
+          //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
+          if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
+            this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
+          }
+        };
+        */
     // METTO COME RUOLO UN VALORE DI DEFAULT
     this.formData.AnruRuoloid = this.tipiRuolo[0].anruRuoloid.toString();
-
     this.formData.CodiDatainiziocontratto = this.dipendentiConContratto.codiDatainiziocontratto.split("T")[0];
-    this.formData.CodiDatafinecontratto = this.dipendentiConContratto.codiDatafinecontratto.split("T")[0];
+    if (this.formData.CodiDatafinecontratto != null) {
+      //this.formData.CodiDatafinecontratto = this.dipendentiConContratto.codiDatafinecontratto.split("T")[0];
+    }
+    else {
+      this.dipendentiConContratto.codiDatafinecontratto = "";
+    }
     this.formData.CodiRalcompenso = this.dipendentiConContratto.codiRalcompenso;
     this.formData.CodiMonteore = this.dipendentiConContratto.codiMonteore;
     if (this.dipendentiConContratto.smartWorking == 0) { this.formData.CodiSmartworking = false; }
@@ -518,10 +539,19 @@ export class InsertContrattoComponent implements OnInit {
         break;
       }
     };
-    this.formData.CodsDatainiziodistacco = this.dipendentiConContratto.codsDatainiziodistacco.split("T")[0];
-    this.formData.CodsDatafinedistacco = this.dipendentiConContratto.codsDatafinedistacco.split("T")[0];
+    if (this.formData.CodsDatainiziodistacco != null) {
+      this.formData.CodsDatainiziodistacco = this.dipendentiConContratto.codsDatainiziodistacco.split("T")[0];
+    }
+    else {
+      this.formData.CodsDatainiziodistacco = "";
+    }
+    if (this.formData.CodsDatafinedistacco != null) {
+      this.formData.CodsDatafinedistacco = this.dipendentiConContratto.codsDatafinedistacco.split("T")[0];
+    }
+    else {
+      this.formData.CodsDatafinedistacco = "";
+    }
     this.formData.CodiNote = this.dipendentiConContratto.codiNote;
-    //this.getAllTipoLivello();
   }
 
 
