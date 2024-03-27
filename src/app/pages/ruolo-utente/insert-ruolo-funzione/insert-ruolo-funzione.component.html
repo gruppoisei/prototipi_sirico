@@ -58,7 +58,7 @@
                         <th scope="col" class="px-6 py-3">ELIMINA</th>
                         <th scope="col" class="px-6 py-3">Funzione</th>
                         <th scope="col" class="px-6 py-3">Lettura</th>
-                        <th scope="col" class="px-6 py-3">Voce di menù</th>
+                        <th scope="col" class="px-6 py-3">Voce menù</th>
                         <th scope="col" class="px-6 py-3">Creazione</th>
                         <th scope="col" class="px-6 py-3">Modifica</th>
                         <th scope="col" class="px-6 py-3">Cancellazione</th>
@@ -70,34 +70,36 @@
                     <tr *ngFor="let element of arrayObjectRuoloFunzioni" class="bg-white border-b">
 
                         <td class="px-6 py-4>">
-                            <button type="button" name="modifyFieldsDipendentiContratto" (click)="deleteFunzione()"
+                            <button type="button" name="deleteFunzione" (click)="deleteFunzione()"
                                 class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                         </td>
-                        <td class="px-6 py-4"> {{ element.syapIdfunzione }} </td>
+                        <!-- <td class="px-6 py-4"> {{ element.syapIdfunzione }} </td> -->
+                        <td class="px-6 py-4"> {{ element.syapDescrizione }} </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" name="Lettura"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <input type="checkbox" [(ngModel)]="element.flagLettura" name="Lettura">
                             {{ element.flagLettura }}
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" name="Vocedimenu"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <input type="checkbox" [(ngModel)]="element.flagVoceDiMenu" name="Vocedimenu">
                             {{ element.flagVoceDiMenu }}
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" name="Creazione"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <input type="checkbox" [(ngModel)]="element.flagCreazione" name="Creazione">
                             {{ element.flagCreazione }}
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" name="Modifica"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <input type="checkbox" [(ngModel)]="element.flagModifica" name="Modifica">
                             {{ element.flagModifica }}
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" name="Cancellazione"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <input type="checkbox" [(ngModel)]="element.flagCancellazione" name="Cancellazione">
                             {{ element.flagCancellazione }}
                         </td>
                         <td class="px-6 py-4">
-                            <select name="Ordinamento"> <!-- [(ngModel)]="formData.Lettura"  -->
-                                <option>1</option>
-                                <option>2</option>
+                            <select name="Ordinamento" [attr.size]="arrayObjectRuoloFunzioni.length">
+                                <option *ngFor="let element of arrayObjectRuoloFunzioni; index as i">
+                                    {{ i }}
+                                </option>
                             </select>
                         </td>
                         <td class="px-6 py-4">

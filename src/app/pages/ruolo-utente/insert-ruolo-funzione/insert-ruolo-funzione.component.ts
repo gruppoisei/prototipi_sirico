@@ -13,11 +13,36 @@ export class InsertRuoloFunzioneComponent implements OnInit {
 
   allFunzioni!: [{ syapIdfunzione: number; syapDescrizione: string }];
 
-  objectRuoloFunzione!: ruoloFunzione;  
-  arrayObjectRuoloFunzioni: ruoloFunzione[] = [];  
+  objectRuoloFunzione: ruoloFunzione = {
+    syapIdfunzione: 0,
+    syapDescrizione: "",
+    flagLettura: false,
+    flagVoceDiMenu: false,
+    flagCreazione: false,
+    flagModifica: false,
+    flagCancellazione: false,
+    ordinamento: 0,
+    menuPadre: 0
+  }
+
+  formData = {
+    syapIdfunzione: 0,
+    syapDescrizione: "",
+    flagLettura: false,
+    flagVoceDiMenu: false,
+    flagCreazione: false,
+    flagModifica: false,
+    flagCancellazione: false,
+    ordinamento: 0,
+    menuPadre: 0
+  }
+
+  arrayObjectRuoloFunzioni: ruoloFunzione[] = [];
+  //arrayObjectRuoloFunzioni: any[] = [];  
 
   ruolo: string = "";
   idFunzione: number = Number.parseInt("");
+  descrizioneFunzione: string = "";
 
   constructor(
     private router: Router,
@@ -45,20 +70,32 @@ export class InsertRuoloFunzioneComponent implements OnInit {
     console.log('Ruoli e FUNZIONI:');
     console.log(this.ruolo);
     console.log(this.idFunzione);
-    //this.objectRuoloFunzione.syapIdfunzione = this.idFunzione !== null ? this.idFunzione : undefined;
 
-    this.objectRuoloFunzione.syapIdfunzione = this.idFunzione;        
-    this.objectRuoloFunzione.flagLettura = false;
-    this.objectRuoloFunzione.flagVoceDiMenu = false;
-    this.objectRuoloFunzione.flagCreazione = false;
-    this.objectRuoloFunzione.flagModifica = false;
-    this.objectRuoloFunzione.flagCancellazione = false;
-    this.objectRuoloFunzione.ordinamento = 0;
-    this.objectRuoloFunzione.menuPadre = 0;
-     
-    //console.log(this.objectRuoloFunzione);
-    
-    this.arrayObjectRuoloFunzioni.push(this.objectRuoloFunzione);
+    for (let i = 0; i < this.allFunzioni.length; i++) {
+      if (this.idFunzione == this.allFunzioni[i].syapIdfunzione) {
+        this.descrizioneFunzione = this.allFunzioni[i].syapDescrizione;
+      }
+    }
+    console.log(this.objectRuoloFunzione);
+
+    //this.arrayObjectRuoloFunzioni.push(this.objectRuoloFunzione); 
+    this.arrayObjectRuoloFunzioni.push(this.creaNuovoRuoloFunzione());
+  
+    //console.log(this.arrayObjectRuoloFunzioni);
+  }
+
+  creaNuovoRuoloFunzione(): ruoloFunzione {
+    return {
+      syapIdfunzione: this.idFunzione,
+      syapDescrizione: this.descrizioneFunzione,
+      flagLettura: false,
+      flagVoceDiMenu: false,
+      flagCreazione: false,
+      flagModifica: false,
+      flagCancellazione: false,
+      ordinamento: this.arrayObjectRuoloFunzioni.length,
+      menuPadre: 0
+    };
   }
 
   deleteFunzione() {
