@@ -35,6 +35,10 @@ export class GestioneDipendenteComponent implements OnInit{
     this.personaService.setData('Inserimento nuovo dipendente')
     }
 
+    sendTitoloNuovaPersonaProva() {
+      this.personaService.setData('Inserimento nuovo dipendente prova')
+      }
+
   sendTitoloModificaPersona() {
       this.personaService.setData('Modifica dipendente')
     }

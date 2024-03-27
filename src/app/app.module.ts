@@ -39,7 +39,7 @@ import { MessageResponseDialogComponent } from './ui/message-response-dialog/mes
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
 import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
 import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
-import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
+import { InsertPersonaProvaComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -67,7 +67,7 @@ import { FooterComponent } from './footer/footer.component';
         MessageResponseDialogComponent,
         DeleteDipendenteDialogComponent,
         DeleteDipendenteResponseDialogComponent,
-        InsertPersonaPROVAComponent,
+        InsertPersonaProvaComponent,
         FooterComponent,
     ],
     providers: [
