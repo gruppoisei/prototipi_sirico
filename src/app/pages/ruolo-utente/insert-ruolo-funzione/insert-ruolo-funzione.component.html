@@ -1,0 +1,52 @@
+
+    <div class="flex justify-center my-10 text-4xl font-bold">
+        <h2>Nuovo Ruolo</h2>
+    </div>
+    <div class="flex justify-center">
+        <form (ngSubmit)="ricercaFiltrata()" class="w-1/2">
+        <br>
+        
+            <div class="flex flex-row ms-5 ">
+                Ruolo*
+            </div>
+            <div class="flex flex-row mb-5">
+                <select [(ngModel)]="formData.ruoli" name="ruoli"
+                    class="mx-5 w-full p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    required>
+                    <option>ruolo1</option>
+                    <option>ruolo2</option>
+                </select>
+            </div>
+            <div class="flex flex-row ms-5 ">
+                Funzione
+            </div>
+            <div class="flex flex-row mb-5">
+                <select [(ngModel)]="formData.funzioni" name="funzioni" [disabled]="formData.funzione != ''"
+                    class="mx-5 w-full p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    required>
+                    <option>funzione1</option>
+                    <option>funzione2</option>
+                </select>
+
+
+                <input [(ngModel)]="formData.funzione" name="societa" type="search"
+                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Cerca per funzione..." required />
+            </div>
+            <div class="flex flex-row justify-center my-10">
+
+
+
+                <br>
+                <div class="flex flex-row justify-end mt-10">
+                    <button type="submit"
+                        class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+                    <button type="button" (click)="clearSearch()"
+                        class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+                    <button type="button" (click)="closeForm()"
+                        class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
+                </div>
+            </div>
+        
+    </form>
+    </div>
