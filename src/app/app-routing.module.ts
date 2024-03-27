@@ -11,8 +11,8 @@ import { ModificaPasswordComponent } from './pages/modifica-password/modifica-pa
 import { authGuard } from './guard/auth.guard';
 // import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
-import { GestioneContrattoComponent } from './pages/gestione-contratto/gestione-contratto.component';
-import { InsertContrattoComponent } from './pages/insert-contratto/insert-contratto.component';
+import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
+import { InsertContrattoComponent } from './pages/contratto/insert-contratto/insert-contratto.component';
 import { InsertPersonaProvaComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
 
 
