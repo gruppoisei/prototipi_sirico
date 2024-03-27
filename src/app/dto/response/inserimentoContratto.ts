@@ -4,7 +4,7 @@ export interface inserimentoContratto {
     AnpeCodicefiscale: string;
     AnpePersonaid: number | null;
     AnsoSocietaid: string | null;
-    CodiDatainiziocontratto: string;
+    CodiDatainiziocontratto: string ;
     CodiDatafinecontratto: string;
     codiFkCotctipocontrattoid: number | null;
     CoccCcnlid: number;
@@ -17,8 +17,8 @@ export interface inserimentoContratto {
     costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo
     CodsValoredistacco: number | null;     // percentuale
     ansoSocietaDistaccoid: number | null;
-    CodsDatainiziodistacco: string | null;
-    CodsDatafinedistacco: string | null;
+    CodsDatainiziodistacco: string;
+    CodsDatafinedistacco: string;
     CodiNote: string | null;
     CodiSysuser: string;
     CodiFlagAttiva: number | null;
