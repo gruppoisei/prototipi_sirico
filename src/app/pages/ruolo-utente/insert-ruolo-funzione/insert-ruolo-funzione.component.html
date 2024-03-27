@@ -24,7 +24,7 @@
                 placeholder="Inserisci nuovo ruolo..." required />
         </div>
         <div class="flex flex-row ms-5 ">
-            Funzione
+            Funzione {{ this.idFunzione }}
         </div>
         <div class="flex flex-row mb-5">
 
@@ -34,6 +34,7 @@
                 <option *ngFor="let funzione of allFunzioni" [value]="funzione.syapIdfunzione">{{
                     funzione.syapDescrizione }}
                 </option>
+                
 
             </select>
         </div>
@@ -103,7 +104,7 @@
                             </select>
                         </td>
                         <td class="px-6 py-4">
-                            <select name="Menupadre"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <select name="Menupadre" [disabled]="element.flagVoceDiMenu"> <!-- [(ngModel)]="formData.Lettura"  -->
                                 <option>1</option>
                                 <option>2</option>
                             </select>

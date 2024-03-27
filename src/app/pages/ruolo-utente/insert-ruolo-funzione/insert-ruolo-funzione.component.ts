@@ -12,6 +12,7 @@ import { ruoloFunzione } from '../../../dto/request/inserimentoNuovoRuolo';
 export class InsertRuoloFunzioneComponent implements OnInit {
 
   allFunzioni!: [{ syapIdfunzione: number; syapDescrizione: string }];
+  allFunzioniCopia!: [{ syapIdfunzione: number; syapDescrizione: string }];
 
   objectRuoloFunzione: ruoloFunzione = {
     syapIdfunzione: 0,
@@ -51,6 +52,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFunzioni();
+    this.idFunzione = 1;
     //this.objectRuoloFunzione;    
   }
 
@@ -59,6 +61,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.allFunzioni = response;
+        this.allFunzioniCopia = response;
       },
       (error: any) => {
         console.error('Errore durante il recupero delle funzioni:', error);
@@ -67,21 +70,32 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }
 
   addFunzioneToRuolo() {
-    console.log('Ruoli e FUNZIONI:');
-    console.log(this.ruolo);
-    console.log(this.idFunzione);
-
-    for (let i = 0; i < this.allFunzioni.length; i++) {
-      if (this.idFunzione == this.allFunzioni[i].syapIdfunzione) {
-        this.descrizioneFunzione = this.allFunzioni[i].syapDescrizione;
+    if (!Number.isNaN(this.idFunzione)) {
+      var index = 0;
+      for (let i = 0; i < this.allFunzioni.length; i++) {
+        console.log(i);
+        if (this.idFunzione == this.allFunzioni[i].syapIdfunzione) {
+          this.descrizioneFunzione = this.allFunzioni[i].syapDescrizione;
+          index = i;
+          break;
+        }
       }
-    }
-    console.log(this.objectRuoloFunzione);
 
-    //this.arrayObjectRuoloFunzioni.push(this.objectRuoloFunzione); 
-    this.arrayObjectRuoloFunzioni.push(this.creaNuovoRuoloFunzione());
-  
-    //console.log(this.arrayObjectRuoloFunzioni);
+      this.allFunzioni.splice(index, 1);
+      this.arrayObjectRuoloFunzioni.push(this.creaNuovoRuoloFunzione());
+
+      if (this.allFunzioni.length > 0) {
+        this.idFunzione = this.allFunzioni[0].syapIdfunzione;
+      }
+      else {
+        this.idFunzione = Number.parseInt("");
+      }
+      console.log(this.allFunzioni);
+    }
+    else {
+      // do nothing
+    }
+
   }
 
   creaNuovoRuoloFunzione(): ruoloFunzione {
