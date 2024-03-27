@@ -13,11 +13,7 @@ import { authGuard } from './guard/auth.guard';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/contratto/insert-contratto/insert-contratto.component';
-import { InsertPersonaPROVAComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
-import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
-import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
-import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-utente-ruolo/gestione-utente-ruolo.component';
-import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
+import { InsertPersonaProvaComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
 
 
 const routes: Routes = [
@@ -32,8 +28,8 @@ const routes: Routes = [
     canActivate: [authGuard]
   }, 
   {
-    path: "nuova-persona-sharon", 
-    component:InsertPersonaPROVAComponent,
+    path: "nuova-persona-prova", 
+    component:InsertPersonaProvaComponent,
     canActivate: [authGuard]
   }, 
   {
