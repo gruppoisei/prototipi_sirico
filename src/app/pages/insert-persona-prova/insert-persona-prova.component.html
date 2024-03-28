@@ -1,1 +1,132 @@
-<p>insert-persona-prova works!</p>
+
+<h2>Inserimento nuovo dipendente</h2>
+
+<table class="table"  [cellPadding]="5">
+  <tr>
+    <th>nome</th>
+    <th>cognome</th>
+    <th>data di nascita</th>
+    <th>codice fiscale</th>
+
+  </tr>
+  <tr>
+    <td><input formControlName="AnpeNome" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un nome...">
+      <small *ngIf="insertPersona.controls['AnpeNome'].dirty && insertPersona.hasError('required','AnpeNome')" class="text-red-600">Nome obbligatorio</small>
+     </td>
+    <td><input formControlName="AnpeCognome" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un cognome...">
+      <small *ngIf="insertPersona.controls['AnpeCognome'].dirty && insertPersona.hasError('required','AnpeCognome')" class="text-red-600">Cognome obbligatorio</small></td>
+    <td><input formControlName="AnpeDatanascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+      focus:border-sky-500 focus:ring-sky-500" type="date">
+      <small *ngIf="insertPersona.controls['AnpeDatanascita'].dirty && insertPersona.hasError('required','AnpeDatanascita')" class="text-red-600">Data di nascita obbligatoria</small></td>
+    <td><input formControlName="AnpeCodicefiscale" maxlength="16" class="uppercase bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+      focus:border-sky-500 focus:ring-sky-500"type="text" placeholder="Scrivi il codice fiscale...">
+      <small *ngIf="insertPersona.controls['AnpeCodicefiscale'].dirty && insertPersona.hasError('required','AnpeCodicefiscale')" class="text-red-600">Codice fiscale obbligatorio</small></td>
+
+  </tr>
+ 
+</table>
+
+<table class="table"  [cellPadding]="5">
+    <tr>
+      <th>Paese di nascita</th>
+      <th>Regione di nascita</th>
+      <th>Provincia di nascita</th>
+      <th>Comune di nascita</th>
+  
+    </tr>
+    <tr>
+      <td> <select formControlName="AnpeFkGepaPaeseidPaesenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500">
+         <option value="" disable selected hidden>Scegli un'opzione</option>
+         <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
+       </select>
+       <small *ngIf="insertPersona.controls['AnpeFkGepaPaeseidPaesenascita'].dirty && insertPersona.hasError('required','AnpeFkGepaPaeseidPaesenascita')" class="text-red-600">Paese obbligatorio</small></td>
+      <td><select formControlName="RegioneNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeNascita($event)" >
+            <option value="" disable selected hidden>Scegli un'opzione</option>
+            <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
+        </select>
+        <small *ngIf="insertPersona.controls['RegioneNascita'].dirty && insertPersona.hasError('required','RegioneNascita')" class="text-red-600">Regione obbligatoria</small></td>
+      <td> <select formControlName="ProvinciaNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" (change)="onProvinciaNascitaChage($event)">
+              <option value="" disable selected hidden>Scegli un'opzione</option>
+              <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvince">{{pro.geprDeno}}</option>
+          </select>
+          <small *ngIf="insertPersona.controls['ProvinciaNascita'].dirty && insertPersona.hasError('required','ProvinciaNascita')" class="text-red-600">Provincia obbligatoria</small></td>
+      <td><select formControlName="AnpeFkGecoComuneidComunenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500">
+                <option value="" disable selected hidden>Scegli un'opzione</option>
+                <option [value]="com.gecoComuneid" *ngFor="let com of listComuniNascita">{{com.gecoDeno}}</option>
+            </select>
+            <small *ngIf="insertPersona.controls['AnpeFkGecoComuneidComunenascita'].dirty && insertPersona.hasError('required','AnpeFkGecoComuneidComunenascita')" class="text-red-600">Comune obbligatorio</small></td>
+  
+    </tr>
+   
+  </table> 
+
+  <table class="table"  [cellPadding]="5">
+    <tr>
+      <th>Paese di residenza</th>
+      <th>Regione di residenza</th>
+      <th>Provincia residenza</th>
+      <th>Comune residenza</th>
+  
+    </tr>
+    <tr>
+      <td><select formControlName="AnpeFkGepaPaeseidPaeseresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500">
+        <option value="" disable selected hidden>Scegli un'opzione</option>
+         <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
+       </select>
+       <small *ngIf="insertPersona.controls['AnpeFkGepaPaeseidPaeseresidenza'].dirty && insertPersona.hasError('required','AnpeFkGepaPaeseidPaeseresidenza')" class="text-red-600">Paese obbligatorio</small></td>
+      <td><select formControlName="RegioneResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeResidenza($event)" >
+         <option value="" disable selected hidden>Scegli un'opzione</option>
+         <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniResidenza">{{reg.gereDeno}}</option>
+       </select>
+       <small *ngIf="insertPersona.controls['RegioneResidenza'].dirty && insertPersona.hasError('required','RegioneResidenza')" class="text-red-600">Regione obbligatoria</small></td>
+      <td><select formControlName="ProvinciaResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" (change)="onChangeProvinciaResidenza($event)">
+        <option value="" disable selected hidden>Scegli un'opzione</option>
+        <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceResidenza">{{pro.geprDeno}}</option>
+       </select>
+       <small *ngIf="insertPersona.controls['ProvinciaResidenza'].dirty && insertPersona.hasError('required','ProvinciaResidenza')" class="text-red-600">Provincia obbligatoria</small></td>
+      <td> <select formControlName="AnpeFkGecoComuneidComuneresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500">
+         <option value="" disable selected hidden>Scegli un'opzione</option>
+         <option [value]="com.gecoComuneid" *ngFor="let com of listComuniResidenza">{{com.gecoDeno}}</option>
+       </select>
+       <small *ngIf="insertPersona.controls['AnpeFkGecoComuneidComuneresidenza'].dirty && insertPersona.hasError('required','AnpeFkGecoComuneidComuneresidenza')" class="text-red-600">Comune obbligatorio</small></td>
+  
+    </tr>
+   
+  </table>
+
+  <table class="table"  [cellPadding]="5">
+    <tr>
+      <th>Indirizzo residenza</th>
+      <th>Numero civico</th>
+      <th>CAP residenza</th>
+      
+    </tr>
+    <tr>
+      <td><input formControlName="AnpeIndirizzoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di residenza...">
+        <small *ngIf="insertPersona.controls['AnpeIndirizzoresidenza'].dirty && insertPersona.hasError('required','AnpeIndirizzoresidenza')" class="text-red-600">Indirizzo di residenza obbligatorio</small></td>
+      <td><input formControlName="AnpeNumerocivicoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-n-civico" type="text" placeholder="N.Civico">
+        <small *ngIf="insertPersona.controls['AnpeNumerocivicoresidenza'].dirty && insertPersona.hasError('required','AnpeNumerocivicoresidenza')" class="text-red-600">Numero civico obbligatorio</small></td>
+      <td><input maxlength="5" formControlName="AnpeCapresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-cap-res" type="text" placeholder="00100">
+        <small *ngIf="insertPersona.controls['AnpeCapresidenza'].dirty && insertPersona.hasError('required','AnpeCapresidenza')" class="text-red-600">CAP obbligatorio</small></td>
+      
+    </tr>
+   
+  </table>
+
+  <div class = " scegli flex w-full flex-nowrap mb-5">
+    <label class="block mb-2 text-sm font-medium text-gray-900" for="showDomicilio">Domicilio diverso dalla residenza?</label>
+    <input type="checkbox" [checked]="showDomicilio" (change)="onCheckboxChange($event)" class = "cursor-pointer ml-6 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:outline-none focus:ring-blue-500">
+  </div>

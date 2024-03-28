@@ -17,6 +17,4 @@ export class NewPasswordResponseDialogComponent {
     this.errorMessage = data.errorMessage;
     this.successMessage = data.successMessage;
   }
-
-
 }

@@ -17,8 +17,8 @@ export interface ricercaContratto {
     costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo
     CodsValoredistacco: number | null;     // percentuale
     ansoSocietaDistaccoid: number | null;
-    CodsDatainiziodistacco: string | null;
-    CodsDatafinedistacco: string | null;
+    CodsDatainiziodistacco: string;
+    CodsDatafinedistacco: string;
     CodiNote: string | null;
     CodiSysuser: string;
     CodiFlagAttiva: number | null;
