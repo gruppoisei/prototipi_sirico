@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './pages/login-box/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
@@ -18,6 +18,7 @@ import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funz
 import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-utente-ruolo/gestione-utente-ruolo.component';
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
+import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,7 @@ const routes: Routes = [
   }, 
   {
     path: "login",
-    component: LoginComponent
+    component: LoginBoxComponent
   },
   {
     path: "insertutente",
@@ -106,7 +107,7 @@ const routes: Routes = [
     path: "insert-ruolo-utente",
     component: InsertRuoloUtenteComponent,
     canActivate: [authGuard]
-  }
+  },
 ];
 
 @NgModule({

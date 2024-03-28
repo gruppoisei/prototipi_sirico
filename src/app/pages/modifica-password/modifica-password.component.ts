@@ -14,7 +14,7 @@ export class ModificaPasswordComponent {
 
   cambioPasswordForm !: FormGroup;
 
-  constructor(private fb : FormBuilder, private auth: AuthenticationService, private dialog : MatDialog, private router: Router)
+  constructor(private fb : FormBuilder, private auth: AuthenticationService, private dialog : MatDialog)
   {
     this.cambioPasswordForm = this.fb.group({
       username: ['', Validators.required],
@@ -40,13 +40,14 @@ export class ModificaPasswordComponent {
         {
           next:(res) =>
           {
+            debugger
             this.dialog.open(NewPasswordResponseDialogComponent,
               {
-                data : {succesMessage : res.message},
+                data : {successMessage : res.message},
                 width: 'auto',
                 height: 'auto'           
               });
-            this.router.navigate(["/login"])
+            this.auth.status = 0
           },
           error:(err) =>
           this.dialog.open(NewPasswordResponseDialogComponent,
