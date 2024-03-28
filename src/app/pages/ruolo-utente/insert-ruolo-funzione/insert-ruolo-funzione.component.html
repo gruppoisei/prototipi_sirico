@@ -24,7 +24,7 @@
                 placeholder="Inserisci nuovo ruolo..." required />
         </div>
         <div class="flex flex-row ms-5 ">
-            Funzione
+            Funzione* <!-- {{ this.idFunzione }} -->
         </div>
         <div class="flex flex-row mb-5">
 
@@ -35,14 +35,16 @@
                     funzione.syapDescrizione }}
                 </option>
 
+
             </select>
         </div>
         <div class="flex flex-row justify-center my-10">
             <button type="submit"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Aggiungi</button>
-            <button type="button" (click)="getAllFunzioni()"
+            <!--
+                <button type="button" (click)="getAllFunzioni()"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">TEST</button>
-
+            -->
         </div>
     </form>
 </div>
@@ -57,31 +59,32 @@
                     <tr>
                         <th scope="col" class="px-6 py-3">ELIMINA</th>
                         <th scope="col" class="px-6 py-3">Funzione</th>
-                        <th scope="col" class="px-6 py-3">Lettura</th>
                         <th scope="col" class="px-6 py-3">Voce menù</th>
+                        <th scope="col" class="px-6 py-3">Lettura</th>
                         <th scope="col" class="px-6 py-3">Creazione</th>
                         <th scope="col" class="px-6 py-3">Modifica</th>
                         <th scope="col" class="px-6 py-3">Cancellazione</th>
-                        <th scope="col" class="px-6 py-3">Ordinamento</th>
+                        <th scope="col" class="px-6 py-3">Ordinamento menù</th>
                         <th scope="col" class="px-6 py-3">Menù padre</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let element of arrayObjectRuoloFunzioni" class="bg-white border-b">
+                    <tr *ngFor="let element of arrayObjectRuoloFunzioni; index as i" class="bg-white border-b">
 
                         <td class="px-6 py-4>">
-                            <button type="button" name="deleteFunzione" (click)="deleteFunzione()"
+                            <button type="button" name="deleteFunzione" (click)="deleteFunzione(element, i)"
                                 class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                         </td>
                         <!-- <td class="px-6 py-4"> {{ element.syapIdfunzione }} </td> -->
                         <td class="px-6 py-4"> {{ element.syapDescrizione }} </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" [(ngModel)]="element.flagLettura" name="Lettura">
-                            {{ element.flagLettura }}
+                            <input (change)="checkVoceDiMenu()" type="checkbox" [(ngModel)]="element.flagVoceDiMenu"
+                                name="Vocedimenu">
+                            {{ element.flagVoceDiMenu }}
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" [(ngModel)]="element.flagVoceDiMenu" name="Vocedimenu">
-                            {{ element.flagVoceDiMenu }}
+                            <input type="checkbox" [(ngModel)]="element.flagLettura" name="Lettura">
+                            {{ element.flagLettura }}
                         </td>
                         <td class="px-6 py-4">
                             <input type="checkbox" [(ngModel)]="element.flagCreazione" name="Creazione">
@@ -96,14 +99,16 @@
                             {{ element.flagCancellazione }}
                         </td>
                         <td class="px-6 py-4">
-                            <select name="Ordinamento" [attr.size]="arrayObjectRuoloFunzioni.length">
+                            <select name="Ordinamento" [disabled]="!element.flagVoceDiMenu"
+                                [attr.size]="arrayObjectRuoloFunzioni.length">
                                 <option *ngFor="let element of arrayObjectRuoloFunzioni; index as i">
                                     {{ i }}
                                 </option>
                             </select>
                         </td>
                         <td class="px-6 py-4">
-                            <select name="Menupadre"> <!-- [(ngModel)]="formData.Lettura"  -->
+                            <select name="Menupadre" [disabled]="element.flagVoceDiMenu">
+                                <!-- [(ngModel)]="formData.Lettura"  -->
                                 <option>1</option>
                                 <option>2</option>
                             </select>
@@ -116,9 +121,12 @@
 
         <br> <br>
         <div class="flex flex-row justify-center mt-10">
-
+            <button type="submit" [disabled]="arrayObjectRuoloFunzioni.length == 0 || ruolo == ''"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Inserisci</button>
+            <!--
             <button type="button" (click)="clearSearch()"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            -->
             <button type="button" (click)="closeForm()"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
         </div>
