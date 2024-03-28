@@ -45,7 +45,25 @@ export class LoginComponent implements OnInit{
           {
             console.log(res.body.message)
           }
+          //
+          if(this.auth.status == statoAccesso.mancaMFA)
+          {
+            console.log(res.body)
+            this.auth.utenteId = res.body
+            this.auth.imageQRCode = res.body.imageQRCode
+            this.auth.utenteId = res.body.utenteId
+          }
           
+          if(this.auth.status == statoAccesso.scadutoMFA)
+          {
+            console.log(res.body)
+            this.auth.utenteId = res.body
+
+          }
+
+
+
+          //
           if(this.auth.status == statoAccesso.utenteLoggato)
           {
             this.auth.utente = res.body;

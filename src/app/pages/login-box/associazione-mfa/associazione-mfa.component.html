@@ -1,0 +1,12 @@
+<p>Validatore MFA</p>
+
+<img class="w-36" src="{{ auth.imageQRCode }}" />
+<div>
+  <label>inserisci codice Verifica:</label>
+  <input type="text" [(ngModel)]="codiceValidatore" />
+</div>
+<div>
+  <label>non richiedere per 7 giorni</label>
+  <input type="checkbox" [(ngModel)]="expire1week">
+</div>
+<button (click)="ConfermaMFA()">ConfermaMFA</button>

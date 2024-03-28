@@ -12,6 +12,8 @@ export class AuthenticationService {
   status : number = 0;
   listStatus = statoAccesso
   utente : any
+  utenteId:number = 0
+  imageQRCode = ""
 
   httpOptions:Object = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -47,6 +49,20 @@ export class AuthenticationService {
   {
     return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
+
+  ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
+    console.log(this.utenteId + validatoreMFA)
+    return this.http
+      .post<any>(
+        'http://localhost:5143/Login/ConfermaValidatore',
+        {utenteId:this.utenteId,codiceVerificaTemporaneo:validatoreMFA,expire1week:expire1week},this.httpOptions
+      )
+      
+  }
+
+ 
+
+  
 }
 
 export enum statoAccesso {
