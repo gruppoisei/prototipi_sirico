@@ -75,6 +75,7 @@ export class AggiungiAssenzaComponent {
   }
  
   inviaRichiesta(body: Richiesta){
+    console.log(body)
     this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
       (response: any) => {
         this.nuovaAssenzaInserita.emit()

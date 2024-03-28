@@ -19,10 +19,9 @@ export class GiornoCalendarioComponent {
 
   orarioDiLavoroConvertitoInOre = 0;
   oreLavorate = 0;
-  oreStraordinario = 0
+  oreStraordinario = 0;
   validatoreOreGiorno = false;
-  erroreGiornoFestivo = false
-
+  erroreGiornoFestivo = false;
 
   verificaGiornoCompletoInizio = '00:00';
   verificaGiornoCompletoFine = '23:59';
@@ -59,14 +58,16 @@ export class GiornoCalendarioComponent {
         find != -1;
       if (!this.giornoFestivo) {
         this.rapportinoService.giorniValidiMese += 1;
-        this.rapportinoService.oreMinimeTotali += 8
+        this.rapportinoService.oreMinimeTotali += 8;
         this.VerificaValiditaGiorno();
-        
-      } else { 
+        this.rapportinoService.oreLavorateMese += this.oreLavorate;
+
+      } else {
         for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
-          
-            if(this.giorno.listaAttivitaGiorno[i].oreLavorate >0) {this.erroreGiornoFestivo=true;this.rapportinoService.erroriGiorniMese++}
-            
+          if (this.giorno.listaAttivitaGiorno[i].oreLavorate > 0) {
+            this.erroreGiornoFestivo = true;
+            this.rapportinoService.erroriGiorniMese++;
+          }
         }
         this.giorno.listaAssenzeGiorno = [];
       }
@@ -91,99 +92,124 @@ export class GiornoCalendarioComponent {
     this.rapportinoService.EliminaGiorno(giornoId);
   }
 
-  
   VerificaValiditaGiorno() {
     this.orarioDiLavoroConvertitoInOre =
-      Number(this.giorno.oraUscita!.split(':')[0]) -
-      Number(this.giorno.oraEntrata!.split(':')[0]) -
-      (Number(this.giorno.oraFinePausa!.split(':')[0]) -
-        Number(this.giorno.oraInizioPausa!.split(':')[0])) +
-      (Number(this.giorno.oraUscita!.split(':')[1]) -
-        Number(this.giorno.oraEntrata!.split(':')[1]) -
-        (Number(this.giorno.oraFinePausa!.split(':')[1]) -
-          Number(this.giorno.oraInizioPausa!.split(':')[1]))) /
-        60;
+      // Number(this.giorno.oraUscita!.split(':')[0]) -
+      // Number(this.giorno.oraEntrata!.split(':')[0]) -
+      // (Number(this.giorno.oraFinePausa!.split(':')[0]) -
+      //   Number(this.giorno.oraInizioPausa!.split(':')[0])) +
+      // (Number(this.giorno.oraUscita!.split(':')[1]) -
+      //   Number(this.giorno.oraEntrata!.split(':')[1]) -
+      //   (Number(this.giorno.oraFinePausa!.split(':')[1]) -
+      //     Number(this.giorno.oraInizioPausa!.split(':')[1]))) /
+      //   60;
 
-        this.giorno.listaAssenzeGiorno.forEach((assenza) => {
-          let start = assenza.oraInizio;
-          let end = assenza.oraFine;
-          if (assenza.oraInizio < this.giorno.oraEntrata!  ) {
-            start = this.giorno.oraEntrata!;
-            assenza.oraInizio = this.giorno.oraEntrata!
-          }
-          if (assenza.oraFine > this.giorno.oraUscita!) {
-            end = this.giorno.oraUscita!;
-            assenza.oraFine = this.giorno.oraUscita!
-            }
-          if(assenza.statoApprovazione == true){
-            if(assenza.oraFine <= this.giorno.oraEntrata){
-              this.giorno.listaAssenzeGiorno = this.giorno.listaAssenzeGiorno.filter( a => a.assenzaId != assenza.assenzaId )
-            }
-          
-        
+        this.ConvertitoreOraIntero(this.giorno.oraUscita!) - this.ConvertitoreOraIntero(this.giorno.oraEntrata!) -this.ConvertitoreOraIntero(this.giorno.oraFinePausa!) + this.ConvertitoreOraIntero(this.giorno.oraInizioPausa!)
+
+    this.giorno.listaAssenzeGiorno.forEach((assenza) => {
+      let start = assenza.oraInizio;
+      let end = assenza.oraFine;
+      if (assenza.oraInizio < this.giorno.oraEntrata!) {
+        start = this.giorno.oraEntrata!;
+        assenza.oraInizio = this.giorno.oraEntrata!;
+      }
+      if (assenza.oraFine > this.giorno.oraUscita!) {
+        end = this.giorno.oraUscita!;
+        assenza.oraFine = this.giorno.oraUscita!;
+      }
+      if (assenza.statoApprovazione == true) {
+        if (assenza.oraFine <= this.giorno.oraEntrata) {
+          this.giorno.listaAssenzeGiorno =
+            this.giorno.listaAssenzeGiorno.filter(
+              (a) => a.assenzaId != assenza.assenzaId
+            );
+        }
+
         let oretotali;
-        
-        
-          
-          oretotali =
-            Number(end.split(':')[0]) -
-            Number(start.split(':')[0]) -
-            (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
-            
-          //sottraggo tempo pausa
+
+        oretotali = this.ConvertitoreOraIntero(end) - this.ConvertitoreOraIntero(start)
+          // Number(end.split(':')[0]) -
+          // Number(start.split(':')[0]) -
+          // (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
+
+        //sottraggo tempo pausa
+        if (
+          assenza.oraInizio < this.giorno.oraInizioPausa! &&
+          assenza.oraFine > this.giorno.oraInizioPausa!
+        ) {
+          start = this.giorno.oraInizioPausa!;
+          end = this.giorno.oraFinePausa!;
           if (
             assenza.oraInizio < this.giorno.oraInizioPausa! &&
-            assenza.oraFine > this.giorno.oraInizioPausa!
+            assenza.oraFine > this.giorno.oraInizioPausa! &&
+            assenza.oraFine < this.giorno.oraFinePausa!
           ) {
-            start = this.giorno.oraInizioPausa!;
-            end = this.giorno.oraFinePausa!;
-            if (
-              assenza.oraInizio < this.giorno.oraInizioPausa! &&
-              assenza.oraFine > this.giorno.oraInizioPausa! &&
-              assenza.oraFine < this.giorno.oraFinePausa!
-              ) {
-                end = assenza.oraFine;
-              //somma tempo parziale rispetto a inizio pausa
-            }
-            //sottraggo pausa
-            oretotali =
-              oretotali -
-              (Number(this.giorno.oraFinePausa!.split(':')[0]) -
-                Number(this.giorno.oraInizioPausa!.split(':')[0]) -
-                (Number(this.giorno.oraFinePausa!.split(':')[1]) -
-                  Number(this.giorno.oraInizioPausa!.split(':')[1])) /
-                  60);
+            end = assenza.oraFine;
+            //somma tempo parziale rispetto a inizio pausa
           }
-          this.oreLavorate += oretotali;
-          this.rapportinoService.oreAssenzaMese += oretotali
-          this.rapportinoService.oreLavorateMese += this.oreLavorate
+          //sottraggo pausa
+                              // oretotali =
+                              //   oretotali -
+                              //   (Number(this.giorno.oraFinePausa!.split(':')[0]) -
+                              //     Number(this.giorno.oraInizioPausa!.split(':')[0]) -
+                              //     (Number(this.giorno.oraFinePausa!.split(':')[1]) -
+                              //       Number(this.giorno.oraInizioPausa!.split(':')[1])) /
+                              //       60);
+                oretotali = oretotali -(this.ConvertitoreOraIntero(this.giorno.oraFinePausa!) -this.ConvertitoreOraIntero(this.giorno.oraInizioPausa!))
         }
-        });
-        //somma delle ore attivita complessive
+        this.oreLavorate += oretotali;
+        this.rapportinoService.oreAssenzaMese += oretotali;
+      }
+    });
+    //somma delle ore attivita complessive
     for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
-      this.oreLavorate +=
-        this.giorno.listaAttivitaGiorno[i].oreLavorate
-        this.rapportinoService.oreStraordinarioMese += this.giorno.listaAttivitaGiorno[i].oreStraordinario;
-        this.oreStraordinario += this.giorno.listaAttivitaGiorno[i].oreStraordinario
-        this.rapportinoService.oreLavorateMese += this.oreLavorate
-        let prog = this.rapportinoService.oreProgetto.findIndex(a => a.nomeProgetto == this.giorno.listaAttivitaGiorno[i].nomeProgetto)
-        if(prog == -1)
-        this.rapportinoService.oreProgetto.push({nomeProgetto:this.giorno.listaAttivitaGiorno[i].nomeProgetto!,oreProgetto:this.giorno.listaAttivitaGiorno[i].oreLavorate + this.giorno.listaAttivitaGiorno[i].oreStraordinario})
-        else this.rapportinoService.oreProgetto[i].oreProgetto += this.giorno.listaAttivitaGiorno[i].oreLavorate + this.giorno.listaAttivitaGiorno[i].oreStraordinario
+      this.oreLavorate += this.giorno.listaAttivitaGiorno[i].oreLavorate;
+      this.rapportinoService.oreStraordinarioMese +=
+        this.giorno.listaAttivitaGiorno[i].oreStraordinario;
+      
+      let prog = this.rapportinoService.oreProgetto.findIndex(
+        (a) => a.nomeProgetto == this.giorno.listaAttivitaGiorno[i].nomeProgetto
+      );
+      if (prog == -1)
+        this.rapportinoService.oreProgetto.push({
+          nomeProgetto: this.giorno.listaAttivitaGiorno[i].nomeProgetto!,
+          oreProgetto:
+            this.giorno.listaAttivitaGiorno[i].oreLavorate +
+            this.giorno.listaAttivitaGiorno[i].oreStraordinario,
+        });
+      else
+        this.rapportinoService.oreProgetto[i].oreProgetto +=
+          this.giorno.listaAttivitaGiorno[i].oreLavorate +
+          this.giorno.listaAttivitaGiorno[i].oreStraordinario;
     }
-    
-    if( ((this.oreLavorate + this.oreStraordinario) == this.orarioDiLavoroConvertitoInOre) && this.oreLavorate >=8 )
-    {
+
+    if (
+      this.oreLavorate + this.oreStraordinario ==
+        this.orarioDiLavoroConvertitoInOre &&
+      this.oreLavorate >= 8
+    ) {
       this.validatoreOreGiorno = true;
       this.rapportinoService.giorniConfermati += 1;
     }
   }
 
-  VerificaMeseEsatto():boolean{
-    console.log(this.rapportinoService.oggi.getMonth())
-    console.log(this.rapportinoService.risposta.rapportino.dataRapportino)
-    let ver = this.rapportinoService.oggi.getMonth() == Number(this.rapportinoService.risposta.rapportino.dataRapportino?.toString().split("-")[1] ) -1
-    console.log(ver)
-    return ver
+  VerificaMeseEsatto(): boolean {
+    console.log(this.rapportinoService.oggi.getMonth());
+    console.log(this.rapportinoService.risposta.rapportino.dataRapportino);
+    let ver =
+      this.rapportinoService.oggi.getMonth() ==
+      Number(
+        this.rapportinoService.risposta.rapportino.dataRapportino
+          ?.toString()
+          .split('-')[1]
+      ) -
+        1;
+    console.log(ver);
+    return ver;
+  }
+
+
+  ConvertitoreOraIntero(orario:string):number{
+    return Number(orario.split(":")[0]) + (Number(orario.split(":")[1])/60)
   }
 }
