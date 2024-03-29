@@ -1,16 +1,16 @@
-import {TestBed} from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 
-import {PaesiService} from './paesi.service'
+import { PaesiService } from './paesi.service';
 
 describe('PaesiService', () => {
-  let service: PaesiService
+  let service: PaesiService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({})
-    service = TestBed.inject(PaesiService)
-  })
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(PaesiService);
+  });
 
   it('should be created', () => {
-    expect(service).toBeTruthy()
-  })
-})
+    expect(service).toBeTruthy();
+  });
+});

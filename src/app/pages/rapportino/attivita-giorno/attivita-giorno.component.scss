@@ -1,90 +1,90 @@
-.dialog {
-  margin: 20px;
-  padding: 20px;
+.dialog{
+    margin: 20px;
+    padding: 20px;
+    
 }
 
-.datadiv {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+
+.datadiv{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
 }
 
-.A,
-.B,
-.C,
-.D,
-.E {
-  margin: 12px;
+.A, .B, .C, .D, .E{
+    margin: 12px;
+    
+    
 }
 
-.example-section,
-.aggiungi {
-  margin: 12px;
+.example-section, .aggiungi{
+    margin: 12px;
 }
 
-.OO,
-.OS {
-  margin: 12px;
+.OO, .OS{
+    margin: 12px;
+    
 }
 
-.D,
-.E {
-  float: right;
+.D, .E{
+    float: right;
 }
 
-.commessaRep,
-.inizioReperibilità,
-.fineReperibilita,
-.aggiungi2 {
-  display: flex;
-  align-content: center;
+.commessaRep, .inizioReperibilità, .fineReperibilita, .aggiungi2 {
+    display: flex;
+    align-content: center;
 }
 
-.MostraAttivita {
-  display: flex;
-  padding: 10px;
-  margin: 10px;
-  flex-direction: column;
+.MostraAttivita{
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    flex-direction: column;
 }
 
-.attivita {
-  display: flex;
-  flex-direction: row;
-  margin: 12px;
-  padding: 12px;
-  width: 1000px;
-  border: 2px;
-  background-color: teal;
-  color: white;
+
+.attivita{
+    display: flex;
+    flex-direction: row;
+    margin: 12px;
+    padding: 12px;
+    width: 1000px;
+    border: 2px;
+    background-color: teal;
+     color:white
 }
 
-.qualcosa {
-  flex-grow: 1;
+
+.qualcosa{
+    flex-grow: 1;
 }
 
 select,
-input[type='number'],
-textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-.O {
-  margin: 12px;
-  padding: 12px;
-}
+      input[type="number"],
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      .O{
+        margin: 12px;
+        padding: 12px;
+      }
 
-.assenzaDaValutare {
-  background-color: rgb(228, 228, 29);
-}
 
-.assenzaConfermata {
-  background-color: rgb(91, 141, 42);
-}
+      .assenzaDaValutare{
+        background-color: rgb(228, 228, 29);
+      }
 
-.assenzaRifiutata {
-  background-color: rgb(231, 32, 32);
-}
+      .assenzaConfermata{
+
+        background-color: rgb(91, 141, 42);
+      }
+
+      .assenzaRifiutata{
+        background-color: rgb(231, 32, 32);
+      }

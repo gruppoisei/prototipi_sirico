@@ -1,50 +1,26 @@
-<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-4/6 lg:py-0">
-  <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
-    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-      <form [formGroup]="loginForm" class="space-y-4 md:space-y-6" (ngSubmit)="doLogin()">
-        <h2 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Accesso all'area aziendale</h2>
-        <hr />
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900">Username</label>
-          <input
-            formControlName="username"
-            type="text"
-            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-            placeholder="Username"
-            required
-            [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')"
-          />
+<div class = "flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-4/6 lg:py-0">
+    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <form [formGroup]="loginForm"  class = "space-y-4 md:space-y-6" (ngSubmit)="doLogin()">
+                <h2 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Accesso all'area aziendale</h2>
+                <hr>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                    <input formControlName = "username" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-sky-500 focus:ring-sky-500" placeholder="Username" required
+                    [class.error] = "loginForm.controls['username'].dirty && loginForm.hasError('required','username')">
+                </div>
+                <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required','username')" class="text-red-600">Username obbligatorio</small>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                    <input formControlName = "password" type="password" name="password" id="password"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-500 focus:ring-sky-500 w-full p-2.5 " placeholder="••••••••" 
+                    [class.error] = "loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+                </div>
+                <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')" class="text-red-600">Password obbligatoria</small>
+                <div>
+                    <a (click)="openForgotPassword()" class="mt-2 cursor-pointer text-xs font-medium text-sky-500 hover:underline text-right">Hai dimenticato la password?</a>
+                </div>
+                <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Entra</button>
+        </form>
         </div>
-        <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')" class="text-red-600"
-          >Username obbligatorio</small
-        >
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900">Password</label>
-          <input
-            formControlName="password"
-            type="password"
-            name="password"
-            id="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-500 focus:ring-sky-500 w-full p-2.5"
-            placeholder="••••••••"
-            [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')"
-          />
-        </div>
-        <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')" class="text-red-600"
-          >Password obbligatoria</small
-        >
-        <div>
-          <a (click)="openForgotPassword()" class="mt-2 cursor-pointer text-xs font-medium text-sky-500 hover:underline text-right"
-            >Hai dimenticato la password?</a
-          >
-        </div>
-        <button
-          type="submit"
-          class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        >
-          Entra
-        </button>
-      </form>
     </div>
-  </div>
 </div>

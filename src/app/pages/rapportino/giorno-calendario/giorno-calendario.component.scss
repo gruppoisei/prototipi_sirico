@@ -1,74 +1,89 @@
-.A {
-  width: 10px;
-  height: 10px;
-  background-color: rgb(225, 99, 99);
-  border-radius: 10px;
+.A{
+    width: 10px;
+    height: 10px;
+    background-color: rgb(225, 99, 99);
+    border-radius: 10px;
+    
 }
 
-.delete {
+
+.delete{
   color: white;
   background-color: red;
-  margin: 2px;
+  margin:2px;
   border-radius: 4px;
 }
 
-.copy {
+.copy{
   background-color: #0dcaf0;
   color: white;
-  margin: 2px;
+  margin:2px;
   border-radius: 4px;
+  
+
 }
 
-.AP {
-  background-color: teal;
-  color: white;
-  flex-grow: 4 margin 2px;
-  padding: 2px;
-  border-radius: 4px;
+
+.AP{
+    background-color: teal;
+    color: white;
+    flex-grow: 4
+    margin 2px;
+    padding: 2px;
+    border-radius: 4px;
 }
 
-.AS {
-  background-color: teal;
-  color: rgb(236, 218, 81);
-  flex-grow: 4 margin 2px;
-  padding: 2px;
-  border-radius: 4px;
+.AS{
+    background-color: teal;
+    color: rgb(236, 218, 81);
+    flex-grow: 4
+    margin 2px;
+    padding:2px;
+    border-radius: 4px;
+
 }
 
-.Provasss {
-  color: rgb(164, 22, 22);
-}
+.Provasss{
+    color: rgb(164, 22, 22);
+    
+  }
 
-.assenzaDaValutare {
-  background-color: #ffc107;
-  border-radius: 4px;
-}
+.assenzaDaValutare{
+    background-color:#ffc107;
+    border-radius: 4px;
+    
+  }
 
-.assenzaConfermata {
-  background-color: teal;
-  color: white;
-  border-radius: 4px;
-}
+  .assenzaConfermata{
 
-.assenzaRifiutata {
-  background-color: rgb(231, 32, 32);
-  border-radius: 4px;
-  margin: 2px;
-  padding: 2px;
-  border-radius: 4px;
-}
+    background-color: teal;
+    color: white;
+    border-radius: 4px;
+  }
 
-.giornoConfermato {
-  background-color: teal;
-  color: white;
-  margin: 2px;
-  padding: 2px;
-  border-radius: 4px;
-}
+  .assenzaRifiutata{
+    background-color: rgb(231, 32, 32);
+    border-radius: 4px;
+    margin: 2px;
+    padding:2px;
+    border-radius: 4px;
+  }
 
-.giornoNONConfermato {
-  background-color: #ffc107;
-  margin: 2px;
-  padding: 2px;
-  border-radius: 4px;
-}
+
+  .giornoConfermato{
+    background-color:teal;
+    color:white;
+    margin: 2px;
+    padding:2px;
+    border-radius: 4px;
+
+  }
+
+  .giornoNONConfermato{
+    background-color: #ffc107;
+    margin: 2px;
+    padding:2px;
+    border-radius: 4px;
+
+    
+  }

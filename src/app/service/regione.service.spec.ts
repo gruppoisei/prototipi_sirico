@@ -1,16 +1,16 @@
-import {TestBed} from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 
-import {RegioneService} from './regione.service'
+import { RegioneService } from './regione.service';
 
 describe('RegioneService', () => {
-  let service: RegioneService
+  let service: RegioneService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({})
-    service = TestBed.inject(RegioneService)
-  })
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(RegioneService);
+  });
 
   it('should be created', () => {
-    expect(service).toBeTruthy()
-  })
-})
+    expect(service).toBeTruthy();
+  });
+});

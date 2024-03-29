@@ -1,49 +1,51 @@
 <div class="container">
-  <h2>Inserisci Richiesta</h2>
-  <form (ngSubmit)="submitForm()">
-    <label>Tipo Richiesta (obligatorio)</label>
-    <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
-      <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
-    </select>
-
-    <div class="row">
-      <div class="column">
-        <label>Dal giorno: (obligatorio)</label>
-        <input type="date" [(ngModel)]="DataInizio" name="Datainizio" required />
+    <h2>Inserisci Richiesta</h2>
+    <form (ngSubmit)="submitForm()">
+      <label>Tipo Richiesta (obligatorio)</label>
+      <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
+        <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
+      </select>
+   
+      <div class="row">
+        <div class="column">
+          <label>Dal giorno:  (obligatorio)</label>
+          <input type="date"  [(ngModel)]="DataInizio" name="Datainizio" required>
+        </div>
+        <div class="column">
+          <label>Al giorno:  (obligatorio)</label>
+          <input type="date" [(ngModel)]="DataFine"  name="Datafine"  required>
+        </div>
       </div>
-      <div class="column">
-        <label>Al giorno: (obligatorio)</label>
-        <input type="date" [(ngModel)]="DataFine" name="Datafine" required />
+   
+      <div class="row">
+        <div class="column">
+          <label>Ora Inizio (obligatorio)</label>
+          <select [(ngModel)]="OraInizio" name="OraInizio"   required>
+            <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
+          </select>
+        </div>
+        <div class="column">
+          <label>Ora Fine (obligatorio)</label>
+          <select [(ngModel)]="OraFine" name="OraFine" required>
+            <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
+          </select>
+        </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="column">
-        <label>Ora Inizio (obligatorio)</label>
-        <select [(ngModel)]="OraInizio" name="OraInizio" required>
-          <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
-        </select>
+   
+     
+   
+      <label>Note (obligatorio)</label>
+      <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
+   
+      <div class="uploadcontainer">
+        <label>Upload File</label>
+        <input type="file" #myFile id="fileInput" (change)="uploadDoc()">
       </div>
-      <div class="column">
-        <label>Ora Fine (obligatorio)</label>
-        <select [(ngModel)]="OraFine" name="OraFine" required>
-          <option *ngFor="let ora of ore" [value]="ora">{{ ora }}</option>
-        </select>
+   
+      <div class="buttons">
+        <button type="submit" >Invia Richiesta</button>
+        <button type="button" (click)="ResetRichiestaAssenza()">Elimina Richiesta</button>
+        <button type="button" (click)="chiudiForm()">Chiudi</button>
       </div>
-    </div>
-
-    <label>Note (obligatorio)</label>
-    <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
-
-    <div class="uploadcontainer">
-      <label>Upload File</label>
-      <input type="file" #myFile id="fileInput" (change)="uploadDoc()" />
-    </div>
-
-    <div class="buttons">
-      <button type="submit">Invia Richiesta</button>
-      <button type="button" (click)="ResetRichiestaAssenza()">Elimina Richiesta</button>
-      <button type="button" (click)="chiudiForm()">Chiudi</button>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>

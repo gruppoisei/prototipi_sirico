@@ -3,40 +3,39 @@
     <p class="flex- grow font-bold text-2xl" [class.Provasss]="giornoFestivo">
       {{ giorno.dataNumero }}
     </p>
-    <div *ngIf="!rapportinoService.risposta.rapportino.confermaRapportino && VerificaMeseEsatto()" class="flex flex-row">
-      <button (click)="ClickMe()">
-        <mat-icon
-          [class.giornoConfermato]="validatoreOreGiorno && !giornoFestivo"
-          [class.giornoNONConfermato]="!validatoreOreGiorno && !giornoFestivo"
-          [class.giornoErroreFestivo]="erroreGiornoFestivo"
-          >create</mat-icon
-        >
-      </button>
-
-      <button *ngIf="this.giorno.listaAttivitaGiorno.length > 0 && !giornoFestivo" (click)="CopiaGiorno()">
-        <mat-icon class="copy">content_copy</mat-icon>
-      </button>
-      <button (click)="Delete(giorno.giornoLavorativoId!)"><mat-icon class="delete">delete</mat-icon></button>
+    <div
+      *ngIf="
+        !rapportinoService.risposta.rapportino.confermaRapportino && VerificaMeseEsatto()
+      "
+      class="flex flex-row"
+    >
+      
+      <button (click)="ClickMe()" >  <mat-icon [class.giornoConfermato]="validatoreOreGiorno && !giornoFestivo" [class.giornoNONConfermato]="!validatoreOreGiorno && !giornoFestivo" [class.giornoErroreFestivo]="erroreGiornoFestivo" >create</mat-icon>  </button> 
+      
+      <button *ngIf="this.giorno.listaAttivitaGiorno.length > 0 && !giornoFestivo" (click)="CopiaGiorno()" >  <mat-icon class="copy">content_copy</mat-icon>  </button> 
+      <button (click)="Delete(giorno.giornoLavorativoId!)">  <mat-icon class="delete" >delete</mat-icon>  </button> 
     </div>
   </div>
   <hr />
-  <div *ngFor="let attivita of giorno.listaAttivitaGiorno" class="container text-xs m-1 p-1">
+  <div
+    *ngFor="let attivita of giorno.listaAttivitaGiorno"
+    class="container text-xs m-1 p-1"
+  >
     <div class="AP row border-bottom m-[1px] p-[1px]">
       <span>{{ attivita.nomeProgetto }}</span>
     </div>
 
     <div class="AS row border-bottom flex m-[1px] p-[1px]">
       <span class="grow">{{ attivita.sedeLavoro }}</span>
-      <span>
-        ord {{ attivita.oreLavorate }} h
-        <p *ngIf="attivita.oreStraordinario > 0">/stra {{ attivita.oreStraordinario }}</p></span
-      >
+      <span> ord {{ attivita.oreLavorate }} h <p *ngIf="attivita.oreStraordinario>0">/stra {{attivita.oreStraordinario}}</p></span>
     </div>
   </div>
   <div>
     <div
       *ngFor="let assenza of giorno.listaAssenzeGiorno"
-      [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione != true"
+      [class.assenzaDaValutare]="
+        assenza.statoApprovazione != false && assenza.statoApprovazione != true
+      "
       [class.assenzaRifiutata]="assenza.statoApprovazione == false"
       [class.assenzaConfermata]="assenza.statoApprovazione == true"
       class="container text-xs m-1 p-1"
@@ -44,10 +43,22 @@
       <div class="row border-bottom m-[1px] p-[1px]">
         {{ assenza.tipoRichiesta }}
       </div>
-      <div *ngIf="assenza.oraInizio != giorno.oraEntrata || assenza.oraFine != giorno.oraUscita">
+      <div
+        *ngIf="
+          assenza.oraInizio != giorno.oraEntrata ||
+          assenza.oraFine != giorno.oraUscita
+        "
+      >
         inizio:{{ assenza.oraInizio }} fine:{{ assenza.oraFine }}
       </div>
-      <div *ngIf="assenza.oraInizio == giorno.oraEntrata && assenza.oraFine == giorno.oraUscita">giornata completa</div>
+      <div
+        *ngIf="
+          assenza.oraInizio == giorno.oraEntrata &&
+          assenza.oraFine == giorno.oraUscita
+        "
+      >
+        giornata completa
+      </div>
     </div>
   </div>
 </div>

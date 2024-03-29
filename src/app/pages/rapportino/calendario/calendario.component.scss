@@ -1,49 +1,56 @@
-.gglavmese {
-  display: flex;
-  justify-content: center;
-  background-color: whitesmoke;
-  border-radius: 4px;
-  border: 1px solid rgb(174, 172, 172);
-  margin: 12px;
-  padding: 12px;
-  float: right;
+.gglavmese{
+    display: flex;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    border: 1px solid rgb(174, 172, 172);
+    margin: 12px;
+    padding: 12px;
+    float:right
 }
 
-.conferma {
-  color: white;
+.conferma{
+    color: white;
 }
 
-.cubo {
-  width: 160px;
-  height: 200px;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid rgb(174, 172, 172);
+
+
+.cubo{
+    width: 160px;
+    height: 200px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid rgb(174, 172, 172);
 }
 
-.cuboLast {
-  background-color: rgb(249, 240, 240);
+.cuboLast{
+    
+    background-color:rgb(249, 240, 240);
 }
 
-.cubocURRENT {
-  background-color: white;
+
+.cubocURRENT{
+    
+    background-color: white;
 }
-.cuboNext {
-  background-color: rgb(249, 240, 240);
+.cuboNext{
+   
+    background-color:rgb(249, 240, 240);
 }
 
-.giorni {
-  width: 160px;
-  height: 60px;
-  padding: 8px;
-
-  border-radius: 4px;
-  border: 1px solid black;
-  text-align: center;
-  background-color: rgb(31, 41, 55);
-  color: white;
+.giorni{
+    
+    width: 160px;
+    height: 60px;
+    padding: 8px;
+    
+    border-radius: 4px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: rgb(31, 41, 55);
+    color: white;
 }
-.container {
-  margin: 12px;
-  padding: 12px;
+.container{
+    margin: 12px;
+    padding: 12px;
 }

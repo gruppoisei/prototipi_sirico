@@ -1,7 +1,7 @@
 // app.component.ts
-import {Component} from '@angular/core'
-import {Router} from '@angular/router'
-import {trigger, transition, style, animate} from '@angular/animations'
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -19,18 +19,19 @@ import {trigger, transition, style, animate} from '@angular/animations'
     ])
   ] */
 })
+
 export class AppComponent {
-  isDropdownOpen: boolean = false
-  selectedItem: string = ''
+  isDropdownOpen: boolean = false;
+  selectedItem: string = '';
 
   constructor(private router: Router) {}
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen
+  toggleDropdown(){
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   onItemClick(item: string) {
-    this.selectedItem = item
-    this.isDropdownOpen = false
-    this.router.navigateByUrl(item)
+    this.selectedItem = item;
+    this.isDropdownOpen = false;
+    this.router.navigateByUrl(item);
   }
 }

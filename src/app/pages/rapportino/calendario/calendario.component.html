@@ -4,28 +4,46 @@
     <mat-select (valueChange)="CambiaMese($event)" [(value)]="giornoDefault">
       <div *ngFor="let mese of listaMesi; index as i">
         <mat-option [value]="mese">
-          {{ mese | date: 'yyyy LLLL' }}
+          {{ mese | date : "yyyy LLLL" }}
         </mat-option>
       </div>
     </mat-select>
   </mat-form-field>
 </div>
-<div class="gglavmese rounded-r-3xl py-6 px-10 w-fit h-fit flex justify-center flex-col">
-  <div class="mb-10">
+<div
+  class="gglavmese rounded-r-3xl py-6 px-10 w-fit h-fit flex justify-center flex-col"
+>
+  <div class="mb-10 ">
     <h3>Ore lavorate Singoli Progetti:</h3>
     <div *ngFor="let progetto of rapportinoService.oreProgetto">
       <div>{{ progetto.nomeProgetto }}: ore {{ progetto.oreProgetto }}</div>
     </div>
-    <div>ore assenze mese : {{ rapportinoService.oreAssenzaMese }}</div>
+    <div>ore assenze mese : {{rapportinoService.oreAssenzaMese}} </div>
   </div>
   <div>
-    <div>giorni lavorativi mese: {{ rapportinoService.giorniConfermati }}/{{ rapportinoService.giorniValidiMese }}</div>
-    <div>ore lavorate mese: {{ rapportinoService.oreLavorateMese }}/{{ rapportinoService.oreMinimeTotali }}</div>
-    <div>ore straordinario mese: {{ rapportinoService.oreStraordinarioMese }}</div>
+    <div>
+      giorni lavorativi mese: {{ rapportinoService.giorniConfermati }}/{{
+        rapportinoService.giorniValidiMese
+      }}
+    </div>
+    <div>
+      ore lavorate mese: {{ rapportinoService.oreLavorateMese }}/{{
+        rapportinoService.oreMinimeTotali
+      }}
+    </div>
+    <div>
+      ore straordinario mese: {{ rapportinoService.oreStraordinarioMese }}
+    </div>
     <button
       class="border-t-2 border-black"
-      *ngIf="rapportinoService.giorniConfermati == rapportinoService.giorniValidiMese"
-      [disabled]="rapportinoService.giorniConfermati < rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese > 0"
+      *ngIf="
+        rapportinoService.giorniConfermati == rapportinoService.giorniValidiMese
+      "
+      [disabled]="
+        rapportinoService.giorniConfermati <
+          rapportinoService.giorniValidiMese ||
+        rapportinoService.erroriGiorniMese > 0
+      "
       class="rounded-full bg-amber-50 p-3 m-3"
       (click)="ConfermaMese()"
     >
@@ -33,7 +51,11 @@
     </button>
     <div
       class="border-t-2 border-black"
-      *ngIf="rapportinoService.giorniConfermati < rapportinoService.giorniValidiMese || rapportinoService.erroriGiorniMese > 0"
+      *ngIf="
+        rapportinoService.giorniConfermati <
+          rapportinoService.giorniValidiMese ||
+        rapportinoService.erroriGiorniMese > 0
+      "
       class="rounded-full bg-slate-400 p-3 m-3"
     >
       Conferma Rapportino
@@ -49,17 +71,26 @@
   <div class="giorni">Venerdi</div>
   <div class="giorni">Sabato</div>
   <div class="giorni">Domenica</div>
-  <div *ngFor="let giorno of rapportinoService.giorniMesePassato" class="cubo cuboLast p-2 font-bold text-2xl">
+  <div
+    *ngFor="let giorno of rapportinoService.giorniMesePassato"
+    class="cubo cuboLast p-2 font-bold text-2xl"
+  >
     {{ giorno }}
   </div>
 
   <app-giorno-calendario
-    *ngFor="let giorno of rapportinoService.risposta.listaGiorniLavoroMese | ordinaGiorni: 'dataNumero'"
+    *ngFor="
+      let giorno of rapportinoService.risposta.listaGiorniLavoroMese
+        | ordinaGiorni : 'dataNumero'
+    "
     class="cubo cubocURRENT p-2"
     [giorno]="giorno"
   />
 
-  <div *ngFor="let giorno of rapportinoService.giorniMeseSeguente" class="cubo cuboNext p-2 font-bold text-2xl">
+  <div
+    *ngFor="let giorno of rapportinoService.giorniMeseSeguente"
+    class="cubo cuboNext p-2 font-bold text-2xl"
+  >
     {{ giorno }}
   </div>
 </div>

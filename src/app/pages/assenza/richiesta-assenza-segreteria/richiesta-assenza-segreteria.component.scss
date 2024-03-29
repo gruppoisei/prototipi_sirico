@@ -1,9 +1,9 @@
 .container {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  align-items: center;
-  margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    margin-top: 50px; 
 }
 .container testo {
   padding: 10px 20px;
@@ -12,169 +12,171 @@
 }
 
 .search-button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .search-button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 .expanded-section {
-  flex-direction: column;
-  align-items: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .expanded-section.active {
-  display: flex;
+    display: flex;
 }
 
 .expanded-section h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 .expanded-section input {
-  padding: 8px;
-  margin-bottom: 10px;
+    padding: 8px;
+    margin-bottom: 10px;
 }
 
 .expanded-section button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  background-color: #28a745;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .expanded-section button:hover {
-  background-color: #218838;
+    background-color: #218838;
 }
 
 /* Stile per la tabella */
 table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  
+  .modal-testo{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center; 
+    font-size: 1.5rem;
+    margin-bottom: 30px; 
+  }
 
-.modal-testo {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  align-items: center;
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-}
+  .button {
+    padding: 20px 10px;
+    width: 200px;
+    height: 75px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+  }
 
-.button {
-  padding: 20px 10px;
-  width: 200px;
-  height: 75px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  justify-content: center;
-  margin: 0 auto;
-  align-items: center;
-}
+  .button-modal {
+    padding: 20px 10px;
+    width: 200px;
+    height: 75px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    margin-bottom: 30px; 
+  }
 
-.button-modal {
-  padding: 20px 10px;
-  width: 200px;
-  height: 75px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  justify-content: center;
-  margin: 0 auto;
-  align-items: center;
-  margin-bottom: 30px;
-}
+  .modal-input{
+    padding: 20px 10px;
+    max-width: 75vw;
+    height: 75px;
+    background-color: #dddddd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center; 
+    color: black;
+  }
 
-.modal-input {
-  padding: 20px 10px;
-  max-width: 75vw;
-  height: 75px;
-  background-color: #dddddd;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  justify-content: center;
-  margin: 0 auto;
-  align-items: center;
-  color: black;
-}
+  td button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Stile per lo stato di approvazione */
+  td span.approvato {
+    color: green;
+  }
+  
+  /* Stile per il modal di approvazione/rifiuto */
+  .modal-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .modal-container input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .modal-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-container button:hover {
+    background-color: #0056b3;
+  }
 
-td button:hover {
-  background-color: #0056b3;
-}
+  .inserimento-responsabile {
+    margin-right: 100px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
+  }
 
-/* Stile per lo stato di approvazione */
-td span.approvato {
-  color: green;
-}
-
-/* Stile per il modal di approvazione/rifiuto */
-.modal-container {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.modal-container input[type='text'] {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.modal-container button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.modal-container button:hover {
-  background-color: #0056b3;
-}
-
-.inserimento-responsabile {
-  margin-right: 100px;
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-  padding: 5px 5px 5px 5px;
-}
-
-select {
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-  padding: 5px 5px 5px 5px;
-}
+  select {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
+  }
+  
