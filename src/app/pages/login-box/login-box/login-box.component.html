@@ -3,8 +3,6 @@
   *ngIf="auth.status == auth.listStatus.richiestaResetPsw"
 ></app-modifica-password>
 
-<div class="flex justify-center m-96">
-  <div class="w-96 bg-slate-400 border-2 border-black min-h-96 p-4">
     <app-associazione-mfa
       *ngIf="auth.status == auth.listStatus.mancaMFA"
     ></app-associazione-mfa>
@@ -12,5 +10,3 @@
     <app-validatore-mfa
       *ngIf="auth.status == auth.listStatus.scadutoMFA"
     ></app-validatore-mfa>
-  </div>
-</div>

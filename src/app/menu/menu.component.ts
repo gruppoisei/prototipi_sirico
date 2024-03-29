@@ -10,7 +10,7 @@ export class MenuComponent implements OnInit {
   
   isAuthenticated : boolean = false
 
-  constructor(private authService : AuthenticationService){}
+  constructor(public authService : AuthenticationService){}
   
   ngOnInit(): void {
     this.authService.getIsAuthenticated().subscribe((isAuthenticated : boolean) => 
