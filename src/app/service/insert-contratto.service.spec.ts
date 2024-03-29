@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing'
 
-import { InsertContrattoService } from './insert-contratto.service';
+import {InsertContrattoService} from './insert-contratto.service'
 
 describe('InsertContrattoService', () => {
-  let service: InsertContrattoService;
+  let service: InsertContrattoService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(InsertContrattoService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(InsertContrattoService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

@@ -1,27 +1,24 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Utente } from '../dto/request/utente';
-import { Observable } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Persona } from '../dto/request/persona';
+import {HttpClient} from '@angular/common/http'
+import {Injectable} from '@angular/core'
+import {Utente} from '../dto/request/utente'
+import {Observable} from 'rxjs'
+import {FormControl, FormGroup} from '@angular/forms'
+import {Persona} from '../dto/request/persona'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private baseUrl: string = 'http://localhost:5143/'
 
-  private baseUrl : string = "http://localhost:5143/";
-
-  constructor(private http : HttpClient) { }
-
+  constructor(private http: HttpClient) {}
 
   /*insertUser(userObj:Utente) : Observable<Utente>
   {
     return this.http.post<Utente>(`${this.baseUrl}Login/InsertUser`,userObj)
   }*/
 
-  insertPersona(personaObj: any) : Observable<any>
-  {
+  insertPersona(personaObj: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}Persona/AddPersona`, personaObj)
   }
 }

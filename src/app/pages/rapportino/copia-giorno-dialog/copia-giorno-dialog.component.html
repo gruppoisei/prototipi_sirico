@@ -1,9 +1,7 @@
 <div class="">
   <div class="flex-grow p-2 m-2">
     giorno da copiare: {{ data.giorno.dataNumero }}
-    {{
-      rapportinoService.risposta.rapportino.dataRapportino | date : "LLLL yyyy"
-    }}
+    {{ rapportinoService.risposta.rapportino.dataRapportino | date: 'LLLL yyyy' }}
   </div>
   <div class="flex flex-row">
     <div class="flex flex-row flex-wrap border-2">
@@ -32,48 +30,21 @@
       <div class="giorni h-8 w-11 text-center">ven</div>
       <div class="giorni h-8 w-11 text-center">sab</div>
       <div class="giorni h-8 w-11 text-center">dom</div>
-      <div
-        *ngFor="let giorni of rapportinoService.giorniMesePassato"
-        class="giorni h-11 w-11 bg-slate-300"
-      ></div>
+      <div *ngFor="let giorni of rapportinoService.giorniMesePassato" class="giorni h-11 w-11 bg-slate-300"></div>
       <div
         class="w-11 h-11 justify-center giorni"
-        *ngFor="
-          let giorno of rapportinoService.risposta.listaGiorniLavoroMese
-            | ordinaGiorni : 'dataNumero'
-        "
-        [class.giornoGiaPieno]="
-          giorno.listaAttivitaGiorno.length > 0 &&
-          giorno.giornoLavorativoId != data.giorno.giornoLavorativoId
-        "
-        [class.questoGiorno]="
-          giorno.giornoLavorativoId == data.giorno.giornoLavorativoId ||
-          data.giornoFestivo
-        "
+        *ngFor="let giorno of rapportinoService.risposta.listaGiorniLavoroMese | ordinaGiorni: 'dataNumero'"
+        [class.giornoGiaPieno]="giorno.listaAttivitaGiorno.length > 0 && giorno.giornoLavorativoId != data.giorno.giornoLavorativoId"
+        [class.questoGiorno]="giorno.giornoLavorativoId == data.giorno.giornoLavorativoId || data.giornoFestivo"
       >
         <label> {{ giorno.dataNumero }} </label>
-        <input
-          [disabled]="giorno.giornoLavorativoId == data"
-          type="checkbox"
-          (change)="AggiungiNumero(giorno.giornoLavorativoId!)"
-        />
+        <input [disabled]="giorno.giornoLavorativoId == data" type="checkbox" (change)="AggiungiNumero(giorno.giornoLavorativoId!)" />
       </div>
 
-      <div
-        *ngFor="let giorni of rapportinoService.giorniMeseSeguente"
-        class="giorni h-11 w-11 bg-slate-300"
-      ></div>
+      <div *ngFor="let giorni of rapportinoService.giorniMeseSeguente" class="giorni h-11 w-11 bg-slate-300"></div>
 
       <div>
-        <button
-          class="button"
-          mat-raised-button
-          color="basic"
-          type="button"
-          (click)="CopiaGiorni()"
-        >
-          Conferma
-        </button>
+        <button class="button" mat-raised-button color="basic" type="button" (click)="CopiaGiorni()">Conferma</button>
       </div>
     </div>
   </div>

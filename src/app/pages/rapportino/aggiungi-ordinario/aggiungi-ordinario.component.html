@@ -1,47 +1,35 @@
-
 <div class="datadiv">
-    <div class="commessa">
-      <label>Commessa</label>
-      <select [(ngModel)]="this.attivitaDaAggiungere.attivitaPersonaId">
-        <option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">{{ commessa.nomeProgetto }}</option>
-      </select>
-    </div>
+  <div class="commessa">
+    <label>Commessa</label>
+    <select [(ngModel)]="this.attivitaDaAggiungere.attivitaPersonaId">
+      <option *ngFor="let commessa of rapportinoService.infoPersona.listaAttivitaProgettoPersona" [value]="commessa.attivitaProgettoPersonaId">
+        {{ commessa.nomeProgetto }}
+      </option>
+    </select>
+  </div>
 
-    <div class="sede">
-      <label>sede</label>
-      <select [(ngModel)]="this.attivitaDaAggiungere.sedeLavoroPersonaId">
-      <option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">{{
-            sede.nomeSedeLavoro }}</option>
-      </select>
-    </div>
-    
-    <div class="oreO">
+  <div class="sede">
+    <label>sede</label>
+    <select [(ngModel)]="this.attivitaDaAggiungere.sedeLavoroPersonaId">
+      <option *ngFor="let sede of rapportinoService.infoPersona.listaSedeLavoroPersona" [value]="sede.sedeLavodoPersonaId">
+        {{ sede.nomeSedeLavoro }}
+      </option>
+    </select>
+  </div>
+
+  <div class="oreO">
     <label>ore ordinarie</label>
-    <input  step="0.5" type="number" [disabled]="giornoFestivo" [(ngModel)]="attivitaDaAggiungere.oreLavorate">
+    <input step="0.5" type="number" [disabled]="giornoFestivo" [(ngModel)]="attivitaDaAggiungere.oreLavorate" />
   </div>
 
   <div class="oreS">
     <label>ore straordinarie</label>
-    <input step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreStraordinario">
+    <input step="0.5" type="number" [(ngModel)]="attivitaDaAggiungere.oreStraordinario" />
   </div>
-
-
 </div>
 
+<section class="SW">
+  <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled"> Smart-working </mat-slide-toggle>
+</section>
 
-  <section class="SW">
-    <mat-slide-toggle
-      class="example-margin"
-      [color]="color"
-      [checked]="checked"
-      [disabled]="disabled"
-    >
-      Smart-working
-    </mat-slide-toggle>
-  </section>
-
-  <button class="aggiungi" mat-raised-button color="primary" type="button" (click)="AggiungiAttivitaGiorno()">
-    Aggiungi
-  </button>
-
-
+<button class="aggiungi" mat-raised-button color="primary" type="button" (click)="AggiungiAttivitaGiorno()">Aggiungi</button>

@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Richiesta } from '../dto/request/assenze';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http'
+import {Injectable, Input} from '@angular/core'
+import {Observable} from 'rxjs'
+import {Richiesta} from '../dto/request/assenze'
 
 @Injectable({
   providedIn: 'root',
@@ -10,36 +10,32 @@ export class RichiestaAutorizzazioneService {
   httpOptions: Object = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    }), responseType: 'text'
-  };
+    }),
+    responseType: 'text',
+  }
 
-  private apiUrl = 'http://localhost:5143/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
-  richiesta: Richiesta[] = [];
+  private apiUrl = 'http://localhost:5143/RichiestaAutorizzazione' // AGGIORNIAMO QUI L'URL
+  richiesta: Richiesta[] = []
   constructor(private Http: HttpClient) {}
 
   addRichiesta(richiesta: Richiesta): Observable<any> {
-    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, richiesta, this.httpOptions);
+    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, richiesta, this.httpOptions)
   }
-  
 
   addApprovazione(idRichiesta: number, approvazione: boolean, motivazione: string): Observable<any> {
-    return this.Http.get<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}?approvazione=${approvazione}`);
+    return this.Http.get<any>(`${this.apiUrl}/ApprovazioneRichiesta/${idRichiesta}?approvazione=${approvazione}`)
   }
-  
+
   addTipo(tipo: Richiesta): Observable<Richiesta> {
-    var body = JSON.stringify(tipo);
-    return this.Http.post<Richiesta>(
-      `${this.apiUrl}/TipoRichiestaAssenza`,
-      body,
-      this.httpOptions
-    );
+    var body = JSON.stringify(tipo)
+    return this.Http.post<Richiesta>(`${this.apiUrl}/TipoRichiestaAssenza`, body, this.httpOptions)
   }
 
   getAllTipoRichiesta(): Observable<any> {
-    return this.Http.get<any>(`${this.apiUrl}/GetAllTipiRichiesta`);
+    return this.Http.get<any>(`${this.apiUrl}/GetAllTipiRichiesta`)
   }
 
- /*  GetByIdRichiesta(idRichiesta: any): Observable<Richiesta> {
+  /*  GetByIdRichiesta(idRichiesta: any): Observable<Richiesta> {
     return this.Http.get<Richiesta>(`${this.apiUrl}/GetByRichiestaId/${idRichiesta}`);
   }
 
@@ -51,6 +47,6 @@ export class RichiestaAutorizzazioneService {
   } */
 
   GetByUserEScelta(userName: string, selezione: number): Observable<any> {
-    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${userName}?selezione=${selezione}`);
+    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${userName}?selezione=${selezione}`)
   }
 }

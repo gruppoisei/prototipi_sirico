@@ -1,18 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {HttpClient} from '@angular/common/http'
+import {Injectable} from '@angular/core'
+import {Observable} from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegioneService {
-  
   baseUrl = 'http://localhost:5143/Regione/'
-  constructor(private http: HttpClient) 
-  {}
+  constructor(private http: HttpClient) {}
 
-  getRegioni():Observable<any[]>
-  {
-    return this.http.get<any>(this.baseUrl + 'GetAllRegioni');
+  getRegioni(): Observable<any[]> {
+    return this.http.get<any>(this.baseUrl + 'GetAllRegioni')
   }
 }

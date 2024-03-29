@@ -1,139 +1,105 @@
 <div class="dialog">
   <div class="datadiv">
-    <p mat-dialog-title>{{data.giorno.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
-    <p mat-dialog-title> <button (click)="Prova()">prova</button> </p>
-    
+    <p mat-dialog-title>{{ data.giorno.dataNumero }} {{ rapportinoService.risposta.rapportino.dataRapportino | date: 'LLLL yyyy' }}</p>
+    <p mat-dialog-title><button (click)="Prova()">prova</button></p>
   </div>
   <mat-dialog-content>
     <div class="datadiv">
       <div class="O">
-        <label > Ora entrata </label>
+        <label> Ora entrata </label>
         <select [(ngModel)]="giorno.oraEntrata">
-          <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-            orario
-          }}</option>
+          <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{ orario }}</option>
         </select>
       </div>
 
       <div class="O">
-        <label > Ora inizio pausa </label>
+        <label> Ora inizio pausa </label>
         <select [(ngModel)]="giorno.oraInizioPausa">
-        <option  *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-          orario
-        }}</option>
+          <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{ orario }}</option>
         </select>
       </div>
 
-      <div  class="O">
+      <div class="O">
         <label> Ora fine pausa </label>
         <select [(ngModel)]="giorno.oraFinePausa">
-        <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-          orario
-        }}</option>
+          <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{ orario }}</option>
         </select>
       </div>
-      
+
       <div class="O">
-        <label > Ora uscita</label>
-        <select  [(ngModel)]="giorno.oraUscita">
-        <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{
-          orario
-        }}</option>
+        <label> Ora uscita</label>
+        <select [(ngModel)]="giorno.oraUscita">
+          <option *ngFor="let orario of rapportinoService.orari" [value]="orario">{{ orario }}</option>
         </select>
       </div>
     </div>
 
     <hr />
     <div class="flex justify-center">
-      <button
-        class="A"
-        mat-raised-button
-        color="primary"
-        type="button"
-        (click)="MostraOrdinario()"
-      >
-        Aggiungi Ordinario
-      </button>
+      <button class="A" mat-raised-button color="primary" type="button" (click)="MostraOrdinario()">Aggiungi Ordinario</button>
 
-      <button class="B" mat-raised-button color="accent" type="button" (click)="MostraAssenza()"> 
-        Aggiungi Assenza
-      </button>
+      <button class="B" mat-raised-button color="accent" type="button" (click)="MostraAssenza()">Aggiungi Assenza</button>
 
-      <button
-        class="C"
-        mat-raised-button
-        color="warn"
-        type="button"
-        (click)="MostraReperibilita()"
-      >
-      Aggiungi Reperibilità
-      </button>
+      <button class="C" mat-raised-button color="warn" type="button" (click)="MostraReperibilita()">Aggiungi Reperibilità</button>
     </div>
     <hr />
 
-
-
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario [giornoLavorativoId]="data.giorno.giornoLavorativoId!" [giornoFestivo]="data.giornoFestivo" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
+      <app-aggiungi-ordinario
+        [giornoLavorativoId]="data.giorno.giornoLavorativoId!"
+        [giornoFestivo]="data.giornoFestivo"
+        (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)"
+      >
+      </app-aggiungi-ordinario>
     </div>
 
     <div *ngIf="showAssenza">
-
       <app-aggiungi-assenza (nuovaAssenzaInserita)="AssenzaAggiunta()"></app-aggiungi-assenza>
     </div>
 
     <div *ngIf="showReperibilita">
-    <app-aggiungi-reperibilita></app-aggiungi-reperibilita>
-    
+      <app-aggiungi-reperibilita></app-aggiungi-reperibilita>
     </div>
   </mat-dialog-content>
 
- <div class="MostraAttivita"> 
-
-  <div  *ngFor="let attivita of data.giorno.listaAttivitaGiorno"  class="attivita bg-teal-dark text-light">
-    <div class="qualcosa">ordinario</div>
-    <div class="qualcosa">{{attivita.nomeProgetto}}</div>
-    <div class="qualcosa">{{attivita.sedeLavoro}}</div>
-    <div class="qualcosa">ord {{attivita.oreLavorate}}h</div>
-    <div *ngIf="attivita.oreStraordinario >0" class="qualcosa">stra {{attivita.oreStraordinario}}h</div>
-    <div class="qualcosa"><button (click)="EliminaAttivita(attivita.attivitaId!)"><mat-icon>delete</mat-icon></button></div>
-
-  </div>
-
-  <div class="MostraAssenza">
-    <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione !=true" [class.assenzaRifiutata]="assenza.statoApprovazione == false" [class.assenzaConfermata]="assenza.statoApprovazione ==true" class="attivita text-light">
-      <div class="qualcosa"> {{assenza.tipoRichiesta}} </div>
-      <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora inizio: {{assenza.oraInizio}} </div>
-      <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora fine:  {{assenza.oraFine}} </div>
-      <div *ngIf="assenza.oraInizio == verificaGiornoCompletoInizio && assenza.oraFine == verificaGiornoCompletoFine" class="qualcosa">
-        giornata completa
+  <div class="MostraAttivita">
+    <div *ngFor="let attivita of data.giorno.listaAttivitaGiorno" class="attivita bg-teal-dark text-light">
+      <div class="qualcosa">ordinario</div>
+      <div class="qualcosa">{{ attivita.nomeProgetto }}</div>
+      <div class="qualcosa">{{ attivita.sedeLavoro }}</div>
+      <div class="qualcosa">ord {{ attivita.oreLavorate }}h</div>
+      <div *ngIf="attivita.oreStraordinario > 0" class="qualcosa">stra {{ attivita.oreStraordinario }}h</div>
+      <div class="qualcosa">
+        <button (click)="EliminaAttivita(attivita.attivitaId!)"><mat-icon>delete</mat-icon></button>
       </div>
-      <div class="qualcosa"><button (click)="EliminaAssenza(assenza.assenzaId)"><mat-icon>delete</mat-icon></button></div>
-
     </div>
 
+    <div class="MostraAssenza">
+      <div
+        *ngFor="let assenza of data.giorno.listaAssenzeGiorno"
+        [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione != true"
+        [class.assenzaRifiutata]="assenza.statoApprovazione == false"
+        [class.assenzaConfermata]="assenza.statoApprovazione == true"
+        class="attivita text-light"
+      >
+        <div class="qualcosa">{{ assenza.tipoRichiesta }}</div>
+        <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">
+          ora inizio: {{ assenza.oraInizio }}
+        </div>
+        <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">
+          ora fine: {{ assenza.oraFine }}
+        </div>
+        <div *ngIf="assenza.oraInizio == verificaGiornoCompletoInizio && assenza.oraFine == verificaGiornoCompletoFine" class="qualcosa">
+          giornata completa
+        </div>
+        <div class="qualcosa">
+          <button (click)="EliminaAssenza(assenza.assenzaId)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <button class="D" mat-raised-button color="basic" type="button" (click)="ConfermaGiorno()">Conferma</button>
 
+  <button class="E" mat-raised-button color="warn" type="button" (click)="AnnullaGiorno()">Annulla</button>
 </div>
-  
-  <button
-  class="D"
-  mat-raised-button
-  color="basic"
-  type="button"
-  (click)="ConfermaGiorno()"
->
-Conferma
-</button>
-
-<button
-class="E"
-mat-raised-button
-color="warn"
-type="button"
-(click)="AnnullaGiorno()"
->
-Annulla
-</button>
-

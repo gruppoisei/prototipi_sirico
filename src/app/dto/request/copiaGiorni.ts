@@ -1,5 +1,4 @@
-
-export interface GiorniDaCopiare{
-    giornoDaCopiareId:number,
-    giorniDaRiempireId:number[]
+export interface GiorniDaCopiare {
+  giornoDaCopiareId: number
+  giorniDaRiempireId: number[]
 }

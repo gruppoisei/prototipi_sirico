@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { CalendarioRequest, GiornoDiLavoro } from '../dto/request/calendario';
-import { DatePipe } from '@angular/common';
-import { Observable, delay, tap } from 'rxjs';
-import { InfoPersona } from '../dto/request/InfoPersona';
-import { AttivitaGiornoResponse } from '../dto/response/AttivitaGiorno';
-import { GiornoLavorativo } from '../dto/request/giornolavorativo';
-import { GiorniDaCopiare } from '../dto/request/copiaGiorni';
+import {HttpClient, HttpHeaders} from '@angular/common/http'
+import {Injectable} from '@angular/core'
+import {CalendarioRequest, GiornoDiLavoro} from '../dto/request/calendario'
+import {DatePipe} from '@angular/common'
+import {Observable, delay, tap} from 'rxjs'
+import {InfoPersona} from '../dto/request/InfoPersona'
+import {AttivitaGiornoResponse} from '../dto/response/AttivitaGiorno'
+import {GiornoLavorativo} from '../dto/request/giornolavorativo'
+import {GiorniDaCopiare} from '../dto/request/copiaGiorni'
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +17,21 @@ export class RapportinoService {
       'Content-Type': 'application/json',
     }),
     responseType: 'text',
-  };
-  infoPersona!: InfoPersona;
-  risposta: CalendarioRequest = new CalendarioRequest();
+  }
+  infoPersona!: InfoPersona
+  risposta: CalendarioRequest = new CalendarioRequest()
 
-
-  oreProgetto:{nomeProgetto:string,oreProgetto:number}[] = []
+  oreProgetto: {nomeProgetto: string; oreProgetto: number}[] = []
   oggi = new Date()
 
-  giorniValidiMese = 0;
-  giorniConfermati = 0;
+  giorniValidiMese = 0
+  giorniConfermati = 0
   erroriGiorniMese = 0
 
   oreMinimeTotali = 0
   oreLavorateMese = 0
   oreAssenzaMese = 0
-  oreStraordinarioMese =0
+  oreStraordinarioMese = 0
 
   orari: string[] = [
     '08:30',
@@ -59,146 +58,98 @@ export class RapportinoService {
     '19:00',
     '19:30',
     '20:00',
-  ];
+  ]
 
   constructor(private http: HttpClient) {
-    this.RaccogliInfoPersona();
+    this.RaccogliInfoPersona()
   }
 
   AggiornaGiorniMese(giorno: Date) {
-    this.giorniValidiMese = 0;
-    this.giorniConfermati = 0;
+    this.giorniValidiMese = 0
+    this.giorniConfermati = 0
     this.erroriGiorniMese = 0
 
     this.oreMinimeTotali = 0
     this.oreLavorateMese = 0
     this.oreAssenzaMese = 0
-    this.oreStraordinarioMese =0
-    
-    this.oreProgetto=[]
+    this.oreStraordinarioMese = 0
+
+    this.oreProgetto = []
     // this.oreValideMese = 0
-    let datePipe = new DatePipe('en-US');
-    const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
+    let datePipe = new DatePipe('en-US')
+    const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd')
     this.http
-      .get<CalendarioRequest>(
-        `http://localhost:5143/Vistamese/GetAllInfoMese?personaId=1&dataRiferimentostring=${dateFormatted}`
-      )
+      .get<CalendarioRequest>(`http://localhost:5143/Vistamese/GetAllInfoMese?personaId=1&dataRiferimentostring=${dateFormatted}`)
       .pipe(
         tap((v) => {
-          this.risposta = v;
-          console.log(v);
+          this.risposta = v
+          console.log(v)
         })
       )
-      .subscribe();
+      .subscribe()
   }
 
-  AggiungiAttivitaGiorno(
-    attivitaDaInserire: AttivitaGiornoResponse
-  ): Observable<number> {
-    return this.http.post<number>(
-      'http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera',
-      attivitaDaInserire
-    );
+  AggiungiAttivitaGiorno(attivitaDaInserire: AttivitaGiornoResponse): Observable<number> {
+    return this.http.post<number>('http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera', attivitaDaInserire)
   }
 
   RaccogliInfoPersona() {
-    this.http
-      .get<InfoPersona>(
-        'http://localhost:5143/Vistamese/InfoPersonaSedeAttivita?personaId=1'
-      )
-      .subscribe((res) => (this.infoPersona = res));
+    this.http.get<InfoPersona>('http://localhost:5143/Vistamese/InfoPersonaSedeAttivita?personaId=1').subscribe((res) => (this.infoPersona = res))
   }
 
   EliminaAttivita(attivitaId: number, giornoLavorativoId: number) {
-    this.http
-      .put<any>(
-        'http://localhost:5143/AttivitaGiorno/EliminaAttivitaGiornaliera',
-        attivitaId,
-        this.httpOptions
-      )
-      .subscribe((res) => {
-        this.AggiornaBox();
-      });
+    this.http.put<any>('http://localhost:5143/AttivitaGiorno/EliminaAttivitaGiornaliera', attivitaId, this.httpOptions).subscribe((res) => {
+      this.AggiornaBox()
+    })
   }
 
   ConfermaMese() {
     this.http
-      .post(
-        'http://localhost:5143/Vistamese/ConfermaRapportino',
-        this.risposta.rapportino.rapportinoId,
-        this.httpOptions
-      )
-      .subscribe((res) => alert(res));
+      .post('http://localhost:5143/Vistamese/ConfermaRapportino', this.risposta.rapportino.rapportinoId, this.httpOptions)
+      .subscribe((res) => alert(res))
   }
   EliminaGiorno(giornoId: number) {
-    this.http
-      .put<any>(
-        'http://localhost:5143/AttivitaGiorno/EliminaGiorno',
-        giornoId,
-        this.httpOptions
-      )
-      .subscribe((res) => {
-        alert('giorno eliminato');
-        this.AggiornaBox();
-      });
+    this.http.put<any>('http://localhost:5143/AttivitaGiorno/EliminaGiorno', giornoId, this.httpOptions).subscribe((res) => {
+      alert('giorno eliminato')
+      this.AggiornaBox()
+    })
   }
 
   EliminaAssenza(assenzaId: number) {
-    this.http
-      .post<string>(
-        'http://localhost:5143/RichiestaAutorizzazione/EliminaRichiestaAssenza',
-        assenzaId,
-        this.httpOptions
-      )
-      .subscribe((res) => 
-      {
-        alert(res)
-        this.AggiornaBox()
-
-      });
+    this.http.post<string>('http://localhost:5143/RichiestaAutorizzazione/EliminaRichiestaAssenza', assenzaId, this.httpOptions).subscribe((res) => {
+      alert(res)
+      this.AggiornaBox()
+    })
   }
 
   ConfermaGiorno(giorno: GiornoLavorativo) {
-    this.http
-      .put<any>('http://localhost:5143/AttivitaGiorno/ConfermaGiorno', giorno,this.httpOptions)
-      .subscribe((res) => {
-        alert(res);
-        this.AggiornaBox();
-      });
+    this.http.put<any>('http://localhost:5143/AttivitaGiorno/ConfermaGiorno', giorno, this.httpOptions).subscribe((res) => {
+      alert(res)
+      this.AggiornaBox()
+    })
   }
 
   CopiaGiorni(body: GiorniDaCopiare) {
-    this.http
-      .post('http://localhost:5143/Vistamese/CopiaAttivitaGiorno', body)
-      .subscribe((res) => {
-        this.AggiornaBox();
-      });
+    this.http.post('http://localhost:5143/Vistamese/CopiaAttivitaGiorno', body).subscribe((res) => {
+      this.AggiornaBox()
+    })
   }
 
-
   //variabili per la gestione delle date del mese
-  giornoRiferimento = new Date();
+  giornoRiferimento = new Date()
 
-  primoDelMese = new Date();
-  ultimoDelMese = new Date();
+  primoDelMese = new Date()
+  ultimoDelMese = new Date()
 
-  giorniMesePassato: number[] = [];
-  giorniMeseSeguente: number[] = [];
+  giorniMesePassato: number[] = []
+  giorniMeseSeguente: number[] = []
 
   AggiornaBox() {
-    this.AggiornaGiorniMese(this.giornoRiferimento);
+    this.AggiornaGiorniMese(this.giornoRiferimento)
 
-    this.primoDelMese = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth(),
-      1
-    );
+    this.primoDelMese = new Date(this.giornoRiferimento.getFullYear(), this.giornoRiferimento.getMonth(), 1)
 
-    this.ultimoDelMese = new Date(
-      this.giornoRiferimento.getFullYear(),
-      this.giornoRiferimento.getMonth() + 1,
-      0
-    );
+    this.ultimoDelMese = new Date(this.giornoRiferimento.getFullYear(), this.giornoRiferimento.getMonth() + 1, 0)
 
     this.giorniMesePassato = Array(this.primoDelMese.getDay() - 1)
       .fill(0)
@@ -207,17 +158,17 @@ export class RapportinoService {
           this.primoDelMese.getFullYear(),
           this.primoDelMese.getMonth(),
           this.primoDelMese.getDate() - this.primoDelMese.getDay() + i + 1
-        ).getDate();
-      });
+        ).getDate()
+      })
 
     if (this.ultimoDelMese.getDay() == 0) {
-      this.giorniMeseSeguente = [];
+      this.giorniMeseSeguente = []
     } else {
       this.giorniMeseSeguente = Array(7 - this.ultimoDelMese.getDay())
         .fill(0)
         .map((x, i) => {
-          return i + 1;
-        });
+          return i + 1
+        })
     }
   }
 }

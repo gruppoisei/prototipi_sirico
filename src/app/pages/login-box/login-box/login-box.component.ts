@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { AuthenticationService } from '../../../service/authentication.service';
+import {Component} from '@angular/core'
+import {AuthenticationService} from '../../../service/authentication.service'
 
 @Component({
   selector: 'app-login-box',
   templateUrl: './login-box.component.html',
-  styleUrl: './login-box.component.scss'
+  styleUrl: './login-box.component.scss',
 })
 export class LoginBoxComponent {
-
-  constructor(public auth : AuthenticationService){}
-
+  constructor(public auth: AuthenticationService) {}
 }

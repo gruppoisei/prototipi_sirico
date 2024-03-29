@@ -1,38 +1,33 @@
-import {
-  Component,
-  ViewChild,
-  TemplateRef,
-  provideZoneChangeDetection,
-} from '@angular/core';
-import { RichiestaAutorizzazioneService } from '../../../service/richiesta-autorizzazione.service';
-import { MatDialog } from '@angular/material/dialog';
+import {Component, ViewChild, TemplateRef, provideZoneChangeDetection} from '@angular/core'
+import {RichiestaAutorizzazioneService} from '../../../service/richiesta-autorizzazione.service'
+import {MatDialog} from '@angular/material/dialog'
 
 @Component({
   selector: 'app-richiesta-assenza-segreteria',
   templateUrl: './richiesta-assenza-segreteria.component.html',
-  styleUrl: './richiesta-assenza-segreteria.component.scss'
+  styleUrl: './richiesta-assenza-segreteria.component.scss',
 })
 export class RichiestaAssenzaSegreteriaComponent {
-  idRichiesta: any;
-  idPersona: any;
-  userName: any;
-  expandedSection: string = '';
+  idRichiesta: any
+  idPersona: any
+  userName: any
+  expandedSection: string = ''
   //richiestefiltrate: any;
   //arrayvuoto: any;
-  output_getall: any;
-  hidemotivazione: boolean = true;
-  motivazione: string = '';
-  selezione: number = 0;
-  editable: number = 0;   // quando è 1 l'elemento è approvabile, quando è 2 è rifiutabile, quando è 3 entrambe
-  @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
+  output_getall: any
+  hidemotivazione: boolean = true
+  motivazione: string = ''
+  selezione: number = 0
+  editable: number = 0 // quando è 1 l'elemento è approvabile, quando è 2 è rifiutabile, quando è 3 entrambe
+  @ViewChild('approvalModal') approvalModal!: TemplateRef<any>
 
   constructor(
     private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   salvaUsername(nome: string) {
-    this.userName = nome;
+    this.userName = nome
     //this.getAllStessoResponsabile(this.userName, true, false);
   }
 
@@ -41,68 +36,62 @@ export class RichiestaAssenzaSegreteriaComponent {
     this.expandedSection = section;
   } */
 
-  mostraModalApprovazione(id: any, numero:number): void {
-    this.idRichiesta = id;
-    this.editable = numero;
-    console.log('lavoro su richiesta ' + id);
-    this.dialog.open(this.approvalModal, {      
+  mostraModalApprovazione(id: any, numero: number): void {
+    this.idRichiesta = id
+    this.editable = numero
+    console.log('lavoro su richiesta ' + id)
+    this.dialog.open(this.approvalModal, {
       //panelClass: 'custom-modalbox'
       width: '50vw',
-      height: '50vh'
+      height: '50vh',
     })
   }
 
   chiudiModal(): void {
-    this.motivazione = '';
-    this.hidemotivazione = true;
-    this.dialog.closeAll();
+    this.motivazione = ''
+    this.hidemotivazione = true
+    this.dialog.closeAll()
   }
 
-  approvaDiretto(idDaApprovare: number){
-    this.idRichiesta = idDaApprovare;
-    this.approvaRichiesta();
+  approvaDiretto(idDaApprovare: number) {
+    this.idRichiesta = idDaApprovare
+    this.approvaRichiesta()
   }
 
   approvaRichiesta() {
-    console.log('approvo richiesta ' + this.idRichiesta);
-    this.richiestaAutorizzazioneService
-      .addApprovazione(this.idRichiesta, true, '')
-      .subscribe(
-        (response) => {
-          this.getAllStessoResponsabile(this.userName, this.selezione);
-          this.chiudiModal();
-        },
-        (error) => {
-          alert(
-            "Errore durante l'approvazione della richiesta:" + error
-          );
-          this.chiudiModal();
-        }
-      );
+    console.log('approvo richiesta ' + this.idRichiesta)
+    this.richiestaAutorizzazioneService.addApprovazione(this.idRichiesta, true, '').subscribe(
+      (response) => {
+        this.getAllStessoResponsabile(this.userName, this.selezione)
+        this.chiudiModal()
+      },
+      (error) => {
+        alert("Errore durante l'approvazione della richiesta:" + error)
+        this.chiudiModal()
+      }
+    )
   }
 
-  hidedmodalbutton(){
-    this.hidemotivazione = false;
+  hidedmodalbutton() {
+    this.hidemotivazione = false
   }
 
   rifiutaRichiesta() {
     if (!this.motivazione) {
-      alert('Inserisci una motivazione per il rifiuto.');
-      return;
+      alert('Inserisci una motivazione per il rifiuto.')
+      return
     }
 
-    this.richiestaAutorizzazioneService
-      .addApprovazione(this.idRichiesta, false, this.motivazione)
-      .subscribe(
-        (response) => {
-          this.getAllStessoResponsabile(this.userName, this.selezione);
-          this.chiudiModal();
-        },
-        (error) => {
-          console.error('Errore durante il rifiuto della richiesta:', error);
-          this.chiudiModal();
-        }
-      );
+    this.richiestaAutorizzazioneService.addApprovazione(this.idRichiesta, false, this.motivazione).subscribe(
+      (response) => {
+        this.getAllStessoResponsabile(this.userName, this.selezione)
+        this.chiudiModal()
+      },
+      (error) => {
+        console.error('Errore durante il rifiuto della richiesta:', error)
+        this.chiudiModal()
+      }
+    )
   }
 
   /*   getByRichiestaId(idRichiesta: any) {
@@ -133,17 +122,16 @@ export class RichiestaAssenzaSegreteriaComponent {
   } */
 
   scelta(scelta: number) {
-    this.selezione = scelta;
+    this.selezione = scelta
   }
 
   cerca() {
-    this.getAllStessoResponsabile(this.userName, this.selezione);
+    this.getAllStessoResponsabile(this.userName, this.selezione)
   }
 
   getAllStessoResponsabile(userName: string, selezione: number) {
     this.richiestaAutorizzazioneService.GetByUserEScelta(userName, selezione).subscribe((res) => {
-      this.output_getall = res;
-    });
+      this.output_getall = res
+    })
   }
-
 }
