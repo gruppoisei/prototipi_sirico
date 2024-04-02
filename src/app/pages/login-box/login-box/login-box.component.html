@@ -1,14 +1,15 @@
-<div class="my-24">
+<div class ="my-24">
   <app-login *ngIf="auth.status == 0"></app-login>
   <app-modifica-password
     *ngIf="auth.status == auth.listStatus.richiestaResetPsw"
   ></app-modifica-password>
-
-  <app-associazione-mfa
-    *ngIf="auth.status == auth.listStatus.mancaMFA"
-  ></app-associazione-mfa>
-
-  <app-validatore-mfa
-    *ngIf="auth.status == auth.listStatus.scadutoMFA"
-  ></app-validatore-mfa>
+  
+      <app-associazione-mfa
+        *ngIf="auth.status == auth.listStatus.mancaMFA"
+      ></app-associazione-mfa>
+  
+      <app-validatore-mfa
+        *ngIf="auth.status == auth.listStatus.scadutoMFA"
+      ></app-validatore-mfa> 
 </div>
+
