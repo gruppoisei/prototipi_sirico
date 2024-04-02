@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { RapportinoService } from '../../../service/rapportino.service';
-import { AuthService } from '../../../service/auth.service';
-import { AuthenticationService } from '../../../service/authentication.service';
 
 @Component({
   selector: 'app-calendario',
@@ -14,8 +12,7 @@ export class CalendarioComponent {
  
 
   giornoDefault: Date = new Date();
-  constructor(public rapportinoService:RapportinoService, private auth : AuthenticationService) {
-    this.auth.verificaToken();
+  constructor(public rapportinoService:RapportinoService) {
     this.TrovaMesiDaVisualizzare()
     this.giornoDefault = this.listaMesi[1];
     this.rapportinoService.AggiornaBox();

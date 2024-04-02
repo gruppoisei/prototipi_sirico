@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -24,7 +23,7 @@ export class AuthenticationService {
   
   private isAuthenticated = new BehaviorSubject<boolean>(false)
 
-  constructor( private http: HttpClient, private router : Router) { }
+  constructor( private http: HttpClient,) { }
 
 
   getIsAuthenticated() : Observable<boolean>
@@ -58,30 +57,12 @@ export class AuthenticationService {
         'http://localhost:5143/Login/ConfermaValidatore',
         {utenteId:this.utenteId,codiceVerificaTemporaneo:validatoreMFA,expire1week:expire1week},this.httpOptions
       )
+      
   }
 
-  verificaToken()
-  {
-    this.http.post<any>(`${this.baseUrl}VerificaToken/`, {}, this.httpOptions).subscribe({
-    next : (res) => 
-      {
-        console.log(res);
-        if(res.status == 200)
-        {
-          this.utente == res.body;
-          this.utenteId = 0;
-          this.isAuthenticated.next(true);
-        }
-        else
-        {
-          debugger
-          this.status = 0;
-          this.utente =null
-          this.router.navigate(["/login"]);
-        }
-      }
-    })
-  }
+ 
+
+  
 }
 
 export enum statoAccesso {

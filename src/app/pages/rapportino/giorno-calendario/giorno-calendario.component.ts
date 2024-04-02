@@ -194,6 +194,8 @@ export class GiornoCalendarioComponent {
   }
 
   VerificaMeseEsatto(): boolean {
+    console.log(this.rapportinoService.oggi.getMonth());
+    console.log(this.rapportinoService.risposta.rapportino.dataRapportino);
     let ver =
       this.rapportinoService.oggi.getMonth() ==
       Number(
@@ -202,6 +204,7 @@ export class GiornoCalendarioComponent {
           .split('-')[1]
       ) -
         1;
+    console.log(ver);
     return ver;
   }
 
