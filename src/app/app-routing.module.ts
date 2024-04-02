@@ -15,7 +15,7 @@ import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto
 import { InsertContrattoComponent } from './pages/contratto/insert-contratto/insert-contratto.component';
 import { InsertPersonaProvaComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
 import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
-import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-utente-ruolo/gestione-utente-ruolo.component';
+import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-ruolo-utente/gestione-ruolo-utente.component';
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';

@@ -120,15 +120,6 @@ export class InsertContrattoComponent implements OnInit {
     CodsFlagAttiva: 0,
     CodsClienteId: null,
     CodiContrattopersid: null
-    // altro
-    /*
-    CodiContrattopersid: null,
-    TipoContratto: null,
-    DescrizioneCCNL: null,
-    LivelloContratto: null,
-    SocietaDistacco: "",
-    SocietaPersona: ""
-    */
   };
 
 
@@ -141,9 +132,6 @@ export class InsertContrattoComponent implements OnInit {
 
   private routeSub!: Subscription;
   form!: FormGroup<any>;
-  //activeRoute: any;
-
-  //gestioneContratto: any;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -211,14 +199,6 @@ export class InsertContrattoComponent implements OnInit {
       CodsFlagAttiva: 0,
       CodsClienteId: null,
       CodiContrattopersid: null
-      // altro
-      /*
-      TipoContratto: null,
-      DescrizioneCCNL: null,
-      LivelloContratto: null,
-      SocietaDistacco: "",
-      SocietaPersona: ""
-      */
     };
   }
 
@@ -256,8 +236,7 @@ export class InsertContrattoComponent implements OnInit {
     this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
       (response: any) => {
         console.log(response);
-        this.tipiCcnl = response;
-        //this.getAllTipoLivello();           
+        this.tipiCcnl = response;       
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di ccnl:', error);
@@ -273,8 +252,6 @@ export class InsertContrattoComponent implements OnInit {
         this.tipiLivello = response;
         console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
         for (let i = 0; i < this.tipiLivello?.length; i++) {
-          //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
-          //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
           if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
             this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
           }
@@ -285,20 +262,6 @@ export class InsertContrattoComponent implements OnInit {
       }
     );
   }
-
-  /*
-    getAllTipoRuolo() {
-      this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
-        (response: any) => {
-          console.log(response);
-          this.tipiRuolo = response;
-        },
-        (error: any) => {
-          console.error('Errore durante il recupero dei tipi di ruolo:', error);
-        }
-      );
-    }
-    */
 
   // DIALOG FUNCTIONS
 
@@ -345,9 +308,7 @@ export class InsertContrattoComponent implements OnInit {
     this.formData.AnpeNome = this.dipendentiSenzaContratto[array_index].anpeNome;
     this.formData.AnpeCognome = this.dipendentiSenzaContratto[array_index].anpeCognome;
     this.formData.AnpePersonaid = this.dipendentiSenzaContratto[array_index].anpePersonaid;
-    this.inserimentoContrattoService.idContratto$.next(0);
-    //this.dipendentiConContratto.codiContrattopersid = 0;
-    //console.log('prova id contratto:' + this.dipendentiConContratto.codiContrattopersid);    
+    this.inserimentoContrattoService.idContratto$.next(0);  
     this.closeModal();
   }
 
@@ -355,9 +316,6 @@ export class InsertContrattoComponent implements OnInit {
   insertContratto() {
     if (this.uncheck == false) { this.formData.CodsFlagAttiva = 0 }
     else { this.formData.CodsFlagAttiva = 1 }
-    //if (this.dipendentiConContratto.codiContrattopersid != undefined) {
-    //this.formData.CodiContrattopersid = this.inserimentoContrattoService.idContratto$.value;
-    //}
     this.formData.CodsClienteId = this.formData.ansoSocietaDistaccoid;
     this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
       (response: any) => {
@@ -371,18 +329,6 @@ export class InsertContrattoComponent implements OnInit {
       }
     );
   }
-  /*
-    checkDateTimeValidity(): boolean {
-      const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
-      const endDate = Date.parse(this.formData.CodiDatafinecontratto);
-      if (this.dateinizioTouched && this.datefineTouched) {
-        this.checkDateValidity = true;
-      }
-      if (startDate < endDate) {
-        return true;
-      }
-      return false;
-    }*/
 
   getContrattoByidContratto(idContratto: number) {
     this.inserimentoContrattoService.getAllContrattiById(idContratto).subscribe(
@@ -406,9 +352,6 @@ export class InsertContrattoComponent implements OnInit {
       (this.formData.AnsoSocietaid != undefined && this.formData.AnsoSocietaid != null && this.formData.AnsoSocietaid != "") &&
       (this.formData.CodiDatainiziocontratto != undefined && this.formData.CodiDatainiziocontratto != null && this.formData.CodiDatainiziocontratto != "") &&
       (this.formData.CodiDatafinecontratto != undefined && this.formData.CodiDatafinecontratto != null) &&
-      // check data fine contratto > data inizio contratto solo se this.formData.CodiDatafinecontratto != ""
-      //(this.formData.CodiDatainiziocontratto < this.formData.CodiDatafinecontratto) &&
-      //
       (this.formData.codiFkCotctipocontrattoid != undefined && this.formData.codiFkCotctipocontrattoid != null && this.formData.codiFkCotctipocontrattoid.toString() != "") &&
       (this.formData.CoccCcnlid != undefined && this.formData.CoccCcnlid != null && this.formData.CoccCcnlid.toString() != "") &&
       (this.formData.ColiLivelloid != undefined && this.formData.ColiLivelloid != null && this.formData.ColiLivelloid.toString() != "") &&
