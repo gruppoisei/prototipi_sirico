@@ -8,7 +8,18 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 export class AuthenticationService {
 
-  baseUrl = 'http://localhost:5143/Login/'
+  baseUrl = 'http://localhost:5143/Login/';
+  status : number = 0;
+  listStatus = statoAccesso
+  utente : any
+  utenteId:number = 0
+  imageQRCode = ""
+
+  httpOptions:Object = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    withCredentials : true,
+    observe:'response'
+}
   
   private isAuthenticated = new BehaviorSubject<boolean>(false)
 
@@ -23,7 +34,7 @@ export class AuthenticationService {
   // Login da DB
   login(loginObj:any): Observable<any> {
     
-    return this.http.post<any>(`${this.baseUrl}AccessoUtente/`, loginObj )
+    return this.http.post<any>(`${this.baseUrl}AccessoUtente/`, loginObj, this.httpOptions)
     .pipe(
       tap(() => this.isAuthenticated.next(true))
     );
@@ -31,11 +42,33 @@ export class AuthenticationService {
 
   resetPasswordReset(username:string)
   {
-    return this.http.post<any>(`${this.baseUrl}ResetPasswordUtente/${username}`,{} )
+    return this.http.post<any>(`${this.baseUrl}ResetPasswordUtente/${username}`,{},)
   }
 
   newPassword(newPasswordObj:any) : Observable<any>
   {
-    return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj)
+    return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
+
+  ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
+    console.log(this.utenteId + validatoreMFA)
+    return this.http
+      .post<any>(
+        'http://localhost:5143/Login/ConfermaValidatore',
+        {utenteId:this.utenteId,codiceVerificaTemporaneo:validatoreMFA,expire1week:expire1week},this.httpOptions
+      )
+      
+  }
+
+ 
+
+  
+}
+
+export enum statoAccesso {
+  utenteLoggato = 215, 
+  mancaMFA,
+  scadutoMFA,
+  richiestaResetPsw,
+  accessoNegato = 401
 }

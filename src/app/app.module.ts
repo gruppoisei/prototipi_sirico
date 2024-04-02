@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './pages/login-box/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RichiestaAssenzaUtenteComponent } from './pages/assenza/richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
 import { MenuComponent } from './menu/menu.component';
-import { ForgotPasswordComponent } from './pages/forgot-password-dialog/forgot-password/forgot-password.component';
+import { ForgotPasswordComponent } from './pages/login-box/forgot-password/forgot-password.component';
 import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-dialog.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -45,6 +45,9 @@ import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funz
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-utente-ruolo/gestione-utente-ruolo.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
+import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
+import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
+import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/associazione-mfa.component';
 
 @NgModule({
     declarations: [
@@ -75,7 +78,10 @@ import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-ut
         GestioneRuoloComponent,
         InsertRuoloFunzioneComponent,
         GestioneRuoloUtenteComponent,
-        InsertRuoloUtenteComponent
+        InsertRuoloUtenteComponent,
+        LoginBoxComponent,
+        ValidatoreMFAComponent,
+        AssociazioneMFAComponent
     ],
     providers: [
         provideAnimationsAsync(),

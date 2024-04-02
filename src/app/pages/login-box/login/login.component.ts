@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../service/authentication.service';
+import { AuthenticationService, statoAccesso } from '../../../service/authentication.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ForgotPasswordComponent } from '../forgot-password-dialog/forgot-password/forgot-password.component';
-import ValidateForm from '../../helpers/validateform';
-import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
-import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-login-dialog.component';
-import { ModificaPasswordComponent } from '../modifica-password/modifica-password.component';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import ValidateForm from '../../../helpers/validateform';
+import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
+import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
+import { ModificaPasswordComponent } from '../../modifica-password/modifica-password.component';
 
 @Component({
   selector: 'app-login',
@@ -39,16 +39,36 @@ export class LoginComponent implements OnInit{
       .subscribe({
         next:(res) =>
         {
-          const flagPassword = res;
-          if(flagPassword == 0)
+          console.log(res)
+          this.auth.status = res.status;
+          if(this.auth.status == statoAccesso.accessoNegato)
           {
-            this.router.navigate(["modifica-password"])
+            console.log(res.body.message)
           }
-          else
+          //
+          if(this.auth.status == statoAccesso.mancaMFA)
           {
-            this.router.navigate(["/homepage"])
+            console.log(res.body)
+            this.auth.utenteId = res.body
+            this.auth.imageQRCode = res.body.imageQRCode
+            this.auth.utenteId = res.body.utenteId
+          }
+          
+          if(this.auth.status == statoAccesso.scadutoMFA)
+          {
+            console.log(res.body)
+            this.auth.utenteId = res.body
+
           }
 
+
+
+          //
+          if(this.auth.status == statoAccesso.utenteLoggato)
+          {
+            this.auth.utente = res.body;
+            this.router.navigate(["/homepage"]);
+          }
         },
         error:(err)=>
         {
