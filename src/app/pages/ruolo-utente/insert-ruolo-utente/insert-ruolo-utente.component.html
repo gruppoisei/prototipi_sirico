@@ -1,1 +1,84 @@
-<p>insert-ruolo-utente works!</p>
+<!-- 
+<div class="flex justify-center my-10 text-4xl font-bold">
+    <h2>Associa Ruoli Utente</h2>
+</div>
+<select  [(ngModel)]="indexUtente" (change)="AggiornaListaRuoli()">
+    <option [value]="-1">--seleziona utente--</option>
+    <option *ngFor="let utente of utenti" [value]="utente.id">{{utente.username}}</option>
+</select>
+
+<div class="m-2 p-2" *ngIf="utenteSelezionato != null"><button class="m-2 p-2" *ngFor=" let ruolo of ruoliModificati" [class.Presente]="ruolo.stato == 0" [class.Rimosso]="ruolo.stato == 1" [class.Aggiunto]="ruolo.stato == 2" [class.Disponibile]="ruolo.stato == 3"   (click)="AssengaRimuoviRuolo(ruolo)">{{ruolo.nomeRuolo}}</button></div>
+
+
+<div><button (click)="AggiornaRuoliPersona()">Salva</button></div> -->
+<div class="flex flex-col justify-center my-10 text-center font-bold">
+  <div class="text-4xl text-center">
+    <div *ngIf="utente == null">
+      <div>Inserimento Nuovo Utente</div>
+    </div>
+    <div *ngIf="utente != null">
+      <h1>Aggiorna Ruoli Utente</h1>
+    </div>
+  </div>
+
+  <div class="flex flex-row justify-center my-10">
+    <div class="m-5">
+      <input
+        [disabled]="utente != null"
+        [(ngModel)]="codiceFiscale"
+        class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Codice Fiscale..."
+        required
+      />
+    </div>
+    <div class="m-5">
+      <input
+        [disabled]="utente != null"
+        [(ngModel)]="nome"
+        class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Nome..."
+        required
+      />
+    </div>
+    <div class="m-5">
+      <input
+        [disabled]="utente != null"
+        [(ngModel)]="cognome"
+        class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Cognome..."
+        required
+      />
+    </div>
+  </div>
+  <div>
+    <input
+      [disabled]="utente != null"
+      [(ngModel)]="username"
+      class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      placeholder="Nome Utente..."
+      required
+    />
+  </div>
+  <div class=" border-b-4 border-gray-600 m-12"></div>
+  <div>
+    <label class="text-gray-400">seleziona ruoli da Aggiungere</label><br />
+    <select
+      (change)="AggiungiRimuoviRuolo()"
+      placeholder="seleziona ruoli da Aggiungere"
+      class="p-4 m-4 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      [(ngModel)]="nuovoRuolo"
+    >
+      <option
+        *ngFor="let ruolo of listaRuoliDisponibili"
+        [value]="ruolo.idRuolo"
+      >
+        {{ ruolo.nomeRuolo }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <div *ngIf="listaRuoliAssegnati.length > 0">
+      <div *ngFor="let ruoli of listaRuoliAssegnati">{{ ruoli }}</div>
+    </div>
+  </div>
+</div>
