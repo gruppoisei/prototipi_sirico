@@ -26,6 +26,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }]
 
   objectRuoloFunzione: ruoloFunzione = {
+    //nomeRuolo: "",
     syapIdfunzione: 0,
     syapDescrizione: "",
     flagLettura: false,
@@ -38,6 +39,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }
 
   formData = {
+    //nomeRuolo: "",
     syapIdfunzione: 0,
     syapDescrizione: "",
     flagLettura: false,
@@ -50,13 +52,13 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }
 
   arrayObjectRuoloFunzioni: ruoloFunzione[] = [];
-  arrayObjectRuoloFunzioniSliced: ruoloFunzione[] = [];
   //arrayObjectRuoloFunzioni: any[] = [];  
 
   ruolo: string = "";
   idFunzione: number = Number.parseInt("");
   idFunzioneStart: number = Number.parseInt("");
   descrizioneFunzione: string = "";
+  menuPadre: number = Number.parseInt("");;
 
   constructor(
     private router: Router,
@@ -67,6 +69,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
     this.getAllFunzioni();
     //this.idFunzione = 1;        
     console.log(this.funzioneVoceDiMenu);
+
   }
 
   getAllFunzioni() {
@@ -114,28 +117,46 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }
 
   checkVoceDiMenu() {
+    /*
+    // preparo l'array vuoto che riempirò con le funzioni che hanno voce di menù flaggato
+    this.allFunzioniVociDiMenu = [];
+    // preparo il primo elemento nell'array come elemento vuoto
+    // (caso funzione che: non è voce di menù && non è sottovoce perché è voce interna di un'altra pagina)
+    this.allFunzioniVociDiMenu.push(this.creaFunzioneVoceDiMenu(0, "Nessuna"));
+    */
     for (let i = 0; i < this.arrayObjectRuoloFunzioni.length; i++) {
       if (this.arrayObjectRuoloFunzioni[i].flagVoceDiMenu == true) {
-        //console.log(this.arrayObjectRuoloFunzioni[i].syapIdfunzione, this.arrayObjectRuoloFunzioni[i].syapDescrizione, this.arrayObjectRuoloFunzioni[i].flagVoceDiMenu)
         this.funzioneVoceDiMenu.syapIdfunzione = this.arrayObjectRuoloFunzioni[i].syapIdfunzione;
         this.funzioneVoceDiMenu.syapDescrizione = this.arrayObjectRuoloFunzioni[i].syapDescrizione;
-        //console.log(this.funzioneVoceDiMenu);
-        //this.allFunzioniVociDiMenu.push(this.funzioneVoceDiMenu);
-        //this.creaFunzioneVoceDiMenu(i);
-        //console.log(this.allFunzioniVociDiMenu);
+
+        // this.allFunzioniVociDiMenu.push(this.creaFunzioneVoceDiMenu(i));
+        this.allFunzioniVociDiMenu.push(
+          this.creaFunzioneVoceDiMenu(
+            this.arrayObjectRuoloFunzioni[i].syapIdfunzione, this.arrayObjectRuoloFunzioni[i].syapDescrizione)
+        );
+        // ordino l'array;
+        this.allFunzioniVociDiMenu.sort((a, b) => a.syapDescrizione.toLocaleUpperCase() > b.syapDescrizione.toLocaleUpperCase() ? 1 : -1);
+        // preparo l'array vuoto che riempirò con le funzioni che hanno voce di menù flaggato
+        this.allFunzioniVociDiMenu = [];
+        // preparo il primo elemento nell'array come elemento vuoto
+        // (caso funzione che: non è voce di menù && non è sottovoce perché è voce interna di un'altra pagina)
+        // da testare: se non funziona cancellare qui e scommentare sopra
+        this.allFunzioniVociDiMenu.push(this.creaFunzioneVoceDiMenu(0, "Nessuna"));
+        console.log(this.allFunzioniVociDiMenu);
       }
     }
   }
-  /*
-  creaFunzioneVoceDiMenu(i: number) {
+
+  creaFunzioneVoceDiMenu(id: number, description: string) {
     return {
-      this.funzioneVoceDiMenu.syapIdfunzione = this.arrayObjectRuoloFunzioni[i].syapIdfunzione,
-      this.funzioneVoceDiMenu.syapDescrizione = this.arrayObjectRuoloFunzioni[i].syapDescrizione;
+      syapIdfunzione: id,
+      syapDescrizione: description
     }
   }
-*/
+
   creaNuovoRuoloFunzione(): ruoloFunzione {
     return {
+      //nomeRuolo: "",
       syapIdfunzione: this.idFunzione,
       syapDescrizione: this.descrizioneFunzione,
       flagLettura: false,
@@ -150,21 +171,53 @@ export class InsertRuoloFunzioneComponent implements OnInit {
 
   deleteFunzione(element: any, index: number) {
     console.log('delete funzione START');
-    //console.log(element);
     // rimuovo l'elemento da arrayObjectRuoloFunzioni
-    this.arrayObjectRuoloFunzioni.splice(index, 1)
+    var splicedId = this.arrayObjectRuoloFunzioni[index].syapIdfunzione
+    this.arrayObjectRuoloFunzioni.splice(index, 1);
+    // verifico se l'elemento era presente in "menù padre" e se presente lo rimuovo
+    for (let i = 0; i < this.allFunzioniVociDiMenu.length; i++) {
+      if (this.allFunzioniVociDiMenu[i].syapIdfunzione == splicedId) {
+        this.allFunzioniVociDiMenu.splice(i, 1);
+        break;
+      }
+    }
     // inserisco l'elemento sopra rimosso into allFunzioni
     this.allFunzioni.splice(0, 0, element);
     this.idFunzioneStart = this.allFunzioni[0].syapIdfunzione;  // ???
     console.log(this.allFunzioni);
     // sort dell'array allFunzioni
-    this.allFunzioni.sort((a,b) => a.syapDescrizione.toLocaleUpperCase() > b.syapDescrizione.toLocaleUpperCase() ? 1 : -1);
+    this.allFunzioni.sort((a, b) => a.syapDescrizione.toLocaleUpperCase() > b.syapDescrizione.toLocaleUpperCase() ? 1 : -1);
     console.log(this.allFunzioni);
     console.log('delete funzione END');
   }
 
   addRuolo() {
-    console.log('aggiungi ruolo da implementare');
+    console.log('addRuolo() START');
+    console.log('NOME RUOLO:');
+    console.log(this.ruolo);
+    console.log('FUNZIONI ASSOCIATE:');
+    console.log(this.arrayObjectRuoloFunzioni);
+    // codice da testare
+    // fill del campo nomeRuolo con ruolo per ogni oggetto dell'array
+    /*
+      for(let i=0; i<this.arrayObjectRuoloFunzioni; i++) {
+        this.arrayObjectRuoloFunzioni[i].nomeRuolo = this.ruolo;
+      }
+    */
+/*
+    this.amministrazioneRuolo.insertNuovoRuolo(this.arrayObjectRuoloFunzioni).subscribe(
+      (response: any) => {
+        console.log(response);
+        alert(response);
+        //this.clearForm();
+      },
+      (error: any) => {
+        console.error("Errore durante l'inserimento del nuovo contratto:", error);
+        alert("Errore durante l'inserimento del nuovo contratto");
+      }
+    );
+*/
+    console.log('addRuolo() END');
   }
 
   clearSearch() {

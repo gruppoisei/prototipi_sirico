@@ -1,4 +1,5 @@
 export interface ruoloFunzione {
+  //nomeRuolo: string;
   syapIdfunzione: number;
   syapDescrizione: string;
   flagLettura: boolean;

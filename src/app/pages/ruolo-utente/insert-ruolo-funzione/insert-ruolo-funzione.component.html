@@ -48,6 +48,7 @@
         </div>
     </form>
 </div>
+
 <div class="flex justify-center">
     <form (ngSubmit)="addRuolo()" class="w-2/3">
 
@@ -80,7 +81,7 @@
                         <td class="px-6 py-4">
                             <input (change)="checkVoceDiMenu()" type="checkbox" [(ngModel)]="element.flagVoceDiMenu"
                                 name="Vocedimenu">
-                            {{ element.flagVoceDiMenu }}
+                            {{ element.flagVoceDiMenu }} <!-- {{counterVociDiMenu}} -->
                         </td>
                         <td class="px-6 py-4">
                             <input type="checkbox" [(ngModel)]="element.flagLettura" name="Lettura">
@@ -107,10 +108,20 @@
                             </select>
                         </td>
                         <td class="px-6 py-4">
+                            <!--
                             <select name="Menupadre" [disabled]="element.flagVoceDiMenu">
-                                <!-- [(ngModel)]="formData.Lettura"  -->
+                                [(ngModel)]="formData.Lettura"
                                 <option>1</option>
                                 <option>2</option>
+                            </select>
+                            -->
+                            <!-- (allFunzioniVociDiMenu.length-1): meno 1 in quanto utilizzo la voce 'nessuna' come 
+                            valore di default sempre presente e selezionabile nell'array menù padre -->
+                            <select [disabled]="element.flagVoceDiMenu || (allFunzioniVociDiMenu.length-1) == 0"
+                                name="menuPadre"> <!-- [(ngModel)] annulla le condizioni di [disabled] ????? -->
+                                <option *ngFor="let element of allFunzioniVociDiMenu; index as i" [value]="element.syapIdfunzione">
+                                    {{ element.syapDescrizione }} {{ allFunzioniVociDiMenu.length}}
+                                </option>
                             </select>
                         </td>
                     </tr>
