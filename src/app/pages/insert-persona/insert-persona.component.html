@@ -4,7 +4,7 @@
 <div class = "flex flex-row justify-center my-10">
 <form class="w-full max-w-3xl" [formGroup]="insertPersona">
 
-<!--Nome, cognome, data nascita e cf-->    
+<!--Nome, cognome, data nascita, cf e IVA-->    
     <div class="flex w-full flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
@@ -32,13 +32,35 @@
         <small *ngIf="insertPersona.controls['AnpeCodicefiscale'].dirty && insertPersona.hasError('required','AnpeCodicefiscale')" class="text-red-600">Codice fiscale obbligatorio</small>
         </div>
         <div class="w-full md:w-1/3 px-3 mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Partita Iva</label>
-          <input ngModel pattern="[0-9]*" formControlName="AnpePartitaiva" maxlength="11" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500"type="text"  placeholder="Scrivi la partita iva...">
-      <small *ngIf="insertPersona.controls['AnpePartitaiva'].dirty && insertPersona.hasError('required','AnpePartitaiva')" class="text-red-600">Partita iva obbligatoria</small>
+          <label class="block mb-2 text-sm font-medium text-gray-900">Partita IVA</label>
+          <input formControlName="AnpePartitaiva" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+           focus:border-sky-500 focus:ring-sky-500" type="text" maxlength="13" placeholder="Scrivi la partita IVA...">
+           <small *ngIf="insertPersona.get('AnpePartitaiva')?.hasError('pattern')" class="text-red-600">La partita IVA non è valida</small>
       </div>
     </div>
     
+    <!--Dati indirizzo di residenza-->
+    <div class="flex w-full flex-nowrap -mx-3 mb-5">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo residenza</label>
+        <input formControlName="AnpeIndirizzoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di residenza...">
+        <small *ngIf="insertPersona.controls['AnpeIndirizzoresidenza'].dirty && insertPersona.hasError('required','AnpeIndirizzoresidenza')" class="text-red-600">Indirizzo di residenza obbligatorio</small>
+      </div>
+      <div class="w-full md:w-1/4 px-3 mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico">Numero civico</label>
+        <input formControlName="AnpeNumerocivicoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-n-civico" type="text" placeholder="N.Civico">
+        <small *ngIf="insertPersona.controls['AnpeNumerocivicoresidenza'].dirty && insertPersona.hasError('required','AnpeNumerocivicoresidenza')" class="text-red-600">Numero civico obbligatorio</small>
+      </div>
+      <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-res">CAP residenza</label>
+        <input maxlength="5" formControlName="AnpeCapresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" id="grid-cap-res" type="text" placeholder="00100">
+        <small *ngIf="insertPersona.controls['AnpeCapresidenza'].dirty && insertPersona.hasError('required','AnpeCapresidenza')" class="text-red-600">CAP obbligatorio</small>
+      </div>
+    </div>
+
 <!--Dati anagrafici per il luogo di nascita-->    
     <div class="flex w-full flex-nowrap -mx-3 mb-10">
         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -86,6 +108,7 @@
             </div>
         </div>
     </div>
+
 
 <!--Dati residenza-->    
     <div class="flex w-full flex-nowrap -mx-3 mb-10">
@@ -135,27 +158,6 @@
       </div>
     </div>
 
-<!--Dati indirizzo di residenza-->
-    <div class="flex w-full flex-nowrap -mx-3 mb-5">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo residenza</label>
-        <input formControlName="AnpeIndirizzoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di residenza...">
-        <small *ngIf="insertPersona.controls['AnpeIndirizzoresidenza'].dirty && insertPersona.hasError('required','AnpeIndirizzoresidenza')" class="text-red-600">Indirizzo di residenza obbligatorio</small>
-      </div>
-      <div class="w-full md:w-1/4 px-3 mb-6">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico">Numero civico</label>
-        <input formControlName="AnpeNumerocivicoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-        focus:border-sky-500 focus:ring-sky-500" id="grid-n-civico" type="text" placeholder="N.Civico">
-        <small *ngIf="insertPersona.controls['AnpeNumerocivicoresidenza'].dirty && insertPersona.hasError('required','AnpeNumerocivicoresidenza')" class="text-red-600">Numero civico obbligatorio</small>
-      </div>
-      <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-res">CAP residenza</label>
-        <input maxlength="5" formControlName="AnpeCapresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-        focus:border-sky-500 focus:ring-sky-500" id="grid-cap-res" type="text" placeholder="00100">
-        <small *ngIf="insertPersona.controls['AnpeCapresidenza'].dirty && insertPersona.hasError('required','AnpeCapresidenza')" class="text-red-600">CAP obbligatorio</small>
-      </div>
-    </div>
 
 <!--Checkbox per mostrare i campi del domicilio-->
     <div class = "flex w-full flex-nowrap mb-5">
@@ -247,13 +249,14 @@
             <label class="block mb-2 text-sm font-medium text-gray-900">Email aziendale</label>
             <input formControlName="AnpeEmailaziendale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500" type="email" placeholder="Scrivi l'email aziendale...">
-           <small *ngIf="insertPersona.controls['AnpeNtelefono1'].dirty && insertPersona.hasError('required','AnpeNtelefono1')" class="text-red-600">Email aziendale obbligatoria</small>
-
+           <small *ngIf="insertPersona.controls['AnpeEmailaziendale'].dirty && insertPersona.hasError('required','AnpeEmailaziendale')" class="text-red-600">Email aziendale obbligatoria</small>
+           <small *ngIf="insertPersona.controls['AnpeEmailaziendale'].hasError('email')" class="text-red-600">Email non valida</small>
         </div>
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block mb-2 text-sm font-medium text-gray-900">Email personale</label>
             <input formControlName="AnpeEmailpersonale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500" type="email" placeholder="Scrivi l'email personale...">
+           <small *ngIf="insertPersona.controls['AnpeEmailpersonale'].hasError('email')" class="text-red-600">Email non valida</small>
         </div>
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block mb-2 text-sm font-medium text-gray-900">Società</label>
@@ -268,8 +271,44 @@
           </div>
     </div>
 
+<!-- File dipendente-->    
+    <div class="flex w-full justify-start gap-9 -mx-3 flex-nowrap mb-10 mt-16 px-3">
+      <input type = "file" class= "text-gray-900 sm:text-sm rounded-lg block file:mr-4 file:py-2 file:px-4
+      file:rounded-lg file:border-0
+      file:cursor-pointer
+      file:text-sm file:font-semibold
+      file:bg-blue-600 file:text-white
+      hover:file:bg-blue-700" (change)="onFileSelected($event)">
+      <button (click)="addFile()" class = " h-1/4 w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Aggiungi</button>
+    </div>
+
+    <div class="w-full">
+      <table *ngIf="isTableVisibile" class="w-full text-base text-left rtl:text-right my-10">
+        <thead class="text-sm uppercase text-white bg-blue-600">
+          <tr>
+            <th scope="col" class="px-6 py-3">Azioni</th>
+            <th scope="col" class="px-6 py-3">Nome file</th>
+            <th scope="col" class="px-6 py-3">Dimensioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of selectedFiles">
+            <td class="px-6 py-4 flex gap-3">
+              <button mat-icon class="material-icons text-red-600" (click)="removeFile(file)">clear</button>
+              <button mat-icon class ="material-icons text-green-600" (click)="downloadFile(file)">save_alt</button>
+            </td>
+            <td class="px-6 py-4">{{file.name}}</td>
+            <td class="px-6 py-4">{{getFileSize(file.size)}}</td>
+          </tr>
+        </tbody>
+  
+      </table>
+    </div>
+
+    
+    
 <!--Bottoni-->
-    <div class = "w-full flex justify-center -mx-5 mb-10 mt-10 gap-10">
+    <div class = "w-full flex justify-between mb-10 mt-10">
       <button type="submit" (click)="insertUser()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
       <button (click)="clearSearch()" class=" w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
       <button (click)="goBack()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
