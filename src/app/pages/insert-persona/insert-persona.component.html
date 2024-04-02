@@ -19,18 +19,24 @@
          focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un cognome...">
          <small *ngIf="insertPersona.controls['AnpeCognome'].dirty && insertPersona.hasError('required','AnpeCognome')" class="text-red-600">Cognome obbligatorio</small>
         </div>
-        <div class = "w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class = "w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label class="block mb-2 text-sm font-medium text-gray-900">Data di nascita</label>
             <input formControlName="AnpeDatanascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
          focus:border-sky-500 focus:ring-sky-500" type="date">
          <small *ngIf="insertPersona.controls['AnpeDatanascita'].dirty && insertPersona.hasError('required','AnpeDatanascita')" class="text-red-600">Data di nascita obbligatoria</small>
         </div>
-        <div class="w-full md:w-1/2 px-3 mb-6">
+        <div class="w-full md:w-1/3 px-3 mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900">Codice Fiscale</label>
             <input formControlName="AnpeCodicefiscale" maxlength="16" class="uppercase bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
         focus:border-sky-500 focus:ring-sky-500"type="text" placeholder="Scrivi il codice fiscale...">
         <small *ngIf="insertPersona.controls['AnpeCodicefiscale'].dirty && insertPersona.hasError('required','AnpeCodicefiscale')" class="text-red-600">Codice fiscale obbligatorio</small>
         </div>
+        <div class="w-full md:w-1/3 px-3 mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Partita Iva</label>
+          <input ngModel pattern="[0-9]*" formControlName="AnpePartitaiva" maxlength="11" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+      focus:border-sky-500 focus:ring-sky-500"type="text"  placeholder="Scrivi la partita iva...">
+      <small *ngIf="insertPersona.controls['AnpePartitaiva'].dirty && insertPersona.hasError('required','AnpePartitaiva')" class="text-red-600">Partita iva obbligatoria</small>
+      </div>
     </div>
     
 <!--Dati anagrafici per il luogo di nascita-->    
