@@ -1,20 +1,32 @@
 <div class="flex justify-center my-10 text-4xl font-bold">
-    <h2>Ricerca Ruoli</h2>
+    <h2>Ricerca Utente</h2>
 </div>
 
 <div class="flex flex-row justify-center my-10">
-    <form (ngSubmit)="ricercaFiltrata(formData.nome)">
+    <form (ngSubmit)="ricercaPersonaFiltrata(formData.AnpeNome, formData.AnpeCognome, formData.AnpeCodiceFiscale)">
         <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/insert-ruolo-funzione"><button mat-icon
+            <a routerLink="/insert-ruolo-utente"><button mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
             <input [(ngModel)]="formData.AnpeNome" name="nome" type="search"
                 class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per nome..." required />
+                placeholder="Cerca per Nome..." required />
+        </div>
+
+        <div class="flex flex-row mb-5">
+            <input [(ngModel)]="formData.AnpeCognome" name="cognome" type="search"
+                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per Cognome..." required />
+        </div>
+
+        <div class="flex flex-row mb-5">
+            <input [(ngModel)]="formData.AnpeCodiceFiscale" name="codicefiscale" type="search"
+                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per Codice Fiscale..." required />
         </div>
         <div class="flex flex-row justify-end mt-10">
-            <button type="submit"
+            <button type="submit" (click)="onCercaButtonClick()"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
             <button type="button" (click)="clearSearch()"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
@@ -32,22 +44,25 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
-                    <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Nome</th>
+                    <th scope="col" class="px-6 py-3">Cognome</th>
+                    <th scope="col" class="px-6 py-3">Ruoli</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ruolo of ruoli" class="bg-white border-b">
+                <tr *ngFor="let utente of utenti" class="bg-white border-b">
                     <td class="px-6 py-4>">
-                        <button type="button" name="modifyFieldsRuolo" (click)="modificaRuolo(ruolo.id)" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
+                        <button type="button" name="modifyFieldsRuolo" (click)="modificaRuolo(utente.id)" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
                             hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
                     </td>
                     <td class="px-6 py-4>">
-                        <button type="button" name="modifyFieldsRuolo" (click)="deleteRuolo(ruolo.id)"
+                        <button type="button" name="modifyFieldsRuolo" (click)="deleteRuolo(utente.id)"
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
-                    <td class="px-6 py-4">{{ ruolo.id }}</td>
-                    <td class="px-6 py-4">{{ ruolo.descrizione }}</td>
+                    <td class="px-6 py-4">{{ utente.nome }}</td>
+                    <td class="px-6 py-4">{{ utente.cognome }}</td>
+                    <td class="px-6 py-4">{{ utente.ruoli }}</td>
+                    <!-- ???  -->
                 </tr>
             </tbody>
         </table>
