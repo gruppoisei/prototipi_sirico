@@ -13,6 +13,7 @@ import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 import { PersonaService } from '../../service/persona.service';
+import { DocumentiService } from '../../service/documenti.service';
 
 @Component({
   selector: 'app-insert-persona',
@@ -49,8 +50,9 @@ export class InsertPersonaComponent implements OnInit{
 constructor(private personaService : PersonaService, private dialog: MatDialog,
   private location: Location, private fb : FormBuilder,
   private auth: AuthService, private serviceRegione: RegioneService,
-  private servicePaese:PaesiService, private serviceSocieta:SocietaService,
-  private serviceProvince:ProvinceService, private serviceComune:ComuniService)
+  private servicePaese: PaesiService, private serviceSocieta:SocietaService,
+  private serviceProvince: ProvinceService, private serviceComune:ComuniService,
+  private serviceDocumenti: DocumentiService)
 
 {this.data= this.personaService.getData();}
 
@@ -67,7 +69,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeNome: ['', Validators.required],
         AnpeCognome: ['', Validators.required],
         AnpeDatanascita: ['', Validators.required],
-        AnpeCodicefiscale: ['', Validators.required],
+        AnpeCodicefiscale: ['', [Validators.required, Validators.pattern('^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$')]],
         AnpePartitaiva: ['', [Validators.pattern('^(IT)?[0-9]{11}$')]],
         AnpeFkGepaPaeseidPaesenascita: ['', Validators.required],
         RegioneNascita: ['',Validators.required],
@@ -79,12 +81,12 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeFkGecoComuneidComuneresidenza: ['', Validators.required],
         AnpeIndirizzoresidenza:['', Validators.required],
         AnpeNumerocivicoresidenza: ['', Validators.required],
-        AnpeCapresidenza: ['', Validators.required],
+        AnpeCapresidenza: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
         AnpeFkGepaPaeseidPaesedomicilio: [],
         AnpeFkGecoComuneidComunedomicilio: [],
         RegioneDomicilio: [],
         ProvinciaDomicilio: [],
-        AnpeIndirizzodomicilio: [],
+        AnpeIndirizzodomicilio: [Validators.pattern('^[0-9]{5}$')],
         AnpeNumerocivicodomicilio: [],
         AnpeCapdomicilio: [],
         AnpeNtelefono1: ['', Validators.required],
@@ -352,18 +354,27 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   {
     if(this.selectedFile)
     {
-      const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
-      if(existingFileIndex === -1)
-      {
-        this.selectedFiles.push(this.selectedFile);
-        this.selectedFile = null;
-        this.isTableVisibile = true;
-      }
-      else
-      {
-        alert('Il file selezionato è giá stato inserito!')
-      }
-
+      debugger
+      this.serviceDocumenti.verificaAllegato(this.selectedFile).subscribe(
+        {
+          next: (res) => 
+          {
+            if(res) 
+            {
+              const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
+              if(existingFileIndex === -1)
+              {
+                this.selectedFiles.push(this.selectedFile!);
+                this.selectedFile = null;
+                this.isTableVisibile = true;
+              }
+              else
+              {
+                alert('Il file selezionato è giá stato inserito!')
+              }
+            }
+          }          
+        })
     }
     else
     {

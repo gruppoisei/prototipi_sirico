@@ -30,6 +30,7 @@
           <input formControlName="AnpeCodicefiscale" maxlength="16" class="uppercase bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
       focus:border-sky-500 focus:ring-sky-500"type="text" placeholder="Scrivi il codice fiscale...">
       <small *ngIf="insertPersona.controls['AnpeCodicefiscale'].dirty && insertPersona.hasError('required','AnpeCodicefiscale')" class="text-red-600">Codice fiscale obbligatorio</small>
+      <small *ngIf="insertPersona.get('AnpeCodicefiscale')?.hasError('pattern')" class="text-red-600">Codice fiscale non valido</small>
       </div>
       <div class="w-full md:w-1/3 px-3 mb-6">
         <label class="block mb-2 text-sm font-medium text-gray-900">Partita IVA</label>
@@ -50,14 +51,15 @@
     <div class="w-full md:w-1/4 px-3 mb-6">
       <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico">Numero civico</label>
       <input formControlName="AnpeNumerocivicoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" id="grid-n-civico" type="text" placeholder="N.Civico">
+      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="N.Civico">
       <small *ngIf="insertPersona.controls['AnpeNumerocivicoresidenza'].dirty && insertPersona.hasError('required','AnpeNumerocivicoresidenza')" class="text-red-600">Numero civico obbligatorio</small>
     </div>
     <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
       <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-res">CAP residenza</label>
-      <input maxlength="5" formControlName="AnpeCapresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" id="grid-cap-res" type="text" placeholder="00100">
+      <input formControlName="AnpeCapresidenza" maxlength="5" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="00100">
       <small *ngIf="insertPersona.controls['AnpeCapresidenza'].dirty && insertPersona.hasError('required','AnpeCapresidenza')" class="text-red-600">CAP obbligatorio</small>
+      <small *ngIf="insertPersona.get('AnpeCapresidenza')?.hasError('pattern')" class="text-red-600">CAP non valido</small>
     </div>
   </div>
 
@@ -78,7 +80,7 @@
           <label class="block mb-2 text-sm font-medium text-gray-900">Regione di nascita</label>
           <div class="relative">
               <select formControlName="RegioneNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-              focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeNascita($event)" >
+              focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeNascita($event)" >
                   <option value="" disable selected hidden>Scegli un'opzione</option>
                   <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
               </select>
@@ -127,7 +129,7 @@
       <label class="block mb-2 text-sm font-medium text-gray-900">Regione di residenza</label>
       <div class="relative">
         <select formControlName="RegioneResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" id="grid-regione" (change)="onRegionChangeResidenza($event)" >
+         focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeResidenza($event)" >
           <option value="" disable selected hidden>Scegli un'opzione</option>
           <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniResidenza">{{reg.gereDeno}}</option>
         </select>
@@ -225,6 +227,7 @@
               <label class="block mb-2 text-sm font-medium text-gray-900">CAP domicilio</label>
               <input maxlength="5" formControlName="AnpeCapdomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="00100">
+            <small *ngIf="insertPersona.get('AnpeCapdomicilio')?.hasError('pattern')" class="text-red-600">CAP non valido</small>
           </div>
   </div>
 
