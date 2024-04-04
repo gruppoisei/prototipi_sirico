@@ -3,7 +3,7 @@
 </div>
 
 <div class="flex flex-row justify-center my-10">
-    <form (ngSubmit)="ricercaPersonaFiltrata(formData.AnpeNome, formData.AnpeCognome, formData.AnpeCodiceFiscale)">
+    <form (ngSubmit)="ricercaPersonaFiltrata(formData.Nome, formData.Cognome, formData.Ruolo)">
         <div class="flex flex-row justify-end mt-10">
             <a routerLink="/insert-ruolo-utente"><button mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
@@ -23,13 +23,13 @@
         <div class="flex flex-row mb-5">
             <mat-form-field appearance="fill" class="mx-5 w-full">
                 <mat-label>Cerca per Ruolo...</mat-label>
-                <mat-select [(ngModel)]="formData.AnpeCodiceFiscale" name="ruolo" required>
+                <mat-select [(ngModel)]="formData.Ruolo" name="ruolo" required>
                     <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.syruIdruolosys">
                         {{ ruolo.syruDescruolosys }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>          
+        </div>
 
         <div class="flex flex-row justify-end mt-10">
             <button type="submit" (click)="onCercaButtonClick()"
@@ -42,17 +42,21 @@
     </form>
 </div>
 <br>
+
+
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
+
+
 <div class="flex flex-row my-10">
     <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
-        <table class="w-3/4 text-base text-left rtl:text-right">
+        <table class="text-base text-left rtl:text-right table-width">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
                     <th scope="col" class="px-6 py-3">Nome</th>
                     <th scope="col" class="px-6 py-3">Cognome</th>
-                    <th scope="col" class="px-6 py-3">Ruoli</th>
+                    <th scope="col" class="px-6 py-3 ruoli-column">Ruoli</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,10 +71,14 @@
                     </td>
                     <td class="px-6 py-4">{{ utente.nome }}</td>
                     <td class="px-6 py-4">{{ utente.cognome }}</td>
-                    <td class="px-6 py-4">{{ utente.ruoli }}</td>
-                    <!-- ???  -->
+                    <td class="px-6 py-4">
+                        <ul>
+                            <li *ngFor="let ruolo of utente.ruoli">{{ ruolo.syruDescruolosys }}</li>
+                        </ul>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+

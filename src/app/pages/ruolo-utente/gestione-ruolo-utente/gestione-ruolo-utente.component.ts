@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { InsertUtenteService } from '../../../service/insert-utente.service';
 
 
 @Component({
@@ -15,44 +16,39 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   ruoli: { syruIdruolosys: number, syruDescruolosys: string }[] = [];
   risultati: any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private ruoliservice: InsertUtenteService) {
     this.clearSearch();
   }
 
-  ricercaPersonaFiltrata(nome: string, cognome: string, ruolo: number) {
-    const params = {
-      Nome: nome,
-      Cognome: cognome,
-      Ruolo: ruolo
-    };
-    this.http.get<any[]>('http://localhost:5143/Persona/GetPersoneByParams', { params })
+  ricercaPersonaFiltrata(nome: string, cognome: string, ruoloId: number) {
+    this.ruoliservice.getPersonaFiltrata(nome, cognome, ruoloId)
       .subscribe((risultati) => {
-        this.utenti = risultati;
-        this.output_ricercaFiltrata = this.utenti && this.utenti.length > 0;
+        if (risultati && risultati.length > 0) {
+          this.utenti = risultati;
+          this.output_ricercaFiltrata = true;
+          this.caricaRuoli();
+        } else {
+          this.utenti = [];
+          this.output_ricercaFiltrata = false;
+        }
       }, (error) => {
         console.error('Errore durante la ricerca:', error);
       });
   }
 
-
   ngOnInit(): void {
-    console.log("oninit");
+    this.clearSearch();
     this.caricaRuoli();
-    console.log(this.ruoli);
-    console.log("qui");
   }
 
   caricaRuoli() {
-    this.http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli')
-      .subscribe((dati) => {
-        this.ruoli = dati;
-      });
+    this.ruoliservice.GetRuoli().subscribe((res) => this.ruoli = res);
   }
 
   clearSearch() {
     this.formData.Nome = '';
     this.formData.Cognome = '';
-    this.formData.Ruolo = '';
+    this.formData.Ruolo = null;
   }
 
   closeForm() {

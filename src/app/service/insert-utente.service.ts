@@ -69,6 +69,26 @@ export class InsertUtenteService {
   {
     return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/GetAllPersoneSenzaUtente',filtro)
   }
+  GetRuoli() {
+    return this.Http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli', this.httpOptions);
+  }
+
+  getPersonaFiltrata(nome: string, cognome: string, ruoloId: number) {
+    let url = 'http://localhost:5143/AmministrazioneRuolo/GetUtentiERuoli?';
+    if (nome) {
+      url += 'nome=' + nome + '&';
+    }
+    if (cognome) {
+      url += 'cognome=' + cognome + '&';
+    }
+    if (ruoloId) {
+      url += 'ruoloId=' + ruoloId;
+    }
+
+    console.log(url);
+
+    return this.Http.get<any[]>(url);
+  }
 
 }
 
