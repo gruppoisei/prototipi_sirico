@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { InsertUtenteService } from '../../../service/insert-utente.service';
-
+import { NuovoUtenteRequest } from '../../../dto/request/nuovoUtenteRuolo';
 
 @Component({
   selector: 'app-gestione-ruolo-utente',
@@ -59,28 +59,27 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   modificaRuolo(id: number) {
     this.router.navigate(['/insert-ruolo-utente']);
   }
-  /*
-    deleteRuolo(userId: number) {
-        const utenteDaEliminare = new ConfermaNuovoUtenteModificaRuolo();
-        utenteDaEliminare.userId = userId;
-      
-        this.ruoliservice.ConfermaNuovoUtenteModificaRuolo(utenteDaEliminare).subscribe(
-          (response) => {
-            console.log('Utente eliminato con successo', response);
-          },
-          (error) => {
-            console.error('Errore durante l\'eliminazione dell\'utente', error);
-          }
-        );
-      }*/
+
+  eliminaUtente(Id: number) {
+    console.log(Id);
+    const utenteDaEliminare = new NuovoUtenteRequest();
+    utenteDaEliminare.userId = Id;
+    utenteDaEliminare.sysuser = "frontend";
+    console.log(utenteDaEliminare);
+    this.ruoliservice.ConfermaNuovoUtenteModificaRuolo(utenteDaEliminare).subscribe(
+      (response) => {
+        console.log('Utente eliminato con successo', response);
+        this.ricercaPersonaFiltrata(this.formData.Nome, this.formData.Cognome, this.formData.Ruolo);
+      },
+      (error) => {
+        console.error('Errore durante l\'eliminazione dell\'utente', error);
+      }
+    );
+  }
 
   onCercaButtonClick() {
     console.log('Cerca button clicked!');
     console.log('FormData:', this.formData);
-  }
-
-  deleteRuolo(arg0: any) {
-    throw new Error('Method not implemented.');
   }
 
 }
