@@ -21,21 +21,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   }
 
   ricercaPersonaFiltrata(nome: string, cognome: string, ruoloId: number) {
-    // Costruire l'URL con i parametri
-    let url = 'http://localhost:5143/AmministrazioneRuolo/GetUtentiERuoli?';
-    if (nome) {
-      url += 'nome=' + nome + '&';
-    }
-    if (cognome) {
-      url += 'cognome=' + cognome + '&';
-    }
-    if (ruoloId) {
-      url += 'ruoloId=' + ruoloId;
-    }
-
-    console.log(url);
-
-    this.http.get<any[]>(url)
+    this.ruoliservice.getPersonaFiltrata(nome, cognome, ruoloId)
       .subscribe((risultati) => {
         if (risultati && risultati.length > 0) {
           this.utenti = risultati;
