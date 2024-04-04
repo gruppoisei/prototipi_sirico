@@ -23,40 +23,51 @@
 
   <div class="flex flex-row justify-center my-10">
     <div class="m-5">
-      <input
-        [disabled]="utenteId != null"
-        [(ngModel)]="codiceFiscale"
+      <div
+        *ngIf="personaSelezionata == undefined"
+        class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      >
+        Nome...
+      </div>
+      <div
+        *ngIf="personaSelezionata != undefined"
         class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Codice Fiscale..."
-        required
-      />
+      >
+        {{ personaSelezionata.anpeNome }}
+      </div>
     </div>
     <div class="m-5">
-      <input
-        [disabled]="utenteId != null"
-        [(ngModel)]="nome"
+      <div
+        *ngIf="personaSelezionata == undefined"
+        class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      >
+        Cognome...
+      </div>
+      <div
+        *ngIf="personaSelezionata != undefined"
         class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Nome..."
-        required
-      />
+      >
+        {{ personaSelezionata.anpeCognome }}
+      </div>
     </div>
     <div class="m-5">
-      <input
-        [disabled]="utenteId != null"
-        [(ngModel)]="cognome"
+      <div
+        *ngIf="personaSelezionata == undefined"
+        class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      >
+        Codice Fiscale...
+      </div>
+      <div
+        *ngIf="personaSelezionata != undefined"
         class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Cognome..."
-        required
-      />
+      >
+        {{ personaSelezionata.anpeCodicefiscale }}
+      </div>
     </div>
     <div class="flex flex-row justify-end mt-10">
-      ><button
-        mat-icon
-        class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2"
-      >
-        add
+      <button (click)="ScegliPersonaDaAssociare()">
+        <mat-icon>person_add_alt_1</mat-icon>
       </button>
-      >
     </div>
   </div>
   <div>
@@ -65,6 +76,7 @@
       [(ngModel)]="utenteDaAggiungere.username"
       class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       placeholder="Nome Utente..."
+      
       required
     />
   </div>
@@ -124,11 +136,18 @@
 
   <div>
     <button
-      (click)="ConfermaModifica()"
+      *ngIf="utenteId == null"
+      (click)="InserisciNuovoUtente()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
     >
-      <p *ngIf="utenteId != null">Aggiorna Ruoli</p>
-      <p *ngIf="utenteId == null">Crea Utente</p>
+      Crea Utente
+    </button>
+    <button
+      *ngIf="utenteId != null"
+      (click)="AggiornaRuoliUtente()"
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+    >
+      Aggiorna Ruoli
     </button>
   </div>
 </div>

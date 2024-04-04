@@ -64,6 +64,12 @@ export class InsertUtenteService {
     return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/AssociaRuoliAUtente',utenteDaAggiungere,this.httpOptions)
   }
 
+
+  GetAllPersoneSenzaUtenza(filtro:any)
+  {
+    return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/GetAllPersoneSenzaUtente',filtro)
+  }
+
 }
 
 export interface PersoneEntity {
