@@ -25,7 +25,7 @@
                 <mat-label>Cerca per Ruolo...</mat-label>
                 <mat-select [(ngModel)]="formData.Ruolo" name="ruolo" required>
                     <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.syruIdruolosys">
-                        {{ ruolo.syruDescruolosys }}, 
+                        {{ ruolo.syruDescruolosys }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -42,17 +42,21 @@
     </form>
 </div>
 <br>
+
+
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
+
+
 <div class="flex flex-row my-10">
     <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
-        <table class="w-3/4 text-base text-left rtl:text-right">
+        <table class="text-base text-left rtl:text-right table-width">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
                     <th scope="col" class="px-6 py-3">Nome</th>
                     <th scope="col" class="px-6 py-3">Cognome</th>
-                    <th scope="col" class="px-6 py-3">Ruoli</th>
+                    <th scope="col" class="px-6 py-3 ruoli-column">Ruoli</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,9 +76,9 @@
                             <li *ngFor="let ruolo of utente.ruoli">{{ ruolo.syruDescruolosys }}</li>
                         </ul>
                     </td>
-
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+

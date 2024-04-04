@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { InsertUtenteService } from '../../../service/insert-utente.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   ruoli: { syruIdruolosys: number, syruDescruolosys: string }[] = [];
   risultati: any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private ruoliservice: InsertUtenteService) {
     this.clearSearch();
   }
 
@@ -58,10 +59,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   }
 
   caricaRuoli() {
-    this.http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli')
-      .subscribe((dati) => {
-        this.ruoli = dati;
-      });
+    this.ruoliservice.GetRuoli().subscribe((res) => this.ruoli = res );
   }
 
   clearSearch() {

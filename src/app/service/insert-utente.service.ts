@@ -64,6 +64,10 @@ export class InsertUtenteService {
     return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/AssociaRuoliAUtente',utenteDaAggiungere,this.httpOptions)
   }
 
+  GetRuoli() {
+    return this.Http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli', this.httpOptions);
+  }
+
 }
 
 export interface PersoneEntity {
