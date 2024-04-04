@@ -1,12 +1,19 @@
-<p>Validatore MFA</p>
-
-<img class="w-36" src="{{ auth.imageQRCode }}" />
-<div>
-  <label>inserisci codice Verifica:</label>
-  <input type="text" [(ngModel)]="codiceValidatore" />
+<div class = "flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-4/6 lg:py-0">
+  <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <h2 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Associazione MFA</h2>
+      <div class="bg-gradient-to-r from-cyan-100 to-blue-100 w-fill flex justify-center">
+        <img class = "border-2 border-black p-2" src="https://play-lh.googleusercontent.com/_vzseJdOAsq5q5y6inri3bTgLx-X7BpqLUjgF2MQsgpxDy9owLPblODqf4t9hqyT8ZY"/>
+      </div>
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Inserisci codice di verifica</label>
+        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-sky-500 focus:ring-sky-500" type="text" [(ngModel)]="codiceValidatore" />
+      </div>
+     <div class="flex w-full flex-nowrap mb-5 gap-3">
+        <label class = "block text-sm font-medium text-gray-900">Non richiedere per 7 giorni</label>
+        <input type="checkbox" [(ngModel)]="expire1week">
+      </div>
+      <button class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" (click)="ConfermaMFA()">ConfermaMFA</button>
+    </div>
+  </div>
 </div>
-<div>
-  <label>non richiedere per 7 giorni</label>
-  <input type="checkbox" [(ngModel)]="expire1week">
-</div>
-<button (click)="ConfermaMFA()">ConfermaMFA</button>

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GestioneRuoloUtenteComponent } from './gestione-utente-ruolo.component';
+import { GestioneRuoloUtenteComponent } from './gestione-ruolo-utente.component';
 
 describe('GestioneRuoloUtenteComponent', () => {
   let component: GestioneRuoloUtenteComponent;

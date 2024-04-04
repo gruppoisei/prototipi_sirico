@@ -43,11 +43,12 @@ import { InsertPersonaProvaComponent } from './pages/insert-persona-prova/insert
 import { FooterComponent } from './footer/footer.component';
 import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
-import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-utente-ruolo/gestione-utente-ruolo.component';
+import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-ruolo-utente/gestione-ruolo-utente.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
 import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/associazione-mfa.component';
+import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog-cerca-persona.component';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/ass
         InsertRuoloUtenteComponent,
         LoginBoxComponent,
         ValidatoreMFAComponent,
-        AssociazioneMFAComponent
+        AssociazioneMFAComponent,
+        DialogCercaPersonaComponent,
     ],
     providers: [
         provideAnimationsAsync(),
