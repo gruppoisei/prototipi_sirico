@@ -36,21 +36,18 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     console.log(url);
 
     this.http.get<any[]>(url)
-    .subscribe((risultati) => {
+      .subscribe((risultati) => {
         if (risultati && risultati.length > 0) {
-            this.utenti = risultati;
-            this.output_ricercaFiltrata = true;
-            // Carica i ruoli dopo aver ottenuto gli utenti
-            this.caricaRuoli();
+          this.utenti = risultati;
+          this.output_ricercaFiltrata = true;
+          this.caricaRuoli();
         } else {
-            this.utenti = [];
-            this.output_ricercaFiltrata = false;
-            // Mostra un messaggio all'utente informandolo che la ricerca non ha prodotto risultati
+          this.utenti = [];
+          this.output_ricercaFiltrata = false;
         }
-    }, (error) => {
+      }, (error) => {
         console.error('Errore durante la ricerca:', error);
-    });
-
+      });
   }
 
   ngOnInit(): void {
@@ -59,7 +56,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   }
 
   caricaRuoli() {
-    this.ruoliservice.GetRuoli().subscribe((res) => this.ruoli = res );
+    this.ruoliservice.GetRuoli().subscribe((res) => this.ruoli = res);
   }
 
   clearSearch() {
