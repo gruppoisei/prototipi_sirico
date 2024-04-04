@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,33 +8,56 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './gestione-ruolo-utente.component.html',
   styleUrls: ['./gestione-ruolo-utente.component.scss']
 })
-export class GestioneRuoloUtenteComponent {
+export class GestioneRuoloUtenteComponent implements OnInit {
   formData: any = {};
   output_ricercaFiltrata: any;
   utenti: any;
+  ruoli: { syruIdruolosys: number, syruDescruolosys: string }[] = [];
+  risultati: any;
 
-  constructor(private router: Router, private http: HttpClient) { 
+  constructor(private router: Router, private http: HttpClient) {
     this.clearSearch();
   }
 
-  ricercaPersonaFiltrata(nome: string, cognome: string, codiceFiscale: string) {
+  ricercaPersonaFiltrata(nome: string, cognome: string, ruolo: number) {
     const params = {
-      nome: nome, 
-      cognome: cognome,
-      codiceFiscale: codiceFiscale
+      Nome: nome,
+      Cognome: cognome,
+      Ruolo: ruolo
     };
-    return this.http.get<any[]>('http://localhost:5143/Persona/GetPersoneByParams', { params });
+    this.http.get<any[]>('http://localhost:5143/Persona/GetPersoneByParams', { params })
+      .subscribe((risultati) => {
+        this.utenti = risultati;
+        this.output_ricercaFiltrata = this.utenti && this.utenti.length > 0;
+      }, (error) => {
+        console.error('Errore durante la ricerca:', error);
+      });
+  }
+
+
+  ngOnInit(): void {
+    console.log("oninit");
+    this.caricaRuoli();
+    console.log(this.ruoli);
+    console.log("qui");
+  }
+
+  caricaRuoli() {
+    this.http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli')
+      .subscribe((dati) => {
+        this.ruoli = dati;
+      });
   }
 
   clearSearch() {
-    this.formData.AnpeNome = '';
-    this.formData.AnpeCognome = '';
-    this.formData.AnpeCodiceFiscale = '';
+    this.formData.Nome = '';
+    this.formData.Cognome = '';
+    this.formData.Ruolo = '';
   }
 
   closeForm() {
     this.router.navigate(['/homepage']);
-  }  
+  }
 
   modificaRuolo(id: number) {
     this.router.navigate(['/insert-ruolo-utente']);

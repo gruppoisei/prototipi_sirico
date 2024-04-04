@@ -48,6 +48,7 @@ import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-ut
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
 import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/associazione-mfa.component';
+import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog-cerca-persona.component';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/ass
         InsertRuoloUtenteComponent,
         LoginBoxComponent,
         ValidatoreMFAComponent,
-        AssociazioneMFAComponent
+        AssociazioneMFAComponent,
+        DialogCercaPersonaComponent,
     ],
     providers: [
         provideAnimationsAsync(),
