@@ -84,11 +84,11 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeCapresidenza: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
         AnpeFkGepaPaeseidPaesedomicilio: [],
         AnpeFkGecoComuneidComunedomicilio: [],
-        RegioneDomicilio: [],
-        ProvinciaDomicilio: [],
-        AnpeIndirizzodomicilio: [Validators.pattern('^[0-9]{5}$')],
-        AnpeNumerocivicodomicilio: [],
-        AnpeCapdomicilio: [],
+        RegioneDomicilio: [''],
+        ProvinciaDomicilio: [''],
+        AnpeIndirizzodomicilio: ['',Validators.pattern('^[0-9]{5}$')],
+        AnpeNumerocivicodomicilio: [''],
+        AnpeCapdomicilio: [''],
         AnpeNtelefono1: ['', Validators.required],
         AnpeNtelefono2: [''],
         AnpeEmailaziendale: ['', [Validators.required, Validators.email]],
@@ -218,6 +218,10 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   }
   
   populateDomicilio(dipendente: any): void {
+    if(dipendente.anpeFkGecoComuneidComunedomicilio == null)
+    {
+      dipendente.anpeFkGecoComuneidComunedomicilio = 0;
+    }
     this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunedomicilio).subscribe({
       next: (idProvincia) => {
         
