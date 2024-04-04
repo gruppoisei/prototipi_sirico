@@ -19,27 +19,42 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     this.clearSearch();
   }
 
-  ricercaPersonaFiltrata(nome: string, cognome: string, ruolo: number) {
-    const params = {
-      Nome: nome,
-      Cognome: cognome,
-      Ruolo: ruolo
-    };
-    this.http.get<any[]>('http://localhost:5143/Persona/GetPersoneByParams', { params })
-      .subscribe((risultati) => {
-        this.utenti = risultati;
-        this.output_ricercaFiltrata = this.utenti && this.utenti.length > 0;
-      }, (error) => {
+  ricercaPersonaFiltrata(nome: string, cognome: string, ruoloId: number) {
+    // Costruire l'URL con i parametri
+    let url = 'http://localhost:5143/AmministrazioneRuolo/GetUtentiERuoli?';
+    if (nome) {
+      url += 'nome=' + nome + '&';
+    }
+    if (cognome) {
+      url += 'cognome=' + cognome + '&';
+    }
+    if (ruoloId) {
+      url += 'ruoloId=' + ruoloId;
+    }
+
+    console.log(url);
+
+    this.http.get<any[]>(url)
+    .subscribe((risultati) => {
+        if (risultati && risultati.length > 0) {
+            this.utenti = risultati;
+            this.output_ricercaFiltrata = true;
+            // Carica i ruoli dopo aver ottenuto gli utenti
+            this.caricaRuoli();
+        } else {
+            this.utenti = [];
+            this.output_ricercaFiltrata = false;
+            // Mostra un messaggio all'utente informandolo che la ricerca non ha prodotto risultati
+        }
+    }, (error) => {
         console.error('Errore durante la ricerca:', error);
-      });
+    });
+
   }
 
-
   ngOnInit(): void {
-    console.log("oninit");
+    this.clearSearch();
     this.caricaRuoli();
-    console.log(this.ruoli);
-    console.log("qui");
   }
 
   caricaRuoli() {
@@ -52,7 +67,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   clearSearch() {
     this.formData.Nome = '';
     this.formData.Cognome = '';
-    this.formData.Ruolo = '';
+    this.formData.Ruolo = null;
   }
 
   closeForm() {
