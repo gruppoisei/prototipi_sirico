@@ -8,27 +8,30 @@
             <a routerLink="/insert-ruolo-utente"><button mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
-        <div class="flex flex-row mb-5">
-            <input [(ngModel)]="formData.Nome" name="nome" type="search"
-                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per Nome..." required />
-        </div>
-
-        <div class="flex flex-row mb-5">
-            <input [(ngModel)]="formData.Cognome" name="cognome" type="search"
-                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per Cognome..." required />
-        </div>
-
-        <div class="flex flex-row mb-5">
-            <mat-form-field appearance="fill" class="mx-5 w-full">
-                <mat-label>Cerca per Ruolo...</mat-label>
-                <mat-select [(ngModel)]="formData.Ruolo" name="ruolo" required>
-                    <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.syruIdruolosys">
-                        {{ ruolo.syruDescruolosys }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="flex flex-row justify-center my-10">
+            <form (ngSubmit)="ricercaPersonaFiltrata(formData.Nome, formData.Cognome, formData.Ruolo)"
+                class="flex flex-row">
+                <div class="flex flex-col mb-5">
+                    <input [(ngModel)]="formData.Nome" name="nome" type="search"
+                        class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Cerca per Nome..." required />
+                </div>
+                <div class="flex flex-col mb-5">
+                    <input [(ngModel)]="formData.Cognome" name="cognome" type="search"
+                        class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Cerca per Cognome..." required />
+                </div>
+                <div class="flex flex-col mb-5">
+                    <mat-form-field appearance="fill" class="mx-5">
+                        <mat-label>Cerca per Ruolo...</mat-label>
+                        <mat-select [(ngModel)]="formData.Ruolo" name="ruolo">
+                            <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.syruIdruolosys">
+                                {{ ruolo.syruDescruolosys }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
         </div>
 
         <div class="flex flex-row justify-end mt-10">
@@ -42,11 +45,7 @@
     </form>
 </div>
 <br>
-
-
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
-
-
 <div class="flex flex-row my-10">
     <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
         <table class="text-base text-left rtl:text-right table-width">
@@ -54,9 +53,10 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
-                    <th scope="col" class="px-6 py-3">Nome</th>
-                    <th scope="col" class="px-6 py-3">Cognome</th>
-                    <th scope="col" class="px-6 py-3 ruoli-column">Ruoli</th>
+                    <th scope="col" class="px-6 py-3">NOME</th>
+                    <th scope="col" class="px-6 py-3">COGNOME</th>
+                    <th scope="col" class="px-6 py-3">USERNAME</th>
+                    <th scope="col" class="px-6 py-3 ruoli-column">RUOLI</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,11 +66,12 @@
                             hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
                     </td>
                     <td class="px-6 py-4>">
-                        <button type="button" name="modifyFieldsRuolo" (click)="deleteRuolo(utente.id)"
+                        <button type="button" (click)="eliminaUtente(utente.id)"
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
                     <td class="px-6 py-4">{{ utente.nome }}</td>
                     <td class="px-6 py-4">{{ utente.cognome }}</td>
+                    <td class="px-6 py-4">{{ utente.username }}</td>
                     <td class="px-6 py-4">
                         <ul>
                             <li *ngFor="let ruolo of utente.ruoli">{{ ruolo.syruDescruolosys }}</li>
@@ -81,4 +82,3 @@
         </table>
     </div>
 </div>
-
