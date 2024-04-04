@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +48,22 @@ export class InsertUtenteService {
       'http://localhost:5112/Persone/GetAllPersone'
     );
   }
+
+  GetAllRuoli()
+  {
+    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetRuoli',this.httpOptions);
+  }
+
+  GetAllInfoUtenteRuoloById(userId:number)
+  {
+    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetAllInfoRuoliUtenteById?userId='+userId)
+  }
+
+  ConfermaNuovoUtenteModificaRuolo(utenteDaAggiungere:NuovoUtenteRequest)
+  {
+    return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/AssociaRuoliAUtente',utenteDaAggiungere,this.httpOptions)
+  }
+
 }
 
 export interface PersoneEntity {
