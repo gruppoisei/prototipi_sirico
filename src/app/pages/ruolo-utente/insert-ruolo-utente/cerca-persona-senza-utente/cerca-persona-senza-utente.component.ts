@@ -18,7 +18,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose,],
+    MatDialogClose],
 })
 export class CercaPersonaSenzaUtenteComponent {
   dipendentiSenzaUtenza: any[] = [];
@@ -53,7 +53,7 @@ export class CercaPersonaSenzaUtenteComponent {
   selezionaPersona(dipendente:any)
   {
     
-    this.data= dipendente
+    this.data = dipendente
     
   }
 

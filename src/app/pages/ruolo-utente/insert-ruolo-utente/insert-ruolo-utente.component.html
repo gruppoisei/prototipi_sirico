@@ -64,20 +64,20 @@
         {{ personaSelezionata.anpeCodicefiscale }}
       </div>
     </div>
-    <div class="flex flex-row justify-end mt-10">
-      <button (click)="ScegliPersonaDaAssociare()">
+    <div *ngIf="utenteId == null" class="flex flex-row justify-end mt-10">
+      <button  (click)="ScegliPersonaDaAssociare()">
         <mat-icon>person_add_alt_1</mat-icon>
       </button>
     </div>
   </div>
   <div>
-    <input
+    <input 
       [disabled]="utenteId != null"
       [(ngModel)]="utenteDaAggiungere.username"
       class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       placeholder="Nome Utente..."
       
-      required
+      
     />
   </div>
   <div class="border-b-4 border-gray-600 m-12"></div>
