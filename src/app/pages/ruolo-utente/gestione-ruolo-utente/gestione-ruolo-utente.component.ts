@@ -10,6 +10,7 @@ import { InsertUtenteService } from '../../../service/insert-utente.service';
   styleUrls: ['./gestione-ruolo-utente.component.scss']
 })
 export class GestioneRuoloUtenteComponent implements OnInit {
+
   formData: any = {};
   output_ricercaFiltrata: any;
   utenti: any;
@@ -58,13 +59,28 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   modificaRuolo(id: number) {
     this.router.navigate(['/insert-ruolo-utente']);
   }
-
-  deleteRuolo(id: number) {
-    //delete da implementare
-  }
+  /*
+    deleteRuolo(userId: number) {
+        const utenteDaEliminare = new ConfermaNuovoUtenteModificaRuolo();
+        utenteDaEliminare.userId = userId;
+      
+        this.ruoliservice.ConfermaNuovoUtenteModificaRuolo(utenteDaEliminare).subscribe(
+          (response) => {
+            console.log('Utente eliminato con successo', response);
+          },
+          (error) => {
+            console.error('Errore durante l\'eliminazione dell\'utente', error);
+          }
+        );
+      }*/
 
   onCercaButtonClick() {
     console.log('Cerca button clicked!');
     console.log('FormData:', this.formData);
   }
+
+  deleteRuolo(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
+
 }
