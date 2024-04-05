@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Utente } from '../dto/request/utente';
 import { Observable } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Persona } from '../dto/request/persona';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +18,15 @@ export class AuthService {
     return this.http.post<Utente>(`${this.baseUrl}Login/InsertUser`,userObj)
   }*/
 
-  insertPersona(personaObj: any) : Observable<any>
+  insertPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
   {
-    return this.http.post<any>(`${this.baseUrl}Persona/AddPersona`, personaObj)
+    let formData = new FormData();
+    Object.keys(personaObj).forEach(key => {
+      formData.append(key, personaObj[key]);
+    });
+    for (let i = 0; i < fileAllegati.length; i++) {
+      formData.append(`file${i}`, fileAllegati[i]);
+    }
+    return this.http.post<any>(`${this.baseUrl}Persona/AddPersona`, formData)
   }
 }
