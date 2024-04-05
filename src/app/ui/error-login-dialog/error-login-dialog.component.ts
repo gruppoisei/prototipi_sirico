@@ -10,9 +10,9 @@ export class ErrorLoginDialogComponent {
 
   errorMessage : string;
 
-constructor(@Inject (MAT_DIALOG_DATA) public data: any)
-{
-  this.errorMessage = data.errorMessage;
-}
+  constructor(@Inject (MAT_DIALOG_DATA) public data: any)
+  {
+    this.errorMessage = data.errorMessage;
+  }
 
 }

@@ -21,14 +21,16 @@ export class AuthenticationService {
     observe:'response'
 }
   
-  private isAuthenticated = new BehaviorSubject<boolean>(false)
+  private isAuthenticated = new BehaviorSubject<boolean>(false);
 
   constructor( private http: HttpClient,) { }
 
 
-  getIsAuthenticated() : Observable<boolean>
-  {
+  public getIsAuthenticated(): Observable<boolean> {
     return this.isAuthenticated.asObservable();
+  }
+  public setIsAuthenticated(isAuthenticated: boolean): void {
+    this.isAuthenticated.next(isAuthenticated);
   }
   
   // Login da DB
@@ -36,7 +38,7 @@ export class AuthenticationService {
     
     return this.http.post<any>(`${this.baseUrl}AccessoUtente/`, loginObj, this.httpOptions)
     .pipe(
-      tap(() => this.isAuthenticated.next(true))
+      tap(() => this.setIsAuthenticated(true))
     );
   }
 

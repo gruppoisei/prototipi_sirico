@@ -68,11 +68,11 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     console.log(utenteDaEliminare);
     this.ruoliservice.ConfermaNuovoUtenteModificaRuolo(utenteDaEliminare).subscribe(
       (response) => {
-        console.log('Utente eliminato con successo', response);
+        console.log(response.message);
         this.ricercaPersonaFiltrata(this.formData.Nome, this.formData.Cognome, this.formData.Ruolo);
       },
       (error) => {
-        console.error('Errore durante l\'eliminazione dell\'utente', error);
+        console.error(error.message);
       }
     );
   }
