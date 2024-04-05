@@ -11,6 +11,8 @@
 
 
 <div><button (click)="AggiornaRuoliPersona()">Salva</button></div> -->
+
+
 <div class="flex flex-col justify-center my-10 text-center font-bold">
   <div class="text-4xl text-center">
     <div *ngIf="utenteId == null">
@@ -24,13 +26,13 @@
   <div class="flex flex-row justify-center my-10">
     <div class="m-5">
       <div
-        *ngIf="personaSelezionata == undefined"
+        *ngIf="personaSelezionata.anpeNome == null"
         class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         Nome...
       </div>
       <div
-        *ngIf="personaSelezionata != undefined"
+        *ngIf="personaSelezionata.anpeNome != null"
         class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         {{ personaSelezionata.anpeNome }}
@@ -38,13 +40,13 @@
     </div>
     <div class="m-5">
       <div
-        *ngIf="personaSelezionata == undefined"
+        *ngIf="personaSelezionata.anpeCognome == null"
         class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         Cognome...
       </div>
       <div
-        *ngIf="personaSelezionata != undefined"
+        *ngIf="personaSelezionata.anpeCognome != null"
         class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         {{ personaSelezionata.anpeCognome }}
@@ -52,28 +54,28 @@
     </div>
     <div class="m-5">
       <div
-        *ngIf="personaSelezionata == undefined"
+        *ngIf="personaSelezionata.anpeCodicefiscale == null"
         class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         Codice Fiscale...
       </div>
       <div
-        *ngIf="personaSelezionata != undefined"
+        *ngIf="personaSelezionata.anpeCodicefiscale != null"
         class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         {{ personaSelezionata.anpeCodicefiscale }}
       </div>
     </div>
-    <div *ngIf="utenteId == null" class="flex flex-row justify-end mt-10">
+    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end mt-10">
       <button  (click)="ScegliPersonaDaAssociare()">
         <mat-icon>person_add_alt_1</mat-icon>
       </button>
     </div>
   </div>
   <div>
-    <div *ngIf="utenteId != null"  class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
+    <div *ngIf="utenteId != null"  class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ personaSelezionata.username }}</div>
     <input 
-      *ngIf="utenteId == null"
+      *ngIf="personaSelezionata.username == null"
       [(ngModel)]="utenteDaAggiungere.username"
       class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       placeholder="Nome Utente..."

@@ -94,15 +94,7 @@ export class GiornoCalendarioComponent {
 
   VerificaValiditaGiorno() {
     this.orarioDiLavoroConvertitoInOre =
-      // Number(this.giorno.oraUscita!.split(':')[0]) -
-      // Number(this.giorno.oraEntrata!.split(':')[0]) -
-      // (Number(this.giorno.oraFinePausa!.split(':')[0]) -
-      //   Number(this.giorno.oraInizioPausa!.split(':')[0])) +
-      // (Number(this.giorno.oraUscita!.split(':')[1]) -
-      //   Number(this.giorno.oraEntrata!.split(':')[1]) -
-      //   (Number(this.giorno.oraFinePausa!.split(':')[1]) -
-      //     Number(this.giorno.oraInizioPausa!.split(':')[1]))) /
-      //   60;
+
 
         this.ConvertitoreOraIntero(this.giorno.oraUscita!) - this.ConvertitoreOraIntero(this.giorno.oraEntrata!) -this.ConvertitoreOraIntero(this.giorno.oraFinePausa!) + this.ConvertitoreOraIntero(this.giorno.oraInizioPausa!)
 
@@ -128,10 +120,7 @@ export class GiornoCalendarioComponent {
         let oretotali;
 
         oretotali = this.ConvertitoreOraIntero(end) - this.ConvertitoreOraIntero(start)
-          // Number(end.split(':')[0]) -
-          // Number(start.split(':')[0]) -
-          // (Number(end.split(':')[1]) - Number(start.split(':')[1])) / 60;
-
+        
         //sottraggo tempo pausa
         if (
           assenza.oraInizio < this.giorno.oraInizioPausa! &&
@@ -148,13 +137,7 @@ export class GiornoCalendarioComponent {
             //somma tempo parziale rispetto a inizio pausa
           }
           //sottraggo pausa
-                              // oretotali =
-                              //   oretotali -
-                              //   (Number(this.giorno.oraFinePausa!.split(':')[0]) -
-                              //     Number(this.giorno.oraInizioPausa!.split(':')[0]) -
-                              //     (Number(this.giorno.oraFinePausa!.split(':')[1]) -
-                              //       Number(this.giorno.oraInizioPausa!.split(':')[1])) /
-                              //       60);
+                             
                 oretotali = oretotali -(this.ConvertitoreOraIntero(this.giorno.oraFinePausa!) -this.ConvertitoreOraIntero(this.giorno.oraInizioPausa!))
         }
         this.oreLavorate += oretotali;
@@ -194,8 +177,7 @@ export class GiornoCalendarioComponent {
   }
 
   VerificaMeseEsatto(): boolean {
-    console.log(this.rapportinoService.oggi.getMonth());
-    console.log(this.rapportinoService.risposta.rapportino.dataRapportino);
+  
     let ver =
       this.rapportinoService.oggi.getMonth() ==
       Number(

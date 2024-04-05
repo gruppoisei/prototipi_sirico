@@ -172,7 +172,7 @@ export class InsertRuoloUtenteComponent {
     anpeCognome: null,
     anpeCodicefiscale: null,
     listaRuoli: [],
-    username: '',
+    username: null,
     anpePersonaid: -1,
   };
 
