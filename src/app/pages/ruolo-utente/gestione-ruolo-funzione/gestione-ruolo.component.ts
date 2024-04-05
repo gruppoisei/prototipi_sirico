@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InsertUtenteService } from '../../../service/insert-utente.service';
+import { InsertUtenteService, PersoneEntity } from '../../../service/insert-utente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestione-ruolo',
@@ -7,19 +8,20 @@ import { InsertUtenteService } from '../../../service/insert-utente.service';
   styleUrls: ['./gestione-ruolo.component.scss']
 })
 export class GestioneRuoloComponent implements OnInit {
-  formData: any;
-  output_ricercaFiltrata: any;
-  ruoli: any;
+  formData: any = { nome: '' };
+  output_ricercaFiltrata: boolean = false;
+  ruoli: any[] = [];
 
-  constructor(private insertUtenteService: InsertUtenteService) { }
+
+  constructor(private ruoliService: InsertUtenteService, private router: Router) { }
 
   ngOnInit(): void {
-    this.caricaRuoli();
+    this.clearSearch();
   }
 
   caricaRuoli() {
-    this.insertUtenteService.GetRuoli().subscribe(
-      (data) => {
+    this.ruoliService.GetRuoli().subscribe(
+      (data: any[]) => {
         this.ruoli = data;
         this.output_ricercaFiltrata = true;
       },
@@ -27,23 +29,39 @@ export class GestioneRuoloComponent implements OnInit {
         console.log('Si è verificato un errore nel caricamento dei ruoli:', error);
       }
     );
-  }
+  }  
 
   clearSearch() {
-    throw new Error('Method not implemented.');
+    this.formData.nome = '';
+    this.output_ricercaFiltrata = false;
   }
-  ricercaFiltrata(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  ricercaFiltrata() {
+    this.ruoliService.GetRuoli().subscribe(
+      (data: any[]) => {
+        if (data && Array.isArray(data)) {
+          this.ruoli = data;
+          this.output_ricercaFiltrata = true;
+        } else {
+          console.log('Risposta API non valida:', data);
+        }
+      },
+      (error) => {
+        console.log('Si è verificato un errore nel caricamento dei ruoli:', error);
+      }
+    );
   }
-  deleteRuolo(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  deleteRuolo(id: number) {
+    //
   }
-  modificaRuolo(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  modificaRuolo(id: number) {
+    this.ruoliService.ruoloId$.next(id);
+    this.router.navigate(['/modifica-ruolo']);
   }
 
   closeForm() {
-
-    throw new Error('Method not implemented.');
+    //
   }
 }
