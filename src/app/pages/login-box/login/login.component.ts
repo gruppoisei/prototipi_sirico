@@ -39,13 +39,11 @@ export class LoginComponent implements OnInit{
       .subscribe({
         next:(res) =>
         {
-          console.log(res)
           this.auth.status = res.status;
           if(this.auth.status == statoAccesso.accessoNegato)
           {
             console.log(res.body.message)
           }
-          //
           if(this.auth.status == statoAccesso.mancaMFA)
           {
             console.log(res.body)
@@ -60,10 +58,6 @@ export class LoginComponent implements OnInit{
             this.auth.utenteId = res.body
 
           }
-
-
-
-          //
           if(this.auth.status == statoAccesso.utenteLoggato)
           {
             this.auth.utente = res.body;

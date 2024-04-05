@@ -39,7 +39,6 @@ import { MessageResponseDialogComponent } from './ui/message-response-dialog/mes
 import { DeleteDipendenteDialogComponent } from './pages/delete-dipendente-dialog/delete-dipendente-dialog.component';
 import { DeleteDipendenteResponseDialogComponent } from './ui/delete-dipendente-response-dialog/delete-dipendente-response-dialog.component';
 import { OrdinaGiorniPipe } from "./pages/rapportino/ordina-giorni.pipe";
-import { InsertPersonaProvaComponent } from './pages/insert-persona-prova/insert-persona-prova.component';
 import { FooterComponent } from './footer/footer.component';
 import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
@@ -74,7 +73,6 @@ import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog
         MessageResponseDialogComponent,
         DeleteDipendenteDialogComponent,
         DeleteDipendenteResponseDialogComponent,
-        InsertPersonaProvaComponent,
         FooterComponent,
         GestioneRuoloComponent,
         InsertRuoloFunzioneComponent,
