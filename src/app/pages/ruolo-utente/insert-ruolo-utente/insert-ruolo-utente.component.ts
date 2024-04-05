@@ -157,6 +157,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './insert-ruolo-utente.component.scss',
 })
 export class InsertRuoloUtenteComponent {
+
   @Input()
   utenteId: any;
   // utenteId = 1;
@@ -236,6 +237,7 @@ export class InsertRuoloUtenteComponent {
   }
 
   InserisciNuovoUtente() {
+    
     if (this.personaSelezionata != undefined) {
       if (this.personaSelezionata.anpePersonaid == -1)
         alert('Selezionare persona a cui associare utente');
@@ -249,7 +251,7 @@ export class InsertRuoloUtenteComponent {
             this.utenteDaAggiungere.personaId =
               this.personaSelezionata.anpePersonaid;
             console.log(this.utenteDaAggiungere);
-            // this.utenteService.ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
+            this.utenteService.ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere).subscribe(res => console.log(res))
           }
     } else alert('riempire campi per procedere');
   }
