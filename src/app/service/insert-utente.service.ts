@@ -10,7 +10,9 @@ import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 export class InsertUtenteService {
 
   utenteId!: number;
-  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId)
+  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId);
+  ruoloId!: number;
+  ruoloId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.ruoloId);
 
   constructor(private Http: HttpClient) {}
 

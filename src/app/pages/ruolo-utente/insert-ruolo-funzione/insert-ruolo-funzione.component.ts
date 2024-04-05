@@ -69,7 +69,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
     this.getAllFunzioni();
     //this.idFunzione = 1;        
     console.log(this.funzioneVoceDiMenu);
-
+    //TODO: prendi informazioni del ruolo passato nel servizio come ruoloId
   }
 
   getAllFunzioni() {
