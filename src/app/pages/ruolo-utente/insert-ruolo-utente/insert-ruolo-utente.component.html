@@ -71,8 +71,9 @@
     </div>
   </div>
   <div>
+    <div *ngIf="utenteId != null"  class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
     <input 
-      [disabled]="utenteId != null"
+      *ngIf="utenteId == null"
       [(ngModel)]="utenteDaAggiungere.username"
       class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       placeholder="Nome Utente..."

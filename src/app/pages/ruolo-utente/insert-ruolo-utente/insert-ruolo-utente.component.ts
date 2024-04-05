@@ -158,7 +158,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InsertRuoloUtenteComponent {
   // @Input()
-  utenteId: any;
+  utenteId: any = null
   // utenteId = 1;
 
   listaRuoliDisponibili: any[] = [];
