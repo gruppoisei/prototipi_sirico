@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ruoloFunzione } from '../dto/request/inserimentoNuovoRuolo';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AmministrazioneRuoloService { 
+  
+  ruoloId!: number;
+  ruoloId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.ruoloId);
   
   constructor(
     private Http: HttpClient
@@ -17,6 +21,10 @@ export class AmministrazioneRuoloService {
       'Content-Type': 'application/json',
     }), responseType: 'text'
   };
+
+  GetRuoloId(){
+    return this.ruoloId
+  }
 
   private apiUrl = 'http://localhost:5143/AmministrazioneRuolo'; 
 

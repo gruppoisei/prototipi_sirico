@@ -58,7 +58,8 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   idFunzione: number = Number.parseInt("");
   idFunzioneStart: number = Number.parseInt("");
   descrizioneFunzione: string = "";
-  menuPadre: number = Number.parseInt("");;
+  menuPadre: number = Number.parseInt("");
+  ruoloIdPassato: any;
 
   constructor(
     private router: Router,
@@ -70,6 +71,12 @@ export class InsertRuoloFunzioneComponent implements OnInit {
     //this.idFunzione = 1;        
     console.log(this.funzioneVoceDiMenu);
     //TODO: prendi informazioni del ruolo passato nel servizio come ruoloId
+    //this.ruoloIdPassato = this.amministrazioneRuolo.GetRuoloId();
+    if (this.amministrazioneRuolo.ruoloId$.value != undefined && this.amministrazioneRuolo.ruoloId$.value != 0) {
+      console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value);
+      //this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
+    }
+    console.log("qui 2: " + this.amministrazioneRuolo.ruoloId$.value);
   }
 
   getAllFunzioni() {

@@ -11,10 +11,8 @@ export class InsertUtenteService {
 
   utenteId!: number;
   utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId);
-  ruoloId!: number;
-  ruoloId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.ruoloId);
 
-  constructor(private Http: HttpClient) {}
+  constructor(private Http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -55,25 +53,21 @@ export class InsertUtenteService {
     );
   }
 
-  GetAllRuoli()
-  {
-    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetRuoli',this.httpOptions);
+  GetAllRuoli() {
+    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetRuoli', this.httpOptions);
   }
 
-  GetAllInfoUtenteRuoloById(userId:number)
-  {
-    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetAllInfoRuoliUtenteById?userId='+userId)
+  GetAllInfoUtenteRuoloById(userId: number) {
+    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetAllInfoRuoliUtenteById?userId=' + userId)
   }
 
-  ConfermaNuovoUtenteModificaRuolo(utenteDaAggiungere:NuovoUtenteRequest)
-  {
-    return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/AssociaRuoliAUtente',utenteDaAggiungere,this.httpOptions)
+  ConfermaNuovoUtenteModificaRuolo(utenteDaAggiungere: NuovoUtenteRequest) {
+    return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/AssociaRuoliAUtente', utenteDaAggiungere, this.httpOptions)
   }
 
 
-  GetAllPersoneSenzaUtenza(filtro:any)
-  {
-    return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/GetAllPersoneSenzaUtente',filtro)
+  GetAllPersoneSenzaUtenza(filtro: any) {
+    return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/GetAllPersoneSenzaUtente', filtro)
   }
   GetRuoli() {
     return this.Http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli', this.httpOptions);
