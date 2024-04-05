@@ -58,6 +58,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
 
   modificaRuolo(id: number) {
     this.ruoliservice.utenteId$.next(id);
+    this.ruoliservice.utenteId = id
     this.router.navigate(['/insert-ruolo-utente']);
   }
 

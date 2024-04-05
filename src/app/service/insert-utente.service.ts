@@ -65,7 +65,6 @@ export class InsertUtenteService {
 
   ConfermaNuovoUtenteModificaRuolo(utenteDaAggiungere:NuovoUtenteRequest)
   {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaa")
     return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/AssociaRuoliAUtente',utenteDaAggiungere,this.httpOptions)
   }
 
