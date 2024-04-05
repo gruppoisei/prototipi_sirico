@@ -59,12 +59,7 @@ export class AuthenticationService {
         'http://localhost:5143/Login/ConfermaValidatore',
         {utenteId:this.utenteId,codiceVerificaTemporaneo:validatoreMFA,expire1week:expire1week},this.httpOptions
       )
-      
   }
-
- 
-
-  
 }
 
 export enum statoAccesso {

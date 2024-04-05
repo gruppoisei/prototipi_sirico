@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
-import { Persona } from '../../dto/request/persona';
 import { RegioneService } from '../../service/regione.service';
 import { PaesiService } from '../../service/paesi.service';
 import { SocietaService } from '../../service/societa.service';
@@ -23,7 +22,6 @@ import { DocumentiService } from '../../service/documenti.service';
 export class InsertPersonaComponent implements OnInit{
 
   insertPersona !: FormGroup;
-  nuovaPersona ?: Persona
   listRegioni: any;
   listRegioniResidenza : any
   listRegioniDomicilio : any
@@ -82,8 +80,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeIndirizzoresidenza:['', Validators.required],
         AnpeNumerocivicoresidenza: ['', Validators.required],
         AnpeCapresidenza: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-        AnpeFkGepaPaeseidPaesedomicilio: [],
-        AnpeFkGecoComuneidComunedomicilio: [],
+        AnpeFkGepaPaeseidPaesedomicilio: [''],
+        AnpeFkGecoComuneidComunedomicilio: [''],
         RegioneDomicilio: [''],
         ProvinciaDomicilio: [''],
         AnpeIndirizzodomicilio: ['',Validators.pattern('^[0-9]{5}$')],
@@ -259,7 +257,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   {
     if(this.insertPersona.valid)
     {
-      this.auth.insertPersona(this.insertPersona.value)
+      const personaObj = this.insertPersona.value;
+      this.auth.insertPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
           next:(res) =>
@@ -358,7 +357,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   {
     if(this.selectedFile)
     {
-      debugger
       this.serviceDocumenti.verificaAllegato(this.selectedFile).subscribe(
         {
           next: (res) => 

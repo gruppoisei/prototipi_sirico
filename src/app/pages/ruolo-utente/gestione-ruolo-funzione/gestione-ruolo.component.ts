@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InsertUtenteService, PersoneEntity } from '../../../service/insert-utente.service';
 import { Router } from '@angular/router';
+import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
 
 @Component({
   selector: 'app-gestione-ruolo',
@@ -13,7 +14,7 @@ export class GestioneRuoloComponent implements OnInit {
   ruoli: any[] = [];
 
 
-  constructor(private ruoliService: InsertUtenteService, private router: Router) { }
+  constructor(private ruoliService: InsertUtenteService, private amministraziobeRuoli: AmministrazioneRuoloService, private router: Router) { }
 
   ngOnInit(): void {
     this.clearSearch();
@@ -57,8 +58,8 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   modificaRuolo(id: number) {
-    this.ruoliService.ruoloId$.next(id);
-    this.router.navigate(['/modifica-ruolo']);
+    this.amministraziobeRuoli.ruoloId$.next(id);
+    this.router.navigate(['/insert-ruolo-funzione']);
   }
 
   closeForm() {
