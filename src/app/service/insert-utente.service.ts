@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 
 @Injectable({
@@ -8,6 +8,10 @@ import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 })
 
 export class InsertUtenteService {
+
+  utenteId!: number;
+  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId)
+
   constructor(private Http: HttpClient) {}
 
   httpOptions = {
