@@ -13,7 +13,7 @@ export class InsertUtenteService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    }),
+    })
   };
 
   persone: PersoneEntity[] = [];
