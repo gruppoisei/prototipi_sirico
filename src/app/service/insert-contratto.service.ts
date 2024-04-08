@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { inserimentoContratto } from '../dto/response/inserimentoContratto';
 import { BehaviorSubject, timer } from 'rxjs';
 import { ricercaContratto } from '../dto/request/ricercaContratto';
+import { clienteSocieta } from '../dto/response/nuovoCliente';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class InsertContrattoService {
   idContratto!: number;
   idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
 
-  
+
   constructor(private Http: HttpClient) {
   }
 
@@ -78,7 +79,6 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.apiUrl}/GetContrattiById/` + idContratto);
   }
 
-  // checking parameters and creating api URL to call
   createApiURL(name: string, surname: string, cf: string, society: number, URL: string) {
     var ampersand = false;
     var stringURL = URL;
@@ -122,6 +122,9 @@ export class InsertContrattoService {
     return stringURL;
   }
 
-
+  saveClienteData(datiCliente: clienteSocieta) {
+    console.log(`invio ${datiCliente} a ${this.apiUrl}/nuovoCliente`);
+    return this.Http.post<any>(`${this.apiUrl}/nuovoCliente`, datiCliente);
+  }
 
 }

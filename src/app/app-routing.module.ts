@@ -18,6 +18,7 @@ import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-ruol
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
+import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,11 @@ const routes: Routes = [
     component: InsertRuoloUtenteComponent,
     canActivate: [authGuard]
   },
+  {
+    path: "insert-cliente",
+    component: InsertClienteComponent,
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({
