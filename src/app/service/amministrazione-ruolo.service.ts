@@ -41,5 +41,9 @@ export class AmministrazioneRuoloService {
     
     return this.Http.post<ruoloFunzione>(`${this.apiUrl}/NuovoRuolo`, body, this.httpOptions);    
   }
+
+  eliminaRuolo(id: number): Observable<any> {
+    return this.Http.post<any>('/api/EliminaRuolo', { id });
+  }
   
 }

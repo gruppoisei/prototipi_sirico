@@ -14,7 +14,7 @@ export class GestioneRuoloComponent implements OnInit {
   ruoli: any[] = [];
 
 
-  constructor(private ruoliService: InsertUtenteService, private amministraziobeRuoli: AmministrazioneRuoloService, private router: Router) { }
+  constructor(private ruoliService: InsertUtenteService, private amministrazioneRuoli: AmministrazioneRuoloService, private router: Router) { }
 
   ngOnInit(): void {
     this.clearSearch();
@@ -54,15 +54,25 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   deleteRuolo(id: number) {
-    //
+    if (confirm('Sei sicuro di voler eliminare questo ruolo?')) {
+      this.amministrazioneRuoli.eliminaRuolo(id).subscribe(
+        () => {
+          this.ruoli = this.ruoli.filter(ruolo => ruolo.syruIdruolosys !== id);
+          this.output_ricercaFiltrata = this.ruoli.length > 0;
+        },
+        error => {
+          console.error('Si è verificato un errore durante l\'eliminazione del ruolo:', error);
+        }
+      );
+    }
   }
 
   modificaRuolo(id: number) {
-    this.amministraziobeRuoli.ruoloId$.next(id);
+    this.amministrazioneRuoli.ruoloId$.next(id);
     this.router.navigate(['/insert-ruolo-funzione']);
   }
 
   closeForm() {
-    //
+    this.router.navigate(['/homepage']);
   }
 }
