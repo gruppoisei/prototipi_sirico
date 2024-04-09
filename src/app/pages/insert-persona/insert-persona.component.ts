@@ -258,7 +258,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     if(this.insertPersona.valid)
     {
       const personaObj = this.insertPersona.value;
-      this.auth.insertPersona(personaObj, this.selectedFiles)
+      this.auth.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
           next:(res) =>
