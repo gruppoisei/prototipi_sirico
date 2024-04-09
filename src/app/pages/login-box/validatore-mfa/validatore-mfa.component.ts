@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, statoAccesso } from '../../../service/authentication.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SelezionaRuoloComponent } from '../seleziona-ruolo/seleziona-ruolo.component';
 
 @Component({
   selector: 'app-validatore-mfa',
@@ -14,7 +16,7 @@ export class ValidatoreMFAComponent {
   codiceValidatore=""
 
 
-  constructor(public auth : AuthenticationService,private router:Router){}
+  constructor(public auth : AuthenticationService,private router:Router,public dialog: MatDialog){}
   
     ConfermaMFA() {
      this.auth.ConfermaMFA(this.codiceValidatore,this.expire1week)
@@ -30,7 +32,13 @@ export class ValidatoreMFAComponent {
           console.log(this.auth.utente)
 
           this.router.navigate(["/homepage"])
-        }
+        }else if(this.auth.status == statoAccesso.credenzialiValide)
+          {
+            this.auth.utenteId = res.body.userId
+            this.auth.listaRuoliUtente = res.body.listaRuoli
+            const dialogRef = this.dialog.open(SelezionaRuoloComponent)
+          }
+
         //se errore redirect al login
         else{
           alert("errore inserimento codice verifica")

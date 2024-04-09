@@ -14,7 +14,7 @@ export class AuthenticationService {
   utente : any
   utenteId:number = 0
   imageQRCode = ""
-
+  listaRuoliUtente:any[] = []
   httpOptions:Object = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     withCredentials : true,
@@ -36,10 +36,10 @@ export class AuthenticationService {
   // Login da DB
   login(loginObj:any): Observable<any> {
     
-    return this.http.post<any>(`${this.baseUrl}AccessoUtente/`, loginObj, this.httpOptions)
-    .pipe(
-      tap(() => this.setIsAuthenticated(true))
-    );
+    return this.http.post<any>(`${this.baseUrl}CredenzialiValide`, loginObj, this.httpOptions)
+    // .pipe(
+    //   tap(() => this.setIsAuthenticated(true))
+    // );
   }
 
   resetPasswordReset(username:string)
@@ -52,6 +52,8 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
 
+
+
   ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
     console.log(this.utenteId + validatoreMFA)
     return this.http
@@ -60,10 +62,23 @@ export class AuthenticationService {
         {utenteId:this.utenteId,codiceVerificaTemporaneo:validatoreMFA,expire1week:expire1week},this.httpOptions
       )
   }
+  ConfermaRuolo(ruoloId:number)
+  {
+    console.log("aaaaa"+this.utenteId + "bbbbb"+ruoloId)
+    return this.http
+      .post<any>(
+        'http://localhost:5143/Login/AccessoUtente',
+        {idUtente:this.utenteId,idRuolo:ruoloId},this.httpOptions
+        
+      )
+
+  }
 }
 
+
 export enum statoAccesso {
-  utenteLoggato = 215, 
+  credenzialiValide = 215, 
+  utenteLoggato,
   mancaMFA,
   scadutoMFA,
   richiestaResetPsw,

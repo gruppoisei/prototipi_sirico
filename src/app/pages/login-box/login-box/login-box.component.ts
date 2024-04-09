@@ -8,6 +8,9 @@ import { AuthenticationService } from '../../../service/authentication.service';
 })
 export class LoginBoxComponent {
 
-  constructor(public auth : AuthenticationService){}
+  constructor(public auth : AuthenticationService)
+  {
+    //verica credenziali o redirect
+  }
 
 }

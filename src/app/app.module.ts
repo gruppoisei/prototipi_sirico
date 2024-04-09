@@ -48,6 +48,7 @@ import { LoginBoxComponent } from './pages/login-box/login-box/login-box.compone
 import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
 import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/associazione-mfa.component';
 import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog-cerca-persona.component';
+import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 
 @NgModule({
     declarations: [
@@ -82,6 +83,7 @@ import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog
         ValidatoreMFAComponent,
         AssociazioneMFAComponent,
         DialogCercaPersonaComponent,
+        SegreteriaComponent,
     ],
     providers: [
         provideAnimationsAsync(),

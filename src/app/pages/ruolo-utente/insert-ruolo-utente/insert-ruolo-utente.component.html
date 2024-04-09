@@ -27,13 +27,13 @@
     <div class="m-5">
       <div
         *ngIf="personaSelezionata.anpeNome == null"
-        class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class=" text-center p-6 min-w-52 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         Nome...
       </div>
       <div
         *ngIf="personaSelezionata.anpeNome != null"
-        class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class=" text-center p-6 min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         {{ personaSelezionata.anpeNome }}
       </div>
@@ -41,13 +41,13 @@
     <div class="m-5">
       <div
         *ngIf="personaSelezionata.anpeCognome == null"
-        class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class=" text-center p-6 min-w-52  text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         Cognome...
       </div>
       <div
         *ngIf="personaSelezionata.anpeCognome != null"
-        class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class=" text-center p-6 min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         {{ personaSelezionata.anpeCognome }}
       </div>
@@ -55,44 +55,47 @@
     <div class="m-5">
       <div
         *ngIf="personaSelezionata.anpeCodicefiscale == null"
-        class="p-4 ps-10 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class=" text-center p-6 min-w-52  text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         Codice Fiscale...
       </div>
       <div
         *ngIf="personaSelezionata.anpeCodicefiscale != null"
-        class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class=" text-center p-6 min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         {{ personaSelezionata.anpeCodicefiscale }}
       </div>
     </div>
-    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end mt-10">
+    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end pl-4 mt-9">
       <button  (click)="ScegliPersonaDaAssociare()">
         <mat-icon>person_add_alt_1</mat-icon>
       </button>
     </div>
   </div>
   <div>
-    <div *ngIf="utenteId != null"  class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ personaSelezionata.username }}</div>
+    <div *ngIf="utenteId != null"  class="text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ personaSelezionata.username }}</div>
     <input 
       *ngIf="personaSelezionata.username == null"
       [(ngModel)]="utenteDaAggiungere.username"
-      class="p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      class=" p-6 min-w-52   text-center text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       placeholder="Nome Utente..."
       
       
     />
   </div>
-  <div class="border-b-4 border-gray-600 m-12"></div>
+  <div class="border-b-4 border-gray-600 m-20"></div>
   <div>
-    <label class="text-gray-400">seleziona ruoli da Aggiungere</label><br />
+    <label class="text-gray-700 text-2xl">Seleziona Ruoli da Aggiungere</label><br />
     <select
       (change)="AggiungiRuolo()"
       placeholder="seleziona ruoli da Aggiungere"
-      class="p-4 m-4 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      class="p-4 m-4  text-gray-900  border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       [(ngModel)]="nuovoRuolo"
     >
-      <option [value]="0">--seleziona ruolo--</option>
+    
+
+      <option [value]="0" class="p-10 m-10">--seleziona ruolo--</option>
+    
       <option
         *ngFor="let ruolo of listaRuoliDisponibili"
         [value]="ruolo.idRuolo"
