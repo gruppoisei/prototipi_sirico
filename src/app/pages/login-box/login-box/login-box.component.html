@@ -1,4 +1,4 @@
-<div class ="my-24">
+<!-- <div class ="my-24">
   <app-login *ngIf="auth.status == 0"></app-login>
   <app-modifica-password
     *ngIf="auth.status == auth.listStatus.richiestaResetPsw"
@@ -11,5 +11,8 @@
       <app-validatore-mfa
         *ngIf="auth.status == auth.listStatus.scadutoMFA"
       ></app-validatore-mfa> 
-</div>
+</div> -->
 
+<div class ="my-24">
+<router-outlet/>
+</div>

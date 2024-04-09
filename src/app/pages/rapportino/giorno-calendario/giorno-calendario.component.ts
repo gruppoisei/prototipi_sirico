@@ -56,7 +56,9 @@ export class GiornoCalendarioComponent {
         this.dataGiorno!.getDay() == 6 ||
         this.dataGiorno!.getDay() == 0 ||
         find != -1;
-      if (!this.giornoFestivo) {
+      if (!this.giornoFestivo) 
+        //if(this.giorno.giornoFestivo)
+        {
         this.rapportinoService.giorniValidiMese += 1;
         this.rapportinoService.oreMinimeTotali += 8;
         this.VerificaValiditaGiorno();

@@ -18,6 +18,10 @@ import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-ruol
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
+import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/associazione-mfa.component';
+import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
+import { ForgotPasswordComponent } from './pages/login-box/forgot-password/forgot-password.component';
+import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 
 const routes: Routes = [
@@ -33,8 +37,29 @@ const routes: Routes = [
   }, 
   {
     path: "login",
-    component: LoginBoxComponent
+    component: LoginBoxComponent,
+    children:[
+      {path:"login",component:LoginComponent},
+      {path:"associazione-mfa",component:AssociazioneMFAComponent},
+      {path:"validatore-mfa",component:ValidatoreMFAComponent},
+      {path:"forgot-password",component:ForgotPasswordComponent}
+      
+    ]
   },
+  {
+    path:"segreteria",
+    component:SegreteriaComponent,
+    children:[
+      {path:"insert-persona",component:InsertPersonaComponent},
+      {path:"gestione-dipendente",component:GestioneDipendenteComponent},
+      {path:"gestione-contratto",component:GestioneContrattoComponent},
+      {path:"insert-contratto",component:InsertContrattoComponent},
+      {path:"gestione-assenze",component:RichiestaAssenzaSegreteriaComponent},
+      // {path:,component:},
+      // {path:,component:},
+    ]
+  },
+ 
   {
     path: "insertutente",
     component: InsertUtenteComponent,
