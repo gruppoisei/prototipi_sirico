@@ -22,14 +22,20 @@ export class AmministrazioneRuoloService {
     }), responseType: 'text'
   };
 
-  GetRuoloId(){
+  private apiUrl = 'http://localhost:5143/AmministrazioneRuolo'; 
+
+  getRuoloId(){
     return this.ruoloId
   }
 
-  private apiUrl = 'http://localhost:5143/AmministrazioneRuolo'; 
-
   getFunzioni(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetFunzione`);    
+  }
+
+  getRuoliById(id: number): Observable<any> {
+    const res =  this.Http.get<any>(`${this.apiUrl}/GetRuoliById?id=${id}`);
+    console.log(res);
+    return res;
   }
 
   insertNuovoRuolo(listaFunzioni: ruoloFunzione[]): Observable<ruoloFunzione> {    

@@ -1,17 +1,19 @@
 export interface clienteSocieta {
 
+    idCliente: number,
+
     ragioneSociale: string,
     partitaIVA: string,
     sedeLegale: string,
     sedeOperativa: string,
-    sedeDiLavoro: string,
     patInail: string,
-    nominativoLegaleRappresentante: string,
+    rappresentanteLegale: string,
+    sedeLavoro: string,
     codiceAteco: string,
-    numeroTelefono: number,
+    numeroTelefono: string,
     indirizzoPec: string,
-    nomeRefAmmin: string,
-    pecRefAmmin: string,
-    numeroRefAmmin: number,
+    RefAmministrativo: string,
+    emailRefAmmin: string,
+    telefonoRefAmmin: string,
 
 }
