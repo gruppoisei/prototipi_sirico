@@ -22,6 +22,7 @@ import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/ass
 import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
 import { ForgotPasswordComponent } from './pages/login-box/forgot-password/forgot-password.component';
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
+import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 
 const routes: Routes = [
   {
@@ -127,6 +128,11 @@ const routes: Routes = [
     component: InsertRuoloUtenteComponent,
     canActivate: [authGuard]
   },
+  {
+    path: "insert-cliente",
+    component: InsertClienteComponent,
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({

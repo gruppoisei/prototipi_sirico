@@ -18,7 +18,7 @@ export class AuthService {
     return this.http.post<Utente>(`${this.baseUrl}Login/InsertUser`,userObj)
   }*/
 
-  insertPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
+  salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
   {
     let formData = new FormData();
     Object.keys(personaObj).forEach(key => {
@@ -27,6 +27,6 @@ export class AuthService {
     for (let i = 0; i < fileAllegati.length; i++) {
       formData.append(`file${i}`, fileAllegati[i]);
     }
-    return this.http.post<any>(`${this.baseUrl}Persona/AddPersona`, formData)
+    return this.http.post<any>(`${this.baseUrl}Persona/SalvaPersona`, formData)
   }
 }
