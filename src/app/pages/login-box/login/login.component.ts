@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService, statoAccesso } from '../../../service/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit{
 
   loginForm !: FormGroup
   isAuthenticated : boolean = false
-  constructor(public dialog: MatDialog, private auth: AuthenticationService, private router: Router, private fb : FormBuilder) { }
+  constructor(public dialog: MatDialog, private auth: AuthenticationService,private route:ActivatedRoute, private router: Router, private fb : FormBuilder) { }
 
 
   ngOnInit(): void {
@@ -98,8 +98,12 @@ export class LoginComponent implements OnInit{
           this.auth.status = res.status;
           if(this.auth.status == statoAccesso.accessoNegato)
           {
-          
             console.log(res.body.message)
+          }
+          if(this.auth.status == statoAccesso.richiestaResetPsw)
+          {     
+            this.router.navigate(["login/reset-password"])
+
           }
           if(this.auth.status == statoAccesso.mancaMFA)
           {
@@ -120,11 +124,18 @@ export class LoginComponent implements OnInit{
           }
           if(this.auth.status == statoAccesso.utenteLoggato)
           {
-            this.auth.utente = res.body;
+            this.auth.utente = {
+              id:res.body.userId,
+              username:res.body.username,
+              idRuolo:res.body.idRuolo
+            }
+            // this.auth.utente = res.body;
             this.router.navigate(["/homepage"]);
           }
           if(this.auth.status == statoAccesso.credenzialiValide)
             {
+             
+                
               this.auth.utenteId = res.body.userId
               this.auth.listaRuoliUtente = res.body.listaRuoli
               const dialogRef = this.dialog.open(SelezionaRuoloComponent)

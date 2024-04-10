@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RapportinoService } from '../../../service/rapportino.service';
+import { Router } from '@angular/router';
+import { AuthGuardService, livelli } from '../../../service/auth-guard.service';
 
 @Component({
   selector: 'app-calendario',
@@ -10,9 +12,15 @@ export class CalendarioComponent {
 
   listaMesi: Date[] = [];
  
+  
 
   giornoDefault: Date = new Date();
-  constructor(public rapportinoService:RapportinoService) {
+  constructor(public rapportinoService:RapportinoService,private guardia:AuthGuardService,private router:Router) {
+
+    if(guardia.utenteRuolo != livelli.utente)
+      {
+          router.navigate(["homepage"]);
+      }
     this.TrovaMesiDaVisualizzare()
     this.giornoDefault = this.listaMesi[1];
     this.rapportinoService.AggiornaBox();

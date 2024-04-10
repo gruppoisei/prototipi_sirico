@@ -4,14 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthGuardService {
-  constructor() { }
 
-  accesso = livelli.ospite
+  constructor() { 
+    
+  }
+
+  utenteRuolo = livelli.ospite
    
    isOspite()
    {
  
-     if(this.accesso == livelli.ospite)
+     if(this.utenteRuolo == livelli.ospite)
        return true
      else return false
      
@@ -19,7 +22,7 @@ export class AuthGuardService {
    isUser()
    {
  
-     if(this.accesso == livelli.utente)
+     if(this.utenteRuolo == livelli.utente)
        return true
      else return false
      
@@ -27,7 +30,7 @@ export class AuthGuardService {
    isAdmin()
    {
  
-     if(this.accesso == livelli.admin)
+     if(this.utenteRuolo == livelli.admin)
        return true
      else return false
      

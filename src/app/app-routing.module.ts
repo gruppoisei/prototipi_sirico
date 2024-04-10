@@ -26,117 +26,117 @@ import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-
 
 const routes: Routes = [
   {
-    path: "", 
+    path: '',
     redirectTo: '/login',
-    pathMatch: 'full'
-  }, 
+    pathMatch: 'full',
+  },
   {
-    path: "nuova-persona", 
-    component:InsertPersonaComponent,
-    canActivate: [authGuard]
-  }, 
+    path: 'nuova-persona',
+    component: InsertPersonaComponent,
+    canActivate: [authGuard],
+  },
   {
-    path: "login",
+    path: 'login',
     component: LoginBoxComponent,
-    children:[
-      {path:"login",component:LoginComponent},
-      {path:"associazione-mfa",component:AssociazioneMFAComponent},
-      {path:"validatore-mfa",component:ValidatoreMFAComponent},
-      {path:"forgot-password",component:ForgotPasswordComponent}
-      
-    ]
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'associazione-mfa', component: AssociazioneMFAComponent },
+      { path: 'validatore-mfa', component: ValidatoreMFAComponent },
+      { path: 'reset-password', component: ModificaPasswordComponent },
+    ],
   },
   {
-    path:"segreteria",
-    component:SegreteriaComponent,
-    children:[
-      {path:"insert-persona",component:InsertPersonaComponent},
-      {path:"gestione-dipendente",component:GestioneDipendenteComponent},
-      {path:"gestione-contratto",component:GestioneContrattoComponent},
-      {path:"insert-contratto",component:InsertContrattoComponent},
-      {path:"gestione-assenze",component:RichiestaAssenzaSegreteriaComponent},
+    path: 'segreteria',
+    component: SegreteriaComponent,
+    children: [
+      {path: 'nuova-persona',component: InsertPersonaComponent},
+      { path: 'insert-persona', component: InsertPersonaComponent },
+      { path: 'gestione-dipendente', component: GestioneDipendenteComponent },
+      { path: 'gestione-contratto', component: GestioneContrattoComponent },
+      { path: 'insert-contratto', component: InsertContrattoComponent },
+      {path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
       // {path:,component:},
       // {path:,component:},
-    ]
+    ],
   },
- 
+
   {
-    path: "insertutente",
+    path: 'insertutente',
     component: InsertUtenteComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "homepage",
-    component: HomepageComponent
+    path: 'homepage',
+    component: HomepageComponent,
   },
   {
-    path: "richiestaassenzasegreteria",
-    component:  RichiestaAssenzaSegreteriaComponent,
-    canActivate: [authGuard]
+    path: 'richiestaassenzasegreteria',
+    component: RichiestaAssenzaSegreteriaComponent,
+    canActivate: [authGuard],
   },
   {
-    path: "richiestaassenzautente",
-    component:  RichiestaAssenzaUtenteComponent,
-    canActivate: [authGuard]
+    path: 'richiestaassenzautente',
+    component: RichiestaAssenzaUtenteComponent,
+    canActivate: [authGuard],
   },
   {
-    path: "",
-    component: HomepageComponent 
+    path: '',
+    component: HomepageComponent,
   },
   {
-    path: "rapportino",
+    path: 'rapportino',
     component: CalendarioComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "modifica-password",
+    path: 'modifica-password',
     component: ModificaPasswordComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "gestione-dipendente",
+    path: 'gestione-dipendente',
     component: GestioneDipendenteComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "gestione-contratto",
+    path: 'gestione-contratto',
     component: GestioneContrattoComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "nuovo-contratto",
+    path: 'nuovo-contratto',
     component: InsertContrattoComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "gestione-ruolo-funzione",
+    path: 'gestione-ruolo-funzione',
     component: GestioneRuoloComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "insert-ruolo-funzione",
+    path: 'insert-ruolo-funzione',
     component: InsertRuoloFunzioneComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "gestione-ruolo-utente",
+    path: 'gestione-ruolo-utente',
     component: GestioneRuoloUtenteComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "insert-ruolo-utente",
+    path: 'insert-ruolo-utente',
     component: InsertRuoloUtenteComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
-    path: "insert-cliente",
+    path: 'insert-cliente',
     component: InsertClienteComponent,
-    canActivate: [authGuard]
-  }
+    canActivate: [authGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

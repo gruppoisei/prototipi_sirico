@@ -11,7 +11,7 @@ export class AuthenticationService {
   baseUrl = 'http://localhost:5143/Login/';
   status : number = 0;
   listStatus = statoAccesso
-  utente : any
+  utente? : UtenteLoggato
   utenteId:number = 0
   imageQRCode = ""
   listaRuoliUtente:any[] = []
@@ -23,7 +23,25 @@ export class AuthenticationService {
   
   private isAuthenticated = new BehaviorSubject<boolean>(false);
 
-  constructor( private http: HttpClient,) { }
+  constructor( private http: HttpClient) { 
+    this.RefreshPage().subscribe(
+      (res:any) =>
+        {
+          if(res.status == 401)
+            {
+              
+            }
+        }
+        // {
+        //   this.utente = {
+        //     id:res.body.userId,
+        //     username:res.body.username,
+        //     idRuolo:res.body.idRuolo
+        //   }
+        // }
+    )
+
+  }
 
 
   public getIsAuthenticated(): Observable<boolean> {
@@ -73,6 +91,14 @@ export class AuthenticationService {
       )
 
   }
+
+  RefreshPage()
+  {
+    return this.http
+      .get<any>(
+        'http://localhost:5143/Login/RefreshPage')
+  }
+
 }
 
 
@@ -83,4 +109,8 @@ export enum statoAccesso {
   scadutoMFA,
   richiestaResetPsw,
   accessoNegato = 401
+}
+
+export interface UtenteLoggato{
+  id: number, username: string, idRuolo: number, listaFunzioniId?: number[], listaMenuId?: number[]
 }

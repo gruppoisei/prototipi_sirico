@@ -16,12 +16,9 @@ import { ResponseResetPasswordDialogComponent } from '../../../ui/response-reset
 })
 export class ForgotPasswordComponent implements OnInit{
  
-  resetPasswordControl !: FormGroup
+  resetPasswordControl!:FormGroup
 
-  constructor(private reset : AuthenticationService, private fb: FormBuilder, private dialog : MatDialog)
-  {
-
-  }
+  constructor(private reset : AuthenticationService, private fb: FormBuilder, private dialog : MatDialog) { }
   ngOnInit(): void {
     this.resetPasswordControl = this.fb.group(
       {

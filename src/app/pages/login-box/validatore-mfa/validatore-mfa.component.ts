@@ -28,7 +28,12 @@ export class ValidatoreMFAComponent {
          //se utente ha correttamente verificato il codice redirect dentro il sito e creo variabile utente loggato
         if(this.auth.status == statoAccesso.utenteLoggato)
         {
-          this.auth.utente = res.body
+          this.auth.utente = {
+            id:res.body.userId,
+            username:res.body.username,
+            idRuolo:res.body.idRuolo
+          }
+          // this.auth.utente = res.body
           console.log(this.auth.utente)
 
           this.router.navigate(["/homepage"])
