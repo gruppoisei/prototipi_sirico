@@ -17,10 +17,11 @@ export class CalendarioComponent {
   giornoDefault: Date = new Date();
   constructor(public rapportinoService:RapportinoService,private guardia:AuthGuardService,private router:Router) {
 
-    if(guardia.utenteRuolo != livelli.utente)
+    /*if(guardia.utenteRuolo != livelli.utente)
       {
           router.navigate(["homepage"]);
-      }
+      }*/
+      
     this.TrovaMesiDaVisualizzare()
     this.giornoDefault = this.listaMesi[1];
     this.rapportinoService.AggiornaBox();

@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { authGuard } from '../guard/auth.guard';
 
 @Injectable({
   providedIn: 'root'
@@ -16,32 +18,14 @@ export class AuthenticationService {
   imageQRCode = ""
   listaRuoliUtente:any[] = []
   httpOptions:Object = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    withCredentials : true,
-    observe:'response'
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  withCredentials : true,
+  observe:'response'
 }
   
   private isAuthenticated = new BehaviorSubject<boolean>(false);
 
-  constructor( private http: HttpClient) { 
-    this.RefreshPage().subscribe(
-      (res:any) =>
-        {
-          if(res.status == 401)
-            {
-              
-            }
-        }
-        // {
-        //   this.utente = {
-        //     id:res.body.userId,
-        //     username:res.body.username,
-        //     idRuolo:res.body.idRuolo
-        //   }
-        // }
-    )
-
-  }
+  constructor( private http: HttpClient) {}
 
 
   public getIsAuthenticated(): Observable<boolean> {
@@ -92,11 +76,9 @@ export class AuthenticationService {
 
   }
 
-  RefreshPage()
+  ValidateToken()
   {
-    return this.http
-      .get<any>(
-        'http://localhost:5143/Login/RefreshPage')
+    return this.http.get<any>('http://localhost:5143/Login/VerificaToken',this.httpOptions)
   }
 
 }

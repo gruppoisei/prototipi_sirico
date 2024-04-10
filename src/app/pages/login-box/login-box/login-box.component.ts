@@ -13,11 +13,13 @@ export class LoginBoxComponent {
   constructor(public auth : AuthenticationService,private guardia:AuthGuardService,private router:Router)
   {
     //verica credenziali o redirect
-    if(guardia.utenteRuolo != livelli.ospite)
+    if(auth.utente != undefined)
       {
-          router.navigate(["homepage"]);
+        if(auth.utente.idRuolo != livelli.ospite)
+          {
+              router.navigate(["homepage"]);
+          }
       }
-
   }
 
 }

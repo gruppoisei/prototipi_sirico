@@ -33,7 +33,6 @@ const routes: Routes = [
   {
     path: 'nuova-persona',
     component: InsertPersonaComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'login',
@@ -63,7 +62,6 @@ const routes: Routes = [
   {
     path: 'insertutente',
     component: InsertUtenteComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'homepage',
@@ -72,12 +70,10 @@ const routes: Routes = [
   {
     path: 'richiestaassenzasegreteria',
     component: RichiestaAssenzaSegreteriaComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'richiestaassenzautente',
     component: RichiestaAssenzaUtenteComponent,
-    canActivate: [authGuard],
   },
   {
     path: '',
@@ -86,52 +82,42 @@ const routes: Routes = [
   {
     path: 'rapportino',
     component: CalendarioComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'modifica-password',
     component: ModificaPasswordComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'gestione-dipendente',
     component: GestioneDipendenteComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'gestione-contratto',
     component: GestioneContrattoComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'nuovo-contratto',
     component: InsertContrattoComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'gestione-ruolo-funzione',
     component: GestioneRuoloComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'insert-ruolo-funzione',
     component: InsertRuoloFunzioneComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'gestione-ruolo-utente',
     component: GestioneRuoloUtenteComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'insert-ruolo-utente',
     component: InsertRuoloUtenteComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'insert-cliente',
     component: InsertClienteComponent,
-    canActivate: [authGuard],
   },
 ];
 

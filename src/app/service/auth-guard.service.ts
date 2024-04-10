@@ -38,9 +38,8 @@ export class AuthGuardService {
  }
  
  export enum livelli{
-   ospite = "Ospite",
-   utente = "Utente",
-   admin = "Admin",
-   
+   ospite ,
+   utente,
+   admin 
  }
  
