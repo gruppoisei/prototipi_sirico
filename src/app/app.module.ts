@@ -50,6 +50,8 @@ import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/ass
 import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog-cerca-persona.component';
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
     declarations: [
@@ -107,7 +109,8 @@ import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-
         MatInputModule,
         MatIconModule,
         MatCardModule,
-        OrdinaGiorniPipe
+        OrdinaGiorniPipe,
+        MatCheckboxModule
     ]
 })
 export class AppModule { }
