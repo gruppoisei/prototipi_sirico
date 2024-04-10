@@ -10,55 +10,81 @@ import { Location } from '@angular/common';
   styleUrls: ['./insert-cliente.component.scss'],
 })
 export class InsertClienteComponent implements OnInit {
+
   clienteSocieta: any;
   isPhoneNumberError: boolean = false;
 
-  constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {}
+  constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
+    this.clienteSocieta = {
+      Ragionesociale: null,
+      Partitaiva: null,
+      Sedelegale: null,
+      Sedeoperativa: null,
+      Patinail: null,
+      Rappresentantelegale: null,
+      Sedelavoro: null,
+      Codiceateco: null,
+      Numerotelefono: null,
+      Indirizzopec: null,
+      Refamministratore: null,
+      Emailrefammin: null,
+      Telefonorefammin: null,
+      Sysuser: "frontend",
+      FlagAttiva: true,
+    };
+  }
+
   ngOnInit(): void {
     //this.clearForm();
   }
 
   clearForm(): void {
     this.clienteSocieta = {
-      ragioneSociale: null,
-      partitaIVA: null,
-      sedeLegale: null,
-      sedeOperativa: null,
-      sedeDiLavoro: null,
-      patInail: null,
-      nominativoLegaleRappresentante: null,
-      codiceAteco: null,
-      numeroTelefono: null,
-      indirizzoPec: null,
-      nomeRefAmmin: null,
-      pecRefAmmin: null,
-      numeroRefAmmin: null,
+      Ragionesociale: null,
+      Partitaiva: null,
+      Sedelegale: null,
+      Sedeoperativa: null,
+      Patinail: null,
+      Rappresentantelegale: null,
+      Sedelavoro: null,
+      Codiceateco: null,
+      Numerotelefono: null,
+      Indirizzopec: null,
+      Refamministratore: null,
+      Emailrefammin: null,
+      Telefonorefammin: null,
+      Sysuser: "frontend",
+      FlagAttiva: true,
     };
   }
 
-  onSaveData(clienteSocieta: any): void {
-    console.log(clienteSocieta);
-    this._service.saveClienteData(clienteSocieta).subscribe(
-      (response) => {
-        console.log('Dati inviati con successo al backend:', response);
-        //
-      },
-      (error) => {
-        console.error("Errore nell'invio dei dati al backend:", error);
-        //
-      }
-    );
+  submitForm() {
+    if (this.isFormValid()) {
+      //console.log(JSON.stringify(this.clienteSocieta));
+      this._service.saveClienteData(this.clienteSocieta).subscribe(
+        (response) => {
+          console.log('Dati inviati con successo al backend:', response);
+          //
+        },
+        (error) => {
+          console.error("Errore nell'invio dei dati al backend:", error);
+          //
+        }
+      );
+    } else {
+      console.log("La form non è valida.");
+    }
   }
 
   isFormValid(): boolean {
-/*    for (const i in this.clienteSocieta) {
-      if (
-        this.clienteSocieta.hasOwnProperty(i) &&
-        (this.clienteSocieta[i] === null || this.clienteSocieta[i] === '')
-      ) {
-        return false;
-      }
-    }*/
+    /*    for (const i in this.clienteSocieta) {
+        if (
+          this.clienteSocieta.hasOwnProperty(i) &&
+          (this.clienteSocieta[i] === null || this.clienteSocieta[i] === '')
+        ) {
+          return false;
+        }
+      }*/
     return true;
   }
 
@@ -66,18 +92,12 @@ export class InsertClienteComponent implements OnInit {
     const phoneNumberPattern = /^\d{10}$/; //dovrebe accettare solo 10 cifre
 
     return (
-      /*
-      this.isPhoneNumberError &&
-      this.clienteSocieta.numeroTelefono !== null &&
-      this.clienteSocieta.numeroTelefono !== '' &&
+      telefono !== null &&
       !phoneNumberPattern.test(this.clienteSocieta.numeroTelefono)
-      */
-      telefono !== null && 
-      !phoneNumberPattern.test(this.clienteSocieta.numeroTelefono)
-      );
+    );
   }
 
-  closeInsertCliente(){
+  closeInsertCliente() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
       //this.router.navigate(['/homepage']);
       this.location.back();
@@ -88,7 +108,4 @@ export class InsertClienteComponent implements OnInit {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   }
-
-  
-  
 }

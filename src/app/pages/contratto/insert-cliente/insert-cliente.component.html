@@ -1,87 +1,84 @@
 <div class="container mx-auto px-4 py-8">
     <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2>
     <div class="flex gap-8">
-        <div class="w-1/2">
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Ragione Sociale" [(ngModel)]="clienteSocieta.ragioneSociale" required>
-            </mat-form-field>
+        <form (ngSubmit)="submitForm()" class="w-full">
+            <div class="flex gap-8">
+                <div class="w-1/2">
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Ragione Sociale" [(ngModel)]="clienteSocieta.Ragionesociale" name="ragioneSociale" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Partita IVA" [(ngModel)]="clienteSocieta.Partitaiva" name="partitaIVA" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Sede Legale" [(ngModel)]="clienteSocieta.Sedelegale" name="sedeLegale">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Sede Operativa" [(ngModel)]="clienteSocieta.Sedeoperativa" name="sedeOperativa">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Sede di lavoro" [(ngModel)]="clienteSocieta.Sedelavoro" name="sedeDiLavoro">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="PAT INAIL" [(ngModel)]="clienteSocieta.Patinail" name="patInail" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Nominativo del Legale Rappresentante" [(ngModel)]="clienteSocieta.Rappresentantelegale" name="nominativoLegaleRappresentante">
+                    </mat-form-field>
+                    
+                </div>
 
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Partita IVA" [(ngModel)]="clienteSocieta.partitaIVA" required>
-            </mat-form-field>
+                <div class="w-1/2">
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Codice Ateco" [(ngModel)]="clienteSocieta.Codiceateco" name="codiceAteco">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Telefono" [(ngModel)]="clienteSocieta.Numerotelefono" name="numeroTelefono"
+                            title="Inserisci solo numeri">
+                        <mat-error *ngIf="isPhoneNumberInvalid(clienteSocieta.Numerotelefono)">
+                            Inserisci un numero di telefono valido
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Indirizzo PEC" [(ngModel)]="clienteSocieta.Indirizzopec" name="indirizzoPec">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Referente reparto amministrativo (nome e cognome)"
+                            [(ngModel)]="clienteSocieta.Refamministratore" name="nomeRefAmmin">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Email referente amministrativo"
+                            [(ngModel)]="clienteSocieta.Emailrefammin" name="pecRefAmmin">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Numero telefono referente amministrativo"
+                            [(ngModel)]="clienteSocieta.Telefonorefammin" pattern="[0-9]*" title="Inserisci solo numeri"
+                            name="numeroRefAmmin">
+                        <mat-error *ngIf="isPhoneNumberInvalid(clienteSocieta.Telefonorefammin)">
+                            Inserisci un numero di telefono valido
+                        </mat-error>
+                    </mat-form-field>                    
+                </div>
+            </div>
 
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Sede Legale" [(ngModel)]="clienteSocieta.sedeLegale" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Sede Operativa" [(ngModel)]="clienteSocieta.sedeOperativa" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Sede di lavoro" [(ngModel)]="clienteSocieta.sedeDiLavoro" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="PAT INAIL" [(ngModel)]="clienteSocieta.patInail" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Nominativo del Legale Rappresentante" [(ngModel)]="clienteSocieta.nominativoLegaleRappresentante" required>
-            </mat-form-field>
-        </div>
-
-        <div class="w-1/2">
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Codice Ateco" [(ngModel)]="clienteSocieta.codiceAteco" required>
-            </mat-form-field>
-
-            <!--
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Telefono" [(ngModel)]="clienteSocieta.numeroTelefono" pattern="[0-9]*"
-                    title="Inserisci solo numeri" required>
-                <mat-error *ngIf="!isPhoneNumberInvalid(clienteSocieta.telefono)">
-                    Inserisci un numero di telefono valido
-                </mat-error>
-            </mat-form-field>
-            -->
-        
-            <mat-form-field class="w-full">
-                <input matInput type="number" placeholder="Telefono" [(ngModel)]="clienteSocieta.numeroTelefono"
-                    title="Inserisci solo numeri" required>
-                <mat-error *ngIf="isPhoneNumberInvalid(clienteSocieta.telefono)">
-                    Inserisci un numero di telefono valido
-                </mat-error>
-            </mat-form-field>    
-            
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Indirizzo PEC" [(ngModel)]="clienteSocieta.indirizzoPec" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Referente reparto amministrativo (nome e cognome)" [(ngModel)]="clienteSocieta.nomeRefAmmin" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Email referente amministrativo" [(ngModel)]="clienteSocieta.pecRefAmmin" required>
-            </mat-form-field>
-
-            <mat-form-field class="w-full">
-                <input matInput placeholder="Numero telefono referente amministrativo"
-                    [(ngModel)]="clienteSocieta.numeroRefAmmin" pattern="[0-9]*" title="Inserisci solo numeri" required>
-                <mat-error *ngIf="isPhoneNumberInvalid(clienteSocieta.numeroRefAmmin)">
-                    Inserisci un numero di telefono valido
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-    
-    <div class="flex justify-center mt-8">
-        <button mat-button (click)="onSaveData(clienteSocieta)"
-            class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-            [disabled]="!isFormValid()">Salva</button>
-        <button mat-button (click)="closeInsertCliente()"
-            class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center" >Annulla</button>
+            <div class="flex justify-center mt-8">
+                <button mat-button type="submit"
+                    class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+                    [disabled]="!isFormValid()">Salva</button>
+                <button mat-button type="button" (click)="closeInsertCliente()"
+                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Annulla</button>
+            </div>
+        </form>
     </div>
 </div>
