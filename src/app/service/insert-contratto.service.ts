@@ -24,7 +24,8 @@ export class InsertContrattoService {
   constructor(private Http: HttpClient) {
   }
 
-  private apiUrl = 'http://localhost:5143/GestioneContratto'; // AGGIORNIAMO QUI L'URL
+  private apiUrl = 'http://localhost:5143/GestioneContratto';
+  private clienteUrl = 'http://localhost:5143/Cliente';
 
   getAllTipoSocieta(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetSocieta`);
@@ -123,8 +124,8 @@ export class InsertContrattoService {
   }
 
   saveClienteData(datiCliente: clienteSocieta) {
-    console.log(`invio ${datiCliente} a ${this.apiUrl}/nuovoCliente`);
-    return this.Http.post<any>(`${this.apiUrl}/nuovoCliente`, datiCliente);
+    console.log(`invio ${JSON.stringify(datiCliente)} a ${this.apiUrl}/NuovoCliente`);
+    return this.Http.post<any>(`${this.clienteUrl}/NuovoCliente`, datiCliente);
   }
 
 }
