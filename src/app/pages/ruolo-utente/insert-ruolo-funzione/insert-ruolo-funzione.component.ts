@@ -26,7 +26,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }]
 
   objectRuoloFunzione: ruoloFunzione = {
-    //nomeRuolo: "",
+    nomeRuolo: "",
     syapIdfunzione: 0,
     syapDescrizione: "",
     flagLettura: false,
@@ -39,7 +39,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
   }
 
   formData = {
-    //nomeRuolo: "",
+    nomeRuolo: "",
     syapIdfunzione: 0,
     syapDescrizione: "",
     flagLettura: false,
@@ -71,12 +71,35 @@ export class InsertRuoloFunzioneComponent implements OnInit {
     //this.idFunzione = 1;        
     console.log(this.funzioneVoceDiMenu);
     //TODO: prendi informazioni del ruolo passato nel servizio come ruoloId
-    //this.ruoloIdPassato = this.amministrazioneRuolo.GetRuoloId();
-    if (this.amministrazioneRuolo.ruoloId$.value != undefined && this.amministrazioneRuolo.ruoloId$.value != 0) {
-      console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value);
-      //this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
+    this.ruoloIdPassato = this.amministrazioneRuolo.getRuoloId();
+    console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value + " : " + this.loadRuoliById(this.amministrazioneRuolo.ruoloId$.value));
+    // if (this.amministrazioneRuolo.ruoloId$.value != undefined && this.amministrazioneRuolo.ruoloId$.value != 0) {
+    //   console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value);
+    //   //this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
+    // }
+    // console.log("qui 2: " + this.amministrazioneRuolo.ruoloId$.value);
+
+    // if (this.ruoloIdPassato) {
+    //   console.log("carico ruolo: " + this.ruoloIdPassato + this.loadRuoliById(this.ruoloIdPassato));
+    //   this.loadRuoliById(this.ruoloIdPassato);
+    // }
+    if (this.ruoloIdPassato != undefined && this.ruoloIdPassato != 0) {
+       console.log("qui: " + this.ruoloIdPassato + " : " + this.loadRuoliById(this.ruoloIdPassato));
+       this.loadRuoliById(this.ruoloIdPassato);
+       //this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
     }
-    console.log("qui 2: " + this.amministrazioneRuolo.ruoloId$.value);
+  }
+
+  loadRuoliById(id: number) {
+    this.amministrazioneRuolo.getRuoliById(id).subscribe(
+      (response: any) => {
+        this.arrayObjectRuoloFunzioni = response;
+        console.log(this.arrayObjectRuoloFunzioni);
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei ruoli:', error);
+      }
+    );
   }
 
   getAllFunzioni() {
@@ -163,7 +186,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
 
   creaNuovoRuoloFunzione(): ruoloFunzione {
     return {
-      //nomeRuolo: "",
+      nomeRuolo: "",
       syapIdfunzione: this.idFunzione,
       syapDescrizione: this.descrizioneFunzione,
       flagLettura: false,
