@@ -66,7 +66,6 @@ export class AuthenticationService {
   }
   ConfermaRuolo(ruoloId:number)
   {
-    console.log("aaaaa"+this.utenteId + "bbbbb"+ruoloId)
     return this.http
       .post<any>(
         'http://localhost:5143/Login/AccessoUtente',
@@ -81,6 +80,20 @@ export class AuthenticationService {
     return this.http.get<any>('http://localhost:5143/Login/VerificaToken',this.httpOptions)
   }
 
+  storeIdRuolo(idRuolo : string)
+  {
+    sessionStorage.setItem('RuoloUtente', idRuolo)
+  }
+
+  getIdRuolo()
+  {
+    return sessionStorage.getItem('RuoloUtente')
+  }
+  
+  isLoggedIn() : boolean
+  {
+    return sessionStorage.getItem('RuoloUtente')!= null
+  }
 }
 
 

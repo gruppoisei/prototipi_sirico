@@ -34,13 +34,18 @@ export class SelezionaRuoloComponent {
         this.auth.ConfermaRuolo(this.ruoloId).subscribe(
           (res:any) =>
             {
-                console.log(res)
+              console.log(res)
               this.auth.status = res.status
-              console.log("aaaaa" + this.auth.status)
               if(this.auth.status == statoAccesso.utenteLoggato)
                 {
+                  this.auth.utente = {
+                    id:res.body.userId,
+                    username:res.body.username,
+                    idRuolo:res.body.idRuolo
+                  }
+                  this.auth.storeIdRuolo(this.auth.utente.idRuolo.toString())
+                  this.router.navigate(["homepage"]);
                   this.dialogRef.close()
-                  this.router.navigate([""])
                 }
               }
         )

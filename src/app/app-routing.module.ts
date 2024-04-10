@@ -26,11 +26,6 @@ import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full',
-  },
-  {
     path: 'nuova-persona',
     component: InsertPersonaComponent,
   },
@@ -90,6 +85,7 @@ const routes: Routes = [
   {
     path: 'gestione-dipendente',
     component: GestioneDipendenteComponent,
+    canActivate : [authGuard]
   },
   {
     path: 'gestione-contratto',

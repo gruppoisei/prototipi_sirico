@@ -40,6 +40,7 @@ export class AppComponent {
 
   ControlloToken()
   {
+
     this.authService.ValidateToken().subscribe(
       {
         next : (res) => 
@@ -49,7 +50,7 @@ export class AppComponent {
         error: () =>
           {
             this.authService.utente = undefined;
-            this.router.navigate(["login/login"])
+            //this.router.navigate(["login/login"])
           }
       })
   }
