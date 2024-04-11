@@ -30,7 +30,6 @@ import { ResponseResetPasswordDialogComponent } from './ui/response-reset-passwo
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import {MatIconModule} from '@angular/material/icon';
 import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
-import { authGuard } from './guard/auth.guard';
 import {MatCardModule} from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
@@ -50,6 +49,8 @@ import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/ass
 import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog-cerca-persona.component';
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
     declarations: [
@@ -107,7 +108,8 @@ import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-
         MatInputModule,
         MatIconModule,
         MatCardModule,
-        OrdinaGiorniPipe
+        OrdinaGiorniPipe,
+        MatCheckboxModule
     ]
 })
 export class AppModule { }

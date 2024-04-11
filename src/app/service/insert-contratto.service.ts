@@ -25,7 +25,7 @@ export class InsertContrattoService {
   }
 
   private apiUrl = 'http://localhost:5143/GestioneContratto';
-  private clienteUrl = 'http://localhost:5143/Cliente';
+  private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
 
   getAllTipoSocieta(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetSocieta`);
@@ -41,6 +41,10 @@ export class InsertContrattoService {
 
   getAllTipoLivello(idTipoLivello: number): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + idTipoLivello);
+  }
+
+  getAllClienti(): Observable<any> {
+    return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClienti`);
   }
 
   // DIALOG BOX
@@ -125,7 +129,7 @@ export class InsertContrattoService {
 
   saveClienteData(datiCliente: clienteSocieta) {
     console.log(`invio ${JSON.stringify(datiCliente)} a ${this.apiUrl}/NuovoCliente`);
-    return this.Http.post<any>(`${this.clienteUrl}/NuovoCliente`, datiCliente);
+    return this.Http.post<any>(`${this.clienteDistaccoUrl}/NuovoCliente`, datiCliente);
   }
 
 }

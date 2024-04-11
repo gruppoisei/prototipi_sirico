@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RapportinoService } from '../../../service/rapportino.service';
 
-
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
