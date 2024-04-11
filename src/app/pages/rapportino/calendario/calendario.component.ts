@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RapportinoService } from '../../../service/rapportino.service';
 import { Router } from '@angular/router';
-import { AuthGuardService, livelli } from '../../../service/auth-guard.service';
 
 @Component({
   selector: 'app-calendario',
@@ -15,7 +14,7 @@ export class CalendarioComponent {
   
 
   giornoDefault: Date = new Date();
-  constructor(public rapportinoService:RapportinoService,private guardia:AuthGuardService,private router:Router) {
+  constructor(public rapportinoService:RapportinoService,private router:Router) {
 
     /*if(guardia.utenteRuolo != livelli.utente)
       {

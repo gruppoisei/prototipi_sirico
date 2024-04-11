@@ -8,7 +8,6 @@ import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza/richiesta-a
 import { RichiestaAssenzaUtenteComponent } from './pages/assenza/richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
-import { authGuard } from './guard/auth.guard';
 // import { AggiungiAttivitaComponent } from './pages/rapportino/aggiungi-attivita/aggiungi-attivita.component';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
@@ -17,12 +16,11 @@ import { GestioneRuoloComponent } from './pages/ruolo-utente/gestione-ruolo-funz
 import { GestioneRuoloUtenteComponent } from './pages/ruolo-utente/gestione-ruolo-utente/gestione-ruolo-utente.component';
 import { InsertRuoloFunzioneComponent } from './pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 import { InsertRuoloUtenteComponent } from './pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
-import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 import { AssociazioneMFAComponent } from './pages/login-box/associazione-mfa/associazione-mfa.component';
 import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validatore-mfa.component';
-import { ForgotPasswordComponent } from './pages/login-box/forgot-password/forgot-password.component';
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
+import { basicUser, notLogged } from './guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -30,28 +28,28 @@ const routes: Routes = [
     component: InsertPersonaComponent,
   },
   {
-    path: 'login',
-    component: LoginBoxComponent,
+    path: 'Account',
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'associazione-mfa', component: AssociazioneMFAComponent },
       { path: 'validatore-mfa', component: ValidatoreMFAComponent },
       { path: 'reset-password', component: ModificaPasswordComponent },
     ],
+    canActivate : [notLogged]
   },
   {
     path: 'segreteria',
     component: SegreteriaComponent,
     children: [
-      {path: 'nuova-persona',component: InsertPersonaComponent},
-      { path: 'insert-persona', component: InsertPersonaComponent },
       { path: 'gestione-dipendente', component: GestioneDipendenteComponent },
+      { path: 'salva-persona',component: InsertPersonaComponent},
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
-      {path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
+      { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
       // {path:,component:},
       // {path:,component:},
     ],
+    canActivate : [basicUser]
   },
 
   {
@@ -85,7 +83,7 @@ const routes: Routes = [
   {
     path: 'gestione-dipendente',
     component: GestioneDipendenteComponent,
-    canActivate : [authGuard]
+    canActivate : [basicUser]
   },
   {
     path: 'gestione-contratto',

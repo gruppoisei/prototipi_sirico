@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit{
             {
               this.auth.utenteId = res.body.userId
               this.auth.listaRuoliUtente = res.body.listaRuoli
-              const dialogRef = this.dialog.open(SelezionaRuoloComponent)
+              this.dialog.open(SelezionaRuoloComponent)
             }
         },
         error:(err)=>

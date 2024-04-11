@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { authGuard } from '../guard/auth.guard';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { ruoloUtente } from '../guard/auth.guard';
 
 @Injectable({
   providedIn: 'root'
@@ -22,26 +21,13 @@ export class AuthenticationService {
   withCredentials : true,
   observe:'response'
 }
-  
-  private isAuthenticated = new BehaviorSubject<boolean>(false);
 
   constructor( private http: HttpClient) {}
-
-
-  public getIsAuthenticated(): Observable<boolean> {
-    return this.isAuthenticated.asObservable();
-  }
-  public setIsAuthenticated(isAuthenticated: boolean): void {
-    this.isAuthenticated.next(isAuthenticated);
-  }
   
   // Login da DB
   login(loginObj:any): Observable<any> {
     
     return this.http.post<any>(`${this.baseUrl}CredenzialiValide`, loginObj, this.httpOptions)
-    // .pipe(
-    //   tap(() => this.setIsAuthenticated(true))
-    // );
   }
 
   resetPasswordReset(username:string)
@@ -70,15 +56,30 @@ export class AuthenticationService {
       .post<any>(
         'http://localhost:5143/Login/AccessoUtente',
         {idUtente:this.utenteId,idRuolo:ruoloId},this.httpOptions
-        
+    
       )
 
   }
 
-  ValidateToken()
-  {
-    return this.http.get<any>('http://localhost:5143/Login/VerificaToken',this.httpOptions)
+  ValidateToken(): Observable<number> {
+    return this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
+      map((res) => {
+        if (res.status == 200) {
+          this.utente = res.body;
+          const ruolo = Number(this.utente?.idRuolo);
+          return ruolo;
+        } else {
+          this.utente = undefined;
+          return ruoloUtente.NonLoggato;
+        }
+      }),
+      catchError((err) => {
+        console.log(err);
+        return throwError(err);
+      })
+    );
   }
+  
 
   storeIdRuolo(idRuolo : string)
   {

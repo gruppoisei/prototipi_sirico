@@ -1,22 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
   
   isAuthenticated : boolean = false
 
-  constructor(private authService : AuthenticationService){}
+  constructor(){}
   
-  ngOnInit(): void {
-    this.authService.getIsAuthenticated().subscribe((isAuthenticated : boolean) => 
-    {
-      this.isAuthenticated = isAuthenticated
-    });
-  }
 
 }
