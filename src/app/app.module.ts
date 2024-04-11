@@ -50,6 +50,7 @@ import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         AssociazioneMFAComponent,
         DialogCercaPersonaComponent,
         SegreteriaComponent,
-        InsertClienteComponent
+        InsertClienteComponent,
+        SelezionaRuoloDialogComponent
     ],
     providers: [
         provideAnimationsAsync(),

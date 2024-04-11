@@ -1,6 +1,0 @@
-<select [(ngModel)]="ruoloId">
-    <option [value]="0">-- seleziona ruolo --</option>
-    <option *ngFor="let ruolo of auth.listaRuoliUtente" [value]="ruolo.idRuolo">{{ruolo.nomeRuolo}}</option>
-</select>
-
-<button (click)="ConfermaRuolo()">Conferma Ruolo</button>

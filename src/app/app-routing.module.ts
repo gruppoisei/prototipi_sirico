@@ -21,6 +21,7 @@ import { ValidatoreMFAComponent } from './pages/login-box/validatore-mfa/validat
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 import { basicUser, notLogged } from './guard/auth.guard';
+import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 
 const routes: Routes = [
   {

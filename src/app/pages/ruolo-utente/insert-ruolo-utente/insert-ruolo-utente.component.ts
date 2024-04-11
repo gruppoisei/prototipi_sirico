@@ -18,8 +18,6 @@ export class InsertRuoloUtenteComponent {
   listaRuoliAssegnati: any[] = [];
 
   nuovoRuolo: number = 0;
-
-  // personaSelezionata: any ={anpeNome:"",anpeCognome:"",anpeCodicefiscale:"",listaRuoli:[],username:""};
   personaSelezionata = {
     anpeNome: null,
     anpeCognome: null,

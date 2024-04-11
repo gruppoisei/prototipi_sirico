@@ -40,7 +40,6 @@ export class ModificaPasswordComponent {
         {
           next:(res) =>
           {
-            debugger
             this.dialog.open(NewPasswordResponseDialogComponent,
               {
                 data : {successMessage : res.message},

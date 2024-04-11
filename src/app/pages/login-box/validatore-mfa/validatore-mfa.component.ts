@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, statoAccesso } from '../../../service/authentication.service';
 import { MatDialog } from '@angular/material/dialog';
-import { SelezionaRuoloComponent } from '../seleziona-ruolo/seleziona-ruolo.component';
+import { SelezionaRuoloDialogComponent } from '../seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 
 @Component({
   selector: 'app-validatore-mfa',
@@ -41,7 +41,12 @@ export class ValidatoreMFAComponent {
           {
             this.auth.utenteId = res.body.userId
             this.auth.listaRuoliUtente = res.body.listaRuoli
-            const dialogRef = this.dialog.open(SelezionaRuoloComponent)
+            this.dialog.open(SelezionaRuoloDialogComponent,
+              {
+                width: 'auto',
+                height: 'auto'
+              }
+            )
           }
 
         //se errore redirect al login

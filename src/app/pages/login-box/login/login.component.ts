@@ -7,8 +7,7 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
-import { ModificaPasswordComponent } from '../../modifica-password/modifica-password.component';
-import { SelezionaRuoloComponent } from '../seleziona-ruolo/seleziona-ruolo.component';
+import { SelezionaRuoloDialogComponent } from '../seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -33,14 +32,12 @@ export class LoginComponent implements OnInit{
      }
      
   doLogin() {
-    debugger
     if(this.loginForm.valid)
     {
       this.auth.login(this.loginForm.value)
       .subscribe({
         next:(res) =>
         {
-          debugger
           this.auth.status = res.status;
           if(this.auth.status == statoAccesso.accessoNegato)
           {
@@ -85,7 +82,12 @@ export class LoginComponent implements OnInit{
             {
               this.auth.utenteId = res.body.userId
               this.auth.listaRuoliUtente = res.body.listaRuoli
-              this.dialog.open(SelezionaRuoloComponent)
+              this.dialog.open(SelezionaRuoloDialogComponent,
+                {
+                  width : 'auto',
+                  height : 'auto'
+                }
+              )
             }
         },
         error:(err)=>
@@ -111,7 +113,7 @@ export class LoginComponent implements OnInit{
   }
 
   openForgotPassword() {
-    const dialogRef = this.dialog.open(ForgotPasswordComponent);
+    this.dialog.open(ForgotPasswordComponent);
     }
 
    
