@@ -20,12 +20,13 @@ export class AuthService {
 
   salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
   {
+    debugger
     let formData = new FormData();
     Object.keys(personaObj).forEach(key => {
       formData.append(key, personaObj[key]);
     });
     for (let i = 0; i < fileAllegati.length; i++) {
-      formData.append(`file${i}`, fileAllegati[i]);
+      formData.append(`fileAllegati`, fileAllegati[i]);
     }
     return this.http.post<any>(`${this.baseUrl}Persona/SalvaPersona`, formData)
   }

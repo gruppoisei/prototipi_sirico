@@ -258,6 +258,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     if(this.insertPersona.valid)
     {
       const personaObj = this.insertPersona.value;
+      debugger
       this.auth.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
@@ -270,6 +271,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
                   height: 'auto'
                 })
               this.insertPersona.reset();
+              this.selectedFiles = []
+              this.isTableVisibile = false;
             },
             error:(err) => 
             {
