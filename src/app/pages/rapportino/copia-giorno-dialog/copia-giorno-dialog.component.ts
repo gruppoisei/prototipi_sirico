@@ -23,8 +23,8 @@ export class CopiaGiornoDialogComponent {
 
 
   constructor(public dialogRef: MatDialogRef<CopiaGiornoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { giorno: GiornoDiLavoro; giornoFestivo: boolean },public rapportinoService:RapportinoService) {
-      this.giorniDaCopiare.giornoDaCopiareId = data.giorno.giornoLavorativoId!
+    @Inject(MAT_DIALOG_DATA) public data :GiornoDiLavoro,public rapportinoService:RapportinoService) {
+      this.giorniDaCopiare.giornoDaCopiareId = data.giornoLavorativoId!
       
     }
       

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { authGuard } from '../guard/auth.guard';
 
 @Injectable({
@@ -14,6 +14,8 @@ export class AuthenticationService {
   status : number = 0;
   listStatus = statoAccesso
   utente? : UtenteLoggato
+
+  utente$:Subject<any> = new Subject<any>()
   utenteId:number = 0
   imageQRCode = ""
   listaRuoliUtente:any[] = []
@@ -80,6 +82,7 @@ export class AuthenticationService {
   {
     return this.http.get<any>('http://localhost:5143/Login/VerificaToken',this.httpOptions)
   }
+  
 
 }
 
