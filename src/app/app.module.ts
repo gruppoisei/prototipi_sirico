@@ -11,11 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { GiornoCalendarioComponent } from './pages/rapportino/giorno-calendario/giorno-calendario.component';
-//import { AttivitaGiornoComponent } from './pages/rapportino/attivita-giorno/attivita-giorno.component';
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RichiestaAssenzaUtenteComponent } from './pages/assenza/richiesta-assenza-utente/richiesta-assenza-utente.component';
 import { RichiestaAssenzaSegreteriaComponent } from './pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
@@ -23,14 +22,15 @@ import { MenuComponent } from './menu/menu.component';
 import { ForgotPasswordComponent } from './pages/login-box/forgot-password/forgot-password.component';
 import { ResponseDialogComponent } from './ui/response-dialog/response-dialog/response-dialog.component';
 import { ErrorLoginDialogComponent } from './ui/error-login-dialog/error-login-dialog.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ResponseResetPasswordDialogComponent } from './ui/response-reset-password-dialog/response-reset-password-dialog.component';
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
-import {MatCardModule} from '@angular/material/card';
+import { authGuard } from './guard/auth.guard';
+import { MatCardModule } from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
 import { InsertContrattoComponent } from './pages/contratto/insert-contratto/insert-contratto.component';
@@ -50,8 +50,8 @@ import { DialogCercaPersonaComponent } from './pages/dialog-cerca-persona/dialog
 import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CronologiaDistaccoComponent } from './pages/contratto/cronologia-distacco/cronologia-distacco.component';
 
 @NgModule({
     declarations: [
@@ -88,7 +88,7 @@ import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo
         DialogCercaPersonaComponent,
         SegreteriaComponent,
         InsertClienteComponent,
-        SelezionaRuoloDialogComponent
+        CronologiaDistaccoComponent
     ],
     providers: [
         provideAnimationsAsync(),
@@ -111,7 +111,8 @@ import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo
         MatIconModule,
         MatCardModule,
         OrdinaGiorniPipe,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatExpansionModule
     ]
 })
 export class AppModule { }
