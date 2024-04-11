@@ -27,7 +27,7 @@
 
     <div class="AS row border-bottom flex m-[1px] p-[1px]">
       <span class="grow">{{ attivita.sedeLavoro }}</span>
-      <span> ord {{ attivita.oreLavorate }} h <p *ngIf="attivita.oreStraordinario>0">/stra {{attivita.oreStraordinario}}</p></span>
+      <span> <p *ngIf="attivita.oreLavorate>0">ord {{ attivita.oreLavorate }} h </p> <p *ngIf="attivita.oreStraordinario>0">stra {{attivita.oreStraordinario}}</p></span>
     </div>
   </div>
   <div>

@@ -49,6 +49,7 @@ export class Rapportino{
     dataRapportino?:Date;
     confermaRapportino?:boolean
     definitivoRapportino?:boolean
+    oreLavoroGiornaliere?:number
 }
 
 

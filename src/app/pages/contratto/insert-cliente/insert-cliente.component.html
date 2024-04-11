@@ -5,74 +5,83 @@
             <div class="flex gap-8">
                 <div class="w-1/2">
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Ragione Sociale" [(ngModel)]="clienteSocieta.Ragionesociale" name="ragioneSociale" required>
+                        <input matInput placeholder="Ragione Sociale" [(ngModel)]="clienteSocieta.Ragionesociale"
+                            name="ragioneSociale *" required>
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Partita IVA" [(ngModel)]="clienteSocieta.Partitaiva" name="partitaIVA" required>
+                        <input matInput placeholder="Partita IVA" [(ngModel)]="clienteSocieta.Partitaiva"
+                            name="partitaIVA *" required>
                         <mat-error *ngIf="validatePartitaIVA(clienteSocieta.Partitaiva)">
                             Inserisci una Partita IVA valida
                         </mat-error>
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Sede Legale" [(ngModel)]="clienteSocieta.Sedelegale" name="sedeLegale">
+                        <input matInput placeholder="Sede Legale" [(ngModel)]="clienteSocieta.Sedelegale"
+                            name="sedeLegale">
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Sede Operativa" [(ngModel)]="clienteSocieta.Sedeoperativa" name="sedeOperativa">
+                        <input matInput placeholder="Sede Operativa" [(ngModel)]="clienteSocieta.Sedeoperativa"
+                            name="sedeOperativa">
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Sede di lavoro" [(ngModel)]="clienteSocieta.Sedelavoro" name="sedeDiLavoro">
+                        <input matInput placeholder="Sede di lavoro" [(ngModel)]="clienteSocieta.Sedelavoro"
+                            name="sedeDiLavoro">
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="PAT INAIL" [(ngModel)]="clienteSocieta.Patinail" name="patInail" required>
+                        <input matInput placeholder="PAT INAIL" [(ngModel)]="clienteSocieta.Patinail" name="pat Inail *"
+                            required>
                         <mat-error *ngIf="validatePATINAIL(clienteSocieta.Patinail)">
                             Inserisci un PAT INAIL valido
                         </mat-error>
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Nominativo del Legale Rappresentante" [(ngModel)]="clienteSocieta.Rappresentantelegale" name="nominativoLegaleRappresentante">
+                        <input matInput placeholder="Nominativo del Legale Rappresentante"
+                            [(ngModel)]="clienteSocieta.Rappresentantelegale" name="nominativoLegaleRappresentante">
                     </mat-form-field>
-                    
+
                 </div>
 
                 <div class="w-1/2">
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Codice Ateco" [(ngModel)]="clienteSocieta.Codiceateco" name="codiceAteco">
+                        <input matInput placeholder="Codice Ateco" [(ngModel)]="clienteSocieta.Codiceateco"
+                            name="codiceAteco">
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Telefono" [(ngModel)]="clienteSocieta.Numerotelefono" name="numeroTelefono"
-                            title="Inserisci solo numeri">
+                        <input matInput placeholder="Telefono" [(ngModel)]="clienteSocieta.Numerotelefono"
+                            name="numeroTelefono" title="Inserisci solo numeri">
                         <mat-error *ngIf="validatePhoneNumber(clienteSocieta.Numerotelefono)">
                             Inserisci un numero di telefono valido
                         </mat-error>
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
-                        <input matInput placeholder="Indirizzo PEC" [(ngModel)]="clienteSocieta.Indirizzopec" name="indirizzoPec">
+                        <input matInput placeholder="Indirizzo PEC" [(ngModel)]="clienteSocieta.Indirizzopec"
+                            name="indirizzoPec">
                         <mat-error *ngIf="validateEmail(clienteSocieta.indirizzoPec)">
                             Inserisci un email valida
                         </mat-error>
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
                         <input matInput placeholder="Referente reparto amministrativo (nome e cognome)"
                             [(ngModel)]="clienteSocieta.Refamministratore" name="nomeRefAmmin">
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
                         <input matInput placeholder="Email referente amministrativo"
                             [(ngModel)]="clienteSocieta.Emailrefammin" name="pecRefAmmin">
-                            <mat-error *ngIf="validateEmail(clienteSocieta.Emailrefammin)">
-                                Inserisci un email valida
-                            </mat-error>
+                        <mat-error *ngIf="validateEmail(clienteSocieta.Emailrefammin)">
+                            Inserisci un email valida
+                        </mat-error>
                     </mat-form-field>
-                    
+
                     <mat-form-field class="w-full">
                         <input matInput placeholder="Numero telefono referente amministrativo"
                             [(ngModel)]="clienteSocieta.Telefonorefammin" pattern="[0-9]*" title="Inserisci solo numeri"
@@ -80,7 +89,7 @@
                         <mat-error *ngIf="validatePhoneNumber(clienteSocieta.Telefonorefammin)">
                             Inserisci un numero di telefono valido
                         </mat-error>
-                    </mat-form-field>                    
+                    </mat-form-field>
                 </div>
             </div>
 

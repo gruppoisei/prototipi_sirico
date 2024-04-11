@@ -7,6 +7,7 @@ import { InfoPersona } from '../dto/request/InfoPersona';
 import { AttivitaGiornoResponse } from '../dto/response/AttivitaGiorno';
 import { GiornoLavorativo } from '../dto/request/giornolavorativo';
 import { GiorniDaCopiare } from '../dto/request/copiaGiorni';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +62,7 @@ export class RapportinoService {
     '20:00',
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private auth:AuthenticationService) {
     this.RaccogliInfoPersona();
   }
 
@@ -80,8 +81,8 @@ export class RapportinoService {
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
     this.http
-      .get<CalendarioRequest>(
-        `http://localhost:5143/Vistamese/GetAllInfoMese?personaId=1&dataRiferimentostring=${dateFormatted}`
+      .post<CalendarioRequest>(
+        `http://localhost:5143/Vistamese/GetAllInfoMese`,{utenteId:this.auth.utente?.id,dataRiferimentostring:dateFormatted}
       )
       .pipe(
         tap((v) => {

@@ -1,7 +1,7 @@
 <div class="dialog">
   <div class="datadiv">
     <!-- <p mat-dialog-title>{{data.giorno.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p> -->
-    <p mat-dialog-title>{{data.giorno.giornoData | date:" EEEE d LLLL yyyy" }} </p>
+    <p mat-dialog-title>{{data.giornoData | date:" EEEE d LLLL yyyy" }} </p>
     <!-- <p mat-dialog-title> <button (click)="Prova()">prova</button> </p> -->
     
   </div>
@@ -56,7 +56,7 @@
         Aggiungi Ordinario
       </button>
 
-      <button class="B" mat-raised-button color="accent" type="button" (click)="MostraAssenza()"> 
+      <button *ngIf="nuovoGiorno" class="B" mat-raised-button color="accent" type="button" (click)="MostraAssenza()"> 
         Aggiungi Assenza
       </button>
 
@@ -69,40 +69,55 @@
       >
       Aggiungi Reperibilità
       </button>
+
+      <button
+        class="A"
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="MostraStraordinario()"
+      >
+        Aggiungi Straordinario
+      </button>
     </div>
     <hr />
 
-
-
     <div *ngIf="showOrdinario">
-      <app-aggiungi-ordinario [giornoLavorativoId]="data.giorno.giornoLavorativoId!" [giornoFestivo]="data.giornoFestivo" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
+
+      <app-aggiungi-ordinario [giornoLavorativoId]="data.giornoLavorativoId!" [giornoFestivo]="data.giornoFestivo!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-ordinario>
     </div>
 
-    <div *ngIf="showAssenza">
+    <div *ngIf="showStraordinario">
 
+      <app-aggiungi-straordinario [giornoLavorativoId]="data.giornoLavorativoId!" [giornoFestivo]="data.giornoFestivo!" (mandaNuovaAttivitaInserita)="AttivitaOrdinariaAggiunta($event)" > </app-aggiungi-straordinario>
+    </div>
+    
+    <div *ngIf="showAssenza ">
+      
       <app-aggiungi-assenza (nuovaAssenzaInserita)="AssenzaAggiunta()"></app-aggiungi-assenza>
     </div>
-
-    <div *ngIf="showReperibilita">
-    <app-aggiungi-reperibilita></app-aggiungi-reperibilita>
     
+    <div *ngIf="showReperibilita">
+      <app-aggiungi-reperibilita></app-aggiungi-reperibilita>
+      
     </div>
+    
   </mat-dialog-content>
 
  <div class="MostraAttivita"> 
 
-  <div  *ngFor="let attivita of data.giorno.listaAttivitaGiorno"  class="attivita bg-teal-dark text-light">
+  <div  *ngFor="let attivita of data.listaAttivitaGiorno"  class="attivita bg-teal-dark text-light">
     <div class="qualcosa">ordinario</div>
     <div class="qualcosa">{{attivita.nomeProgetto}}</div>
     <div class="qualcosa">{{attivita.sedeLavoro}}</div>
-    <div class="qualcosa">ord {{attivita.oreLavorate}}h</div>
+    <div *ngIf="attivita.oreLavorate >0" class="qualcosa">ord {{attivita.oreLavorate}}h</div>
     <div *ngIf="attivita.oreStraordinario >0" class="qualcosa">stra {{attivita.oreStraordinario}}h</div>
     <div class="qualcosa"><button (click)="EliminaAttivita(attivita.attivitaId!)"><mat-icon>delete</mat-icon></button></div>
 
   </div>
 
   <div class="MostraAssenza">
-    <div *ngFor="let assenza of data.giorno.listaAssenzeGiorno" [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione !=true" [class.assenzaRifiutata]="assenza.statoApprovazione == false" [class.assenzaConfermata]="assenza.statoApprovazione ==true" class="attivita text-light">
+    <div *ngFor="let assenza of data.listaAssenzeGiorno" [class.assenzaDaValutare]="assenza.statoApprovazione != false && assenza.statoApprovazione !=true" [class.assenzaRifiutata]="assenza.statoApprovazione == false" [class.assenzaConfermata]="assenza.statoApprovazione ==true" class="attivita text-light">
       <div class="qualcosa"> {{assenza.tipoRichiesta}} </div>
       <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora inizio: {{assenza.oraInizio}} </div>
       <div *ngIf="assenza.oraInizio != verificaGiornoCompletoInizio || assenza.oraFine != verificaGiornoCompletoFine" class="qualcosa">ora fine:  {{assenza.oraFine}} </div>

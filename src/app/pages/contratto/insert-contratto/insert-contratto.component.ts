@@ -8,6 +8,9 @@ import { ricercaContratto } from '../../../dto/request/ricercaContratto';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
 import { GestioneContrattoComponent } from '../gestione-contratto/gestione-contratto.component';
 import { Subscription } from 'rxjs';
+import { MatSelectChange } from '@angular/material/select';
+import { InsertClienteComponent } from '../insert-cliente/insert-cliente.component';
+import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-distacco.component';
 
 
 @Component({
@@ -18,10 +21,6 @@ import { Subscription } from 'rxjs';
 })
 
 export class InsertContrattoComponent implements OnInit {
-submitForm() {
-throw new Error('Method not implemented.');
-}
-
 
   uncheck: any;
   formValidation: boolean = false;
@@ -30,6 +29,10 @@ throw new Error('Method not implemented.');
   checkDateValidity: boolean = false;
   dateinizioTouched: boolean = false;
   datefineTouched: boolean = false;
+  modalNuovaAziendaCliente: boolean = false;
+  showModal: boolean = false;
+  subscription!: Subscription;
+  idContratto!: number;
 
   contratto: any; // canc?
   id: any;  // canc?
@@ -38,7 +41,10 @@ throw new Error('Method not implemented.');
   tipiContratto!: [{ cotcTipocontrattoid: number; cotcContratto: string }];
   tipiCcnl!: [{ coccCcnlid: number; coccDesc: string }];
   tipiLivello!: [{ coliLivelloid: number; coliLivellocontratto: string }];
-  tipiClientiDistacco!: [{ idcliente: number; ragionesociale: string }]
+  tipiClientiDistacco!: [{ idcliente: number; ragionesociale: string }];
+  array_societa: any = [];
+  private routeSub!: Subscription;
+  form!: FormGroup<any>;
 
   // DIALOG
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
@@ -74,9 +80,6 @@ throw new Error('Method not implemented.');
     codsFlagAttiva: number;
   };
 
-  //prova: any[] = this.dipendentiConContratto;
-  array_societa: any = [];
-
   formData: inserimentoContratto = {
     AnpeNome: "",
     AnpeCognome: "",
@@ -99,22 +102,12 @@ throw new Error('Method not implemented.');
     CodsDatainiziodistacco: "",
     CodsDatafinedistacco: "",
     CodiNote: null,
-    CodiSysuser: "Edo",
+    CodiSysuser: "Frontend",
     CodiFlagAttiva: 1,
     CodsFlagAttiva: 0,
     CodsClienteId: null,
     CodiContrattopersid: null
-    // altro
-    /*
-    CodiContrattopersid: null,
-    TipoContratto: null,
-    DescrizioneCCNL: null,
-    LivelloContratto: null,
-    SocietaDistacco: "",
-    SocietaPersona: ""
-    */
   };
-
 
   formDataDialog: any = {
     personaid: null,
@@ -123,23 +116,12 @@ throw new Error('Method not implemented.');
     codiceFiscale: null
   }
 
-  private routeSub!: Subscription;
-  form!: FormGroup<any>;
-  //activeRoute: any;
-
-  //gestioneContratto: any;
-
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
     private dialog: MatDialog,
-  ) {
-
-  }
-
-  subscription!: Subscription;
-  idContratto!: number;
+  ) { }
 
   ngOnInit(): void {
     this.reset();
@@ -155,6 +137,43 @@ throw new Error('Method not implemented.');
       this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
     }
 
+    this.inserimentoContrattoService.modalState.subscribe((isOpen) => {
+      this.showModal = isOpen;
+    });
+  }
+
+  openModalIfLastOptionSelected(event: MatSelectChange) {
+    if (event.value === -1) {
+      const dialogRef = this.dialog.open(InsertClienteComponent, {
+        width: '50%',
+        height: '80%',
+      });
+    }
+  }
+
+  closeModalNuovoClietne() {
+    const dialogRef = this.dialog.closeAll();
+  }
+
+  openCronologiaDistaccoModal() {
+    const idPersona = this.formData.AnpePersonaid;
+    //FORSE CAMBIARE COSì: PASSA IDPERSONA AL SERVICE, POI QUESTA CHIAMATA LA FA L'ALTRO COMPONENTE (CronologiaDistaccoComponent)
+    if(idPersona != null) {
+    this.inserimentoContrattoService.getCronologiaDistacco(idPersona)
+      .subscribe(
+        (response) => {
+          console.log('Risposta dalla chiamata GET:', response);
+          //APRI MODAL DIALOG
+          const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
+            width: '50%',
+            height: '80%',
+          });
+        },
+        (error) => {
+          console.error('Errore durante la chiamata GET:', error);
+        }
+      );
+    }
   }
 
   clearForm() {
@@ -196,14 +215,6 @@ throw new Error('Method not implemented.');
       CodsFlagAttiva: 0,
       CodsClienteId: null,
       CodiContrattopersid: null
-      // altro
-      /*
-      TipoContratto: null,
-      DescrizioneCCNL: null,
-      LivelloContratto: null,
-      SocietaDistacco: "",
-      SocietaPersona: ""
-      */
     };
   }
 
@@ -240,7 +251,7 @@ throw new Error('Method not implemented.');
     this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
       (response: any) => {
         console.log(response);
-        this.tipiCcnl = response;   
+        this.tipiCcnl = response;
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di ccnl:', error);
@@ -248,11 +259,11 @@ throw new Error('Method not implemented.');
     );
   }
 
-  getAllClienti(){
+  getAllClienti() {
     this.inserimentoContrattoService.getAllClienti().subscribe(
       (response: any) => {
         console.log(response);
-        this.tipiClientiDistacco = response;
+        this.tipiClientiDistacco = response.concat([{ idcliente: -1, ragionesociale: 'Nuova azienda cliente' }]);
       },
       (error: any) => {
         console.error('Errore durante il caricament delle aziende clienti per il distacco.')
@@ -268,8 +279,6 @@ throw new Error('Method not implemented.');
         this.tipiLivello = response;
         console.log('lunghezza array tipi livello:' + this.tipiLivello?.length);
         for (let i = 0; i < this.tipiLivello?.length; i++) {
-          //console.log('this.tipiLivello[i].coliLivellocontratto:' + this.tipiLivello[i].coliLivellocontratto);
-          //console.log('this.dipendentiConContratto.livelloContratto:' + this.dipendentiConContratto.livelloContratto);
           if (this.tipiLivello[i].coliLivellocontratto == this.dipendentiConContratto.livelloContratto) {
             this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
           }
@@ -281,19 +290,9 @@ throw new Error('Method not implemented.');
     );
   }
 
-  /*
-    getAllTipoRuolo() {
-      this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
-        (response: any) => {
-          console.log(response);
-          this.tipiRuolo = response;
-        },
-        (error: any) => {
-          console.error('Errore durante il recupero dei tipi di ruolo:', error);
-        }
-      );
-    }
-    */
+  formatInputValue(event: any) {
+    this.formData.CodsValoredistacco = event.target.value.replace(/\D+/g, '');
+  }
 
   // DIALOG FUNCTIONS
 
@@ -366,18 +365,6 @@ throw new Error('Method not implemented.');
       }
     );
   }
-  /*
-    checkDateTimeValidity(): boolean {
-      const startDate = Date.parse(this.formData.CodiDatainiziocontratto);
-      const endDate = Date.parse(this.formData.CodiDatafinecontratto);
-      if (this.dateinizioTouched && this.datefineTouched) {
-        this.checkDateValidity = true;
-      }
-      if (startDate < endDate) {
-        return true;
-      }
-      return false;
-    }*/
 
   getContrattoByidContratto(idContratto: number) {
     this.inserimentoContrattoService.getAllContrattiById(idContratto).subscribe(
@@ -424,8 +411,7 @@ throw new Error('Method not implemented.');
           //(this.formData.CodsDatainiziodistacco < this.formData.CodsDatafinedistacco)
           // 
         )
-      ) /*&&
-      (this.formData.CodiNote != undefined && this.formData.CodiNote != null && this.formData.CodiNote != "")*/
+      )
     ) {
       this.formValidation = true;
     }
@@ -522,11 +508,11 @@ throw new Error('Method not implemented.');
     }
     else { this.uncheck = true; }
     this.formData.CodsValoredistacco = this.dipendentiConContratto.codsValoredistacco;
-   /* for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
-      if (this.tipiSocietaDistacco[i].ansoRagionesociale == this.dipendentiConContratto.societaDistacco) {
-        this.formData.ansoSocietaDistaccoid = this.tipiSocietaDistacco[i].ansoSocietaid;
-      }
-    };*/
+    /* for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
+       if (this.tipiSocietaDistacco[i].ansoRagionesociale == this.dipendentiConContratto.societaDistacco) {
+         this.formData.ansoSocietaDistaccoid = this.tipiSocietaDistacco[i].ansoSocietaid;
+       }
+     };*/
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
       if (this.tipiSocieta[i].ansoRagionesociale == this.dipendentiConContratto.societaPersona) {
         this.formData.AnsoSocietaid = this.tipiSocieta[i].ansoSocietaid.toString();
