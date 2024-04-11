@@ -21,7 +21,7 @@ import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-d
 })
 
 export class InsertContrattoComponent implements OnInit {
-
+  partitaIvaID: number = 3;
   uncheck: any;
   formValidation: boolean = false;
   disable_fields: any;  // canc?
@@ -31,6 +31,8 @@ export class InsertContrattoComponent implements OnInit {
   datefineTouched: boolean = false;
   modalNuovaAziendaCliente: boolean = false;
   showModal: boolean = false;
+  disablePartitaIvaField: boolean = true;
+  hidePartitaIvaField: boolean = false;
   subscription!: Subscription;
   idContratto!: number;
 
@@ -85,6 +87,7 @@ export class InsertContrattoComponent implements OnInit {
     AnpeCognome: "",
     AnpePersonaid: null,
     AnpeCodicefiscale: "",
+    AnpePartitaiva: "",
     AnsoSocietaid: null,
     CodiDatainiziocontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
@@ -129,6 +132,7 @@ export class InsertContrattoComponent implements OnInit {
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
     this.getAllClienti();
+    this.controllaDisabilitaCampoPartitaIva();
     this.disable_fields = true;
     this.uncheck = true;    //setta false e aggiungi flag per
     this.dipendentiSenzaContratto;
@@ -156,23 +160,23 @@ export class InsertContrattoComponent implements OnInit {
   }
 
   openCronologiaDistaccoModal() {
-    const idPersona = this.formData.AnpePersonaid;
+    this.inserimentoContrattoService.idPersonaCronologiaDistacchi = this.formData.AnpePersonaid;
     //FORSE CAMBIARE COSì: PASSA IDPERSONA AL SERVICE, POI QUESTA CHIAMATA LA FA L'ALTRO COMPONENTE (CronologiaDistaccoComponent)
-    if(idPersona != null) {
-    this.inserimentoContrattoService.getCronologiaDistacco(idPersona)
-      .subscribe(
-        (response) => {
-          console.log('Risposta dalla chiamata GET:', response);
-          //APRI MODAL DIALOG
-          const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
-            width: '50%',
-            height: '80%',
-          });
-        },
-        (error) => {
-          console.error('Errore durante la chiamata GET:', error);
-        }
-      );
+    if (this.inserimentoContrattoService.idPersonaCronologiaDistacchi != null) {
+      this.inserimentoContrattoService.getCronologiaDistacco()
+        .subscribe(
+          (response) => {
+            console.log('Risposta dalla chiamata GET:', response);
+            //APRI MODAL DIALOG
+            const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
+              width: '50%',
+              height: '80%',
+            });
+          },
+          (error) => {
+            console.error('Errore durante la chiamata GET:', error);
+          }
+        );
     }
   }
 
@@ -193,6 +197,7 @@ export class InsertContrattoComponent implements OnInit {
       AnpeCognome: "",
       AnpePersonaid: null,
       AnpeCodicefiscale: "",
+      AnpePartitaiva: "",
       AnsoSocietaid: null,
       CodiDatainiziocontratto: "", //new Date().toLocaleString(),
       CodiDatafinecontratto: "", //new Date().toLocaleString(),
@@ -288,6 +293,19 @@ export class InsertContrattoComponent implements OnInit {
         console.error('Errore durante il recupero dei tipi di livello:', error);
       }
     );
+  }
+
+  controllaDisabilitaCampoPartitaIva() {
+    if (this.formData.AnpePartitaiva != null) {
+      this.disablePartitaIvaField = true;
+    }
+  }
+
+  controlloHideCampoPartitaIva(){
+    if(this.formData.CoccCcnlid == this.partitaIvaID){
+      this.hidePartitaIvaField = false;
+      this.disablePartitaIvaField = false;
+    }
   }
 
   formatInputValue(event: any) {

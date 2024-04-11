@@ -23,6 +23,7 @@ export class InsertContrattoService {
   modalState = this.modalSubject.asObservable();
   private apiUrl = 'http://localhost:5143/GestioneContratto';
   private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
+  idPersonaCronologiaDistacchi?: number | null; 
 
   constructor(private Http: HttpClient) {
   }
@@ -62,8 +63,9 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${newUrl}`)
   }
 
-  getCronologiaDistacco(idPersona: number): Observable<any> {
-    return this.Http.get(`${this.apiUrl}/CronologiaDistacco/${idPersona}`);
+  getCronologiaDistacco(): Observable<any> {
+    console.log(`faccio chiamata per cronologia distacchi a ${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`)
+    return this.Http.get(`${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`);
   }
 
   insertNuovoContratto(nuovoContratto: inserimentoContratto): Observable<inserimentoContratto> {

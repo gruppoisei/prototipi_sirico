@@ -97,6 +97,7 @@ export class GestioneContrattoComponent implements OnInit {
     AnpeCognome: "",
     AnpePersonaid: null,
     AnpeCodicefiscale: "",
+    AnpePartitaiva: null,
     AnsoSocietaid: null,
     CodiDatainiziocontratto: "",//formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
     CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
@@ -147,9 +148,9 @@ export class GestioneContrattoComponent implements OnInit {
     this.getAllTipoLivello();
   }
 
-  ricercaFiltrata(name: string, surname: string, cf: string, society: number) {  
+  ricercaFiltrata(name: string, surname: string, cf: string, society: number) {
     console.log(society);
-      
+
     this.inserimentoContrattoService.getAllContrattiBy(name, surname, cf, society).subscribe(
       (response: any) => {
         //console.log(response);
@@ -291,8 +292,8 @@ export class GestioneContrattoComponent implements OnInit {
       (response: any) => {
         console.log('response insertContratto()');
         console.log(response);
-        alert(response); 
-        this.ricercaFiltrata(this.formDataSearch.AnpeNome, this.formDataSearch.AnpeCognome, this.formDataSearch.AnpeCodicefiscale, this.formDataSearch.AnsoSocietaid)       
+        alert(response);
+        this.ricercaFiltrata(this.formDataSearch.AnpeNome, this.formDataSearch.AnpeCognome, this.formDataSearch.AnpeCodicefiscale, this.formDataSearch.AnsoSocietaid)
       },
       (error: any) => {
         console.error("Errore durante l'aggiornamento del nuovo contratto:", error);
@@ -371,6 +372,7 @@ export class GestioneContrattoComponent implements OnInit {
       AnpeCognome: "",
       AnpePersonaid: null,
       AnpeCodicefiscale: "",
+      AnpePartitaiva: null,
       AnsoSocietaid: null,
       CodiDatainiziocontratto: new Date().toLocaleString(),
       CodiDatafinecontratto: new Date().toLocaleString(),
