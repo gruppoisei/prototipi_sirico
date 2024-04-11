@@ -73,7 +73,7 @@ export class AggiungiOrdinarioComponent {
     if (
       this.attivitaDaAggiungere.sedeLavoroPersonaId != -1 &&
       this.attivitaDaAggiungere.attivitaPersonaId != -1 &&
-      (this.attivitaDaAggiungere.oreLavorate > 0 || this.attivitaDaAggiungere.oreStraordinario > 0)
+      this.attivitaDaAggiungere.oreLavorate > 0
     ) {
       this.attivitaDaAggiungere.giornoLavorativoId = this.giornoLavorativoId
       
@@ -111,7 +111,6 @@ export class AggiungiOrdinarioComponent {
               this.attivitaDaAggiungere.attivitaPersonaId=-1;
               this.attivitaDaAggiungere.sedeLavoroPersonaId=-1;
               this.attivitaDaAggiungere.oreLavorate=0;
-              this.attivitaDaAggiungere.oreStraordinario=0;
             }
           } catch (e) {
             console.log(e);

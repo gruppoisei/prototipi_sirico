@@ -81,10 +81,10 @@
   <app-giorno-calendario
     *ngFor="
       let giorno of rapportinoService.risposta.listaGiorniLavoroMese
-        | ordinaGiorni : 'dataNumero'
+        | ordinaGiorni : 'giornoLavorativoId'
     "
     class="cubo cubocURRENT p-2"
-    [giorno]="giorno"
+    [giorno]="giorno" 
   />
 
   <div

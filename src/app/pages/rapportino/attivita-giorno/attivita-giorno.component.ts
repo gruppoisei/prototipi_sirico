@@ -28,66 +28,69 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { GiornoLavorativo } from '../../../dto/request/giornolavorativo';
 import { AggiungiAssenzaComponent } from '../aggiungi-assenza/aggiungi-assenza.component';
+import { AggiungiStraordinarioComponent } from "../aggiungi-straordinario/aggiungi-straordinario.component";
 
 @Component({
-  selector: 'app-attivita-giorno',
-  templateUrl: './attivita-giorno.component.html',
-  styleUrl: './attivita-giorno.component.scss',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    NgFor,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-    MatButtonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatSlideToggle,
-    NgIf,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatSelectModule,
-    AggiungiOrdinarioComponent,
-    AggiungiReperibilitaComponent,
-    MatCardModule,
-    AggiungiAssenzaComponent,
-  ],
+    selector: 'app-attivita-giorno',
+    templateUrl: './attivita-giorno.component.html',
+    styleUrl: './attivita-giorno.component.scss',
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatIconModule,
+        NgFor,
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatButtonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatSlideToggle,
+        NgIf,
+        MatFormFieldModule,
+        MatCheckboxModule,
+        MatInputModule,
+        MatSelectModule,
+        AggiungiOrdinarioComponent,
+        AggiungiReperibilitaComponent,
+        MatCardModule,
+        AggiungiAssenzaComponent,
+        AggiungiStraordinarioComponent
+    ]
 })
 export class AttivitaGiornoComponent {
   showOrdinario = false;
   showReperibilita = false;
   showAssenza = false;
+  showStraordinario = false;
   verificaGiornoCompletoInizio = "00:00"
   verificaGiornoCompletoFine = "23:59"
   giorno: GiornoLavorativo = {
-    giornoLavoroId: this.data.giorno.giornoLavorativoId,
+    giornoLavoroId: this.data.giornoLavorativoId,
     oraEntrata: '09:00',
     oraInizioPausa: '12:00',
     oraFinePausa: '13:00',
     oraUscita: '18:00',
   };
-
+  nuovoGiorno:boolean = true
   constructor(
     public dialogRef: MatDialogRef<AttivitaGiornoComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { giorno: GiornoDiLavoro; giornoFestivo: boolean },
+    public data: GiornoDiLavoro,
     public rapportinoService: RapportinoService
   ) {
-
-    if (data.giorno.giornoLavorativoId != undefined)
-      this.giorno.giornoLavoroId = data.giorno.giornoLavorativoId;
+    this.nuovoGiorno = Number(data.giornoData!.toString().split("-")[2]) >= new Date().getDate()
+    if (data.giornoLavorativoId != undefined)
+      this.giorno.giornoLavoroId = data.giornoLavorativoId;
     if (
-      this.data.giorno.oraEntrata != null &&
-      this.data.giorno.oraEntrata != undefined
+      this.data.oraEntrata != null &&
+      this.data.oraEntrata != undefined
     ) {
-      this.giorno.oraEntrata = this.data.giorno.oraEntrata;
-      this.giorno.oraInizioPausa = this.data.giorno.oraInizioPausa;
-      this.giorno.oraFinePausa = this.data.giorno.oraFinePausa;
-      this.giorno.oraUscita = this.data.giorno.oraUscita;
+      this.giorno.oraEntrata = this.data.oraEntrata;
+      this.giorno.oraInizioPausa = this.data.oraInizioPausa;
+      this.giorno.oraFinePausa = this.data.oraFinePausa;
+      this.giorno.oraUscita = this.data.oraUscita;
     }
   }
 
@@ -95,16 +98,27 @@ export class AttivitaGiornoComponent {
     this.showOrdinario = !this.showOrdinario;
     this.showReperibilita = false;
     this.showAssenza = false;
+    this.showStraordinario = false
+
   }
   MostraAssenza() {
     this.showAssenza = !this.showAssenza;
     this.showReperibilita = false;
     this.showOrdinario = false;
+    this.showStraordinario = false
+
   }
 
   MostraReperibilita() {
     this.showReperibilita = !this.showReperibilita;
     this.showOrdinario = false;
+    this.showAssenza = false;
+    this.showStraordinario = false
+  }
+  MostraStraordinario() {
+    this.showStraordinario = !this.showStraordinario
+    this.showOrdinario = false;
+    this.showReperibilita = false;
     this.showAssenza = false;
   }
 
@@ -122,7 +136,7 @@ export class AttivitaGiornoComponent {
   }
 
   AttivitaOrdinariaAggiunta(AttivitaDaAggiungere: AttivitaGiornoCalendario) {
-    this.data.giorno.listaAttivitaGiorno.push(AttivitaDaAggiungere);
+    this.data.listaAttivitaGiorno.push(AttivitaDaAggiungere);
   }
 
   AnnullaGiorno() {
@@ -132,11 +146,11 @@ export class AttivitaGiornoComponent {
   EliminaAttivita(attivitaId: number) {
     this.rapportinoService.EliminaAttivita(
       attivitaId,
-      this.data.giorno.giornoLavorativoId!
+      this.data.giornoLavorativoId!
     );
 
-    this.data.giorno.listaAttivitaGiorno =
-      this.data.giorno.listaAttivitaGiorno.filter(
+    this.data.listaAttivitaGiorno =
+      this.data.listaAttivitaGiorno.filter(
         (attivita) => attivita.attivitaId != attivitaId
       );
   }
@@ -173,7 +187,5 @@ export class AttivitaGiornoComponent {
   }
 
 
-  Prova(){
-    console.log(this.data.giorno)
-  }
+ 
 }

@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { GiornoCalendarioComponent } from './pages/rapportino/giorno-calendario/giorno-calendario.component';
-//import { AttivitaGiornoComponent } from './pages/rapportino/attivita-giorno/attivita-giorno.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
@@ -86,7 +85,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         AssociazioneMFAComponent,
         DialogCercaPersonaComponent,
         SegreteriaComponent,
-        InsertClienteComponent
+        InsertClienteComponent,
     ],
     providers: [
         provideAnimationsAsync(),

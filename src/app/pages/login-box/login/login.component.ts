@@ -33,14 +33,14 @@ export class LoginComponent implements OnInit{
      }
      
   doLogin() {
-    debugger
+    
     if(this.loginForm.valid)
     {
       this.auth.login(this.loginForm.value)
       .subscribe({
         next:(res) =>
         {
-          debugger
+          
           this.auth.status = res.status;
           if(this.auth.status == statoAccesso.accessoNegato)
           {
@@ -53,19 +53,19 @@ export class LoginComponent implements OnInit{
           }
           if(this.auth.status == statoAccesso.richiestaResetPsw)
           {     
-            this.router.navigate(["login/reset-password"])
+            this.router.navigate(["Account/reset-password"])
 
           }
           if(this.auth.status == statoAccesso.mancaMFA)
           {
-            this.router.navigate(["login/associazione-mfa"])
+            this.router.navigate(["Account/associazione-mfa"])
             this.auth.imageQRCode = res.body.imageQRCode
             this.auth.utenteId = res.body.utenteId
           }
           
           if(this.auth.status == statoAccesso.scadutoMFA)
           {
-            this.router.navigate(["login/validatore-mfa"])
+            this.router.navigate(["Account/validatore-mfa"])
 
             console.log(res.body)
             this.auth.utenteId = res.body
