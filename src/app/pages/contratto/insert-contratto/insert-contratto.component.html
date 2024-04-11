@@ -1,210 +1,129 @@
 <h1 class="flex justify-center my-10 text-4xl font-bold">Gestione dati contratto</h1>
 <form (ngSubmit)="insertContratto()">
     <!-- COLONNA DI SINITRA -->
-    <!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI SINISTRA -->
-    <div class="row">
-        <div class="column">
-            <div class="textcolumn1">
-                Codice fiscale:
-            </div>
-            <div class="textcolumn1">
-                Nome:
-            </div>
-            <div class="textcolumn1">
-                Cognome:
-            </div>
-            <div class="textcolumn1">
-                Società*:
-            </div>
-            <div class="textcolumn1">
-                Data inizio contratto*:
-            </div>
-            <!--<div class="validazione_textcolumn" *ngIf="checkDateValidity && !checkDateTimeValidity()">0</div>-->
-            <div class="textcolumn1">
-                Data fine contratto*:
-            </div>
-            <!--<div class="validazione_textcolumn" *ngIf="checkDateValidity && !checkDateTimeValidity()">0</div>-->
-            <div class="textcolumn1">
-                Tipo contratto*:
-            </div>
-            <div class="textcolumn1">
-                CCNL*:
-            </div>
-            <div class="textcolumn1">
-                Livello*:
-            </div>
-            <div class="textcolumn1">
-                Tipo lavoratore*:
-            </div>
+    <div class="flex gap-8">
+        <div class="w-1/4">
+            <mat-form-field class="w-full" appearance="fill">
+                <input matInput [value]="formData.AnpeCodicefiscale" [disabled]="disable_fields"
+                    [(ngModel)]="formData.AnpeCodicefiscale" name="CodiceFiscale" placeholder="Codice fiscale"
+                    class="mat-disabled">
+                <button mat-icon-button type="button" matSuffix (click)="showModalApprovazione()" class="mat-disabled">
+                    <mat-icon>person_add_alt_1</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <input matInput [value]="formData.AnpeNome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome"
+                    name="Nome" placeholder="Nome" class="mat-disabled">
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <input matInput [value]="formData.AnpeCognome" [disabled]="disable_fields"
+                    [(ngModel)]="formData.AnpeCognome" name="Cognome" placeholder="Cognome" class="mat-disabled">
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-select [(ngModel)]="formData.AnsoSocietaid" name="Societa" placeholder="Società" required>
+                    <mat-option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">
+                        {{ tipo.ansoRagionesociale }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput [(ngModel)]="formData.CodiDatainiziocontratto" name="datainiziocontratto" type="date"
+                    (focus)="dateinizioTouched = true" placeholder="Data inizio contratto"
+                    (change)="formValidationCheck()">
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput [(ngModel)]="formData.CodiDatafinecontratto" name="datafinecontratto" type="date"
+                    (focus)="datefineTouched = true" placeholder="Data fine contratto" (change)="formValidationCheck()">
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-select [(ngModel)]="formData.codiFkCotctipocontrattoid" name="tipocontratto"
+                    placeholder="Tipo contratto" required>
+                    <mat-option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">
+                        {{ tipo.cotcContratto }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-select [(ngModel)]="formData.CoccCcnlid" name="CCNL" placeholder="CCNL"
+                    (ngModelChange)="getAllTipoLivello()" required>
+                    <mat-option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">
+                        {{ tipo.coccDesc }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-select [(ngModel)]="formData.ColiLivelloid" name="Livello" placeholder="Livello" required>
+                    <mat-option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">
+                        {{ tipo.coliLivellocontratto }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI SINISTRA -->
-        <div class="column">
-            <div class="fieldcolumn0">
-                <tr>
-                    <input [value]="formData.AnpeCodicefiscale" [disabled]="disable_fields"
-                        [(ngModel)]="formData.AnpeCodicefiscale" class="box" type="text" name="CodiceFiscale">
-                    <button type="button" (click)="showModalApprovazione()"
-                    (change)="formValidationCheck()" class="material-icons">person_add_alt_1</button>
-                </tr>
-            </div>
-            <div class="fieldcolumn1">
-                <input [value]="formData.AnpeNome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeNome"
-                (change)="formValidationCheck()" class="box" type="text" name="Nome">
-            </div>
-            <div class="fieldcolumn1">
-                <input [value]="formData.AnpeCognome" [disabled]="disable_fields" [(ngModel)]="formData.AnpeCognome"
-                (change)="formValidationCheck()" class="box" type="text" name="Cognome">
-            </div>
-            <div class="fieldcolumn1">
-                <select (change)="formValidationCheck()" [(ngModel)]="formData.AnsoSocietaid" class="box" name="Societa" required>
-                    <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
-                    </option>
-                </select>
-            </div>
-            <div class="fieldcolumn1">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiDatainiziocontratto" class="box" type="date" name="datainiziocontratto"
-                    (focus)="dateinizioTouched = true">
-            </div>
-            <!--<div class="validazione" *ngIf="checkDateValidity && !checkDateTimeValidity()">
-                Data di inizio assenza successiva alla data di fine assenza
-            </div>-->
-            <div class="fieldcolumn1">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiDatafinecontratto" class="box" type="date" name="datafinecontratto"
-                    (focus)="datefineTouched = true">
-            </div>
-            <!--<div class="validazione" *ngIf="checkDateValidity && !checkDateTimeValidity()">
-                Data di inizio assenza successiva alla data di fine assenza
-            </div>-->
-            <div class="fieldcolumn1">
-                <select (change)="formValidationCheck()" [(ngModel)]="formData.codiFkCotctipocontrattoid" class="box" name="tipocontratto" required>
-                    <option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">{{ tipo.cotcContratto
-                        }}</option>
-                </select>
-            </div>
-            <div class="fieldcolumn1">
-                <!--<select [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"-->
-                <select (change)="formValidationCheck()" [(ngModel)]="formData.CoccCcnlid" (ngModelChange)="getAllTipoLivello();" class="box" name="CCNL"
-                    required>
-                    <option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">{{ tipo.coccDesc }}</option>
-                </select>
-            </div>
-            <div class="fieldcolumn1">
-                <select (change)="formValidationCheck()" [(ngModel)]="formData.ColiLivelloid" class="box" name="Livello" required>
-                    <option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">{{ tipo.coliLivellocontratto
-                        }}</option>
-                </select>
-            </div>
-            <div class="fieldcolumn2">
-                <select (change)="formValidationCheck()" [(ngModel)]="formData.AnruRuoloid" class="box" name="Ruolo" required>
-                    <option *ngFor="let tipo of tipiRuolo" [value]="tipo.anruRuoloid">{{ tipo.anruRuolodesc }}</option>
-                </select>
-            </div>
-        </div>
+
         <!-- COLONNA DI DESTRA -->
         <!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI DESTRA -->
-        <div class="column">
-            <div class="textcolumn1">
-                RAL*:
-            </div>
-            <div class="textcolumn1">
-                Monteore:
-            </div>
-            <div class="textcolumn1">
-                Smart Working:
-            </div>
-            <div class="textcolumn1">
-                Costo presunto mese*:
-            </div>
-            <div class="textcolumn1">
-                Costo presunto giorno*:
-            </div>
-            <div class="inlinetextcolumn1">
-                In distacco:
-            </div>
-            <div *ngIf="!uncheck" class="textcolumn1">
-                Cliente distacco:
-            </div>
-            <div *ngIf="uncheck" class="textcolumn1">
-                Cliente distacco*:
-            </div>
-            <div *ngIf="!uncheck" class="textcolumn1">
-                Data inizio distacco:
-            </div>
-            <div *ngIf="uncheck" class="textcolumn1">
-                Data inizio distacco*:
-            </div>
-            <div *ngIf="!uncheck" class="textcolumn1">
-                Data fine distacco:
-            </div>
-            <div *ngIf="uncheck" class="textcolumn1">
-                Data fine distacco*:
-            </div>
-            <div class="textcolumn1">
-                Note:
-            </div>
-        </div>
-        <!-- DI SEGUITO TUTTI I BOX DI INSERIMENTO DI DESTRA -->
-        <div class="column">
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiRalcompenso" class="box" type="number" name="RAL" inputmode="numeric"
-                    oninput="this.value = this.value.replace(/\D+/g, '')" required>
-            </div>
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiMonteore" class="box" type="number" name="Monteore" inputmode="numeric"
-                    oninput="this.value = this.value.replace(/\D+/g, '')" required>
-            </div>
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodiSmartworking" class="inlinecheckbox" type="checkbox"
-                    name="smartworking">
-                <!--{{formData.CodiSmartworking}}-->
-            </div>
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntomese" class="box" type="number" name="costopresuntomese"
-                    inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
-            </div>
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntogiorno" class="box" type="number" name="costopresuntogiorno"
-                    inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" required>
-            </div>
-            <div class="fieldcolumn2">
-                <tr>
-                    <input (change)="formValidationCheck()" [(ngModel)]="uncheck" class="inlinecheckbox" type="checkbox" name="indistacco">
-                    <!--{{uncheck}}-->
-                    <td *ngIf="!uncheck" class="inlinefields">Percentuale:</td>
-                    <td *ngIf="uncheck" class="inlinefields">Percentuale*:</td>
-                    <input (change)="formValidationCheck()" [(ngModel)]="formData.CodsValoredistacco" [disabled]="!uncheck" class="inlinebox"
-                        type="number" name="Percentuale" inputmode="numeric"
-                        oninput="this.value = this.value.replace(/\D+/g, '')" required> %
-                </tr>
-            </div>
-            <div class="fieldcolumn2">
-                <select (change)="formValidationCheck()" [(ngModel)]="formData.ansoSocietaDistaccoid" [disabled]="!uncheck" class="box"
-                    name="clientedistacco" required>
-                    <option *ngFor="let tipo of tipiSocietaDistacco" [value]="tipo.ansoSocietaid">{{
-                        tipo.ansoRagionesociale }}</option>
-                </select>
-            </div>
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodsDatainiziodistacco" [disabled]="!uncheck" class="box" type="date"
-                    name="datainiziodistacco" required>
-            </div>
-            <div class="fieldcolumn2">
-                <input (change)="formValidationCheck()" [(ngModel)]="formData.CodsDatafinedistacco" [disabled]="!uncheck" class="box" type="date"
-                    name="datafinedistacco" required>
-            </div>
-            <div class="fieldcolumn2">
-                <textarea [(ngModel)]="formData.CodiNote" (change)="formValidationCheck()" contenteditable="true" maxlength="65535" class="box"
-                    type="text" name="Note"></textarea>
-                <!--<textarea rows="15" cols="50" style="max-height:100px;min-height:25px;max-width:220px; resize: none"
-            contenteditable="true" class="box" type="text" name="Note"></textarea>-->
-                <!--<input class="box" maxlength="65535" type="text" name="Note"> -->
-            </div>
+
+        <div class="w-1/4">
+            <mat-form-field class="w-full">
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodiRalcompenso" type="number"
+                    name="RAL" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
+                    placeholder="RAL" required>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodiMonteore" type="number"
+                    name="Monteore" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
+                    placeholder="Monteore" required>
+            </mat-form-field>
+            <mat-checkbox (change)="formValidationCheck()" [(ngModel)]="formData.CodiSmartworking" name="smartworking">
+                Smart Working
+            </mat-checkbox>
+            <mat-form-field class="w-full">
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntomese" type="number"
+                    name="costopresuntomese" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
+                    placeholder="Costo presunto mese" required>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntogiorno"
+                    type="number" name="costopresuntogiorno" inputmode="numeric"
+                    oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo presunto giorno" required>
+            </mat-form-field>
+            <mat-checkbox (change)="formValidationCheck()" [(ngModel)]="uncheck" name="indistacco">
+                <span *ngIf="!uncheck">Percentuale</span>
+                <span *ngIf="uncheck">Percentuale*</span>
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodsValoredistacco"
+                    [disabled]="!uncheck" type="checkbox" name="Distacco" inputmode="numeric"
+                    oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Percentuale" required>
+            </mat-checkbox>
+            <mat-form-field class="w-full">
+                <mat-select (change)="formValidationCheck()" [(ngModel)]="formData.ansoSocietaDistaccoid"
+                    [disabled]="!uncheck" name="clientedistacco" placeholder="Cliente distacco" required>
+                    <mat-option *ngFor="let cliente of tipiClientiDistacco" [value]="cliente.idcliente">
+                        {{cliente.ragionesociale }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodsDatainiziodistacco"
+                    [disabled]="!uncheck" type="date" name="datainiziodistacco" placeholder="Data inizio distacco"
+                    required>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodsDatafinedistacco"
+                    [disabled]="!uncheck" type="date" name="datafinedistacco" placeholder="Data fine distacco" required>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <textarea matInput [(ngModel)]="formData.CodiNote" (change)="formValidationCheck()" maxlength="65535"
+                    type="text" name="Note" placeholder="Note"></textarea>
+            </mat-form-field>
         </div>
     </div>
 
+
+
     <div class="bottom-buttons">
         <!--<button class="buttons" type="submit" [class.disabled]="!checkDateTimeValidity()">Salva</button>-->
-        <button class="buttons" type="submit" [disabled]="!formValidation" [class.disabled]="!formValidation" >Salva</button>
+        <button class="buttons" type="submit" [disabled]="!formValidation"
+            [class.disabled]="!formValidation">Salva</button>
         <button class="buttons" type="button" (click)="clearForm()">Annulla</button>
         <button class="buttons" type="button" (click)="closeForm()">Chiudi</button>
         <!--<button class="buttons" type="button" (click)="test()">TEST DATES</button>-->

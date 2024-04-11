@@ -18,6 +18,9 @@ import { Subscription } from 'rxjs';
 })
 
 export class InsertContrattoComponent implements OnInit {
+submitForm() {
+throw new Error('Method not implemented.');
+}
 
 
   uncheck: any;
@@ -35,26 +38,7 @@ export class InsertContrattoComponent implements OnInit {
   tipiContratto!: [{ cotcTipocontrattoid: number; cotcContratto: string }];
   tipiCcnl!: [{ coccCcnlid: number; coccDesc: string }];
   tipiLivello!: [{ coliLivelloid: number; coliLivellocontratto: string }];
-  tipiSocietaDistacco!: [{ ansoSocietaid: number; ansoRagionesociale: string }]
-  //tipiRuolo!: { anruRuoloid: number; anruRuolodesc: string };
-  tipiRuolo: { anruRuoloid: number; anruRuolodesc: string }[] = [
-    {
-      anruRuoloid: 0,
-      anruRuolodesc: "Operaio"
-    },
-    {
-      anruRuoloid: 1,
-      anruRuolodesc: "Impiegato"
-    },
-    {
-      anruRuoloid: 2,
-      anruRuolodesc: "Quadro"
-    },
-    {
-      anruRuoloid: 3,
-      anruRuolodesc: "Dirigente"
-    }
-  ]
+  tipiClientiDistacco!: [{ idcliente: number; ragionesociale: string }]
 
   // DIALOG
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
@@ -162,8 +146,9 @@ export class InsertContrattoComponent implements OnInit {
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
+    this.getAllClienti();
     this.disable_fields = true;
-    this.uncheck = false;
+    this.uncheck = true;    //setta false e aggiungi flag per
     this.dipendentiSenzaContratto;
 
     if (this.inserimentoContrattoService.idContratto$.value != undefined && this.inserimentoContrattoService.idContratto$.value != 0) {
@@ -232,7 +217,6 @@ export class InsertContrattoComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.tipiSocieta = response;
-        this.tipiSocietaDistacco = response;
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di societa:', error);
@@ -256,13 +240,24 @@ export class InsertContrattoComponent implements OnInit {
     this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
       (response: any) => {
         console.log(response);
-        this.tipiCcnl = response;
-        //this.getAllTipoLivello();           
+        this.tipiCcnl = response;   
       },
       (error: any) => {
         console.error('Errore durante il recupero dei tipi di ccnl:', error);
       }
     );
+  }
+
+  getAllClienti(){
+    this.inserimentoContrattoService.getAllClienti().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.tipiClientiDistacco = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il caricament delle aziende clienti per il distacco.')
+      }
+    )
   }
 
   getAllTipoLivello() {
@@ -508,7 +503,6 @@ export class InsertContrattoComponent implements OnInit {
         };
         */
     // METTO COME RUOLO UN VALORE DI DEFAULT
-    this.formData.AnruRuoloid = this.tipiRuolo[0].anruRuoloid.toString();
     this.formData.CodiDatainiziocontratto = this.dipendentiConContratto.codiDatainiziocontratto.split("T")[0];
     if (this.formData.CodiDatafinecontratto != null) {
       //this.formData.CodiDatafinecontratto = this.dipendentiConContratto.codiDatafinecontratto.split("T")[0];
@@ -528,11 +522,11 @@ export class InsertContrattoComponent implements OnInit {
     }
     else { this.uncheck = true; }
     this.formData.CodsValoredistacco = this.dipendentiConContratto.codsValoredistacco;
-    for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
+   /* for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
       if (this.tipiSocietaDistacco[i].ansoRagionesociale == this.dipendentiConContratto.societaDistacco) {
         this.formData.ansoSocietaDistaccoid = this.tipiSocietaDistacco[i].ansoSocietaid;
       }
-    };
+    };*/
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
       if (this.tipiSocieta[i].ansoRagionesociale == this.dipendentiConContratto.societaPersona) {
         this.formData.AnsoSocietaid = this.tipiSocieta[i].ansoSocietaid.toString();
