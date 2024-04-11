@@ -29,7 +29,6 @@ import { ResponseResetPasswordDialogComponent } from './ui/response-reset-passwo
 import { ModificaPasswordComponent } from './pages/modifica-password/modifica-password.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NewPasswordResponseDialogComponent } from './ui/new-password-response-dialog/new-password-response-dialog.component';
-import { authGuard } from './guard/auth.guard';
 import { MatCardModule } from '@angular/material/card';
 import { GestioneDipendenteComponent } from './pages/gestione-dipendente/gestione-dipendente.component';
 import { GestioneContrattoComponent } from './pages/contratto/gestione-contratto/gestione-contratto.component';
@@ -52,6 +51,7 @@ import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CronologiaDistaccoComponent } from './pages/contratto/cronologia-distacco/cronologia-distacco.component';
+import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 
 @NgModule({
     declarations: [
@@ -88,7 +88,8 @@ import { CronologiaDistaccoComponent } from './pages/contratto/cronologia-distac
         DialogCercaPersonaComponent,
         SegreteriaComponent,
         InsertClienteComponent,
-        CronologiaDistaccoComponent
+        CronologiaDistaccoComponent,
+        SelezionaRuoloDialogComponent
     ],
     providers: [
         provideAnimationsAsync(),
