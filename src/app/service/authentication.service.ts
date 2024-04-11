@@ -13,6 +13,8 @@ export class AuthenticationService {
   status : number = 0;
   listStatus = statoAccesso
   utente? : UtenteLoggato
+
+  // utente$:Subject<any> = new Subject<any>()
   utenteId:number = 0
   imageQRCode = ""
   listaRuoliUtente:any[] = []
@@ -85,6 +87,7 @@ export class AuthenticationService {
   {
     sessionStorage.setItem('RuoloUtente', idRuolo)
   }
+  
 
   getIdRuolo()
   {

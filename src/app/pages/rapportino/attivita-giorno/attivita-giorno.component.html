@@ -1,7 +1,8 @@
 <div class="dialog">
   <div class="datadiv">
-    <p mat-dialog-title>{{data.giorno.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p>
-    <p mat-dialog-title> <button (click)="Prova()">prova</button> </p>
+    <!-- <p mat-dialog-title>{{data.giorno.dataNumero}} {{rapportinoService.risposta.rapportino.dataRapportino | date:"LLLL yyyy"}}</p> -->
+    <p mat-dialog-title>{{data.giorno.giornoData | date:" EEEE d LLLL yyyy" }} </p>
+    <!-- <p mat-dialog-title> <button (click)="Prova()">prova</button> </p> -->
     
   </div>
   <mat-dialog-content>

@@ -9,9 +9,9 @@ export class CalendarioRequest {
 
 export class GiornoDiLavoro{
     giornoLavorativoId?:number;
-    dataNumero?:number;
-    // giornoData?:Date;
-    // giornoFestivo?:boolean;
+    // dataNumero?:number;
+    giornoData?:Date;
+    giornoFestivo?:boolean;
     
     oraEntrata = "09:00";
     oraInizioPausa = "13:00";

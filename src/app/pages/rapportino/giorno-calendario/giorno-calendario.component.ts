@@ -13,9 +13,9 @@ import { CopiaGiornoDialogComponent } from '../copia-giorno-dialog/copia-giorno-
 export class GiornoCalendarioComponent {
   @Input()
   giorno!: GiornoDiLavoro;
-  dataGiorno?: Date = new Date();
-  giornoFestivo: boolean = false;
-  giornoString: string = '';
+  // dataGiorno?: Date = new Date();
+  // giornoFestivo: boolean = false;
+  // giornoString: string = '';
 
   orarioDiLavoroConvertitoInOre = 0;
   oreLavorate = 0;
@@ -31,32 +31,76 @@ export class GiornoCalendarioComponent {
     public rapportinoService: RapportinoService
   ) {}
 
+  // ngOnInit(): void {
+  //   if (
+  //     this.rapportinoService.risposta.rapportino.dataRapportino != undefined
+  //   ) {
+  //     this.giornoString = String(
+  //       this.rapportinoService.risposta.rapportino.dataRapportino
+  //     );
+  //     this.dataGiorno = new Date(
+  //       Number(this.giornoString.split('-')[0]),
+  //       Number(this.giornoString.split('-')[1]) - 1,
+  //       this.giorno.dataNumero
+  //     );
+  //     this.giorno.dataNumero! < 10
+  //       ? (this.giornoString =
+  //           this.giornoString.slice(0, 8) + 0 + this.giorno.dataNumero)
+  //       : (this.giornoString =
+  //           this.giornoString.slice(0, 8) + this.giorno.dataNumero);
+
+  //     const find = this.rapportinoService.risposta.giorniFestivi.findIndex(
+  //       (e) => e == this.giornoString
+  //     );
+  //     this.giornoFestivo =
+  //       this.dataGiorno!.getDay() == 6 ||
+  //       this.dataGiorno!.getDay() == 0 ||
+  //       find != -1;
+  //     if (!this.giornoFestivo) 
+  //       //if(this.giorno.giornoFestivo)
+  //       {
+  //       this.rapportinoService.giorniValidiMese += 1;
+  //       this.rapportinoService.oreMinimeTotali += 8;
+  //       this.VerificaValiditaGiorno();
+  //       this.rapportinoService.oreLavorateMese += this.oreLavorate;
+
+  //     } else {
+  //       for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
+  //         if (this.giorno.listaAttivitaGiorno[i].oreLavorate > 0) {
+  //           this.erroreGiornoFestivo = true;
+  //           this.rapportinoService.erroriGiorniMese++;
+  //         }
+  //       }
+  //       this.giorno.listaAssenzeGiorno = [];
+  //     }
+  //   }
+  // }
   ngOnInit(): void {
     if (
       this.rapportinoService.risposta.rapportino.dataRapportino != undefined
     ) {
-      this.giornoString = String(
-        this.rapportinoService.risposta.rapportino.dataRapportino
-      );
-      this.dataGiorno = new Date(
-        Number(this.giornoString.split('-')[0]),
-        Number(this.giornoString.split('-')[1]) - 1,
-        this.giorno.dataNumero
-      );
-      this.giorno.dataNumero! < 10
-        ? (this.giornoString =
-            this.giornoString.slice(0, 8) + 0 + this.giorno.dataNumero)
-        : (this.giornoString =
-            this.giornoString.slice(0, 8) + this.giorno.dataNumero);
+    //   this.giornoString = String(
+    //     this.rapportinoService.risposta.rapportino.dataRapportino
+    //   );
+    //   this.dataGiorno = new Date(
+    //     Number(this.giornoString.split('-')[0]),
+    //     Number(this.giornoString.split('-')[1]) - 1,
+    //     this.giorno.dataNumero
+    //   );
+    //   this.giorno.dataNumero! < 10
+    //     ? (this.giornoString =
+    //         this.giornoString.slice(0, 8) + 0 + this.giorno.dataNumero)
+    //     : (this.giornoString =
+    //         this.giornoString.slice(0, 8) + this.giorno.dataNumero);
 
-      const find = this.rapportinoService.risposta.giorniFestivi.findIndex(
-        (e) => e == this.giornoString
-      );
-      this.giornoFestivo =
-        this.dataGiorno!.getDay() == 6 ||
-        this.dataGiorno!.getDay() == 0 ||
-        find != -1;
-      if (!this.giornoFestivo) 
+    //   const find = this.rapportinoService.risposta.giorniFestivi.findIndex(
+    //     (e) => e == this.giornoString
+    //   );
+    //   this.giornoFestivo =
+    //     this.dataGiorno!.getDay() == 6 ||
+    //     this.dataGiorno!.getDay() == 0 ||
+    //     find != -1;
+      if (!this.giorno.giornoFestivo) 
         //if(this.giorno.giornoFestivo)
         {
         this.rapportinoService.giorniValidiMese += 1;
@@ -75,18 +119,19 @@ export class GiornoCalendarioComponent {
       }
     }
   }
-
   ClickMe() {
     const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
       height: '600px',
-      data: { giorno: this.giorno, giornoFestivo: this.giornoFestivo },
+      data: this.giorno
+      // data: { giorno: this.giorno, giornoFestivo: this.giornoFestivo },
     });
   }
 
   CopiaGiorno() {
     const dialogRef = this.dialog.open(CopiaGiornoDialogComponent, {
       width: '800px',
-      data: { giorno: this.giorno, giornoFestivo: this.giornoFestivo },
+      // data: { giorno: this.giorno, giornoFestivo: this.giornoFestivo },
+      data: this.giorno
     });
   }
 
