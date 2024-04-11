@@ -37,4 +37,21 @@ export class AppComponent {
     this.isDropdownOpen = false;
     this.router.navigateByUrl(item);
   }
+
+  ControlloToken()
+  {
+
+    this.authService.ValidateToken().subscribe(
+      {
+        next : (res) => 
+          {
+            this.authService.utente = res.body.utenteLoggato
+          },
+        error: () =>
+          {
+            this.authService.utente = undefined;
+            //this.router.navigate(["login/login"])
+          }
+      })
+  }
 }

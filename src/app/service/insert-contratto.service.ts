@@ -19,13 +19,21 @@ export class InsertContrattoService {
 
   idContratto!: number;
   idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
-
+  private modalSubject = new BehaviorSubject<boolean>(false);
+  modalState = this.modalSubject.asObservable();
+  private apiUrl = 'http://localhost:5143/GestioneContratto';
+  private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
 
   constructor(private Http: HttpClient) {
   }
 
-  private apiUrl = 'http://localhost:5143/GestioneContratto';
-  private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
+  openModal() {
+    this.modalSubject.next(true);
+  }
+
+  closeModal() {
+    this.modalSubject.next(false);
+  }
 
   getAllTipoSocieta(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetSocieta`);
@@ -49,9 +57,13 @@ export class InsertContrattoService {
 
   // DIALOG BOX
   getAllDipendentiSenzaContratto(name: string, surname: string, cf: string): Observable<any> {
-    var stringURL = 'http://localhost:5143/GestioneContratto/DipendentiSenzaContratto';
+    var stringURL = `${this.apiUrl}DipendentiSenzaContratto`;
     var newUrl = this.createApiURL(name, surname, cf, Number.parseInt("null"), stringURL);
     return this.Http.get<any>(`${newUrl}`)
+  }
+
+  getCronologiaDistacco(idPersona: number): Observable<any> {
+    return this.Http.get(`${this.apiUrl}/CronologiaDistacco/${idPersona}`);
   }
 
   insertNuovoContratto(nuovoContratto: inserimentoContratto): Observable<inserimentoContratto> {
