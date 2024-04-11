@@ -1,0 +1,11 @@
+<h2 class="text-center" mat-dialog-title>Seleziona un ruolo con cui accedere</h2>
+<hr>
+<div class="flex flex-col items-center my-4">
+    <mat-form-field appearance="fill" class="w-full sm:w-80">
+        <mat-label>Scegli un ruolo</mat-label>
+        <mat-select [(ngModel)]="ruoloId" class="text-gray-900 sm:text-sm rounded-lg block focus:outline-none focus:border-sky-500 focus:ring-sky-500">
+            <mat-option *ngFor="let ruolo of auth.listaRuoliUtente" [value]="ruolo.idRuolo">{{ruolo.nomeRuolo}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-dialog-close class="bg-gray-200 hover:bg-gray-300 focus:ring-4 font-medium rounded-lg text-sm px-6 py-3 text-center" (click)="ConfermaRuolo()">Conferma Ruolo</button>
+</div>

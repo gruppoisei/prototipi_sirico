@@ -1,26 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component} from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 import { AuthenticationService, statoAccesso } from '../../../service/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-seleziona-ruolo',
-  standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule],
-  templateUrl: './seleziona-ruolo.component.html',
-  styleUrl: './seleziona-ruolo.component.scss'
+  selector: 'app-seleziona-ruolo-dialog',
+  templateUrl: './seleziona-ruolo-dialog.component.html',
+  styleUrl: './seleziona-ruolo-dialog.component.scss'
 })
-export class SelezionaRuoloComponent {
+export class SelezionaRuoloDialogComponent {
 
   ruoloId = 0
-
-
-  constructor(public dialogRef: MatDialogRef<SelezionaRuoloComponent>, public auth: AuthenticationService,private router:Router) 
-  {
-
-  }
+  constructor(public auth: AuthenticationService,private router:Router){}
 
   ConfermaRuolo()
   {
@@ -38,10 +28,10 @@ export class SelezionaRuoloComponent {
                     idRuolo:res.body.idRuolo
                   }
                   this.router.navigate(["homepage"]);
-                  this.dialogRef.close()
                 }
               }
         )
       }
   }
+
 }
