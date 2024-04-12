@@ -64,21 +64,21 @@ export class RichiestaAssenzaUtenteComponent {
   submitForm() {
     this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
     this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
-    this.inviaRichiesta(this.formData);
+    // this.inviaRichiesta(this.formData);
     this.resetForm();
   }
  
-  inviaRichiesta(body: Richiesta){
-    this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
-      (response: any) => {
-        console.log(response);
-        alert(response);
-      },
-      (error: any) => {
-        console.error('errore nell\'invio della richiesta: ', error);
-      }
-    )
-  }
+  // inviaRichiesta(body: Richiesta){
+  //   this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
+  //     (response: any) => {
+  //       console.log(response);
+  //       alert(response);
+  //     },
+  //     (error: any) => {
+  //       console.error('errore nell\'invio della richiesta: ', error);
+  //     }
+  //   )
+  // }
  
   getAllTipoRichiesta() {
     this.richiestaAutorizzazioneService.getAllTipoRichiesta().subscribe(

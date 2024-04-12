@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Richiesta } from '../dto/request/assenze';
+import { NuovaRichiestaAssenzaRequest } from '../dto/request/nuovaRichiestaAssenza';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class RichiestaAutorizzazioneService {
   richiesta: Richiesta[] = [];
   constructor(private Http: HttpClient) {}
 
-  addRichiesta(richiesta: Richiesta): Observable<any> {
+  addRichiesta(richiesta: NuovaRichiestaAssenzaRequest): Observable<any> {
+    
     return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, richiesta, this.httpOptions);
   }
   

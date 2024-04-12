@@ -10,7 +10,7 @@
       class="flex flex-row"
     >
       
-      <button (click)="ClickMe()" >  <mat-icon [class.giornoConfermato]="validatoreOreGiorno && !giorno.giornoFestivo" [class.giornoNONConfermato]="!validatoreOreGiorno && !giorno.giornoFestivo" [class.giornoErroreFestivo]="erroreGiornoFestivo" >create</mat-icon>  </button> 
+      <button (click)="ClickMe()" >  <mat-icon [class.giornoConfermato]="validatoreOreGiorno && !giorno.giornoFestivo" [class.giornoNONConfermato]="!validatoreOreGiorno && !giorno.giornoFestivo"  >create</mat-icon>  </button> 
       
       <button *ngIf="this.giorno.listaAttivitaGiorno.length > 0 && !giorno.giornoFestivo" (click)="CopiaGiorno()" >  <mat-icon class="copy">content_copy</mat-icon>  </button> 
       <button (click)="Delete(giorno.giornoLavorativoId!)">  <mat-icon class="delete" >delete</mat-icon>  </button> 

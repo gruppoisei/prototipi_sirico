@@ -50,6 +50,7 @@ export class Rapportino{
     confermaRapportino?:boolean
     definitivoRapportino?:boolean
     oreLavoroGiornaliere?:number
+    part_time?:boolean
 }
 
 

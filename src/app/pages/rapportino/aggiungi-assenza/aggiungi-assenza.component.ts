@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { RichiestaAutorizzazioneService } from '../../../service/richiesta-autorizzazione.service';
 import { RapportinoService } from '../../../service/rapportino.service';
 import { AttivitaGiornoCalendario } from '../../../dto/request/calendario';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { NuovaRichiestaAssenzaRequest } from '../../../dto/request/nuovaRichiestaAssenza';
 
 @Component({
   selector: 'app-aggiungi-assenza',
@@ -21,18 +23,11 @@ export class AggiungiAssenzaComponent {
   DataFine: string = '';
   DataInizio: string = '';
   fileInput: any;
-  idRichiesta: any;
+  // idRichiesta: any;
   ore: string[] = [];
-  richiesta: Richiesta[] = [];
+  // richiesta: Richiesta[] = [];
   tipiRichiesta: [{ ritrTiporichiestaassenzaid: number; ritrDescrizioneassenza: string }] | undefined;
-  formData: Richiesta = {
-    RiasFkTiporichiesta: 1,
-    RiasDataorainizioassenza: '',
-    RiasDataorafineassenza: '',
-    RiasNote: '',
-    RiasSysuser: 'Edo',
-    fileName: ''
-  };
+  formData: NuovaRichiestaAssenzaRequest =  new NuovaRichiestaAssenzaRequest()
   dateinizioFileTouched: boolean = false;
   datefineFileTouched: boolean = false;
   orainizioFileTouched: boolean = false;
@@ -50,6 +45,7 @@ export class AggiungiAssenzaComponent {
     private router: Router,
     private richiestaAutorizzazioneService: RichiestaAutorizzazioneService,
     private elementRef: ElementRef,
+    private auth:AuthenticationService
   ) {
     this.generaOre();
   }
@@ -68,14 +64,15 @@ export class AggiungiAssenzaComponent {
   }
  
   submitForm() {
-    this.formData.RiasDataorainizioassenza = this.DataInizio + 'T' + this.OraInizio + ':00';
-    this.formData.RiasDataorafineassenza = this.DataFine + 'T' + this.OraFine + ':00';
+    this.formData.dataOraInizio = this.DataInizio + 'T' + this.OraInizio + ':00';
+    this.formData.dataOraFine = this.DataFine + 'T' + this.OraFine + ':00';
     this.inviaRichiesta(this.formData);
     this.resetForm();
   }
  
-  inviaRichiesta(body: Richiesta){
+  inviaRichiesta(body: NuovaRichiestaAssenzaRequest){
     console.log(body)
+    body.utenteId = this.auth.utente?.id!
     this.richiestaAutorizzazioneService.addRichiesta(body).subscribe(
       (response: any) => {
         this.nuovaAssenzaInserita.emit()
@@ -137,14 +134,7 @@ export class AggiungiAssenzaComponent {
     this.OraInizio = null;
     this.DataFine = '';
     this.DataInizio = '';
-    this.formData = {
-      RiasFkTiporichiesta: 0,
-      RiasDataorainizioassenza: '',
-      RiasDataorafineassenza: '',
-      RiasNote: '',
-      RiasSysuser: 'Edo',
-      fileName: ''
-    };
+    this.formData = new NuovaRichiestaAssenzaRequest()
     this.resetDoc();
     this.dateinizioFileTouched = false;
     this.datefineFileTouched = false;
@@ -154,12 +144,12 @@ export class AggiungiAssenzaComponent {
  
   checkFormValidity(): boolean {
     return (
-      this.formData.RiasFkTiporichiesta &&
+      this.formData.tipoRichiestaId &&
       this.DataInizio &&
       this.DataFine &&
       this.OraInizio &&
       this.OraFine &&
-      this.formData.RiasNote
+      this.formData.note
     );
   }
  

@@ -25,7 +25,7 @@ export class AuthenticationService {
 }
 
   constructor( private http: HttpClient) {
-    this.ValidateToken()
+    // this.ValidateToken()
 
   }
   

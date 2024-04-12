@@ -4,5 +4,4 @@ attivitaPersonaId: number;
 sedeLavoroPersonaId: number;
 oreLavorate: number;
 oreStraordinario: number;
-
 }

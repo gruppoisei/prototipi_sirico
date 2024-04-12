@@ -1,8 +1,9 @@
 // app.component.ts
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthenticationService } from './service/authentication.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,9 @@ export class AppComponent {
   isDropdownOpen: boolean = false;
   selectedItem: string = '';
 
-  constructor(private router: Router, private authService : AuthenticationService){  }
+  constructor(private router: Router, private authService : AuthenticationService){ 
+    // verToken 
+  }
 
   toggleDropdown(){
     alert("ok")
@@ -38,3 +41,9 @@ export class AppComponent {
     this.router.navigateByUrl(item);
   }
 }
+
+
+// export const verToken = async () => {
+//   const authService = inject(AuthenticationService)
+//   const response =  await firstValueFrom(authService.ValidateToken())
+// }

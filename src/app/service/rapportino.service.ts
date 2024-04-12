@@ -63,7 +63,7 @@ export class RapportinoService {
   ];
 
   constructor(private http: HttpClient,private auth:AuthenticationService) {
-    this.RaccogliInfoPersona();
+    // this.RaccogliInfoPersona();
   }
 
   AggiornaGiorniMese(giorno: Date) {
@@ -86,6 +86,7 @@ export class RapportinoService {
       )
       .pipe(
         tap((v) => {
+          console.log(this.risposta)
           this.risposta = v;
           console.log(v);
         })
@@ -105,9 +106,9 @@ export class RapportinoService {
   RaccogliInfoPersona() {
     this.http
       .get<InfoPersona>(
-        'http://localhost:5143/Vistamese/InfoPersonaSedeAttivita?personaId=1'
+        `http://localhost:5143/Vistamese/InfoPersonaSedeAttivita?utenteId=`+this.auth.utente!.id
       )
-      .subscribe((res) => (this.infoPersona = res));
+      .subscribe((res) => {console.log(res);this.infoPersona = res});
   }
 
   EliminaAttivita(attivitaId: number, giornoLavorativoId: number) {

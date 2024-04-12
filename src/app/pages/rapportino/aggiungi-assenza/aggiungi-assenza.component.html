@@ -2,7 +2,7 @@
     <h2>Inserisci Richiesta</h2>
     <form (ngSubmit)="submitForm()">
       <label>Tipo Richiesta (obligatorio)</label>
-      <select [(ngModel)]="formData.RiasFkTiporichiesta" name="RiasFkTiporichiesta" required>
+      <select [(ngModel)]="formData.tipoRichiestaId" name="RiasFkTiporichiesta" required>
         <option *ngFor="let tipo of tipiRichiesta" [value]="tipo.ritrTiporichiestaassenzaid">{{ tipo.ritrDescrizioneassenza }}</option>
       </select>
    
@@ -35,7 +35,7 @@
      
    
       <label>Note (obligatorio)</label>
-      <textarea [(ngModel)]="formData.RiasNote" name="RiasNote"></textarea>
+      <textarea [(ngModel)]="formData.note" name="RiasNote"></textarea>
    
       <div class="uploadcontainer">
         <label>Upload File</label>
