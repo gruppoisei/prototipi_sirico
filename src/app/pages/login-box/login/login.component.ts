@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit{
               username:res.body.username,
               idRuolo:res.body.idRuolo
             }
-            this.auth.storeIdRuolo(res.body.idRuolo.ToString())
+            
             this.router.navigate(["homepage"]);
           }
           if(this.auth.status == statoAccesso.credenzialiValide)

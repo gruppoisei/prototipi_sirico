@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,11 @@ export class MenuComponent {
   
   isAuthenticated : boolean = false
 
-  constructor(){}
+  constructor(private auth:AuthenticationService){}
   
+  Prova()
+  {
+    console.log(this.auth.utente)
+  }
 
 }

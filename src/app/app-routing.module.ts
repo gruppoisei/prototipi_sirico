@@ -76,6 +76,7 @@ const routes: Routes = [
   {
     path: 'rapportino',
     component: CalendarioComponent,
+    canActivate : [basicUser]
   },
   {
     path: 'modifica-password',

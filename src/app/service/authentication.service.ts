@@ -24,7 +24,10 @@ export class AuthenticationService {
   observe:'response'
 }
 
-  constructor( private http: HttpClient) {}
+  constructor( private http: HttpClient) {
+    this.ValidateToken()
+
+  }
   
   // Login da DB
   login(loginObj:any): Observable<any> {
@@ -67,6 +70,7 @@ export class AuthenticationService {
     return this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
       map((res) => {
         if (res.status == 200) {
+          console.log(res.body)
           this.utente = res.body;
           const ruolo = Number(this.utente?.idRuolo);
           return ruolo;

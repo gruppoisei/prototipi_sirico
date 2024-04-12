@@ -16,23 +16,30 @@ export class ValidatoreMFAComponent {
   codiceValidatore=""
 
 
-  constructor(public auth : AuthenticationService,private router:Router,public dialog: MatDialog){}
+  constructor(public auth : AuthenticationService,private router:Router,public dialog: MatDialog)
+  {
+  }
   
     ConfermaMFA() {
+      
      this.auth.ConfermaMFA(this.codiceValidatore,this.expire1week)
         .subscribe((res) => {
           console.log(res)
-          this.auth.status = res.status
+          if(res.status == statoAccesso.utenteLoggato)
+            {
+                this.auth.utente = res.body
+                this.router.navigate(["homepage"]);
+            }
+            else{
+              this.auth.status = res.status
+
+            }
   
   
          //se utente ha correttamente verificato il codice redirect dentro il sito e creo variabile utente loggato
         if(this.auth.status == statoAccesso.utenteLoggato)
         {
-          this.auth.utente = {
-            id:res.body.userId,
-            username:res.body.username,
-            idRuolo:res.body.idRuolo
-          }
+          this.auth.utente = res.body
           // this.auth.utente = res.body
           console.log(this.auth.utente)
 
