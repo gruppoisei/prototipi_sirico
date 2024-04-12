@@ -9,7 +9,7 @@
                         <input matInput [value]="formData.AnpeCodicefiscale" [disabled]="disable_fields"
                             [(ngModel)]="formData.AnpeCodicefiscale" name="CodiceFiscale" placeholder="Codice fiscale"
                             class="mat-disabled">
-                        <button mat-icon-button type="button" matSuffix (click)="showModalApprovazione()"
+                        <button mat-icon-button type="button" matSuffix (click)="showModalRicercaUtentiSenzaContratto()"
                             class="mat-disabled">
                             <mat-icon>person_add_alt_1</mat-icon>
                         </button>
@@ -48,7 +48,7 @@
                             <mat-hint align="end">Data fine contratto</mat-hint>
                     </mat-form-field>
                     <mat-form-field class="w-full">
-                        <mat-select [(ngModel)]="formData.codiFkCotctipocontrattoid" name="tipocontratto"
+                        <mat-select [(ngModel)]="formData.Cotctipocontrattoid" name="tipocontratto"
                             placeholder="Tipo contratto" required>
                             <mat-option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">
                                 {{ tipo.cotcContratto }}
@@ -90,13 +90,13 @@
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="RAL" required>
                     </mat-form-field>
                     <mat-form-field class="w-full">
-                        <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntomese"
+                        <input matInput (change)="formValidationCheck()" [(ngModel)]="costopresuntomese"
                             type="number" name="costopresuntomese" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo presunto mese"
                             required>
                     </mat-form-field>
                     <mat-form-field class="w-full">
-                        <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.costopresuntogiorno"
+                        <input matInput (change)="formValidationCheck()" [(ngModel)]="costopresuntogiorno"
                             type="number" name="costopresuntogiorno" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo presunto giorno"
                             required>
@@ -135,7 +135,7 @@
                             </mat-form-field>
                             <mat-form-field class="w-full">
                                 <mat-select (selectionChange)="openModalIfLastOptionSelected($event)"
-                                    (change)="formValidationCheck()" [(ngModel)]="formData.ansoSocietaDistaccoid"
+                                    (change)="formValidationCheck()" [(ngModel)]="formData.CodsClienteId"
                                     [disabled]="!uncheck" name="clientedistacco" placeholder="Cliente distacco"
                                     required>
                                     <mat-option *ngFor="let cliente of tipiClientiDistacco" [value]="cliente.idcliente">
@@ -207,7 +207,7 @@
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
                 <button type="button" (click)="clearSearch()"
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Annulla</button>
-                <button type="button" (click)="closeModal()"
+                <button type="button" (click)="closeModalRicercaUtentiSenzaContratto()"
                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
             </div>
             <br>
@@ -225,16 +225,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!--
                         <tr *ngFor="let dipendente of dipendentiSenzaContratto; index as i" class="bg-white border-b">
                             <td class="px-6 py-4">{{ dipendente.anpeNome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCognome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCodicefiscale }}</td>
                             <td class="px-6 py-4>">
                                 <button type="button" (click)="autoFillFields(i)"
-                                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">ACCETTA
+                                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">SELEZIONA
                                 </button>
                             </td>
                         </tr>
+                    -->
                     </tbody>
                 </table>
             </div>
