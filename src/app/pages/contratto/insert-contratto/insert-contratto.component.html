@@ -23,6 +23,11 @@
                             [(ngModel)]="formData.AnpeCognome" name="Cognome" placeholder="Cognome"
                             class="mat-disabled">
                     </mat-form-field>
+                    <mat-form-field class="w-full" appearance="fill" *ngIf="hidePartitaIvaField">
+                        <input matInput [(ngModel)]="formData.AnpePartitaiva" [disabled]="disablePartitaIvaField"
+                            name="AnpePartitaiva" placeholder="Partita IVA">
+                    </mat-form-field>
+                    
                     <mat-form-field class="w-full">
                         <mat-select [(ngModel)]="formData.AnsoSocietaid" name="Societa" placeholder="Società" required>
                             <mat-option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">
@@ -60,14 +65,19 @@
                     </mat-form-field>
                     <mat-form-field class="w-full">
                         <mat-select [(ngModel)]="formData.ColiLivelloid" name="Livello" placeholder="Livello" required>
+                            <!-- <mat-option *ngIf="formData.CoccCcnlid == null && formData.ColiLivelloid == null">
+                                Seleziona un CCNL prima del livello
+                            </mat-option> -->
                             <mat-option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">
                                 {{ tipo.coliLivellocontratto }}
                             </mat-option>
-                            <mat-error *ngIf="">
-                                Seleziona prima un CCNL
-                            </mat-error>
                         </mat-select>
+                        <mat-error *ngIf="formData.ColiLivelloid == null">
+                            Seleziona un CCNL prima del livello
+                        </mat-error>
                     </mat-form-field>
+                    
+                    
                 </div>
 
                 <!-- COLONNA DI DESTRA -->​

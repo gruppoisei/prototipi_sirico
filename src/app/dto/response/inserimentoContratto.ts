@@ -3,6 +3,7 @@ export interface inserimentoContratto {
     AnpeCognome: string;
     AnpeCodicefiscale: string;
     AnpePersonaid: number | null;
+    AnpePartitaiva: string | null;
     AnsoSocietaid: string | null;
     CodiDatainiziocontratto: string ;
     CodiDatafinecontratto: string;
