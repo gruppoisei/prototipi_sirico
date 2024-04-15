@@ -225,19 +225,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!--
-                        <tr *ngFor="let dipendente of dipendentiSenzaContratto; index as i" class="bg-white border-b">
+                        <tr *ngFor="let dipendente of dipendentiSenzaContratto ?? []; index as i" class="bg-white border-b">
                             <td class="px-6 py-4">{{ dipendente.anpeNome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCognome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCodicefiscale }}</td>
+                            <td class="px-6 py-4">{{ dipendente.AnpePartitaiva }}</td>
                             <td class="px-6 py-4>">
                                 <button type="button" (click)="autoFillFields(i)"
                                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">SELEZIONA
                                 </button>
                             </td>
                         </tr>
-                    -->
-                    </tbody>
+                    </tbody>                    
                 </table>
             </div>
         </form>
