@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
+import FormattaData from '../../helpers/formattaData';
 
 @Component({
   selector: 'app-insert-persona',
@@ -21,6 +22,10 @@ import { DocumentiService } from '../../service/documenti.service';
 })
 export class InsertPersonaComponent implements OnInit{
 
+  oggi = new Date()   
+  minVisita : string
+  maxVisita : string
+  maxDateScadenza ?: string
   insertPersona !: FormGroup;
   listRegioni: any;
   listRegioniResidenza : any
@@ -52,7 +57,11 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   private serviceProvince: ProvinceService, private serviceComune:ComuniService,
   private serviceDocumenti: DocumentiService)
 
-{this.data= this.personaService.getData();}
+{
+  this.data= this.personaService.getData();
+  this.minVisita = new Date(this.oggi.getFullYear()-3,0,2).toISOString().split('T')[0];
+  this.maxVisita = new Date(this.oggi.getFullYear(),this.oggi.getMonth(),this.oggi.getDate()+2).toISOString().split('T')[0]
+}
 
   ngOnDestroy()
   {
@@ -61,6 +70,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
 
   ngOnInit(): void 
   {
+    
     this.insertPersona = this.fb.group(
       {
         AnpePersonaid: [0],
@@ -89,10 +99,23 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeCapdomicilio: ['',Validators.pattern('^[0-9]{5}$')],
         AnpeNtelefono1: ['', Validators.required],
         AnpeNtelefono2: [''],
+        AnpeDataidoneitamedica : [''],
+        AnpeDatascadenzaidoneitamedica : [{value: '', disabled : true}],
         AnpeEmailaziendale: ['', [Validators.required, Validators.email]],
         AnpeEmailpersonale: ['', Validators.email],
         AnpeFkAnsoSocietaid: ['', Validators.required],
       })
+
+      this.insertPersona.get('AnpeDataidoneitamedica')?.valueChanges.subscribe(value => {
+        if (value) {
+          this.insertPersona.get('AnpeDatascadenzaidoneitamedica')?.enable();
+          const selectDate = new Date(value);
+          const maxDate = new Date(selectDate.getFullYear() + 3, selectDate.getMonth(), selectDate.getDate()+1);
+          this.maxDateScadenza = maxDate.toISOString().split('T')[0];
+        } else {
+          this.insertPersona.get('AnpeDatascadenzaidoneitamedica')?.disable();
+        }
+      });
 
       this.personaService.dipendente$.subscribe((dipendente)=>
       {
@@ -143,10 +166,9 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     this.populateDomicilio(dipendente);
   
     // Formattazione della data di nascita
-    const dataNascita = new Date(dipendente.anpeDatanascita);
-    const offset = dataNascita.getTimezoneOffset() * 60000;
-    const dataNascitaConOffset = new Date(dataNascita.getTime() - offset);
-    const dataFormattata = dataNascitaConOffset.toISOString().split('T')[0];
+    const dataNascita = FormattaData.formattaData(dipendente.anpeDatanascita)
+    const dataIdoneitaMedica = FormattaData.formattaData(dipendente.AnpeDataidoneitamedica)
+    const dataScadenzaIdoneitMedica = FormattaData.formattaData(dipendente.AnpeDatascadenzaidoneitamedica)
     
     
     // Popolamento delle informazioni personali
@@ -154,7 +176,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       AnpePersonaid : dipendente.anpePersonaid,
       AnpeNome: dipendente.anpeNome,
       AnpeCognome: dipendente.anpeCognome,
-      AnpeDatanascita: dataFormattata,
+      AnpeDatanascita: dataNascita,
       AnpeCodicefiscale: dipendente.anpeCodicefiscale,
       AnpePartitaiva: dipendente.anpePartitaiva,
       AnpeFkGepaPaeseidPaesenascita: dipendente.anpeFkGepaPaeseidPaesenascita,
@@ -171,6 +193,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       AnpeCapdomicilio: dipendente.anpeCapdomicilio,
       AnpeNtelefono1: dipendente.anpeNtelefono1,
       AnpeNtelefono2: dipendente.anpeNtelefono2,
+      AnpeDataidoneitamedica : dataIdoneitaMedica,
+      AnpeDatascadenzaidoneitamedica : dataScadenzaIdoneitMedica,
       AnpeEmailaziendale: dipendente.anpeEmailaziendale,
       AnpeEmailpersonale: dipendente.anpeEmailpersonale,
       AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
@@ -424,6 +448,4 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-
-
-}
+  }
