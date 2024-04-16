@@ -8,7 +8,7 @@ export interface inserimentoContratto {
   AnsoSocietaid: string | null;
   SocietaPersona: string | null;
   CodiDatainiziocontratto: string;
-  CodiDatafinecontratto: string;
+  CodiDatafinecontratto: string | null;
   Cotctipocontrattoid: number | null;
   TipoContratto: string | null;
   CoccCcnlid: number;
@@ -24,7 +24,7 @@ export interface inserimentoContratto {
   //ansoSocietaDistaccoid: number | null;
   
   CodsDatainiziodistacco: string;
-  CodsDatafinedistacco: string;
+  CodsDatafinedistacco: string | null;
   CodiNote: string | null;
   CodiSysuser: string;
   CodiFlagAttiva: number | null;

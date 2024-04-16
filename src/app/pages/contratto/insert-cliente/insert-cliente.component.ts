@@ -96,6 +96,7 @@ export class InsertClienteComponent implements OnInit {
   validatePhoneNumber(phoneNumber: string) {
     phoneNumber = phoneNumber.replace(/\s/g, '');
     const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+    //const phoneRegex = /^(\((00|\+)39\)|(00|\+)39)?(3|0)\d{8,9}$/;     //valida solo i numeri con prefisso italiano, numeri mobili che iniziano per 3 e hanno tra le 9 e 10 cifre totali
     return phoneRegex.test(phoneNumber);
   }
 
