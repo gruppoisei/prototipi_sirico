@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
-import { ricercaContratto } from '../../../dto/request/ricercaContratto';
+import { inserimentoContratto } from '../../../dto/response/inserimentoContratto';
 
 
 @Component({
@@ -92,40 +92,42 @@ export class GestioneContrattoComponent implements OnInit {
     codsClienteId: number;
   }];
 
-  formData: ricercaContratto = {
+  formData: inserimentoContratto = {
     AnpeNome: "",
-    AnpeCognome: "",
-    AnpePersonaid: null,
-    AnpeCodicefiscale: "",
-    AnpePartitaiva: null,
-    AnsoSocietaid: null,
-    CodiDatainiziocontratto: "",//formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
-    CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
-    codiFkCotctipocontrattoid: null,
-    CoccCcnlid: 0,
-    ColiLivelloid: null,
-    AnruRuoloid: null,
-    CodiRalcompenso: null,
-    CodiMonteore: null,
-    CodiSmartworking: null,
-    costopresuntomese: null,
-    costopresuntogiorno: null,
-    CodsValoredistacco: null,
-    ansoSocietaDistaccoid: null,
-    CodsDatainiziodistacco: "",
-    CodsDatafinedistacco: "",
-    CodiNote: null,
-    CodiSysuser: "Edo",
-    CodiFlagAttiva: null,
-    CodsFlagAttiva: 0,
-    CodsClienteId: null,
-    // altro    
-    CodiContrattopersid: null,
-    TipoContratto: null,
-    DescrizioneCCNL: null,
-    LivelloContratto: null,
-    SocietaDistacco: "",
-    SocietaPersona: ""
+      AnpeCognome: "",
+      AnpePersonaid: null,
+      AnpeCodicefiscale: "",
+      AnpePartitaiva: "",
+      AnsoSocietaid: null,
+      CodiDatainiziocontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+      CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+      Cotctipocontrattoid: null,
+      TipoContratto: null,
+      CoccCcnlid: 0,
+      DescrizioneCCNL: null,
+      ColiLivelloid: null,
+      LivelloContratto: null,
+      CodiRalcompenso: null,
+      CodiMonteore: null,
+      CodiSmartworking: null,
+      CodsValoredistacco: null,
+      CodsDatainiziodistacco: "",
+      CodsDatafinedistacco: "",
+      CodiNote: null,
+      CodiSysuser: "Frontend",
+      CodiFlagAttiva: 1,
+      CodsFlagAttiva: 0,
+      CodsClienteId: null,
+      SocietaDistacco: null,
+      SocietaPersona: null,
+      CodiContrattopersid: null,
+      CodiFkCossVisitamedica: null,
+      durataValiditaVisitaMedica: null,
+      CodiFkCossCorsosicurezza1: null,
+      durataValiditaCorsoSicurezza1: null,
+      CodiFkCossCorsosicurezza2: null,
+      durataValiditaCorsoSicurezza2: null,
+      CodiFkComlIdmotivazione: null
   }
 
   formDataSearch = {
@@ -213,7 +215,7 @@ export class GestioneContrattoComponent implements OnInit {
     };
     for (let i = 0; i < this.tipiContratto?.length; i++) {
       if (this.tipiContratto[i].cotcContratto == this.dipendenteConContratto.tipoContratto) {
-        this.formData.codiFkCotctipocontrattoid = this.tipiContratto[i].cotcTipocontrattoid;
+        this.formData.Cotctipocontrattoid = this.tipiContratto[i].cotcTipocontrattoid;
         break;
       }
     };
@@ -232,8 +234,6 @@ export class GestioneContrattoComponent implements OnInit {
         this.formData.ColiLivelloid = this.tipiLivello[i].coliLivelloid;
       }
     };
-    // METTO COME RUOLO UN VALORE DI DEFAULT
-    this.formData.AnruRuoloid = this.tipiRuolo[0].anruRuoloid.toString();
 
     this.formData.CodiDatainiziocontratto = this.dipendenteConContratto.codiDatainiziocontratto.split("T")[0];
     this.formData.CodiDatafinecontratto = this.dipendenteConContratto.codiDatafinecontratto.split("T")[0];
@@ -241,19 +241,10 @@ export class GestioneContrattoComponent implements OnInit {
     this.formData.CodiMonteore = this.dipendenteConContratto.codiMonteore;
     if (this.dipendenteConContratto.smartWorking == 0) { this.formData.CodiSmartworking = false; }
     else { this.formData.CodiSmartworking = true }
-    // METTO COME COSTO MENSILE E GIORNALIERO UN VALORE DI DEFAULT
-    this.formData.costopresuntomese = Number((this.dipendenteConContratto.codiRalcompenso / 13).toFixed(2));
-    this.formData.costopresuntogiorno = Number(((this.dipendenteConContratto.codiRalcompenso / 13) / 26).toFixed(2));
-    /*  
-    if (this.dipendenteConContratto.codsFlagAttiva == null || this.dipendenteConContratto.codsFlagAttiva == 0) {
-      this.uncheck = false; 
-    }
-    else { this.uncheck = true; }
-    */
     this.formData.CodsValoredistacco = this.dipendenteConContratto.codsValoredistacco;
     for (let i = 0; i < this.tipiSocietaDistacco?.length; i++) {
       if (this.tipiSocietaDistacco[i].ansoRagionesociale == this.dipendenteConContratto.societaDistacco) {
-        this.formData.ansoSocietaDistaccoid = this.tipiSocietaDistacco[i].ansoSocietaid;
+        this.formData.CodsClienteId = this.tipiSocietaDistacco[i].ansoSocietaid;
       }
     };
     for (let i = 0; i < this.tipiSocieta?.length; i++) {
@@ -282,7 +273,6 @@ export class GestioneContrattoComponent implements OnInit {
     }
 
     this.formData.CodsClienteId = this.dipendenteConContratto.codsClienteId;
-    //"CodsClienteId": null, "TipoContratto": null, "DescrizioneCCNL": null, "LivelloContratto": null, "SocietaDistacco": "", "SocietaPersona": ""
   }
 
 
@@ -352,55 +342,43 @@ export class GestioneContrattoComponent implements OnInit {
     );
   }
 
-  /*
-    getAllTipoRuolo() {
-      this.inserimentoContrattoService.getAllTipoRuolo().subscribe(
-        (response: any) => {
-          console.log(response);
-          this.tipiRuolo = response;
-        },
-        (error: any) => {
-          console.error('Errore durante il recupero dei tipi di ruolo:', error);
-        }
-      );
-    }
-    */
-
   reset() {
     this.formData = {
       AnpeNome: "",
       AnpeCognome: "",
       AnpePersonaid: null,
       AnpeCodicefiscale: "",
-      AnpePartitaiva: null,
+      AnpePartitaiva: "",
       AnsoSocietaid: null,
-      CodiDatainiziocontratto: new Date().toLocaleString(),
-      CodiDatafinecontratto: new Date().toLocaleString(),
-      codiFkCotctipocontrattoid: null,
+      CodiDatainiziocontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+      CodiDatafinecontratto: "", //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+      Cotctipocontrattoid: null,
+      TipoContratto: null,
       CoccCcnlid: 0,
+      DescrizioneCCNL: null,
       ColiLivelloid: null,
-      AnruRuoloid: null,
+      LivelloContratto: null,
       CodiRalcompenso: null,
       CodiMonteore: null,
-      CodiSmartworking: false,
-      costopresuntomese: null,
-      costopresuntogiorno: null,
+      CodiSmartworking: null,
       CodsValoredistacco: null,
-      ansoSocietaDistaccoid: null,
       CodsDatainiziodistacco: "",
       CodsDatafinedistacco: "",
       CodiNote: null,
-      CodiSysuser: "Edo",
-      CodiFlagAttiva: null,
+      CodiSysuser: "Frontend",
+      CodiFlagAttiva: 1,
       CodsFlagAttiva: 0,
       CodsClienteId: null,
-      // altro
+      SocietaDistacco: null,
+      SocietaPersona: null,
       CodiContrattopersid: null,
-      TipoContratto: null,
-      DescrizioneCCNL: null,
-      LivelloContratto: null,
-      SocietaDistacco: "",
-      SocietaPersona: ""
+      CodiFkCossVisitamedica: null,
+      durataValiditaVisitaMedica: null,
+      CodiFkCossCorsosicurezza1: null,
+      durataValiditaCorsoSicurezza1: null,
+      CodiFkCossCorsosicurezza2: null,
+      durataValiditaCorsoSicurezza2: null,
+      CodiFkComlIdmotivazione: null
     };
   }
 
