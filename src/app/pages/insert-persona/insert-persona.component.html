@@ -235,14 +235,16 @@
   <div class="flex w-full flex-nowrap -mx-3 mb-10">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block mb-2 text-sm font-medium text-gray-900">N.telefono 1</label>
-              <input formControlName="AnpeNtelefono1" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              <input formControlName="AnpeNtelefono1" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500"  type="text" placeholder="Scrivi il numero di telefono...">
             <small *ngIf="insertPersona.controls['AnpeNtelefono1'].dirty && insertPersona.hasError('required','AnpeNtelefono1')" class="text-red-600">Numero di telefono obbligatorio</small>
+            <small *ngIf="insertPersona.get('AnpeNtelefono1')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
           </div>
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block mb-2 text-sm font-medium text-gray-900" >N.telefono 2</label>
-              <input formControlName="AnpeNtelefono2" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              <input formControlName="AnpeNtelefono2" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi il numero di telefono...">
+            <small *ngIf="insertPersona.get('AnpeNtelefono2')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
           </div>
   </div>
 
@@ -318,7 +320,6 @@
           <td class="px-6 py-4">{{getFileSize(file.size)}}</td>
         </tr>
       </tbody>
-
     </table>
   </div>
 
