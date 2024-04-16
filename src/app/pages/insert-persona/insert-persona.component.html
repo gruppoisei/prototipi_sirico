@@ -242,8 +242,9 @@
           </div>
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block mb-2 text-sm font-medium text-gray-900" >N.telefono 2</label>
-              <input formControlName="AnpeNtelefono2" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              <input formControlName="AnpeNtelefono2" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi il numero di telefono...">
+            <small *ngIf="insertPersona.get('AnpeNtelefono2')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
           </div>
   </div>
 
