@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, firstValueFrom, map, tap, throwError } from 'rxjs';
 import { ruoloUtente } from '../guard/auth.guard';
 
 @Injectable({
@@ -86,6 +86,28 @@ export class AuthenticationService {
     );
   }
   
+
+  async ValidateTokenAsync():Promise<number> {
+    let response = this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
+      map((res) => {
+        if (res.status == 200) {
+          console.log(res.body)
+          this.utente = res.body;
+          const ruolo = Number(this.utente?.idRuolo);
+          return ruolo;
+        } else {
+          this.utente = undefined;
+          return ruoloUtente.NonLoggato;
+        }
+      }),
+      catchError((err) => {
+        console.log(err);
+        return throwError(err);
+      })
+    );
+    const res = await firstValueFrom(response)
+    return res
+  }
 
   storeIdRuolo(idRuolo : string)
   {

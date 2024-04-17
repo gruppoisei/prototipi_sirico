@@ -45,8 +45,9 @@
     </div>
 
     <hr />
-    <div class="flex justify-center">
+    <div  class="flex justify-center">
       <button
+      *ngIf="!data.giornoFestivo"
         class="A"
         mat-raised-button
         color="primary"

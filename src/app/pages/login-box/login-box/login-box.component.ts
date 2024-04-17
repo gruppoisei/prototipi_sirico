@@ -16,7 +16,7 @@ export class LoginBoxComponent {
       {
         if(auth.utente.idRuolo != livelli.ospite)
           {
-              router.navigate(["homepage"]);
+              router.navigate([""]);
           }
       } */
   }

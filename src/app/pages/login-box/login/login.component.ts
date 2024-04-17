@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit {
               //   username: res.body.username,
               //   idRuolo: res.body.idRuolo,
               // };
-              this.router.navigate(['homepage']);
+              this.router.navigate(['']);
               break;
             case statoAccesso.credenzialiValide:
               this.auth.utenteId = res.body.userId;

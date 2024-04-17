@@ -225,7 +225,7 @@ export class InsertContrattoComponent implements OnInit {
 
   closeForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['/gestione-contratto']);
+      this.router.navigate(['Segreteria/gestione-contratto']);
   }
 
   getAllTipoSocieta() {

@@ -69,10 +69,10 @@ export class GestioneRuoloComponent implements OnInit {
 
   modificaRuolo(id: number) {
     this.amministrazioneRuoli.ruoloId$.next(id);
-    this.router.navigate(['/insert-ruolo-funzione']);
+    this.router.navigate(['/Segreteria/insert-ruolo-funzione']);
   }
 
   closeForm() {
-    this.router.navigate(['/homepage']);
+    this.router.navigate(['']);
   }
 }

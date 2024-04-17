@@ -26,17 +26,35 @@
       </div>
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex flex-shrink-0 items-center">
+          <a routerLink="">
           <img class="w-auto h-auto" src="\assets\SCOD_Logo_Little.png" alt="SCOD 2">
+        </a>
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4 justify-items-center mt-2">
-            <a routerLink="homepage" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Home</a>
-            <a routerLink="Account/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Login</a>
+            <!-- <a routerLink="" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Home</a> -->
+            <a routerLink="Account/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Login</a>
             <a routerLink="rapportino" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Rapportino</a>
-            <a routerLink="richiestaassenzautente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Inserisci assenza</a>
-            <a routerLink="richiestaassenzasegreteria" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Segreteria per assenza</a>
+            <!-- <a routerLink="richiestaassenzautente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Inserisci assenza</a> -->
+            <button [cdkMenuTriggerFor]="segreteria"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Segreteria</button>
+            <ng-template #segreteria >
+            <div  class="rounded-md flex flex-col bg-gray-800" cdkMenu>
+                <a routerLink="Segreteria/gestione-dipendente" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" > Gestione Dipendente</a>
+                <a routerLink="Segreteria/salva-persona" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" > Nuova Persona Persona</a>
+                <a routerLink="Segreteria/gestione-contratto" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" >Gestisci Contratto</a>
+                <a routerLink="Segreteria/insert-contratto" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" >Nuovo Contratto</a>
+                <a routerLink="Segreteria/gestione-assenze" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" > Gestione Assenze</a>
+                <a routerLink="Segreteria/insertutente" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" >Nuovo Utente</a>
+                <a routerLink="Segreteria/gestione-ruolo-funzione" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" >  Gestione Ruolo Funzione</a>
+                <a routerLink="Segreteria/insert-ruolo-funzione" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" > Nuovo Ruolo Funzione</a>
+                <a routerLink="Segreteria/insert-ruolo-utente" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" >Assegnazione Ruolo Utente</a>
+                <a routerLink="Segreteria/insert-cliente" cdkMenuItem mat class=" hover:bg-gray-700 text-gray-300 p-1 m-1 rounded-md px-5" >Nuovo Cliente</a>
+              </div>
+            </ng-template> 
+            
+            <!-- <a routerLink="richiestaassenzasegreteria" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Segreteria per assenza</a>
             <a routerLink="gestione-contratto" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Gestione Contratti</a>
-            <a routerLink="gestione-dipendente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Gestisci dipendente</a>
+            <a routerLink="gestione-dipendente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Gestisci dipendente</a> -->
             <button class="text-red-500 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" (click)="Prova()">prova</button>
           </div>
         </div>

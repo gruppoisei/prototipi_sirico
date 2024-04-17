@@ -22,3 +22,12 @@
 .menu ul li a:hover {
     color: yellow;
 }
+
+
+.example-menu {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 180px;
+    max-width: 280px;
+    background-color: rgb(121, 22, 22);
+  }
