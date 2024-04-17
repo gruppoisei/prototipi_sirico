@@ -53,15 +53,15 @@
                             (change)="dataFineContrattoSelezionata()">
                         <!--<mat-hint align="end">Data fine contratto</mat-hint>-->
                     </mat-form-field>
-              <!--      <mat-form-field class="w-full" floatLabel="auto" *ngIf="formData.CodiDatafinecontratto !== null">
+                    <mat-form-field class="w-full" floatLabel="auto" *ngIf="formData.codiDatafinecontratto !== null">
                         <mat-label>Motivo fine contratto</mat-label>
-                        <mat-select [(ngModel)]="formData.CodiFkComlIdmotivazione" name="motivofinecontratto"
-                                    placeholder="Motivo fine contratto" > <!--</mat-select>[required]="formData.CodiDatafinecontratto !== null">
-                            <mat-option *ngFor="let tipo of tipiMotiviFinecontratto" [value]="tipo.idMotivo">
-                                {{ tipo.descMotivo }}
+                        <mat-select [(ngModel)]="formData.codiFkComlIdmotivazione" name="motivofinecontratto"
+                                    placeholder="Motivo fine contratto" > <!--</mat-select>[required]="formData.CodiDatafinecontratto !== null">-->
+                            <mat-option *ngFor="let tipo of tipiMotiviFineContratto" [value]="tipo.comlIdmotivazione">
+                                {{ tipo.comlDescmotivazione }}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>-->
+                    </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Tipo contratto</mat-label>
                         <mat-select [(ngModel)]="formData.cotctipocontrattoid" name="tipocontratto"
@@ -74,7 +74,7 @@
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>CCNL</mat-label>
                         <mat-select [(ngModel)]="formData.coccCcnlid" name="CCNL" placeholder="CCNL"
-                            (ngModelChange)="getAllTipoLivello()" required>
+                            (ngModelChange)="getAllTipoLivello(this.formData.coccCcnlid)" required>
                             <mat-option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">
                                 {{ tipo.coccDesc }}
                             </mat-option>
@@ -145,7 +145,8 @@
                                 <mat-label>Percentuale distacco</mat-label>
                                 <input matInput (change)="formValidationCheck()"
                                     [(ngModel)]="formData.codsValoredistacco" type="number" name="Percentuale"
-                                    placeholder="0" [required]="formData.codsFlagAttiva == 1">
+                                    [disabled]="!this.formData.codsFlagAttiva" placeholder="0"
+                                    [required]="formData.codsFlagAttiva == 1">
                             </mat-form-field>
                             <mat-form-field class="w-full" floatLabel="auto">
                                 <mat-label>Cliente distacco</mat-label>
@@ -162,17 +163,19 @@
                                 <mat-label>Data inizio distacco</mat-label>
                                 <input matInput (change)="formValidationCheck()"
                                     [(ngModel)]="formData.codsDatainiziodistacco" type="date" name="datainiziodistacco"
-                                    placeholder="Data inizio distacco" [required]="formData.codsFlagAttiva == 1">
+                                    [disabled]="!this.formData.codsFlagAttiva" placeholder="Data inizio distacco"
+                                    [required]="formData.codsFlagAttiva == 1">
                                 <!--<mat-hint align="end">Data inizio distacco</mat-hint>-->
                             </mat-form-field>
                             <mat-form-field class="w-full" floatLabel="always">
                                 <mat-label>Data fine distacco</mat-label>
                                 <input matInput (change)="formValidationCheck()"
                                     [(ngModel)]="formData.codsDatafinedistacco" type="date" name="datafinedistacco"
-                                    placeholder="Data fine distacco" [required]="formData.codsFlagAttiva == 1">
+                                    [disabled]="!this.formData.codsFlagAttiva" placeholder="Data fine distacco"
+                                    [required]="formData.codsFlagAttiva == 1">
                                 <!--<mat-hint align="end">Data fine distacco</mat-hint>-->
                             </mat-form-field>
-                            <div class="panel-footer" *ngIf="contratto !== null && formData.anpePersonaid !== null">
+                            <div class="panel-footer" *ngIf="formData.anpePersonaid !== null">
                                 <button mat-button color="primary" (click)="openCronologiaDistaccoModal()"
                                     style="font-size: smaller;">Cronologia Distacchi di {{ formData.anpeNome }} {{
                                     formData.anpeCognome }}</button>
@@ -236,7 +239,7 @@
                             <th scope="col" class="px-6 py-3">Nome</th>
                             <th scope="col" class="px-6 py-3">Cognome</th>
                             <th scope="col" class="px-6 py-3">Codice Fiscale</th>
-                            <th scope="col" class="px-6 py-3"></th>
+                            <th scope="col" class="px-6 py-3"> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -245,7 +248,7 @@
                             <td class="px-6 py-4">{{ dipendente.anpeNome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCognome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCodicefiscale }}</td>
-                            <td class="px-6 py-4">{{ dipendente.AnpePartitaiva }}</td>
+                            <!--<td class="px-6 py-4">{{ dipendente.AnpePartitaiva }}</td>-->
                             <td class="px-6 py-4>">
                                 <button type="button" (click)="autoFillFields(i)"
                                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">SELEZIONA
