@@ -18,7 +18,8 @@ export class InsertContrattoService {
   };
 
   idContratto!: number;
-  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto)
+  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto);
+  isContrattoPassato?: number | null;
   private modalSubject = new BehaviorSubject<boolean>(false);
   modalState = this.modalSubject.asObservable();
   private apiUrl = 'http://localhost:5143/GestioneContratto';
@@ -78,16 +79,16 @@ export class InsertContrattoService {
     }
     else {
       console.log('caso post');
-      nuovoContratto.CodiContrattopersid = 0;
+      nuovoContratto.codiContrattopersid = 0;
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
       return this.Http.post<inserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
     }
   }
 
-  getAllContrattiBy(name: string, surname: string, cf: string, society: number): Observable<any> {
+  getAllContrattiBy(name: string | null, surname: string | null, cf: string | null, society: number | null ): Observable<any> {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetAllContrattiBy';
-    var newUrl = this.createApiURL(name, surname, cf, society, stringURL);
+    var newUrl = this.createApiURL(name ? name : null, surname, cf, society, stringURL);
     return this.Http.get<any>(`${newUrl}`);
   }
 
@@ -96,7 +97,7 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.apiUrl}/GetContrattiById/` + idContratto);
   }
 
-  createApiURL(name: string, surname: string, cf: string, society: number, URL: string) {
+  createApiURL(name: string | null, surname: string | null, cf: string | null, society: number | null, URL: string | null,) {
     var ampersand = false;
     var stringURL = URL;
 
