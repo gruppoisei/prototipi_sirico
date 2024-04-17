@@ -54,16 +54,16 @@ const routes: Routes = [
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
       { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
-      {path: 'insertutente',component: InsertUtenteComponent,},
-      {path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
+      { path: 'insertutente',component: InsertUtenteComponent,},
+      { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
       { path: 'insert-ruolo-funzione',component: InsertRuoloFunzioneComponent, },
-      {path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
-      {path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
-      {path: 'insert-cliente',component: InsertClienteComponent,},
+      { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
+      { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
+      { path: 'insert-cliente',component: InsertClienteComponent,},
       // {path:,component:},
       // {path:,component:},
     ],
-    canActivate : [basicUser]
+    //canActivate : [basicUser]
   },
   {
     path: 'rapportino',
