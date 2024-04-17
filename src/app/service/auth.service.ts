@@ -20,7 +20,6 @@ export class AuthService {
 
   salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
   {
-    debugger
     let formData = new FormData();
     Object.keys(personaObj).forEach(key => {
       formData.append(key, personaObj[key]);

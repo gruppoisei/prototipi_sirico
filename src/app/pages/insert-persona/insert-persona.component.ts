@@ -14,6 +14,7 @@ import { MessageResponseDialogComponent } from '../../ui/message-response-dialog
 import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
 import FormattaData from '../../helpers/formattaData';
+import { discardPeriodicTasks } from '@angular/core/testing';
 
 @Component({
   selector: 'app-insert-persona',
@@ -70,7 +71,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
 
   ngOnInit(): void 
   {
-    
     this.insertPersona = this.fb.group(
       {
         AnpePersonaid: [0],
@@ -116,7 +116,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
           this.insertPersona.get('AnpeDatascadenzaidoneitamedica')?.disable();
         }
       });
-
       this.personaService.dipendente$.subscribe((dipendente)=>
       {
         if(dipendente)
@@ -167,9 +166,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   
     // Formattazione della data di nascita
     const dataNascita = FormattaData.formattaData(dipendente.anpeDatanascita)
-    const dataIdoneitaMedica = FormattaData.formattaData(dipendente.AnpeDataidoneitamedica)
-    const dataScadenzaIdoneitMedica = FormattaData.formattaData(dipendente.AnpeDatascadenzaidoneitamedica)
-    
+    const dataIdoneitaMedica = FormattaData.formattaData(dipendente.anpeDataidoneitamedica)
+    const dataScadenzaIdoneitaMedica = FormattaData.formattaData(dipendente.anpeDatascadenzaidoneitamedica)
     
     // Popolamento delle informazioni personali
     this.insertPersona.patchValue({
@@ -194,7 +192,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       AnpeNtelefono1: dipendente.anpeNtelefono1,
       AnpeNtelefono2: dipendente.anpeNtelefono2,
       AnpeDataidoneitamedica : dataIdoneitaMedica,
-      AnpeDatascadenzaidoneitamedica : dataScadenzaIdoneitMedica,
+      AnpeDatascadenzaidoneitamedica : dataScadenzaIdoneitaMedica,
       AnpeEmailaziendale: dipendente.anpeEmailaziendale,
       AnpeEmailpersonale: dipendente.anpeEmailpersonale,
       AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
@@ -282,7 +280,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     if(this.insertPersona.valid)
     {
       const personaObj = this.insertPersona.value;
-      debugger
       this.auth.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
