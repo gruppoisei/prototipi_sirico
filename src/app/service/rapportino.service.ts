@@ -66,6 +66,7 @@ export class RapportinoService {
     // this.RaccogliInfoPersona();
   }
 
+  
   AggiornaGiorniMese(giorno: Date) {
     this.giorniValidiMese = 0;
     this.giorniConfermati = 0;

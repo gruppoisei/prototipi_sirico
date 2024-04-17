@@ -156,7 +156,6 @@ export class GestioneContrattoComponent implements OnInit {
 
   deleteContract(idContratto: number) {
     this.getContrattoByidContratto(idContratto);
-
   }
 
   getContrattoByidContratto(idContratto: number) {

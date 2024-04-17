@@ -57,6 +57,12 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClienti`);
   }
 
+  getAllTipitipiMotiviFineContratto(): Observable<any> {
+    var res = this.Http.get<any>(`${this.clienteDistaccoUrl}/GetMotiviFineContratto`);
+    console.log("res = " + res);
+    return res;
+  }
+
   // DIALOG BOX
   getAllDipendentiSenzaContratto(name: string, surname: string, cf: string): Observable<any> {
     var stringURL = `${this.apiUrl}/DipendentiSenzaContratto`;

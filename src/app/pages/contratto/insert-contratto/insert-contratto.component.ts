@@ -40,27 +40,24 @@ export class InsertContrattoComponent implements OnInit {
   vecchiagiornaliera?: number | null;
   giorniLavorativiAlMese: number = 21;
   mesiLavorativiAllAnno: number = 12;
-
+  output_ricercaFiltrata: any;
   contratto: any; // canc?
   id: any; // canc?
+  dipendentiSenzaContratto: utenteSenzaContatto[] | null | undefined;
+  dipendentiConContratto?: inserimentoContratto;
 
   tipiSocieta!: [{ ansoSocietaid: number; ansoRagionesociale: string }];
   tipiContratto!: [{ cotcTipocontrattoid: number; cotcContratto: string }];
   tipiCcnl!: [{ coccCcnlid: number; coccDesc: string }];
   tipiLivello!: [{ coliLivelloid: number; coliLivellocontratto: string }];
   tipiClientiDistacco!: [{ idcliente: number; ragionesociale: string }];
-  tipiMotiviFinecontratto!: [{ idMotivo: number; descMotivo: string }];
+  tipiMotiviFineContratto!: [{ comlIdmotivazione: number; comlDescmotivazione: string }];
   array_societa: any = [];
   private routeSub!: Subscription;
   form!: FormGroup<any>;
 
   // DIALOG
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
-  output_ricercaFiltrata: any;
-
-  dipendentiSenzaContratto: utenteSenzaContatto[] | null | undefined;
-
-  dipendentiConContratto?: inserimentoContratto;
 
   formData: inserimentoContratto = {
     anpeNome: '',
@@ -120,12 +117,13 @@ export class InsertContrattoComponent implements OnInit {
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
     this.getAllClienti();
+    //this.getAllTipitipiMotiviFineContratto();
     this.disable_fields = true;
     console.log(' id contratto passato = ' + this.inserimentoContrattoService.idContratto$.value);
     this.autoFillformData();
     this.controllaDisabilitaCampoPartitaIva();
-    this.inserimentoContrattoService.idContratto$.value !== undefined /* && idContratto !== 0 */ ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
-    this.inserimentoContrattoService.modalState.subscribe((isOpen) => {this.showModal = isOpen;} );
+    this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
+    //this.inserimentoContrattoService.modalState.subscribe((isOpen) => {this.showModal = isOpen;} );
   }
 
   openModalIfLastOptionSelected(event: MatSelectChange) {
@@ -275,10 +273,8 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
-  getAllTipoLivello() {
-    this.inserimentoContrattoService
-      .getAllTipoLivello(this.formData.coccCcnlid)
-      .subscribe(
+  getAllTipoLivello(id: number) {
+    this.inserimentoContrattoService.getAllTipoLivello(id).subscribe(
         (response: any) => {
           console.log('response get tipi livello:');
           console.log(response);
@@ -289,6 +285,18 @@ export class InsertContrattoComponent implements OnInit {
             'Errore durante il recupero dei tipi di livello:',
             error
           );
+        }
+      );
+  }
+
+  getAllTipitipiMotiviFineContratto() {
+    this.inserimentoContrattoService.getAllTipitipiMotiviFineContratto().subscribe(
+        (res: any) => {
+          console.log('response get tipi motivo fine contratto:' + res);
+          this.tipiMotiviFineContratto = res;
+        },
+        (error: any) => {
+          console.error('Errore durante il recupero dei tipi di livello:', error);
         }
       );
   }
@@ -397,11 +405,20 @@ export class InsertContrattoComponent implements OnInit {
   getContrattoByidContratto(idContratto: number) {
     this.inserimentoContrattoService.getAllContrattiById(idContratto).subscribe(
       (response: any) => {
-        console.log(response);
+        console.log(JSON.stringify(response));
+        this.formData = response;
+        console.log(JSON.stringify(this.formData));
+        const indicecliente = this.tipiClientiDistacco?.findIndex((societa) => societa.ragionesociale === (response?.societaPersona ?? ''));
+        this.formData.ansoSocietaid = indicecliente !== -1 ? this.tipiSocieta[indicecliente].ansoSocietaid.toString() : this.formData.ansoSocietaid;
+  
+        /*
         this.dipendentiConContratto = response;
         console.log('questo è il diendenti con contratto array: ' + this.dipendentiConContratto);
-        //console.log(this.formData);
+        if (this.dipendentiConContratto?.coccCcnlid != null) {
+          this.getAllTipoLivello(this.dipendentiConContratto.coccCcnlid);
+        }
         this.autoFillformData();
+        */
       },
       (error: any) => {
         console.error('Errore durante il recupero del contratto:', error);
@@ -482,7 +499,7 @@ export class InsertContrattoComponent implements OnInit {
       this.formData.codsDatafinedistacco = this.dipendentiConContratto.codsDatafinedistacco != null ? this.dipendentiConContratto.codsDatafinedistacco.split('T')[0] : null;
       this.formData.codiNote = this.dipendentiConContratto.codiNote;
       const indicesocieta = this.tipiSocieta?.findIndex( (societa) => societa.ansoRagionesociale === (this.dipendentiConContratto?.societaPersona ?? ''));
-      const indicemotivaz = this.tipiMotiviFinecontratto?.findIndex((Motivi) => Motivi.descMotivo === (this.dipendentiConContratto?.codiFkComlIdmotivazione ?? ''));
+      const indicemotivaz = this.tipiMotiviFineContratto?.findIndex((Motivi) => Motivi.comlDescmotivazione === (this.dipendentiConContratto?.codiFkComlIdmotivazione ?? ''));
       this.formData.ansoSocietaid = indicesocieta !== -1 ? this.tipiSocieta[indicesocieta].ansoSocietaid.toString() : this.formData.ansoSocietaid;
       const indicetipocontratto = this.tipiContratto?.findIndex( (contratto) => contratto.cotcContratto === (this.dipendentiConContratto?.tipoContratto ?? '') );
       this.formData.cotctipocontrattoid = indicetipocontratto !== -1 ? this.tipiContratto[indicetipocontratto].cotcTipocontrattoid : this.formData.cotctipocontrattoid;
