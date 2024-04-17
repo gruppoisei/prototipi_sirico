@@ -30,17 +30,14 @@ export class GestioneDipendenteComponent implements OnInit{
       AnsoRagionesociale: ['']
     })
   }
-
-  sendTitoloNuovaPersona() {
-    this.personaService.setData('Inserimento nuovo dipendente')
+    setTitoloModificaPassword()
+    {
+      this.personaService.setTitolo('Modifica dipendente')
     }
 
-  sendTitoloNuovaPersonaProva() {
-      this.personaService.setData('Inserimento nuovo dipendente prova')
-      }
-
-  sendTitoloModificaPersona() {
-      this.personaService.setData('Modifica dipendente')
+    setTitoloNuovaPersona()
+    {
+      this.personaService.setTitolo('Inserimento nuovo dipendente')
     }
 
   getDipendente(personaId: number)

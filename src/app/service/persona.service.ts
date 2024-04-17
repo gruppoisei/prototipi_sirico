@@ -10,21 +10,21 @@ export class PersonaService {
 
   baseUrlVP = 'http://localhost:5143/VistaPersone/'
   baseUrlP = 'http://localhost:5143/Persona/'
-  private data = signal('');
+  private titolo : BehaviorSubject<string> = new BehaviorSubject<string>('')
   private dipendenteSubject = new BehaviorSubject<any>(null);
   dipendente$ = this.dipendenteSubject.asObservable();
 
 
   constructor(private http : HttpClient) { }
 
-  setData(data : string)
+  setTitolo(titolo : string)
   {
-    this.data.set(data);
+    this.titolo.next(titolo);
   }
 
-  getData()
+  getTiolo()
   {
-    return this.data;
+    return this.titolo.getValue();
   }
 
   private creaHttpParams(parametri : ricercaDipendente):HttpParams

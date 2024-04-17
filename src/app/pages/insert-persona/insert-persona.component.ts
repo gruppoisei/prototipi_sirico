@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { RegioneService } from '../../service/regione.service';
@@ -15,6 +15,7 @@ import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
 import FormattaData from '../../helpers/formattaData';
 import { discardPeriodicTasks } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-insert-persona',
@@ -40,7 +41,7 @@ export class InsertPersonaComponent implements OnInit{
   listComuniResidenza: any;
   listComuniDomicilio: any;
   showDomicilio: any;
-  data;
+  data : string;
   idProvinciaNascita : any;
   idRegioneNascita : any;
   idProvinciaResidenza: any;
@@ -59,7 +60,13 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   private serviceDocumenti: DocumentiService)
 
 {
-  this.data= this.personaService.getData();
+  const router = inject(Router)
+
+  this.data = this.personaService.getTiolo();
+  if(this.data === '')
+    {
+      router.navigate(['/Segreteria/gestione-dipendente'])
+    }
   this.minVisita = new Date(this.oggi.getFullYear()-3,0,2).toISOString().split('T')[0];
   this.maxVisita = new Date(this.oggi.getFullYear(),this.oggi.getMonth(),this.oggi.getDate()+2).toISOString().split('T')[0]
 }

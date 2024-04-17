@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private auth: AuthenticationService,
-    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
   ) {}
@@ -141,7 +140,6 @@ export class LoginComponent implements OnInit {
             case statoAccesso.scadutoMFA:
               this.router.navigate(['Account/validatore-mfa']);
 
-              console.log(res.body);
               this.auth.utenteId = res.body;
               break;
             case statoAccesso.utenteLoggato:
