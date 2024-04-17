@@ -3,7 +3,7 @@
 </div>
 <div class="flex flex-row justify-center my-10">
     <form
-        (ngSubmit)="ricercaFiltrata(formDataSearch.AnpeNome, formDataSearch.AnpeCognome, formDataSearch.AnpeCodicefiscale, formDataSearch.AnsoSocietaid)">
+        (ngSubmit)="ricercaFiltrata(formDataSearch.anpeNome, formDataSearch.anpeCognome, formDataSearch.anpeCodicefiscale, formDataSearch.ansoSocietaid)">
         
             
             <div class="flex flex-row justify-end mt-10">
@@ -14,7 +14,7 @@
                 Società
             </div>
             <div class="flex flex-row mb-5">
-                <select [(ngModel)]="formDataSearch.AnsoSocietaid" class="box" name="Societa" required
+                <select [(ngModel)]="formDataSearch.ansoSocietaid" class="box" name="Societa" required
                 class="mx-5 w-1/2 p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <option disabled selected>--Seleziona la società--</option>    
                 <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
@@ -22,13 +22,13 @@
                 </select>
             </div>
             <div class="flex flex-row mb-5">
-                <input [(ngModel)]="formDataSearch.AnpeNome" name="nome" type="search"
+                <input [(ngModel)]="formDataSearch.anpeNome" name="nome" type="search"
                     class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Cerca per nome..." required />
-                <input [(ngModel)]="formDataSearch.AnpeCognome" name="cognome" type="search"
+                <input [(ngModel)]="formDataSearch.anpeCognome" name="cognome" type="search"
                     class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Cerca per cognome..." required />
-                <input [(ngModel)]="formDataSearch.AnpeCodicefiscale" name="codiceFiscale" type="search"
+                <input [(ngModel)]="formDataSearch.anpeCodicefiscale" name="codiceFiscale" type="search"
                     class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Cerca per codice fiscale..." required />
             </div>
@@ -55,19 +55,19 @@
                     <!--<th scope="col" class="px-6 py-3">Id</th>-->
                     <th scope="col" class="px-6 py-3">Nome</th>
                     <th scope="col" class="px-6 py-3">Cognome</th>
-                    <th scope="col" class="px-6 py-3">Codice Fiscale</th>
+                    <!--<th scope="col" class="px-6 py-3">Codice Fiscale</th>-->
                     <th scope="col" class="px-6 py-3">Inizio Contratto</th>
                     <th scope="col" class="px-6 py-3">Fine Contratto</th>
                     <th scope="col" class="px-6 py-3">Tipo Contratto</th>
                     <th scope="col" class="px-6 py-3">CCNL</th>
-                    <th scope="col" class="px-6 py-3">Livello Contratto</th>
+                    <th scope="col" class="px-6 py-3">Livello CCNL</th>
                     <th scope="col" class="px-6 py-3">Società</th>
                     <th scope="col" class="px-6 py-3">RAL</th>
-                    <th scope="col" class="px-6 py-3">Monteore</th>
-                    <th scope="col" class="px-6 py-3">Società Distacco</th>
+                    <th scope="col" class="px-6 py-3">Monteore settimanale</th>
+                <!--<th scope="col" class="px-6 py-3">Società Distacco</th>
                     <th scope="col" class="px-6 py-3">Inizio Distacco</th>
                     <th scope="col" class="px-6 py-3">Fine Distacco</th>
-                    <th scope="col" class="px-6 py-3">Valore Distacco</th>
+                    <th scope="col" class="px-6 py-3">Valore Distacco</th>-->
                     <th scope="col" class="px-6 py-3">Note</th>
                     <th scope="col" class="px-6 py-3"></th>
                 </tr>

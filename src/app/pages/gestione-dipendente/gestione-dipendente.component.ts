@@ -35,7 +35,7 @@ export class GestioneDipendenteComponent implements OnInit{
     this.personaService.setData('Inserimento nuovo dipendente')
     }
 
-    sendTitoloNuovaPersonaProva() {
+  sendTitoloNuovaPersonaProva() {
       this.personaService.setData('Inserimento nuovo dipendente prova')
       }
 
@@ -57,10 +57,10 @@ export class GestioneDipendenteComponent implements OnInit{
         width: 'auto',
         height: 'auto'
       })
-      .afterClosed()
-      {
-        this.ricercaFiltrata();
-      }
+      .afterClosed().subscribe(() =>
+        {
+          this.ricercaFiltrata();
+        })
     }
   
   clearSearch()

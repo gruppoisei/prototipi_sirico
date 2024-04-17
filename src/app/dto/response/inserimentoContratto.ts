@@ -1,31 +1,38 @@
 export interface inserimentoContratto {
-    AnpeNome: string;
-    AnpeCognome: string;
-    AnpeCodicefiscale: string;
-    AnpePersonaid: number | null;
-    AnpePartitaiva: string | null;
-    AnsoSocietaid: string | null;
-    CodiDatainiziocontratto: string ;
-    CodiDatafinecontratto: string;
-    codiFkCotctipocontrattoid: number | null;
-    CoccCcnlid: number;
-    ColiLivelloid: number | null;
-    AnruRuoloid: string | null;
-    CodiRalcompenso: number | null;
-    CodiMonteore: number | null;
-    CodiSmartworking: boolean | null;
-    costopresuntomese: number | null;     // lo includiamo, ma non lo passiamo
-    costopresuntogiorno: number | null;    // lo includiamo, ma non lo passiamo
-    CodsValoredistacco: number | null;     // percentuale
-    ansoSocietaDistaccoid: number | null;
-    CodsDatainiziodistacco: string;
-    CodsDatafinedistacco: string;
-    CodiNote: string | null;
-    CodiSysuser: string;
-    CodiFlagAttiva: number | null;
-    CodsFlagAttiva: number | null;                 // uncheck
-    CodsClienteId: number | null; 
-    CodiContrattopersid: number | null;   
-  }
+  codiContrattopersid: number | null; 
+  anpeNome: string;
+  anpeCognome: string;
+  anpeCodicefiscale: string;
+  anpePersonaid: number | null;
+  anpePartitaiva: string | null;
+  ansoSocietaid: string | null;
+  societaPersona: string | null;
+  codiDatainiziocontratto: string;
+  codiDatafinecontratto: string | null;
+  cotctipocontrattoid: number | null;
+  tipoContratto: string | null;
+  coccCcnlid: number;
+  descrizioneCCNL: string | null;
+  coliLivelloid: number | null;
+  livelloContratto: string | null;
+  codiRalcompenso: number | null;
+  codiMonteore: number | null;
+  codiSmartworking: boolean | null;
+  codsValoredistacco: number | null;     // percentuale
+  codsDatainiziodistacco: string | null;
+  codsDatafinedistacco: string | null;
+  codiNote: string | null;
+  codiSysuser: string;
+  codiFlagAttiva: number | null;
+  codsFlagAttiva: number | null;                 // uncheck
+  codsClienteId: number | null;  
+  societaDistacco: string | null;  
+  codiFkCossVisitamedica: Date | null;
+  durataValiditaVisitaMedica: number | null;
+  codiFkCossCorsosicurezza1: Date | null;
+  durataValiditaCorsoSicurezza1: number | null;
+  codiFkCossCorsosicurezza2: Date | null;
+  durataValiditaCorsoSicurezza2: number | null;
+  codiFkComlIdmotivazione: number | null;
+}
 
-     

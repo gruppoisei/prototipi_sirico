@@ -235,15 +235,31 @@
   <div class="flex w-full flex-nowrap -mx-3 mb-10">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block mb-2 text-sm font-medium text-gray-900">N.telefono 1</label>
-              <input formControlName="AnpeNtelefono1" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              <input formControlName="AnpeNtelefono1" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500"  type="text" placeholder="Scrivi il numero di telefono...">
             <small *ngIf="insertPersona.controls['AnpeNtelefono1'].dirty && insertPersona.hasError('required','AnpeNtelefono1')" class="text-red-600">Numero di telefono obbligatorio</small>
+            <small *ngIf="insertPersona.get('AnpeNtelefono1')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
           </div>
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block mb-2 text-sm font-medium text-gray-900" >N.telefono 2</label>
-              <input formControlName="AnpeNtelefono2" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              <input formControlName="AnpeNtelefono2" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
             focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi il numero di telefono...">
+            <small *ngIf="insertPersona.get('AnpeNtelefono2')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
           </div>
+  </div>
+
+<!--Data visita medica-->    
+  <div class="flex w-full flex-nowrap -mx-3 mb-10">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Data idoneità medica</label>
+              <input formControlName="AnpeDataidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+            focus:border-sky-500 focus:ring-sky-500" type="date" [min]="minVisita" [max]="maxVisita">
+         </div>
+         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Data scadenza idoneità medica</label>
+          <input formControlName="AnpeDatascadenzaidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="date" [max]="maxDateScadenza">
+     </div>
   </div>
 
 <!--Email e società-->
@@ -304,12 +320,9 @@
           <td class="px-6 py-4">{{getFileSize(file.size)}}</td>
         </tr>
       </tbody>
-
     </table>
   </div>
 
-  
-  
 <!--Bottoni-->
   <div class = "w-full flex justify-between mb-10 mt-10">
     <button type="submit" (click)="insertUser()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
