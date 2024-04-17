@@ -22,6 +22,7 @@ import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 import { basicUser, notLogged } from './guard/auth.guard';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
+import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
   // },
   {
     path: 'Account',
+    component:LoginBoxComponent,
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'associazione-mfa', component: AssociazioneMFAComponent },
