@@ -60,6 +60,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingComponent } from './ui/loading/loading.component';
 import { LoadingInterceptor } from './ui/loading/loading.interceptor';
 import { GestioneFileComponent } from './pages/gestione-file/gestione-file.component';
+import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/errore-allegato-dialog.component';
 
 @NgModule({
     declarations: [
@@ -102,7 +103,8 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
         VisualizzaProgettoComponent,
         LoadingComponent,
         SelezionaRuoloDialogComponent,
-        GestioneFileComponent
+        GestioneFileComponent,
+        ErroreAllegatoDialogComponent
     ],
     providers: [
         provideAnimationsAsync(),
