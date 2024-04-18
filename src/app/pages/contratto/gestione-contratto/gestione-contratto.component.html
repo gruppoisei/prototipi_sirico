@@ -4,50 +4,46 @@
 <div class="flex flex-row justify-center my-10">
     <form
         (ngSubmit)="ricercaFiltrata(formDataSearch.anpeNome, formDataSearch.anpeCognome, formDataSearch.anpeCodicefiscale, formDataSearch.ansoSocietaid)">
-        
-            
-            <div class="flex flex-row justify-end mt-10">
-                <a routerLink="/Segreteria/nuovo-contratto"><button mat-icon
-                        class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
-            </div>
-            <div class="flex flex-row ms-5 ">
-                Società
-            </div>
-            <div class="flex flex-row mb-5">
-                <select [(ngModel)]="formDataSearch.ansoSocietaid" class="box" name="Societa" required
+        <div class="flex flex-row justify-end mt-10">
+            <a routerLink="/Segreteria/insert-contratto"><button mat-icon
+                    class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
+        </div>
+        <div class="flex flex-row ms-5 ">
+            Società
+        </div>
+        <div class="flex flex-row mb-5">
+            <select [(ngModel)]="formDataSearch.ansoSocietaid" class="box" name="Societa" required
                 class="mx-5 w-1/2 p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                <option disabled selected>--Seleziona la società--</option>    
+                <option disabled selected>--Seleziona la società--</option>
                 <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
-                    </option>
-                </select>
-            </div>
-            <div class="flex flex-row mb-5">
-                <input [(ngModel)]="formDataSearch.anpeNome" name="nome" type="search"
-                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Cerca per nome..." required />
-                <input [(ngModel)]="formDataSearch.anpeCognome" name="cognome" type="search"
-                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Cerca per cognome..." required />
-                <input [(ngModel)]="formDataSearch.anpeCodicefiscale" name="codiceFiscale" type="search"
-                    class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Cerca per codice fiscale..." required />
-            </div>
-            <div class="flex flex-row justify-end mt-10">
-                <button type="submit"
-                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
-                <button type="button" (click)="clearSearch()"
-                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
-                <button type="button" (click)="closeForm()"
-                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
-
-            </div>
-        </form>
+                </option>
+            </select>
+        </div>
+        <div class="flex flex-row mb-5">
+            <input [(ngModel)]="formDataSearch.anpeNome" name="nome" type="search"
+                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per nome..." required />
+            <input [(ngModel)]="formDataSearch.anpeCognome" name="cognome" type="search"
+                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per cognome..." required />
+            <input [(ngModel)]="formDataSearch.anpeCodicefiscale" name="codiceFiscale" type="search"
+                class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per codice fiscale..." required />
+        </div>
+        <div class="flex flex-row justify-end mt-10">
+            <button type="submit"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button type="button" (click)="clearSearch()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            <button type="button" (click)="closeForm()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
+        </div>
+    </form>
 </div>
-<br>
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
-<div class="flex flex-row my-10"> <!--justify-center-->
-    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
-        <table class="w-3/4 text-base text-left rtl:text-right">
+<div class="flex flex-row"> <!--justify-center-->
+    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center">
+        <table class="text-base text-left rtl:text-right">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
@@ -64,7 +60,7 @@
                     <th scope="col" class="px-6 py-3">Società</th>
                     <th scope="col" class="px-6 py-3">RAL</th>
                     <th scope="col" class="px-6 py-3">Monteore settimanale</th>
-                <!--<th scope="col" class="px-6 py-3">Società Distacco</th>
+                    <!--<th scope="col" class="px-6 py-3">Società Distacco</th>
                     <th scope="col" class="px-6 py-3">Inizio Distacco</th>
                     <th scope="col" class="px-6 py-3">Fine Distacco</th>
                     <th scope="col" class="px-6 py-3">Valore Distacco</th>-->
@@ -73,7 +69,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<tr *ngFor="let dipendente of dipendentiConContratto; index as i" class="bg-white border-b">-->
                 <tr *ngFor="let dipendente of dipendentiConContratto" class="bg-white border-b">
                     <td class="px-6 py-4>">
                         <!--<button type="button" (click)="modifyFields(i)"
@@ -93,35 +88,32 @@
                     </td>
 
                     <!--<td class="px-6 py-4">{{ dipendente.anpePersonaid }}</td>-->
-                    <td class="px-6 py-4">{{ dipendente.nome }}</td>
-                    <td class="px-6 py-4">{{ dipendente.cognome }}</td>
-                    <td class="px-6 py-4">{{ dipendente.codiceFiscale }}</td>
-                    <td *ngIf="dipendente.codiDatainiziocontratto == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codiDatainiziocontratto != null" class="px-6 py-4">{{
-                        dipendente.codiDatainiziocontratto.split("T")[0] }}</td>
-                    <td *ngIf="dipendente.codiDatafinecontratto == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codiDatafinecontratto != null" class="px-6 py-4">{{
-                        dipendente.codiDatafinecontratto.split("T")[0] }}</td>
-                    <td class="px-6 py-4">{{ dipendente.tipoContratto }}</td>
+                    <td class="px-6 py-4 truncate">{{ dipendente.nome }}</td>
+                    <td class="px-6 py-4 truncate">{{ dipendente.cognome }}</td>
+                    <!--<td class="px-6 py-4">{{ dipendente.codiceFiscale }}</td>-->
+                    <td *ngIf="dipendente.codiDatainiziocontratto == null" class="px-6 py-4">....</td>
+                    <td *ngIf="dipendente.codiDatainiziocontratto != null" class="px-6 py-4">{{ dipendente.codiDatainiziocontratto | date: 'dd-MM-yyyy' }}</td>
+                    <td *ngIf="dipendente.codiDatafinecontratto == null" class="px-6 py-4">....</td>
+                    <td *ngIf="dipendente.codiDatafinecontratto != null" class="px-6 py-4">{{ dipendente.codiDatafinecontratto | date: 'dd-MM-yyyy' }}</td>
+                    <td class="px-6 py-4">{{ dipendente.tipodesc }}</td>
                     <td class="px-6 py-4">{{ dipendente.descrizioneCCNL }}</td>
                     <td class="px-6 py-4">{{ dipendente.livelloContratto }}</td>
                     <td class="px-6 py-4">{{ dipendente.societaPersona }}</td>
                     <td class="px-6 py-4">{{ dipendente.codiRalcompenso }}</td>
                     <td class="px-6 py-4">{{ dipendente.codiMonteore }}</td>
-                    <td class="px-6 py-4">{{ dipendente.societaDistacco }}</td>
+                    <!--<td class="px-6 py-4">{{ dipendente.societaDistacco }}</td>
                     <td *ngIf="dipendente.codsDatainiziodistacco == null" class="px-6 py-4"></td>
                     <td *ngIf="dipendente.codsDatainiziodistacco != null" class="px-6 py-4">{{
                         dipendente.codsDatainiziodistacco.split("T")[0] }}</td>
                     <td *ngIf="dipendente.codsDatafinedistacco == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codsDatafinedistacco != null" class="px-6 py-4">{{
-                        dipendente.codsDatafinedistacco.split("T")[0] }}</td>
+                    <td *ngIf="dipendente.codsDatafinedistacco != null" class="px-6 py-4">
+                        {{ dipendente.codsDatafinedistacco.split("T")[0] }}</td>
                     <td *ngIf="dipendente.codsValoredistacco == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codsValoredistacco != null" class="px-6 py-4">{{ dipendente.codsValoredistacco
-                        }}%</td>
+                    <td *ngIf="dipendente.codsValoredistacco != null" class="px-6 py-4">
+                        {{ dipendente.codsValoredistacco }}%</td> -->
                     <td class="px-6 py-4">{{ dipendente.codiNote }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <!--</form>-->
 </div>

@@ -30,7 +30,6 @@ export class AppComponent {
   constructor(private router: Router, private authService : AuthenticationService,public loadingSerive:LoadingService){ 
     // verToken 
     authService.ValidateTokenAsync()
-    
   }
 
   toggleDropdown(){

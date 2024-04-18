@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
 import { RegioneService } from '../../service/regione.service';
 import { PaesiService } from '../../service/paesi.service';
 import { SocietaService } from '../../service/societa.service';
@@ -14,7 +13,7 @@ import { MessageResponseDialogComponent } from '../../ui/message-response-dialog
 import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
 import FormattaData from '../../helpers/formattaData';
-import { discardPeriodicTasks } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-insert-persona',
@@ -40,7 +39,7 @@ export class InsertPersonaComponent implements OnInit{
   listComuniResidenza: any;
   listComuniDomicilio: any;
   showDomicilio: any;
-  data;
+  data : string;
   idProvinciaNascita : any;
   idRegioneNascita : any;
   idProvinciaResidenza: any;
@@ -51,15 +50,23 @@ export class InsertPersonaComponent implements OnInit{
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
 
-constructor(private personaService : PersonaService, private dialog: MatDialog,
+constructor
+(
+  private personaService : PersonaService, private dialog: MatDialog,
   private location: Location, private fb : FormBuilder,
-  private auth: AuthService, private serviceRegione: RegioneService,
-  private servicePaese: PaesiService, private serviceSocieta:SocietaService,
-  private serviceProvince: ProvinceService, private serviceComune:ComuniService,
-  private serviceDocumenti: DocumentiService)
+  private serviceRegione: RegioneService, private servicePaese: PaesiService,
+  private serviceSocieta:SocietaService,private serviceProvince: ProvinceService,
+  private serviceComune:ComuniService, private serviceDocumenti: DocumentiService
+)
 
 {
-  this.data= this.personaService.getData();
+  const router = inject(Router)
+
+  this.data = this.personaService.getTiolo();
+  if(this.data === '')
+    {
+      router.navigate(['/Segreteria/gestione-dipendente'])
+    }
   this.minVisita = new Date(this.oggi.getFullYear()-3,0,2).toISOString().split('T')[0];
   this.maxVisita = new Date(this.oggi.getFullYear(),this.oggi.getMonth(),this.oggi.getDate()+2).toISOString().split('T')[0]
 }
@@ -280,7 +287,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     if(this.insertPersona.valid)
     {
       const personaObj = this.insertPersona.value;
-      this.auth.salvaPersona(personaObj, this.selectedFiles)
+      this.personaService.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
           next:(res) =>
@@ -377,7 +384,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     })
   }
 
-  addFile()
+  /*addFile()
   {
     if(this.selectedFile)
     {
@@ -444,5 +451,5 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-    }
+    }*/
   }

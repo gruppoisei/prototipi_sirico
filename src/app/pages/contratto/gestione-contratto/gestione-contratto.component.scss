@@ -1,13 +1,10 @@
-* {
-    box-sizing: border-box;
-}
-
-h1 {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 25px;
-}
+.truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+  }
+  
 
 .row {
     display: flex;
