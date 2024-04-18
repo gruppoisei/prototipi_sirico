@@ -126,7 +126,10 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
         MatCardModule,
         OrdinaGiorniPipe,
         MatCheckboxModule,
-        MatExpansionModule
+        MatExpansionModule,
+        CdkMenu, 
+        CdkMenuItem, 
+        CdkMenuTrigger,
     ]
 })
 export class AppModule { }
