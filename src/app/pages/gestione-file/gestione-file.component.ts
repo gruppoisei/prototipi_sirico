@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { DocumentiService } from '../../service/documenti.service';
 
 @Component({
@@ -10,6 +10,7 @@ export class GestioneFileComponent {
   selectedFile: File | null = null;
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
+  @ViewChild('fileUploader') fileUploader!: ElementRef
 
   constructor(private serviceDocumenti: DocumentiService){}
 
@@ -28,6 +29,7 @@ export class GestioneFileComponent {
               {
                 this.selectedFiles.push(this.selectedFile!);
                 this.selectedFile = null;
+                this.fileUploader.nativeElement.value= "";
                 this.isTableVisibile = true;
               }
               else
