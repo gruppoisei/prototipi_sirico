@@ -29,11 +29,8 @@ export class AppComponent {
 
   constructor(private router: Router, private authService : AuthenticationService,public loadingSerive:LoadingService){ 
     // verToken 
-    authService.ValidateTokenAsync().then( res =>
-      {
-        console.log(authService.utente)
-      }
-    )
+    authService.ValidateTokenAsync()
+    
   }
 
   toggleDropdown(){
