@@ -27,6 +27,18 @@ export class PersonaService {
     return this.titolo.getValue();
   }
 
+  salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
+  {
+    let formData = new FormData();
+    Object.keys(personaObj).forEach(key => {
+      formData.append(key, personaObj[key]);
+    });
+    for (let i = 0; i < fileAllegati.length; i++) {
+      formData.append(`fileAllegati`, fileAllegati[i]);
+    }
+    return this.http.post<any>(`${this.baseUrlP}/SalvaPersona`, formData)
+  }
+
   private creaHttpParams(parametri : ricercaDipendente):HttpParams
   {
     let httpParams = new HttpParams();
@@ -70,4 +82,6 @@ export class PersonaService {
   clearDipendente() {
     this.dipendenteSubject.next(null);
   }
+
+  
 }

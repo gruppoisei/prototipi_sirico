@@ -52,12 +52,14 @@ export class InsertPersonaComponent implements OnInit{
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
 
-constructor(private personaService : PersonaService, private dialog: MatDialog,
+constructor
+(
+  private personaService : PersonaService, private dialog: MatDialog,
   private location: Location, private fb : FormBuilder,
-  private auth: AuthService, private serviceRegione: RegioneService,
-  private servicePaese: PaesiService, private serviceSocieta:SocietaService,
-  private serviceProvince: ProvinceService, private serviceComune:ComuniService,
-  private serviceDocumenti: DocumentiService)
+  private serviceRegione: RegioneService, private servicePaese: PaesiService,
+  private serviceSocieta:SocietaService,private serviceProvince: ProvinceService,
+  private serviceComune:ComuniService, private serviceDocumenti: DocumentiService
+)
 
 {
   const router = inject(Router)
@@ -287,7 +289,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     if(this.insertPersona.valid)
     {
       const personaObj = this.insertPersona.value;
-      this.auth.salvaPersona(personaObj, this.selectedFiles)
+      this.personaService.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
           next:(res) =>
