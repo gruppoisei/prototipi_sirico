@@ -54,7 +54,7 @@ export class InsertContrattoService {
   }
 
   getAllClienti(): Observable<any> {
-    return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClienti`);
+    return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClientiDistacco`);
   }
 
   getAllTipitipiMotiviFineContratto(): Observable<any> {
@@ -98,7 +98,7 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${newUrl}`);
   }
 
-  getAllContrattiById(idContratto: number): Observable<any> {
+  getContrattiById(idContratto: number): Observable<any> {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
     return this.Http.get<any>(`${this.apiUrl}/GetContrattiById/` + idContratto);
   }
