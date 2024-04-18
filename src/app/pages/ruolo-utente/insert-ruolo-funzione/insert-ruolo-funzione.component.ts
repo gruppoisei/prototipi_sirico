@@ -258,7 +258,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
 
   closeForm() {
     if (confirm('La pagina verrà chiusa e i dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['/gestione-ruolo-funzione']);
+      this.router.navigate(['Segreteria/gestione-ruolo-funzione']);
   }
 }
 

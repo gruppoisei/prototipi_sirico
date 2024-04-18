@@ -31,7 +31,7 @@ export class ValidatoreMFAComponent {
         switch (res.status) {
           case statoAccesso.utenteLoggato:
             this.auth.utente = res.body;
-            this.router.navigate(['/homepage']);
+            this.router.navigate(['']);
             break;
           case statoAccesso.credenzialiValide:
             this.auth.utenteId = res.body.userId;
@@ -46,22 +46,7 @@ export class ValidatoreMFAComponent {
             break;
         }
 
-        // //se utente ha correttamente verificato il codice redirect dentro il sito e creo variabile utente loggato
-        // if (res.status == statoAccesso.utenteLoggato) {
-        //   debugger;
-        //   this.auth.utente = res.body;
-        //   this.router.navigate(['/homepage']);
-        // } else if (this.auth.status == statoAccesso.credenzialiValide) {
-        //   this.auth.utenteId = res.body.userId;
-        //   this.auth.listaRuoliUtente = res.body.listaRuoli;
-        //   this.dialog.open(SelezionaRuoloDialogComponent, {
-        //     width: 'auto',
-        //     height: 'auto',
-        //   });
-        //   //se errore redirect al login
-        // } else {
-        //   alert('errore inserimento codice verifica');
-        // }
+       
       });
   }
 }

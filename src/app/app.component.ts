@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthenticationService } from './service/authentication.service';
 import { firstValueFrom } from 'rxjs';
+import { LoadingService } from './service/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +27,9 @@ export class AppComponent {
   isDropdownOpen: boolean = false;
   selectedItem: string = '';
 
-  constructor(private router: Router, private authService : AuthenticationService){ 
+  constructor(private router: Router, private authService : AuthenticationService,public loadingSerive:LoadingService){ 
     // verToken 
+    authService.ValidateTokenAsync()
   }
 
   toggleDropdown(){

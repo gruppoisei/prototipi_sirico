@@ -36,6 +36,7 @@ export class InsertRuoloUtenteComponent {
     private utenteService: InsertUtenteService,
     public dialog: MatDialog
   ) {
+    console.log(this.personaSelezionata)
     this.utenteId = utenteService.utenteId;
 
     utenteService.GetAllRuoli().subscribe((res) => {

@@ -5,121 +5,135 @@
             <div class="flex gap-8">
                 <!-- COLONNA DI SINITRA -->
                 <div class="w-1/2">
-                    <mat-form-field class="w-full" appearance="fill">
-                        <input matInput [value]="formData.AnpeCodicefiscale" [disabled]="disable_fields"
-                            [(ngModel)]="formData.AnpeCodicefiscale" name="CodiceFiscale" placeholder="Codice fiscale"
+                    <mat-form-field class="w-full" appearance="fill"  floatLabel="auto">
+                        <mat-label>Codice Fiscale</mat-label>
+                        <input matInput [value]="formData.anpeCodicefiscale" [disabled]="disable_fields"
+                            [(ngModel)]="formData.anpeCodicefiscale" name="CodiceFiscale" placeholder="Codice fiscale"
                             class="mat-disabled">
                         <button mat-icon-button type="button" matSuffix (click)="showModalRicercaUtentiSenzaContratto()"
                             class="mat-disabled">
                             <mat-icon>person_add_alt_1</mat-icon>
                         </button>
                     </mat-form-field>
-                    <mat-form-field class="w-full" appearance="fill">
-                        <input matInput [value]="formData.AnpeNome" [disabled]="disable_fields"
-                            [(ngModel)]="formData.AnpeNome" name="Nome" placeholder="Nome" class="mat-disabled">
+                    <mat-form-field class="w-full" appearance="fill"  floatLabel="auto">
+                        <mat-label>Nome</mat-label>
+                        <input matInput [value]="formData.anpeNome" [disabled]="disable_fields"
+                            [(ngModel)]="formData.anpeNome" name="Nome" placeholder="Nome" class="mat-disabled">
                     </mat-form-field>
-                    <mat-form-field class="w-full" appearance="fill">
-                        <input matInput [value]="formData.AnpeCognome" [disabled]="disable_fields"
-                            [(ngModel)]="formData.AnpeCognome" name="Cognome" placeholder="Cognome"
+                    <mat-form-field class="w-full" appearance="fill" floatLabel="auto">
+                        <mat-label>Cognome</mat-label>
+                        <input matInput [value]="formData.anpeCognome" [disabled]="disable_fields"
+                            [(ngModel)]="formData.anpeCognome" name="Cognome" placeholder="Cognome"
                             class="mat-disabled">
                     </mat-form-field>
-                    <mat-form-field class="w-full" appearance="fill" *ngIf="hidePartitaIvaField">
-                        <input matInput [(ngModel)]="formData.AnpePartitaiva" [disabled]="disablePartitaIvaField"
+                    <mat-form-field class="w-full" appearance="fill" *ngIf="hidePartitaIvaField"  floatLabel="auto">
+                        <mat-label>Partita IVA</mat-label>
+                        <input matInput [(ngModel)]="formData.anpePartitaiva" [disabled]="disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
-                    
-                    <mat-form-field class="w-full">
-                        <mat-select [(ngModel)]="formData.AnsoSocietaid" name="Societa" placeholder="Società" required>
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>Società</mat-label>
+                        <mat-select [(ngModel)]="formData.ansoSocietaid" name="Societa" placeholder="Società" required>
                             <mat-option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">
                                 {{ tipo.ansoRagionesociale }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <input matInput [(ngModel)]="formData.CodiDatainiziocontratto" name="datainiziocontratto"
+                    <mat-form-field class="w-full" floatLabel="always">
+                        <mat-label>Data inizio contratto</mat-label>
+                        <input matInput [(ngModel)]="formData.codiDatainiziocontratto" name="datainiziocontratto"
                             type="date" (focus)="dateinizioTouched = true" placeholder="Data inizio contratto"
                             (change)="formValidationCheck()">
-                            <mat-hint align="end">Data inizio contratto</mat-hint>
+                        <!--<mat-hint align="end">Data inizio contratto</mat-hint>-->
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <input matInput [(ngModel)]="formData.CodiDatafinecontratto" name="datafinecontratto"
+                    <mat-form-field class="w-full" floatLabel="always">
+                        <mat-label>Data fine contratto</mat-label>
+                        <input matInput [(ngModel)]="formData.codiDatafinecontratto" name="datafinecontratto"
                             type="date" (focus)="datefineTouched = true" placeholder="Data fine contratto"
-                            (change)="formValidationCheck()">
-                            <mat-hint align="end">Data fine contratto</mat-hint>
+                            (change)="dataFineContrattoSelezionata()">
+                        <!--<mat-hint align="end">Data fine contratto</mat-hint>-->
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <mat-select [(ngModel)]="formData.Cotctipocontrattoid" name="tipocontratto"
+                    <mat-form-field class="w-full" floatLabel="auto" *ngIf="formData.codiDatafinecontratto !== null">
+                        <mat-label>Motivo fine contratto</mat-label>
+                        <mat-select [(ngModel)]="formData.codiFkComlIdmotivazione" name="motivofinecontratto"
+                                    placeholder="Motivo fine contratto" > <!--</mat-select>[required]="formData.CodiDatafinecontratto !== null">-->
+                            <mat-option *ngFor="let tipo of tipiMotiviFineContratto" [value]="tipo.comlIdmotivazione">
+                                {{ tipo.comlDescmotivazione }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>Tipo contratto</mat-label>
+                        <mat-select [(ngModel)]="formData.cotctipocontrattoid" name="tipocontratto"
                             placeholder="Tipo contratto" required>
                             <mat-option *ngFor="let tipo of tipiContratto" [value]="tipo.cotcTipocontrattoid">
                                 {{ tipo.cotcContratto }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <mat-select [(ngModel)]="formData.CoccCcnlid" name="CCNL" placeholder="CCNL"
-                            (ngModelChange)="getAllTipoLivello()" required>
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>CCNL</mat-label>
+                        <mat-select [(ngModel)]="formData.coccCcnlid" name="CCNL" placeholder="CCNL"
+                            (ngModelChange)="getAllTipoLivello(this.formData.coccCcnlid)" required>
                             <mat-option *ngFor="let tipo of tipiCcnl" [value]="tipo.coccCcnlid">
                                 {{ tipo.coccDesc }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <mat-select [(ngModel)]="formData.ColiLivelloid" name="Livello" placeholder="Livello" required>
-                            <!-- <mat-option *ngIf="formData.CoccCcnlid == null && formData.ColiLivelloid == null">
-                                Seleziona un CCNL prima del livello
-                            </mat-option> -->
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>Livello ccnl</mat-label>
+                        <mat-select [(ngModel)]="formData.coliLivelloid" name="Livello" placeholder="Livello" required>
                             <mat-option *ngFor="let tipo of tipiLivello" [value]="tipo.coliLivelloid">
                                 {{ tipo.coliLivellocontratto }}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formData.ColiLivelloid == null">
+                        <mat-error *ngIf="formData.coliLivelloid == null">
                             Seleziona un CCNL prima del livello
                         </mat-error>
                     </mat-form-field>
-                    
-                    
                 </div>
-
                 <!-- COLONNA DI DESTRA -->​
                 <!-- DI SEGUITO TUTTI I CAMPI TESTUALI DI DESTRA -->
-
                 <div class="w-1/2">
-                    <mat-form-field class="w-full">
-                        <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodiRalcompenso"
-                            type="number" name="RAL" inputmode="numeric"
-                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="RAL" required>
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>RAL</mat-label>
+                        <input matInput
+                            (change)="formData.codiRalcompenso ? updateCosts() : null"
+                            [(ngModel)]="formData.codiRalcompenso" type="number" name="RAL" inputmode="numeric"
+                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <input matInput (change)="formValidationCheck()" [(ngModel)]="costopresuntomese"
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>Costo presunto mese</mat-label>
+                        <input matInput (change)="updateCosts()" [(ngModel)]="costopresuntomese"
                             type="number" name="costopresuntomese" inputmode="numeric"
-                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo presunto mese"
-                            required>
+                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0">
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <input matInput (change)="formValidationCheck()" [(ngModel)]="costopresuntogiorno"
-                            type="number" name="costopresuntogiorno" inputmode="numeric"
-                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo presunto giorno"
-                            required>
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>Costo presunto giorno</mat-label>
+                        <input matInput (change)="updateCosts()"
+                            [(ngModel)]="costopresuntogiorno" type="number" name="0"
+                            inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
+                            placeholder="Costo presunto giorno">
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.CodiMonteore"
+                    <mat-form-field class="w-full" floatLabel="auto">
+                        <mat-label>Monteore settimanale</mat-label>
+                        <input matInput (change)="formValidationCheck()" [(ngModel)]="formData.codiMonteore"
                             type="number" name="Monteore" inputmode="numeric"
-                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Monteore" required>
+                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
                     </mat-form-field>
-                    <mat-checkbox (change)="formValidationCheck()" [(ngModel)]="formData.CodiSmartworking"
+                    <mat-checkbox (change)="formValidationCheck()" [(ngModel)]="formData.codiSmartworking"
                         name="smartworking">
                         Smart Working
                     </mat-checkbox>
                     <mat-form-field class="w-full">
-                        <textarea matInput [(ngModel)]="formData.CodiNote" (change)="formValidationCheck()"
+                        <textarea matInput [(ngModel)]="formData.codiNote" (change)="formValidationCheck()"
                             maxlength="65535" type="text" name="Note" placeholder="Note"></textarea>
                     </mat-form-field>
-
                     <div>
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <ng-container>
-                                    <mat-checkbox (change)="formValidationCheck()" [(ngModel)]="formData.CodsFlagAttiva"
+                                    <mat-checkbox (change)="formValidationCheck()" [(ngModel)]="formData.codsFlagAttiva"
                                         name="indistacco">
                                     </mat-checkbox>
                                     <mat-panel-title>
@@ -127,48 +141,52 @@
                                     </mat-panel-title>
                                 </ng-container>
                             </mat-expansion-panel-header>
-
-                            <mat-form-field class="w-full">
+                            <mat-form-field class="w-full" floatLabel="auto">
+                                <mat-label>Percentuale distacco</mat-label>
                                 <input matInput (change)="formValidationCheck()"
-                                    [(ngModel)]="formData.CodsValoredistacco" type="number" name="percentuale"
-                                    placeholder="Percentuale" required>
+                                    [(ngModel)]="formData.codsValoredistacco" type="number" name="Percentuale"
+                                    [disabled]="!this.formData.codsFlagAttiva" placeholder="0"
+                                    [required]="formData.codsFlagAttiva == 1">
                             </mat-form-field>
-                            <mat-form-field class="w-full">
+                            <mat-form-field class="w-full" floatLabel="auto">
+                                <mat-label>Cliente distacco</mat-label>
                                 <mat-select (selectionChange)="openModalIfLastOptionSelected($event)"
-                                    (change)="formValidationCheck()" [(ngModel)]="formData.CodsClienteId"
-                                    [disabled]="!uncheck" name="clientedistacco" placeholder="Cliente distacco"
-                                    required>
+                                    (change)="formValidationCheck()" [(ngModel)]="formData.codsClienteId"
+                                    [disabled]="!this.formData.codsFlagAttiva" name="clientedistacco" placeholder="Cliente distacco"
+                                    [required]="formData.codsFlagAttiva == 1">
                                     <mat-option *ngFor="let cliente of tipiClientiDistacco" [value]="cliente.idcliente">
                                         {{cliente.ragionesociale }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-
-                            <mat-form-field class="w-full">
+                            <mat-form-field class="w-full" floatLabel="always">
+                                <mat-label>Data inizio distacco</mat-label>
                                 <input matInput (change)="formValidationCheck()"
-                                    [(ngModel)]="formData.CodsDatainiziodistacco" type="date" name="datainiziodistacco"
-                                    placeholder="Data inizio distacco" required>
-                                <mat-hint align="end">Data inizio distacco</mat-hint>
+                                    [(ngModel)]="formData.codsDatainiziodistacco" type="date" name="datainiziodistacco"
+                                    [disabled]="!this.formData.codsFlagAttiva" placeholder="Data inizio distacco"
+                                    [required]="formData.codsFlagAttiva == 1">
+                                <!--<mat-hint align="end">Data inizio distacco</mat-hint>-->
                             </mat-form-field>
-
-                            <mat-form-field class="w-full">
+                            <mat-form-field class="w-full" floatLabel="always">
+                                <mat-label>Data fine distacco</mat-label>
                                 <input matInput (change)="formValidationCheck()"
-                                    [(ngModel)]="formData.CodsDatafinedistacco" type="date" name="datafinedistacco"
-                                    placeholder="Data fine distacco" required>
-                                <mat-hint align="end">Data fine distacco</mat-hint>
+                                    [(ngModel)]="formData.codsDatafinedistacco" type="date" name="datafinedistacco"
+                                    [disabled]="!this.formData.codsFlagAttiva" placeholder="Data fine distacco"
+                                    [required]="formData.codsFlagAttiva == 1">
+                                <!--<mat-hint align="end">Data fine distacco</mat-hint>-->
                             </mat-form-field>
-
-                            <div class="panel-footer" *ngIf="contratto !== null && formData.AnpePersonaid !== null">
-                                <button mat-button color="primary" (click)="openCronologiaDistaccoModal()" style="font-size: smaller;">Cronologia Distacchi di {{ formData.AnpeNome }} {{ formData.AnpeCognome }}</button>
+                            <div class="panel-footer" *ngIf="formData.anpePersonaid !== null">
+                                <button mat-button color="primary" (click)="openCronologiaDistaccoModal()"
+                                    style="font-size: smaller;">Cronologia Distacchi di {{ formData.anpeNome }} {{
+                                    formData.anpeCognome }}</button>
                             </div>
-
                         </mat-expansion-panel>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-buttons">
+        <div class="flex justify-center padding-10px">
             <button
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
                 type="submit" [disabled]="!formValidation" [class.disabled]="!formValidation">Salva</button>
@@ -221,22 +239,23 @@
                             <th scope="col" class="px-6 py-3">Nome</th>
                             <th scope="col" class="px-6 py-3">Cognome</th>
                             <th scope="col" class="px-6 py-3">Codice Fiscale</th>
-                            <th scope="col" class="px-6 py-3"></th>
+                            <th scope="col" class="px-6 py-3"> </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let dipendente of dipendentiSenzaContratto ?? []; index as i" class="bg-white border-b">
+                        <tr *ngFor="let dipendente of dipendentiSenzaContratto ?? []; index as i"
+                            class="bg-white border-b">
                             <td class="px-6 py-4">{{ dipendente.anpeNome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCognome }}</td>
                             <td class="px-6 py-4">{{ dipendente.anpeCodicefiscale }}</td>
-                            <td class="px-6 py-4">{{ dipendente.AnpePartitaiva }}</td>
+                            <!--<td class="px-6 py-4">{{ dipendente.AnpePartitaiva }}</td>-->
                             <td class="px-6 py-4>">
                                 <button type="button" (click)="autoFillFields(i)"
                                     class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">SELEZIONA
                                 </button>
                             </td>
                         </tr>
-                    </tbody>                    
+                    </tbody>
                 </table>
             </div>
         </form>

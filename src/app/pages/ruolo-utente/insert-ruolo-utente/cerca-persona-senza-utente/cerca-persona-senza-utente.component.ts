@@ -37,9 +37,12 @@ export class CercaPersonaSenzaUtenteComponent {
     console.log(this.filtroRicerca)
     this.utenteService.GetAllPersoneSenzaUtenza(this.filtroRicerca
       ).subscribe(
+        
       (response: any) => {
+        console.log("aaaa")
         console.log(response);
-        this.dipendentiSenzaUtenza = response;
+        if(response == null) this.dipendentiSenzaUtenza = []
+        else this.dipendentiSenzaUtenza = response;
       },
       (error: any) => {
         console.error(

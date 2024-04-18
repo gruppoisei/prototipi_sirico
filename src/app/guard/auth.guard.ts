@@ -13,7 +13,7 @@ export const notLogged: CanActivateFn = async () => {
       return true;
     }
     else{
-      router.navigate(['homepage'])
+      router.navigate([''])
       return false
     }
 };
@@ -29,7 +29,7 @@ export const basicUser: CanActivateFn = async () => {
     return true
   }
   else{
-    router.navigate(['homepage'])
+    router.navigate([''])
     return false;
   }
 };

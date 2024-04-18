@@ -22,14 +22,21 @@ import { SegreteriaComponent } from './pages/segreteria/segreteria.component';
 import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-cliente.component';
 import { basicUser, notLogged } from './guard/auth.guard';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
+import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 
 const routes: Routes = [
   {
-    path: 'nuova-persona',
-    component: InsertPersonaComponent,
+    path:"",
+    pathMatch: 'full',
+    component:HomepageComponent
   },
+  // {
+  //   path: 'nuova-persona',
+  //   component: InsertPersonaComponent,
+  // },
   {
     path: 'Account',
+    component:LoginBoxComponent,
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'associazione-mfa', component: AssociazioneMFAComponent },
@@ -39,7 +46,7 @@ const routes: Routes = [
     canActivate : [notLogged]
   },
   {
-    path: 'segreteria',
+    path: 'Segreteria',
     component: SegreteriaComponent,
     children: [
       { path: 'gestione-dipendente', component: GestioneDipendenteComponent },
@@ -47,74 +54,81 @@ const routes: Routes = [
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
       { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
+      { path: 'insertutente',component: InsertUtenteComponent,},
+      { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
+      { path: 'insert-ruolo-funzione',component: InsertRuoloFunzioneComponent, },
+      { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
+      { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
+      { path: 'insert-cliente',component: InsertClienteComponent,},
       // {path:,component:},
       // {path:,component:},
     ],
-    canActivate : [basicUser]
-  },
-
-  {
-    path: 'insertutente',
-    component: InsertUtenteComponent,
-  },
-  {
-    path: 'homepage',
-    component: HomepageComponent,
-  },
-  {
-    path: 'richiestaassenzasegreteria',
-    component: RichiestaAssenzaSegreteriaComponent,
-  },
-  {
-    path: 'richiestaassenzautente',
-    component: RichiestaAssenzaUtenteComponent,
-  },
-  {
-    path: '',
-    component: HomepageComponent,
+    //canActivate : [basicUser]
   },
   {
     path: 'rapportino',
     component: CalendarioComponent,
     canActivate : [basicUser]
   },
-  {
-    path: 'modifica-password',
-    component: ModificaPasswordComponent,
-  },
-  {
-    path: 'gestione-dipendente',
-    component: GestioneDipendenteComponent,
-    canActivate : [basicUser]
-  },
-  {
-    path: 'gestione-contratto',
-    component: GestioneContrattoComponent,
-  },
-  {
-    path: 'nuovo-contratto',
-    component: InsertContrattoComponent,
-  },
-  {
-    path: 'gestione-ruolo-funzione',
-    component: GestioneRuoloComponent,
-  },
-  {
-    path: 'insert-ruolo-funzione',
-    component: InsertRuoloFunzioneComponent,
-  },
-  {
-    path: 'gestione-ruolo-utente',
-    component: GestioneRuoloUtenteComponent,
-  },
-  {
-    path: 'insert-ruolo-utente',
-    component: InsertRuoloUtenteComponent,
-  },
-  {
-    path: 'insert-cliente',
-    component: InsertClienteComponent,
-  },
+
+  // {
+  //   path: 'insertutente',
+  //   component: InsertUtenteComponent,
+  // },
+  // {
+  //   path: 'homepage',
+  //   component: HomepageComponent,
+  // },
+  // {
+  //   path: 'richiestaassenzasegreteria',
+  //   component: RichiestaAssenzaSegreteriaComponent,
+  // },
+  // {
+  //   path: 'richiestaassenzautente',
+  //   component: RichiestaAssenzaUtenteComponent,
+  // },
+  // {
+  //   path: '',
+  //   component: HomepageComponent,
+  // },
+  
+  // {
+  //   path: 'modifica-password',
+  //   component: ModificaPasswordComponent,
+  // },
+  // {
+  //   path: 'gestione-dipendente',
+  //   component: GestioneDipendenteComponent,
+  //   canActivate : [basicUser]
+  // },
+  // {
+  //   path: 'gestione-contratto',
+  //   component: GestioneContrattoComponent,
+  // },
+  // {
+  //   path: 'nuovo-contratto',
+  //   component: InsertContrattoComponent,
+  // },
+  // {
+  //   path: 'gestione-ruolo-funzione',
+  //   component: GestioneRuoloComponent,
+  // },
+  // {
+  //   path: 'insert-ruolo-funzione',
+  //   component: InsertRuoloFunzioneComponent,
+  // },
+  // {
+  //   path: 'gestione-ruolo-utente',
+  //   component: GestioneRuoloUtenteComponent,
+  // },
+  // {
+  //   path: 'insert-ruolo-utente',
+  //   component: InsertRuoloUtenteComponent,
+  // }, 
+  // {
+  //   path: 'insert-cliente',
+  //   component: InsertClienteComponent,
+  // },
 ];
 
 @NgModule({

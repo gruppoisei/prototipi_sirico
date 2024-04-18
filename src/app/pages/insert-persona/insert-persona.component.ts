@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
 import { RegioneService } from '../../service/regione.service';
 import { PaesiService } from '../../service/paesi.service';
 import { SocietaService } from '../../service/societa.service';
@@ -14,6 +13,7 @@ import { MessageResponseDialogComponent } from '../../ui/message-response-dialog
 import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
 import FormattaData from '../../helpers/formattaData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-insert-persona',
@@ -39,7 +39,7 @@ export class InsertPersonaComponent implements OnInit{
   listComuniResidenza: any;
   listComuniDomicilio: any;
   showDomicilio: any;
-  data;
+  data : string;
   idProvinciaNascita : any;
   idRegioneNascita : any;
   idProvinciaResidenza: any;
@@ -50,15 +50,23 @@ export class InsertPersonaComponent implements OnInit{
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
 
-constructor(private personaService : PersonaService, private dialog: MatDialog,
+constructor
+(
+  private personaService : PersonaService, private dialog: MatDialog,
   private location: Location, private fb : FormBuilder,
-  private auth: AuthService, private serviceRegione: RegioneService,
-  private servicePaese: PaesiService, private serviceSocieta:SocietaService,
-  private serviceProvince: ProvinceService, private serviceComune:ComuniService,
-  private serviceDocumenti: DocumentiService)
+  private serviceRegione: RegioneService, private servicePaese: PaesiService,
+  private serviceSocieta:SocietaService,private serviceProvince: ProvinceService,
+  private serviceComune:ComuniService, private serviceDocumenti: DocumentiService
+)
 
 {
-  this.data= this.personaService.getData();
+  const router = inject(Router)
+
+  this.data = this.personaService.getTiolo();
+  if(this.data === '')
+    {
+      router.navigate(['/Segreteria/gestione-dipendente'])
+    }
   this.minVisita = new Date(this.oggi.getFullYear()-3,0,2).toISOString().split('T')[0];
   this.maxVisita = new Date(this.oggi.getFullYear(),this.oggi.getMonth(),this.oggi.getDate()+2).toISOString().split('T')[0]
 }
@@ -70,7 +78,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
 
   ngOnInit(): void 
   {
-    
     this.insertPersona = this.fb.group(
       {
         AnpePersonaid: [0],
@@ -97,8 +104,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
         AnpeIndirizzodomicilio: [''],
         AnpeNumerocivicodomicilio: [''],
         AnpeCapdomicilio: ['',Validators.pattern('^[0-9]{5}$')],
-        AnpeNtelefono1: ['', Validators.required],
-        AnpeNtelefono2: [''],
+        AnpeNtelefono1: ['', [Validators.required, Validators.pattern('^((00|\\+)?39)?(3)\\d{8,9}$')]],
+        AnpeNtelefono2: ['', Validators.pattern('^((00|\\+)?39)?(3)\\d{8,9}$')],
         AnpeDataidoneitamedica : [''],
         AnpeDatascadenzaidoneitamedica : [{value: '', disabled : true}],
         AnpeEmailaziendale: ['', [Validators.required, Validators.email]],
@@ -116,7 +123,6 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
           this.insertPersona.get('AnpeDatascadenzaidoneitamedica')?.disable();
         }
       });
-
       this.personaService.dipendente$.subscribe((dipendente)=>
       {
         if(dipendente)
@@ -167,9 +173,8 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
   
     // Formattazione della data di nascita
     const dataNascita = FormattaData.formattaData(dipendente.anpeDatanascita)
-    const dataIdoneitaMedica = FormattaData.formattaData(dipendente.AnpeDataidoneitamedica)
-    const dataScadenzaIdoneitMedica = FormattaData.formattaData(dipendente.AnpeDatascadenzaidoneitamedica)
-    
+    const dataIdoneitaMedica = FormattaData.formattaData(dipendente.anpeDataidoneitamedica)
+    const dataScadenzaIdoneitaMedica = FormattaData.formattaData(dipendente.anpeDatascadenzaidoneitamedica)
     
     // Popolamento delle informazioni personali
     this.insertPersona.patchValue({
@@ -194,7 +199,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       AnpeNtelefono1: dipendente.anpeNtelefono1,
       AnpeNtelefono2: dipendente.anpeNtelefono2,
       AnpeDataidoneitamedica : dataIdoneitaMedica,
-      AnpeDatascadenzaidoneitamedica : dataScadenzaIdoneitMedica,
+      AnpeDatascadenzaidoneitamedica : dataScadenzaIdoneitaMedica,
       AnpeEmailaziendale: dipendente.anpeEmailaziendale,
       AnpeEmailpersonale: dipendente.anpeEmailpersonale,
       AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
@@ -282,8 +287,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     if(this.insertPersona.valid)
     {
       const personaObj = this.insertPersona.value;
-      debugger
-      this.auth.salvaPersona(personaObj, this.selectedFiles)
+      this.personaService.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(
         {
           next:(res) =>

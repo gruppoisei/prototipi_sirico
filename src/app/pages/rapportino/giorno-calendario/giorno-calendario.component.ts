@@ -13,15 +13,12 @@ import { CopiaGiornoDialogComponent } from '../copia-giorno-dialog/copia-giorno-
 export class GiornoCalendarioComponent {
   @Input()
   giorno!: GiornoDiLavoro;
-  // dataGiorno?: Date = new Date();
-  // giornoFestivo: boolean = false;
-  // giornoString: string = '';
-
+  
+  oreGiornoFullTime = 8
   orarioDiLavoroConvertitoInOre = 0;
   oreLavorate = 0;
   oreStraordinario = 0;
   validatoreOreGiorno = false;
-  // erroreGiornoFestivo = false;
 
   verificaGiornoCompletoInizio = '00:00';
   verificaGiornoCompletoFine = '23:59';
@@ -42,15 +39,7 @@ export class GiornoCalendarioComponent {
         this.VerificaValiditaGiorno();
         this.rapportinoService.oreLavorateMese += this.oreLavorate;
       }
-      // else {
-      //   for (let i = 0; i < this.giorno.listaAttivitaGiorno.length; i++) {
-      //     if (this.giorno.listaAttivitaGiorno[i].oreLavorate > 0) {
-      //       this.erroreGiornoFestivo = true;
-      //       this.rapportinoService.erroriGiorniMese++;
-      //     }
-      //   }
-      //   this.giorno.listaAssenzeGiorno = [];
-      // }
+     
     }
   }
   ClickMe() {
@@ -97,10 +86,7 @@ export class GiornoCalendarioComponent {
             );
         }
 
-        let oretotali;
-
-        oretotali =
-          this.ConvertitoreOraIntero(end) - this.ConvertitoreOraIntero(start);
+        let oretotali=this.ConvertitoreOraIntero(end) - this.ConvertitoreOraIntero(start);
 
         //sottraggo tempo pausa
         if (
@@ -154,9 +140,10 @@ export class GiornoCalendarioComponent {
     if (
       (this.oreLavorate + this.oreStraordinario ==
         this.orarioDiLavoroConvertitoInOre &&
-        this.oreLavorate >= 8) ||
+        this.oreLavorate == this.oreGiornoFullTime) ||
       (this.rapportinoService.risposta.rapportino.part_time &&
-        this.oreLavorate + this.oreStraordinario > 0)
+        this.oreLavorate + this.oreStraordinario > 0) ||
+        (this.giorno.giornoFestivo && this.oreStraordinario > 0 && this.oreLavorate == 0)
     ) {
       this.validatoreOreGiorno = true;
       this.rapportinoService.giorniConfermati += 1;

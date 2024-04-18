@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, firstValueFrom, map, tap, throwError } from 'rxjs';
 import { ruoloUtente } from '../guard/auth.guard';
 
 @Injectable({
@@ -25,7 +25,6 @@ export class AuthenticationService {
 }
 
   constructor( private http: HttpClient) {
-    // this.ValidateToken()
 
   }
   
@@ -45,10 +44,12 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
 
-
+  logout()
+  {
+    return this.http.get<any>(`${this.baseUrl}Logout`,this.httpOptions)
+  }
 
   ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
-    console.log(this.utenteId + validatoreMFA)
     return this.http
       .post<any>(
         'http://localhost:5143/Login/ConfermaValidatore',
@@ -86,6 +87,28 @@ export class AuthenticationService {
     );
   }
   
+
+  async ValidateTokenAsync():Promise<number> {
+    let response = this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
+      map((res) => {
+        if (res.status == 200) {
+          console.log(res.body)
+          this.utente = res.body;
+          const ruolo = Number(this.utente?.idRuolo);
+          return ruolo;
+        } else {
+          this.utente = undefined;
+          return ruoloUtente.NonLoggato;
+        }
+      }),
+      catchError((err) => {
+        console.log(err);
+        return throwError(err);
+      })
+    );
+    const res = await firstValueFrom(response)
+    return res
+  }
 
   storeIdRuolo(idRuolo : string)
   {

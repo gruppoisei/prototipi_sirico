@@ -53,13 +53,13 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['/homepage']);
+    this.router.navigate(['']);
   }
 
   modificaRuolo(id: number) {
     this.ruoliservice.utenteId$.next(id);
     this.ruoliservice.utenteId = id
-    this.router.navigate(['/insert-ruolo-utente']);
+    this.router.navigate(['Segreteria/insert-ruolo-utente']);
   }
 
   eliminaUtente(Id: number) {

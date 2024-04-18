@@ -7,7 +7,7 @@ import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login-box/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { GiornoCalendarioComponent } from './pages/rapportino/giorno-calendario/giorno-calendario.component';
@@ -52,6 +52,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CronologiaDistaccoComponent } from './pages/contratto/cronologia-distacco/cronologia-distacco.component';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
+import { ProgettoComponent } from './pages/progetto/progetto.component';
+import { VisualizzaProgettoComponent } from './pages/progetto/visualizza-progetto/visualizza-progetto.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoadingComponent } from './ui/loading/loading.component';
+import { LoadingInterceptor } from './ui/loading/loading.interceptor';
 import { GestioneFileComponent } from './pages/gestione-file/gestione-file.component';
 
 @NgModule({
@@ -91,9 +98,16 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
         InsertClienteComponent,
         CronologiaDistaccoComponent,
         SelezionaRuoloDialogComponent,
+        ProgettoComponent,
+        VisualizzaProgettoComponent,
+        LoadingComponent,
+        SelezionaRuoloDialogComponent,
         GestioneFileComponent
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+          },
         provideAnimationsAsync(),
     ],
     bootstrap: [AppComponent],
@@ -101,9 +115,12 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
         BrowserModule,
         AppRoutingModule,
         FormsModule,
+        MatProgressSpinnerModule,
+        CdkMenu, CdkMenuItem, CdkMenuTrigger,
         ReactiveFormsModule,
         HttpClientModule,
         MatSelectModule,
+        MatMenuModule,
         BrowserAnimationsModule,
         MatBadgeModule,
         MatButtonModule,

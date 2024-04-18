@@ -10,21 +10,33 @@ export class PersonaService {
 
   baseUrlVP = 'http://localhost:5143/VistaPersone/'
   baseUrlP = 'http://localhost:5143/Persona/'
-  private data = signal('');
+  private titolo : BehaviorSubject<string> = new BehaviorSubject<string>('')
   private dipendenteSubject = new BehaviorSubject<any>(null);
   dipendente$ = this.dipendenteSubject.asObservable();
 
 
   constructor(private http : HttpClient) { }
 
-  setData(data : string)
+  setTitolo(titolo : string)
   {
-    this.data.set(data);
+    this.titolo.next(titolo);
   }
 
-  getData()
+  getTiolo()
   {
-    return this.data;
+    return this.titolo.getValue();
+  }
+
+  salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
+  {
+    let formData = new FormData();
+    Object.keys(personaObj).forEach(key => {
+      formData.append(key, personaObj[key]);
+    });
+    for (let i = 0; i < fileAllegati.length; i++) {
+      formData.append(`fileAllegati`, fileAllegati[i]);
+    }
+    return this.http.post<any>(`${this.baseUrlP}/SalvaPersona`, formData)
   }
 
   private creaHttpParams(parametri : ricercaDipendente):HttpParams
@@ -70,4 +82,6 @@ export class PersonaService {
   clearDipendente() {
     this.dipendenteSubject.next(null);
   }
+
+  
 }
