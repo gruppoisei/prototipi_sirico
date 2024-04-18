@@ -289,44 +289,12 @@
           <small *ngIf="insertPersona.controls['AnpeFkAnsoSocietaid'].dirty && insertPersona.hasError('required','AnpeFkAnsoSocietaid')" class="text-red-600">Società obbligatoria</small>
         </div>
   </div>
-
-<!-- File dipendente    
-  <div class="flex w-full justify-start gap-9 -mx-3 flex-nowrap mb-10 mt-16 px-3">
-    <input type = "file" class= "text-gray-900 sm:text-sm rounded-lg block file:mr-4 file:py-2 file:px-4
-    file:rounded-lg file:border-0
-    file:cursor-pointer
-    file:text-sm file:font-semibold
-    file:bg-blue-600 file:text-white
-    hover:file:bg-blue-700" (change)="onFileSelected($event)">
-    <button (click)="addFile()" class = " h-1/4 w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Aggiungi</button>
-  </div>
-
-  <div class="w-full">
-    <table *ngIf="isTableVisibile" class="w-full text-base text-left rtl:text-right my-10">
-      <thead class="text-sm uppercase text-white bg-blue-600">
-        <tr>
-          <th scope="col" class="px-6 py-3">Azioni</th>
-          <th scope="col" class="px-6 py-3">Nome file</th>
-          <th scope="col" class="px-6 py-3">Dimensioni</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let file of selectedFiles">
-          <td class="px-6 py-4 flex gap-3">
-            <button mat-icon class="material-icons text-red-600" (click)="removeFile(file)">clear</button>
-            <button mat-icon class ="material-icons text-green-600" (click)="downloadFile(file)">save_alt</button>
-          </td>
-          <td class="px-6 py-4">{{file.name}}</td>
-          <td class="px-6 py-4">{{getFileSize(file.size)}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>-->
+  
   <app-gestione-file></app-gestione-file>
 
 <!--Bottoni-->
   <div class = "w-full flex justify-between mb-10 mt-10">
-    <button type="submit" (click)="insertUser()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
+    <button type="submit" (click)="salvaPersona()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
     <button (click)="clearSearch()" class=" w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
     <button (click)="goBack()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
   </div>
