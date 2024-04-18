@@ -95,7 +95,7 @@ export class RapportinoService {
           console.log(v);
         })
       )
-      .subscribe();
+      
   }
 
   AggiungiAttivitaGiorno(

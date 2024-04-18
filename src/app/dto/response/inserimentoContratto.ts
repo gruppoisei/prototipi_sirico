@@ -1,8 +1,8 @@
 export interface inserimentoContratto {
   codiContrattopersid: number | null; 
-  anpeNome: string;
-  anpeCognome: string;
-  anpeCodicefiscale: string;
+  nome: string;
+  cognome: string;
+  codiceFiscale: string;
   anpePersonaid: number | null;
   anpePartitaiva: string | null;
   ansoSocietaid: string | null;
@@ -11,7 +11,7 @@ export interface inserimentoContratto {
   codiDatafinecontratto: string | null;
   cotctipocontrattoid: number | null;
   tipoContratto: string | null;
-  coccCcnlid: number;
+  ccnlid: number;
   descrizioneCCNL: string | null;
   coliLivelloid: number | null;
   livelloContratto: string | null;
@@ -25,7 +25,7 @@ export interface inserimentoContratto {
   codiSysuser: string;
   codiFlagAttiva: number | null;
   codsFlagAttiva: number | null;                 // uncheck
-  codsClienteId: number | null;  
+  codsClienteId: any | null;  
   societaDistacco: string | null;  
   codiFkCossVisitamedica: Date | null;
   durataValiditaVisitaMedica: number | null;
@@ -33,6 +33,7 @@ export interface inserimentoContratto {
   durataValiditaCorsoSicurezza1: number | null;
   codiFkCossCorsosicurezza2: Date | null;
   durataValiditaCorsoSicurezza2: number | null;
-  codiFkComlIdmotivazione: number | null;
+  motivoFineContratto: string | null;
+  motivoFineContrattoId: number | null;
 }
 
