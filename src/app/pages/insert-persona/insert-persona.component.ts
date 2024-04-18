@@ -13,7 +13,6 @@ import { MessageResponseDialogComponent } from '../../ui/message-response-dialog
 import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
 import FormattaData from '../../helpers/formattaData';
-import { discardPeriodicTasks } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 @Component({

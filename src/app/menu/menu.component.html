@@ -26,14 +26,13 @@
       </div>
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex flex-shrink-0 items-center">
-          <a routerLink="">
-          <img class="w-auto h-auto" src="\assets\SCOD_Logo_Little.png" alt="SCOD 2">
-        </a>
+          <a routerLink=""><img class="w-auto h-auto" src="\assets\SCOD_Logo_Little.png" alt="SCOD 2"></a>
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4 justify-items-center mt-2">
             <!-- <a routerLink="" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Home</a> -->
             <a routerLink="Account/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Login</a>
+            <a (click)="logout()" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">Logout</a>
             <a routerLink="rapportino" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Rapportino</a>
             <!-- <a routerLink="richiestaassenzautente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Inserisci assenza</a> -->
             <button [cdkMenuTriggerFor]="segreteria"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Segreteria</button>

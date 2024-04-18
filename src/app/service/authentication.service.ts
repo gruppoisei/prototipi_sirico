@@ -25,7 +25,6 @@ export class AuthenticationService {
 }
 
   constructor( private http: HttpClient) {
-    // this.ValidateToken()
 
   }
   
@@ -45,10 +44,12 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
 
-
+  logout()
+  {
+    return this.http.get<any>(`${this.baseUrl}Logout`,this.httpOptions)
+  }
 
   ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
-    console.log(this.utenteId + validatoreMFA)
     return this.http
       .post<any>(
         'http://localhost:5143/Login/ConfermaValidatore',
