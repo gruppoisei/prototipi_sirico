@@ -14,11 +14,11 @@ export class CalendarioComponent  {
   giornoDefault: Date = new Date();
   constructor(public rapportinoService:RapportinoService) {
 
-    
-    this.TrovaMesiDaVisualizzare()
     this.giornoDefault = this.listaMesi[1];
-    this.rapportinoService.AggiornaBox();
+    this.TrovaMesiDaVisualizzare()
     this.rapportinoService.RaccogliInfoPersona()
+    this.rapportinoService.AggiornaBox();
+    this.rapportinoService.resetiCampi()
   }
   
 
