@@ -380,7 +380,7 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
     })
   }
 
-  addFile()
+  /*addFile()
   {
     if(this.selectedFile)
     {
@@ -447,5 +447,5 @@ constructor(private personaService : PersonaService, private dialog: MatDialog,
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-    }
+    }*/
   }

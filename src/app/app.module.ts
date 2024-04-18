@@ -52,6 +52,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CronologiaDistaccoComponent } from './pages/contratto/cronologia-distacco/cronologia-distacco.component';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
+import { GestioneFileComponent } from './pages/gestione-file/gestione-file.component';
 
 @NgModule({
     declarations: [
@@ -89,7 +90,8 @@ import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo
         SegreteriaComponent,
         InsertClienteComponent,
         CronologiaDistaccoComponent,
-        SelezionaRuoloDialogComponent
+        SelezionaRuoloDialogComponent,
+        GestioneFileComponent
     ],
     providers: [
         provideAnimationsAsync(),
