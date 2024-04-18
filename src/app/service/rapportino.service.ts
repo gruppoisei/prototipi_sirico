@@ -66,8 +66,8 @@ export class RapportinoService {
     // this.RaccogliInfoPersona();
   }
 
-  
-  AggiornaGiorniMese(giorno: Date) {
+  resetiCampi()
+  {
     this.giorniValidiMese = 0;
     this.giorniConfermati = 0;
     this.erroriGiorniMese = 0
@@ -78,6 +78,9 @@ export class RapportinoService {
     this.oreStraordinarioMese =0
     
     this.oreProgetto=[]
+  }
+  AggiornaGiorniMese(giorno: Date) {
+    this.resetiCampi()
     // this.oreValideMese = 0
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
@@ -123,6 +126,9 @@ export class RapportinoService {
         this.AggiornaBox();
       });
   }
+
+
+
 
   ConfermaMese() {
     this.http
