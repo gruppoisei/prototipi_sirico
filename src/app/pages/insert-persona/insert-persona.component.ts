@@ -384,7 +384,7 @@ constructor
     })
   }
 
-  addFile()
+  /*addFile()
   {
     if(this.selectedFile)
     {
@@ -451,5 +451,5 @@ constructor
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-    }
+    }*/
   }

@@ -52,6 +52,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CronologiaDistaccoComponent } from './pages/contratto/cronologia-distacco/cronologia-distacco.component';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from '@angular/cdk/menu';
+import { ProgettoComponent } from './pages/progetto/progetto.component';
+import { VisualizzaProgettoComponent } from './pages/progetto/visualizza-progetto/visualizza-progetto.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoadingComponent } from './ui/loading/loading.component';
+import { LoadingInterceptor } from './ui/loading/loading.interceptor';
+import { GestioneFileComponent } from './pages/gestione-file/gestione-file.component';
 
 @NgModule({
     declarations: [
@@ -89,7 +97,12 @@ import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo
         SegreteriaComponent,
         InsertClienteComponent,
         CronologiaDistaccoComponent,
-        SelezionaRuoloDialogComponent
+        SelezionaRuoloDialogComponent,
+        ProgettoComponent,
+        VisualizzaProgettoComponent,
+        LoadingComponent,
+        SelezionaRuoloDialogComponent,
+        GestioneFileComponent
     ],
     providers: [
         provideAnimationsAsync(),
