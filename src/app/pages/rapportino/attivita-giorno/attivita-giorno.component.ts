@@ -125,7 +125,7 @@ export class AttivitaGiornoComponent {
   AssenzaAggiunta()
   {
     this.dialogRef.close()
-    this.rapportinoService.AggiornaBox()
+    this.rapportinoService.AggiornaGiorniMese()
   }
 
   ConfermaGiorno() {

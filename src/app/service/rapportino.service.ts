@@ -8,6 +8,7 @@ import { AttivitaGiornoResponse } from '../dto/response/AttivitaGiorno';
 import { GiornoLavorativo } from '../dto/request/giornolavorativo';
 import { GiorniDaCopiare } from '../dto/request/copiaGiorni';
 import { AuthenticationService } from './authentication.service';
+import { convertitoreOraIntero } from '../pages/rapportino/giorno-calendario/giorno-calendario.component';
 
 @Injectable({
   providedIn: 'root',
@@ -79,22 +80,24 @@ export class RapportinoService {
     
     this.oreProgetto=[]
   }
-  AggiornaGiorniMese(giorno: Date) {
+  AggiornaGiorniMese() {
     this.resetiCampi()
     // this.oreValideMese = 0
     let datePipe = new DatePipe('en-US');
-    const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
-    return this.http
+    const dateFormatted = datePipe.transform(this.giornoRiferimento, 'yyyy-MM-dd');
+    this.http
       .post<CalendarioRequest>(
         `http://localhost:5143/Vistamese/GetAllInfoMese`,{utenteId:this.auth.utente?.id,dataRiferimentostring:dateFormatted}
       )
       .pipe(
         tap((v) => {
-          console.log(this.risposta)
           this.risposta = v;
-          console.log(v);
+          
         })
-      )
+      ).subscribe((res) => {
+        this.AggiornaBox();
+        this.AggiornaDettagliRapportinoMese();
+        });
       
   }
 
@@ -104,7 +107,11 @@ export class RapportinoService {
     return this.http.post<number>(
       'http://localhost:5143/AttivitaGiorno/InsertAttivitaGiornaliera',
       attivitaDaInserire
-    );
+    ).pipe(
+      tap((v) => {
+        this.AggiornaGiorniMese()
+      })
+    )
   }
 
   RaccogliInfoPersona() {
@@ -123,7 +130,7 @@ export class RapportinoService {
         this.httpOptions
       )
       .subscribe((res) => {
-        this.AggiornaBox();
+        this.AggiornaGiorniMese()
       });
   }
 
@@ -148,7 +155,7 @@ export class RapportinoService {
       )
       .subscribe((res) => {
         alert('giorno eliminato');
-        this.AggiornaBox();
+        this.AggiornaGiorniMese()
       });
   }
 
@@ -162,7 +169,7 @@ export class RapportinoService {
       .subscribe((res) => 
       {
         alert(res)
-        this.AggiornaBox()
+        this.AggiornaGiorniMese()
 
       });
   }
@@ -172,7 +179,7 @@ export class RapportinoService {
       .put<any>('http://localhost:5143/AttivitaGiorno/ConfermaGiorno', giorno,this.httpOptions)
       .subscribe((res) => {
         alert(res);
-        this.AggiornaBox();
+        this.AggiornaGiorniMese()
       });
   }
 
@@ -180,10 +187,159 @@ export class RapportinoService {
     this.http
       .post('http://localhost:5143/Vistamese/CopiaAttivitaGiorno', body)
       .subscribe((res) => {
-        this.AggiornaBox();
+        this.AggiornaGiorniMese()
       });
   }
 
+  AggiornaDettagliRapportinoMese() {
+    this.resetiCampi();
+    this.risposta.listaGiorniLavoroMese.map((giorno) => {
+      console.log(giorno.giornoData);
+      giorno.giornoValido = false;
+      let oreOrdinarieGiorno = 0;
+      let oreStraordinarieGiorno = 0;
+      let oreAssenzaGiorno = 0;
+
+      //giorni lavorativi mese
+      if (!giorno.giornoFestivo) {
+        this.giorniValidiMese += 1;
+        this.oreMinimeTotali +=
+          this.risposta.rapportino.oreLavoroGiornaliere!;
+      }
+      //orario giorno
+      let orarioDiLavoroConvertitoInOre =
+        convertitoreOraIntero(giorno.oraUscita!) -
+        convertitoreOraIntero(giorno.oraEntrata!) -
+        convertitoreOraIntero(giorno.oraFinePausa!) +
+        convertitoreOraIntero(giorno.oraInizioPausa!);
+      console.log('ore giorno: ' + orarioDiLavoroConvertitoInOre);
+      giorno.listaAssenzeGiorno.forEach((assenza) => {
+        debugger;
+        let start = assenza.oraInizio;
+        let end = assenza.oraFine;
+
+        if (assenza.oraInizio < giorno.oraEntrata!) {
+          start = giorno.oraEntrata!;
+          assenza.oraInizio = giorno.oraEntrata!;
+        }
+
+        if (assenza.oraFine > giorno.oraUscita!) {
+          end = giorno.oraUscita!;
+          assenza.oraFine = giorno.oraUscita!;
+        }
+
+        if (assenza.statoApprovazione) {
+          if (assenza.oraFine <= giorno.oraEntrata) {
+            giorno.listaAssenzeGiorno = giorno.listaAssenzeGiorno.filter(
+              (a) => a.assenzaId != assenza.assenzaId
+            );
+          }
+
+          let oreAssenza =
+            convertitoreOraIntero(end) - convertitoreOraIntero(start);
+          let rimuoviTempoPausa = false;
+          //sottraggo tempo pausa
+          if (
+            assenza.oraInizio < giorno.oraInizioPausa &&
+            assenza.oraFine > giorno.oraInizioPausa
+          ) {
+            start = giorno.oraInizioPausa;
+            rimuoviTempoPausa = true;
+          }
+
+          if (
+            assenza.oraInizio < giorno.oraFinePausa &&
+            assenza.oraInizio > giorno.oraInizioPausa &&
+            assenza.oraFine > giorno.oraFinePausa
+          ) {
+            end = giorno.oraFinePausa;
+            rimuoviTempoPausa = true;
+          }
+
+          if (
+            assenza.oraInizio < giorno.oraInizioPausa &&
+            assenza.oraFine > giorno.oraFinePausa
+          ) {
+            start = giorno.oraInizioPausa;
+            end = giorno.oraFinePausa;
+            rimuoviTempoPausa = true;
+          }
+
+          if (
+            assenza.oraInizio > giorno.oraInizioPausa &&
+            assenza.oraFine < giorno.oraFinePausa
+          ) {
+            start = assenza.oraInizio;
+            end = assenza.oraFine;
+            rimuoviTempoPausa = true;
+          }
+
+          if (rimuoviTempoPausa) {
+            oreAssenza =
+              oreAssenza -
+              (convertitoreOraIntero(end) - convertitoreOraIntero(start));
+          }
+          console.log(
+            'ore assenza del giorno ' +
+              giorno.giornoData +
+              ' sono :' +
+              oreAssenza
+          );
+          if (
+            oreAssenza >
+            this.risposta.rapportino.oreLavoroGiornaliere!
+          )
+            oreAssenza =
+              this.risposta.rapportino.oreLavoroGiornaliere!;
+
+          console.log('assenza: ' + oreAssenza);
+          oreOrdinarieGiorno += oreAssenza;
+          oreAssenzaGiorno += oreAssenza;
+        }
+      });
+
+      for (let i = 0; i < giorno.listaAttivitaGiorno.length; i++) {
+        oreOrdinarieGiorno += giorno.listaAttivitaGiorno[i].oreLavorate;
+        oreStraordinarieGiorno +=
+          giorno.listaAttivitaGiorno[i].oreStraordinario;
+
+        let prog = this.oreProgetto.findIndex(
+          (a) => a.nomeProgetto == giorno.listaAttivitaGiorno[i].nomeProgetto
+        );
+
+        if (prog == -1)
+          this.oreProgetto.push({
+            nomeProgetto: giorno.listaAttivitaGiorno[i].nomeProgetto!,
+            oreProgetto:
+              giorno.listaAttivitaGiorno[i].oreLavorate +
+              giorno.listaAttivitaGiorno[i].oreStraordinario,
+          });
+        else
+          this.oreProgetto[i].oreProgetto +=
+            giorno.listaAttivitaGiorno[i].oreLavorate +
+            giorno.listaAttivitaGiorno[i].oreStraordinario;
+      }
+      this.oreLavorateMese += oreOrdinarieGiorno;
+      this.oreStraordinarioMese += oreStraordinarieGiorno;
+      if (
+        (oreOrdinarieGiorno + oreStraordinarieGiorno ==
+          orarioDiLavoroConvertitoInOre &&
+          oreOrdinarieGiorno ==
+            this.risposta.rapportino.oreLavoroGiornaliere) ||
+        (this.risposta.rapportino.part_time &&
+          oreOrdinarieGiorno + oreStraordinarieGiorno > 0) ||
+        (giorno.giornoFestivo &&
+          oreStraordinarieGiorno > 0 &&
+          oreOrdinarieGiorno == 0)
+      ) {
+        giorno.giornoValido = true;
+        this.giorniConfermati += 1;
+      }
+      return giorno;
+    });
+
+    //
+  }
 
   //variabili per la gestione delle date del mese
   giornoRiferimento = new Date();

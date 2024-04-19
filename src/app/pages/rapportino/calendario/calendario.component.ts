@@ -9,160 +9,172 @@ import { timer } from 'rxjs';
   templateUrl: './calendario.component.html',
   styleUrl: './calendario.component.scss',
 })
-export class CalendarioComponent{
+export class CalendarioComponent {
   listaMesi: Date[] = [];
 
   giornoDefault: Date = new Date();
   constructor(public rapportinoService: RapportinoService) {
+    
+    this.rapportinoService.RaccogliInfoPersona();
+    this.TrovaMesiDaVisualizzare();
     this.giornoDefault = this.listaMesi[1];
-
-    this.rapportinoService.AggiornaGiorniMese(this.rapportinoService.giornoRiferimento).subscribe(
-      res =>
-        {
-          this.rapportinoService.AggiornaBox();
-          this.AggiornaDettagliRapportinoMese();
-          this.TrovaMesiDaVisualizzare();
-          this.rapportinoService.RaccogliInfoPersona();
-        }
-    )
-   
+    this.rapportinoService
+    .AggiornaGiorniMese()
+    // .subscribe((res) => {
+    //   this.rapportinoService.AggiornaBox();
+    //   this.AggiornaDettagliRapportinoMese();
+    //   });
   }
-  
 
-  AggiornaDettagliRapportinoMese() {
-    console.log(1000)
-    debugger;
-    this.rapportinoService.resetiCampi();
-    let oreOrdinarieMese = 0;
-    let oreStraordinarieMese = 0;
-    let oreAssenzaMese = 0;
-    this.rapportinoService.risposta.listaGiorniLavoroMese.map((giorno) => {
-      giorno.giornoValido = false;
-      let oreOrdinarieGiorno = 0;
-      let oreStraordinarieGiorno = 0;
-      let oreAssenzaGiorno = 0;
+  // AggiornaDettagliRapportinoMese() {
+  //   this.rapportinoService.resetiCampi();
+  //   this.rapportinoService.risposta.listaGiorniLavoroMese.map((giorno) => {
+  //     console.log(giorno.giornoData);
+  //     giorno.giornoValido = false;
+  //     let oreOrdinarieGiorno = 0;
+  //     let oreStraordinarieGiorno = 0;
+  //     let oreAssenzaGiorno = 0;
 
-      //giorni lavorativi mese
-      if (!giorno.giornoFestivo) {
-        this.rapportinoService.giorniValidiMese += 1;
-        this.rapportinoService.oreMinimeTotali += this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!
-      }
-      //orario giorno
-      let orarioDiLavoroConvertitoInOre =
-        convertitoreOraIntero(giorno.oraUscita!) -
-        convertitoreOraIntero(giorno.oraEntrata!) -
-        convertitoreOraIntero(giorno.oraFinePausa!) +
-        convertitoreOraIntero(giorno.oraInizioPausa!);
+  //     //giorni lavorativi mese
+  //     if (!giorno.giornoFestivo) {
+  //       this.rapportinoService.giorniValidiMese += 1;
+  //       this.rapportinoService.oreMinimeTotali +=
+  //         this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!;
+  //     }
+  //     //orario giorno
+  //     let orarioDiLavoroConvertitoInOre =
+  //       convertitoreOraIntero(giorno.oraUscita!) -
+  //       convertitoreOraIntero(giorno.oraEntrata!) -
+  //       convertitoreOraIntero(giorno.oraFinePausa!) +
+  //       convertitoreOraIntero(giorno.oraInizioPausa!);
+  //     console.log('ore giorno: ' + orarioDiLavoroConvertitoInOre);
+  //     giorno.listaAssenzeGiorno.forEach((assenza) => {
+  //       debugger;
+  //       let start = assenza.oraInizio;
+  //       let end = assenza.oraFine;
 
-      giorno.listaAssenzeGiorno.forEach((assenza) => {
-        let start = assenza.oraInizio;
-        let end = assenza.oraFine;
+  //       if (assenza.oraInizio < giorno.oraEntrata!) {
+  //         start = giorno.oraEntrata!;
+  //         assenza.oraInizio = giorno.oraEntrata!;
+  //       }
 
-        if (assenza.oraInizio < giorno.oraEntrata!) {
-          start = giorno.oraEntrata!;
-          assenza.oraInizio = giorno.oraEntrata!;
-        }
+  //       if (assenza.oraFine > giorno.oraUscita!) {
+  //         end = giorno.oraUscita!;
+  //         assenza.oraFine = giorno.oraUscita!;
+  //       }
 
-        if (assenza.oraFine > giorno.oraUscita!) {
-          end = giorno.oraUscita!;
-          assenza.oraFine = giorno.oraUscita!;
-        }
+  //       if (assenza.statoApprovazione) {
+  //         if (assenza.oraFine <= giorno.oraEntrata) {
+  //           giorno.listaAssenzeGiorno = giorno.listaAssenzeGiorno.filter(
+  //             (a) => a.assenzaId != assenza.assenzaId
+  //           );
+  //         }
 
-        if (assenza.statoApprovazione) {
-          if (assenza.oraFine <= giorno.oraEntrata) {
-            giorno.listaAssenzeGiorno = giorno.listaAssenzeGiorno.filter(
-              (a) => a.assenzaId != assenza.assenzaId
-            );
-          }
+  //         let oreAssenza =
+  //           convertitoreOraIntero(end) - convertitoreOraIntero(start);
+  //         let rimuoviTempoPausa = false;
+  //         //sottraggo tempo pausa
+  //         if (
+  //           assenza.oraInizio < giorno.oraInizioPausa &&
+  //           assenza.oraFine > giorno.oraInizioPausa
+  //         ) {
+  //           start = giorno.oraInizioPausa;
+  //           rimuoviTempoPausa = true;
+  //         }
 
-          let oreAssenza =
-            convertitoreOraIntero(end) - convertitoreOraIntero(start);
+  //         if (
+  //           assenza.oraInizio < giorno.oraFinePausa &&
+  //           assenza.oraInizio > giorno.oraInizioPausa &&
+  //           assenza.oraFine > giorno.oraFinePausa
+  //         ) {
+  //           end = giorno.oraFinePausa;
+  //           rimuoviTempoPausa = true;
+  //         }
 
-          //sottraggo tempo pausa
-          if (
-            assenza.oraInizio < giorno.oraInizioPausa! &&
-            assenza.oraFine > giorno.oraInizioPausa!
-          ) {
-            start = giorno.oraInizioPausa!;
-            end = giorno.oraFinePausa!;
-            if (
-              assenza.oraInizio < giorno.oraInizioPausa! &&
-              assenza.oraFine > giorno.oraInizioPausa! &&
-              assenza.oraFine < giorno.oraFinePausa!
-            ) {
-              end = assenza.oraFine;
-              //somma tempo parziale rispetto a inizio pausa
-            }
-           
+  //         if (
+  //           assenza.oraInizio < giorno.oraInizioPausa &&
+  //           assenza.oraFine > giorno.oraFinePausa
+  //         ) {
+  //           start = giorno.oraInizioPausa;
+  //           end = giorno.oraFinePausa;
+  //           rimuoviTempoPausa = true;
+  //         }
 
-            oreAssenza =
-              oreAssenza -
-              (convertitoreOraIntero(giorno.oraFinePausa!) -
-                convertitoreOraIntero(giorno.oraInizioPausa!));
-            if (
-              oreAssenza >
-              this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!
-            )
-              oreAssenza =
-                this.rapportinoService.risposta.rapportino
-                  .oreLavoroGiornaliere!;
-            
-            oreOrdinarieGiorno += oreAssenza;
-            oreAssenzaGiorno += oreAssenza;
-          }
+  //         if (
+  //           assenza.oraInizio > giorno.oraInizioPausa &&
+  //           assenza.oraFine < giorno.oraFinePausa
+  //         ) {
+  //           start = assenza.oraInizio;
+  //           end = assenza.oraFine;
+  //           rimuoviTempoPausa = true;
+  //         }
 
-        }
-      });
+  //         if (rimuoviTempoPausa) {
+  //           oreAssenza =
+  //             oreAssenza -
+  //             (convertitoreOraIntero(end) - convertitoreOraIntero(start));
+  //         }
+  //         console.log(
+  //           'ore assenza del giorno ' +
+  //             giorno.giornoData +
+  //             ' sono :' +
+  //             oreAssenza
+  //         );
+  //         if (
+  //           oreAssenza >
+  //           this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!
+  //         )
+  //           oreAssenza =
+  //             this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!;
 
+  //         console.log('assenza: ' + oreAssenza);
+  //         oreOrdinarieGiorno += oreAssenza;
+  //         oreAssenzaGiorno += oreAssenza;
+  //       }
+  //     });
 
-          
-          for (let i = 0; i < giorno.listaAttivitaGiorno.length; i++) {
-            oreOrdinarieGiorno += giorno.listaAttivitaGiorno[i].oreLavorate;
-            oreStraordinarieGiorno +=
-              giorno.listaAttivitaGiorno[i].oreStraordinario;
+  //     for (let i = 0; i < giorno.listaAttivitaGiorno.length; i++) {
+  //       oreOrdinarieGiorno += giorno.listaAttivitaGiorno[i].oreLavorate;
+  //       oreStraordinarieGiorno +=
+  //         giorno.listaAttivitaGiorno[i].oreStraordinario;
 
-            let prog = this.rapportinoService.oreProgetto.findIndex(
-              (a) =>
-                a.nomeProgetto == giorno.listaAttivitaGiorno[i].nomeProgetto
-            );
+  //       let prog = this.rapportinoService.oreProgetto.findIndex(
+  //         (a) => a.nomeProgetto == giorno.listaAttivitaGiorno[i].nomeProgetto
+  //       );
 
-            if (prog == -1)
-              this.rapportinoService.oreProgetto.push({
-                nomeProgetto: giorno.listaAttivitaGiorno[i].nomeProgetto!,
-                oreProgetto:
-                  giorno.listaAttivitaGiorno[i].oreLavorate +
-                  giorno.listaAttivitaGiorno[i].oreStraordinario,
-              });
-            else
-              this.rapportinoService.oreProgetto[i].oreProgetto +=
-                giorno.listaAttivitaGiorno[i].oreLavorate +
-                giorno.listaAttivitaGiorno[i].oreStraordinario;
-          }
-          this.rapportinoService.oreLavorateMese += oreOrdinarieGiorno
-          this.rapportinoService.oreStraordinarioMese += oreStraordinarieGiorno
-          if (
-            (oreOrdinarieGiorno + oreStraordinarieGiorno ==
-              orarioDiLavoroConvertitoInOre &&
-              oreOrdinarieGiorno ==
-                this.rapportinoService.risposta.rapportino
-                  .oreLavoroGiornaliere) ||
-            (this.rapportinoService.risposta.rapportino.part_time &&
-              oreOrdinarieGiorno + oreStraordinarieGiorno > 0) ||
-            (giorno.giornoFestivo &&
-              oreStraordinarieGiorno > 0 &&
-              oreOrdinarieGiorno == 0)
-          ) {
-            giorno.giornoValido = true;
-            this.rapportinoService.giorniConfermati += 1;
-          }
-       return giorno
-    });
+  //       if (prog == -1)
+  //         this.rapportinoService.oreProgetto.push({
+  //           nomeProgetto: giorno.listaAttivitaGiorno[i].nomeProgetto!,
+  //           oreProgetto:
+  //             giorno.listaAttivitaGiorno[i].oreLavorate +
+  //             giorno.listaAttivitaGiorno[i].oreStraordinario,
+  //         });
+  //       else
+  //         this.rapportinoService.oreProgetto[i].oreProgetto +=
+  //           giorno.listaAttivitaGiorno[i].oreLavorate +
+  //           giorno.listaAttivitaGiorno[i].oreStraordinario;
+  //     }
+  //     this.rapportinoService.oreLavorateMese += oreOrdinarieGiorno;
+  //     this.rapportinoService.oreStraordinarioMese += oreStraordinarieGiorno;
+  //     if (
+  //       (oreOrdinarieGiorno + oreStraordinarieGiorno ==
+  //         orarioDiLavoroConvertitoInOre &&
+  //         oreOrdinarieGiorno ==
+  //           this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere) ||
+  //       (this.rapportinoService.risposta.rapportino.part_time &&
+  //         oreOrdinarieGiorno + oreStraordinarieGiorno > 0) ||
+  //       (giorno.giornoFestivo &&
+  //         oreStraordinarieGiorno > 0 &&
+  //         oreOrdinarieGiorno == 0)
+  //     ) {
+  //       giorno.giornoValido = true;
+  //       this.rapportinoService.giorniConfermati += 1;
+  //     }
+  //     return giorno;
+  //   });
 
-
-    //
-
-
-  }
+  //   //
+  // }
 
   ConfermaMese() {
     this.rapportinoService.ConfermaMese();
