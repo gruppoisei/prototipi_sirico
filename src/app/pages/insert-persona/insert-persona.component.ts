@@ -127,6 +127,13 @@ constructor
       {
         if(dipendente)
         {
+          Object.keys(dipendente).forEach((key) =>
+            {
+              if(dipendente[key] === null){
+                dipendente[key] = '';
+              }
+            });
+
           this.loadComuni();
           this.loadProvince();
           this.showDomicilio = true;

@@ -174,7 +174,7 @@
         <div class="relative">
           <select formControlName="AnpeFkGepaPaeseidPaesedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
           focus:border-sky-500 focus:ring-sky-500">
-            <option value="null" disable selected hidden>Scegli un'opzione</option>
+            <option value="" disable selected hidden>Scegli un'opzione</option>
             <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
           </select>
         </div>
@@ -184,7 +184,7 @@
     <div class="relative">
       <select formControlName="RegioneDomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
       focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeDomicilio($event)">
-        <option value="null" disable selected hidden>Scegli un'opzione</option>
+        <option value="" disable selected hidden>Scegli un'opzione</option>
         <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniDomicilio">{{reg.gereDeno}}</option>
       </select>
     </div>
@@ -194,7 +194,7 @@
     <div class="relative">
       <select formControlName="ProvinciaDomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
       focus:border-sky-500 focus:ring-sky-500" (change)="onChangeProvinciaDomicilio($event)">
-      <option value="null" disable selected hidden>Scegli un'opzione</option>
+      <option value="" disable selected hidden>Scegli un'opzione</option>
       <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceDomicilio">{{pro.geprDeno}}</option>
       </select>
     </div>
@@ -204,7 +204,7 @@
     <div class="relative">
       <select formControlName="AnpeFkGecoComuneidComunedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
       focus:border-sky-500 focus:ring-sky-500">
-      <option value="null" disable selected hidden>Scegli un'opzione</option>
+      <option value="" disable selected hidden>Scegli un'opzione</option>
       <option [value]="com.gecoComuneid" *ngFor="let com of listComuniDomicilio">{{com.gecoDeno}}</option>
       </select>
     </div>
