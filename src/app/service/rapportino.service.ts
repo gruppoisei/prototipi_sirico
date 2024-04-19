@@ -66,11 +66,11 @@ export class RapportinoService {
     // this.RaccogliInfoPersona();
   }
 
+ 
   resetiCampi()
   {
-    this.giorniValidiMese = 0;
+    this.giorniValidiMese = 0; //giorni lavorativi mesi
     this.giorniConfermati = 0;
-    this.erroriGiorniMese = 0
 
     this.oreMinimeTotali = 0
     this.oreLavorateMese = 0
@@ -84,7 +84,7 @@ export class RapportinoService {
     // this.oreValideMese = 0
     let datePipe = new DatePipe('en-US');
     const dateFormatted = datePipe.transform(giorno, 'yyyy-MM-dd');
-    this.http
+    return this.http
       .post<CalendarioRequest>(
         `http://localhost:5143/Vistamese/GetAllInfoMese`,{utenteId:this.auth.utente?.id,dataRiferimentostring:dateFormatted}
       )
@@ -195,7 +195,7 @@ export class RapportinoService {
   giorniMeseSeguente: number[] = [];
 
   AggiornaBox() {
-    this.AggiornaGiorniMese(this.giornoRiferimento);
+    // this.AggiornaGiorniMese(this.giornoRiferimento);
 
     this.primoDelMese = new Date(
       this.giornoRiferimento.getFullYear(),

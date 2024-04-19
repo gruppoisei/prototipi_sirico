@@ -29,18 +29,18 @@ export class GiornoCalendarioComponent {
   ) {}
 
   ngOnInit(): void {
-    if (
-      this.rapportinoService.risposta.rapportino.dataRapportino != undefined
-    ) {
-      if (!this.giorno.giornoFestivo) {
-        this.rapportinoService.giorniValidiMese += 1;
-        this.rapportinoService.oreMinimeTotali +=
-          this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!;
-        this.VerificaValiditaGiorno();
-        this.rapportinoService.oreLavorateMese += this.oreLavorate;
-      }
+    // if (
+    //   this.rapportinoService.risposta.rapportino.dataRapportino != undefined
+    // ) {
+    //   if (!this.giorno.giornoFestivo) {
+    //     this.rapportinoService.giorniValidiMese += 1;
+    //     this.rapportinoService.oreMinimeTotali +=
+    //       this.rapportinoService.risposta.rapportino.oreLavoroGiornaliere!;
+    //     this.VerificaValiditaGiorno();
+    //     this.rapportinoService.oreLavorateMese += this.oreLavorate;
+    //   }
      
-    }
+    // }
   }
   ClickMe() {
     const dialogRef = this.dialog.open(AttivitaGiornoComponent, {
@@ -78,7 +78,7 @@ export class GiornoCalendarioComponent {
         end = this.giorno.oraUscita!;
         assenza.oraFine = this.giorno.oraUscita!;
       }
-      if (assenza.statoApprovazione == true) {
+      if(assenza.statoApprovazione == true) {
         if (assenza.oraFine <= this.giorno.oraEntrata) {
           this.giorno.listaAssenzeGiorno =
             this.giorno.listaAssenzeGiorno.filter(
@@ -165,4 +165,8 @@ export class GiornoCalendarioComponent {
   ConvertitoreOraIntero(orario: string): number {
     return Number(orario.split(':')[0]) + Number(orario.split(':')[1]) / 60;
   }
+}
+
+export const convertitoreOraIntero = (orario: string): number => {
+  return Number(orario.split(':')[0]) + Number(orario.split(':')[1]) / 60;
 }

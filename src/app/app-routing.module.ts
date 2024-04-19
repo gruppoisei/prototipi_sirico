@@ -27,7 +27,7 @@ import { LoginBoxComponent } from './pages/login-box/login-box/login-box.compone
 const routes: Routes = [
   {
     path:"",
-    pathMatch: 'full',
+    pathMatch: "full",
     component:HomepageComponent
   },
   // {

@@ -12,7 +12,7 @@ export class GiornoDiLavoro{
     // dataNumero?:number;
     giornoData?:Date;
     giornoFestivo?:boolean;
-    
+    giornoValido?:boolean;
     oraEntrata = "09:00";
     oraInizioPausa = "13:00";
     oraFinePausa = "14:00";
