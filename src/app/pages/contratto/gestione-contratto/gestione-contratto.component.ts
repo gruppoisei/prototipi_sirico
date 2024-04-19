@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
-import { inserimentoContratto } from '../../../dto/response/inserimentoContratto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
