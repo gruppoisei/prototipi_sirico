@@ -36,7 +36,7 @@ export class PersonaService {
     for (let i = 0; i < fileAllegati.length; i++) {
       formData.append(`fileAllegati`, fileAllegati[i]);
     }
-    return this.http.post<any>(`${this.baseUrlP}/SalvaPersona`, formData)
+    return this.http.post<any>(`${this.baseUrlP}SalvaPersona`, formData)
   }
 
   private creaHttpParams(parametri : ricercaDipendente):HttpParams
