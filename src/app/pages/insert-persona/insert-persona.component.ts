@@ -129,32 +129,22 @@ constructor
       {
         if(dipendente)
         {
-          console.log(dipendente)
           const campiDaControllare = ['anpeFkGecoComuneidComunedomicilio', 'anpeFkGepaPaeseidPaesedomicilio'];
           Object.keys(dipendente).forEach((key) => {
             if (campiDaControllare.includes(key) && dipendente[key] === null) {
                 dipendente[key] = '';
             }
         });
-/*           Object.keys(dipendente).forEach((key) =>
-            {
-              if(dipendente[key] === null){
-                dipendente[key] = '';
-              }
-            }); */
-          this.loadListComuniNascita(dipendente.anpeFkGecoComuneidComunenascita)
-          this.loadListComuniResidenza(dipendente.anpeFkGecoComuneidComuneresidenza)
-          this.loadListComuniDomicilio(dipendente.anpeFkGecoComuneidComunedomicilio)
-          this.loadProvince(); 
+          this.loadComuniAndProvince(dipendente.anpeFkGecoComuneidComunenascita, dipendente.anpeFkGecoComuneidComuneresidenza, dipendente.anpeFkGecoComuneidComunedomicilio)
           this.showDomicilio = true;
           this.populateForm(dipendente);
         }
       });
       
-      this.loadData()
+      this.loadListe()
   }
 
-  loadData(): void
+  loadListe(): void
   {
     this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioni = regioni);
     this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniResidenza = regioni);
@@ -163,28 +153,25 @@ constructor
     this.serviceSocieta.getAllSocieta().subscribe(societa => this.listSocieta = societa);
   }
 
-  loadListComuniNascita(idComuneNascita : any)
+  loadComuniAndProvince(idComuneNascita : any, idComuneResidenza : any, idComuneDomicilio : any)
   {
-    this.serviceComune.getComuniByIdComune(idComuneNascita).subscribe(listaComuni => this.listComuniNascita = listaComuni)
-  }
-  loadListComuniResidenza(idComuneResidenza : any)
-  {
-    this.serviceComune.getComuniByIdComune(idComuneResidenza).subscribe(listaComuni => this.listComuniResidenza = listaComuni)
-  }
-  loadListComuniDomicilio(idComuneDomicilio : any)
-  {
-    this.serviceComune.getComuniByIdComune(idComuneDomicilio).subscribe(listaComuni => this.listComuniDomicilio = listaComuni)
-  }
-
-  loadProvince(): void
-  {
-    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvince = province);  
-    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvinceResidenza = province);
-    this.serviceProvince.getAllProvince().subscribe(province =>this.listProvinceDomicilio = province);  
+    debugger
+    if(idComuneNascita !== null && idComuneNascita !== ""){
+        this.serviceComune.getComuniByIdComune(idComuneNascita).subscribe(listaComuni => this.listComuniNascita = listaComuni)
+        this.serviceProvince.getProvinceByIdComune(idComuneNascita).subscribe(listaProvince => this.listProvince = listaProvince)
+      }
+    if(idComuneResidenza !== null && idComuneResidenza !== ""){
+        this.serviceComune.getComuniByIdComune(idComuneResidenza).subscribe(listaComuni => this.listComuniResidenza = listaComuni)
+        this.serviceProvince.getProvinceByIdComune(idComuneResidenza).subscribe(listaProvince => this.listProvinceResidenza = listaProvince)
+      }
+    if(idComuneDomicilio !== null && idComuneDomicilio !== ""){
+        this.serviceComune.getComuniByIdComune(idComuneDomicilio).subscribe(listaComuni => this.listComuniDomicilio = listaComuni)
+        this.serviceProvince.getProvinceByIdComune(idComuneDomicilio).subscribe(listaProvince => this.listProvinceDomicilio = listaProvince)
+      }
   }
   
   
-  populateForm(dipendente: any): void {
+  populateForm(dipendente: any){
     // Popolamento delle informazioni relative al luogo di nascita
     this.populateLuogoNascita(dipendente);
   
@@ -229,7 +216,7 @@ constructor
     });
   }
   
-  populateLuogoNascita(dipendente: any): void {
+  populateLuogoNascita(dipendente: any){
     
     this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunenascita).subscribe({
       next: (idProvincia) => {
@@ -247,8 +234,7 @@ constructor
     });
   }
   
-  populateResidenza(dipendente: any): void {
-    
+  populateResidenza(dipendente: any) {
     this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComuneresidenza).subscribe({
       next: (idProvincia) => {
         
@@ -267,42 +253,23 @@ constructor
     });
   }
   
-  populateDomicilio(dipendente: any): void {
-    if(dipendente.anpeFkGecoComuneidComunedomicilio == null)
-    {
-      dipendente.anpeFkGecoComuneidComunedomicilio = 0;
-    }
-    this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunedomicilio).subscribe({
-      next: (idProvincia) => {
-        
-        this.idProvinciaDomicilio = idProvincia;
-        this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaDomicilio).subscribe({
+  populateDomicilio(dipendente: any) {
+    if(dipendente.anpeFkGecoComuneidComunedomicilio !== null && dipendente.anpeFkGecoComuneidComunedomicilio !== ""){
+      this.serviceComune.getProvinciaByIdComune(dipendente.anpeFkGecoComuneidComunedomicilio).subscribe({
+        next: (idProvincia) => {
+          this.idProvinciaDomicilio = idProvincia;
+          this.serviceProvince.getRegioneByIdProvincia(this.idProvinciaDomicilio).subscribe({
           next: (idRegione) => {
-            
             this.idRegioneDomicilio = idRegione;
             this.insertPersona.patchValue({
               RegioneDomicilio: this.idRegioneDomicilio,
               ProvinciaDomicilio: this.idProvinciaDomicilio
-            });
-          }
-        });
-      }
-    });
-  }
-  
-
-  onCheckboxChange(event: any) {
-    this.showDomicilio = event.target.checked;
+              });
+            }
+          });
+        }
+      });
     }
-
-  onRegionChangeDomicilio(event : any)
-  {
-    const idRegione = event.target.value
-    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe
-    ((province : any)=>
-    {
-      this.listProvinceDomicilio = province
-    })
   }
 
   salvaPersona()
@@ -321,7 +288,7 @@ constructor
                   width: 'auto',
                   height: 'auto'
                 })
-              this.location.back()
+              this.insertPersona.reset();
               this.selectedFiles = []
               this.isTableVisibile = false;
             },
@@ -345,6 +312,20 @@ constructor
           height: 'auto',
         });
     }
+  }
+
+  onCheckboxChange(event: any) {
+    this.showDomicilio = event.target.checked;
+    }
+
+  onRegionChangeDomicilio(event : any)
+  {
+    const idRegione = event.target.value
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe
+    ((province : any)=>
+    {
+      this.listProvinceDomicilio = province
+    })
   }
 
   clearSearch()
