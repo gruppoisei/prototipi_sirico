@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { inserimentoContratto } from '../dto/response/inserimentoContratto';
+import { InserimentoContratto } from '../dto/response/inserimentoContratto';
 import { BehaviorSubject, timer } from 'rxjs';
 import { utenteSenzaContatto } from '../dto/request/ricercaContratto';
 import { clienteSocieta } from '../dto/response/nuovoCliente';
@@ -54,7 +54,7 @@ export class InsertContrattoService {
   }
 
   getAllClienti(): Observable<any> {
-    return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClienti`);
+    return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClientiDistacco`);
   }
 
   getAllTipitipiMotiviFineContratto(): Observable<any> {
@@ -75,20 +75,20 @@ export class InsertContrattoService {
     return this.Http.get(`${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`);
   }
 
-  insertNuovoContratto(nuovoContratto: inserimentoContratto): Observable<inserimentoContratto> {
+  insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
     console.log('entrato insertNuovoContratto()');
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
       console.log('caso put');
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
-      return this.Http.put<inserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
+      return this.Http.put<InserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
     }
     else {
       console.log('caso post');
       nuovoContratto.codiContrattopersid = 0;
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
-      return this.Http.post<inserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
+      return this.Http.post<InserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
     }
   }
 
@@ -98,7 +98,7 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${newUrl}`);
   }
 
-  getAllContrattiById(idContratto: number): Observable<any> {
+  getContrattiById(idContratto: number): Observable<any> {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
     return this.Http.get<any>(`${this.apiUrl}/GetContrattiById/` + idContratto);
   }

@@ -3,15 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
-import { inserimentoContratto } from '../../../dto/response/inserimentoContratto';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-gestione-contratto',
   templateUrl: './gestione-contratto.component.html',
   styleUrl: './gestione-contratto.component.scss'
 })
-
 
 export class GestioneContrattoComponent implements OnInit {
 
@@ -22,6 +20,8 @@ export class GestioneContrattoComponent implements OnInit {
   tipiCcnl!: [{ coccCcnlid: number; coccDesc: string }];
   tipiLivello!: [{ coliLivelloid: number; coliLivellocontratto: string }];
   tipiSocietaDistacco!: [{ ansoSocietaid: number; ansoRagionesociale: string }]
+  dipendentiConContratto: any[] = [];
+  formData: FormGroup;
 
   /*
   dipendenteConContratto!: {
@@ -74,10 +74,7 @@ export class GestioneContrattoComponent implements OnInit {
     codsClienteId: number;
   }];
 */
-
-  dipendentiConContratto: any[] = [];
-
-
+/*
   formData: inserimentoContratto = {
     anpeNome: '',
     anpeCognome: '',
@@ -115,6 +112,7 @@ export class GestioneContrattoComponent implements OnInit {
     durataValiditaCorsoSicurezza2: null,
     codiFkComlIdmotivazione: null,
   }
+  */
 
   formDataSearch = {
     anpeNome: null,
@@ -126,8 +124,50 @@ export class GestioneContrattoComponent implements OnInit {
   constructor(
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private builder: FormBuilder
+  ) { 
+    this.formData = builder.group({
+      Nome: ['',Validators.minLength(1)],
+      Cognome: ['',Validators.minLength(1)],
+      Personaid: null,
+      Codicefiscale: '',
+      Partitaiva: '',
+      Societaid: null,
+      Datainiziocontratto: '',    //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+      Datafinecontratto: null,    //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
+      tipocontrattoid: null,
+      Contratto: null,
+      CCNLid: 0,
+      CCNLdesc: null,
+      Livelloid: null,
+      livellodesc: null,
+      Ralcompenso: null,
+      Monteore: null,
+      Smartworking: null,
+      Valoredistacco: null,
+      Datainiziodistacco: null,
+      Datafinedistacco: null,
+      Note: null,
+      Sysuser: 'Frontend',
+      codiFlagAttiva: 1,
+      codsFlagAttiva: 0,
+      ClienteId: null,
+      societaDistacco: null,
+      societaPersona: null,
+      Contrattopersid: null,
+      motivazioneid: null,
+      motivazionedesc: null,
+      /*
+      codiFkCossVisitamedica: null,
+      durataValiditaVisitaMedica: null,
+      codiFkCossCorsosicurezza1: null,
+      durataValiditaCorsoSicurezza1: null,
+      codiFkCossCorsosicurezza2: null,
+      durataValiditaCorsoSicurezza2: null,
+      codiFkComlIdmotivazione: null,*/
+    });
+  }
 
   ngOnInit(): void {
     /*
@@ -172,14 +212,14 @@ export class GestioneContrattoComponent implements OnInit {
 
   getContrattoByidContratto(idContratto: number) {
     console.log('$:' + this.inserimentoContrattoService.idContratto$.value);
-    this.inserimentoContrattoService.getAllContrattiById(idContratto).subscribe(
+    this.inserimentoContrattoService.getContrattiById(idContratto).subscribe(
       (response: any) => {
         //console.log('response contratto singolo');
         //console.log(response);
         this.formData = response;
         //console.log(this.formData.codiDatafinecontratto);
         var formattedDate = new Date().toISOString().split('.')[0];
-        this.formData.codiDatafinecontratto = formattedDate;
+        this.formData.value.codiDatafinecontratto = formattedDate;
         //console.log(this.dipendenteConContratto.codiDatafinecontratto);
         console.log('formData');
         console.log(this.formData);
@@ -238,7 +278,7 @@ export class GestioneContrattoComponent implements OnInit {
 
   insertContratto() {
     console.log('entrato insertContratto()');
-    this.inserimentoContrattoService.insertNuovoContratto(this.formData).subscribe(
+    this.inserimentoContrattoService.insertNuovoContratto(this.formData.value).subscribe(
       (response: any) => {
         console.log('response insertContratto()');
         console.log(response);
@@ -305,7 +345,8 @@ export class GestioneContrattoComponent implements OnInit {
   */
 
   reset() {
-    this.formData = {
+    this.formData.reset();
+    /* = {
       anpeNome: '',
       anpeCognome: '',
       anpePersonaid: null,
@@ -341,7 +382,7 @@ export class GestioneContrattoComponent implements OnInit {
       codiFkCossCorsosicurezza2: null,
       durataValiditaCorsoSicurezza2: null,
       codiFkComlIdmotivazione: null,
-    };
+    }; */
   }
 
   resetSearch() {

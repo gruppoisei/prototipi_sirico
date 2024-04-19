@@ -1,38 +1,32 @@
-export interface inserimentoContratto {
-  codiContrattopersid: number | null; 
-  anpeNome: string;
-  anpeCognome: string;
-  anpeCodicefiscale: string;
-  anpePersonaid: number | null;
-  anpePartitaiva: string | null;
-  ansoSocietaid: string | null;
-  societaPersona: string | null;
-  codiDatainiziocontratto: string;
-  codiDatafinecontratto: string | null;
-  cotctipocontrattoid: number | null;
-  tipoContratto: string | null;
-  coccCcnlid: number;
-  descrizioneCCNL: string | null;
-  coliLivelloid: number | null;
-  livelloContratto: string | null;
+export interface InserimentoContratto {
+  codiContrattopersid: number | null;
   codiRalcompenso: number | null;
   codiMonteore: number | null;
+  codiDatainiziocontratto: string | null;
+  codiDatafinecontratto: any | null;
   codiSmartworking: boolean | null;
-  codsValoredistacco: number | null;     // percentuale
+  codiNote: string | null;
+  codiFlagAttiva: number;
+  codsDistaccoid: number | null;
+  codsValoredistacco: number | null;
   codsDatainiziodistacco: string | null;
   codsDatafinedistacco: string | null;
-  codiNote: string | null;
-  codiSysuser: string;
-  codiFlagAttiva: number | null;
-  codsFlagAttiva: number | null;                 // uncheck
-  codsClienteId: number | null;  
-  societaDistacco: string | null;  
-  codiFkCossVisitamedica: Date | null;
-  durataValiditaVisitaMedica: number | null;
-  codiFkCossCorsosicurezza1: Date | null;
-  durataValiditaCorsoSicurezza1: number | null;
-  codiFkCossCorsosicurezza2: Date | null;
-  durataValiditaCorsoSicurezza2: number | null;
-  codiFkComlIdmotivazione: number | null;
+  codsFlagAttiva: number;
+  nome: string | null;
+  cognome: string | null;
+  personaId: number | null;
+  codiceFiscale: string | null;
+  ccnlid: number | null;
+  descrizioneCCNL: string | null;
+  livelloid: number | null;
+  livelloContratto: string | null;
+  motivid: any | null;
+  motivdesc: any | null;
+  tipoid: number | null;
+  tipodesc: string | null;
+  societaDistaccoid: number | null;
+  societaPersonaid: number | null;
+  societaPersona: string | null;
+  clienteDistaccoid: number | null;
+  clienteDistacco: any | null;
 }
-

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DocumentiService } from '../../service/documenti.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErroreAllegatoDialogComponent } from '../../ui/errore-allegato-dialog/errore-allegato-dialog.component';
 
 @Component({
   selector: 'app-gestione-file',
@@ -10,8 +12,9 @@ export class GestioneFileComponent {
   selectedFile: File | null = null;
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
+  @ViewChild('fileUploader') fileUploader!: ElementRef
 
-  constructor(private serviceDocumenti: DocumentiService){}
+  constructor(private serviceDocumenti: DocumentiService, private dialog : MatDialog){}
 
   addFile()
   {
@@ -28,14 +31,24 @@ export class GestioneFileComponent {
               {
                 this.selectedFiles.push(this.selectedFile!);
                 this.selectedFile = null;
+                this.fileUploader.nativeElement.value= "";
                 this.isTableVisibile = true;
               }
-              else
-              {
+              else{
                 alert('Il file selezionato è giá stato inserito!')
               }
             }
-          }          
+          },
+          error : (err) =>
+            {
+              this.dialog.open(ErroreAllegatoDialogComponent,
+                {
+                  data: {errorMessage : err?.error.message},
+                  width: 'auto',
+                  height: 'auto'
+                });
+                this.fileUploader.nativeElement.value= "";
+            }          
         })
     }
     else
