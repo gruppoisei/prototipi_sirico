@@ -129,17 +129,23 @@ constructor
       {
         if(dipendente)
         {
-          Object.keys(dipendente).forEach((key) =>
+          console.log(dipendente)
+          const campiDaControllare = ['anpeFkGecoComuneidComunedomicilio', 'anpeFkGepaPaeseidPaesedomicilio'];
+          Object.keys(dipendente).forEach((key) => {
+            if (campiDaControllare.includes(key) && dipendente[key] === null) {
+                dipendente[key] = '';
+            }
+        });
+/*           Object.keys(dipendente).forEach((key) =>
             {
               if(dipendente[key] === null){
                 dipendente[key] = '';
               }
-            });
+            }); */
           this.loadListComuniNascita(dipendente.anpeFkGecoComuneidComunenascita)
           this.loadListComuniResidenza(dipendente.anpeFkGecoComuneidComuneresidenza)
-          this.loadListComuniDomicilio(dipendente.anpeFkGecoComuneidComuneresidenza)
-/*           this.loadComuni();
- */          this.loadProvince();
+          this.loadListComuniDomicilio(dipendente.anpeFkGecoComuneidComunedomicilio)
+          this.loadProvince(); 
           this.showDomicilio = true;
           this.populateForm(dipendente);
         }
@@ -168,19 +174,6 @@ constructor
   loadListComuniDomicilio(idComuneDomicilio : any)
   {
     this.serviceComune.getComuniByIdComune(idComuneDomicilio).subscribe(listaComuni => this.listComuniDomicilio = listaComuni)
-  }
-
-  loadListProvinceNascita(idRegione : any)
-  {
-    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe(listaProvince => this.listComuniNascita = listaProvince)
-  }
-  loadListProvinceResidenza(idRegione : any)
-  {
-    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe(listaProvince => this.listComuniResidenza = listaProvince)
-  }
-  loadListProvinceDomicilio(idRegione : any)
-  {
-    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe(listaProvince => this.listComuniDomicilio = listaProvince)
   }
 
   loadProvince(): void
@@ -328,7 +321,7 @@ constructor
                   width: 'auto',
                   height: 'auto'
                 })
-              this.insertPersona.reset();
+              this.location.back()
               this.selectedFiles = []
               this.isTableVisibile = false;
             },
