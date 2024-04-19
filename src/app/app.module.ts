@@ -7,7 +7,7 @@ import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login-box/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
 import { CalendarioComponent } from './pages/rapportino/calendario/calendario.component';
 import { GiornoCalendarioComponent } from './pages/rapportino/giorno-calendario/giorno-calendario.component';
@@ -106,6 +106,9 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
     ],
     providers: [
         provideAnimationsAsync(),
+        {
+            provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+          }
     ],
     bootstrap: [AppComponent],
     imports: [
