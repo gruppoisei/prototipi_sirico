@@ -182,6 +182,7 @@ export class CalendarioComponent {
 
   CambiaMese(event: any) {
     this.rapportinoService.giornoRiferimento = event;
+    this.rapportinoService.AggiornaGiorniMese()
     this.rapportinoService.AggiornaBox();
   }
 
