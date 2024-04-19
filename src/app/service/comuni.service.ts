@@ -25,4 +25,9 @@ export class ComuniService {
   {
     return this.http.get<any>(this.baseUrl + 'GetAllComuni');
   }
+  
+  getComuniByIdComune(idComune : number) : Observable<any[]>
+  {
+    return this.http.get<any>(`${this.baseUrl}GetComuniByComuneId/${idComune}`)
+  }
 }
