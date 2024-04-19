@@ -82,7 +82,6 @@ export class AggiungiOrdinarioComponent {
         .subscribe((res) => {
           try {
             if (res > 0) {
-              this.rapportinoService.AggiornaBox();
               alert('tutto bene');
               let aggiornoComponenteAttivitaGiorno =
                 new AttivitaGiornoCalendario();

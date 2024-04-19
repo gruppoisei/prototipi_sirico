@@ -20,7 +20,9 @@ export class RichiestaAutorizzazioneService {
 
   addRichiesta(richiesta: NuovaRichiestaAssenzaRequest): Observable<any> {
     
-    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, richiesta, this.httpOptions);
+    return this.Http.post<any>(`${this.apiUrl}/RichiestaAssenza`, richiesta, this.httpOptions).pipe(
+      
+    );
   }
   
 
