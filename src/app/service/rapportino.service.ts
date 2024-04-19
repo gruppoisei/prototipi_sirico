@@ -91,6 +91,7 @@ export class RapportinoService {
       )
       .pipe(
         tap((v) => {
+          console.log(v)
           this.risposta = v;
           
         })
@@ -144,7 +145,11 @@ export class RapportinoService {
         this.risposta.rapportino.rapportinoId,
         this.httpOptions
       )
-      .subscribe((res) => alert(res));
+      .subscribe((res) => 
+        {
+          alert(res)
+          this.AggiornaGiorniMese()
+        });
   }
   EliminaGiorno(giornoId: number) {
     this.http

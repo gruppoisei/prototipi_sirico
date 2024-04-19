@@ -3,6 +3,7 @@ import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Richiesta } from '../dto/request/assenze';
 import { NuovaRichiestaAssenzaRequest } from '../dto/request/nuovaRichiestaAssenza';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class RichiestaAutorizzazioneService {
 
   private apiUrl = 'http://localhost:5143/RichiestaAutorizzazione'; // AGGIORNIAMO QUI L'URL
   richiesta: Richiesta[] = [];
-  constructor(private Http: HttpClient) {}
+  constructor(private Http: HttpClient,private auth:AuthenticationService) {}
 
   addRichiesta(richiesta: NuovaRichiestaAssenzaRequest): Observable<any> {
     
@@ -54,7 +55,7 @@ export class RichiestaAutorizzazioneService {
     return this.Http.get<any>(`${this.apiUrl}/GetResponsabileId/${SysUser}`);
   } */
 
-  GetByUserEScelta(userName: string, selezione: number): Observable<any> {
-    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${userName}?selezione=${selezione}`);
+  GetByUserEScelta( selezione: number): Observable<any> {
+    return this.Http.get<any>(`${this.apiUrl}/GetRichiesteStessoResponsabile/${this.auth.utente!.id}?selezione=${selezione}`);
   }
 }

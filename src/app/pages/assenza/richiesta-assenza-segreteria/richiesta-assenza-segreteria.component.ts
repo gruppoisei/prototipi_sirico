@@ -69,7 +69,7 @@ export class RichiestaAssenzaSegreteriaComponent {
       .addApprovazione(this.idRichiesta, true, '')
       .subscribe(
         (response) => {
-          this.getAllStessoResponsabile(this.userName, this.selezione);
+          this.getAllStessoResponsabile( this.selezione);
           this.chiudiModal();
         },
         (error) => {
@@ -95,7 +95,7 @@ export class RichiestaAssenzaSegreteriaComponent {
       .addApprovazione(this.idRichiesta, false, this.motivazione)
       .subscribe(
         (response) => {
-          this.getAllStessoResponsabile(this.userName, this.selezione);
+          this.getAllStessoResponsabile( this.selezione);
           this.chiudiModal();
         },
         (error) => {
@@ -137,11 +137,11 @@ export class RichiestaAssenzaSegreteriaComponent {
   }
 
   cerca() {
-    this.getAllStessoResponsabile(this.userName, this.selezione);
+    this.getAllStessoResponsabile( this.selezione);
   }
 
-  getAllStessoResponsabile(userName: string, selezione: number) {
-    this.richiestaAutorizzazioneService.GetByUserEScelta(userName, selezione).subscribe((res) => {
+  getAllStessoResponsabile(selezione: number) {
+    this.richiestaAutorizzazioneService.GetByUserEScelta( selezione).subscribe((res) => {
       this.output_getall = res;
     });
   }
