@@ -282,8 +282,8 @@
           <select formControlName="AnpeFkAnsoSocietaid" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
            focus:border-sky-500 focus:ring-sky-500">
            <option value="" disable selected hidden>Scegli un'opzione</option>
-           <option [value]="soc.ansoSocietaid" *ngFor= "let soc of listSocieta">
-                {{soc.ansoRagionesociale}}
+           <option [value]="soc.societaid" *ngFor= "let soc of listSocieta">
+                {{soc.ragionesociale}}
             </option>
           </select>
           <small *ngIf="insertPersona.controls['AnpeFkAnsoSocietaid'].dirty && insertPersona.hasError('required','AnpeFkAnsoSocietaid')" class="text-red-600">Società obbligatoria</small>
