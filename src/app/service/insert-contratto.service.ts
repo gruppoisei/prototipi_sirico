@@ -49,8 +49,8 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.apiUrl}/GetCCNL`);
   }
 
-  getAllTipoLivello(idTipoLivello: number): Observable<any> {
-    return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + idTipoLivello);
+  getAllTipoLivelloByCCNL(CCNLid: number): Observable<any> {
+    return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + CCNLid);
   }
 
   getAllClienti(): Observable<any> {

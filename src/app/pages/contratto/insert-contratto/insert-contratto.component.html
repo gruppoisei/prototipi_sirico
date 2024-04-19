@@ -14,7 +14,7 @@
                             class="mat-disabled">
                             <mat-icon>person_add_alt_1</mat-icon>
                         </button>
-                    </mat-form-field>
+                    </mat-form-field> 
                     <mat-form-field class="w-full" appearance="fill"  floatLabel="auto">
                         <mat-label>Nome</mat-label>
                         <input matInput [value]="formData.nome" [disabled]="disable_fields"
@@ -26,11 +26,13 @@
                             [(ngModel)]="formData.cognome" name="Cognome" placeholder="Cognome"
                             class="mat-disabled">
                     </mat-form-field>
+                    <!--
                     <mat-form-field class="w-full" appearance="fill" *ngIf="hidePartitaIvaField"  floatLabel="auto">
                         <mat-label>Partita IVA</mat-label>
                         <input matInput [(ngModel)]="anpePartitaiva" [disabled]="disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
+                    -->
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Società</mat-label>
                         <mat-select [(ngModel)]="formData.societaPersonaid" name="Societa" placeholder="Società" required>
@@ -42,7 +44,7 @@
                     <mat-form-field class="w-full" floatLabel="always">
                         <mat-label>Data inizio contratto</mat-label>
                         <input matInput [(ngModel)]="formData.codiDatainiziocontratto" name="datainiziocontratto"
-                            type="date" (focus)="dateinizioTouched = true" placeholder="Data inizio contratto"
+                            type="date" (focus)="dateinizioTouched = true" [placeholder]="dataInizioContrattoPlaceholder ? dataInizioContrattoPlaceholder : 'Livello'"
                             (change)="formValidationCheck()">
                         <!--<mat-hint align="end">Data inizio contratto</mat-hint>-->
                     </mat-form-field>
@@ -74,7 +76,7 @@
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>CCNL</mat-label>
                         <mat-select [(ngModel)]="formData.ccnlid" name="CCNL" placeholder="CCNL"
-                            (ngModelChange)="getAllTipoLivello(this.formData.ccnlid)" required>
+                            (ngModelChange)="getAllTipoLivelloByCCNLIfNotNull()" required>
                             <mat-option *ngFor="let tipo of tipiCcnl" [value]="tipo.ccnlid">
                                 {{ tipo.descrizioneCCNL }}
                             </mat-option>
@@ -82,7 +84,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Livello ccnl</mat-label>
-                        <mat-select [(ngModel)]="formData.livelloContratto" name="Livello" placeholder="Livello" required>
+                        <mat-select [(ngModel)]="formData.livelloContratto" name="Livello" [placeholder]="livelloContrattoPlaceholder ? livelloContrattoPlaceholder : 'Livello'" required>
                             <mat-option *ngFor="let tipo of tipiLivello" [value]="tipo.livelloid">
                                 {{ tipo.livelloContratto }}
                             </mat-option>
