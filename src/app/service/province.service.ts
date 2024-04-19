@@ -15,7 +15,7 @@ export class ProvinceService {
     return this.http.get<any>(this.baseUrl + 'GetAllProvincie');
   }
 
-  getProvinceByRegione(selectedRegione: any)
+  getAllProvinceByRegione(selectedRegione: any)
   {
     return this.http.get<any>(`${this.baseUrl}GetAllProvinceByIdRegione/${selectedRegione}`)
   }

@@ -119,10 +119,12 @@ constructor
           const selectDate = new Date(value);
           const maxDate = new Date(selectDate.getFullYear() + 3, selectDate.getMonth(), selectDate.getDate()+1);
           this.maxDateScadenza = maxDate.toISOString().split('T')[0];
-        } else {
+        } 
+        else {
           this.insertPersona.get('AnpeDatascadenzaidoneitamedica')?.disable();
         }
       });
+
       this.personaService.dipendente$.subscribe((dipendente)=>
       {
         if(dipendente)
@@ -133,9 +135,11 @@ constructor
                 dipendente[key] = '';
               }
             });
-
-          this.loadComuni();
-          this.loadProvince();
+          this.loadListComuniNascita(dipendente.anpeFkGecoComuneidComunenascita)
+          this.loadListComuniResidenza(dipendente.anpeFkGecoComuneidComuneresidenza)
+          this.loadListComuniDomicilio(dipendente.anpeFkGecoComuneidComuneresidenza)
+/*           this.loadComuni();
+ */          this.loadProvince();
           this.showDomicilio = true;
           this.populateForm(dipendente);
         }
@@ -153,11 +157,30 @@ constructor
     this.serviceSocieta.getAllSocieta().subscribe(societa => this.listSocieta = societa);
   }
 
-  loadComuni(): void 
+  loadListComuniNascita(idComuneNascita : any)
   {
-    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniNascita = comuni);
-    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniResidenza = comuni);
-    this.serviceComune.getAllComuni().subscribe(comuni => this.listComuniDomicilio = comuni);
+    this.serviceComune.getComuniByIdComune(idComuneNascita).subscribe(listaComuni => this.listComuniNascita = listaComuni)
+  }
+  loadListComuniResidenza(idComuneResidenza : any)
+  {
+    this.serviceComune.getComuniByIdComune(idComuneResidenza).subscribe(listaComuni => this.listComuniResidenza = listaComuni)
+  }
+  loadListComuniDomicilio(idComuneDomicilio : any)
+  {
+    this.serviceComune.getComuniByIdComune(idComuneDomicilio).subscribe(listaComuni => this.listComuniDomicilio = listaComuni)
+  }
+
+  loadListProvinceNascita(idRegione : any)
+  {
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe(listaProvince => this.listComuniNascita = listaProvince)
+  }
+  loadListProvinceResidenza(idRegione : any)
+  {
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe(listaProvince => this.listComuniResidenza = listaProvince)
+  }
+  loadListProvinceDomicilio(idRegione : any)
+  {
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe(listaProvince => this.listComuniDomicilio = listaProvince)
   }
 
   loadProvince(): void
@@ -282,7 +305,7 @@ constructor
   onRegionChangeDomicilio(event : any)
   {
     const idRegione = event.target.value
-    this.serviceProvince.getProvinceByRegione(idRegione).subscribe
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe
     ((province : any)=>
     {
       this.listProvinceDomicilio = province
@@ -344,7 +367,7 @@ constructor
   onRegionChangeResidenza(event : any)
   {
     const idRegione = event.target.value
-    this.serviceProvince.getProvinceByRegione(idRegione).subscribe
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe
     ((province : any)=>
     {
       this.listProvinceResidenza = province
@@ -354,7 +377,7 @@ constructor
   onRegionChangeNascita(event : any)
   {
     const idRegione = event.target.value
-    this.serviceProvince.getProvinceByRegione(idRegione).subscribe
+    this.serviceProvince.getAllProvinceByRegione(idRegione).subscribe
     ((province : any)=>
     {
       this.listProvince = province
