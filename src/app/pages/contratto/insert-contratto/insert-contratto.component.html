@@ -26,13 +26,11 @@
                             [(ngModel)]="formData.cognome" name="Cognome" placeholder="Cognome"
                             class="mat-disabled">
                     </mat-form-field>
-                    <!--
                     <mat-form-field class="w-full" appearance="fill" *ngIf="hidePartitaIvaField"  floatLabel="auto">
                         <mat-label>Partita IVA</mat-label>
-                        <input matInput [(ngModel)]="anpePartitaiva" [disabled]="disablePartitaIvaField"
+                        <input matInput [(ngModel)]="formData.partitaIva" [disabled]="disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
-                    -->
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Società</mat-label>
                         <mat-select [(ngModel)]="formData.societaPersonaid" name="Societa" placeholder="Società" required>
@@ -67,7 +65,7 @@
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Tipo contratto</mat-label>
                         <mat-select [(ngModel)]="formData.tipoid" name="tipocontratto"
-                            placeholder="Tipo contratto" required>
+                        matInput (change)="controlloHideCampoPartitaIva()" placeholder="Tipo contratto" required>
                             <mat-option *ngFor="let tipo of tipiContratto" [value]="tipo.tipoid">
                                 {{ tipo.tipodesc }}
                             </mat-option>
@@ -84,7 +82,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Livello ccnl</mat-label>
-                        <mat-select [(ngModel)]="formData.livelloContratto" name="Livello" [placeholder]="livelloContrattoPlaceholder ? livelloContrattoPlaceholder : 'Livello'" required>
+                        <mat-select [(ngModel)]="formData.livelloid" name="Livello" [placeholder]="livelloContrattoPlaceholder ? livelloContrattoPlaceholder : 'Livello'" required>
                             <mat-option *ngFor="let tipo of tipiLivello" [value]="tipo.livelloid">
                                 {{ tipo.livelloContratto }}
                             </mat-option>
