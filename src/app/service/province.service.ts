@@ -20,8 +20,13 @@ export class ProvinceService {
     return this.http.get<any>(`${this.baseUrl}GetAllProvinceByIdRegione/${selectedRegione}`)
   }
 
-  getRegioneByIdProvincia(regioneid: number) : Observable<number>
+  getRegioneByIdProvincia(idRegione: number) : Observable<number>
   {
-    return this.http.get<number>(`${this.baseUrl}GetRegioneByIdProvincia/${regioneid}`)
+    return this.http.get<number>(`${this.baseUrl}GetRegioneByIdProvincia/${idRegione}`)
+  }
+
+  getProvinceByIdComune(idComune : number) : Observable<any[]>
+  {
+    return this.http.get<any>(`${this.baseUrl}GetProvinceByIdComune/${idComune}`)
   }
 }
