@@ -201,7 +201,13 @@ export class InsertContrattoComponent implements OnInit {
     this.formValidationCheck();
   }
 
-  openCronologiaDistaccoModal() {
+  openCronologiaDistaccoModal(personaId: number) {
+    console.log("personaId: " + personaId);
+    this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
+    const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
+      width: '75%',
+      height: '80%',
+    });
     /*
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi =
       this.formData.Personaid;
