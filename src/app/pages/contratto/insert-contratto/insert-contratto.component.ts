@@ -81,6 +81,7 @@ export class InsertContrattoComponent implements OnInit {
     nome: null,
     cognome: null,
     codiceFiscale: null,
+    partitaIva: null
   };
 
   formData: InserimentoContratto= {
@@ -178,11 +179,9 @@ export class InsertContrattoComponent implements OnInit {
       ' id contratto passato = ' +
         this.inserimentoContrattoService.idContratto$.value
     );
-    //this.autoFillformData();
     this.controllaDisabilitaCampoPartitaIva();
     this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
-    //this.inserimentoContrattoService.modalState.subscribe((isOpen) => {this.showModal = isOpen;} );
-  }
+    }
 
   openModalIfLastOptionSelected(event: MatSelectChange) {
     if (event.value === -1) {
@@ -222,7 +221,7 @@ export class InsertContrattoComponent implements OnInit {
         }
       );
     }
-    */
+    */  
   }
 
   clearForm() {
@@ -339,17 +338,17 @@ export class InsertContrattoComponent implements OnInit {
   }
 
   getAllTipoLivelloByCCNL(ccnlId: number) {
-      this.inserimentoContrattoService.getAllTipoLivelloByCCNL(ccnlId)
-        .subscribe(
-          (data) => {
-            this.tipiLivello = data;
-            console.log('Dati tipi livello:', data);
-          },
-          (error) => {
-            console.error('Errore durante il recupero dei tipi livello:', error);
-          }
-        );
-    }
+    this.inserimentoContrattoService.getAllTipoLivelloByCCNL(ccnlId)
+      .subscribe(
+        (data) => {
+          this.tipiLivello = data;
+          console.log('Dati tipi livello:', data);
+        },
+        (error) => {
+          console.error('Errore durante il recupero dei tipi livello:', error);
+        }
+      );
+  }
 
   getAllTipitipiMotiviFineContratto() {
     this.inserimentoContrattoService
@@ -373,16 +372,12 @@ export class InsertContrattoComponent implements OnInit {
   }
 
   controlloHideCampoPartitaIva() {
-    this.hidePartitaIvaField =
-      this.formData.ccnlid === this.partitaIvaID ? false : true;
+    this.hidePartitaIvaField = this.formData.ccnlid === this.partitaIvaID ? false : true;
     this.hidePartitaIvaField && this.controllaDisabilitaCampoPartitaIva();
   }
 
   formatInputValue(event: any) {
-    this.formData.codsValoredistacco = event.target.replace(
-      /\D+/g,
-      ''
-    );
+    this.formData.codsValoredistacco = event.target.replace(/\D+/g, '');
   }
 
   // DIALOG FUNCTIONS
@@ -405,6 +400,7 @@ export class InsertContrattoComponent implements OnInit {
         nome: null,
         cognome: null,
         codiceFiscale: null,
+        partitaIva: null
       };
     } else {
       console.log('Operazione annullata');
@@ -449,7 +445,7 @@ export class InsertContrattoComponent implements OnInit {
   
 // INSERIMENTO E AGGIORNAMENTO
   insertContratto() {
-    if (this.formValidation) {
+    if (this.formValidation){
       this.inserimentoContrattoService
         .insertNuovoContratto(this.formData)
         .subscribe(
