@@ -26,6 +26,7 @@ export class InsertPersonaComponent implements OnInit{
   minVisita : string
   maxVisita : string
   maxDateScadenza ?: string
+  minDateScadenza ?: string
   insertPersona !: FormGroup;
   listRegioni: any;
   listRegioniResidenza : any
@@ -117,6 +118,8 @@ constructor
         if (value) {
           this.insertPersona.get('AnpeDatascadenzaidoneitamedica')?.enable();
           const selectDate = new Date(value);
+          const minDate = selectDate;
+          this. minDateScadenza = minDate.toISOString().split('T')[0]
           const maxDate = new Date(selectDate.getFullYear() + 3, selectDate.getMonth(), selectDate.getDate()+1);
           this.maxDateScadenza = maxDate.toISOString().split('T')[0];
         } 
@@ -168,6 +171,11 @@ constructor
         this.serviceComune.getComuniByIdComune(idComuneDomicilio).subscribe(listaComuni => this.listComuniDomicilio = listaComuni)
         this.serviceProvince.getProvinceByIdComune(idComuneDomicilio).subscribe(listaProvince => this.listProvinceDomicilio = listaProvince)
       }
+  }
+
+  updateMinDate(selectedDate : string)
+  {
+
   }
   
   
@@ -386,5 +394,9 @@ constructor
     {
       this.listComuniNascita = comuni
     })
+  }
+
+  receiveFile($event : any){
+    this.selectedFiles = $event
   }
 }

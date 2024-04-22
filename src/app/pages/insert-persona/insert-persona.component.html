@@ -258,7 +258,7 @@
          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block mb-2 text-sm font-medium text-gray-900">Data scadenza idoneità medica</label>
           <input formControlName="AnpeDatascadenzaidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-        focus:border-sky-500 focus:ring-sky-500" type="date" [max]="maxDateScadenza">
+        focus:border-sky-500 focus:ring-sky-500" type="date" [min]="minDateScadenza" [max]="maxDateScadenza">
      </div>
   </div>
 
@@ -290,7 +290,7 @@
         </div>
   </div>
   
-  <app-gestione-file></app-gestione-file>
+  <app-gestione-file (fileEvent)="receiveFile($event)"></app-gestione-file>
 
 <!--Bottoni-->
   <div class = "w-full flex justify-between mb-10 mt-10">
