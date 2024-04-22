@@ -18,4 +18,9 @@ export class DocumentiService {
     return this.http.post<any>(`${this.baseUrl}VerificaAggiungiAllegato`,formData)
   }
 
+  GetFilesByDipendenteId(idPersona : number)
+  {
+    return this.http.get<any>(`${this.baseUrl}GetFilesByDipendenteId/${idPersona}`)
+  }
+
 }

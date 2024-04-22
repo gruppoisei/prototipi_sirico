@@ -3,6 +3,7 @@ import { RapportinoService } from '../../../service/rapportino.service';
 import { Rapportino } from '../../../dto/request/calendario';
 import { convertitoreOraIntero } from '../giorno-calendario/giorno-calendario.component';
 import { timer } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendario',
@@ -14,7 +15,6 @@ export class CalendarioComponent {
 
   giornoDefault: Date = new Date();
   constructor(public rapportinoService: RapportinoService) {
-    
     this.rapportinoService.RaccogliInfoPersona();
     this.TrovaMesiDaVisualizzare();
     this.giornoDefault = this.listaMesi[1];
