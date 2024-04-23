@@ -65,7 +65,7 @@
                     <th scope="col" class="px-6 py-3">Fine Distacco</th>
                     <th scope="col" class="px-6 py-3">Valore Distacco</th>-->
                     <th scope="col" class="px-6 py-3">Note</th>
-                    <th scope="col" class="px-6 py-3"></th>
+                    <th scope="col" class="px-6 py-3">Distacco</th>
                 </tr>
             </thead>
             <tbody>
@@ -112,6 +112,14 @@
                     <td *ngIf="dipendente.codsValoredistacco != null" class="px-6 py-4">
                         {{ dipendente.codsValoredistacco }}%</td> -->
                     <td class="px-6 py-4">{{ dipendente.codiNote }}</td>
+                    <td *ngIf="dipendente.codsFlagAttiva == null" class="px-6 py-4"></td>
+                    <!-- <td *ngIf="dipendente.codsFlagAttiva != null" class="px-6 py-4">{{ dipendente.codsFlagAttiva }}</td> -->
+                    <td *ngIf="dipendente.codsFlagAttiva != null" class="px-6 py-4">
+                        <div class="flex flex-row justify-end mt-10">
+                            <button type="button" (click)="openCronologiaDistaccoModal(dipendente.personaId)"
+                                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Dettagli</button>
+                        </div>    
+                    </td>
                 </tr>
             </tbody>
         </table>

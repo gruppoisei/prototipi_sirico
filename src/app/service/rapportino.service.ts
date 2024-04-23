@@ -326,6 +326,7 @@ export class RapportinoService {
       }
       this.oreLavorateMese += oreOrdinarieGiorno;
       this.oreStraordinarioMese += oreStraordinarieGiorno;
+      this.oreAssenzaMese += oreAssenzaGiorno
       if (
         (oreOrdinarieGiorno + oreStraordinarieGiorno ==
           orarioDiLavoroConvertitoInOre &&

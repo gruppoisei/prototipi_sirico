@@ -56,34 +56,29 @@
     <div>
       ore straordinario mese: {{ rapportinoService.oreStraordinarioMese }}
     </div>
-    <button
-      class="border-t-2 border-black"
-      *ngIf="
-        rapportinoService.giorniConfermati == rapportinoService.giorniValidiMese
-      "
-      [disabled]="
-        rapportinoService.giorniConfermati <
-            rapportinoService.giorniValidiMese ||
-        (rapportinoService.risposta.rapportino.part_time &&
-          (rapportinoService.risposta.rapportino.oreLavoroGiornaliere! *
-            rapportinoService.giorniConfermati) >
-            rapportinoService.oreLavorateMese)
-      "
-      class="rounded-full bg-amber-50 p-3 m-3"
-      (click)="ConfermaMese()"
-    >
-      Conferma Rapportino
-    </button>
-    <div
-      class="border-t-2 border-black"
-      *ngIf="
-        rapportinoService.giorniConfermati <
-          rapportinoService.giorniValidiMese ||
-        rapportinoService.erroriGiorniMese > 0
-      "
-      class="rounded-full bg-slate-400 p-3 m-3"
-    >
-      Conferma Rapportino
+    <div  *ngIf="
+    !rapportinoService.risposta.rapportino.confermaRapportino">
+      <button
+        class="border-t-2 border-black"
+        *ngIf="
+          (rapportinoService.giorniConfermati ==
+              rapportinoService.giorniValidiMese ||
+              (rapportinoService.risposta.rapportino.part_time &&
+                rapportinoService.risposta.rapportino.oreLavoroGiornaliere! *
+                  rapportinoService.giorniConfermati >
+                  rapportinoService.oreLavorateMese));
+          else confermaDisable
+        "
+        class="rounded-full bg-amber-50 p-3 m-3"
+        (click)="ConfermaMese()"
+      >
+        Conferma Rapportino
+      </button>
+      <ng-template #confermaDisable
+        ><div class="rounded-full border-t-2 border-black bg-red-600 p-3 m-3">
+          Conferma Rapportino
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

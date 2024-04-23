@@ -16,6 +16,7 @@ export interface InserimentoContratto {
   cognome: string | null;
   personaId: number | null;
   codiceFiscale: string | null;
+  partitaIva: string | null;        //aggiunto
   ccnlid: number | null;
   descrizioneCCNL: string | null;
   livelloid: number | null;
@@ -29,4 +30,5 @@ export interface InserimentoContratto {
   societaPersona: string | null;
   clienteDistaccoid: number | null;
   clienteDistacco: any | null;
+  sysuser: string;
 }

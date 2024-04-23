@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DocumentiService } from '../../service/documenti.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroreAllegatoDialogComponent } from '../../ui/errore-allegato-dialog/errore-allegato-dialog.component';
@@ -15,6 +15,13 @@ export class GestioneFileComponent {
   @ViewChild('fileUploader') fileUploader!: ElementRef
 
   constructor(private serviceDocumenti: DocumentiService, private dialog : MatDialog){}
+
+  @Output() fileEvent = new EventEmitter();
+
+  sendFile()
+  {
+    this.fileEvent.emit(this.selectedFiles)
+  }
 
   addFile()
   {

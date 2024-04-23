@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-distacco.component';
 
 @Component({
   selector: 'app-gestione-contratto',
@@ -290,6 +291,15 @@ export class GestioneContrattoComponent implements OnInit {
         alert("Errore durante l'aggiornamento del nuovo contratto");
       }
     );
+  }
+
+  openCronologiaDistaccoModal(personaId: number) {
+    console.log("personaId: " + personaId);
+    this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
+    const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
+      width: '75%',
+      height: '80%',
+    });
   }
 
   /*

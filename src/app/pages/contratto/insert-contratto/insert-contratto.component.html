@@ -26,13 +26,11 @@
                             [(ngModel)]="formData.cognome" name="Cognome" placeholder="Cognome"
                             class="mat-disabled">
                     </mat-form-field>
-                    <!--
                     <mat-form-field class="w-full" appearance="fill" *ngIf="hidePartitaIvaField"  floatLabel="auto">
                         <mat-label>Partita IVA</mat-label>
-                        <input matInput [(ngModel)]="anpePartitaiva" [disabled]="disablePartitaIvaField"
+                        <input matInput [(ngModel)]="formData.partitaIva" [disabled]="disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
-                    -->
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Società</mat-label>
                         <mat-select [(ngModel)]="formData.societaPersonaid" name="Societa" placeholder="Società" required>
@@ -67,7 +65,7 @@
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Tipo contratto</mat-label>
                         <mat-select [(ngModel)]="formData.tipoid" name="tipocontratto"
-                            placeholder="Tipo contratto" required>
+                        matInput (change)="controlloHideCampoPartitaIva()" placeholder="Tipo contratto" required>
                             <mat-option *ngFor="let tipo of tipiContratto" [value]="tipo.tipoid">
                                 {{ tipo.tipodesc }}
                             </mat-option>
@@ -84,7 +82,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Livello ccnl</mat-label>
-                        <mat-select [(ngModel)]="formData.livelloContratto" name="Livello" [placeholder]="livelloContrattoPlaceholder ? livelloContrattoPlaceholder : 'Livello'" required>
+                        <mat-select [(ngModel)]="formData.livelloid" name="Livello" [placeholder]="livelloContrattoPlaceholder ? livelloContrattoPlaceholder : 'Livello'" required>
                             <mat-option *ngFor="let tipo of tipiLivello" [value]="tipo.livelloid">
                                 {{ tipo.livelloContratto }}
                             </mat-option>
@@ -178,7 +176,7 @@
                                 <!--<mat-hint align="end">Data fine distacco</mat-hint>-->
                             </mat-form-field>
                             <div class="panel-footer" *ngIf="formData.personaId !== null">
-                                <button mat-button color="primary" (click)="openCronologiaDistaccoModal()"
+                                <button mat-button color="primary" (click)="openCronologiaDistaccoModal(formData.personaId)"
                                     style="font-size: smaller;">Cronologia Distacchi di {{ formData.nome }} {{
                                     formData.cognome }}</button>
                             </div>
@@ -188,6 +186,10 @@
             </div>
         </div>
 
+        <div class="w-1/2">
+        <app-gestione-file></app-gestione-file>
+        </div>
+        
         <div class="flex justify-center padding-10px">
             <button
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
