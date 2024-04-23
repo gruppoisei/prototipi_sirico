@@ -1,7 +1,7 @@
 <h1 class="flex justify-center my-10 text-4xl font-bold">Storico distacchi</h1>
 
 <div *ngIf="listaDistacchi.length == 0" class="flex flex-row justify-center my-10">
-    Non è presente alcun distacco
+    Non sono presenti distacchi
 </div>
 
 <div *ngIf="listaDistacchi.length > 0" class="flex flex-row justify-center my-10">
@@ -54,7 +54,7 @@
         </tbody>
     </table>
 </div>
-<div class="flex flex-row justify-end mt-10">
+<div class="flex flex-row justify-end">
     <button type="button" (click)="closeModal()"
         class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
 </div>

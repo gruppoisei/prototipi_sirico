@@ -10,24 +10,17 @@ import { InsertContrattoService } from '../../../service/insert-contratto.servic
 export class CronologiaDistaccoComponent implements OnInit {
 
   listaDistacchi: any[] = [];
-  //checkDistacchi: boolean = false;
 
   constructor(
-    //private activeRoute: ActivatedRoute,
-    //private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
-    private dialog: MatDialog,
-    //private builder: FormBuilder
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    //console.log("lancio nell'OnInit la cronologiadistaccomodal");
     this.openCronologiaDistaccoModal();
   }
 
   openCronologiaDistaccoModal() {
-    console.log("Entrato in: openCronologiaDistaccoModal()");
-
     //1
     /*
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi =
@@ -51,13 +44,11 @@ export class CronologiaDistaccoComponent implements OnInit {
     */
 
     //2
-
     this.inserimentoContrattoService.getCronologiaDistacco().subscribe(
       (response: any) => {
         console.log(response);
         if (response == null) { }
         else {
-          //checkDistacchi = true;
           this.listaDistacchi = response;
           this.listaDistacchi.sort((a, b) => a.codsDatafinedistacco < b.codsDatafinedistacco ? 1 : -1);
         }
