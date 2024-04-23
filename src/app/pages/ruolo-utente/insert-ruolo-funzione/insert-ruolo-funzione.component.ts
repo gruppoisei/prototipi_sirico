@@ -71,7 +71,7 @@ export class InsertRuoloFunzioneComponent implements OnInit {
     //this.idFunzione = 1;        
     console.log(this.funzioneVoceDiMenu);
     //TODO: prendi informazioni del ruolo passato nel servizio come ruoloId
-    this.ruoloIdPassato = this.amministrazioneRuolo.getRuoloId();
+    this.ruoloIdPassato = this.amministrazioneRuolo.ruoloId$.value;
     console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value + " : " + this.loadRuoliById(this.amministrazioneRuolo.ruoloId$.value));
     // if (this.amministrazioneRuolo.ruoloId$.value != undefined && this.amministrazioneRuolo.ruoloId$.value != 0) {
     //   console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value);
