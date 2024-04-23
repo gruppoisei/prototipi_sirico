@@ -1,4 +1,10 @@
-<div class="flex flex-row justify-center my-10">
+<h1 class="flex justify-center my-10 text-4xl font-bold">Storico distacchi</h1>
+
+<div *ngIf="listaDistacchi.length == 0" class="flex flex-row justify-center my-10">
+    Non è presente alcun distacco
+</div>
+
+<div *ngIf="listaDistacchi.length > 0" class="flex flex-row justify-center my-10">
     <table class="text-base text-left rtl:text-right">
         <thead class="text-sm uppercase text-white bg-blue-600">
             <tr>

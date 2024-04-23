@@ -10,22 +10,22 @@ import { InsertContrattoService } from '../../../service/insert-contratto.servic
 export class CronologiaDistaccoComponent implements OnInit {
 
   listaDistacchi: any[] = [];
+  //checkDistacchi: boolean = false;
 
-  
   constructor(
     //private activeRoute: ActivatedRoute,
     //private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
     private dialog: MatDialog,
     //private builder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     //console.log("lancio nell'OnInit la cronologiadistaccomodal");
     this.openCronologiaDistaccoModal();
   }
-  
-openCronologiaDistaccoModal() {
+
+  openCronologiaDistaccoModal() {
     console.log("Entrato in: openCronologiaDistaccoModal()");
 
     //1
@@ -50,23 +50,27 @@ openCronologiaDistaccoModal() {
     }
     */
 
-   //2
-   
-   this.inserimentoContrattoService.getCronologiaDistacco().subscribe(
+    //2
+
+    this.inserimentoContrattoService.getCronologiaDistacco().subscribe(
       (response: any) => {
         console.log(response);
-        this.listaDistacchi = response;        
-        this.listaDistacchi.sort((a,b) => a.codsDatafinedistacco < b.codsDatafinedistacco ? 1 : -1);        
+        if (response == null) { }
+        else {
+          //checkDistacchi = true;
+          this.listaDistacchi = response;
+          this.listaDistacchi.sort((a, b) => a.codsDatafinedistacco < b.codsDatafinedistacco ? 1 : -1);
+        }
       },
       (error: any) => {
         console.error('Errore durante il recupero della cronologia distacchi:', error);
       }
-    );    
-  }    
-
-  closeModal() {      
-    this.dialog.closeAll();
-  }  
-
+    );
   }
+
+  closeModal() {
+    this.dialog.closeAll();
+  }
+
+}
 
