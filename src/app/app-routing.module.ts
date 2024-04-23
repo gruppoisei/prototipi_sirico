@@ -23,6 +23,7 @@ import { InsertClienteComponent } from './pages/contratto/insert-cliente/insert-
 import { basicUser, notLogged } from './guard/auth.guard';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
+import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,7 @@ const routes: Routes = [
       { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
       { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
       { path: 'insert-cliente',component: InsertClienteComponent,},
+      { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       // {path:,component:},
       // {path:,component:},
     ],
