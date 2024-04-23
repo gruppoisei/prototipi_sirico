@@ -24,7 +24,10 @@ export class InsertContrattoService {
   modalState = this.modalSubject.asObservable();
   private apiUrl = 'http://localhost:5143/GestioneContratto';
   private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
+
   idPersonaCronologiaDistacchi?: number | null; 
+  nomePersonaCronologiaDistacchi?: string | null;
+  cognomePersonaCronologiaDistacchi?: string | null;
 
   constructor(private Http: HttpClient) {
   }
