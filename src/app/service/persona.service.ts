@@ -82,6 +82,4 @@ export class PersonaService {
   clearDipendente() {
     this.dipendenteSubject.next(null);
   }
-
-  
 }
