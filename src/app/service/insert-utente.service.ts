@@ -9,8 +9,8 @@ import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 
 export class InsertUtenteService {
 
-  utenteId!: number;
-  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId);
+  utenteId?: number;
+  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId!);
 
   constructor(private Http: HttpClient) { }
 
@@ -84,8 +84,6 @@ export class InsertUtenteService {
     if (ruoloId) {
       url += 'ruoloId=' + ruoloId;
     }
-
-    console.log(url);
 
     return this.Http.get<any[]>(url);
   }

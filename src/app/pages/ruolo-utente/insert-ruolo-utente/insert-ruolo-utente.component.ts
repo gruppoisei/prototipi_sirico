@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { NuovoUtenteRequest } from '../../../dto/request/nuovoUtenteRuolo';
 import { InsertUtenteService } from '../../../service/insert-utente.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,13 +9,15 @@ import { CercaPersonaSenzaUtenteComponent } from './cerca-persona-senza-utente/c
   templateUrl: './insert-ruolo-utente.component.html',
   styleUrl: './insert-ruolo-utente.component.scss',
 })
-export class InsertRuoloUtenteComponent {
+export class InsertRuoloUtenteComponent implements OnDestroy {
   // @Input()
   utenteId: any = null
   // utenteId = 1;
 
   listaRuoliDisponibili: any[] = [];
   listaRuoliAssegnati: any[] = [];
+  listaOriginale:any[] =[]
+  AllRuoli: any[] = [];
 
   nuovoRuolo: number = 0;
   personaSelezionata = {
@@ -27,16 +29,13 @@ export class InsertRuoloUtenteComponent {
     anpePersonaid: -1,
   };
 
-  listaOriginale:any[] =[]
   utenteDaAggiungere = new NuovoUtenteRequest();
 
-  AllRuoli: any[] = [];
 
   constructor(
     private utenteService: InsertUtenteService,
     public dialog: MatDialog
   ) {
-    console.log(this.personaSelezionata)
     this.utenteId = utenteService.utenteId;
 
     utenteService.GetAllRuoli().subscribe((res) => {
@@ -58,7 +57,7 @@ export class InsertRuoloUtenteComponent {
           this.personaSelezionata.anpeCognome = res.cognome;
           this.personaSelezionata.anpeCodicefiscale = res.codiceFiscale;
           this.personaSelezionata.username = res.username;
-
+          
           this.utenteDaAggiungere.userId = this.utenteId;
           this.utenteDaAggiungere.listaRuoliId = [];
           res.listaRuoli.map((ruolo: any) =>{
@@ -77,6 +76,9 @@ export class InsertRuoloUtenteComponent {
           );
         });
     } else this.listaRuoliDisponibili = this.AllRuoli;
+  }
+  ngOnDestroy(): void {
+    this.utenteService.utenteId = undefined
   }
 
   AggiungiRuolo() {
