@@ -293,9 +293,13 @@ export class GestioneContrattoComponent implements OnInit {
     );
   }
 
-  openCronologiaDistaccoModal(personaId: number) {
-    console.log("personaId: " + personaId);
+  openCronologiaDistaccoModal(personaId: number, nomePersona: string, cognomePersona: string) {
+    //console.log("personaId: " + personaId);
+    //console.log("nomePersona: " + nomePersona);
+    //console.log("cognomePersona: " + cognomePersona);
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
+    this.inserimentoContrattoService.nomePersonaCronologiaDistacchi = nomePersona;
+    this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = cognomePersona;
     const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
       width: '75%',
       height: '80%',

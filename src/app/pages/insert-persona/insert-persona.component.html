@@ -290,7 +290,7 @@
         </div>
   </div>
   
-  <app-gestione-file (fileEvent)="receiveFile($event)"></app-gestione-file>
+  <app-gestione-file *ngIf="enabled" (fileEvent)="receiveFile($event)"></app-gestione-file>
 
 <!--Bottoni-->
   <div class = "w-full flex justify-between mb-10 mt-10">

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegioneService } from '../../service/regione.service';
 import { PaesiService } from '../../service/paesi.service';
@@ -50,6 +50,8 @@ export class InsertPersonaComponent implements OnInit{
   selectedFile: File | null = null;
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
+  enabled: boolean =  true;
+  defaultValues : any;
 
 constructor
 (
@@ -57,7 +59,8 @@ constructor
   private location: Location, private fb : FormBuilder,
   private serviceRegione: RegioneService, private servicePaese: PaesiService,
   private serviceSocieta:SocietaService,private serviceProvince: ProvinceService,
-  private serviceComune:ComuniService, private serviceDocumenti: DocumentiService
+  private serviceComune:ComuniService, private serviceDocumenti: DocumentiService,
+  private changeDetector: ChangeDetectorRef
 )
 
 {
@@ -113,6 +116,7 @@ constructor
         AnpeEmailpersonale: ['', Validators.email],
         AnpeFkAnsoSocietaid: ['', Validators.required],
       })
+       this.defaultValues = this.insertPersona.value
 
       this.insertPersona.get('AnpeDataidoneitamedica')?.valueChanges.subscribe(value => {
         if (value) {
@@ -172,12 +176,6 @@ constructor
         this.serviceProvince.getProvinceByIdComune(idComuneDomicilio).subscribe(listaProvince => this.listProvinceDomicilio = listaProvince)
       }
   }
-
-  updateMinDate(selectedDate : string)
-  {
-
-  }
-  
   
   populateForm(dipendente: any){
     // Popolamento delle informazioni relative al luogo di nascita
@@ -296,9 +294,9 @@ constructor
                   width: 'auto',
                   height: 'auto'
                 })
-              this.insertPersona.reset();
+              this.reloadGestioneFile()
+              this.insertPersona.reset(this.defaultValues);
               this.selectedFiles = []
-              this.isTableVisibile = false;
             },
             error:(err) => 
             {
@@ -338,7 +336,7 @@ constructor
 
   clearSearch()
   {
-    this.insertPersona.reset();
+    this.insertPersona.reset(this.defaultValues);
   }
 
   goBack() : void
@@ -399,4 +397,10 @@ constructor
   receiveFile($event : any){
     this.selectedFiles = $event
   }
+
+  reloadGestioneFile(){
+    this.enabled = false;
+    this.changeDetector.detectChanges();
+    this.enabled = true; 
+}
 }

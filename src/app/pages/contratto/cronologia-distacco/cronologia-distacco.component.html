@@ -1,13 +1,17 @@
-<div class="flex flex-row justify-center my-10">
+<h1 class="flex justify-center my-10 text-4xl font-bold">Storico distacchi di {{nomePersona}} {{cognomePersona}}</h1>
+
+<div *ngIf="listaDistacchi.length == 0" class="flex flex-row justify-center my-10">
+    Non sono presenti distacchi
+</div>
+
+<div *ngIf="listaDistacchi.length > 0" class="flex flex-row justify-center my-10">
     <table class="text-base text-left rtl:text-right">
         <thead class="text-sm uppercase text-white bg-blue-600">
             <tr>
-                <th scope="col" class="px-6 py-3">Società distacco</th>
                 <th scope="col" class="px-6 py-3">Valore distacco</th>
                 <th scope="col" class="px-6 py-3">Cliente distacco</th>
                 <th scope="col" class="px-6 py-3">Data inizio distacco</th>
                 <th scope="col" class="px-6 py-3">Data fine distacco</th>
-                <th scope="col" class="px-6 py-3">CodsFlagAttiva</th>
             </tr>
         </thead>
 
@@ -34,21 +38,21 @@
         <tbody>
             <tr [ngStyle]="{'color': distacco.codsFlagAttiva == 1 ? 'green' : 'grey', 'font-weight': distacco.codsFlagAttiva == 1 ? 'bold' : 'normal' }"
                 *ngFor="let distacco of listaDistacchi" class="bg-white border-b">
-                <td class="px-6 py-4 truncate">{{ distacco.codsSocietadistaccoid }}</td>
+                <!-- <td class="px-6 py-4 truncate">{{ distacco.codsSocietadistaccoid }}</td> -->
                 <td class="px-6 py-4 truncate">{{ distacco.codsValoredistacco }}%</td>
-                <td class="px-6 py-4">{{ distacco.codsClienteid }}</td>
+                <!-- <td class="px-6 py-4">{{ distacco.codsClienteid }}</td> -->
+                <td class="px-6 py-4">{{ distacco.codsClientedistaccoDesc }}</td>
                 <!--<td *ngIf="distacco.codsDatainiziodistacco == null" class="px-6 py-4">....</td>-->
                 <td *ngIf="distacco.codsDatainiziodistacco != null" class="px-6 py-4">{{ distacco.codsDatainiziodistacco
                     | date: 'dd-MM-yyyy'}}</td>
                 <!--<td *ngIf="distacco.codsDatafinedistacco == null" class="px-6 py-4">....</td>-->
                 <td *ngIf="distacco.codsDatafinedistacco != null" class="px-6 py-4">{{ distacco.codsDatafinedistacco |
-                    date: 'dd-MM-yyyy'}}</td>
-                <td class="px-6 py-4">{{ distacco.codsFlagAttiva }}</td>                
+                    date: 'dd-MM-yyyy'}}</td>                             
             </tr>
         </tbody>
     </table>
 </div>
-<div class="flex flex-row justify-end mt-10">
+<div class="flex flex-row justify-end">
     <button type="button" (click)="closeModal()"
         class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
 </div>

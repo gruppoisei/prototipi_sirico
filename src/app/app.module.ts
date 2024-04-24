@@ -61,6 +61,8 @@ import { LoadingComponent } from './ui/loading/loading.component';
 import { LoadingInterceptor } from './ui/loading/loading.interceptor';
 import { GestioneFileComponent } from './pages/gestione-file/gestione-file.component';
 import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/errore-allegato-dialog.component';
+import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
+import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 
 @NgModule({
     declarations: [
@@ -104,7 +106,9 @@ import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/error
         LoadingComponent,
         SelezionaRuoloDialogComponent,
         GestioneFileComponent,
-        ErroreAllegatoDialogComponent
+        ErroreAllegatoDialogComponent,
+        GestioneCommessaComponent,
+        SalvaCommessaComponent
     ],
     providers: [
         provideAnimationsAsync(),
