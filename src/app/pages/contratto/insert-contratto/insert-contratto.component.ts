@@ -113,7 +113,7 @@ export class InsertContrattoComponent implements OnInit {
     societaPersona: null,
     clienteDistaccoid: null,
     clienteDistacco: null,
-    sysuser: "null"
+    sysuser: "FrontEnd"
   }
 
   constructor(
@@ -217,7 +217,7 @@ export class InsertContrattoComponent implements OnInit {
       societaPersona: null,
       clienteDistaccoid: null,
       clienteDistacco: null,
-      sysuser: "null"
+      sysuser: "FrontEnd"
     };
   }
 
@@ -381,7 +381,7 @@ export class InsertContrattoComponent implements OnInit {
   
   insertContratto() {
     console.log("inizio funzione insert contratto ")
-    debugger;
+    this.formData.sysuser = "FrontEnd";   //o predere l'username dell'utente loggato
     this.formValidationCheck();
     if (this.formValidation){
       this.inserimentoContrattoService
