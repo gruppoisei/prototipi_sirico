@@ -86,7 +86,7 @@ export class InsertContrattoService {
   insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
     debugger;
     console.log('entrato insertNuovoContratto()');
-    if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
+    if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != -5) {
       console.log('caso put');
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
