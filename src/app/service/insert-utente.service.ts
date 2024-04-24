@@ -9,10 +9,11 @@ import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 
 export class InsertUtenteService {
 
+
   modalType?: string | null;
 
-  utenteId!: number;
-  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId);
+  utenteId?: number;
+  utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId!);
 
   fieldAutoFill!: number;
   fieldAutoFill$: BehaviorSubject<any> = new BehaviorSubject<any>(this.fieldAutoFill);
@@ -89,8 +90,6 @@ export class InsertUtenteService {
     if (ruoloId) {
       url += 'ruoloId=' + ruoloId;
     }
-
-    console.log(url);
 
     return this.Http.get<any[]>(url);
   }

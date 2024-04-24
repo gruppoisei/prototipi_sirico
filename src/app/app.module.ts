@@ -63,6 +63,7 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
 import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/errore-allegato-dialog.component';
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
+import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 
 @NgModule({
     declarations: [
@@ -108,7 +109,8 @@ import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salv
         GestioneFileComponent,
         ErroreAllegatoDialogComponent,
         GestioneCommessaComponent,
-        SalvaCommessaComponent
+        SalvaCommessaComponent,
+        ProvassComponent
     ],
     providers: [
         provideAnimationsAsync(),
