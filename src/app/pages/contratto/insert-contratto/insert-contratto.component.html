@@ -10,7 +10,8 @@
                         <input matInput [value]="formData.codiceFiscale" [disabled]="disable_fields"
                             [(ngModel)]="formData.codiceFiscale" name="CodiceFiscale" placeholder="Codice fiscale"
                             class="mat-disabled">
-                        <button mat-icon-button type="button" matSuffix (click)="showModalRicercaUtentiSenzaContratto()"
+                        <!-- <button mat-icon-button type="button" matSuffix (click)="showModalRicercaUtentiSenzaContratto()" -->
+                            <button mat-icon-button type="button" matSuffix (click)="openCercaPersonaModal()"
                             class="mat-disabled">
                             <mat-icon>person_add_alt_1</mat-icon>
                         </button>
@@ -200,7 +201,7 @@
 </div>
 
 
-<!-- DIALOG BOX PER RICERCA PERSONA-->
+<!-- DIALOG BOX PER RICERCA PERSONA
 <ng-template #approvalModal let-modal>
     <div class="flex justify-center my-10 text-4xl font-bold">
         <h1>Gestione dipendenti senza contratto</h1>
@@ -261,3 +262,4 @@
         </form>
     </div>
 </ng-template>
+-->

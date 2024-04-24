@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 import { NuovoUtenteRequest } from '../../../dto/request/nuovoUtenteRuolo';
 import { InsertUtenteService } from '../../../service/insert-utente.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CercaPersonaSenzaUtenteComponent } from './cerca-persona-senza-utente/cerca-persona-senza-utente.component';
+//import { CercaPersonaSenzaUtenteComponent } from './cerca-persona-senza-utente/cerca-persona-senza-utente.component';
+import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-cerca-persona.component';
 
 @Component({
   selector: 'app-insert-ruolo-utente',
@@ -159,6 +160,24 @@ export class InsertRuoloUtenteComponent {
     }
   }
 
+  openCercaPersonaModal(parametri?: any) {
+    console.log("openCercaPersonaModal()");
+    this.utenteService.modalType = "utenza";
+    //this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = cognomePersona;
+    const dialogRef = this.dialog.open(DialogCercaPersonaComponent, {
+      width: '75%',
+      height: '80%',
+    });
+    this.utenteService.modalType = undefined;
+    dialogRef.afterClosed().subscribe(result => {
+      this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.personaId;
+      this.personaSelezionata.anpeNome = this.utenteService.fieldAutoFill$.value.nome;
+      this.personaSelezionata.anpeCognome = this.utenteService.fieldAutoFill$.value.cognome;
+      this.personaSelezionata.anpeCodicefiscale = this.utenteService.fieldAutoFill$.value.codiceFiscale;
+    });
+  }  
+
+  /*
   ScegliPersonaDaAssociare() {
     const dialogRef = this.dialog.open(CercaPersonaSenzaUtenteComponent, {
       data: this.personaSelezionata,
@@ -169,4 +188,6 @@ export class InsertRuoloUtenteComponent {
       this.personaSelezionata = result;
     });
   }
+  */
+
 }

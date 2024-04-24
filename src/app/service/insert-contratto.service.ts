@@ -17,6 +17,8 @@ export class InsertContrattoService {
     }), responseType: 'text'
   };
 
+  modalType?: string | null;
+
   idContratto!: number;
   idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto);
   isContrattoPassato?: number | null;
@@ -28,6 +30,9 @@ export class InsertContrattoService {
   idPersonaCronologiaDistacchi?: number | null; 
   nomePersonaCronologiaDistacchi?: string | null;
   cognomePersonaCronologiaDistacchi?: string | null;
+
+  fieldAutoFill!: number;
+  fieldAutoFill$: BehaviorSubject<any> = new BehaviorSubject<any>(this.fieldAutoFill);
 
   constructor(private Http: HttpClient) {
   }

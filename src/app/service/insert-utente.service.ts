@@ -9,8 +9,13 @@ import { NuovoUtenteRequest } from '../dto/request/nuovoUtenteRuolo';
 
 export class InsertUtenteService {
 
+  modalType?: string | null;
+
   utenteId!: number;
   utenteId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.utenteId);
+
+  fieldAutoFill!: number;
+  fieldAutoFill$: BehaviorSubject<any> = new BehaviorSubject<any>(this.fieldAutoFill);
 
   constructor(private Http: HttpClient) { }
 
