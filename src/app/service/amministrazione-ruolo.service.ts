@@ -23,10 +23,10 @@ export class AmministrazioneRuoloService {
   };
 
   private apiUrl = 'http://localhost:5143/AmministrazioneRuolo'; 
-
+/* 
   getRuoloId(){
     return this.ruoloId
-  }
+  } */
 
   getFunzioni(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetFunzione`);    

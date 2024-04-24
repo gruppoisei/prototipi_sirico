@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
 import { InsertClienteComponent } from '../insert-cliente/insert-cliente.component';
 import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-distacco.component';
+import FormattaData from '../../../helpers/formattaData';
 import { faL, faPrescriptionBottleMedical } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, tap } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -40,20 +41,15 @@ export class InsertContrattoComponent implements OnInit {
   vecchiaRal?: number | null = null;
   vecchiamensile?: number | null = null;
   vecchiagiornaliera?: number | null = null;
-  giorniLavorativiAlMese: number = 21;
-  mesiLavorativiAllAnno: number = 12;
+  giorniLavorativiAlMese: number = 26;
+  mesiLavorativiAllAnno: number = 13;
   output_ricercaFiltrata: any;
   contratto: any; // canc?
   id: any; // canc?
   dipendentiSenzaContratto: utenteSenzaContatto[] | null | undefined;
   dipendentiConContratto?: InserimentoContratto;
   anpePartitaiva?: string | null;
-  dataInizioContrattoPlaceholder: string | null = null;
-  dataInizioDistaccoPlaceholder: string | null = null;
-  dataFineContrattoPlaceholder: string | null = null;
-  dataFineDistaccoPlaceholder: string | null = null;
-  livelloContrattoPlaceholder: string | null = null;
-  clienteDistaccoPlaceholder: string | null = null;
+  pannelloEspanso : boolean = false;
 
   /*
   {"codiContrattopersid":25,"codiRalcompenso":1234,"codiMonteore":40,"codiDatainiziocontratto":"2024-03-15T00:00:00",
@@ -63,6 +59,7 @@ export class InsertContrattoComponent implements OnInit {
   "livelloid":19,"livelloContratto":"A1","motivid":null,"motivdesc":null,"tipoid":2,"tipodesc":"Indeterminato","societaDistaccoid":1,
   "societaPersonaid":1,"societaPersona":"Gruppo ISEI","clienteDistaccoid":1,"clienteDistacco":null}
   */
+
   tipiSocieta: { societaid: number; ragionesociale: string }[] = [];                  //
   tipiContratto: { tipoid: number; tipodesc: string }[] = [];                         //
   tipiCcnl: { ccnlid: number; descrizioneCCNL: string }[] = [];                       //
@@ -75,12 +72,13 @@ export class InsertContrattoComponent implements OnInit {
   // DIALOG
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
   //formData: FormGroup;
-
+  
   formDataDialog: any = {
     personaid: null,
     nome: null,
     cognome: null,
-    codiceFiscale: null
+    codiceFiscale: null,
+    anpePartitaiva: null
   };
 
   formData: InserimentoContratto= {
@@ -115,7 +113,7 @@ export class InsertContrattoComponent implements OnInit {
     societaPersona: null,
     clienteDistaccoid: null,
     clienteDistacco: null,
-    sysuser: 'backend'
+    sysuser: "FrontEnd"
   }
 
   constructor(
@@ -124,49 +122,7 @@ export class InsertContrattoComponent implements OnInit {
     private inserimentoContrattoService: InsertContrattoService,
     private dialog: MatDialog,
     private builder: FormBuilder
-  ) {
-    /*
-    this.formData = builder.group({
-      Nome: ['',Validators.minLength(1)],
-      Cognome: ['',Validators.minLength(1)],
-      Personaid: null,
-      Codicefiscale: '',
-      Partitaiva: '',
-      Societaid: null,
-      Datainiziocontratto: '',    //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
-      Datafinecontratto: null,    //formatDate(new Date(), 'yyyy/MM/dd', 'en').toString(),
-      tipocontrattoid: null,
-      Contratto: null,
-      ccnlid: 0,
-      descrizioneCCNL: null,
-      Livelloid: null,
-      livellodesc: null,
-      Ralcompenso: null,
-      Monteore: null,
-      Smartworking: null,
-      Valoredistacco: null,
-      Datainiziodistacco: null,
-      Datafinedistacco: null,
-      Note: null,
-      Sysuser: 'Frontend',
-      codiFlagAttiva: 1,
-      codsFlagAttiva: 0,
-      ClienteId: null,
-      societaDistacco: null,
-      societaPersona: null,
-      Contrattopersid: null,
-      motivazioneid: null,
-      motivazionedesc: null,
-      /*
-      codiFkCossVisitamedica: null,
-      durataValiditaVisitaMedica: null,
-      codiFkCossCorsosicurezza1: null,
-      durataValiditaCorsoSicurezza1: null,
-      codiFkCossCorsosicurezza2: null,
-      durataValiditaCorsoSicurezza2: null,
-      codiFkComlIdmotivazione: null,
-    });*/
-  }
+  ) {}
 
   ngOnInit(): void {
     this.reset();
@@ -176,15 +132,12 @@ export class InsertContrattoComponent implements OnInit {
     this.getAllClienti();
     this.getAllTipitipiMotiviFineContratto();
     this.disable_fields = true;
-    console.log(
-      ' id contratto passato = ' +
-        this.inserimentoContrattoService.idContratto$.value
-    );
-    this.controllaDisabilitaCampoPartitaIva();
+    console.log(' id contratto passato = ' + this.inserimentoContrattoService.idContratto$.value);
+    this.controllovisibilPartitaIva();
     this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
     }
 
-  openModalIfLastOptionSelected(event: MatSelectChange) {
+  openModalIfLastOptionSelected(event: MatSelectChange) {  //nuovo cliente
     if (event.value === -1) {
       const dialogRef = this.dialog.open(InsertClienteComponent, {
         width: '50%',
@@ -197,38 +150,30 @@ export class InsertContrattoComponent implements OnInit {
     const dialogRef = this.dialog.closeAll();
   }
 
-  dataFineContrattoSelezionata() {
-    this.showMotivazioneFineContratto = true;
-    this.formValidationCheck();
-  }
-
   openCronologiaDistaccoModal(personaId: number) {
     console.log("personaId: " + personaId);
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
+    this.inserimentoContrattoService.nomePersonaCronologiaDistacchi = this.formData.nome;
+    this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = this.formData.cognome;
+
     const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
       width: '75%',
       height: '80%',
     });
-    /*
-    this.inserimentoContrattoService.idPersonaCronologiaDistacchi =
-      this.formData.Personaid;
-    //FORSE CAMBIARE COSì: PASSA IDPERSONA AL SERVICE, POI QUESTA CHIAMATA LA FA L'ALTRO COMPONENTE (CronologiaDistaccoComponent)
-    if (this.inserimentoContrattoService.idPersonaCronologiaDistacchi != null) {
-      this.inserimentoContrattoService.getCronologiaDistacco().subscribe(
-        (response) => {
-          console.log('Risposta dalla chiamata GET:', response);
-          //APRI MODAL DIALOG
-          const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
-            width: '50%',
-            height: '80%',
-          });
-        },
-        (error) => {
-          console.error('Errore durante la chiamata GET:', error);
-        }
-      );
-    }
-    */  
+  }
+
+  closeForm() {
+    if (
+      confirm(
+        'La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'
+      )
+    )
+      this.router.navigate(['Segreteria/gestione-contratto']);
+  }
+
+  dataFineContrattoSelezionata() {
+    this.showMotivazioneFineContratto = true;
+    this.formValidationCheck();
   }
 
   clearForm() {
@@ -272,17 +217,8 @@ export class InsertContrattoComponent implements OnInit {
       societaPersona: null,
       clienteDistaccoid: null,
       clienteDistacco: null,
-      sysuser: 'backend'
+      sysuser: "FrontEnd"
     };
-  }
-
-  closeForm() {
-    if (
-      confirm(
-        'La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'
-      )
-    )
-      this.router.navigate(['Segreteria/gestione-contratto']);
   }
 
   getAllTipoSocieta() {
@@ -340,31 +276,27 @@ export class InsertContrattoComponent implements OnInit {
     );
   }
 
-  getAllTipoLivelloByCCNLIfNotNull() {
+  getAllTipoLivelloByCCNL(id: number | null) {
     if (this.formData.ccnlid !== null) {
-      this.getAllTipoLivelloByCCNL(this.formData.ccnlid);
+      this.inserimentoContrattoService.getAllTipoLivelloByCCNL(id)
+        .subscribe(
+          (data) => {
+            this.tipiLivello = data;
+            console.log('Dati tipi livello:', data);
+          },
+          (error) => {
+            console.error('Errore durante il recupero dei tipi livello:', error);
+          }
+        );
     }
-  }
-
-  getAllTipoLivelloByCCNL(ccnlId: number) {
-    this.inserimentoContrattoService.getAllTipoLivelloByCCNL(ccnlId)
-      .subscribe(
-        (data) => {
-          this.tipiLivello = data;
-          console.log('Dati tipi livello:', data);
-        },
-        (error) => {
-          console.error('Errore durante il recupero dei tipi livello:', error);
-        }
-      );
   }
 
   getAllTipitipiMotiviFineContratto() {
     this.inserimentoContrattoService.getAllTipitipiMotiviFineContratto()
       .subscribe(
-        (res: any) => {
-          console.log('response get tipi motivo fine contratto:' + res);
-          this.tipiMotiviFinecontratto = res;
+        (response: any) => {
+          console.log('response get tipi motivo fine contratto:' + response);
+          this.tipiMotiviFinecontratto = response;
         },
         (error: any) => {
           console.error('Errore durante il recupero dei tipi di livello:', error);
@@ -372,13 +304,11 @@ export class InsertContrattoComponent implements OnInit {
       );
   }
 
-  controllaDisabilitaCampoPartitaIva() {
-    this.disablePartitaIvaField = this.anpePartitaiva != null ? true : false;
-  }
-
-  controlloHideCampoPartitaIva() {
-    this.hidePartitaIvaField = this.formData.ccnlid === this.partitaIvaID ? false : true;
-    this.hidePartitaIvaField && this.controllaDisabilitaCampoPartitaIva();
+  controllovisibilPartitaIva() {
+    console.log("visibilita e disabilità partitaiva: " + this.hidePartitaIvaField + this.disablePartitaIvaField + " perché anpepartita iva è null? " + (this.anpePartitaiva !== null));
+    this.hidePartitaIvaField = (this.formData.tipoid != null && this.formData.tipoid === this.partitaIvaID) ? true : false;
+    this.disablePartitaIvaField = (this.formData.partitaIva !== null) ? true : false;
+    console.log("visibilita partitaiva:  e se anpe è null " + this.hidePartitaIvaField + this.disablePartitaIvaField );
   }
 
   formatInputValue(event: any) {
@@ -436,18 +366,23 @@ export class InsertContrattoComponent implements OnInit {
     ) {
       const dipendente = this.dipendentiSenzaContratto[array_index];
       if (dipendente) {
+        this.formData.personaId = dipendente.anpePersonaid;
         this.formData.codiceFiscale = dipendente.anpeCodicefiscale;
         this.formData.nome = dipendente.anpeNome;
         this.formData.cognome = dipendente.anpeCognome;
-        //this.formData.partitaiva = dipendente.AnpePartitaiva ?? null;
-        this.formData.personaId = dipendente.anpePersonaid;
-        this.inserimentoContrattoService.idContratto$.next(0);
+        this.formData.partitaIva = dipendente.anpePartitaiva ?? null;
+        this.formData.partitaIva ? this.hidePartitaIvaField = true : this.hidePartitaIvaField = false;
+        this.formData.partitaIva ? this.disablePartitaIvaField = true : this.disablePartitaIvaField = false;
+        //this.inserimentoContrattoService.idContratto$.next(0);
         this.closeModalRicercaUtentiSenzaContratto();
       }
     }
   }
   
   insertContratto() {
+    console.log("inizio funzione insert contratto ")
+    this.formData.sysuser = "FrontEnd";   //o predere l'username dell'utente loggato
+    this.formValidationCheck();
     if (this.formValidation){
       this.inserimentoContrattoService
         .insertNuovoContratto(this.formData)
@@ -467,38 +402,39 @@ export class InsertContrattoComponent implements OnInit {
     }
   }
 
-  getContrattoByidContratto(idContratto: number) {
-    this.inserimentoContrattoService.getContrattiById(idContratto).pipe(
-      switchMap((response: any) => {
-        return this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).pipe(
-          map((levels: any[]) => {
-            this.tipiLivello = levels;
-            this.formData = response;
-            this.dataInizioContrattoPlaceholder = response.codiDatainiziocontratto;
-            this.dataInizioDistaccoPlaceholder = response.codiDatafinecontratto;
-            this.dataFineContrattoPlaceholder = response.codsDatainiziodistacco;
-            this.dataFineDistaccoPlaceholder = response.codsDatafinedistacco;
-            this.livelloContrattoPlaceholder = response.livelloContratto;
-            this.clienteDistaccoPlaceholder = response.clienteDistacco;
-            return response;
-          })
-        );
-      })
-    ).subscribe(
-      (response: any) => {
-        console.log("Contratto loaded:", response);
-      },
-      (error: any) => {
-        console.error("Error fetching contract:", error);
-      }
-    );
+  insertContrattobis() {
+    console.log("inizio funzione insert contratto bis");
+  }
+
+  async getContrattoByidContratto(idContratto: number) {
+    try {
+      const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();
+      const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).toPromise();
+
+      this.tipiLivello = livelli;
+      this.formData = response;
+      // Formattazione della data di nascita
+      this.formData.codiDatainiziocontratto = FormattaData.formattaData(response.codiDatainiziocontratto);
+      this.formData.codiDatafinecontratto = FormattaData.formattaData(response.codiDatafinecontratto);
+      this.formData.codsDatainiziodistacco = FormattaData.formattaData(response.codsDatainiziodistacco);
+      this.formData.codsDatafinedistacco = FormattaData.formattaData(response.codsDatafinedistacco);
+      
+      this.pannelloEspanso = this.formData.codsFlagAttiva ? true : false;
+      console.log("Contratto caricato:", response);
+      this.updateCosts();
+      return true;
+    } catch (error) {
+      console.error("Errore nell'apertura di un contratto:", error);
+      return false;
+    }
   }
 
   formValidationCheck() {
+    debugger;
     const formCompilato = this.formData;
     const isNotBlank = (value: any) => value !== undefined && value !== null && value !== '';
     const isTruthy = (value: any) => !!value;
-    const isAnsoSocietaidValid = isTruthy(formCompilato.societaPersonaid);
+    const isAnsoSocietaidValid = isTruthy(formCompilato.societaPersonaid) /*  ? true : console.log("trovato errore su societapersonaid") */ ;
     const isCodiDatainiziocontrattoValid = isNotBlank(formCompilato.codiDatainiziocontratto);
     const isCodiDatafinecontrattoValid = isNotBlank(formCompilato.codiDatafinecontratto);
     const isCotctipocontrattoidValid = isTruthy(formCompilato.tipoid);
@@ -540,7 +476,7 @@ export class InsertContrattoComponent implements OnInit {
     const isValidContratto = startDateContratto && endDateContratto && startDateContratto < endDateContratto;
     const isValidDistacco = startDateDistacco && endDateDistacco && startDateDistacco < endDateDistacco;
 
-    this.formValidation = this.formValidation? (isValidContratto ? (isValidDistacco ? isValidContratto && isValidDistacco : false) : false) : false;
+    this.formValidation = isValidContratto ? (isValidDistacco ? isValidContratto && isValidDistacco : false) : false;
   }
 
   updateCosts() {

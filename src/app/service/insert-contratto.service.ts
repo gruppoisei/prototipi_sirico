@@ -24,7 +24,10 @@ export class InsertContrattoService {
   modalState = this.modalSubject.asObservable();
   private apiUrl = 'http://localhost:5143/GestioneContratto';
   private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
+
   idPersonaCronologiaDistacchi?: number | null; 
+  nomePersonaCronologiaDistacchi?: string | null;
+  cognomePersonaCronologiaDistacchi?: string | null;
 
   constructor(private Http: HttpClient) {
   }
@@ -49,7 +52,7 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.apiUrl}/GetCCNL`);
   }
 
-  getAllTipoLivelloByCCNL(CCNLid: number): Observable<any> {
+  getAllTipoLivelloByCCNL(CCNLid: number | null): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + CCNLid);
   }
 
@@ -58,8 +61,8 @@ export class InsertContrattoService {
   }
 
   getAllTipitipiMotiviFineContratto(): Observable<any> {
-    var res = this.Http.get<any>(`${this.clienteDistaccoUrl}/GetMotiviFineContratto`);
-    console.log("res = " + res);
+    var res = this.Http.get<any>(`${this.apiUrl}/GetMotiviFineContratto`);
+    console.log("motivi fine contratto = " + JSON.stringify(res));
     return res;
   }
 
@@ -76,6 +79,7 @@ export class InsertContrattoService {
   }
 
   insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
+    debugger;
     console.log('entrato insertNuovoContratto()');
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
       console.log('caso put');

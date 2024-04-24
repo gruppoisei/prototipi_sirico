@@ -116,7 +116,7 @@
                     <!-- <td *ngIf="dipendente.codsFlagAttiva != null" class="px-6 py-4">{{ dipendente.codsFlagAttiva }}</td> -->
                     <td *ngIf="dipendente.codsFlagAttiva != null">
                         <div class="flex flex-row">
-                            <button type="button" (click)="openCronologiaDistaccoModal(dipendente.personaId)"
+                            <button type="button" (click)="openCronologiaDistaccoModal(dipendente.personaId, dipendente.nome, dipendente.cognome)"
                                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Dettagli</button>
                         </div>    
                     </td>

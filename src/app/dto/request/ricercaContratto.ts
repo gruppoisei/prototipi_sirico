@@ -3,7 +3,7 @@ export interface utenteSenzaContatto {
   anpeNome: string;
   anpeCognome: string;
   anpeCodicefiscale: string;
-  AnpePartitaiva?: string | null;
+  anpePartitaiva?: string | null;
 }
 
 
