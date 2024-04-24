@@ -1,33 +1,34 @@
-<!-- component -->
-<div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-    <div class="container max-w-screen-lg mx-auto">
-        <div class="lg:col-span-2">
-
-            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-
-                <div class="md:col-span-5">
-                  <label class="block mb-2 text-sm font-medium text-gray-900">Nome commessa</label>
-                  <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-                  focus:border-sky-500 focus:ring-sky-500">
-                </div>
-  
-                <div class="md:col-span-5">
-                  <label class="block mb-2 text-sm font-medium text-gray-900">Data Inizio</label>
-                  <input type="date">
-                </div>
-  
-                <div class="md:col-span-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900">Data fine</label>
-                  <input type="date">
-                </div>
-
-                <div class="md:col-span-5 text-right">
-                  <div class="inline-flex items-end">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
-                  </div>
-                </div>
-  
+<div class="py-8 px-4 mx-auto max-w-xl lg:py-16">
+    <h2 class="flex justify-center my-10 text-4xl font-bold">Salva commessa</h2>
+    <form>
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="sm:col-span-2">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Commessa</label>
+                <input formControlName="DescComm" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500" placeholder="Scrivi il nome della commessa">
             </div>
+            <div class="w-full">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Data inizio</label>
+                <input formControlName="dataInizio" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+            </div>
+            <div class="w-full">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Data fine</label>
+                <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+            </div>
+
+            <label class="inline-flex items-center mb-5 cursor-pointer gap-5">
+                <span class="ms-3 text-sm font-medium text-gray-900">Commessa attiva?</span>
+                <input type="checkbox" class="sr-only peer" checked disabled>
+                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                
+              </label>
         </div>
-    </div>
+        <div class="w-full flex flex-col md:flex-row justify-between mb-10 mt-10">
+            <button type="submit" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
+            <button (click)="clearSearch()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
+            <button (click)="goBack()" class="w-full md:w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
+        </div>
+    </form>
 </div>
