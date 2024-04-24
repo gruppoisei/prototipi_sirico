@@ -10,6 +10,8 @@ import { InsertContrattoService } from '../../../service/insert-contratto.servic
 export class CronologiaDistaccoComponent implements OnInit {
 
   listaDistacchi: any[] = [];
+  nomePersona?: string | null;
+  cognomePersona?: string | null;
 
   constructor(
     private inserimentoContrattoService: InsertContrattoService,
@@ -18,32 +20,11 @@ export class CronologiaDistaccoComponent implements OnInit {
 
   ngOnInit(): void {
     this.openCronologiaDistaccoModal();
+    this.nomePersona = this.inserimentoContrattoService.nomePersonaCronologiaDistacchi;
+    this.cognomePersona = this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi;
   }
 
-  openCronologiaDistaccoModal() {
-    //1
-    /*
-    this.inserimentoContrattoService.idPersonaCronologiaDistacchi =
-      this.formData.Personaid;
-    //FORSE CAMBIARE COSì: PASSA IDPERSONA AL SERVICE, POI QUESTA CHIAMATA LA FA L'ALTRO COMPONENTE (CronologiaDistaccoComponent)
-    if (this.inserimentoContrattoService.idPersonaCronologiaDistacchi != null) {
-      this.inserimentoContrattoService.getCronologiaDistacco().subscribe(
-        (response) => {
-          console.log('Risposta dalla chiamata GET:', response);
-          //APRI MODAL DIALOG
-          const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
-            width: '50%',
-            height: '80%',
-          });
-        },
-        (error) => {
-          console.error('Errore durante la chiamata GET:', error);
-        }
-      );
-    }
-    */
-
-    //2
+  openCronologiaDistaccoModal() {    
     this.inserimentoContrattoService.getCronologiaDistacco().subscribe(
       (response: any) => {
         console.log(response);

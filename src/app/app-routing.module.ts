@@ -25,6 +25,7 @@ import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
+import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,10 @@ const routes: Routes = [
     component: CalendarioComponent,
     canActivate : [basicUser]
   },
+  {
+    path: 'salva-commessa',
+    component: SalvaCommessaComponent,
+  }
 
   // {
   //   path: 'insertutente',
