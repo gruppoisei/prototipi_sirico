@@ -153,6 +153,9 @@ export class InsertContrattoComponent implements OnInit {
   openCronologiaDistaccoModal(personaId: number) {
     console.log("personaId: " + personaId);
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
+    this.inserimentoContrattoService.nomePersonaCronologiaDistacchi = this.formData.nome;
+    this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = this.formData.cognome;
+
     const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
       width: '75%',
       height: '80%',
