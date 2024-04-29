@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AmministrazioneRuoloService { 
   
-  ruoloId!: number;
-  ruoloId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.ruoloId);
+  ruoloId?: number;
+  ruoloId$: BehaviorSubject<number> = new BehaviorSubject<number>(this.ruoloId!);
   
   constructor(
     private Http: HttpClient
@@ -23,10 +23,16 @@ export class AmministrazioneRuoloService {
   };
 
   private apiUrl = 'http://localhost:5143/AmministrazioneRuolo'; 
-/* 
+
   getRuoloId(){
     return this.ruoloId
-  } */
+  }
+  GetAllInfoFunzioneRuoloById(ruoloId: number) {
+
+
+      
+    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetAllInfoFunzioniRuoloById?ruoloId=' + ruoloId)
+  }
 
   getFunzioni(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetFunzione`);    

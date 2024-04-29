@@ -69,6 +69,7 @@ export class GestioneRuoloComponent implements OnInit {
 
   modificaRuolo(id: number) {
     this.amministrazioneRuoli.ruoloId$.next(id);
+    this.amministrazioneRuoli.ruoloId = id
     this.router.navigate(['/Segreteria/insert-ruolo-funzione']);
   }
 

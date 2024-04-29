@@ -3,6 +3,7 @@ import { InsertContrattoService } from '../../../service/insert-contratto.servic
 import { clienteSocieta } from '../../../dto/response/nuovoCliente';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import ValidaPartita from '../../../helpers/validaPartitaIva';
 
 @Component({
   selector: 'app-insert-cliente',
@@ -13,6 +14,7 @@ export class InsertClienteComponent implements OnInit {
 
   clienteSocieta: any;
   isPhoneNumberError: boolean = false;
+  validPartitaIva: boolean = true;
 
   constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
     this.clienteSocieta = {
@@ -80,15 +82,19 @@ export class InsertClienteComponent implements OnInit {
       e (email valida o null) e (numero telefono valido o null) e (codice ateco valido o null)) ritorna vero */
 
     if ((this.clienteSocieta.Ragionesociale != null) &&
-      (this.clienteSocieta.Partitaiva != null && this.validatePartitaIVA(this.clienteSocieta.partitaIVA)) &&
+      (this.clienteSocieta.Partitaiva != null && ValidaPartita.IVA(this.clienteSocieta.partitaIVA)) &&
       (this.clienteSocieta.Patinail != null && this.validatePATINAIL(this.clienteSocieta.Patinail)) &&
       (this.clienteSocieta.email == null || this.validateEmail(this.clienteSocieta.email)) &&
       (this.clienteSocieta.Indirizzopec == null || this.validateEmail(this.clienteSocieta.Indirizzopec)) &&
       (this.clienteSocieta.Numerotelefono == null || this.validatePhoneNumber(this.clienteSocieta.Numerotelefono)) &&
       (this.clienteSocieta.Telefonorefammin == null || this.validatePhoneNumber(this.clienteSocieta.Telefonorefammin)) &&
       (this.clienteSocieta.Codiceateco == null || this.validateATECO(this.clienteSocieta.Codiceateco))     ) {
+        this.validPartitaIva = false;
       return true;
     } else {
+      if(!ValidaPartita.IVA(this.clienteSocieta.partitaIVA)){
+        this.validPartitaIva = false;
+      }
       return false;
     }
   }
@@ -116,28 +122,6 @@ export class InsertClienteComponent implements OnInit {
     patInailCode = patInailCode.replace(/\s/g, '');
     const patInailRegex = /^[A-Za-z]{3}\d{7}$/;
     return patInailRegex.test(patInailCode);
-  }
-
-  validatePartitaIVA(partitaIVA: string) {
-    partitaIVA = partitaIVA.replace(/\s/g, '').replace(/-/g, '');
-    if (partitaIVA.length !== 11 || !/^\d+$/.test(partitaIVA)) return false;
-
-    //controllo logica partita iva
-    const ultimaCifra = parseInt(partitaIVA[10]);
-    let sum = 0;
-    for (let i = 0; i < 10; i++) {
-      let digit = parseInt(partitaIVA[i]);
-      if (i % 2 === 0) {
-        digit *= 2;
-        if (digit > 9) {
-          digit -= 9;
-        }
-      }
-      sum += digit;
-    }
-    const cifraControlloCalcolata = (10 - (sum % 10)) % 10;
-
-    return (ultimaCifra === cifraControlloCalcolata);
   }
 
   closeInsertCliente() {

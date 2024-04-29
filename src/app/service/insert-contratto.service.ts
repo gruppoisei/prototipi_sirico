@@ -17,6 +17,8 @@ export class InsertContrattoService {
     }), responseType: 'text'
   };
 
+  modalType?: string | null;
+
   idContratto!: number;
   idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto);
   isContrattoPassato?: number | null;
@@ -28,6 +30,9 @@ export class InsertContrattoService {
   idPersonaCronologiaDistacchi?: number | null; 
   nomePersonaCronologiaDistacchi?: string | null;
   cognomePersonaCronologiaDistacchi?: string | null;
+
+  fieldAutoFill!: number;
+  fieldAutoFill$: BehaviorSubject<any> = new BehaviorSubject<any>(this.fieldAutoFill);
 
   constructor(private Http: HttpClient) {
   }
@@ -81,7 +86,7 @@ export class InsertContrattoService {
   insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
     debugger;
     console.log('entrato insertNuovoContratto()');
-    if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != 0) {
+    if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != -5) {
       console.log('caso put');
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
