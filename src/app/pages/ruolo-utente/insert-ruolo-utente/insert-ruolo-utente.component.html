@@ -15,10 +15,10 @@
 
 <div class="flex flex-col justify-center my-10 text-center font-bold">
   <div class="text-4xl text-center">
-    <div *ngIf="utenteId == null">
+    <div *ngIf="utenteId == null || utenteId == undefined ">
       <div>Inserimento Nuovo Utente</div>
     </div>
-    <div *ngIf="utenteId != null">
+    <div *ngIf="utenteId != null && utenteId != undefined">
       <h1>Aggiorna Ruoli Utente</h1>
     </div>
   </div>
@@ -67,7 +67,8 @@
       </div>
     </div>
     <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end pl-4 mt-9">
-      <button  (click)="ScegliPersonaDaAssociare()">
+      <!-- <button  (click)="ScegliPersonaDaAssociare()"> --> 
+      <button  (click)="openCercaPersonaModal()">
         <mat-icon>person_add_alt_1</mat-icon>
       </button>
     </div>

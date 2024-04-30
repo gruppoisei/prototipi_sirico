@@ -12,7 +12,7 @@
                     <mat-form-field class="w-full">
                         <input matInput placeholder="Partita IVA" [(ngModel)]="clienteSocieta.Partitaiva"
                             name="partitaIVA *" required>
-                        <mat-error *ngIf="validatePartitaIVA(clienteSocieta.Partitaiva)">
+                        <mat-error *ngIf="!validPartitaIva">
                             Inserisci una Partita IVA valida
                         </mat-error>
                     </mat-form-field>
