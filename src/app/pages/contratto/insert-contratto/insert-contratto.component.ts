@@ -310,6 +310,13 @@ export class InsertContrattoComponent implements OnInit {
 
   inviaForm() {
     this.formData.sysuser = "FrontEnd";   //o predere l'username dell'utente loggato
+    //
+    //console.log("this.inserimentoContrattoService.fieldAutoFill$.value.id:"); 
+    //console.log(this.inserimentoContrattoService.fieldAutoFill$.value.id);
+    //this.formData.personaId = this.inserimentoContrattoService.fieldAutoFill$.value.id;
+    //console.log("this.formData.personaId:"); 
+    //console.log(this.formData.personaId);
+    //
     this.formValidationCheck();
     if (this.formValidation){
     //if (true){
