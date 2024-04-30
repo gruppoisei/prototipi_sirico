@@ -295,7 +295,7 @@ constructor
                   height: 'auto'
                 })
               this.reloadGestioneFile()
-              this.insertPersona.reset(this.defaultValues);
+              this.clearSearch();
               this.selectedFiles = []
             },
             error:(err) => 
