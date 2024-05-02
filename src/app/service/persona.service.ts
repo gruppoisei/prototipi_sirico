@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { ricercaDipendente } from '../dto/request/ricercaDipendente';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable, retry} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +17,15 @@ export class PersonaService {
 
   constructor(private http : HttpClient) { }
 
-  setTitolo(titolo : string)
-  {
+  setTitolo(titolo : string){
     this.titolo.next(titolo);
   }
 
-  getTiolo()
-  {
+  getTiolo(){
     return this.titolo.getValue();
   }
 
-  salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>
-  {
+  salvaPersona(personaObj: any, fileAllegati : File[]) : Observable<any>{
     let formData = new FormData();
     Object.keys(personaObj).forEach(key => {
       formData.append(key, personaObj[key]);
@@ -59,24 +56,24 @@ export class PersonaService {
     return this.http.get<any>(this.baseUrlVP + 'GetVistaFiltrata', {params: params})
   }
 
-  disabilitaPersonaById(personaId : number)
-  {
+  disabilitaPersonaById(personaId : number){
     return this.http.put<any>(`${this.baseUrlP}DisabilitaPersonaById/${personaId}`, {})
   }
 
-  getPersonaById(personaId : number)
-  {
-    return this.http.get<any>(`${this.baseUrlP}GetPersonaById/${personaId}`).subscribe(
-      {
-        next:(res) =>
+  getPersonaById(personaId: number) {
+    return this.http.get<any>(`${this.baseUrlP}GetPersonaById/${personaId}`)
+      .pipe(
+        retry(3)
+      )
+      .subscribe(
         {
-          this.dipendenteSubject.next(res);
-        },
-        error:(err) => 
-        {
-          console.log(err)
-        }
-      });
+          next: (res) => {
+            this.dipendenteSubject.next(res);
+          },
+          error: (err) => {
+            console.error('Errore durante il recupero dei dati della persona:', err);
+          }
+        });
   }
 
   clearDipendente() {

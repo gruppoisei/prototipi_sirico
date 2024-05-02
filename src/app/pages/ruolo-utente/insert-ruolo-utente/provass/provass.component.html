@@ -14,15 +14,16 @@
     <div>
       <input 
         [(ngModel)]="ruoloDaAggiungere.nomeRuolo"
-        class=" p-6 min-w-52   text-center text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        class="min-w-52 mt-10 text-center text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         placeholder="Nome Ruolo..."
         
         
       />
     </div>
-    <div class="border-b-4 border-gray-600 m-20"></div>
+    
+    <!--<div class="border-b-4 border-gray-600 m-20"></div>-->
 
-    <div>
+    <div class="mt-20">
         <label class="text-gray-700 text-2xl">Seleziona Funzione da Aggiungere</label><br />
         <select
           (change)="AggiungiFunzione()"
@@ -43,7 +44,7 @@
         </select>
       </div>
 
-      <div class="flex justify-center ">
+      <div class="flex justify-center mt-10">
         <div class="w-2/3">
             <table>
                 <thead class="text-sm uppercase text-white bg-blue-600">

@@ -48,35 +48,24 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
-                    <!--<th scope="col" class="px-6 py-3">Id</th>-->
                     <th scope="col" class="px-6 py-3">Nome</th>
                     <th scope="col" class="px-6 py-3">Cognome</th>
-                    <!--<th scope="col" class="px-6 py-3">Codice Fiscale</th>-->
+                    <th scope="col" class="px-6 py-3">Società</th>
                     <th scope="col" class="px-6 py-3">Inizio Contratto</th>
                     <th scope="col" class="px-6 py-3">Fine Contratto</th>
                     <th scope="col" class="px-6 py-3">Tipo Contratto</th>
                     <th scope="col" class="px-6 py-3">CCNL</th>
-                    <th scope="col" class="px-6 py-3">Livello CCNL</th>
-                    <th scope="col" class="px-6 py-3">Società</th>
+                    <th scope="col" class="px-6 py-3">Livello CCNL</th>                    
                     <th scope="col" class="px-6 py-3">RAL</th>
-                    <th scope="col" class="px-6 py-3">Monteore settimanale</th>
-                    <!--<th scope="col" class="px-6 py-3">Società Distacco</th>
-                    <th scope="col" class="px-6 py-3">Inizio Distacco</th>
-                    <th scope="col" class="px-6 py-3">Fine Distacco</th>
-                    <th scope="col" class="px-6 py-3">Valore Distacco</th>-->
+                    <th scope="col" class="px-6 py-3">Ore settimanali</th>
                     <th scope="col" class="px-6 py-3">Note</th>
-                    <th scope="col" class="px-6 py-3">Distacco</th>
+                    <!--<th scope="col" class="px-6 py-3">Distacco</th>-->
+                    <th scope="col" class="px-6 py-3"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let dipendente of dipendentiConContratto" class="bg-white border-b">
                     <td class="px-6 py-4>">
-                        <!--<button type="button" (click)="modifyFields(i)"
-                                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">MODIFICA
-                            </button>-->
-                        <!--<button type="button" name="modifyFieldsDipendentiContratto"
-                            (click)="modifyContract(dipendente.codiContrattopersid)"
-                            class="material-icons">mode_edit</button>-->
                         <button type="button" name="modifyFieldsDipendentiContratto"
                             (click)="modifyContract(dipendente.codiContrattopersid)" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
                             hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
@@ -87,37 +76,24 @@
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
 
-                    <!--<td class="px-6 py-4">{{ dipendente.anpePersonaid }}</td>-->
                     <td class="px-6 py-4 truncate">{{ dipendente.nome }}</td>
                     <td class="px-6 py-4 truncate">{{ dipendente.cognome }}</td>
-                    <!--<td class="px-6 py-4">{{ dipendente.codiceFiscale }}</td>-->
+                    <td class="px-6 py-4">{{ dipendente.societaPersona }}</td>
                     <td *ngIf="dipendente.codiDatainiziocontratto == null" class="px-6 py-4">....</td>
                     <td *ngIf="dipendente.codiDatainiziocontratto != null" class="px-6 py-4">{{ dipendente.codiDatainiziocontratto | date: 'dd-MM-yyyy' }}</td>
                     <td *ngIf="dipendente.codiDatafinecontratto == null" class="px-6 py-4">....</td>
                     <td *ngIf="dipendente.codiDatafinecontratto != null" class="px-6 py-4">{{ dipendente.codiDatafinecontratto | date: 'dd-MM-yyyy' }}</td>
                     <td class="px-6 py-4">{{ dipendente.tipodesc }}</td>
                     <td class="px-6 py-4">{{ dipendente.descrizioneCCNL }}</td>
-                    <td class="px-6 py-4">{{ dipendente.livelloContratto }}</td>
-                    <td class="px-6 py-4">{{ dipendente.societaPersona }}</td>
+                    <td class="px-6 py-4">{{ dipendente.livelloContratto }}</td>                    
                     <td class="px-6 py-4">{{ dipendente.codiRalcompenso }}</td>
                     <td class="px-6 py-4">{{ dipendente.codiMonteore }}</td>
-                    <!--<td class="px-6 py-4">{{ dipendente.societaDistacco }}</td>
-                    <td *ngIf="dipendente.codsDatainiziodistacco == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codsDatainiziodistacco != null" class="px-6 py-4">{{
-                        dipendente.codsDatainiziodistacco.split("T")[0] }}</td>
-                    <td *ngIf="dipendente.codsDatafinedistacco == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codsDatafinedistacco != null" class="px-6 py-4">
-                        {{ dipendente.codsDatafinedistacco.split("T")[0] }}</td>
-                    <td *ngIf="dipendente.codsValoredistacco == null" class="px-6 py-4"></td>
-                    <td *ngIf="dipendente.codsValoredistacco != null" class="px-6 py-4">
-                        {{ dipendente.codsValoredistacco }}%</td> -->
                     <td class="px-6 py-4">{{ dipendente.codiNote }}</td>
                     <td *ngIf="dipendente.codsFlagAttiva == null" class="px-6 py-4"></td>
-                    <!-- <td *ngIf="dipendente.codsFlagAttiva != null" class="px-6 py-4">{{ dipendente.codsFlagAttiva }}</td> -->
                     <td *ngIf="dipendente.codsFlagAttiva != null">
                         <div class="flex flex-row">
                             <button type="button" (click)="openCronologiaDistaccoModal(dipendente.personaId, dipendente.nome, dipendente.cognome)"
-                                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Dettagli</button>
+                                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Dettaglio distacco</button>
                         </div>    
                     </td>
                 </tr>

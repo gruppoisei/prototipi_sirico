@@ -1,14 +1,14 @@
-<div class="flex justify-center my-10 text-4xl font-bold">
+<div class="flex justify-center mt-10 text-4xl font-bold">
     <h2>Ricerca Utente</h2>
 </div>
 
-<div class="flex flex-row justify-center my-10">
+<div class="flex flex-row justify-center mt-5">
     <form (ngSubmit)="ricercaPersonaFiltrata(formData.Nome, formData.Cognome, formData.Ruolo)">
-        <div class="flex flex-row justify-end mt-10">
+        <div class="flex flex-row justify-end">
             <a routerLink="/Segreteria/insert-ruolo-utente"><button mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
-        <div class="flex flex-row justify-center my-10">
+        <div class="flex flex-row justify-center my-5">
             <form (ngSubmit)="ricercaPersonaFiltrata(formData.Nome, formData.Cognome, formData.Ruolo)"
                 class="flex flex-row">
                 <div class="flex flex-col mb-5">
@@ -34,7 +34,7 @@
             </form>
         </div>
 
-        <div class="flex flex-row justify-end mt-10">
+        <div class="flex flex-row justify-end mt-5">
             <button type="submit" (click)="onCercaButtonClick()"
                 class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
             <button type="button" (click)="clearSearch()"
@@ -46,8 +46,8 @@
 </div>
 <br>
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
-<div class="flex flex-row my-10">
-    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
+<div class="flex flex-row justify-center my-10">
+    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10"> 
         <table class="text-base text-left rtl:text-right table-width">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
