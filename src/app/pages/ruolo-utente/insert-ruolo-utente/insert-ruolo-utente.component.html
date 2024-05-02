@@ -119,11 +119,11 @@
       <!--<input class=" text-center min-w-52 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
       <p class="min-w-52">
         <button (click)="AggiungiRuolo()"
-      class="w-auto mt-12 text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
-      Aggiungi
-    </button>
+          class="w-auto mt-12 text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Aggiungi
+        </button>
       </p>
-      
+
     </div>
     <div class="m-5">
       <!--<input class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
@@ -178,7 +178,10 @@
   </div>
 
   <div class="flex flex-row justify-end w-5/6 mt-20">
-    <button *ngIf="utenteId == null" (click)="InserisciNuovoUtente()"
+    <button [disabled]="listaRuoliAssegnati.length == 0 || 
+    (personaSelezionata.anpeCodicefiscale == null || personaSelezionata.anpeNome == null || personaSelezionata.anpeCognome == null) ||
+    (utenteDaAggiungere.username == '' || utenteDaAggiungere.username == null) " *ngIf="utenteId == null"
+      (click)="InserisciNuovoUtente()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Crea Utente
     </button>

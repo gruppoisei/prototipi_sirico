@@ -161,7 +161,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   clearForm() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.reset();
-      this.inserimentoContrattoService.idContratto$.next(-5);
+      //this.inserimentoContrattoService.idContratto$.next(-5);
+      this.inserimentoContrattoService.idContratto$.next(undefined);
       console.log("form pulita, cambio idcontratto nel service: " + this.inserimentoContrattoService.idContratto$.value)
     } else {
       console.log('Operazione annullata');
@@ -350,6 +351,11 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
       this.tipiLivello = livelli;
       this.formData = response;
+      //
+      this.formData.codiContrattopersid = response.codiContrattopersid;
+      console.log('this.formData.codiContrattopersid');
+      console.log(this.formData.codiContrattopersid);
+      //
       this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
       this.valoredistaccoValido = this.formData.codsValoredistacco ? this.valoreDistaccoChangeValidation() : true;
       this.formData.codiDatainiziocontratto = FormattaData.formattaData(response.codiDatainiziocontratto);
