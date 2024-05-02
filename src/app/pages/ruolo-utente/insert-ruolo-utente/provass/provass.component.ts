@@ -13,12 +13,13 @@ export class ProvassComponent implements OnDestroy {
   listaFunzioniDisponibili: Funzione[] = [];
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
-  listaMenuPadre:any[] = [];
+  listaMenuPadre:Funzione[] = [];
   ruoloDaAggiungere:any = { nomeRuolo: '', listaFunzioni: <any>[] };
 
   constructor(private amministrazioneRuolo: AmministrazioneRuoloService) {
     this.ruoloId = this.amministrazioneRuolo.ruoloId;
     this.Start();
+    console.log(this.ruoloDaAggiungere)
   }
   async Start() {
     this.AllFunzioni = await firstValueFrom(
@@ -38,6 +39,12 @@ export class ProvassComponent implements OnDestroy {
             (f: any) => f.funzioneId == funzione.funzioneId
           )
       );
+      this.ruoloDaAggiungere.listaFunzioni.map((funzione:Funzione) => {
+        if(funzione.flagVoceMenu)
+          {
+            this.listaMenuPadre.push(funzione)
+          }
+      })
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
   }
 
@@ -108,7 +115,7 @@ export class ProvassComponent implements OnDestroy {
   {
     if(isMenu)
       {
-        this.listaMenuPadre.push({funzioneId:funzioneId,nomeFunzione:nomeFunzione})
+        this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId == funzioneId))
       }
       else{
         this.listaMenuPadre = this.listaMenuPadre.filter(funzione => funzione.funzioneId != funzioneId)
@@ -116,6 +123,7 @@ export class ProvassComponent implements OnDestroy {
           if(funzione.funzioneId == funzioneId) funzione.menuPadre = null
         })
       }
+      console.log(this.listaMenuPadre)
   }
 
   ngOnDestroy(): void {
