@@ -59,38 +59,38 @@
         <tbody>
           <tr *ngFor="let funzione of ruoloDaAggiungere.listaFunzioni" class="bg-white border-b">
             <td class="px-6 py-4>">
-              <button type="button" (click)="RimuoviFunzione(funzione.funzioneId)"
+              <button type="button" (click)="RimuoviFunzione(funzione.funzioneId!)"
                 class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
             </td>
             <td class=" px-6 py-4 ">{{funzione.nomeFunzione}}</td>
             <td class=" px-6 py-4 "><button class=" px-6 py-4 m-5 rounded-full w-2 h-2 "
-                (click)="AggiornaCampo(funzione.funzioneId,0)"><mat-icon style="color: green;"
+                (click)="AggiornaCampo(funzione.funzioneId!,0)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagVoceMenu;else unconfirmed">check
                 </mat-icon></button></td>
             <td class=" px-6 py-4  "><button class=" px-6 py-4 m-5 rounded-full w-2 h-2 "
-                (click)="AggiornaCampo(funzione.funzioneId,1)"><mat-icon style="color: green;"
+                (click)="AggiornaCampo(funzione.funzioneId!,1)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagLettura;else unconfirmed">check
                 </mat-icon></button></td>
             <td class=" px-6 py-4  "><button class="m-4 rounded-full w-full h-full"
-                (click)="AggiornaCampo(funzione.funzioneId,2)"><mat-icon style="color: green;"
+                (click)="AggiornaCampo(funzione.funzioneId!,2)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagCreazione;else unconfirmed">check
                 </mat-icon></button></td>
             <td class=" px-6 py-4  "><button class="m-4 rounded-full w-full h-full"
-                (click)="AggiornaCampo(funzione.funzioneId,3)"><mat-icon style="color: green;"
+                (click)="AggiornaCampo(funzione.funzioneId!,3)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagModifica;else unconfirmed">check
                 </mat-icon></button></td>
             <td class=" px-6 py-4   "><button class="m-4 rounded-full w-full h-full"
-                (click)="AggiornaCampo(funzione.funzioneId,4)"><mat-icon style="color: green;"
+                (click)="AggiornaCampo(funzione.funzioneId!,4)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagCancellazione;else unconfirmed">check
                 </mat-icon></button></td>
             <td class=" px-6 py-4   ">
-              <input [(ngModel)]="funzione.indiceMenu" type="number">
+              <input [disabled]="funzione.flagVoceMenu" [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
-              <select 
-                (change)="AggiornaCampo(funzione.funzioneId,6)">
+              <select [disabled]="funzione.flagVoceMenu"
+                (change)="AggiornaCampo(funzione.funzioneId!,6)">
                 <option value="0">--scegli padre--</option>
-                  <option *ngFor="let padre in ruoloDaAggiungere.listaFunzioni" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
+                  <option *ngFor="let padre of listaMenuPadre" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
 
               </select >
             </td>
@@ -99,22 +99,21 @@
       </table>
     </div>
   </div>
+  <div class="flex flex-row justify-end w-5/6 mt-20">
+    <button *ngIf="ruoloId == null" (click)="InserisciNuovoRuolo()"
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+      Crea Utente
+    </button>
+    <button *ngIf="ruoloId != null" (click)="AggiornaFunzioniRuolo()"
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+      Aggiorna Ruoli
+    </button>
+    <button *ngIf="ruoloId == null"
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+      type="button" (click)="cancellaLista()">Cancella</button>
+    <!-- <button
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+      type="button" (click)="closeForm()">Chiudi</button> -->
+  </div>
 
   <ng-template #unconfirmed><mat-icon style="color: red;">clear</mat-icon></ng-template>
-
-  <button (click)="Prova()">aaaaaaaaaaa</button>
-  <!-- <td class=" px-6 py-4   ">
-    <input #prioritaMenu type="number" [(ngModel)]="funzione.indiceMenu"
-      (change)="AggiornaCampo(funzione.funzioneId,5,prioritaMenu.value)">
-    </td>
-  <td class="px-6 py-4">
-    <select #menuPadre 
-      (change)="AggiornaCampo(funzione.funzioneId,6,menuPadre.value)">
-      <option value="0">--scegli padre--</option>
-        <option *ngFor="let padre in ruoloDaAggiungere.listaFunzioni" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
-
-    </select >
-  </td> -->
-    
-    <!-- <td class="px-6 py-4"><button (click)="AggiornaCampo(funzione.funzioneId,6)" [class.attivo]="funzione.menuPadre" ></button>
-    </td>  -->

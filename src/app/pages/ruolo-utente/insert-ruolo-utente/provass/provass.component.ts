@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AmministrazioneRuoloService } from '../../../../service/amministrazione-ruolo.service';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-provass',
@@ -14,12 +15,11 @@ export class ProvassComponent implements OnDestroy {
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
   listaMenuPadre: Funzione[] = [];
-  ruoloDaAggiungere: any = { nomeRuolo: '', listaFunzioni: <any>[] };
+  ruoloDaAggiungere: Ruolo = { nomeRuolo: '', listaFunzioni: <any>[] };
 
-  constructor(private amministrazioneRuolo: AmministrazioneRuoloService) {
+  constructor(private amministrazioneRuolo: AmministrazioneRuoloService,private router:Router) {
     this.ruoloId = this.amministrazioneRuolo.ruoloId;
     this.Start();
-    console.log(this.ruoloDaAggiungere)
   }
   async Start() {
     this.AllFunzioni = await firstValueFrom(
@@ -53,7 +53,7 @@ export class ProvassComponent implements OnDestroy {
       this.ruoloDaAggiungere.listaFunzioni.push(
         this.AllFunzioni.find(
           (funzione) => funzione.funzioneId == this.nuovaFunzione
-        )
+        )!
       );
       this.listaFunzioniDisponibili = this.listaFunzioniDisponibili.filter(
         (funzione: Funzione) => funzione.funzioneId != this.nuovaFunzione
@@ -71,9 +71,11 @@ export class ProvassComponent implements OnDestroy {
       this.AllFunzioni.find((funzione) => funzione.funzioneId == funzioneId)!
     );
     this.listaFunzioniDisponibili.sort((a, b) => a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase() ? 1 : -1);
+    this.listaMenuPadre = this.listaMenuPadre.filter(funzione => funzione.funzioneId != funzioneId)
   }
 
   AggiornaCampo(funzioneId: number, tipoCampo: number, parametroExstra?: number | string) {
+    
     this.ruoloDaAggiungere.listaFunzioni =
       this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
 
@@ -81,8 +83,8 @@ export class ProvassComponent implements OnDestroy {
         if (funzione.funzioneId == funzioneId) {
           switch (tipoCampo) {
             case FlagFunzione.voceMenu:
-              funzione.flagVoceMenu = !funzione.flagVoceMenu;
-              // this.AggiornaListaMenu(funzioneId, funzione.flagVoceMenu)
+              
+              funzione = this.AggiornaListaMenu(funzione)
               break;
             case FlagFunzione.lettura:
               funzione.flagLettura = !funzione.flagLettura;
@@ -99,12 +101,7 @@ export class ProvassComponent implements OnDestroy {
               funzione.flagCancellazione = !funzione.flagCancellazione;
 
               break;
-            case FlagFunzione.ordinamentoMenu:
-              funzione.indiceMenu = Number(parametroExstra)
-              break;
-            case FlagFunzione.MenuPadre:
-              funzione.menuPadre = Number(parametroExstra)
-              break;
+            
             default:
               break;
           }
@@ -113,32 +110,60 @@ export class ProvassComponent implements OnDestroy {
       });
   }
 
-  AggiornaListaMenu(funzioneId: number, isMenu: boolean) {
-    if (isMenu) {
-      console.log("22222")
-      console.log(funzioneId)
-      console.log(this.ruoloDaAggiungere.listaFunzioni)
-      console.log("aaaaaaa")
-      console.log(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId ==funzioneId))
-      this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId ==funzioneId)!)
+  AggiornaListaMenu(funzione:Funzione) {
+
+    funzione.flagVoceMenu = !funzione.flagVoceMenu;
+    if (funzione.flagVoceMenu) {
+      funzione.indiceMenu = 0
+      funzione.menuPadre = 0
+      this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId == funzione.funzioneId)!)
     }
     else {
-      this.listaMenuPadre = this.listaMenuPadre.filter(funzione => funzione.funzioneId != funzioneId)
+      this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
       this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-        if (funzione.funzioneId == funzioneId) funzione.menuPadre = null
+        if (funzione.funzioneId == funzione.funzioneId) funzione.menuPadre = null
       })
+    }
+    return funzione
+  }
+
+  async InserisciNuovoRuolo(){
+    let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))
+    console.log(res)
+    this.router.navigate(["/Segreteria/gestione-ruolo-funzione"])
+  }
+
+  AggiornaFunzioniRuolo(){
+    let same = true
+    if(this.ruoloDaAggiungere.listaFunzioni.length == this.listaOriginale.length)
+    {
+
     }
   }
 
-  Prova()
+  cancellaLista()
   {
-    console.log(this.ruoloDaAggiungere.listaFunzioni)
+    if(this.ruoloId == null)
+      {
+        this.listaMenuPadre = []
+        this.ruoloDaAggiungere.listaFunzioni = []
+
+      }
+
+
+
   }
+ 
   ngOnDestroy(): void {
     this.amministrazioneRuolo.ruoloId = undefined;
   }
 }
 
+export interface Ruolo{
+  ruoloId?:number,
+  nomeRuolo:string
+  listaFunzioni:Funzione[]
+}
 export interface Funzione {
   funzioneId?: number;
   nomeFunzione: string;
