@@ -13,8 +13,13 @@ export class ProvassComponent implements OnDestroy {
   listaFunzioniDisponibili: Funzione[] = [];
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
+<<<<<<< HEAD
   listaMenuPadre:Funzione[] = [];
   ruoloDaAggiungere:any = { nomeRuolo: '', listaFunzioni: <any>[] };
+=======
+  listaMenuPadre: any[] = [];
+  ruoloDaAggiungere: any = { nomeRuolo: '', listaFunzioni: <any>[] };
+>>>>>>> 5d9a274b6139a34a676ef3d809d9d8bc33fe1462
 
   constructor(private amministrazioneRuolo: AmministrazioneRuoloService) {
     this.ruoloId = this.amministrazioneRuolo.ruoloId;
@@ -59,6 +64,7 @@ export class ProvassComponent implements OnDestroy {
         (funzione: Funzione) => funzione.funzioneId != this.nuovaFunzione
       );
     }
+    this.nuovaFunzione = 0;  // azzero per evitare multiple aggiunte dello stesso ruolo
   }
 
   RimuoviFunzione(funzioneId: number) {
@@ -69,18 +75,19 @@ export class ProvassComponent implements OnDestroy {
     this.listaFunzioniDisponibili.push(
       this.AllFunzioni.find((funzione) => funzione.funzioneId == funzioneId)!
     );
+    this.listaFunzioniDisponibili.sort((a, b) => a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase() ? 1 : -1);
   }
 
-  AggiornaCampo(funzioneId: number, tipoCampo: number,parametroExstra?:number | string) {
+  AggiornaCampo(funzioneId: number, tipoCampo: number, parametroExstra?: number | string) {
     this.ruoloDaAggiungere.listaFunzioni =
       this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-        
+
 
         if (funzione.funzioneId == funzioneId) {
           switch (tipoCampo) {
             case FlagFunzione.voceMenu:
               funzione.flagVoceMenu = !funzione.flagVoceMenu;
-              this.AggiornaListaMenu(funzioneId,funzione.nomeFunzione,funzione.flagVoceMenu)
+              this.AggiornaListaMenu(funzioneId, funzione.nomeFunzione, funzione.flagVoceMenu)
               break;
             case FlagFunzione.lettura:
               funzione.flagLettura = !funzione.flagLettura;
@@ -90,8 +97,8 @@ export class ProvassComponent implements OnDestroy {
               funzione.flagCreazione = !funzione.flagCreazione;
 
               break;
-              case FlagFunzione.modifica:
-              funzione.flagModifica = ! funzione.flagModifica
+            case FlagFunzione.modifica:
+              funzione.flagModifica = !funzione.flagModifica
               break
             case FlagFunzione.cancellazione:
               funzione.flagCancellazione = !funzione.flagCancellazione;
@@ -106,11 +113,12 @@ export class ProvassComponent implements OnDestroy {
             default:
               break;
           }
-        } 
+        }
         return funzione;
       });
   }
 
+<<<<<<< HEAD
   AggiornaListaMenu(funzioneId:number,nomeFunzione:string,isMenu:boolean)
   {
     if(isMenu)
@@ -124,6 +132,18 @@ export class ProvassComponent implements OnDestroy {
         })
       }
       console.log(this.listaMenuPadre)
+=======
+  AggiornaListaMenu(funzioneId: number, nomeFunzione: string, isMenu: boolean) {
+    if (isMenu) {
+      this.listaMenuPadre.push({ funzioneId: funzioneId, nomeFunzione: nomeFunzione })
+    }
+    else {
+      this.listaMenuPadre = this.listaMenuPadre.filter(funzione => funzione.funzioneId != funzioneId)
+      this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+        if (funzione.funzioneId == funzioneId) funzione.menuPadre = null
+      })
+    }
+>>>>>>> 5d9a274b6139a34a676ef3d809d9d8bc33fe1462
   }
 
   ngOnDestroy(): void {

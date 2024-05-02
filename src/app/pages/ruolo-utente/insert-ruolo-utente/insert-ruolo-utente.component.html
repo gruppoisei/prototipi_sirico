@@ -103,7 +103,7 @@
   <div class="flex flex-row justify-center mt-5">
     <div class="m-5">
       <label class="text-gray-700 text-lg">Aggiungi ruolo</label><br />
-      <select (change)="AggiungiRuolo()" placeholder="seleziona ruoli da Aggiungere"
+      <select placeholder="seleziona ruoli da Aggiungere"
         class="p-4 m-4  text-gray-900  border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         [(ngModel)]="nuovoRuolo">
 
@@ -117,7 +117,13 @@
     </div>
     <div class="m-5">
       <!--<input class=" text-center min-w-52 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
-      <p class="min-w-52"></p>
+      <p class="min-w-52">
+        <button (click)="AggiungiRuolo()"
+      class="w-auto mt-12 text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+      Aggiungi
+    </button>
+      </p>
+      
     </div>
     <div class="m-5">
       <!--<input class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->

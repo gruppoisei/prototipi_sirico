@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrl: './insert-ruolo-utente.component.scss',
 })
 export class InsertRuoloUtenteComponent implements OnDestroy {
+  AddRuolo() {
+    throw new Error('Method not implemented.');
+  }
 
   // @Input()
   utenteId: any = null
@@ -49,6 +52,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
           nomeRuolo: ruolo.syruDescruolosys,
         };
         this.AllRuoli.push(newRuolo);
+        this.AllRuoli.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1);
       });
     });
     if (this.utenteId != null) {
@@ -79,8 +83,11 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
               )
           );
         });
-    } else this.listaRuoliDisponibili = this.AllRuoli;
+    } else {
+      this.listaRuoliDisponibili = this.AllRuoli;
+    }
   }
+
   ngOnDestroy(): void {
     this.utenteService.utenteId = undefined
   }
@@ -95,6 +102,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
         (ruolo: any) => ruolo.idRuolo != this.nuovoRuolo
       );
     }
+    this.nuovoRuolo = 0;  // azzero per evitare multiple aggiunte dello stesso ruolo
   }
 
   RimuoviRuolo(ruoloId: number) {
@@ -106,6 +114,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       (ruolo: any) => ruolo.idRuolo == ruoloId
     );
     this.listaRuoliDisponibili.push(ruoloDaAggiungere);
+    this.listaRuoliDisponibili.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1); 
     this.listaRuoliAssegnati = this.listaRuoliAssegnati.filter(
       (ruolo: any) => ruolo.idRuolo != ruoloId
     );
@@ -158,7 +167,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       alert('Selezionare persona a cui associare utente');
     }
     else if (this.utenteDaAggiungere.username == undefined || this.utenteDaAggiungere.username.length < 8) {
-    //else if (this.personaSelezionata.username ) {
+      //else if (this.personaSelezionata.username ) {
       alert('Username non valido');
     }
     else if (this.utenteDaAggiungere.listaRuoliId.length == 0) {
@@ -173,8 +182,8 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
         .subscribe((res) =>
           //console.log(res)
           alert('Inserimento avvenuto con successo!')
-      );
-        this.clearForm();
+        );
+      this.clearForm();
     }
   }
 
@@ -202,10 +211,10 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       ) {
         this.utenteService
           .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
-          .subscribe((res) => 
+          .subscribe((res) =>
             //console.log(res)
             alert('Modifica ruoli avvenuta con successo!')
-        );
+          );
 
       } else {
         alert('non sono state effettuate modifiche');
