@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrl: './insert-ruolo-utente.component.scss',
 })
 export class InsertRuoloUtenteComponent implements OnDestroy {
+AddRuolo() {
+throw new Error('Method not implemented.');
+}
 
   // @Input()
   utenteId: any = null
@@ -93,8 +96,9 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       );
       this.listaRuoliDisponibili = this.listaRuoliDisponibili.filter(
         (ruolo: any) => ruolo.idRuolo != this.nuovoRuolo
-      );
+      );        
     }
+    this.nuovoRuolo = 0;  // azzero per evitare multiple aggiunte dello stesso ruolo
   }
 
   RimuoviRuolo(ruoloId: number) {
