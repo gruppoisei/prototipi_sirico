@@ -31,7 +31,7 @@
           [(ngModel)]="nuovaFunzione"
         >
         
-    
+          
           <option [value]="0" class="p-10 m-10">--seleziona funzione--</option>
         
           <option
@@ -66,19 +66,36 @@
                             <button type="button" (click)="RimuoviFunzione(funzione.funzioneId)"
                                 class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                         </td>
-                        <td class=" px-6 py-4 w-2 h-2 ">{{funzione.nomeFunzione}}</td>
-                        <td class=" px-6 py-4 w-2 h-2 " [class.attivo]="funzione.flagVoceDiMenu" [class.disattivo]="!funzione.flagVoceDiMenu"><button (click)="AggiornaCampo(funzione.funzioneId,0)" >a</button></td>
-                        <td class=" px-6 py-4 w-2 h-2 " [class.attivo]="funzione.flagLettura"  [class.disattivo]="!funzione.flagLettura"><button (click)="AggiornaCampo(funzione.funzioneId,1)"  >a</button></td>
-                        <td class=" px-6 py-4 w-2 h-2 " [class.attivo]="funzione.flagCreazione" [class.disattivo]="!funzione.flagCreazione"><button (click)="AggiornaCampo(funzione.funzioneId,2)"  >a</button></td>
-                        <td class=" px-6 py-4 w-2 h-2 " [class.attivo]="funzione.flagModifica"   [class.disattivo]="!funzione.flagModifica"><button (click)="AggiornaCampo(funzione.funzioneId,3)"  >a</button></td>
-                        <td class=" px-6 py-4 w-2 h-2 " [class.attivo]="funzione.Cancellazione"  [class.disattivo]="!funzione.Cancellazione"><button (click)="AggiornaCampo(funzione.funzioneId,4)"  >a</button></td>
-                        <!-- <td class="px-6 py-4"><button (click)="AggiornaCampo(funzione.funzioneId,5)" [class.attivo]="funzione.indiceMenu" ></button></td>
-                        <td class="px-6 py-4"><button (click)="AggiornaCampo(funzione.funzioneId,6)" [class.attivo]="funzione.menuPadre" ></button></td> -->
+                        <td class=" px-6 py-4 ">{{funzione.nomeFunzione}}</td>
+                        <td class=" px-6 py-4 " ><button class=" px-6 py-4 m-5 rounded-full w-2 h-2 " (click)="AggiornaCampo(funzione.funzioneId,0)" ><mat-icon style="color: green;" *ngIf="funzione.flagVoceMenu;else unconfirmed">check
+                        </mat-icon></button></td>
+                        <td class=" px-6 py-4  " ><button class=" px-6 py-4 m-5 rounded-full w-2 h-2 " (click)="AggiornaCampo(funzione.funzioneId,1)"  ><mat-icon style="color: green;" *ngIf="funzione.flagLettura;else unconfirmed">check
+                        </mat-icon></button></td>
+                        <td class=" px-6 py-4  " ><button class="m-4 rounded-full w-full h-full" (click)="AggiornaCampo(funzione.funzioneId,2)"  ><mat-icon style="color: green;" *ngIf="funzione.flagCreazione;else unconfirmed">check
+                        </mat-icon></button></td>
+                        <td class=" px-6 py-4  " ><button  class="m-4 rounded-full w-full h-full"(click)="AggiornaCampo(funzione.funzioneId,3)"  ><mat-icon style="color: green;" *ngIf="funzione.flagModifica;else unconfirmed">check
+                        </mat-icon></button></td>
+                        <td class=" px-6 py-4   " ><button class="m-4 rounded-full w-full h-full" (click)="AggiornaCampo(funzione.funzioneId,4)"  ><mat-icon style="color: green;" *ngIf="funzione.flagCancellazione;else unconfirmed">check
+                        </mat-icon></button></td>
+                        <td class=" px-6 py-4   " >
+                          <!-- <input #prioritaMenu type="number" (change)="AggiornaCampo(funzione.funzioneId,5,prioritaMenu.value)"> -->
+                          <input #prioritaMenu type="number" [(ngModel)]="funzione.indiceMenu"  (change)="AggiornaCampo(funzione.funzioneId,5,prioritaMenu.value)">
+
+                          <td class="px-6 py-4">
+                       <!-- <select #menuPadre [(ngModel)]="funzione.funzioneId" (change)="AggiornaCampo(funzione.funzioneId,6,menuPadre.value)"> -->
+                       <select #menuPadre [(ngModel)]="funzione.funzioneId" (change)="AggiornaCampo(funzione.funzioneId,6,menuPadre.value)">
+                        <option value="0">--scegli padre--</option>
+                        <option *ngFor="let padre in listaMenuPadre" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
+                       </select>
+
+                        <!-- <td class="px-6 py-4"><button (click)="AggiornaCampo(funzione.funzioneId,6)" [class.attivo]="funzione.menuPadre" ></button></td>  -->
                     </tr>
                 </tbody>
             </table>
         </div>
       </div>
+
+      <ng-template #unconfirmed ><mat-icon style="color: red;">clear</mat-icon></ng-template>
      
 
     

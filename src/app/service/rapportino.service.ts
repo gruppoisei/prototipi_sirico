@@ -219,7 +219,6 @@ export class RapportinoService {
         convertitoreOraIntero(giorno.oraInizioPausa!);
       console.log('ore giorno: ' + orarioDiLavoroConvertitoInOre);
       giorno.listaAssenzeGiorno.forEach((assenza) => {
-        debugger;
         let start = assenza.oraInizio;
         let end = assenza.oraFine;
 
