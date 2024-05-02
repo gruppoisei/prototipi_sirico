@@ -1,4 +1,4 @@
-import { Component, Injectable, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Injectable, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
@@ -25,7 +25,7 @@ import ValidaPartita from '../../../helpers/validaPartitaIva';
   providers: [GestioneContrattoComponent],
 })
 
-export class InsertContrattoComponent implements OnInit {
+export class InsertContrattoComponent implements OnInit, OnDestroy {
   partitaIvaID: number = 3; //non toccarlo
   giorniLavorativiAlMese: number = 21;
   mesiLavorativiAllAnno: number = 12;
@@ -100,6 +100,11 @@ export class InsertContrattoComponent implements OnInit {
     private dialog: MatDialog,
     private builder: FormBuilder
   ) { }
+
+  ngOnDestroy(): void {
+    this.inserimentoContrattoService.idContratto$.next(undefined);
+    this.reset();
+  }
 
   ngOnInit(): void {
     this.reset();

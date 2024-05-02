@@ -19,8 +19,8 @@ export class InsertContrattoService {
 
   modalType?: string | null;
 
-  idContratto!: number;
-  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto);
+  idContratto!: number ;
+  idContratto$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(this.idContratto);
   isContrattoPassato?: number | null;
   private modalSubject = new BehaviorSubject<boolean>(false);
   modalState = this.modalSubject.asObservable();
