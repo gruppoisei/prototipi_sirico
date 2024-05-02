@@ -4,6 +4,7 @@ import { InsertUtenteService } from '../../../service/insert-utente.service';
 import { MatDialog } from '@angular/material/dialog';
 //import { CercaPersonaSenzaUtenteComponent } from './cerca-persona-senza-utente/cerca-persona-senza-utente.component';
 import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-cerca-persona.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-insert-ruolo-utente',
@@ -11,14 +12,20 @@ import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-c
   styleUrl: './insert-ruolo-utente.component.scss',
 })
 export class InsertRuoloUtenteComponent implements OnDestroy {
+  AddRuolo() {
+    throw new Error('Method not implemented.');
+  }
+
   // @Input()
   utenteId: any = null
   // utenteId = 1;
 
   listaRuoliDisponibili: any[] = [];
   listaRuoliAssegnati: any[] = [];
-  listaOriginale:any[] =[]
+  listaOriginale: any[] = []
   AllRuoli: any[] = [];
+
+  esitoInserimento: number = 0;
 
   nuovoRuolo: number = 0;
   personaSelezionata = {
@@ -35,10 +42,14 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
 
   constructor(
     private utenteService: InsertUtenteService,
+    private router: Router,
     public dialog: MatDialog
   ) {
     this.utenteId = utenteService.utenteId;
-
+    //
+    console.log('this.personaSelezionata.username:');
+    console.log(this.personaSelezionata.username);
+    //
     utenteService.GetAllRuoli().subscribe((res) => {
       res.forEach((ruolo: any) => {
         let newRuolo = {
@@ -46,22 +57,23 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
           nomeRuolo: ruolo.syruDescruolosys,
         };
         this.AllRuoli.push(newRuolo);
+        this.AllRuoli.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1);
       });
     });
     if (this.utenteId != null) {
       utenteService
         .GetAllInfoUtenteRuoloById(this.utenteId)
         .subscribe((res: any) => {
-         
+
 
           this.personaSelezionata.anpeNome = res.nome;
           this.personaSelezionata.anpeCognome = res.cognome;
           this.personaSelezionata.anpeCodicefiscale = res.codiceFiscale;
           this.personaSelezionata.username = res.username;
-          
+
           this.utenteDaAggiungere.userId = this.utenteId;
           this.utenteDaAggiungere.listaRuoliId = [];
-          res.listaRuoli.map((ruolo: any) =>{
+          res.listaRuoli.map((ruolo: any) => {
             this.utenteDaAggiungere.listaRuoliId.push(ruolo.idRuolo);
             this.listaOriginale.push(ruolo.idRuolo)
 
@@ -76,8 +88,11 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
               )
           );
         });
-    } else this.listaRuoliDisponibili = this.AllRuoli;
+    } else {
+      this.listaRuoliDisponibili = this.AllRuoli;
+    }
   }
+
   ngOnDestroy(): void {
     this.utenteService.utenteId = undefined
   }
@@ -92,6 +107,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
         (ruolo: any) => ruolo.idRuolo != this.nuovoRuolo
       );
     }
+    this.nuovoRuolo = 0;  // azzero per evitare multiple aggiunte dello stesso ruolo
   }
 
   RimuoviRuolo(ruoloId: number) {
@@ -103,35 +119,95 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       (ruolo: any) => ruolo.idRuolo == ruoloId
     );
     this.listaRuoliDisponibili.push(ruoloDaAggiungere);
+    this.listaRuoliDisponibili.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1);
     this.listaRuoliAssegnati = this.listaRuoliAssegnati.filter(
       (ruolo: any) => ruolo.idRuolo != ruoloId
     );
   }
 
+  /*
+    InserisciNuovoUtente() {
+      console.log('InserisciNuovoUtente()');
+      console.log('this.personaSelezionata: ');
+      console.log(this.personaSelezionata);
+      //console.log('utente da aggiungere: ' + this.utenteDaAggiungere);
+  
+      //this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.id;
+  
+      //console.log('idPersona: ' + this.personaSelezionata.anpePersonaid);    
+      //if (this.personaSelezionata != undefined) {
+  
+  
+      console.log('this.personaSelezionata.anpePersonaid: ' + this.personaSelezionata.anpePersonaid);
+      if (this.personaSelezionata.anpePersonaid != undefined) {
+        if (this.personaSelezionata.anpePersonaid == -1) { alert('Selezionare persona a cui associare utente'); }
+        //else { this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.id; }
+        else if (this.utenteDaAggiungere != undefined)
+          if (this.utenteDaAggiungere.username != undefined)
+            if (this.utenteDaAggiungere.username.length < 8)
+              alert('username non valido');
+            else if (this.utenteDaAggiungere.listaRuoliId.length == 0)
+              alert("assegnare almeno un ruolo all'utente");
+            else {
+              //this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.id;
+              this.utenteDaAggiungere.personaId = this.personaSelezionata.anpePersonaid;
+              console.log(this.utenteDaAggiungere);
+              this.utenteService
+                .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
+                .subscribe((res) => console.log(res));
+            }
+            
+      } else alert('riempire campi per procedere');
+    }
+  */
+
   InserisciNuovoUtente() {
+    /*
+    console.log('this.personaSelezionata: ');
+    console.log(this.personaSelezionata.anpePersonaid);
+    console.log('this.utenteDaAggiungere: ');
     console.log(this.utenteDaAggiungere);
-    if (this.personaSelezionata != undefined) {
-      if (this.personaSelezionata.anpePersonaid == -1)
-        alert('Selezionare persona a cui associare utente');
-      else if (this.utenteDaAggiungere != undefined)
-        if (this.utenteDaAggiungere.username != undefined)
-          if (this.utenteDaAggiungere.username.length < 8)
-            alert('username non valido');
-          else if (this.utenteDaAggiungere.listaRuoliId.length == 0)
-            alert("assegnare almeno un ruolo all'utente");
-          else {
-            this.utenteDaAggiungere.personaId =
-              this.personaSelezionata.anpePersonaid;
-            console.log(this.utenteDaAggiungere);
-            this.utenteService
-              .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
-              .subscribe((res) => console.log(res));
+    */
+    if (this.personaSelezionata.anpePersonaid == -1) {
+      alert('Selezionare persona a cui associare utente');
+    }
+    else if (this.utenteDaAggiungere.username == undefined || this.utenteDaAggiungere.username.length < 8) {
+      //else if (this.personaSelezionata.username ) {
+      alert('Username non valido');
+    }
+    else if (this.utenteDaAggiungere.listaRuoliId.length == 0) {
+      alert("Assegnare almeno un ruolo all'utente");
+    }
+    else {
+      this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.id;
+      this.utenteDaAggiungere.personaId = this.personaSelezionata.anpePersonaid;
+      console.log(this.utenteDaAggiungere);
+      this.utenteService
+        .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
+        .subscribe((res) => {
+          console.log('res: ');
+          console.log(res);
+          this.esitoInserimento = Number.parseInt(res);
+          if (this.esitoInserimento < 0) {
+            if (this.esitoInserimento == -2) {
+              alert("Inserimento fallito, l'utente è già stato registrato!");
+            }
+            else if (this.esitoInserimento == -3) {
+              alert('Inserimento fallito, il nome utente scelto è già registrato!')
+            }
           }
-    } else alert('riempire campi per procedere');
+          else {
+            alert('Inserimento avvenuto con successo!')
+            this.resetForm();
+          }
+        });
+      //this.clearForm();
+      //this.resetForm();
+    }
   }
 
   AggiornaRuoliUtente() {
-    
+
     if (this.utenteDaAggiungere.listaRuoliId.length == 0) {
       alert('inserire almeno un ruolo');
     } else {
@@ -146,18 +222,21 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
           break;
         }
       }
-      
+
       if (
         this.listaOriginale.length !=
-          this.utenteDaAggiungere.listaRuoliId.length ||
+        this.utenteDaAggiungere.listaRuoliId.length ||
         !uguali
       ) {
         this.utenteService
-              .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
-              .subscribe((res) => console.log(res));
-        
+          .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
+          .subscribe((res) => {
+            //console.log(res)
+            alert('Modifica ruoli avvenuta con successo!');
+            //this.resetListaRuoliAssegnati();
+          });
       } else {
-        alert('non sono state effettuate modifiche');
+        alert('Non sono state effettuate modifiche');
       }
     }
   }
@@ -167,9 +246,11 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
     this.utenteService.modalType = "utenza";
     //this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = cognomePersona;
     const dialogRef = this.dialog.open(DialogCercaPersonaComponent, {
+      disableClose: true,
       width: '75%',
       height: '80%',
-    });
+    },
+    );
     this.utenteService.modalType = undefined;
     dialogRef.afterClosed().subscribe(result => {
       this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.personaId;
@@ -177,7 +258,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       this.personaSelezionata.anpeCognome = this.utenteService.fieldAutoFill$.value.cognome;
       this.personaSelezionata.anpeCodicefiscale = this.utenteService.fieldAutoFill$.value.codiceFiscale;
     });
-  }  
+  }
 
   /*
   ScegliPersonaDaAssociare() {
@@ -191,5 +272,51 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
     });
   }
   */
+
+  clearForm() {
+    console.log('clearForm()');
+    if (confirm('Tutti i dati verranno resettati, griglia inclusa. Procedere?')) {
+      this.resetForm();
+      /*
+      this.personaSelezionata.anpeNome = null;
+      this.personaSelezionata.anpeCognome = null;
+      this.personaSelezionata.anpeCodicefiscale = null;
+      //this.personaSelezionata.listaRuoli = [];
+      //this.personaSelezionata.username = null;
+      this.utenteDaAggiungere.username = '';
+      this.personaSelezionata.anpePersonaid = -1;
+      */
+    }
+    else {
+      // do nothing
+    }
+  }
+
+  resetForm() {
+    this.personaSelezionata.anpeNome = null;
+    this.personaSelezionata.anpeCognome = null;
+    this.personaSelezionata.anpeCodicefiscale = null;
+    //this.personaSelezionata.listaRuoli = [];
+    //this.personaSelezionata.username = null;
+    this.utenteDaAggiungere.username = '';
+    this.personaSelezionata.anpePersonaid = -1;
+    // resetto la griglia visualizzata con i ruoli assegnati rimettendoli nei ruoli disponibili,
+    // quindi ordino la lista dei ruoli disponibili e svuoto la lista dei ruoli assegnati
+    this.resetListaRuoliAssegnati();
+  }
+
+  resetListaRuoliAssegnati() {
+    for (let i = 0; i < this.listaRuoliAssegnati.length; i++) {
+      this.listaRuoliDisponibili.push(this.listaRuoliAssegnati[i]);
+    }
+    this.listaRuoliDisponibili.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1);
+    this.listaRuoliAssegnati = [];
+  }
+
+  closeForm() {
+    console.log('closeForm()');
+    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
+      this.router.navigate(['Segreteria/gestione-ruolo-utente']);
+  }
 
 }

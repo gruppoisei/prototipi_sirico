@@ -23,116 +23,152 @@
     </div>
   </div>
 
-  <div class="flex flex-row justify-center my-10">
+  <div class="flex flex-row justify-center mt-10">
     <div class="m-5">
-      <div
-        *ngIf="personaSelezionata.anpeNome == null"
-        class=" text-center p-6 min-w-52 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
+      <div *ngIf="personaSelezionata.anpeCodicefiscale == null"
+        class=" text-center min-w-52  text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        Codice Fiscale...
+      </div>
+      <div *ngIf="personaSelezionata.anpeCodicefiscale != null"
+        class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        {{ personaSelezionata.anpeCodicefiscale }}
+      </div>
+    </div>
+    <div class="m-5">
+      <div *ngIf="personaSelezionata.anpeNome == null"
+        class=" text-center min-w-52 text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
         Nome...
       </div>
-      <div
-        *ngIf="personaSelezionata.anpeNome != null"
-        class=" text-center p-6 min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
+      <div *ngIf="personaSelezionata.anpeNome != null"
+        class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
         {{ personaSelezionata.anpeNome }}
       </div>
     </div>
     <div class="m-5">
-      <div
-        *ngIf="personaSelezionata.anpeCognome == null"
-        class=" text-center p-6 min-w-52  text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
+      <div *ngIf="personaSelezionata.anpeCognome == null"
+        class=" text-center min-w-52  text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
         Cognome...
       </div>
-      <div
-        *ngIf="personaSelezionata.anpeCognome != null"
-        class=" text-center p-6 min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
+      <div *ngIf="personaSelezionata.anpeCognome != null"
+        class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
         {{ personaSelezionata.anpeCognome }}
       </div>
     </div>
-    <div class="m-5">
-      <div
-        *ngIf="personaSelezionata.anpeCodicefiscale == null"
-        class=" text-center p-6 min-w-52  text-base text-gray-400 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
-        Codice Fiscale...
-      </div>
-      <div
-        *ngIf="personaSelezionata.anpeCodicefiscale != null"
-        class=" text-center p-6 min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      >
-        {{ personaSelezionata.anpeCodicefiscale }}
-      </div>
-    </div>
-    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end pl-4 mt-9">
-      <!-- <button  (click)="ScegliPersonaDaAssociare()"> --> 
-      <button  (click)="openCercaPersonaModal()">
+    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end pl-4 mt-2">
+      <!-- <button  (click)="ScegliPersonaDaAssociare()"> -->
+      <button (click)="openCercaPersonaModal()">
         <mat-icon>person_add_alt_1</mat-icon>
       </button>
     </div>
   </div>
-  <div>
-    <div *ngIf="utenteId != null"  class="text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ personaSelezionata.username }}</div>
-    <input 
-      *ngIf="personaSelezionata.username == null"
-      [(ngModel)]="utenteDaAggiungere.username"
-      class=" p-6 min-w-52   text-center text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      placeholder="Nome Utente..."
-      
-      
-    />
+  <div class="flex flex-row justify-center">
+    <div class="m-5">
+      <!--<div *ngIf="utenteId != null"
+      class=" text-center p-6   text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+      {{ personaSelezionata.username }}</div>-->
+      <input disabled *ngIf="utenteId != null"
+        class=" text-center text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        [value]="personaSelezionata.username">
+      <!--{{ personaSelezionata.username }}-->
+      <input *ngIf="personaSelezionata.username == null" [(ngModel)]="utenteDaAggiungere.username"
+        class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Nome Utente..." />
+    </div>
+    <div class="m-5">
+      <!--<input class=" text-center min-w-52 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
+      <p class="min-w-52"></p>
+    </div>
+    <div class="m-5">
+      <!--<input class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
+      <p class="min-w-52"></p>
+    </div>
+    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end pl-4 mt-2">
+      <mat-icon></mat-icon>
+    </div>
+
+    <!--
+    <div class="flex justify-center padding-10px">
+      <button *ngIf="utenteId == null"
+        class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+        type="button" (click)="clearForm()">Cancella</button>
+      <button
+        class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+        type="button" (click)="closeForm()">Chiudi</button>
+    </div>
+    -->
   </div>
-  <div class="border-b-4 border-gray-600 m-20"></div>
-  <div>
-    <label class="text-gray-700 text-2xl">Seleziona Ruoli da Aggiungere</label><br />
-    <select
-      (change)="AggiungiRuolo()"
-      placeholder="seleziona ruoli da Aggiungere"
+
+  <!--<div class="border-b-4 border-gray-600 m-20"></div>-->
+
+  <div class="flex flex-row justify-center mt-5">
+    <div class="m-5">
+      <label class="text-gray-700 text-lg">Aggiungi ruolo</label><br />
+      <select placeholder="seleziona ruoli da Aggiungere"
+        class="p-4 m-4  text-gray-900  border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        [(ngModel)]="nuovoRuolo">
+
+
+        <option [value]="0" class="p-10 m-10">--seleziona ruolo--</option>
+
+        <option *ngFor="let ruolo of listaRuoliDisponibili" [value]="ruolo.idRuolo">
+          {{ ruolo.nomeRuolo }}
+        </option>
+      </select>
+    </div>
+    <div class="m-5">
+      <!--<input class=" text-center min-w-52 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
+      <p class="min-w-52">
+        <button (click)="AggiungiRuolo()"
+          class="w-auto mt-12 text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Aggiungi
+        </button>
+      </p>
+
+    </div>
+    <div class="m-5">
+      <!--<input class=" text-center min-w-52  text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>-->
+      <p class="min-w-52"></p>
+    </div>
+    <div *ngIf="personaSelezionata.username == null" class="flex flex-row justify-end pl-4 mt-2">
+      <mat-icon></mat-icon>
+    </div>
+  </div>
+
+  <!--
+  <div class="mt-10">
+    <label class="text-gray-700 text-lg">Aggiungi ruolo</label><br />
+    <select (change)="AggiungiRuolo()" placeholder="seleziona ruoli da Aggiungere"
       class="p-4 m-4  text-gray-900  border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      [(ngModel)]="nuovoRuolo"
-    >
-    
+      [(ngModel)]="nuovoRuolo">
+
 
       <option [value]="0" class="p-10 m-10">--seleziona ruolo--</option>
-    
-      <option
-        *ngFor="let ruolo of listaRuoliDisponibili"
-        [value]="ruolo.idRuolo"
-      >
+
+      <option *ngFor="let ruolo of listaRuoliDisponibili" [value]="ruolo.idRuolo">
         {{ ruolo.nomeRuolo }}
       </option>
     </select>
   </div>
+  -->
+
   <div>
-    <div
-      *ngIf="listaRuoliAssegnati.length > 0"
-      class="flex flex-row justify-center my-10"
-    >
-      <table class="w-1/3 text-base text-left rtl:text-right">
+    <div *ngIf="listaRuoliAssegnati.length > 0" class="flex flex-row justify-center my-10">
+      <table class="w-1/5 text-base text-left rtl:text-right">
         <thead class="text-sm uppercase text-white bg-blue-600">
           <tr>
-            <th scope="col" class="px-6 py-3 text-left">Nome Ruolo</th>
             <th scope="col" class="px-6 py-3 text-right">ELIMINA</th>
+            <th scope="col" class="px-6 py-3 text-left">Nome Ruolo</th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let ruolo of listaRuoliAssegnati"
-            class="bg-white border-b"
-          >
-            <td class="px-6 py-4 flex-grow">{{ ruolo.nomeRuolo }}</td>
+          <tr *ngFor="let ruolo of listaRuoliAssegnati" class="bg-white border-b">
             <td class="px-6 py-4 flex justify-end">
-              <button
-                type="button"
-                name="modifyFieldsRuolo"
-                (click)="RimuoviRuolo(ruolo.idRuolo)"
-                class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center"
-              >
+              <button type="button" name="modifyFieldsRuolo" (click)="RimuoviRuolo(ruolo.idRuolo)"
+                class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">
                 delete
               </button>
             </td>
+            <td class="px-6 py-4 flex-grow">{{ ruolo.nomeRuolo }}</td>
           </tr>
         </tbody>
       </table>
@@ -141,20 +177,23 @@
     </div>
   </div>
 
-  <div>
-    <button
-      *ngIf="utenteId == null"
+  <div class="flex flex-row justify-end w-5/6 mt-20">
+    <button [disabled]="listaRuoliAssegnati.length == 0 || 
+    (personaSelezionata.anpeCodicefiscale == null || personaSelezionata.anpeNome == null || personaSelezionata.anpeCognome == null) ||
+    (utenteDaAggiungere.username == '' || utenteDaAggiungere.username == null) " *ngIf="utenteId == null"
       (click)="InserisciNuovoUtente()"
-      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-    >
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Crea Utente
     </button>
-    <button
-      *ngIf="utenteId != null"
-      (click)="AggiornaRuoliUtente()"
-      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-    >
+    <button *ngIf="utenteId != null" (click)="AggiornaRuoliUtente()"
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Aggiorna Ruoli
     </button>
+    <button *ngIf="utenteId == null"
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+      type="button" (click)="clearForm()">Cancella</button>
+    <button
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+      type="button" (click)="closeForm()">Chiudi</button>
   </div>
 </div>
