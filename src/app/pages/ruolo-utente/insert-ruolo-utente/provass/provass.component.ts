@@ -120,15 +120,17 @@ export class ProvassComponent implements OnDestroy {
     }
     else {
       this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
-      this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-        if (funzione.funzioneId == funzione.funzioneId) funzione.menuPadre = null
+      this.ruoloDaAggiungere.listaFunzioni.map((funzioneP: Funzione) => {
+        if (funzioneP.funzioneId == funzione.funzioneId) funzione.menuPadre = 0
       })
     }
     return funzione
   }
 
   async InserisciNuovoRuolo(){
+    console.log(this.ruoloDaAggiungere)
     let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))
+    console.log("aaaaaaaa")
     console.log(res)
     this.router.navigate(["/Segreteria/gestione-ruolo-funzione"])
   }
