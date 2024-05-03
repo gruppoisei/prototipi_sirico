@@ -98,7 +98,8 @@ export class ProvassComponent implements OnDestroy {
         }
         return funzione;
       });
-    console.log(this.listaOriginale)
+    this.SortListaFunzioni()
+
   }
 
   AggiornaIndiciMenu(id:number,valore:number)
@@ -123,7 +124,7 @@ export class ProvassComponent implements OnDestroy {
   AggiornaListaMenu(funzione: Funzione) {
     funzione.flagVoceMenu = !funzione.flagVoceMenu;
     if (funzione.flagVoceMenu) {
-      funzione.indiceMenu = 1
+      funzione.indiceMenu = this.listaMenuPadre.length + 1
       this.AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)
       funzione.menuPadre = 0
       this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId == funzione.funzioneId)!)
@@ -182,6 +183,14 @@ export class ProvassComponent implements OnDestroy {
     }
   }
 
+  SortListaFunzioni()
+  {
+    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a,b) => {
+      if(a.indiceMenu == 0) return 1
+      if(a.indiceMenu < b.indiceMenu) return -1
+      else return 1
+    })
+  }
   CancellaLista() {
     this.listaMenuPadre = []
     this.ruoloDaAggiungere.listaFunzioni = []
