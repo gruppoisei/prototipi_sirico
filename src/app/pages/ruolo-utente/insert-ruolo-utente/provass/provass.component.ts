@@ -127,6 +127,7 @@ export class ProvassComponent implements OnDestroy {
       this.AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)
       funzione.menuPadre = 0
       this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzioneP:Funzione) => funzioneP.funzioneId == funzione.funzioneId)!)
+      this.listaMenuPadre.sort((a, b) => a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase() ? 1 : -1);
     }
     else {
       funzione.indiceMenu = 0
