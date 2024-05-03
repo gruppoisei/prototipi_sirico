@@ -74,6 +74,6 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['']);
+    this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
   }
 }
