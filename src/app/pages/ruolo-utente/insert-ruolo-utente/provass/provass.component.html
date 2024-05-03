@@ -39,7 +39,7 @@
     </button>
   </div>
 
-  <div *ngIf="ruoloDaAggiungere.listaFunzioni.length > 0" >
+  <div *ngIf="ruoloDaAggiungere.listaFunzioni.length > 0">
     <div class="flex justify-center mt-10">
       <table>
         <thead class="text-sm uppercase text-white bg-blue-600">
@@ -57,14 +57,14 @@
 
         </thead>
         <tbody>
-          
+
           <tr *ngFor="let funzione of ruoloDaAggiungere.listaFunzioni" class="bg-white border-b">
             <td class="px-6 py-4>">
               <button type="button" (click)="RimuoviFunzione(funzione.funzioneId!)"
                 class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
             </td>
             <td class=" px-6 py-4 ">{{funzione.nomeFunzione}}</td>
-            
+
 
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
                 (click)="AggiornaCampo(funzione.funzioneId!,0)" [defaultChecked]="funzione.flagVoceMenu"></td>
@@ -77,12 +77,12 @@
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
                 (click)="AggiornaCampo(funzione.funzioneId!,3)" [defaultChecked]="funzione.flagModifica"></td>
 
-            
+
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
                 (click)="AggiornaCampo(funzione.funzioneId!,4)" [defaultChecked]="funzione.flagCancellazione"></td>
 
-            
-                
+
+
             <!-- <td class=" px-6 py-4  "><button class="m-4 rounded-full w-full h-full"
                 (click)="AggiornaCampo(funzione.funzioneId!,2)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagCreazione;else unconfirmed">check
@@ -96,15 +96,16 @@
                   *ngIf="funzione.flagCancellazione;else unconfirmed">check
                 </mat-icon></button></td> -->
             <td class=" px-6 py-4   ">
-              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)" [(ngModel)]="funzione.indiceMenu" type="number">
+              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length"
+                (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)"
+                [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
-              <select [disabled]="funzione.flagVoceMenu"
-                (change)="AggiornaCampo(funzione.funzioneId!,6)">
+              <select [disabled]="funzione.flagVoceMenu" (change)="AggiornaCampo(funzione.funzioneId!,6)">
                 <option value="0">--scegli padre--</option>
-                  <option *ngFor="let padre of listaMenuPadre" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
+                <option *ngFor="let padre of listaMenuPadre" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
 
-              </select >
+              </select>
             </td>
           </tr>
         </tbody>
@@ -112,7 +113,9 @@
     </div>
   </div>
   <div class="flex flex-row justify-end w-5/6 mt-20">
-    <button *ngIf="ruoloId == null" (click)="InserisciNuovoRuolo()"
+    <button
+      [disabled]="this.ruoloDaAggiungere.nomeRuolo == null || this.ruoloDaAggiungere.nomeRuolo == undefined || this.ruoloDaAggiungere.nomeRuolo == '' || ruoloDaAggiungere.listaFunzioni.length == 0"
+      *ngIf="ruoloId == null" (click)="InserisciNuovoRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Crea Ruolo
     </button>
@@ -125,9 +128,8 @@
       type="button" (click)="CancellaLista()">Cancella</button>
     <button *ngIf="ruoloId != null"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-      type="button" (click)="ReinpostaLista()">Reimposta</button>
+      type="button" (click)="ReimpostaLista()">Reimposta</button>
     <button
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
       type="button" (click)="CloseForm()">Chiudi</button>
   </div>
-
