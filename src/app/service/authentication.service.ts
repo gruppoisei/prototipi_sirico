@@ -13,8 +13,6 @@ export class AuthenticationService {
   status : number = 0;
   listStatus = statoAccesso
   utente? : UtenteLoggato
-  public utenteLoggato = new BehaviorSubject<string | null>(null);
-  utenteLoggato$ = this.utenteLoggato.asObservable();
 
   utenteId:number = 0
   imageQRCode = ""
@@ -48,7 +46,7 @@ export class AuthenticationService {
   logout() {
     return this.http.get<any>(`${this.baseUrl}Logout`, this.httpOptions).pipe(
       tap(() => {
-        this.utenteLoggato.next(null);
+       sessionStorage.removeItem('SysUser')
       })
     );
   }
@@ -82,7 +80,7 @@ export class AuthenticationService {
           return ruolo;
         } else {
           this.utente = undefined;
-          this.utenteLoggato.next(null);
+          sessionStorage.removeItem('SysUser')
           return ruoloUtente.NonLoggato;
         }
       }),
@@ -113,22 +111,6 @@ export class AuthenticationService {
     );
     const res = await firstValueFrom(response)
     return res
-  }
-
-  storeIdRuolo(idRuolo : string)
-  {
-    sessionStorage.setItem('RuoloUtente', idRuolo)
-  }
-  
-
-  getIdRuolo()
-  {
-    return sessionStorage.getItem('RuoloUtente')
-  }
-  
-  isLoggedIn() : boolean
-  {
-    return sessionStorage.getItem('RuoloUtente')!= null
   }
 }
 

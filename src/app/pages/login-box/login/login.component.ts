@@ -63,8 +63,7 @@ export class LoginComponent implements OnInit {
               break;
             case statoAccesso.utenteLoggato:
               this.auth.utente = res.body
-              this.auth.utenteLoggato.next(res.body)
-
+              sessionStorage.setItem('SysUser', res.body.utenteLoggato.username)
               this.router.navigate(['']);
               break;
             case statoAccesso.credenzialiValide:
@@ -74,8 +73,7 @@ export class LoginComponent implements OnInit {
                 width: 'auto',
                 height: 'auto',
               });
-              this.auth.utenteLoggato.next(res.body.username)
-              console.log(this.auth.utenteLoggato)
+              sessionStorage.setItem('SysUser',res.body.username)
               break;
           }
         },
