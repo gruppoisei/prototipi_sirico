@@ -34,8 +34,8 @@ export class ProvassComponent implements OnDestroy {
         this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
       );
       this.ruoloDaAggiungere.ruoloId = this.ruoloId;
-      this.ruoloDaAggiungere.listaFunzioni;
-      this.listaOriginale = this.ruoloDaAggiungere.listaFunzioni;
+      
+      this.ruoloDaAggiungere.listaFunzioni.map(funzione => this.listaOriginale.push(funzione));
       this.listaFunzioniDisponibili = this.AllFunzioni.filter(
         (funzione: Funzione) =>
           !this.ruoloDaAggiungere.listaFunzioni.some(
@@ -85,7 +85,6 @@ export class ProvassComponent implements OnDestroy {
   AggiornaCampo(
     funzioneId: number,
     tipoCampo: number,
-    parametroExstra?: number | string
   ) {
     this.ruoloDaAggiungere.listaFunzioni =
       this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
@@ -143,13 +142,17 @@ export class ProvassComponent implements OnDestroy {
   }
 
   async AggiornaFunzioniRuolo() {
+    debugger
     let same = true;
     if (
-      this.ruoloDaAggiungere.listaFunzioni.length == this.listaOriginale.length
+      this.ruoloDaAggiungere.listaFunzioni.length != this.listaOriginale.length
     ) {
       same = false;
     } else {
       for (var i = 0; i < this.listaOriginale.length; i++) {
+        if (same == false) {
+          break;
+        }
         let findFunzione = this.ruoloDaAggiungere.listaFunzioni.find(
           (funz) => funz.funzioneId == this.listaOriginale[i].funzioneId
         );
@@ -160,19 +163,17 @@ export class ProvassComponent implements OnDestroy {
         if (
           JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
         ) {
+          console.log(JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i]))
           same = false;
         }
-        if (same == false) {
-          break;
-        }
+        
       }
     }
-    if (same) alert('nessuna modifica riscontrata');
+    if (same) alert('nessuna modifica riscontrata')
     else {
       let res = await firstValueFrom(
         this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere)
       );
-      console.log(res);
       this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
     }
   }
