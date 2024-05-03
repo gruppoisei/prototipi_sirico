@@ -66,7 +66,6 @@ export class AmministrazioneRuoloService {
   */
 
   eliminaRuolo(id: number): Observable<any> {
-    console.log('id del ruolo da eliminare: ' + id);
     return this.Http.post<any>(`${this.apiUrl}/EliminaRuolo?id=${id}`, this.httpOptions);
   }  
   
