@@ -42,6 +42,10 @@ export class CommessaService {
     return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaById/${idCommessa}`,{})
   }
 
+  getAllTipoCommesse() : Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}GetAllTipoCommessa`)
+  }
+
   clearCommessaSubject(){
     this.commessaSubject.next(null);
   }

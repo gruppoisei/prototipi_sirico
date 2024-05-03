@@ -34,87 +34,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // doLogin() {
-  //   if(this.loginForm.valid)
-  //   {
-  //     this.auth.login(this.loginForm.value)
-  //     .subscribe({
-  //       next:(res) =>
-  //       {
-  //         this.auth.status = res.status;
-  //         if(this.auth.status == statoAccesso.accessoNegato)
-  //         {
-  //           this.dialog.open(ErrorLoginDialogComponent,
-  //             {
-  //               data: {errorMessage : res?.body.message},
-  //               width: 'auto',
-  //               height: 'auto'
-  //             })
-  //         }
-  //         if(this.auth.status == statoAccesso.richiestaResetPsw)
-  //         {
-  //           this.router.navigate(["Account/reset-password"])
-
-  //         }
-  //         if(this.auth.status == statoAccesso.mancaMFA)
-  //         {
-  //           this.router.navigate(["Account/associazione-mfa"])
-  //           this.auth.imageQRCode = res.body.imageQRCode
-  //           this.auth.utenteId = res.body.utenteId
-  //         }
-
-  //         if(this.auth.status == statoAccesso.scadutoMFA)
-  //         {
-  //           this.router.navigate(["Account/validatore-mfa"])
-
-  //           console.log(res.body)
-  //           this.auth.utenteId = res.body
-
-  //         }
-  //         if(this.auth.status == statoAccesso.utenteLoggato)
-  //         {
-  //           this.auth.utente = {
-  //             id:res.body.userId,
-  //             username:res.body.username,
-  //             idRuolo:res.body.idRuolo
-  //           }
-
-  //           this.router.navigate(["homepage"]);
-  //         }
-  //         if(this.auth.status == statoAccesso.credenzialiValide)
-  //           {
-  //             this.auth.utenteId = res.body.userId
-  //             this.auth.listaRuoliUtente = res.body.listaRuoli
-  //             this.dialog.open(SelezionaRuoloDialogComponent,
-  //               {
-  //                 width : 'auto',
-  //                 height : 'auto'
-  //               }
-  //             )
-  //           }
-  //       },
-  //       error:(err)=>
-  //       {
-  //         this.dialog.open(ErrorLoginDialogComponent,
-  //           {
-  //             data: {errorMessage : err?.error.message},
-  //             width: 'auto',
-  //             height: 'auto'
-  //           })
-  //       }
-  //     })
-  //   }
-  //   else
-  //   {
-  //     ValidateForm.validateAllFormFields(this.loginForm);
-  //     this.dialog.open(ResponseDialogComponent,
-  //       {
-  //         width: 'auto',
-  //         height: 'auto',
-  //       });
-  //   }
-  // }
-
   doLogin() {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe({
@@ -144,11 +63,8 @@ export class LoginComponent implements OnInit {
               break;
             case statoAccesso.utenteLoggato:
               this.auth.utente = res.body
-              // this.auth.utente = {
-              //   id: res.body.userId,
-              //   username: res.body.username,
-              //   idRuolo: res.body.idRuolo,
-              // };
+              this.auth.utenteLoggato.next(res.body)
+
               this.router.navigate(['']);
               break;
             case statoAccesso.credenzialiValide:
@@ -158,6 +74,8 @@ export class LoginComponent implements OnInit {
                 width: 'auto',
                 height: 'auto',
               });
+              this.auth.utenteLoggato.next(res.body.username)
+              console.log(this.auth.utenteLoggato)
               break;
           }
         },

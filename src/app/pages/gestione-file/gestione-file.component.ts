@@ -1,20 +1,41 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DocumentiService } from '../../service/documenti.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErroreAllegatoDialogComponent } from '../../ui/errore-allegato-dialog/errore-allegato-dialog.component';
+import { PersonaService } from '../../service/persona.service';
+import { CommessaService } from '../../service/commessa.service';
 
 @Component({
   selector: 'app-gestione-file',
   templateUrl: './gestione-file.component.html',
   styleUrl: './gestione-file.component.scss'
 })
-export class GestioneFileComponent {
+export class GestioneFileComponent implements OnInit{
   selectedFile: File | null = null;
   selectedFiles: File[] = [];
   isTableVisibile : boolean = false
   @ViewChild('fileUploader') fileUploader!: ElementRef
 
-  constructor(private serviceDocumenti: DocumentiService, private dialog : MatDialog){}
+  constructor(private personaService : PersonaService, private serviceDocumenti: DocumentiService, private dialog : MatDialog){}
+  ngOnInit(): void {
+    /* this.personaService.dipendente$.subscribe((dipendente)=>
+      {
+        if(dipendente)
+          {
+            this.serviceDocumenti.GetFilesByDipendenteId(dipendente.AnpePersonaid).subscribe(
+              {
+                next : (file)=> 
+                  {
+                    if(file.length < 0)
+                      {
+                        
+                      }
+                  }
+              }
+            )
+          }
+      }); */
+  }
 
   @Output() fileEvent = new EventEmitter();
 

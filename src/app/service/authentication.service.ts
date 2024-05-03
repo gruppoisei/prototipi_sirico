@@ -13,8 +13,9 @@ export class AuthenticationService {
   status : number = 0;
   listStatus = statoAccesso
   utente? : UtenteLoggato
+  public utenteLoggato = new BehaviorSubject<string | null>(null);
+  utenteLoggato$ = this.utenteLoggato.asObservable();
 
-  // utente$:Subject<any> = new Subject<any>()
   utenteId:number = 0
   imageQRCode = ""
   listaRuoliUtente:any[] = []
@@ -44,10 +45,14 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
 
-  logout()
-  {
-    return this.http.get<any>(`${this.baseUrl}Logout`,this.httpOptions)
+  logout() {
+    return this.http.get<any>(`${this.baseUrl}Logout`, this.httpOptions).pipe(
+      tap(() => {
+        this.utenteLoggato.next(null);
+      })
+    );
   }
+  
 
   ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
     return this.http
@@ -77,6 +82,7 @@ export class AuthenticationService {
           return ruolo;
         } else {
           this.utente = undefined;
+          this.utenteLoggato.next(null);
           return ruoloUtente.NonLoggato;
         }
       }),
@@ -92,7 +98,6 @@ export class AuthenticationService {
     let response = this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
       map((res) => {
         if (res.status == 200) {
-          console.log(res.body)
           this.utente = res.body;
           const ruolo = Number(this.utente?.idRuolo);
           return ruolo;
