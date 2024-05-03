@@ -96,7 +96,7 @@
                   *ngIf="funzione.flagCancellazione;else unconfirmed">check
                 </mat-icon></button></td> -->
             <td class=" px-6 py-4   ">
-              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="ruoloDaAggiungere.listaFunzioni.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)" [(ngModel)]="funzione.indiceMenu" type="number">
+              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)" [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
               <select [disabled]="funzione.flagVoceMenu"

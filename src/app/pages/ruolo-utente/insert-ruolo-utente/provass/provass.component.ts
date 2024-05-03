@@ -30,26 +30,8 @@ export class ProvassComponent implements OnDestroy {
     );
 
     if (this.ruoloId != null) {
-      this.ruoloDaAggiungere = await firstValueFrom(
-        this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
-      );
-      this.ruoloDaAggiungere.ruoloId = this.ruoloId;
-      let strings =  JSON.stringify(this.ruoloDaAggiungere.listaFunzioni)
-      this.listaOriginale = JSON.parse(strings)
       
-
-      this.listaFunzioniDisponibili = this.AllFunzioni.filter(
-        (funzione: Funzione) =>
-          !this.ruoloDaAggiungere.listaFunzioni.some(
-            (f: any) => f.funzioneId == funzione.funzioneId
-          )
-      );
-      this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-        if (funzione.flagVoceMenu) {
-          this.listaMenuPadre.push(funzione);
-        }
-      });
-      // this.ReinpostaLista()
+      this.ReinpostaLista()
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
   }
 
@@ -151,7 +133,9 @@ export class ProvassComponent implements OnDestroy {
       this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
       this.ruoloDaAggiungere.listaFunzioni.map((funzioneP: Funzione) => {
         if (funzioneP.funzioneId == funzione.funzioneId) funzione.menuPadre = 0
+        this.AggiornaIndiciMenu(funzione.funzioneId!,this.listaMenuPadre.length + 1)
       })
+      
     }
     return funzione;
   }
@@ -180,10 +164,7 @@ export class ProvassComponent implements OnDestroy {
         if (findFunzione == undefined) {
           same = false;
         }else{
-          console.log("a " + i)
-          console.log(JSON.stringify(this.listaOriginale[i]))
-          console.log("b " + i)
-          console.log(JSON.stringify(findFunzione))
+          
           if (
             JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
           ) {
@@ -214,8 +195,10 @@ export class ProvassComponent implements OnDestroy {
       this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
     );
     this.ruoloDaAggiungere.ruoloId = this.ruoloId;
+    let strings =  JSON.stringify(this.ruoloDaAggiungere.listaFunzioni)
+    this.listaOriginale = JSON.parse(strings)
     
-    this.ruoloDaAggiungere.listaFunzioni.map(funzione => this.listaOriginale.push(funzione));
+
     this.listaFunzioniDisponibili = this.AllFunzioni.filter(
       (funzione: Funzione) =>
         !this.ruoloDaAggiungere.listaFunzioni.some(
