@@ -23,8 +23,6 @@ export class ProvassComponent implements OnDestroy {
   ) {
     this.ruoloId = this.amministrazioneRuolo.ruoloId;
     this.Start();
-    console.log('ruoloDaAggiungere.nomeRuolo:');
-    console.log(this.ruoloDaAggiungere.nomeRuolo);
   }
   async Start() {
     this.AllFunzioni = await firstValueFrom(
