@@ -102,18 +102,21 @@
   <div class="flex flex-row justify-end w-5/6 mt-20">
     <button *ngIf="ruoloId == null" (click)="InserisciNuovoRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
-      Crea Utente
+      Crea Ruolo
     </button>
     <button *ngIf="ruoloId != null" (click)="AggiornaFunzioniRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
-      Aggiorna Ruoli
+      Aggiorna Ruolo
     </button>
     <button *ngIf="ruoloId == null"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-      type="button" (click)="cancellaLista()">Cancella</button>
-    <!-- <button
+      type="button" (click)="CancellaLista()">Cancella</button>
+    <button *ngIf="ruoloId != null"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-      type="button" (click)="closeForm()">Chiudi</button> -->
+      type="button" (click)="ReinpostaLista()">Reimposta</button>
+    <button
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+      type="button" (click)="CloseForm()">Chiudi</button>
   </div>
 
   <ng-template #unconfirmed><mat-icon style="color: red;">clear</mat-icon></ng-template>
