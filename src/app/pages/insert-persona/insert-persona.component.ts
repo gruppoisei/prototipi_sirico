@@ -52,6 +52,7 @@ export class InsertPersonaComponent implements OnInit{
   isTableVisibile : boolean = false
   enabled: boolean =  true;
   defaultValues : any;
+  utenteLoggato: string | null = "";
 
 constructor
 (
@@ -115,6 +116,7 @@ constructor
         AnpeEmailaziendale: ['', [Validators.required, Validators.email]],
         AnpeEmailpersonale: ['', Validators.email],
         AnpeFkAnsoSocietaid: ['', Validators.required],
+        AnpeSysuser: [this.utenteLoggato]
       })
        this.defaultValues = this.insertPersona.value
 
@@ -153,16 +155,25 @@ constructor
 
   loadListe(): void
   {
-    this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioni = regioni);
-    this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniResidenza = regioni);
-    this.serviceRegione.getRegioni().subscribe(regioni => this.listRegioniDomicilio = regioni);
+    this.utenteLoggato = sessionStorage.getItem('SysUser')
+    this.serviceRegione.getRegioni().subscribe(regioni => {
+      this.listRegioni = regioni.sort((a,b) => a.gereDeno > b.gereDeno ? 1 :-1);
+    });
+
+    this.serviceRegione.getRegioni().subscribe(regioni => {
+      this.listRegioniResidenza = regioni.sort((a,b) => a.gereDeno > b.gereDeno ? 1 :-1);
+    });
+
+    this.serviceRegione.getRegioni().subscribe(regioni => {
+      this.listRegioniDomicilio = regioni.sort((a,b) => a.gereDeno > b.gereDeno ? 1 :-1);
+    });
+
     this.servicePaese.getAllPaesi().subscribe(paesi => this.listPaese = paesi);
     this.serviceSocieta.getAllSocieta().subscribe(societa => this.listSocieta = societa);
   }
 
   loadComuniAndProvince(idComuneNascita : any, idComuneResidenza : any, idComuneDomicilio : any)
   {
-    debugger
     if(idComuneNascita !== null && idComuneNascita !== ""){
         this.serviceComune.getComuniByIdComune(idComuneNascita).subscribe(listaComuni => this.listComuniNascita = listaComuni)
         this.serviceProvince.getProvinceByIdComune(idComuneNascita).subscribe(listaProvince => this.listProvince = listaProvince)
