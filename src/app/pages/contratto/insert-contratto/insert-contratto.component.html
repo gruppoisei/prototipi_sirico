@@ -11,7 +11,7 @@
                             [(ngModel)]="formData.codiceFiscale" name="CodiceFiscale" placeholder="Codice fiscale"
                             class="mat-disabled">
                         <button
-                            *ngIf="formData.codiceFiscale == null && formData.nome == null && formData.cognome == null"
+                            *ngIf="formData.codiContrattopersid == undefined"
                             mat-icon-button type="button" matSuffix (click)="openCercaPersonaModal()"
                             class="mat-disabled">
                             <mat-icon>person_add_alt_1</mat-icon>

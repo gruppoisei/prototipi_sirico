@@ -121,31 +121,25 @@ export class ProvassComponent implements OnDestroy {
   AggiornaListaMenu(funzione: Funzione) {
     funzione.flagVoceMenu = !funzione.flagVoceMenu;
     if (funzione.flagVoceMenu) {
-      funzione.indiceMenu = 0;
-      funzione.menuPadre = 0;
-      this.listaMenuPadre.push(
-        this.ruoloDaAggiungere.listaFunzioni.find(
-          (funzione: Funzione) => funzione.funzioneId == funzione.funzioneId
-        )!
-      );
-    } else {
-      this.listaMenuPadre = this.listaMenuPadre.filter(
-        (funzioneP) => funzioneP.funzioneId != funzione.funzioneId
-      );
-      this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-        if (funzione.funzioneId == funzione.funzioneId)
-          funzione.menuPadre = null;
-      });
+      funzione.indiceMenu = 0
+      funzione.menuPadre = 0
+      this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId == funzione.funzioneId)!)
+    }
+    else {
+      this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
+      this.ruoloDaAggiungere.listaFunzioni.map((funzioneP: Funzione) => {
+        if (funzioneP.funzioneId == funzione.funzioneId) funzione.menuPadre = 0
+      })
     }
     return funzione;
   }
 
-  async InserisciNuovoRuolo() {
-    let res = await firstValueFrom(
-      this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere)
-    );
-    console.log(res);
-    this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+  async InserisciNuovoRuolo(){
+    console.log(this.ruoloDaAggiungere)
+    let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))
+    console.log("aaaaaaaa")
+    console.log(res)
+    this.router.navigate(["/Segreteria/gestione-ruolo-funzione"])
   }
 
   async AggiornaFunzioniRuolo() {

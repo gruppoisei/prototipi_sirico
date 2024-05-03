@@ -25,6 +25,8 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
   listaOriginale: any[] = []
   AllRuoli: any[] = [];
 
+  esitoInserimento: number = 0;
+
   nuovoRuolo: number = 0;
   personaSelezionata = {
     anpeNome: null,
@@ -44,7 +46,10 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
     public dialog: MatDialog
   ) {
     this.utenteId = utenteService.utenteId;
-
+    //
+    console.log('this.personaSelezionata.username:');
+    console.log(this.personaSelezionata.username);
+    //
     utenteService.GetAllRuoli().subscribe((res) => {
       res.forEach((ruolo: any) => {
         let newRuolo = {
@@ -114,7 +119,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       (ruolo: any) => ruolo.idRuolo == ruoloId
     );
     this.listaRuoliDisponibili.push(ruoloDaAggiungere);
-    this.listaRuoliDisponibili.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1); 
+    this.listaRuoliDisponibili.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1);
     this.listaRuoliAssegnati = this.listaRuoliAssegnati.filter(
       (ruolo: any) => ruolo.idRuolo != ruoloId
     );
@@ -179,11 +184,25 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       console.log(this.utenteDaAggiungere);
       this.utenteService
         .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
-        .subscribe((res) =>
-          //console.log(res)
-          alert('Inserimento avvenuto con successo!')
-        );
-      this.clearForm();
+        .subscribe((res) => {
+          console.log('res: ');
+          console.log(res);
+          this.esitoInserimento = Number.parseInt(res);
+          if (this.esitoInserimento < 0) {
+            if (this.esitoInserimento == -2) {
+              alert("Inserimento fallito, l'utente è già stato registrato!");
+            }
+            else if (this.esitoInserimento == -3) {
+              alert('Inserimento fallito, il nome utente scelto è già registrato!')
+            }
+          }
+          else {
+            alert('Inserimento avvenuto con successo!')
+            this.resetForm();
+          }
+        });
+      //this.clearForm();
+      //this.resetForm();
     }
   }
 
@@ -211,13 +230,13 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       ) {
         this.utenteService
           .ConfermaNuovoUtenteModificaRuolo(this.utenteDaAggiungere)
-          .subscribe((res) =>
+          .subscribe((res) => {
             //console.log(res)
-            alert('Modifica ruoli avvenuta con successo!')
-          );
-
+            alert('Modifica ruoli avvenuta con successo!');
+            //this.resetListaRuoliAssegnati();
+          });
       } else {
-        alert('non sono state effettuate modifiche');
+        alert('Non sono state effettuate modifiche');
       }
     }
   }
@@ -227,9 +246,11 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
     this.utenteService.modalType = "utenza";
     //this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = cognomePersona;
     const dialogRef = this.dialog.open(DialogCercaPersonaComponent, {
+      disableClose: true,
       width: '75%',
       height: '80%',
-    });
+    },
+    );
     this.utenteService.modalType = undefined;
     dialogRef.afterClosed().subscribe(result => {
       this.personaSelezionata.anpePersonaid = this.utenteService.fieldAutoFill$.value.personaId;
@@ -254,7 +275,9 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
 
   clearForm() {
     console.log('clearForm()');
-    if (confirm('I campi verranno resettati. Procedere?')) {
+    if (confirm('Tutti i dati verranno resettati, griglia inclusa. Procedere?')) {
+      this.resetForm();
+      /*
       this.personaSelezionata.anpeNome = null;
       this.personaSelezionata.anpeCognome = null;
       this.personaSelezionata.anpeCodicefiscale = null;
@@ -262,10 +285,32 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
       //this.personaSelezionata.username = null;
       this.utenteDaAggiungere.username = '';
       this.personaSelezionata.anpePersonaid = -1;
+      */
     }
     else {
       // do nothing
     }
+  }
+
+  resetForm() {
+    this.personaSelezionata.anpeNome = null;
+    this.personaSelezionata.anpeCognome = null;
+    this.personaSelezionata.anpeCodicefiscale = null;
+    //this.personaSelezionata.listaRuoli = [];
+    //this.personaSelezionata.username = null;
+    this.utenteDaAggiungere.username = '';
+    this.personaSelezionata.anpePersonaid = -1;
+    // resetto la griglia visualizzata con i ruoli assegnati rimettendoli nei ruoli disponibili,
+    // quindi ordino la lista dei ruoli disponibili e svuoto la lista dei ruoli assegnati
+    this.resetListaRuoliAssegnati();
+  }
+
+  resetListaRuoliAssegnati() {
+    for (let i = 0; i < this.listaRuoliAssegnati.length; i++) {
+      this.listaRuoliDisponibili.push(this.listaRuoliAssegnati[i]);
+    }
+    this.listaRuoliDisponibili.sort((a, b) => a.nomeRuolo.toLocaleUpperCase() > b.nomeRuolo.toLocaleUpperCase() ? 1 : -1);
+    this.listaRuoliAssegnati = [];
   }
 
   closeForm() {
