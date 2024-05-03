@@ -30,24 +30,26 @@ export class ProvassComponent implements OnDestroy {
     );
 
     if (this.ruoloId != null) {
-      // this.ruoloDaAggiungere = await firstValueFrom(
-      //   this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
-      // );
-      // this.ruoloDaAggiungere.ruoloId = this.ruoloId;
+      this.ruoloDaAggiungere = await firstValueFrom(
+        this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
+      );
+      this.ruoloDaAggiungere.ruoloId = this.ruoloId;
+      let strings =  JSON.stringify(this.ruoloDaAggiungere.listaFunzioni)
+      this.listaOriginale = JSON.parse(strings)
       
-      // this.ruoloDaAggiungere.listaFunzioni.map(funzione => this.listaOriginale.push(funzione));
-      // this.listaFunzioniDisponibili = this.AllFunzioni.filter(
-      //   (funzione: Funzione) =>
-      //     !this.ruoloDaAggiungere.listaFunzioni.some(
-      //       (f: any) => f.funzioneId == funzione.funzioneId
-      //     )
-      // );
-      // this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-      //   if (funzione.flagVoceMenu) {
-      //     this.listaMenuPadre.push(funzione);
-      //   }
-      // });
-      this.ReinpostaLista()
+
+      this.listaFunzioniDisponibili = this.AllFunzioni.filter(
+        (funzione: Funzione) =>
+          !this.ruoloDaAggiungere.listaFunzioni.some(
+            (f: any) => f.funzioneId == funzione.funzioneId
+          )
+      );
+      this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+        if (funzione.flagVoceMenu) {
+          this.listaMenuPadre.push(funzione);
+        }
+      });
+      // this.ReinpostaLista()
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
   }
 
@@ -87,6 +89,7 @@ export class ProvassComponent implements OnDestroy {
     funzioneId: number,
     tipoCampo: number,
   ) {
+    console.log(this.listaOriginale)
     this.ruoloDaAggiungere.listaFunzioni =
       this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
         if (funzione.funzioneId == funzioneId) {
@@ -96,26 +99,23 @@ export class ProvassComponent implements OnDestroy {
               break;
             case FlagFunzione.lettura:
               funzione.flagLettura = !funzione.flagLettura;
-
               break;
             case FlagFunzione.creazione:
               funzione.flagCreazione = !funzione.flagCreazione;
-
               break;
             case FlagFunzione.modifica:
               funzione.flagModifica = !funzione.flagModifica;
               break;
             case FlagFunzione.cancellazione:
               funzione.flagCancellazione = !funzione.flagCancellazione;
-
               break;
-
             default:
               break;
           }
         }
         return funzione;
       });
+    console.log(this.listaOriginale)
   }
 
   AggiornaListaMenu(funzione: Funzione) {
@@ -134,16 +134,14 @@ export class ProvassComponent implements OnDestroy {
     return funzione;
   }
 
+
   async InserisciNuovoRuolo(){
     console.log(this.ruoloDaAggiungere)
-    let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))
-    console.log("aaaaaaaa")
-    console.log(res)
+    let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))  
     this.router.navigate(["/Segreteria/gestione-ruolo-funzione"])
   }
 
   async AggiornaFunzioniRuolo() {
-    debugger
     let same = true;
     if (
       this.ruoloDaAggiungere.listaFunzioni.length != this.listaOriginale.length
@@ -159,15 +157,17 @@ export class ProvassComponent implements OnDestroy {
         );
         if (findFunzione == undefined) {
           same = false;
+        }else{
+          console.log("a " + i)
+          console.log(JSON.stringify(this.listaOriginale[i]))
+          console.log("b " + i)
+          console.log(JSON.stringify(findFunzione))
+          if (
+            JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
+          ) {
+            same = false;
+          }
         }
-
-        if (
-          JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
-        ) {
-          console.log(JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i]))
-          same = false;
-        }
-        
       }
     }
     if (same) alert('nessuna modifica riscontrata')
