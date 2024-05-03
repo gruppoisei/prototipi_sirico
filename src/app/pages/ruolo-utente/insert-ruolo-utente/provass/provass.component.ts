@@ -95,6 +95,7 @@ export class ProvassComponent implements OnDestroy {
         if (funzione.funzioneId == funzioneId) {
           switch (tipoCampo) {
             case FlagFunzione.voceMenu:
+              
               funzione = this.AggiornaListaMenu(funzione);
               break;
             case FlagFunzione.lettura:
@@ -118,14 +119,35 @@ export class ProvassComponent implements OnDestroy {
     console.log(this.listaOriginale)
   }
 
+  AggiornaIndiciMenu(id:number,valore:number)
+  {
+    
+        this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.map( funzione => {
+          if(funzione.indiceMenu == valore && funzione.funzioneId != id) 
+            {
+              for(let i = this.ruoloDaAggiungere.listaFunzioni.length;i >0;i--)
+                {
+                  if(this.ruoloDaAggiungere.listaFunzioni.find(funz => funz.indiceMenu == i) == undefined)
+                    {
+                      funzione.indiceMenu = i
+                    }
+                }
+            }
+            return funzione
+        })
+      }
+  
+
   AggiornaListaMenu(funzione: Funzione) {
     funzione.flagVoceMenu = !funzione.flagVoceMenu;
     if (funzione.flagVoceMenu) {
-      funzione.indiceMenu = 0
+      funzione.indiceMenu = 1
+      this.AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)
       funzione.menuPadre = 0
       this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId == funzione.funzioneId)!)
     }
     else {
+      funzione.indiceMenu = 0
       this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
       this.ruoloDaAggiungere.listaFunzioni.map((funzioneP: Funzione) => {
         if (funzioneP.funzioneId == funzione.funzioneId) funzione.menuPadre = 0
