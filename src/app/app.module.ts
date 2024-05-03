@@ -64,6 +64,7 @@ import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/error
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
+import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 
 @NgModule({
     declarations: [
@@ -110,7 +111,8 @@ import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/prova
         ErroreAllegatoDialogComponent,
         GestioneCommessaComponent,
         SalvaCommessaComponent,
-        ProvassComponent
+        ProvassComponent,
+        UtilityCostiPersonaleComponent
     ],
     providers: [
         provideAnimationsAsync(),

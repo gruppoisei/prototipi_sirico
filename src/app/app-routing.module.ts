@@ -26,6 +26,7 @@ import { LoginBoxComponent } from './pages/login-box/login-box/login-box.compone
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
+import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,7 @@ const routes: Routes = [
       { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
       { path: 'insert-cliente',component: InsertClienteComponent,},
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
+      { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
       // {path:,component:},
       // {path:,component:},
     ],
