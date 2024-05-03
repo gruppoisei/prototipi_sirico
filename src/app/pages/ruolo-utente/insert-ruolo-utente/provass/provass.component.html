@@ -57,21 +57,33 @@
 
         </thead>
         <tbody>
+          
           <tr *ngFor="let funzione of ruoloDaAggiungere.listaFunzioni" class="bg-white border-b">
             <td class="px-6 py-4>">
               <button type="button" (click)="RimuoviFunzione(funzione.funzioneId!)"
                 class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
             </td>
             <td class=" px-6 py-4 ">{{funzione.nomeFunzione}}</td>
-            <td class=" px-6 py-4 "><button class=" px-6 py-4 m-5 rounded-full w-2 h-2 "
-                (click)="AggiornaCampo(funzione.funzioneId!,0)"><mat-icon style="color: green;"
-                  *ngIf="funzione.flagVoceMenu;else unconfirmed">check
-                </mat-icon></button></td>
-            <td class=" px-6 py-4  "><button class=" px-6 py-4 m-5 rounded-full w-2 h-2 "
-                (click)="AggiornaCampo(funzione.funzioneId!,1)"><mat-icon style="color: green;"
-                  *ngIf="funzione.flagLettura;else unconfirmed">check
-                </mat-icon></button></td>
-            <td class=" px-6 py-4  "><button class="m-4 rounded-full w-full h-full"
+            
+
+            <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
+                (click)="AggiornaCampo(funzione.funzioneId!,0)" [defaultChecked]="funzione.flagVoceMenu"></td>
+            <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
+                (click)="AggiornaCampo(funzione.funzioneId!,1)" [defaultChecked]="funzione.flagLettura"></td>
+
+            <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
+                (click)="AggiornaCampo(funzione.funzioneId!,2)" [defaultChecked]="funzione.flagCreazione"></td>
+
+            <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
+                (click)="AggiornaCampo(funzione.funzioneId!,3)" [defaultChecked]="funzione.flagModifica"></td>
+
+            
+            <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
+                (click)="AggiornaCampo(funzione.funzioneId!,4)" [defaultChecked]="funzione.flagCancellazione"></td>
+
+            
+                
+            <!-- <td class=" px-6 py-4  "><button class="m-4 rounded-full w-full h-full"
                 (click)="AggiornaCampo(funzione.funzioneId!,2)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagCreazione;else unconfirmed">check
                 </mat-icon></button></td>
@@ -82,9 +94,9 @@
             <td class=" px-6 py-4   "><button class="m-4 rounded-full w-full h-full"
                 (click)="AggiornaCampo(funzione.funzioneId!,4)"><mat-icon style="color: green;"
                   *ngIf="funzione.flagCancellazione;else unconfirmed">check
-                </mat-icon></button></td>
+                </mat-icon></button></td> -->
             <td class=" px-6 py-4   ">
-              <input [disabled]="funzione.flagVoceMenu" [(ngModel)]="funzione.indiceMenu" type="number">
+              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)" [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
               <select [disabled]="funzione.flagVoceMenu"
@@ -102,18 +114,20 @@
   <div class="flex flex-row justify-end w-5/6 mt-20">
     <button *ngIf="ruoloId == null" (click)="InserisciNuovoRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
-      Crea Utente
+      Crea Ruolo
     </button>
     <button *ngIf="ruoloId != null" (click)="AggiornaFunzioniRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
-      Aggiorna Ruoli
+      Aggiorna Ruolo
     </button>
     <button *ngIf="ruoloId == null"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-      type="button" (click)="cancellaLista()">Cancella</button>
-    <!-- <button
+      type="button" (click)="CancellaLista()">Cancella</button>
+    <button *ngIf="ruoloId != null"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-      type="button" (click)="closeForm()">Chiudi</button> -->
+      type="button" (click)="ReinpostaLista()">Reimposta</button>
+    <button
+      class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+      type="button" (click)="CloseForm()">Chiudi</button>
   </div>
 
-  <ng-template #unconfirmed><mat-icon style="color: red;">clear</mat-icon></ng-template>
