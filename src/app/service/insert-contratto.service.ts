@@ -88,7 +88,6 @@ export class InsertContrattoService {
   }
 
   insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
-    //debugger;
     console.log('entrato insertNuovoContratto()');
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != -5) {
       console.log('caso put');
@@ -104,6 +103,15 @@ export class InsertContrattoService {
       console.log('body: ' + body);
       return this.Http.post<InserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
     }
+  }
+
+  deleteContratto(contratto: InserimentoContratto): Observable<InserimentoContratto> {
+    debugger;
+    console.log('entrato deleteContratto()');
+    console.log('caso delete');
+    var body = JSON.stringify(contratto);
+    console.log('body: ' + body);
+    return this.Http.put<InserimentoContratto>(`${this.apiUrl}/ChiudiContratto`, body, this.httpOptions);
   }
 
   getAllContrattiBy(name: string | null, surname: string | null, cf: string | null, society: number | null ): Observable<any> {
