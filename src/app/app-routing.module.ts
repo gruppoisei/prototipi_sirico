@@ -63,11 +63,14 @@ const routes: Routes = [
       { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
       { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
       { path: 'insert-cliente',component: InsertClienteComponent,},
-      { path: 'gestione-commessa',component: GestioneCommessaComponent,},
+      
       // {path:,component:},
       // {path:,component:},
     ],
     //canActivate : [basicUser]
+  },
+  { path: 'gestione-commessa',
+    component: GestioneCommessaComponent,
   },
   {
     path: 'rapportino',
