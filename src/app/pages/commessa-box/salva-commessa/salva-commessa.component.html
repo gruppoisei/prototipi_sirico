@@ -5,7 +5,7 @@
         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="sm:col-span-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Commessa</label>
-                <input formControlName="DescCommessa" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                <input formControlName="DescCommessa" [readOnly]="inModifica" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                 focus:border-sky-500 focus:ring-sky-500" placeholder="Scrivi il nome della commessa">
                 <small *ngIf="commessaForm.controls['DescCommessa'].dirty && commessaForm.hasError('required','DescCommessa')" class="text-red-600">Commessa obbligatoria</small>
             </div>
@@ -43,7 +43,6 @@
                         {{cli.ragionesociale}}
                     </option>
                 </select>
-                <small *ngIf="commessaForm.controls['idClienteDiretto'].dirty && commessaForm.hasError('required', 'idClienteDiretto')" class = "text-red-600">Cliente diretto obbligatorio</small>
             </div>
 
             <div>
@@ -55,7 +54,6 @@
                         {{cli.ragionesociale}}
                     </option>
                 </select>
-                <small *ngIf="commessaForm.controls['idClienteFinale'].dirty && commessaForm.hasError('required', 'idClienteFinale')" class = "text-red-600">Cliente finale obbligatorio</small>
             </div>
             
             <div class="w-full">

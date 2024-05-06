@@ -89,6 +89,7 @@ export class GestioneCommessaComponent implements OnInit{
       {
         next:(res) => 
         {
+          console.log(res)
           this.datiCommessa = res.map((commessa : any)=>({
             commessaId: commessa.commessaId,
             commessa: commessa.commessa,
@@ -96,7 +97,7 @@ export class GestioneCommessaComponent implements OnInit{
             societa: commessa.societa,
             clienteDiretto: commessa.clienteDiretto,
             clienteFinale: commessa.clienteFinale,
-            dataInizio: FormattaData.formattaData(commessa.DataInizio),
+            dataInizio: FormattaData.formattaData(commessa.dataInizio),
             dataFine: FormattaData.formattaData(commessa.dataFine),
             note: commessa.note,
             flagAttivo: commessa.flagAttivo,

@@ -28,6 +28,7 @@ export class SalvaCommessaComponent implements OnInit, OnDestroy{
   listTipoCommisione : any;
   listClienti : any
   listTipoCommessa: any;
+  inModifica: boolean = false;
 
   constructor(
     private commessaService : CommessaService,private location : Location,
@@ -48,8 +49,8 @@ ngOnInit(): void {
       DescCommessa : ['', Validators.required],
       idTipoCommessa : ['', Validators.required],
       idSocieta : ['', Validators.required],
-      idClienteDiretto : ['', Validators.required],
-      idClienteFinale : ['', Validators.required],
+      idClienteDiretto : [''],
+      idClienteFinale : [''],
       DataInizio : ['', Validators.required],
       DataFine : [{value: '', disabled:true}],
       note : [''],
@@ -70,7 +71,8 @@ ngOnInit(): void {
 
     this.commessaService.commessa$.subscribe((commessa)=>{
       if(commessa){
-        this.populateForm(commessa)
+        this.inModifica = true;
+        this.populateForm(commessa);
         }
     });
   }
@@ -85,12 +87,17 @@ ngOnInit(): void {
   {
    if(this.commessaForm.valid)
     {
-      if(this.commessaForm.get('DataFine')?.value === '')
-        {
+      if(this.commessaForm.get('DataFine')?.value === ''){
           this.commessaForm.patchValue({
             DataFine : null
           })
         }
+      if(this.commessaForm.get('idClienteDiretto')?.value === '' && this.commessaForm.get('idClienteFinale')?.value === ''){
+        this.commessaForm.patchValue({
+          idClienteDiretto : null,
+          idClienteFinale : null
+        })
+      }
       this.commessaService.salvaCommessa(this.commessaForm.value).subscribe(
         {
           next:(res)=>
@@ -146,7 +153,7 @@ populateForm(comessa : any){
 
   this.commessaForm.patchValue({
     CommessaId : comessa.commessaId,
-    DescCommessa : comessa.DescCommessa,
+    DescCommessa : comessa.descCommessa,
     idTipoCommessa : comessa.idTipoCommessa,
     idSocieta : comessa.idSocieta,
     idClienteDiretto : comessa.idClienteDiretto,

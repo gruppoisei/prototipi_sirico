@@ -82,7 +82,7 @@ const routes: Routes = [
   {
     path: 'salva-commessa',
     component: SalvaCommessaComponent,
-  }
+  },
 
   // {
   //   path: 'insertutente',
@@ -96,10 +96,10 @@ const routes: Routes = [
   //   path: 'richiestaassenzasegreteria',
   //   component: RichiestaAssenzaSegreteriaComponent,
   // },
-  // {
-  //   path: 'richiestaassenzautente',
-  //   component: RichiestaAssenzaUtenteComponent,
-  // },
+{
+ path: 'richiestaassenzautente',
+  component: RichiestaAssenzaUtenteComponent,
+},
   // {
   //   path: '',
   //   component: HomepageComponent,
