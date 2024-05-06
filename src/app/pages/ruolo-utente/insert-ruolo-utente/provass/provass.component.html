@@ -67,7 +67,7 @@
 
 
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
-                (click)="AggiornaCampo(funzione.funzioneId!,0)" [defaultChecked]="funzione.flagVoceMenu"></td>
+                (change)="AggiornaCampo(funzione.funzioneId!,0);this.SortListaFunzioni()" [defaultChecked]="funzione.flagVoceMenu"></td>
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
                 (click)="AggiornaCampo(funzione.funzioneId!,1)" [defaultChecked]="funzione.flagLettura"></td>
 
@@ -96,7 +96,7 @@
                   *ngIf="funzione.flagCancellazione;else unconfirmed">check
                 </mat-icon></button></td> -->
             <td class=" px-6 py-4   ">
-              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu);SortListaFunzioni()" [(ngModel)]="funzione.indiceMenu" type="number">
+              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)" [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
               <select [disabled]="funzione.flagVoceMenu" (change)="AggiornaCampo(funzione.funzioneId!,6)">

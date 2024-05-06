@@ -191,10 +191,14 @@ export class ProvassComponent implements OnDestroy {
 
   SortListaFunzioni()
   {
+    let i = 0
     this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a,b) => {
-      if(a.indiceMenu == 0) return 1
-      if(a.indiceMenu < b.indiceMenu) return -1
-      else return 1
+      i = i++
+      console.log("prova " + i + "  " + a.nomeFunzione + "  " +a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu )
+      if(b.indiceMenu == 0 ) return -1
+      if(a.indiceMenu == 0 ) return 1
+      if(a.indiceMenu < b.indiceMenu ) return -1
+      return 1
     })
   }
   CancellaLista() {
@@ -224,6 +228,7 @@ export class ProvassComponent implements OnDestroy {
         this.listaMenuPadre.push(funzione);
       }
     });
+    this.SortListaFunzioni()
   }
 
   CloseForm() {
