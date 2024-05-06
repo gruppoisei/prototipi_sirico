@@ -187,6 +187,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
         .subscribe((res) => {
           console.log('res: ');
           console.log(res);
+          /*
           this.esitoInserimento = Number.parseInt(res);
           if (this.esitoInserimento < 0) {
             if (this.esitoInserimento == -2) {
@@ -200,9 +201,12 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
             alert('Inserimento avvenuto con successo!')
             this.resetForm();
           }
+          */
+         alert(res.message);
+         if (res.message == "Inserimento ruolo avvenuto con successo!") {
+          this.resetForm();
+         }
         });
-      //this.clearForm();
-      //this.resetForm();
     }
   }
 

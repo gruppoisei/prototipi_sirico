@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, retry } from 'rxjs';
+import { ricercaCommessa } from '../dto/request/ricercaCommessa';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,26 @@ export class CommessaService {
   
   salvaCommessa(commessaObj : any) : Observable<any>{
     return this.http.post<any>(`${this.baseUrl}SalvaCommessa`, commessaObj,{withCredentials : true})
+  }
+
+  getVistaCommessaFiltrata(queryParams: ricercaCommessa) : Observable<any>
+  {
+    const params = this.creaHttpParams(queryParams)
+    return this.http.get<any>(this.baseUrl + 'GetCommessaFiltro', {params: params})
+  }
+  
+  private creaHttpParams(parametri: { [x: string]: any; hasOwnProperty: (arg0: string) => any; }):HttpParams
+  {
+    let httpParams = new HttpParams();
+
+    for(const key in parametri)
+    {
+      if(parametri.hasOwnProperty(key) && parametri[key] !==null && parametri[key] !== undefined)
+      {
+        httpParams = httpParams.set(key, String(parametri[key]));
+      }
+    }
+    return httpParams
   }
 
   getCommessaById(idCommessa : number){

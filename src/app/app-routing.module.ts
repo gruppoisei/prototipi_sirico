@@ -71,6 +71,9 @@ const routes: Routes = [
     ],
     //canActivate : [basicUser]
   },
+  { path: 'gestione-commessa',
+    component: GestioneCommessaComponent,
+  },
   {
     path: 'rapportino',
     component: CalendarioComponent,
