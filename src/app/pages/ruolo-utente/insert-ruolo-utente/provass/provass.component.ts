@@ -165,6 +165,9 @@ export class ProvassComponent implements OnDestroy {
     if (this.ruoloDaAggiungere.nomeRuolo == "" || this.ruoloDaAggiungere.nomeRuolo == null || this.ruoloDaAggiungere.nomeRuolo == undefined) {
       alert('Inserire un nome ruolo!');
     }
+    else if (this.ruoloDaAggiungere.listaFunzioni.length == 0) {
+      alert('Aggiungere almeno una funzione da associare al ruolo!');
+    }
     else {
       let same = true;
       if (

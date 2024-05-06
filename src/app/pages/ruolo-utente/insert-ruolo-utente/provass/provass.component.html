@@ -67,7 +67,8 @@
 
 
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
-                (change)="AggiornaCampo(funzione.funzioneId!,0);this.SortListaFunzioni()" [defaultChecked]="funzione.flagVoceMenu"></td>
+                (change)="AggiornaCampo(funzione.funzioneId!,0);this.SortListaFunzioni()"
+                [defaultChecked]="funzione.flagVoceMenu"></td>
             <td class=" px-6 py-4  "><input type="checkbox" class=" px-6 py-4 m-5 rounded-full w-4 h-4 "
                 (click)="AggiornaCampo(funzione.funzioneId!,1)" [defaultChecked]="funzione.flagLettura"></td>
 
@@ -96,7 +97,9 @@
                   *ngIf="funzione.flagCancellazione;else unconfirmed">check
                 </mat-icon></button></td> -->
             <td class=" px-6 py-4   ">
-              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length" (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)" [(ngModel)]="funzione.indiceMenu" type="number">
+              <input [disabled]="!funzione.flagVoceMenu" min="1" [max]="listaMenuPadre.length"
+                (change)="AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)"
+                [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
               <select [disabled]="funzione.flagVoceMenu" (change)="AggiornaCampo(funzione.funzioneId!,6)">
@@ -117,7 +120,8 @@
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Crea Ruolo
     </button>
-    <button *ngIf="ruoloId != null" [disabled]="this.ruoloDaAggiungere.nomeRuolo == '' " (click)="AggiornaFunzioniRuolo()"
+    <button [disabled]="this.ruoloDaAggiungere.nomeRuolo == '' || ruoloDaAggiungere.listaFunzioni.length == 0"
+      *ngIf="ruoloId != null" (click)="AggiornaFunzioniRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Aggiorna Ruolo
     </button>
