@@ -60,7 +60,7 @@ export class InsertUtenteService {
   }
 
   GetAllRuoli() {
-    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetRuoli', this.httpOptions);
+    return this.Http.get<any>('http://localhost:5143/AmministrazioneRuolo/GetRuoli?nomeRuolo=null', this.httpOptions);
   }
 
   GetAllInfoUtenteRuoloById(userId: number) {

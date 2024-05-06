@@ -117,7 +117,7 @@
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Crea Ruolo
     </button>
-    <button *ngIf="ruoloId != null" (click)="AggiornaFunzioniRuolo()"
+    <button *ngIf="ruoloId != null" [disabled]="this.ruoloDaAggiungere.nomeRuolo == '' " (click)="AggiornaFunzioniRuolo()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Aggiorna Ruolo
     </button>
