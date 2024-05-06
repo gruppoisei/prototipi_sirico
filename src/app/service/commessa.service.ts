@@ -26,8 +26,6 @@ export class CommessaService {
     return this.http.post<any>(`${this.baseUrl}SalvaCommessa`, commessaObj,{withCredentials : true})
   }
 
-  
-
   getVistaCommessaFiltrata(queryParams: ricercaCommessa) : Observable<any>
   {
     const params = this.creaHttpParams(queryParams)
