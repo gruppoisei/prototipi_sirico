@@ -29,7 +29,7 @@ export class GestioneCommessaComponent implements OnInit{
       Societa : ['', Validators.required],
       DataInizio : ['', Validators.required],
       DataFine : ['', Validators.required],
-      FlagAttivo : ['', Validators.required],
+      FlagAttivo : [true],
     })
     this.formDefaultValue = this.ricercaForm.getRawValue()
     this.ricercaForm.get('DataInizio')?.valueChanges.subscribe(value => {
