@@ -248,7 +248,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   }
 
   getAllClienti() {
-    this.inserimentoContrattoService.getAllClienti().subscribe(
+    this.inserimentoContrattoService.getAllClientiDistacco().subscribe(
       (response: any) => {
         //console.log(response);
         this.tipiClientiDistacco = response.concat([

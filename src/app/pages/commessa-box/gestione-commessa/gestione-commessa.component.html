@@ -7,24 +7,28 @@
             <a routerLink="/salva-commessa"><button (click)="setTitoloNuovaCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
-            <input formControlName = "DescCommessa" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per descrizione..." required />
-            <input formControlName = "DataInizio" type="date" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data inizio..." required />
-            <input formControlName = "DataFine" type="date" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
-        </div>
-        <div class="flex justify-center">
-            <div class="mr-4">
-              <mat-form-field appearance="fill">
-                <mat-label>Seleziona il filtro</mat-label>
-                <mat-select>
-                  <mat-option value="0">Non Attiva</mat-option>
-                  <mat-option value="1">Attiva</mat-option>
-                </mat-select>
-              </mat-form-field>
+            <input formControlName="Commessa" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per commessa..." required />
+            <input formControlName="TipoCommessa" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per tipo commessa..." required />
+            <input formControlName="Societa" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per società..." required />
+        </div> 
+        <div class="flex flex-row mb-5">   
+            <div class="flex flex-col flex-1">
+                <label for="DataInizio" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Inizio</label>
+                <input formControlName="DataInizio" type="date" id="DataInizio" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data inizio..." required />
             </div>
+            <div class="flex flex-col flex-1">
+                <label for="DataFine" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Fine</label>
+                <input formControlName="DataFine" type="date" id="DataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
+            </div>
+            <label class="flex flex-row justify-end mt-10">
+                <input formControlName="FlagAttivo" type="checkbox" class="sr-only peer">
+                <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Commessa Attiva</span>
+                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            </label>
         </div>
         <div class = "flex flex-row justify-end mt-10">
-            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
             <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
         </div>
     </form>
 </div>
@@ -37,23 +41,31 @@
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">Azioni</th>
-                    <th scope="col" class="px-6 py-3">Descrizione</th>
+                    <th scope="col" class="px-6 py-3">Commessa</th>
+                    <th scope="col" class="px-6 py-3">Tipo Commessa</th>
+                    <th scope="col" class="px-6 py-3">Società</th>
+                    <th scope="col" class="px-6 py-3">Cliente Diretto</th>
+                    <th scope="col" class="px-6 py-3">Cliente Finale</th>
                     <th scope="col" class="px-6 py-3">Data Inizio</th>
                     <th scope="col" class="px-6 py-3">Data Fine</th>
-                    <th scope="col" class="px-6 py-3">Attivo</th>
+                    <th scope="col" class="px-6 py-3">Note</th>
                 </tr>
             </thead>
             <tbody>
-                <!--<tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
+                <tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
                     <td class="px-6 py-4 flex gap-3">
-                        <a routerLink="/Segreteria/salva-commessa" (click)="setTitoloModificaPassword(); getDipendente(commessa.Commessaid)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
-                        <button mat-icon (click)="openDialogDelete(commessa.Commessaid)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                        <a routerLink="/salva-commessa" (click)="setTitoloModificaCommessa(); getCommessa(commessa.Commessaid)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
+                        <!--<button mat-icon (click)="openDialogDelete(commessa.Commessaid)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>-->
                     </td>
-                    <td class="px-6 py-4">{{ commessa.DescCommessa }}</td>
-                    <td class="px-6 py-4">{{ commessa.DataInizio }}</td>
-                    <td class="px-6 py-4">{{ commessa.DataFine }}</td>
-                    <td class="px-6 py-4">{{ commessa.FlagAttivo }}</td>
-                </tr>-->
+                    <td class="px-6 py-4">{{ commessa.commessa }}</td>
+                    <td class="px-6 py-4">{{ commessa.tipoCommessa }}</td>
+                    <td class="px-6 py-4">{{ commessa.societa }}</td>
+                    <td class="px-6 py-4">{{ commessa.clienteDiretto }}</td>
+                    <td class="px-6 py-4">{{ commessa.clienteFinale }}</td>
+                    <td class="px-6 py-4">{{ commessa.dataInizio }}</td>
+                    <td class="px-6 py-4">{{ commessa.dataFine }}</td>
+                    <td class="px-6 py-4">{{ commessa.note }}</td>
+                </tr>
             </tbody>
         </table>
     </div>

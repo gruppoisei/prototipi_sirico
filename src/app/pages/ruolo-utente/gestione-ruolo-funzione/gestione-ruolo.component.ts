@@ -21,7 +21,7 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   caricaRuoli() {
-    this.ruoliService.GetRuoli().subscribe(
+    this.ruoliService.GetRuoli(this.formData.nome).subscribe(
       (data: any[]) => {
         this.ruoli = data;
         this.output_ricercaFiltrata = true;
@@ -30,15 +30,16 @@ export class GestioneRuoloComponent implements OnInit {
         console.log('Si è verificato un errore nel caricamento dei ruoli:', error);
       }
     );
-  }  
+  }
 
   clearSearch() {
     this.formData.nome = '';
-    this.output_ricercaFiltrata = false;
+    //this.output_ricercaFiltrata = false;
+    this.ruoli = [];
   }
 
   ricercaFiltrata() {
-    this.ruoliService.GetRuoli().subscribe(
+    this.ruoliService.GetRuoli(this.formData.nome).subscribe(
       (data: any[]) => {
         if (data && Array.isArray(data)) {
           this.ruoli = data;
@@ -52,18 +53,17 @@ export class GestioneRuoloComponent implements OnInit {
       }
     );
   }
-
+  
   deleteRuolo(id: number) {
     if (confirm('Sei sicuro di voler eliminare questo ruolo?')) {
-      this.amministrazioneRuoli.eliminaRuolo(id).subscribe(
-        () => {
+      this.amministrazioneRuoli.eliminaRuolo(id).subscribe((res) => {
+        console.log(res);        
+        alert(res.message);
+        if (res.message == 'Eliminazione avvenuta con successo!') {
           this.ruoli = this.ruoli.filter(ruolo => ruolo.syruIdruolosys !== id);
-          this.output_ricercaFiltrata = this.ruoli.length > 0;
-        },
-        error => {
-          console.error('Si è verificato un errore durante l\'eliminazione del ruolo:', error);
+        this.output_ricercaFiltrata = this.ruoli.length > 0;
         }
-      );
+      });
     }
   }
 
@@ -74,6 +74,8 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
+      this.router.navigate(['']);
+    }    
   }
 }

@@ -75,8 +75,14 @@ export class InsertUtenteService {
   GetAllPersoneSenzaUtenza(filtro: any) {
     return this.Http.post<any>('http://localhost:5143/AmministrazioneRuolo/GetAllPersoneSenzaUtente', filtro)
   }
-  GetRuoli() {
-    return this.Http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli', this.httpOptions);
+  GetRuoli(nomeRuolo?: string) {  // caso ricerca filtrata    
+    if (nomeRuolo != '' && nomeRuolo != null && nomeRuolo != undefined) {
+      return this.Http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli?nomeRuolo=' + nomeRuolo);
+    }
+    else {  // caso nomeRuolo = '', ricerca NON filtrata
+      console.log('caso ricerca non filtrata');
+      return this.Http.get<any[]>('http://localhost:5143/AmministrazioneRuolo/GetRuoli?nomeRuolo=null');
+    }    
   }
 
   getPersonaFiltrata(nome: string, cognome: string, ruoloId: number) {

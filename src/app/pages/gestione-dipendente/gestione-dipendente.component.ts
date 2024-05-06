@@ -30,7 +30,7 @@ export class GestioneDipendenteComponent implements OnInit{
       AnsoRagionesociale: ['']
     })
   }
-    setTitoloModificaPassword()
+    setTitoloModificaDipendente()
     {
       this.personaService.setTitolo('Modifica dipendente')
     }
