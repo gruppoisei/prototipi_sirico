@@ -96,7 +96,7 @@ export class GestioneCommessaComponent implements OnInit{
             societa: commessa.societa,
             clienteDiretto: commessa.clienteDiretto,
             clienteFinale: commessa.clienteFinale,
-            dataInizio: FormattaData.formattaData(commessa.DataInizio),
+            dataInizio: FormattaData.formattaData(commessa.dataInizio),
             dataFine: FormattaData.formattaData(commessa.dataFine),
             note: commessa.note,
             flagAttivo: commessa.flagAttivo,
