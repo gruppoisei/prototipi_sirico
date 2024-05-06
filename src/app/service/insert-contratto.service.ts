@@ -19,8 +19,8 @@ export class InsertContrattoService {
 
   modalType?: string | null;
 
-  idContratto!: number;
-  idContratto$: BehaviorSubject<number> = new BehaviorSubject<number>(this.idContratto);
+  idContratto!: number ;
+  idContratto$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(this.idContratto);
   isContrattoPassato?: number | null;
   private modalSubject = new BehaviorSubject<boolean>(false);
   modalState = this.modalSubject.asObservable();
@@ -61,8 +61,12 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.apiUrl}/GetLivelloContratto/` + CCNLid);
   }
 
-  getAllClienti(): Observable<any> {
+  getAllClientiDistacco(): Observable<any> {
     return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClientiDistacco`);
+  }
+
+  getAllClienti() : Observable<any>{
+    return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClienti`)
   }
 
   getAllTipitipiMotiviFineContratto(): Observable<any> {
@@ -84,7 +88,7 @@ export class InsertContrattoService {
   }
 
   insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
-    debugger;
+    //debugger;
     console.log('entrato insertNuovoContratto()');
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != -5) {
       console.log('caso put');
@@ -92,9 +96,10 @@ export class InsertContrattoService {
       console.log('body: ' + body);
       return this.Http.put<InserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
     }
-    else {
+    else {      
       console.log('caso post');
       nuovoContratto.codiContrattopersid = 0;
+      nuovoContratto.personaId = this.fieldAutoFill$.value.id;
       var body = JSON.stringify(nuovoContratto);
       console.log('body: ' + body);
       return this.Http.post<InserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);

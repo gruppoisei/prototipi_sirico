@@ -30,7 +30,7 @@ export class GestioneRuoloComponent implements OnInit {
         console.log('Si è verificato un errore nel caricamento dei ruoli:', error);
       }
     );
-  }  
+  }
 
   clearSearch() {
     this.formData.nome = '';
@@ -52,18 +52,17 @@ export class GestioneRuoloComponent implements OnInit {
       }
     );
   }
-
+  
   deleteRuolo(id: number) {
     if (confirm('Sei sicuro di voler eliminare questo ruolo?')) {
-      this.amministrazioneRuoli.eliminaRuolo(id).subscribe(
-        () => {
+      this.amministrazioneRuoli.eliminaRuolo(id).subscribe((res) => {
+        console.log(res);        
+        alert(res.message);
+        if (res.message == 'Eliminazione avvenuta con successo!') {
           this.ruoli = this.ruoli.filter(ruolo => ruolo.syruIdruolosys !== id);
-          this.output_ricercaFiltrata = this.ruoli.length > 0;
-        },
-        error => {
-          console.error('Si è verificato un errore durante l\'eliminazione del ruolo:', error);
+        this.output_ricercaFiltrata = this.ruoli.length > 0;
         }
-      );
+      });
     }
   }
 
@@ -74,6 +73,6 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['']);
+    this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
   }
 }

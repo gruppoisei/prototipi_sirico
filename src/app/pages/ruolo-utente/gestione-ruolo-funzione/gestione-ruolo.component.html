@@ -11,7 +11,7 @@
         <div class="flex flex-row mb-5">
             <input [(ngModel)]="formData.nome" name="nome" type="search"
                 class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Cerca per nome..." required />
+                placeholder="Cerca ruolo..." required />
         </div>
         <div class="flex flex-row justify-end mt-10">
             <button type="submit"
@@ -25,14 +25,14 @@
 </div>
 <br>
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
-<div class="flex flex-row my-10">
+<div class="flex flex-row justify-center my-10">
     <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
         <table class="w-3/4 text-base text-left rtl:text-right">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
                     <th scope="col" class="px-6 py-3">MODIFICA</th>
                     <th scope="col" class="px-6 py-3">ELIMINA</th>
-                    <th scope="col" class="px-6 py-3">ID</th>
+                    <!--<th scope="col" class="px-6 py-3">ID</th>-->
                     <th scope="col" class="px-6 py-3">DESCRIZIONE</th>
                 </tr>
             </thead>
@@ -46,7 +46,7 @@
                     <button type="button" name="modifyFieldsRuolo" (click)="deleteRuolo(ruolo.syruIdruolosys)"
                         class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
-                    <td class="px-6 py-4">{{ ruolo.syruIdruolosys }}</td>
+                    <!--<td class="px-6 py-4">{{ ruolo.syruIdruolosys }}</td>-->
                     <td class="px-6 py-4">{{ ruolo.syruDescruolosys }}</td>
                 </tr>
             </tbody>

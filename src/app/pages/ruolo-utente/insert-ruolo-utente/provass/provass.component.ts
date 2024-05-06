@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AmministrazioneRuoloService } from '../../../../service/amministrazione-ruolo.service';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-provass',
@@ -8,68 +9,242 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './provass.component.scss',
 })
 export class ProvassComponent implements OnDestroy {
-
   ruoloId: any = null;
-  nuovaFunzione = 0
+  nuovaFunzione = 0;
   listaFunzioniDisponibili: Funzione[] = [];
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
+  listaMenuPadre: Funzione[] = [];
+  ruoloDaAggiungere: Ruolo = { nomeRuolo: '', listaFunzioni: <any>[] };
 
-  ruoloDaAggiungere = { nomeRuolo: '', ruoloId: '', listaFunzioni: <any>[] };
-
-  constructor(private amministrazioneRuolo: AmministrazioneRuoloService) {
+  constructor(
+    private amministrazioneRuolo: AmministrazioneRuoloService,
+    private router: Router
+  ) {
     this.ruoloId = this.amministrazioneRuolo.ruoloId;
-    this.Save();
+    this.Start();
   }
-  async Save() {
-    this.AllFunzioni = await firstValueFrom(this.amministrazioneRuolo.getFunzioni())
-    
+  async Start() {
+    this.AllFunzioni = await firstValueFrom(
+      this.amministrazioneRuolo.getFunzioni()
+    );
+
     if (this.ruoloId != null) {
-      this.ruoloDaAggiungere = await firstValueFrom(this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId))
-      this.ruoloDaAggiungere.ruoloId = this.ruoloId
-      
-      this.listaOriginale = this.ruoloDaAggiungere.listaFunzioni
-      this.listaFunzioniDisponibili = this.AllFunzioni.filter(
-        (funzione: Funzione) =>
-          !this.ruoloDaAggiungere.listaFunzioni.some(
-            (f: any) => f.funzioneId == funzione.funzioneId
-          )
-      );
+
+      this.ReimpostaLista()
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
+  }
+
+  AggiungiFunzione() {
+    if (this.nuovaFunzione != 0) {
+      this.ruoloDaAggiungere.listaFunzioni.push(
+        this.AllFunzioni.find(
+          (funzione) => funzione.funzioneId == this.nuovaFunzione
+        )!
+      );
+      this.listaFunzioniDisponibili = this.listaFunzioniDisponibili.filter(
+        (funzione: Funzione) => funzione.funzioneId != this.nuovaFunzione
+      );
+    }
+    this.nuovaFunzione = 0; // azzero per evitare multiple aggiunte dello stesso ruolo
+  }
+
+  RimuoviFunzione(funzioneId: number) {
+    this.ruoloDaAggiungere.listaFunzioni =
+      this.ruoloDaAggiungere.listaFunzioni.filter(
+        (funzione: Funzione) => funzione.funzioneId != funzioneId
+      );
+    this.listaFunzioniDisponibili.push(
+      this.AllFunzioni.find((funzione) => funzione.funzioneId == funzioneId)!
+    );
+    this.listaFunzioniDisponibili.sort((a, b) =>
+      a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase()
+        ? 1
+        : -1
+    );
+    this.listaMenuPadre = this.listaMenuPadre.filter(
+      (funzione) => funzione.funzioneId != funzioneId
+    );
+  }
+
+  AggiornaCampo(
+    funzioneId: number,
+    tipoCampo: number,
+  ) {
+    console.log(this.listaOriginale)
+    this.ruoloDaAggiungere.listaFunzioni =
+      this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+        if (funzione.funzioneId == funzioneId) {
+          switch (tipoCampo) {
+            case FlagFunzione.voceMenu:
+
+              funzione = this.AggiornaListaMenu(funzione);
+              break;
+            case FlagFunzione.lettura:
+              funzione.flagLettura = !funzione.flagLettura;
+              break;
+            case FlagFunzione.creazione:
+              funzione.flagCreazione = !funzione.flagCreazione;
+              break;
+            case FlagFunzione.modifica:
+              funzione.flagModifica = !funzione.flagModifica;
+              break;
+            case FlagFunzione.cancellazione:
+              funzione.flagCancellazione = !funzione.flagCancellazione;
+              break;
+            default:
+              break;
+          }
+        }
+        return funzione;
+      });
+    this.SortListaFunzioni()
 
   }
 
-  AggiungiFunzione()
-  {
-    if(this.nuovaFunzione != 0 )
-      {
-        this.ruoloDaAggiungere.listaFunzioni.push(this.AllFunzioni.find(funzione => funzione.funzioneId == this.nuovaFunzione))
-        this.listaFunzioniDisponibili = this.listaFunzioniDisponibili.filter(
-          (funzione:Funzione) => funzione.funzioneId != this.nuovaFunzione
-        )
-        
+  AggiornaIndiciMenu(id: number, valore: number) {
+
+    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.map(funzione => {
+      if (funzione.indiceMenu == valore && funzione.funzioneId != id) {
+        for (let i = this.ruoloDaAggiungere.listaFunzioni.length; i > 0; i--) {
+          if (this.ruoloDaAggiungere.listaFunzioni.find(funz => funz.indiceMenu == i) == undefined) {
+            funzione.indiceMenu = i
+          }
+        }
       }
+      return funzione
+    })
   }
 
-  RimuoviFunzione(funzioneId:number)
+
+  AggiornaListaMenu(funzione: Funzione) {
+    funzione.flagVoceMenu = !funzione.flagVoceMenu;
+    if (funzione.flagVoceMenu) {
+      funzione.indiceMenu = this.listaMenuPadre.length + 1
+      this.AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)
+      funzione.menuPadre = 0
+      this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzioneP: Funzione) => funzioneP.funzioneId == funzione.funzioneId)!)
+      this.listaMenuPadre.sort((a, b) => a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase() ? 1 : -1);
+    }
+    else {
+      funzione.indiceMenu = 0
+      this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
+      this.ruoloDaAggiungere.listaFunzioni.map((funzioneP: Funzione) => {
+        if (funzioneP.funzioneId == funzione.funzioneId) funzione.menuPadre = 0
+        this.AggiornaIndiciMenu(funzione.funzioneId!, this.listaMenuPadre.length + 1)
+      })
+
+    }
+    return funzione;
+  }
+
+
+  async InserisciNuovoRuolo() {
+    if (this.ruoloDaAggiungere.nomeRuolo == null || this.ruoloDaAggiungere.nomeRuolo == undefined || this.ruoloDaAggiungere.nomeRuolo == "") {
+      alert('Inserire un nome ruolo!');
+    }
+    else if (this.ruoloDaAggiungere.listaFunzioni.length == 0) {
+      alert('Inserire almeno una funzione da associare al ruolo');
+    }
+    else {
+      console.log(this.ruoloDaAggiungere)
+      let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))
+      this.router.navigate(["/Segreteria/gestione-ruolo-funzione"])
+    }
+
+  }
+
+  async AggiornaFunzioniRuolo() {
+    let same = true;
+    if (
+      this.ruoloDaAggiungere.listaFunzioni.length != this.listaOriginale.length
+    ) {
+      same = false;
+    } else {
+      for (var i = 0; i < this.listaOriginale.length; i++) {
+        if (same == false) {
+          break;
+        }
+        let findFunzione = this.ruoloDaAggiungere.listaFunzioni.find(
+          (funz) => funz.funzioneId == this.listaOriginale[i].funzioneId
+        );
+        if (findFunzione == undefined) {
+          same = false;
+        } else {
+
+          if (
+            JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
+          ) {
+            same = false;
+          }
+        }
+      }
+    }
+    if (same) alert('nessuna modifica riscontrata')
+    else {
+      let res = await firstValueFrom(
+        this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere)
+      );
+      this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+    }
+  }
+
+  SortListaFunzioni()
   {
-    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.filter((funzione:Funzione) => funzione.funzioneId != funzioneId)
-    this.listaFunzioniDisponibili.push(this.AllFunzioni.find((funzione) => funzione.funzioneId == funzioneId)!)
-
+    let i = 0
+    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a,b) => {
+      i = i++
+      console.log("prova " + i + "  " + a.nomeFunzione + "  " +a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu )
+      if(b.indiceMenu == 0 ) return -1
+      if(a.indiceMenu == 0 ) return 1
+      if(a.indiceMenu < b.indiceMenu ) return -1
+      return 1
+    })
+  }
+  CancellaLista() {
+    this.listaMenuPadre = []
+    this.ruoloDaAggiungere.listaFunzioni = []
+    this.listaFunzioniDisponibili = this.AllFunzioni
+    this.listaMenuPadre = []
   }
 
-  AggiornaCampo(funzioneId:number,tipoCampo:number){
-    let funz:Funzione = this.ruoloDaAggiungere.listaFunzioni.find((funzione:Funzione) => funzione.funzioneId == funzioneId)
-    if(tipoCampo == FlagFunzione.cancellazione){}
+  async ReimpostaLista() {
+    this.ruoloDaAggiungere = await firstValueFrom(
+      this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
+    );
+    this.ruoloDaAggiungere.ruoloId = this.ruoloId;
+    let strings = JSON.stringify(this.ruoloDaAggiungere.listaFunzioni)
+    this.listaOriginale = JSON.parse(strings)
+
+
+    this.listaFunzioniDisponibili = this.AllFunzioni.filter(
+      (funzione: Funzione) =>
+        !this.ruoloDaAggiungere.listaFunzioni.some(
+          (f: any) => f.funzioneId == funzione.funzioneId
+        )
+    );
+    this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+      if (funzione.flagVoceMenu) {
+        this.listaMenuPadre.push(funzione);
+      }
+    });
+    this.SortListaFunzioni()
+  }
+
+  CloseForm() {
+    this.router.navigate(['']);
   }
 
   ngOnDestroy(): void {
     this.amministrazioneRuolo.ruoloId = undefined;
   }
- 
 }
 
-
+export interface Ruolo {
+  ruoloId?: number;
+  nomeRuolo: string;
+  listaFunzioni: Funzione[];
+}
 export interface Funzione {
   funzioneId?: number;
   nomeFunzione: string;
@@ -81,13 +256,12 @@ export interface Funzione {
   indiceMenu: number;
   menuPadre: number | null;
 }
-export enum FlagFunzione{
+export enum FlagFunzione {
   voceMenu,
   lettura,
   creazione,
   modifica,
   cancellazione,
   ordinamentoMenu,
-  menuPadre,
-
+  MenuPadre,
 }

@@ -14,7 +14,6 @@ export class AuthenticationService {
   listStatus = statoAccesso
   utente? : UtenteLoggato
 
-  // utente$:Subject<any> = new Subject<any>()
   utenteId:number = 0
   imageQRCode = ""
   listaRuoliUtente:any[] = []
@@ -44,10 +43,14 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}ModificaPasswordUtente`,newPasswordObj, {withCredentials : true})
   }
 
-  logout()
-  {
-    return this.http.get<any>(`${this.baseUrl}Logout`,this.httpOptions)
+  logout() {
+    return this.http.get<any>(`${this.baseUrl}Logout`, this.httpOptions).pipe(
+      tap(() => {
+       sessionStorage.removeItem('SysUser')
+      })
+    );
   }
+  
 
   ConfermaMFA(validatoreMFA:string,expire1week:boolean) {
     return this.http
@@ -77,6 +80,7 @@ export class AuthenticationService {
           return ruolo;
         } else {
           this.utente = undefined;
+          sessionStorage.removeItem('SysUser')
           return ruoloUtente.NonLoggato;
         }
       }),
@@ -92,7 +96,6 @@ export class AuthenticationService {
     let response = this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
       map((res) => {
         if (res.status == 200) {
-          console.log(res.body)
           this.utente = res.body;
           const ruolo = Number(this.utente?.idRuolo);
           return ruolo;
@@ -108,22 +111,6 @@ export class AuthenticationService {
     );
     const res = await firstValueFrom(response)
     return res
-  }
-
-  storeIdRuolo(idRuolo : string)
-  {
-    sessionStorage.setItem('RuoloUtente', idRuolo)
-  }
-  
-
-  getIdRuolo()
-  {
-    return sessionStorage.getItem('RuoloUtente')
-  }
-  
-  isLoggedIn() : boolean
-  {
-    return sessionStorage.getItem('RuoloUtente')!= null
   }
 }
 

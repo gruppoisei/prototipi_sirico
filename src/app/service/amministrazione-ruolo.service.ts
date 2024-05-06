@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ruoloFunzione } from '../dto/request/inserimentoNuovoRuolo';
 import { BehaviorSubject } from 'rxjs';
+import { Ruolo } from '../pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 
 @Injectable({
   providedIn: 'root'
@@ -44,18 +45,28 @@ export class AmministrazioneRuoloService {
     return res;
   }
 
-  insertNuovoRuolo(listaFunzioni: ruoloFunzione[]): Observable<ruoloFunzione> {    
-    console.log('listaFunzioni:');
-    console.log(listaFunzioni);
-    
-    var body = JSON.stringify(listaFunzioni);
-    console.log('body: ' + body);
-    
-    return this.Http.post<ruoloFunzione>(`${this.apiUrl}/NuovoRuolo`, body, this.httpOptions);    
+  InserisciAggiornaRuolo(ruolo: Ruolo){    
+   
+    return this.Http.post<ruoloFunzione>(`${this.apiUrl}/AssociaFunzioniRuolo`, ruolo);    
   }
+  // insertNuovoRuolo(listaFunzioni: ruoloFunzione[]): Observable<ruoloFunzione> {    
+  //   console.log('listaFunzioni:');
+  //   console.log(listaFunzioni);
+    
+  //   var body = JSON.stringify(listaFunzioni);
+  //   console.log('body: ' + body);
+    
+  //   return this.Http.post<ruoloFunzione>(`${this.apiUrl}/NuovoRuolo`, body, this.httpOptions);    
+  // }
 
+  /*
   eliminaRuolo(id: number): Observable<any> {
     return this.Http.post<any>('/api/EliminaRuolo', { id });
   }
+  */
+
+  eliminaRuolo(id: number): Observable<any> {
+    return this.Http.post<any>(`${this.apiUrl}/EliminaRuolo?id=${id}`, this.httpOptions);
+  }  
   
 }

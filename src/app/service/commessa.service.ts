@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { ricercaCommessa } from '../dto/request/ricercaCommessa';
 
 @Injectable({
@@ -9,40 +9,24 @@ import { ricercaCommessa } from '../dto/request/ricercaCommessa';
 export class CommessaService {
 
   private titolo : BehaviorSubject<string> = new BehaviorSubject<string>('')
-  baseUrlVC = 'http://localhost:5143/VistaCommessa/'
-  baseUrl = 'http://localhost:5143/Commessa/'
   private commessaSubject = new BehaviorSubject<any>(null);
+  commessa$ = this.commessaSubject.asObservable();
+  baseUrl = 'http://localhost:5143/Commessa/'
   constructor(private http : HttpClient) { }
 
-  setTitolo(titolo : string)
-  {
+  setTitolo(titolo : string){
     this.titolo.next(titolo);
   }
 
-  getTiolo()
-  {
+  getTiolo(){
     return this.titolo.getValue();
   }
   
-  salvaCommessa(commessaObj : any) : Observable<any>
-  {
+  salvaCommessa(commessaObj : any) : Observable<any>{
     return this.http.post<any>(`${this.baseUrl}SalvaCommessa`, commessaObj,{withCredentials : true})
   }
 
-  getCommessaById(commessaId : number)
-  {
-    return this.http.get<any>(`${this.baseUrl}GetCommessaById/${commessaId}`).subscribe(
-      {
-        next:(res) =>
-        {
-          this.commessaSubject.next(res);
-        },
-        error:(err) => 
-        {
-          console.log(err)
-        }
-      });
-  }
+  
 
   getVistaCommessaFiltrata(queryParams: ricercaCommessa) : Observable<any>
   {
@@ -64,4 +48,28 @@ export class CommessaService {
     return httpParams
   }
 
+  getCommessaById(idCommessa : number){
+    return this.http.get<any>(`${this.baseUrl}GetCommessaById/${idCommessa}`).pipe(
+      retry(3)).subscribe(
+      {
+        next: (res) => {
+          this.commessaSubject.next(res);
+        },
+        error: (err) => {
+          console.error('Errore durante il recupero dei dati della persona:', err);
+        }
+      });
+  }
+  
+  disabilitaCommessaById(idCommessa : number){
+    return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaById/${idCommessa}`,{})
+  }
+
+  getAllTipoCommesse() : Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}GetAllTipoCommessa`)
+  }
+
+  clearCommessaSubject(){
+    this.commessaSubject.next(null);
+  }
 }

@@ -7,6 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { SocietaService } from '../../../service/societa.service';
+import { InsertContrattoService } from '../../../service/insert-contratto.service';
 @Component({
   selector: 'app-salva-commessa',
   templateUrl: './salva-commessa.component.html',
@@ -15,29 +18,43 @@ import { ResponseDialogComponent } from '../../../ui/response-dialog/response-di
 
 export class SalvaCommessaComponent implements OnInit{
 
-  data : string;
+  titolo : string;
   commessaForm !: FormGroup
   isDisabled: boolean = true;
   formDefaultValue : any;
   minDataScadenza ?: string
+  utenteLoggato : string | null = ""
+  listSocieta: any
+  listTipoCommisione : any;
+  listClienti : any
+  listTipoCommessa: any;
 
-  constructor(private commessaService : CommessaService, private location : Location, private formBuilder : FormBuilder, private dialog : MatDialog){
+  constructor(
+    private commessaService : CommessaService,private location : Location,
+    private formBuilder : FormBuilder,private dialog : MatDialog,
+    private societaService : SocietaService, private clientiService : InsertContrattoService){
     const router = inject(Router)
 
-    this.data = this.commessaService.getTiolo();
-    if(this.data === ''){
+    this.titolo = this.commessaService.getTiolo();
+    if(this.titolo === ''){
       /*router.navigate(['/Segreteria/gestione-dipendente'])*/  
       }
   }
 
 ngOnInit(): void {
+    this.loadData()
     this.commessaForm = this.formBuilder.group({
       CommessaId : [0],
       DescCommessa : ['', Validators.required],
+      idTipoCommessa : ['', Validators.required],
+      idSocieta : ['', Validators.required],
+      idClienteDiretto : ['', Validators.required],
+      idClienteFinale : ['', Validators.required],
       DataInizio : ['', Validators.required],
       DataFine : [{value: '', disabled:true}],
-      FlagAttivo : [{value: true, disabled: this.isDisabled}],
-      /* SysUser : [this.authService.utente?.username] */
+      note : [''],
+      FlagAttivo : [true],
+      SysUser : [this.utenteLoggato]
     })
     this.formDefaultValue = this.commessaForm.getRawValue()
     this.commessaForm.get('DataInizio')?.valueChanges.subscribe(value => {
@@ -58,7 +75,13 @@ ngOnInit(): void {
   {
    if(this.commessaForm.valid)
     {
-      this.commessaService.salvaCommessa(this.commessaForm.getRawValue()).subscribe(
+      if(this.commessaForm.get('DataFine')?.value === '')
+        {
+          this.commessaForm.patchValue({
+            DataFine : null
+          })
+        }
+      this.commessaService.salvaCommessa(this.commessaForm.value).subscribe(
         {
           next:(res)=>
             {
@@ -68,7 +91,7 @@ ngOnInit(): void {
                   width : 'auto',
                   height : 'auto'
                 });
-                this.clearSearch()
+                this.clearForm()
             },
             error:(err) =>
               {
@@ -96,8 +119,15 @@ goBack() : void {
   this.location.back();
 }
 
-clearSearch() {
+clearForm() {
   this.commessaForm.reset(this.formDefaultValue)
+}
+
+loadData(){
+  this.utenteLoggato = sessionStorage.getItem('SysUser')
+  this.societaService.getAllSocieta().subscribe(societa => this.listSocieta = societa);
+  this.commessaService.getAllTipoCommesse().subscribe(tipoCommessa => this.listTipoCommessa = tipoCommessa)
+  this.clientiService.getAllClienti().subscribe(clienti => this.listClienti = clienti)
 }
 
 }

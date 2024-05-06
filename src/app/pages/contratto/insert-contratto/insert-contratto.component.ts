@@ -1,4 +1,4 @@
-import { Component, Injectable, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Injectable, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
@@ -25,7 +25,7 @@ import ValidaPartita from '../../../helpers/validaPartitaIva';
   providers: [GestioneContrattoComponent],
 })
 
-export class InsertContrattoComponent implements OnInit {
+export class InsertContrattoComponent implements OnInit, OnDestroy {
   partitaIvaID: number = 3; //non toccarlo
   giorniLavorativiAlMese: number = 21;
   mesiLavorativiAllAnno: number = 12;
@@ -101,6 +101,11 @@ export class InsertContrattoComponent implements OnInit {
     private builder: FormBuilder
   ) { }
 
+  ngOnDestroy(): void {
+    this.inserimentoContrattoService.idContratto$.next(undefined);
+    this.reset();
+  }
+
   ngOnInit(): void {
     this.reset();
     this.getAllTipoSocieta();
@@ -156,7 +161,8 @@ export class InsertContrattoComponent implements OnInit {
   clearForm() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.reset();
-      this.inserimentoContrattoService.idContratto$.next(-5);
+      //this.inserimentoContrattoService.idContratto$.next(-5);
+      this.inserimentoContrattoService.idContratto$.next(undefined);
       console.log("form pulita, cambio idcontratto nel service: " + this.inserimentoContrattoService.idContratto$.value)
     } else {
       console.log('Operazione annullata');
@@ -242,7 +248,7 @@ export class InsertContrattoComponent implements OnInit {
   }
 
   getAllClienti() {
-    this.inserimentoContrattoService.getAllClienti().subscribe(
+    this.inserimentoContrattoService.getAllClientiDistacco().subscribe(
       (response: any) => {
         //console.log(response);
         this.tipiClientiDistacco = response.concat([
@@ -310,6 +316,13 @@ export class InsertContrattoComponent implements OnInit {
 
   inviaForm() {
     this.formData.sysuser = "FrontEnd";   //o predere l'username dell'utente loggato
+    //
+    //console.log("this.inserimentoContrattoService.fieldAutoFill$.value.id:"); 
+    //console.log(this.inserimentoContrattoService.fieldAutoFill$.value.id);
+    //this.formData.personaId = this.inserimentoContrattoService.fieldAutoFill$.value.id;
+    //console.log("this.formData.personaId:"); 
+    //console.log(this.formData.personaId);
+    //
     this.formValidationCheck();
     if (this.formValidation){
     //if (true){
@@ -338,6 +351,11 @@ export class InsertContrattoComponent implements OnInit {
 
       this.tipiLivello = livelli;
       this.formData = response;
+      //
+      this.formData.codiContrattopersid = response.codiContrattopersid;
+      console.log('this.formData.codiContrattopersid');
+      console.log(this.formData.codiContrattopersid);
+      //
       this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
       this.valoredistaccoValido = this.formData.codsValoredistacco ? this.valoreDistaccoChangeValidation() : true;
       this.formData.codiDatainiziocontratto = FormattaData.formattaData(response.codiDatainiziocontratto);

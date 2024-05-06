@@ -8,30 +8,83 @@
                 <input formControlName="DescCommessa" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                 focus:border-sky-500 focus:ring-sky-500" placeholder="Scrivi il nome della commessa">
                 <small *ngIf="commessaForm.controls['DescCommessa'].dirty && commessaForm.hasError('required','DescCommessa')" class="text-red-600">Commessa obbligatoria</small>
-
             </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Tipo commessa</label>
+                <select formControlName="idTipoCommessa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="tipComm.cotiTipocommessaid" *ngFor="let tipComm of listTipoCommessa">
+                        {{tipComm.cotiTipocommessadesc}}
+                    </option>
+                </select>
+                <small *ngIf="commessaForm.controls['idTipoCommessa'].dirty && commessaForm.hasError('required', 'idTipoCommessa')" class = "text-red-600">Tipo di commessa obbligatoria</small>
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Azienda</label>
+                <select formControlName="idSocieta" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="soc.societaid" *ngFor= "let soc of listSocieta">
+                        {{soc.ragionesociale}}
+                    </option>
+                </select>
+                <small *ngIf="commessaForm.controls['idSocieta'].dirty && commessaForm.hasError('required', 'idSocieta')" class = "text-red-600">Azienda obbligatoria</small>
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Cliente diretto</label>
+                <select formControlName="idClienteDiretto" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="cli.idcliente" *ngFor="let cli of listClienti">
+                        {{cli.ragionesociale}}
+                    </option>
+                </select>
+                <small *ngIf="commessaForm.controls['idClienteDiretto'].dirty && commessaForm.hasError('required', 'idClienteDiretto')" class = "text-red-600">Cliente diretto obbligatorio</small>
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Cliente finale</label>
+                <select formControlName="idClienteFinale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="cli.idcliente" *ngFor="let cli of listClienti">
+                        {{cli.ragionesociale}}
+                    </option>
+                </select>
+                <small *ngIf="commessaForm.controls['idClienteFinale'].dirty && commessaForm.hasError('required', 'idClienteFinale')" class = "text-red-600">Cliente finale obbligatorio</small>
+            </div>
+            
             <div class="w-full">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Data inizio</label>
                 <input formControlName="DataInizio" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                 focus:border-sky-500 focus:ring-sky-500">
                 <small *ngIf="commessaForm.controls['DataInizio'].dirty && commessaForm.hasError('required','DataInizio')" class="text-red-600">Data inizio commessa obbligatoria</small>
-
             </div>
+
             <div class="w-full">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Data fine</label>
                 <input formControlName="DataFine" type="date" [min]="minDataScadenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                 focus:border-sky-500 focus:ring-sky-500">
             </div>
 
+            <div class = "sm:col-span-2">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Note</label>
+                <textarea formControlName="note" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Scrivi le note qui..."></textarea>
+            </div>
+
             <label class="inline-flex items-center mb-5 cursor-pointer">
                 <input formControlName="FlagAttivo" type="checkbox" class="sr-only peer">
-                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <div class="relative w-11 h-6 peer-focus:ring-blue-800 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 <span class="ms-3 text-sm font-medium text-gray-900">Commessa attiva?</span>
               </label>
         </div>
         <div class="w-full flex flex-col md:flex-row justify-between mb-10 mt-10">
             <button type="submit" (click)="salvaCommessa()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
-            <button (click)="clearSearch()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
+            <button (click)="clearForm()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
             <button (click)="goBack()" class="w-full md:w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
         </div>
     </form>
