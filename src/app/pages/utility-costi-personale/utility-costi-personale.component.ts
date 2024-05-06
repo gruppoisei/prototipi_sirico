@@ -8,8 +8,20 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class UtilityCostiPersonaleComponent {
+  
+  selectedFiles: File[] = [];
+  enabled: boolean =  true;
+
   constructor(private http: HttpClient) {}
 
+  receiveFile($event : any){
+    this.selectedFiles = $event
+  }
+
+  upload(){
+
+  }
+  
   stampa() {
     this.http.get<any>('URL_DELLA_TUA_API').subscribe((data) => {
       this.stampaLista(data);
