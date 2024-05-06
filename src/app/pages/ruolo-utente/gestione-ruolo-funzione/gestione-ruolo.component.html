@@ -24,9 +24,11 @@
     </form>
 </div>
 <br>
-<div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
+<!--<div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>-->
+<div *ngIf="ruoli.length == 0" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
 <div class="flex flex-row justify-center my-10">
-    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
+    <!--<div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">-->
+    <div *ngIf="ruoli.length != 0" class="flex flex-row justify-center my-10">
         <table class="w-3/4 text-base text-left rtl:text-right">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>

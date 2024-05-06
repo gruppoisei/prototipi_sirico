@@ -45,9 +45,9 @@ export class AmministrazioneRuoloService {
     return res;
   }
 
-  InserisciAggiornaRuolo(ruolo: Ruolo){    
-   
-    return this.Http.post<ruoloFunzione>(`${this.apiUrl}/AssociaFunzioniRuolo`, ruolo);    
+  InserisciAggiornaRuolo(ruolo: Ruolo){     
+    console.log(ruolo); 
+    return this.Http.post<any>(`${this.apiUrl}/AssociaFunzioniRuolo`, ruolo);    
   }
   // insertNuovoRuolo(listaFunzioni: ruoloFunzione[]): Observable<ruoloFunzione> {    
   //   console.log('listaFunzioni:');

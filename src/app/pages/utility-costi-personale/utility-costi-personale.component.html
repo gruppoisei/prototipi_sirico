@@ -1,5 +1,7 @@
 <div class="container">
+    <app-gestione-file *ngIf="enabled" (fileEvent)="receiveFile($event)"></app-gestione-file>
+    <button (click)="upload()" class="btn">Salva</button>
     <div class="line"></div>
-    <button (click)="stampa()" class="btn">Stampa</button>
+    <!--<button (click)="stampa()" class="btn">Stampa</button>-->
 </div>
   

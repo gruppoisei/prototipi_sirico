@@ -21,7 +21,7 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   caricaRuoli() {
-    this.ruoliService.GetRuoli().subscribe(
+    this.ruoliService.GetRuoli(this.formData.nome).subscribe(
       (data: any[]) => {
         this.ruoli = data;
         this.output_ricercaFiltrata = true;
@@ -34,11 +34,12 @@ export class GestioneRuoloComponent implements OnInit {
 
   clearSearch() {
     this.formData.nome = '';
-    this.output_ricercaFiltrata = false;
+    //this.output_ricercaFiltrata = false;
+    this.ruoli = [];
   }
 
   ricercaFiltrata() {
-    this.ruoliService.GetRuoli().subscribe(
+    this.ruoliService.GetRuoli(this.formData.nome).subscribe(
       (data: any[]) => {
         if (data && Array.isArray(data)) {
           this.ruoli = data;
@@ -73,6 +74,8 @@ export class GestioneRuoloComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
+      this.router.navigate(['']);
+    }    
   }
 }
