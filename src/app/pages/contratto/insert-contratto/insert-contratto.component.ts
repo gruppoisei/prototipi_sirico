@@ -46,6 +46,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   valoredistaccoValido: boolean = true;//controlla se true qui
   pannelloEspanso: boolean = false;
   isValidPartitaivaFields: boolean = false; //?
+  utenteLoggato: string | null = "";
 
   tipiSocieta: { societaid: number; ragionesociale: string }[] = [];                  //
   tipiContratto: { tipoid: number; tipodesc: string }[] = [];                         //
@@ -90,7 +91,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     societaPersona: null,
     clienteDistaccoid: null,
     clienteDistacco: null,
-    sysuser: "FrontEnd"
+    sysuser: null
   }
 
   constructor(
@@ -108,6 +109,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reset();
+    this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
     this.getAllTipoCcnl();
@@ -202,7 +204,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       societaPersona: null,
       clienteDistaccoid: null,
       clienteDistacco: null,
-      sysuser: "FrontEnd"
+      sysuser: null
     };
     this.costopresuntogiorno = null;
     this.costopresuntomese = null;
@@ -315,7 +317,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   }
 
   inviaForm() {
-    this.formData.sysuser = "FrontEnd";   //o predere l'username dell'utente loggato
+    this.formData.sysuser = this.utenteLoggato;
     //
     //console.log("this.inserimentoContrattoService.fieldAutoFill$.value.id:"); 
     //console.log(this.inserimentoContrattoService.fieldAutoFill$.value.id);
