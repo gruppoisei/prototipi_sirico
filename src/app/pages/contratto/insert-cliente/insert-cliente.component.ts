@@ -36,7 +36,7 @@ export class InsertClienteComponent implements OnInit {
   // constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
   // utenteLoggato: string | null = "";
 
-  constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
+  constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
     this.clienteSocieta = {
       Ragionesociale: null,
       Partitaiva: null,
