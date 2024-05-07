@@ -39,10 +39,6 @@ export class GestioneCommessaComponent implements OnInit{
           const selectDate = new Date(value);
           this.minDataScadenza = selectDate.toISOString().split('T')[0]
         }
-        else
-        {
-          this.ricercaForm.get('DataFine')?.disable();
-        }
     });
   }
 

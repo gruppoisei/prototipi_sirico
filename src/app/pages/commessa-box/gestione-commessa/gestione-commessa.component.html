@@ -18,7 +18,7 @@
             </div>
             <div class="flex flex-col flex-1">
                 <label for="DataFine" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Fine</label>
-                <input formControlName="DataFine" type="date" id="DataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
+                <input formControlName="DataFine" type="date" [min]="minDataScadenza" id="DataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
             </div>
             <label class="flex flex-row justify-end mt-10">
                 <input formControlName="FlagAttivo" type="checkbox" class="sr-only peer">
@@ -62,8 +62,8 @@
                     <td class="px-6 py-4">{{ commessa.societa }}</td>
                     <td class="px-6 py-4">{{ commessa.clienteDiretto }}</td>
                     <td class="px-6 py-4">{{ commessa.clienteFinale }}</td>
-                    <td class="px-6 py-4">{{ commessa.dataInizio }}</td>
-                    <td class="px-6 py-4">{{ commessa.dataFine }}</td>
+                    <td class="px-6 py-4">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
+                    <td class="px-6 py-4">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
                     <td class="px-6 py-4">{{ commessa.note }}</td>
                 </tr>
             </tbody>
