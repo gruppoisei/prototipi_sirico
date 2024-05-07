@@ -65,6 +65,9 @@ import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commess
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
+import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-input-text.component';
+import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/delete-commessa-dialog.component';
+import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
 
 @NgModule({
     declarations: [
@@ -112,7 +115,10 @@ import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/
         GestioneCommessaComponent,
         SalvaCommessaComponent,
         ProvassComponent,
-        UtilityCostiPersonaleComponent
+        UtilityCostiPersonaleComponent,
+        FormInputTextComponent,
+        DeleteCommessaDialogComponent,
+        DeleteCommessaResponseDialogComponent
     ],
     providers: [
         provideAnimationsAsync(),
