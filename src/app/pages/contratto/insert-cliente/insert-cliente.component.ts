@@ -4,6 +4,7 @@ import { clienteSocieta } from '../../../dto/response/nuovoCliente';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import ValidaPartita from '../../../helpers/validaPartitaIva';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-insert-cliente',
@@ -15,8 +16,24 @@ export class InsertClienteComponent implements OnInit {
   clienteSocieta: any;
   isPhoneNumberError: boolean = false;
   validPartitaIva: boolean = true;
-
-  constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
+  public myForm:FormGroup  = this.fg.group(
+    {
+      Ragionesociale:new FormControl(null,[Validators.required]),
+      Partitaiva:new FormControl(null,[]),
+      Sedelegale:new FormControl(null,[]),
+      Sedeoperativa: new FormControl(null,[]),
+      Patinail:new FormControl(null,[]),
+      Rappresentantelegale:new FormControl(null,[]),
+      Sedelavoro:new FormControl(null,[]),
+      Codiceateco:new FormControl(null,[]),
+      Numerotelefono:new FormControl(null,[]),
+      Indirizzopec:new FormControl(null,[]),
+      Refamministratore:new FormControl(null,[]),
+      Emailrefammin:new FormControl(null,[Validators.email]),
+      Telefonorefammin:new FormControl(null,[]),
+      
+    })
+  constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
     this.clienteSocieta = {
       Ragionesociale: null,
       Partitaiva: null,
@@ -35,6 +52,7 @@ export class InsertClienteComponent implements OnInit {
       FlagAttiva: true,
     };
   }
+
 
   ngOnInit(): void {
     //this.clearForm();
