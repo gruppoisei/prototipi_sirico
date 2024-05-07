@@ -102,8 +102,9 @@
                 [(ngModel)]="funzione.indiceMenu" type="number">
             </td>
             <td class="px-6 py-4">
-              <select [disabled]="funzione.flagVoceMenu" (change)="AggiornaCampo(funzione.funzioneId!,6)">
-                <option value="0">--scegli padre--</option>
+              <select [disabled]="funzione.flagVoceMenu" [(ngModel)]="funzione.menuPadre" >
+              <!-- <select [disabled]="funzione.flagVoceMenu" [ngModel]="funzione.menuPadre" (change)="AggiornaCampo(funzione.funzioneId!,6)"> -->
+                <option [value]="0">--scegli padre--</option>
                 <option *ngFor="let padre of listaMenuPadre" [value]="padre.funzioneId">{{padre.nomeFunzione}}</option>
 
               </select>
