@@ -82,11 +82,11 @@ export class GestioneContrattoComponent implements OnInit {
         response.forEach((persona: any) => {
           persona.nome = this.troncaNome(persona.nome, 10);
           persona.cognome = this.troncaNome(persona.cognome, 10);
-          console.log(persona.nome, persona.cognome);
+          //console.log(persona.nome, persona.cognome);
           this.dipendentiConContratto.push(persona);
         });
 
-        console.log(JSON.stringify(this.dipendentiConContratto));
+        //console.log(JSON.stringify(this.dipendentiConContratto));
         this.output_ricercaFiltrata = true;
       },
       (error: any) => {
@@ -123,7 +123,7 @@ export class GestioneContrattoComponent implements OnInit {
 
   troncaNome(nome: string, lunghezzaMassima: number): string {
     if (nome.length > (lunghezzaMassima + 2)) {
-      console.log("qui: ", nome.length);
+      //console.log("qui: ", nome.length);
       return nome.substring(0, lunghezzaMassima) + '...';
     }
     return nome;
