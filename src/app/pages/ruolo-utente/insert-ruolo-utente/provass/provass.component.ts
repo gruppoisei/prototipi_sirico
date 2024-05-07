@@ -10,10 +10,12 @@ import { Router } from '@angular/router';
 })
 export class ProvassComponent implements OnDestroy {
   ruoloId: any = null;
+  ruoloNome: string = "";
   nuovaFunzione = 0;
   listaFunzioniDisponibili: Funzione[] = [];
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
+  // nuovoMenuPadre = 0; // 
   listaMenuPadre: Funzione[] = [];
   ruoloDaAggiungere: Ruolo = { nomeRuolo: '', listaFunzioni: <any>[] };
 
@@ -31,8 +33,12 @@ export class ProvassComponent implements OnDestroy {
 
     if (this.ruoloId != null) {
 
-      this.ReimpostaLista()
+      await this.ReimpostaLista();
+      //console.log(this.ruoloDaAggiungere);
+      this.ruoloNome = this.ruoloDaAggiungere.nomeRuolo;
+      console.log(this.ruoloDaAggiungere)
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
+
   }
 
   AggiungiFunzione() {
@@ -121,7 +127,7 @@ export class ProvassComponent implements OnDestroy {
     funzione.flagVoceMenu = !funzione.flagVoceMenu;
     if (funzione.flagVoceMenu) {
       funzione.indiceMenu = this.listaMenuPadre.length + 1
-      this.AggiornaIndiciMenu(funzione.funzioneId!,funzione.indiceMenu)
+      this.AggiornaIndiciMenu(funzione.funzioneId!, funzione.indiceMenu)
       funzione.menuPadre = 0
       this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzioneP: Funzione) => funzioneP.funzioneId == funzione.funzioneId)!)
       this.listaMenuPadre.sort((a, b) => a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase() ? 1 : -1);
@@ -147,59 +153,79 @@ export class ProvassComponent implements OnDestroy {
       alert('Inserire almeno una funzione da associare al ruolo');
     }
     else {
-      console.log(this.ruoloDaAggiungere)
-      let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere))
-      this.router.navigate(["/Segreteria/gestione-ruolo-funzione"])
-    }
+      //console.log(this.ruoloDaAggiungere)
+      let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere));
+      alert(res.message);
 
+      if (res.message == "Ruolo salvato con successo!") {
+        this.router.navigate(["/Segreteria/gestione-ruolo-funzione"]);
+      }
+    }
   }
 
   async AggiornaFunzioniRuolo() {
-    let same = true;
-    if (
-      this.ruoloDaAggiungere.listaFunzioni.length != this.listaOriginale.length
-    ) {
-      same = false;
-    } else {
-      for (var i = 0; i < this.listaOriginale.length; i++) {
-        if (same == false) {
-          break;
-        }
-        let findFunzione = this.ruoloDaAggiungere.listaFunzioni.find(
-          (funz) => funz.funzioneId == this.listaOriginale[i].funzioneId
-        );
-        if (findFunzione == undefined) {
-          same = false;
-        } else {
-
-          if (
-            JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
-          ) {
+    if (this.ruoloDaAggiungere.nomeRuolo == "" || this.ruoloDaAggiungere.nomeRuolo == null || this.ruoloDaAggiungere.nomeRuolo == undefined) {
+      alert('Inserire un nome ruolo!');
+    }
+    else if (this.ruoloDaAggiungere.listaFunzioni.length == 0) {
+      alert('Aggiungere almeno una funzione da associare al ruolo!');
+    }
+    else {
+      let same = true;
+      if (
+        this.ruoloDaAggiungere.listaFunzioni.length != this.listaOriginale.length
+      ) {
+        same = false;
+      }
+      else if (this.ruoloNome != this.ruoloDaAggiungere.nomeRuolo) {
+        same = false;
+      } else {
+        for (var i = 0; i < this.listaOriginale.length; i++) {
+          if (same == false) {
+            break;
+          }
+          let findFunzione = this.ruoloDaAggiungere.listaFunzioni.find(
+            (funz) => funz.funzioneId == this.listaOriginale[i].funzioneId
+          );
+          if (findFunzione == undefined) {
             same = false;
+          } else {
+
+            if (
+              JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
+            ) {
+              same = false;
+            }
           }
         }
       }
+
+      if (same) alert('Nessuna modifica riscontrata')
+      else {
+
+        let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere));
+        //console.log('res.message:');
+        //console.log(res.message);
+        alert(res.message);
+
+        if (res.message == "Ruolo salvato con successo!") {
+          this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+        }
+      }
     }
-    if (same) alert('nessuna modifica riscontrata')
-    else {
-      let res = await firstValueFrom(
-        this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere)
-      );
-      this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
-    }
+    //console.log(this.ruoloDaAggiungere)
   }
 
-  SortListaFunzioni()
-  {
+  SortListaFunzioni() {
     let i = 0
-    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a,b) => {
+    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a, b) => {
       i = i++
-      console.log("prova " + i + "  " + a.nomeFunzione + "  " +a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu )
-      if(b.indiceMenu == 0 ) return -1
-      if(a.indiceMenu == 0 ) return 1
-      if(a.indiceMenu < b.indiceMenu ) return -1
+      //console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
+      if (b.indiceMenu == 0) return -1
+      if (a.indiceMenu == 0) return 1
+      if (a.indiceMenu < b.indiceMenu) return -1
       return 1
-    })
+    })    
   }
   CancellaLista() {
     this.listaMenuPadre = []
@@ -238,6 +264,7 @@ export class ProvassComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.amministrazioneRuolo.ruoloId = undefined;
   }
+
 }
 
 export interface Ruolo {
@@ -254,8 +281,9 @@ export interface Funzione {
   flagModifica: boolean;
   flagCreazione: boolean;
   indiceMenu: number;
-  menuPadre: number | null;
-}
+  menuPadre: number;
+/*   menuPadre: number | null;
+ */}
 export enum FlagFunzione {
   voceMenu,
   lettura,

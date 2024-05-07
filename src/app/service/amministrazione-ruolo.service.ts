@@ -45,9 +45,15 @@ export class AmministrazioneRuoloService {
     return res;
   }
 
-  InserisciAggiornaRuolo(ruolo: Ruolo){    
-   
-    return this.Http.post<ruoloFunzione>(`${this.apiUrl}/AssociaFunzioniRuolo`, ruolo);    
+  InserisciAggiornaRuolo(ruolo: Ruolo){ 
+    /* 
+    for (let i = 0; i < ruolo.listaFunzioni.length; i++) {
+      console.log('this.ruolo.listaFunzioni[i].menuPadre:');
+      console.log(ruolo.listaFunzioni[i].menuPadre);
+    }   
+    */
+    console.log(ruolo); 
+    return this.Http.post<any>(`${this.apiUrl}/AssociaFunzioniRuolo`, ruolo);    
   }
   // insertNuovoRuolo(listaFunzioni: ruoloFunzione[]): Observable<ruoloFunzione> {    
   //   console.log('listaFunzioni:');

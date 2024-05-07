@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-distacco.component';
+import { InserimentoContratto } from '../../../dto/response/inserimentoContratto';
 
 @Component({
   selector: 'app-gestione-contratto',
@@ -23,12 +24,48 @@ export class GestioneContrattoComponent implements OnInit {
   tipiSocietaDistacco!: [{ ansoSocietaid: number; ansoRagionesociale: string }]
   dipendentiConContratto: any[] = [];
   formData: FormGroup;
+  utenteLoggato: string | null = '';
 
   formDataSearch = {
     anpeNome: null,
     anpeCognome: null,
     anpeCodicefiscale: null,
     ansoSocietaid: null
+  }
+
+  formDataContrattoCancellare: InserimentoContratto = {
+    codiContrattopersid: null,
+    codiRalcompenso: null,
+    codiMonteore: null,
+    codiDatainiziocontratto: null,
+    codiDatafinecontratto: null,
+    codiSmartworking: null,
+    codiNote: null,
+    codiFlagAttiva: 1,
+    codsDistaccoid: null,
+    codsValoredistacco: null,
+    codsDatainiziodistacco: null,
+    codsDatafinedistacco: null,
+    codsFlagAttiva: 0,
+    nome: null,
+    cognome: null,
+    personaId: null,
+    codiceFiscale: null,
+    partitaIva: null,
+    ccnlid: null,
+    descrizioneCCNL: null,
+    livelloid: null,
+    livelloContratto: null,
+    motivid: null,
+    motivdesc: null,
+    tipoid: null,
+    tipodesc: null,
+    societaDistaccoid: null,
+    societaPersonaid: null,
+    societaPersona: null,
+    clienteDistaccoid: null,
+    clienteDistacco: null,
+    sysuser: "frontend"
   }
 
   constructor(
@@ -59,7 +96,7 @@ export class GestioneContrattoComponent implements OnInit {
       Datainiziodistacco: null,
       Datafinedistacco: null,
       Note: null,
-      Sysuser: 'Frontend',
+      Sysuser: '',
       codiFlagAttiva: 1,
       codsFlagAttiva: 0,
       ClienteId: null,
@@ -68,10 +105,12 @@ export class GestioneContrattoComponent implements OnInit {
       Contrattopersid: null,
       motivazioneid: null,
       motivazionedesc: null,
-    });
+    }); 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.utenteLoggato = sessionStorage.getItem('SysUser');
+  }
 
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
     console.log(society);
@@ -82,11 +121,11 @@ export class GestioneContrattoComponent implements OnInit {
         response.forEach((persona: any) => {
           persona.nome = this.troncaNome(persona.nome, 10);
           persona.cognome = this.troncaNome(persona.cognome, 10);
-          console.log(persona.nome, persona.cognome);
+          //console.log(persona.nome, persona.cognome);
           this.dipendentiConContratto.push(persona);
         });
 
-        console.log(JSON.stringify(this.dipendentiConContratto));
+        //console.log(JSON.stringify(this.dipendentiConContratto));
         this.output_ricercaFiltrata = true;
       },
       (error: any) => {
@@ -100,50 +139,73 @@ export class GestioneContrattoComponent implements OnInit {
     this.router.navigate(['/Segreteria/insert-contratto']);
   }
 
-  deleteContract(idContratto: number) {
-    this.getContrattoByidContratto(idContratto);
-  }
+  async deleteContract(idContratto: number) {
+    console.log("inizio cancella contratto per contratto id = " + idContratto)
+    await this.getContrattoByidContratto(idContratto);
+    console.log(JSON.stringify(this.formDataContrattoCancellare));
+    this.formDataContrattoCancellare.sysuser = this.utenteLoggato;
+    this.formDataContrattoCancellare.codiFlagAttiva = 0;
+    this.formDataContrattoCancellare.codsFlagAttiva = 0;
 
-  getContrattoByidContratto(idContratto: number) {
-    console.log('$:' + this.inserimentoContrattoService.idContratto$.value);
-    this.inserimentoContrattoService.getContrattiById(idContratto).subscribe(
+    console.log(JSON.stringify(this.formDataContrattoCancellare));
+    debugger;
+    this.inserimentoContrattoService.deleteContratto(this.formDataContrattoCancellare).subscribe(
       (response: any) => {
-        this.formData = response;
-        var formattedDate = new Date().toISOString().split('.')[0];
-        this.formData.value.codiDatafinecontratto = formattedDate;
-        console.log('formData');
-        console.log(this.formData);
-        this.insertContratto();
+        console.log(response);
+        alert(response);
+        this.ricercaFiltrata(null, null, null, null);
       },
       (error: any) => {
-        console.error('Errore durante il recupero del contratto:', error);
-      }
-    );
+        alert("Errore durante la chiusura del contratto (errore di frontend)");
+      }); 
+  }
+
+  async getContrattoByidContratto(idContratto: number) {
+    try {
+      this.inserimentoContrattoService.idContratto$.next(idContratto);
+      const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();
+      const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).toPromise();
+
+      this.tipiLivello = livelli;
+      this.formDataContrattoCancellare = response;
+      console.log(JSON.stringify(response));
+      this.formData = response
+      //
+      this.formDataContrattoCancellare.codiContrattopersid = response.codiContrattopersid;
+      console.log('this.formData.codiContrattopersid');
+      console.log(this.formDataContrattoCancellare.codiContrattopersid);
+      //
+      console.log("Contratto caricato:", response);
+      return true;
+    } catch (error) {
+      console.error("Errore nell'apertura di un contratto:", error);
+      return false;
+    }
   }
 
   troncaNome(nome: string, lunghezzaMassima: number): string {
     if (nome.length > (lunghezzaMassima + 2)) {
-      console.log("qui: ", nome.length);
+      //console.log("qui: ", nome.length);
       return nome.substring(0, lunghezzaMassima) + '...';
     }
     return nome;
   }
 
-  insertContratto() {
-    console.log('entrato insertContratto()');
-    this.inserimentoContrattoService.insertNuovoContratto(this.formData.value).subscribe(
-      (response: any) => {
-        console.log('response insertContratto()');
-        console.log(response);
-        alert(response);
-        this.ricercaFiltrata(this.formDataSearch.anpeNome, this.formDataSearch.anpeCognome, this.formDataSearch.anpeCodicefiscale, this.formDataSearch.ansoSocietaid)
-      },
-      (error: any) => {
-        console.error("Errore durante l'aggiornamento del nuovo contratto:", error);
-        alert("Errore durante l'aggiornamento del nuovo contratto");
-      }
-    );
-  }
+  // insertContratto() {
+  //   console.log('entrato insertContratto()');
+  //   this.inserimentoContrattoService.insertNuovoContratto(this.formData.value).subscribe(
+  //     (response: any) => {
+  //       console.log('response insertContratto()');
+  //       console.log(response);
+  //       alert(response);
+  //       this.ricercaFiltrata(this.formDataSearch.anpeNome, this.formDataSearch.anpeCognome, this.formDataSearch.anpeCodicefiscale, this.formDataSearch.ansoSocietaid)
+  //     },
+  //     (error: any) => {
+  //       console.error("Errore durante l'aggiornamento del nuovo contratto:", error);
+  //       alert("Errore durante l'aggiornamento del nuovo contratto");
+  //     }
+  //   );
+  // }
 
   openCronologiaDistaccoModal(personaId: number, nomePersona: string, cognomePersona: string) {
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;

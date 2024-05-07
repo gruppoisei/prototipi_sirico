@@ -71,6 +71,9 @@ const routes: Routes = [
     ],
     //canActivate : [basicUser]
   },
+  { path: 'gestione-commessa',
+    component: GestioneCommessaComponent,
+  },
   {
     path: 'rapportino',
     component: CalendarioComponent,
@@ -79,7 +82,7 @@ const routes: Routes = [
   {
     path: 'salva-commessa',
     component: SalvaCommessaComponent,
-  }
+  },
 
   // {
   //   path: 'insertutente',
@@ -93,10 +96,10 @@ const routes: Routes = [
   //   path: 'richiestaassenzasegreteria',
   //   component: RichiestaAssenzaSegreteriaComponent,
   // },
-  // {
-  //   path: 'richiestaassenzautente',
-  //   component: RichiestaAssenzaUtenteComponent,
-  // },
+{
+ path: 'richiestaassenzautente',
+  component: RichiestaAssenzaUtenteComponent,
+},
   // {
   //   path: '',
   //   component: HomepageComponent,

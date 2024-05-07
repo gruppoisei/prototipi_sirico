@@ -33,7 +33,10 @@ export class InsertClienteComponent implements OnInit {
       Telefonorefammin:new FormControl(null,[]),
       
     })
-  constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
+  // constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
+  // utenteLoggato: string | null = "";
+
+  constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
     this.clienteSocieta = {
       Ragionesociale: null,
       Partitaiva: null,
@@ -55,6 +58,7 @@ export class InsertClienteComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // this.utenteLoggato = sessionStorage.getItem('SysUser');
     //this.clearForm();
   }
 
@@ -79,6 +83,7 @@ export class InsertClienteComponent implements OnInit {
   }
 
   submitForm() {
+    // this.clienteSocieta.sysuser = this.utenteLoggato; 
     if (this.isFormValid()) {
       this._service.saveClienteData(this.clienteSocieta).subscribe(
         (response) => {

@@ -30,5 +30,5 @@ export interface InserimentoContratto {
   societaPersona: string | null;
   clienteDistaccoid: number | null;
   clienteDistacco: any | null;
-  sysuser: string;
+  sysuser: string | null;
 }

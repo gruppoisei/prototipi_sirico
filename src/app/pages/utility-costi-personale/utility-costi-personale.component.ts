@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { extExcel } from '../../enum/estenzioneFile';
+import { UtilityCostiPersonaleService } from '../../service/utility-costi-personale.service';
+import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
+import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
 
 @Component({
   selector: 'app-utility-costi-personale',
@@ -8,7 +12,66 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class UtilityCostiPersonaleComponent {
-  constructor(private http: HttpClient) {}
+  selectedFile: File | null = null;
+  selectedFiles: File[] = [];
+  enabled: boolean =  true;
+  uploadValidation: boolean = true;
+  utenteLoggato: string | null = null;
+  dialog: any;
+
+  constructor(private http: HttpClient, private serviceCostiPersonale: UtilityCostiPersonaleService) {}
+
+  ngOnInit(): void {
+    this.utenteLoggato = sessionStorage.getItem('SysUser');
+  }
+
+  receiveFile($event : any){
+    this.selectedFiles = $event;
+
+    //controllo per estenzione
+    const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
+    //TODO
+    //if(this.selectedFiles.)
+  }
+
+  upload(){
+    if(this.uploadValidation == true)
+      {
+        //const listaFile = this.selectedFile;
+        this.serviceCostiPersonale.uploadExcels(this.selectedFiles, this.utenteLoggato)
+        .subscribe(
+          {
+            next:(res) =>
+              {
+                this.dialog.open(MessageResponseDialogComponent,
+                  {
+                    data: {successMessage : res.message},
+                    width: 'auto',
+                    height: 'auto'
+                  })
+                this.selectedFiles = []
+              },
+              error:(err) => 
+              {
+               this.dialog.open(MessageResponseDialogComponent,
+                {
+                  data: {errorMessage : err?.error.message},
+                  width: 'auto',
+                  height: 'auto'
+                })
+              }
+          })
+      }
+      else
+      {
+        this.dialog.open(ResponseDialogComponent,
+          {
+            width: 'auto',
+            height: 'auto',
+          });
+      }
+  }
+
 
   stampa() {
     this.http.get<any>('URL_DELLA_TUA_API').subscribe((data) => {
