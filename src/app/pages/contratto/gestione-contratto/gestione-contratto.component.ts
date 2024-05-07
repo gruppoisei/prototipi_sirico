@@ -122,7 +122,8 @@ export class GestioneContrattoComponent implements OnInit {
           persona.nome = this.troncaNome(persona.nome, 10);
           persona.cognome = this.troncaNome(persona.cognome, 10);
           //console.log(persona.nome, persona.cognome);
-          this.dipendentiConContratto.push(persona);
+          this.dipendentiConContratto = response;
+          //this.dipendentiConContratto.push(persona);
         });
 
         //console.log(JSON.stringify(this.dipendentiConContratto));
@@ -142,15 +143,19 @@ export class GestioneContrattoComponent implements OnInit {
   async deleteContract(idContratto: number) {
     console.log("inizio cancella contratto per contratto id = " + idContratto)
     await this.getContrattoByidContratto(idContratto);
-    console.log(JSON.stringify(this.formDataContrattoCancellare));
+    const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(this.formDataContrattoCancellare.ccnlid).toPromise();      
+    this.tipiLivello = livelli;
+    console.log(this.tipiLivello);
+    //console.log(JSON.stringify(this.formDataContrattoCancellare));
     this.formDataContrattoCancellare.sysuser = this.utenteLoggato;
     this.formDataContrattoCancellare.codiFlagAttiva = 0;
     this.formDataContrattoCancellare.codsFlagAttiva = 0;
 
     console.log(JSON.stringify(this.formDataContrattoCancellare));
-    debugger;
+    //debugger;
     this.inserimentoContrattoService.deleteContratto(this.formDataContrattoCancellare).subscribe(
       (response: any) => {
+        console.log('response:');
         console.log(response);
         alert(response);
         this.ricercaFiltrata(null, null, null, null);
@@ -163,12 +168,14 @@ export class GestioneContrattoComponent implements OnInit {
   async getContrattoByidContratto(idContratto: number) {
     try {
       this.inserimentoContrattoService.idContratto$.next(idContratto);
-      const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();
-      const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).toPromise();
-
-      this.tipiLivello = livelli;
-      this.formDataContrattoCancellare = response;
-      console.log(JSON.stringify(response));
+      const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();  
+      //
+      // const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).toPromise();      
+      // this.tipiLivello = livelli;
+      //
+      this.formDataContrattoCancellare = response;      
+      //console.log(JSON.stringify(response));
+      console.log(this.formDataContrattoCancellare);
       this.formData = response
       //
       this.formDataContrattoCancellare.codiContrattopersid = response.codiContrattopersid;

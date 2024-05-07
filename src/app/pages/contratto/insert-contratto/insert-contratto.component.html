@@ -10,10 +10,8 @@
                         <input matInput [value]="formData.codiceFiscale" [disabled]="disable_fields"
                             [(ngModel)]="formData.codiceFiscale" name="CodiceFiscale" placeholder="Codice fiscale"
                             class="mat-disabled">
-                        <button
-                            *ngIf="formData.codiContrattopersid == undefined"
-                            mat-icon-button type="button" matSuffix (click)="openCercaPersonaModal()"
-                            class="mat-disabled">
+                        <button *ngIf="formData.codiContrattopersid == undefined" mat-icon-button type="button"
+                            matSuffix (click)="openCercaPersonaModal()" class="mat-disabled">
                             <mat-icon>person_add_alt_1</mat-icon>
                         </button>
                     </mat-form-field>
@@ -51,11 +49,12 @@
                             type="date" placeholder="Data fine contratto">
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto" *ngIf="formData.codiDatafinecontratto !== null">
-                        <mat-label>Motivo fine contratto</mat-label>
+                        <mat-label>Motivo fine contratto*</mat-label>
                         <mat-select [(ngModel)]="formData.motivid" name="motivofinecontratto"
                             placeholder="Motivo fine contratto">
                             <mat-option *ngFor="let tipo of tipiMotiviFinecontratto" [value]="tipo.motivid">{{
                                 tipo.motivdesc }}</mat-option>
+                                
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
@@ -93,6 +92,7 @@
                         <input matInput (change)="formData.codiRalcompenso ? updateCosts() : null"
                             [(ngModel)]="formData.codiRalcompenso" type="number" name="RAL" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
+                            
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Costo presunto mese</mat-label>
@@ -179,9 +179,9 @@
         <div class="w-1/2">
             <app-gestione-file></app-gestione-file>
         </div>
-
+        <br>
         <div class="flex justify-center padding-10px">
-            <button
+            <button 
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
                 type="button" (click)="inviaForm()">Salva</button>
             <button
@@ -191,5 +191,6 @@
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
                 type="button" (click)="closeForm()">Chiudi</button>
         </div>
+        <br><br>
     </form>
 </div>

@@ -42,7 +42,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   vecchiagiornaliera?: number | null = null;
   output_ricercaFiltrata: any;
   dipendentiSenzaContratto: utenteSenzaContatto[] | null | undefined;
-  personaConDistacchi: boolean = false;   
+  personaConDistacchi: boolean = false;
   valoredistaccoValido: boolean = true;//controlla se true qui
   pannelloEspanso: boolean = false;
   isValidPartitaivaFields: boolean = false; //?
@@ -117,12 +117,14 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.getAllTipitipiMotiviFineContratto();
     this.disable_fields = true;
     this.controllovisibilPartitaIva();
+    console.log('this.inserimentoContrattoService.idContratto$.value:');
+    console.log(this.inserimentoContrattoService.idContratto$.value);
     this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
-    if(this.inserimentoContrattoService.idContratto$.value !== undefined && this.inserimentoContrattoService.idContratto$.value !== -5){
+    if (this.inserimentoContrattoService.idContratto$.value !== undefined && this.inserimentoContrattoService.idContratto$.value !== -5) {
       this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
       const distacchi = this.inserimentoContrattoService.getCronologiaDistacco;
       this.personaConDistacchi = distacchi !== null ? true : false;
-    }  
+    }
   }
 
   openModalIfLastOptionSelected(event: MatSelectChange) {  //nuovo cliente
@@ -325,9 +327,15 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     //console.log("this.formData.personaId:"); 
     //console.log(this.formData.personaId);
     //
+
+    console.log('this.formValidation PRE:');
+    console.log(this.formValidation);
     this.formValidationCheck();
-    if (this.formValidation){
-    //if (true){
+    console.log('this.formValidation POST:');
+    console.log(this.formValidation);
+    
+    if (this.formValidation == true) {
+      //if (true){
       this.inserimentoContrattoService
         .insertNuovoContratto(this.formData)
         .subscribe(
@@ -344,11 +352,15 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     } else {
       console.log('formValidation ha trovato un errore. form = ' + JSON.stringify(this.formData));
     }
+    
   }
 
   async getContrattoByidContratto(idContratto: number) {
     try {
       const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();
+      console.log('getContrattoByidContratto() - response:');
+      console.log(response);
+      debugger;
       const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).toPromise();
 
       this.tipiLivello = livelli;
@@ -357,6 +369,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       this.formData.codiContrattopersid = response.codiContrattopersid;
       console.log('this.formData.codiContrattopersid');
       console.log(this.formData.codiContrattopersid);
+      debugger;
       //
       this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
       this.valoredistaccoValido = this.formData.codsValoredistacco ? this.valoreDistaccoChangeValidation() : true;
@@ -375,27 +388,35 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     }
   }
 
-  valoreDistaccoChangeValidation(){
-    if((this.formData.codsValoredistacco ? (this.formData.codsValoredistacco <= 100) : false) &&
-    (this.formData.codsValoredistacco ? (this.formData.codsValoredistacco >= 0) : false)){
+  valoreDistaccoChangeValidation() {
+    if ((this.formData.codsValoredistacco ? (this.formData.codsValoredistacco <= 100) : false) &&
+      (this.formData.codsValoredistacco ? (this.formData.codsValoredistacco >= 0) : false)) {
       console.log("valoredistaccoValido messo a true");
       this.valoredistaccoValido = true;
     } else {
-      this.valoredistaccoValido =false;
+      this.valoredistaccoValido = false;
     }
     return this.valoredistaccoValido;
   }
 
   formValidationCheck() {
+    console.log('formValidationCheck() START');
+    //this.formValidationCheckDates();
+
+    // campi con asterisco sono obbligatori
+    // campi vincolati: (i) distacco checkbox vincola 4 campi, (ii) data fine contratto vincola motivazioni fine contratto
+
+
+
     const formCompilato = this.formData;
     const nonVuoto = (value: any) => value !== undefined && value !== null && value !== '';
     const esiste = (value: any) => !!value;
 
     const isValidDistaccoFields = formCompilato.codsFlagAttiva ?
       (nonVuoto(formCompilato.codsValoredistacco) &&
-      nonVuoto(formCompilato.clienteDistaccoid) &&
-      nonVuoto(formCompilato.codsDatainiziodistacco) &&
-      (this.valoredistaccoValido ? this.valoredistaccoValido : true)) : true;
+        nonVuoto(formCompilato.clienteDistaccoid) &&
+        nonVuoto(formCompilato.codsDatainiziodistacco) &&
+        (this.valoredistaccoValido ? this.valoredistaccoValido : true)) : true;
     this.isValidPartitaivaFields = formCompilato.partitaIva ? ValidaPartita.IVA(formCompilato.partitaIva) : true;
     this.formValidation = esiste(formCompilato.personaId) &&
       esiste(formCompilato.societaPersonaid) &&
@@ -408,36 +429,45 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       nonVuoto(formCompilato.codiSmartworking) &&
       isValidDistaccoFields &&
       this.isValidPartitaivaFields;
-    console.log("this.formValidation è passato come : " + this.formValidation + " da formValidationCheck()" )
+    console.log("this.formValidation è passato come : " + this.formValidation + " da formValidationCheck()")
 
     this.formValidationCheckDates();
+    console.log('formValidationCheck() END');
   }
 
   formValidationCheckDates() {
-    const startDateContratto = this.formData.codiDatainiziocontratto ? new Date(this.formData.codiDatainiziocontratto) : null;
-    const endDateContratto = this.formData.codiDatafinecontratto ? new Date(this.formData.codiDatafinecontratto) : null;
-    const startDateDistacco = this.formData.codsDatainiziodistacco ? new Date(this.formData.codsDatainiziodistacco) : null;
-    const endDateDistacco = this.formData.codsDatafinedistacco ? new Date(this.formData.codsDatafinedistacco) : null;
+    if (this.formData.codiDatainiziocontratto == "" || this.formData.codiDatainiziocontratto == null || this.formData.codiDatainiziocontratto == undefined) {
+      alert('Inserire una data di inizio contratto!');
+    }
+    else {
+      const startDateContratto = this.formData.codiDatainiziocontratto ? new Date(this.formData.codiDatainiziocontratto) : null;
+      const endDateContratto = this.formData.codiDatafinecontratto ? new Date(this.formData.codiDatafinecontratto) : null;
+      const startDateDistacco = this.formData.codsDatainiziodistacco ? new Date(this.formData.codsDatainiziodistacco) : null;
+      const endDateDistacco = this.formData.codsDatafinedistacco ? new Date(this.formData.codsDatafinedistacco) : null;
 
-    let isValidContratto = true;
-    let isValidDistacco = true;
+      console.log('date:');
+      console.log(startDateContratto, endDateContratto, startDateDistacco, endDateDistacco);
 
-    if (endDateContratto && startDateContratto) {
+      let isValidContratto = true;
+      let isValidDistacco = true;
+
+      if (endDateContratto && startDateContratto) {
         isValidContratto = endDateContratto >= startDateContratto;
-        console.log("end data contratto >= a start data contratto?" + isValidContratto); 
-    }
+        console.log("end data contratto >= a start data contratto?" + isValidContratto);
+      }
 
-    if (startDateContratto && startDateDistacco) {
+      if (startDateContratto && startDateDistacco) {
         isValidDistacco = startDateDistacco >= startDateContratto;
-        console.log("start data distacco >= a start data contratto?" + isValidDistacco); 
+        console.log("start data distacco >= a start data contratto?" + isValidDistacco);
         if (isValidDistacco && endDateDistacco) {
-            isValidDistacco = endDateDistacco >= startDateDistacco;
-        console.log("end data distacco >= a start data distacco?" + isValidDistacco); 
+          isValidDistacco = endDateDistacco >= startDateDistacco;
+          console.log("end data distacco >= a start data distacco?" + isValidDistacco);
         }
-    }
+      }
 
-    this.formValidation = isValidContratto && isValidDistacco;
-    console.log("Validazione date ha ritornato: " + this.formValidation);
+      this.formValidation = isValidContratto && isValidDistacco;
+      console.log("Validazione date ha ritornato: " + this.formValidation);
+    }
   }
 
   updateCosts() {

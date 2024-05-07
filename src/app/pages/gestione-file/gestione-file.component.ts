@@ -18,23 +18,26 @@ export class GestioneFileComponent implements OnInit{
 
   constructor(private personaService : PersonaService, private serviceDocumenti: DocumentiService, private dialog : MatDialog){}
   ngOnInit(): void {
-    /* this.personaService.dipendente$.subscribe((dipendente)=>
-      {
-        if(dipendente)
-          {
-            this.serviceDocumenti.GetFilesByDipendenteId(dipendente.AnpePersonaid).subscribe(
-              {
-                next : (file)=> 
-                  {
-                    if(file.length < 0)
-                      {
-                        
+    this.personaService.dipendente$.subscribe((dipendente)=>{
+        if(dipendente){
+            this.serviceDocumenti.GetFilesByDipendenteId(dipendente.anpePersonaid).subscribe({
+                next : (response)=>{
+                  console.log(response)
+                    if(response.length > 0){
+                        this.selectedFiles = [];
+                        response.forEach((fileData:any)=>{
+                          const blob = new Blob([fileData.bytes], {type: "application/octet-stream"});
+                          const file = new File([blob], fileData.fileName, {type: "application/octet-stream"});
+                          this.selectedFiles.push(file)
+                          console.log(this.selectedFiles)
+
+                          this.isTableVisibile = true
+                        });
                       }
                   }
-              }
-            )
+              });
           }
-      }); */
+      });
   }
 
   @Output() fileEvent = new EventEmitter();

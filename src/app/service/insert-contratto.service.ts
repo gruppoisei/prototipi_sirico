@@ -106,11 +106,11 @@ export class InsertContrattoService {
   }
 
   deleteContratto(contratto: InserimentoContratto): Observable<InserimentoContratto> {
-    debugger;
+    //debugger;
     console.log('entrato deleteContratto()');
-    console.log('caso delete');
+    //console.log('caso delete');
     var body = JSON.stringify(contratto);
-    console.log('body: ' + body);
+    //console.log('body: ' + body);
     return this.Http.put<InserimentoContratto>(`${this.apiUrl}/ChiudiContratto`, body, this.httpOptions);
   }
 
