@@ -64,7 +64,7 @@
                     <td class="px-6 py-4">{{ commessa.clienteFinale }}</td>
                     <td class="px-6 py-4">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
                     <td class="px-6 py-4">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
-                    <td class="px-6 py-4">{{ commessa.note }}</td>
+                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(commessa.note)">{{ commessa.note }}</td>
                 </tr>
             </tbody>
         </table>
