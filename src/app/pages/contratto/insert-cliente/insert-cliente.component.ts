@@ -15,6 +15,7 @@ export class InsertClienteComponent implements OnInit {
   clienteSocieta: any;
   isPhoneNumberError: boolean = false;
   validPartitaIva: boolean = true;
+  utenteLoggato: string | null = "";
 
   constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
     this.clienteSocieta = {
@@ -37,6 +38,7 @@ export class InsertClienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.utenteLoggato = sessionStorage.getItem('SysUser');
     //this.clearForm();
   }
 
@@ -61,6 +63,7 @@ export class InsertClienteComponent implements OnInit {
   }
 
   submitForm() {
+    this.clienteSocieta.sysuser = this.utenteLoggato; 
     if (this.isFormValid()) {
       this._service.saveClienteData(this.clienteSocieta).subscribe(
         (response) => {
