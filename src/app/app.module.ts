@@ -121,7 +121,9 @@ import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-resp
         ProvassComponent,
         UtilityCostiPersonaleComponent,
         DipendentiCommessaComponent,
-        FormInputTextComponent
+        FormInputTextComponent,
+        DeleteCommessaDialogComponent,
+        DeleteCommessaResponseDialogComponent
     ],
     providers: [
         provideAnimationsAsync(),
