@@ -69,6 +69,9 @@ import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-com
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
+import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-input-text.component';
+import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/delete-commessa-dialog.component';
+import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
 
 @NgModule({
     declarations: [
@@ -116,8 +119,7 @@ import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
         GestioneCommessaComponent,
         SalvaCommessaComponent,
         ProvassComponent,
-        UtilityCostiPersonaleComponent,
-        DipendentiCommessaComponent
+        UtilityCostiPersonaleComponent
     ],
     providers: [
         provideAnimationsAsync(),

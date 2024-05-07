@@ -4,6 +4,7 @@ import { clienteSocieta } from '../../../dto/response/nuovoCliente';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import ValidaPartita from '../../../helpers/validaPartitaIva';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-insert-cliente',
@@ -15,8 +16,27 @@ export class InsertClienteComponent implements OnInit {
   clienteSocieta: any;
   isPhoneNumberError: boolean = false;
   validPartitaIva: boolean = true;
+  public myForm:FormGroup  = this.fg.group(
+    {
+      Ragionesociale:new FormControl(null,[Validators.required]),
+      Partitaiva:new FormControl(null,[]),
+      Sedelegale:new FormControl(null,[]),
+      Sedeoperativa: new FormControl(null,[]),
+      Patinail:new FormControl(null,[]),
+      Rappresentantelegale:new FormControl(null,[]),
+      Sedelavoro:new FormControl(null,[]),
+      Codiceateco:new FormControl(null,[]),
+      Numerotelefono:new FormControl(null,[]),
+      Indirizzopec:new FormControl(null,[]),
+      Refamministratore:new FormControl(null,[]),
+      Emailrefammin:new FormControl(null,[Validators.email]),
+      Telefonorefammin:new FormControl(null,[]),
+      
+    })
+  // constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
+  // utenteLoggato: string | null = "";
 
-  constructor(private _service: InsertContrattoService, private router: Router, private location: Location) {
+  constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
     this.clienteSocieta = {
       Ragionesociale: null,
       Partitaiva: null,
@@ -36,7 +56,9 @@ export class InsertClienteComponent implements OnInit {
     };
   }
 
+
   ngOnInit(): void {
+    // this.utenteLoggato = sessionStorage.getItem('SysUser');
     //this.clearForm();
   }
 
@@ -61,6 +83,7 @@ export class InsertClienteComponent implements OnInit {
   }
 
   submitForm() {
+    // this.clienteSocieta.sysuser = this.utenteLoggato; 
     if (this.isFormValid()) {
       this._service.saveClienteData(this.clienteSocieta).subscribe(
         (response) => {

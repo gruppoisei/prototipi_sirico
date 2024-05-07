@@ -5,6 +5,7 @@ import { CommessaService } from '../../../service/commessa.service';
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
 import { ricercaCommessa } from '../../../dto/request/ricercaCommessa';
 import FormattaData from '../../../helpers/formattaData';
+import { DeleteCommessaDialogComponent } from '../../delete-commessa-dialog/delete-commessa-dialog.component';
 
 @Component({
   selector: 'app-gestione-commessa',
@@ -39,10 +40,6 @@ export class GestioneCommessaComponent implements OnInit{
           const selectDate = new Date(value);
           this.minDataScadenza = selectDate.toISOString().split('T')[0]
         }
-        else
-        {
-          this.ricercaForm.get('DataFine')?.disable();
-        }
     });
   }
 
@@ -67,7 +64,7 @@ export class GestioneCommessaComponent implements OnInit{
     this.ricercaForm.reset();
   }
 
-  /*openDialogDelete(commessaId : number) {
+  openDialogDelete(commessaId : number) {
     this.idCommessa = commessaId
     this.dialog.open(DeleteCommessaDialogComponent,
       {
@@ -79,7 +76,7 @@ export class GestioneCommessaComponent implements OnInit{
         {
           this.ricercaFiltrata();
         })
-    }*/
+    }
 
     ricercaFiltrata() {
       const queryParams : ricercaCommessa = this.ricercaForm.value;
