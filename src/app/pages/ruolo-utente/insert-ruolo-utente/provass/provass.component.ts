@@ -15,6 +15,7 @@ export class ProvassComponent implements OnDestroy {
   listaFunzioniDisponibili: Funzione[] = [];
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
+  // nuovoMenuPadre = 0; // 
   listaMenuPadre: Funzione[] = [];
   ruoloDaAggiungere: Ruolo = { nomeRuolo: '', listaFunzioni: <any>[] };
 
@@ -35,6 +36,7 @@ export class ProvassComponent implements OnDestroy {
       await this.ReimpostaLista();
       //console.log(this.ruoloDaAggiungere);
       this.ruoloNome = this.ruoloDaAggiungere.nomeRuolo;
+      console.log(this.ruoloDaAggiungere)
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
 
   }
@@ -200,6 +202,7 @@ export class ProvassComponent implements OnDestroy {
 
       if (same) alert('Nessuna modifica riscontrata')
       else {
+
         let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere));
         //console.log('res.message:');
         //console.log(res.message);
@@ -217,12 +220,12 @@ export class ProvassComponent implements OnDestroy {
     let i = 0
     this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a, b) => {
       i = i++
-      console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
+      //console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
       if (b.indiceMenu == 0) return -1
       if (a.indiceMenu == 0) return 1
       if (a.indiceMenu < b.indiceMenu) return -1
       return 1
-    })
+    })    
   }
   CancellaLista() {
     this.listaMenuPadre = []
@@ -261,6 +264,7 @@ export class ProvassComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.amministrazioneRuolo.ruoloId = undefined;
   }
+
 }
 
 export interface Ruolo {
@@ -277,8 +281,9 @@ export interface Funzione {
   flagModifica: boolean;
   flagCreazione: boolean;
   indiceMenu: number;
-  menuPadre: number | null;
-}
+  menuPadre: number;
+/*   menuPadre: number | null;
+ */}
 export enum FlagFunzione {
   voceMenu,
   lettura,

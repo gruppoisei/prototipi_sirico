@@ -85,6 +85,7 @@ export class GestioneCommessaComponent implements OnInit{
       {
         next:(res) => 
         {
+          console.log(res)
           this.datiCommessa = res.map((commessa : any)=>({
             commessaId: commessa.commessaId,
             commessa: commessa.commessa,
