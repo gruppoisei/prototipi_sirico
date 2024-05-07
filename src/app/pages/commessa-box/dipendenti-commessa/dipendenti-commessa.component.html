@@ -1,0 +1,21 @@
+
+<div class="py-8 px-4 mx-auto max-w-xl lg:py-16">
+    <h2 class="flex justify-center my-10 text-4xl font-bold">Assegnazione delle commesse</h2>
+    <hr>
+    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div class="sm:col-span-2">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="com.commessaId" *ngFor= "let com of listCommesse">
+                        {{com.commessa}}
+                    </option>
+                </select>
+        </div>
+
+        <div>
+            <mat-form-field>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

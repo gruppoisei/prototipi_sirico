@@ -65,6 +65,10 @@ import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commess
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
+import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
 
 @NgModule({
     declarations: [
@@ -112,7 +116,8 @@ import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/
         GestioneCommessaComponent,
         SalvaCommessaComponent,
         ProvassComponent,
-        UtilityCostiPersonaleComponent
+        UtilityCostiPersonaleComponent,
+        DipendentiCommessaComponent
     ],
     providers: [
         provideAnimationsAsync(),
@@ -143,6 +148,10 @@ import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/
         CdkMenu, 
         CdkMenuItem, 
         CdkMenuTrigger,
+        MatNativeDateModule, 
+        MatDatepickerModule,
+        MatIconModule,
+        NgxMultipleDatesModule
     ]
 })
 export class AppModule { }

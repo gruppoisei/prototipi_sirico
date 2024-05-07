@@ -229,7 +229,8 @@ constructor
       AnpeDatascadenzaidoneitamedica : dataScadenzaIdoneitaMedica,
       AnpeEmailaziendale: dipendente.anpeEmailaziendale,
       AnpeEmailpersonale: dipendente.anpeEmailpersonale,
-      AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid
+      AnpeFkAnsoSocietaid: dipendente.anpeFkAnsoSocietaid,
+      AnpeSysuser: this.utenteLoggato
     });
   }
   
