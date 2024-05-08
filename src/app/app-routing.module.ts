@@ -68,6 +68,7 @@ const routes: Routes = [
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
       {path:'assegna-commessa',component: DipendentiCommessaComponent},
+      {path:'salva-commessa',component: SalvaCommessaComponent},
       // {path:,component:},
     ],
     //canActivate : [basicUser]

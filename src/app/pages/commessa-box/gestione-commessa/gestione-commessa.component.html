@@ -4,7 +4,7 @@
 <div class = "flex flex-row justify-center my-10">
     <form [formGroup]="ricercaForm" class="w-3/4">
         <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/salva-commessa"><button (click)="setTitoloNuovaCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
+            <a routerLink="/Segreteria/salva-commessa"><button (click)="setTitoloNuovaCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
             <input formControlName="Commessa" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per commessa..." required />
@@ -54,7 +54,7 @@
             <tbody>
                 <tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
                     <td class="px-6 py-4 flex gap-3">
-                        <a routerLink="/salva-commessa" (click)="setTitoloModificaCommessa(); getCommessa(commessa.commessaId)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
+                        <a routerLink="/Segreteria/salva-commessa" (click)="setTitoloModificaCommessa(); getCommessa(commessa.commessaId)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
                         <button mat-icon (click)="openDialogDelete(commessa.commessaId)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
                     <td class="px-6 py-4">{{ commessa.commessa }}</td>
