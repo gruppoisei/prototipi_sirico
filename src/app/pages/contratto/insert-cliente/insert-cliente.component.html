@@ -108,9 +108,21 @@
     <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2>
     <div class="flex gap-8">
         <form [formGroup]="myForm" (ngSubmit)="submitForm()" class="w-full">
+
+            <app-form-select
+                titolo="listaElementi"
+                [dirty]="this.myForm.get('listaElementi')?.dirty"
+                [errore]="this.myForm.get('listaElementi')?.errors"
+                formControlName="listaElementi"
+
+            >
+            </app-form-select>
+
+
             <app-form-input-text
             placeholder="Ragione Sociale"
             titolo="Ragione Sociale"
+            
             [dirty]="this.myForm.get('Ragionesociale')?.dirty"
             [errore]="this.myForm.get('Ragionesociale')?.errors"
             formControlName="Ragionesociale"

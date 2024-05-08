@@ -30,7 +30,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   giorniLavorativiAlMese: number = 21;
   mesiLavorativiAllAnno: number = 12;
 
-  formValidation?: boolean | undefined = false;
+  //formValidation?: boolean | undefined = false;
   disable_fields: any; // canc?
   showMotivazioneFineContratto: boolean = false;
   disablePartitaIvaField: boolean = true;
@@ -65,7 +65,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     codiMonteore: null,
     codiDatainiziocontratto: null,
     codiDatafinecontratto: null,
-    codiSmartworking: null,
+    codiSmartworking: false, //null,
     codiNote: null,
     codiFlagAttiva: 1,
     codsDistaccoid: null,
@@ -180,7 +180,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       codiMonteore: null,
       codiDatainiziocontratto: null,
       codiDatafinecontratto: null,
-      codiSmartworking: null,
+      codiSmartworking: false, //null,
       codiNote: null,
       codiFlagAttiva: 1,
       codsDistaccoid: null,
@@ -296,8 +296,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   }
 
   controllovisibilPartitaIva() {
-    this.hidePartitaIvaField = (this.formData.tipoid != null && this.formData.tipoid === this.partitaIvaID) ? true : false;
-    this.disablePartitaIvaField = (this.formData.partitaIva !== null) ? true : false;
+    this.hidePartitaIvaField = (this.formData.tipoid != null && this.formData.tipoid === this.partitaIvaID) || this.formData.partitaIva ? true : false;
+    this.disablePartitaIvaField = (this.formData.partitaIva !== null) ? false : true;
   }
 
   formatInputValue(event: any) {
@@ -312,9 +312,20 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     });
     this.inserimentoContrattoService.modalType = undefined;
     dialogRef.afterClosed().subscribe(result => {
+      this.formData.personaId = this.inserimentoContrattoService.fieldAutoFill$.value.id;
       this.formData.nome = this.inserimentoContrattoService.fieldAutoFill$.value.nome;
       this.formData.cognome = this.inserimentoContrattoService.fieldAutoFill$.value.cognome;
       this.formData.codiceFiscale = this.inserimentoContrattoService.fieldAutoFill$.value.codiceFiscale;
+      this.formData.partitaIva = this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva;
+      console.log('this.formData: ');
+      console.log(this.formData);
+      console.log('this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva: ');
+      console.log(this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva);
+      this.controllovisibilPartitaIva();
+      /*
+      this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
+      this.hidePartitaIvaField = this.formData.partitaIva ? true : false;
+      */
     });
   }
 
@@ -328,13 +339,16 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     //console.log(this.formData.personaId);
     //
 
-    console.log('this.formValidation PRE:');
-    console.log(this.formValidation);
-    this.formValidationCheck();
-    console.log('this.formValidation POST:');
-    console.log(this.formValidation);
-    
-    if (this.formValidation == true) {
+    // console.log('this.formValidation PRE:');
+    // console.log(this.formValidation);
+    // this.formValidationCheck();
+    // console.log('this.formValidation POST:');
+    // console.log(this.formValidation);
+
+    //this.formValidation = isValidContratto && isValidDistacco && this.formValidation;
+    console.log('this.formValidationCheck: ' + this.formValidationCheck());
+    console.log('this.formValidationCheckDates: ' + this.formValidationCheckDates());
+    if (this.formValidationCheck() && this.formValidationCheckDates()) {
       //if (true){
       this.inserimentoContrattoService
         .insertNuovoContratto(this.formData)
@@ -342,7 +356,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
           (response: any) => {
             console.log(response);
             alert(response);
-            this.clearForm();
+            //this.clearForm();
+            this.reset();
           },
           (error: any) => {
             console.error("Errore durante l'inserimento del contratto:", error);
@@ -352,7 +367,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     } else {
       console.log('formValidation ha trovato un errore. form = ' + JSON.stringify(this.formData));
     }
-    
+
   }
 
   async getContrattoByidContratto(idContratto: number) {
@@ -360,7 +375,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();
       console.log('getContrattoByidContratto() - response:');
       console.log(response);
-      debugger;
       const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(response.ccnlid).toPromise();
 
       this.tipiLivello = livelli;
@@ -369,9 +383,9 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       this.formData.codiContrattopersid = response.codiContrattopersid;
       console.log('this.formData.codiContrattopersid');
       console.log(this.formData.codiContrattopersid);
-      debugger;
       //
       this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
+      this.hidePartitaIvaField = this.formData.partitaIva ? true : false;
       this.valoredistaccoValido = this.formData.codsValoredistacco ? this.valoreDistaccoChangeValidation() : true;
       this.formData.codiDatainiziocontratto = FormattaData.formattaData(response.codiDatainiziocontratto);
       this.formData.codiDatafinecontratto = FormattaData.formattaData(response.codiDatafinecontratto);
@@ -399,7 +413,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     return this.valoredistaccoValido;
   }
 
-  formValidationCheck() {
+  formValidationCheck(): boolean {
     console.log('formValidationCheck() START');
     //this.formValidationCheckDates();
 
@@ -417,27 +431,31 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         nonVuoto(formCompilato.clienteDistaccoid) &&
         nonVuoto(formCompilato.codsDatainiziodistacco) &&
         (this.valoredistaccoValido ? this.valoredistaccoValido : true)) : true;
-    this.isValidPartitaivaFields = formCompilato.partitaIva ? ValidaPartita.IVA(formCompilato.partitaIva) : true;
-    this.formValidation = esiste(formCompilato.personaId) &&
+    //this.isValidPartitaivaFields = formCompilato.partitaIva ? ValidaPartita.IVA(formCompilato.partitaIva) : true;
+    const formValidation = esiste(formCompilato.personaId) &&
       esiste(formCompilato.societaPersonaid) &&
       nonVuoto(formCompilato.codiDatainiziocontratto) &&
       esiste(formCompilato.tipoid) &&
       esiste(formCompilato.ccnlid) &&
-      esiste(formCompilato.livelloContratto) &&
+      esiste(formCompilato.livelloid) &&
       esiste(formCompilato.codiRalcompenso) &&
       esiste(formCompilato.codiMonteore) &&
       nonVuoto(formCompilato.codiSmartworking) &&
-      isValidDistaccoFields &&
-      this.isValidPartitaivaFields;
-    console.log("this.formValidation è passato come : " + this.formValidation + " da formValidationCheck()")
+      isValidDistaccoFields /*&&
+      this.isValidPartitaivaFields;*/
+    console.log("formValidation è passato come : " + formValidation + " da formValidationCheck()")
 
-    this.formValidationCheckDates();
+    //this.formValidationCheckDates();
     console.log('formValidationCheck() END');
+
+    return (formValidation)
   }
 
-  formValidationCheckDates() {
+  formValidationCheckDates(): boolean {
     if (this.formData.codiDatainiziocontratto == "" || this.formData.codiDatainiziocontratto == null || this.formData.codiDatainiziocontratto == undefined) {
       alert('Inserire una data di inizio contratto!');
+
+      return false;
     }
     else {
       const startDateContratto = this.formData.codiDatainiziocontratto ? new Date(this.formData.codiDatainiziocontratto) : null;
@@ -456,17 +474,21 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         console.log("end data contratto >= a start data contratto?" + isValidContratto);
       }
 
-      if (startDateContratto && startDateDistacco) {
-        isValidDistacco = startDateDistacco >= startDateContratto;
-        console.log("start data distacco >= a start data contratto?" + isValidDistacco);
-        if (isValidDistacco && endDateDistacco) {
-          isValidDistacco = endDateDistacco >= startDateDistacco;
-          console.log("end data distacco >= a start data distacco?" + isValidDistacco);
+      if (this.formData.codsFlagAttiva) {
+        if (startDateContratto && startDateDistacco) {
+          isValidDistacco = startDateDistacco >= startDateContratto;
+          console.log("start data distacco >= a start data contratto?" + isValidDistacco);
+          if (isValidDistacco && endDateDistacco) {
+            isValidDistacco = endDateDistacco >= startDateDistacco;
+            console.log("end data distacco >= a start data distacco?" + isValidDistacco);
+          }
         }
       }
 
-      this.formValidation = isValidContratto && isValidDistacco;
-      console.log("Validazione date ha ritornato: " + this.formValidation);
+      //this.formValidation = isValidContratto && isValidDistacco && this.formValidation;
+      console.log("Validazione date ha ritornato: " + isValidContratto && isValidDistacco);
+
+      return (isValidContratto && isValidDistacco);
     }
   }
 

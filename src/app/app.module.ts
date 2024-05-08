@@ -68,6 +68,7 @@ import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/
 import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-input-text.component';
 import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/delete-commessa-dialog.component';
 import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
+import { FormSelectComponent } from './ui/formComponent/form-select/form-select.component';
 
 @NgModule({
     declarations: [
@@ -118,7 +119,8 @@ import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-resp
         UtilityCostiPersonaleComponent,
         FormInputTextComponent,
         DeleteCommessaDialogComponent,
-        DeleteCommessaResponseDialogComponent
+        DeleteCommessaResponseDialogComponent,
+        FormSelectComponent
     ],
     providers: [
         provideAnimationsAsync(),

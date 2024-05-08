@@ -27,7 +27,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-full" appearance="fill" floatLabel="auto" *ngIf="hidePartitaIvaField">
                         <mat-label>Partita IVA</mat-label>
-                        <input matInput [(ngModel)]="formData.partitaIva" [disabled]="disablePartitaIvaField"
+                        <input matInput [(ngModel)]="formData.partitaIva" [disabled]="!disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
