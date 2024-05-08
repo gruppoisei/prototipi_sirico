@@ -27,6 +27,7 @@ import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commess
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
+import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
 
 const routes: Routes = [
   {
@@ -66,22 +67,16 @@ const routes: Routes = [
       { path: 'insert-cliente',component: InsertClienteComponent,},
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
-      // {path:,component:},
+      {path:'assegna-commessa',component: DipendentiCommessaComponent},
+      {path:'salva-commessa',component: SalvaCommessaComponent},
       // {path:,component:},
     ],
     //canActivate : [basicUser]
-  },
-  { path: 'gestione-commessa',
-    component: GestioneCommessaComponent,
   },
   {
     path: 'rapportino',
     component: CalendarioComponent,
     canActivate : [basicUser]
-  },
-  {
-    path: 'salva-commessa',
-    component: SalvaCommessaComponent,
   },
 
   // {

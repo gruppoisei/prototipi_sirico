@@ -65,6 +65,10 @@ import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commess
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
+import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
 import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-input-text.component';
 import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/delete-commessa-dialog.component';
 import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
@@ -117,6 +121,7 @@ import { FormSelectComponent } from './ui/formComponent/form-select/form-select.
         SalvaCommessaComponent,
         ProvassComponent,
         UtilityCostiPersonaleComponent,
+        DipendentiCommessaComponent,
         FormInputTextComponent,
         DeleteCommessaDialogComponent,
         DeleteCommessaResponseDialogComponent,
@@ -151,6 +156,10 @@ import { FormSelectComponent } from './ui/formComponent/form-select/form-select.
         CdkMenu, 
         CdkMenuItem, 
         CdkMenuTrigger,
+        MatNativeDateModule, 
+        MatDatepickerModule,
+        MatIconModule,
+        NgxMultipleDatesModule
     ]
 })
 export class AppModule { }
