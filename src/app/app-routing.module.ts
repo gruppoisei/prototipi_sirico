@@ -28,6 +28,7 @@ import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/prova
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
+import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,7 @@ const routes: Routes = [
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
       {path:'assegna-commessa',component: DipendentiCommessaComponent},
       {path:'salva-commessa',component: SalvaCommessaComponent},
+      {path:'gestione-cliente',component: GestioneClienteComponent},
       // {path:,component:},
     ],
     //canActivate : [basicUser]
