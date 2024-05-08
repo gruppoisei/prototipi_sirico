@@ -1,21 +1,95 @@
 
-<div class="py-8 px-4 mx-auto max-w-xl lg:py-16">
+<div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
     <h2 class="flex justify-center my-10 text-4xl font-bold">Assegnazione delle commesse</h2>
     <hr>
-    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-        <div class="sm:col-span-2">
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-                focus:border-sky-500 focus:ring-sky-500">
-                    <option value="" disable selected hidden>Scegli un'opzione</option>
-                    <option [value]="com.commessaId" *ngFor= "let com of listCommesse">
-                        {{com.commessa}}
-                    </option>
-                </select>
-        </div>
+    <form class="my-8" [formGroup]="assegnaCommessaForm">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="sm:col-span-2">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona commessa</label>
+                <select formControlName="commessa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                    focus:border-sky-500 focus:ring-sky-500">
+                        <option value="" disable selected hidden>Scegli un'opzione</option>
+                        <option [value]="com.commessaId" *ngFor= "let com of listCommesse">
+                            {{com.commessa}}
+                        </option>
+                    </select>
+            </div>
 
-        <div>
-            <mat-form-field>
-            </mat-form-field>
+<!--             <div class="sm:col-span-2">
+                <mat-label class="block mb-2 text-sm font-medium text-gray-900">Tempo di lavoro per la commessa</mat-label>
+                <mat-form-field>
+                    <mat-date-range-input [rangePicker]="picker" formGroupName = "dateRange">
+                        <input matStartDate placeholder="Inizio" formControlName = "dataInizio">
+                        <input matEndDate placeholder="Fine" formControlName = "dataFine">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div> -->
+
+            <div class="sm:col-span-2">
+                    <mat-label class="block mb-2 text-sm font-medium text-gray-900">Scegli delle date da assegnare ai dipendenti</mat-label>
+                    <mat-form-field class="w-full">
+                        <mat-label>Scegli le date da assegnare</mat-label>
+                        <ngx-multiple-dates [matDatepicker]="pickerRequired" placeholder="Scegli le date da assegnare"
+                                            name="dateAssegnate" formControlName="dateAssegnate">
+                        </ngx-multiple-dates>
+                        <mat-datepicker-toggle matPrefix [for]="pickerRequired"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerRequired></mat-datepicker>
+                    </mat-form-field>
+                    <pre>{{ this.assegnaCommessaForm.get('dateAssegnate')?.value | json }}</pre>
+            </div>
+            <div class="w-full">
+                <label class="inline-flex mb-2 text-sm font-medium text-gray-900 cursor-pointer">
+                    <input formControlName="FlagOreLavorative" type="checkbox" class="sr-only peer">
+                    <div class="relative w-11 h-6 peer-focus:ring-blue-600 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900">Intera giornata lavorativa?</span>
+                </label>
+            </div>
+            <div class="w-full mb-6" *ngIf="this.assegnaCommessaForm.get('FlagOreLavorative')?.value === false">             
+                <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona le ore lavorative giornaliere</label>
+                <select formControlName="oreGiornaliere" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500">
+                  <option [value]="8" disable selected hidden>Scegli un'opzione</option>
+                  <option [value]="7.30">7:30</option>
+                  <option [value]="7">7:00</option>
+                  <option [value]="6.30">6:30</option>
+                  <option [value]="6">6:00</option>
+                  <option [value]="5.30">5:30</option>
+                  <option [value]="5">5:00</option>
+                  <option [value]="4.30">4:30</option>
+                  <option [value]="4">4:00</option>
+                  <option [value]="3.30">3:30</option>
+                  <option [value]="3">3:00</option>
+                  <option [value]="2.30">2:30</option>
+                  <option [value]="2">2:00</option>
+                  <option [value]="1.30">1:30</option>
+                  <option [value]="1">1:00</option>
+                  <option [value]="0.30">00:30</option>
+                </select>
+            </div>
+            
+            <div class="sm:col-span-2">
+                <table class="w-full">
+                        <thead class="bg-gray-100 border-b-2 border-gray-200">
+                            <tr class>
+                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Aggiungi</th>
+                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
+                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
+                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Societá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dipendenti of datiDipendenti; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                                <td class="p-3 text-sm text-gray-700"><input type="checkbox"></td>
+                                <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeNome}}</td>
+                                <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeCognome}}</td>
+                                <td class="p-3 text-sm text-gray-700">{{dipendenti.ansoRagionesociale}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            
         </div>
-    </div>
+    </form>
 </div>

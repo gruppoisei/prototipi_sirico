@@ -157,7 +157,7 @@ import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-resp
         MatNativeDateModule, 
         MatDatepickerModule,
         MatIconModule,
-        NgxMultipleDatesModule
+        NgxMultipleDatesModule,
     ]
 })
 export class AppModule { }
