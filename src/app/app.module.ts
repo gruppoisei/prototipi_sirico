@@ -73,6 +73,7 @@ import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-
 import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/delete-commessa-dialog.component';
 import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
 import { FormSelectComponent } from './ui/formComponent/form-select/form-select.component';
+import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 
 @NgModule({
     declarations: [
@@ -125,7 +126,8 @@ import { FormSelectComponent } from './ui/formComponent/form-select/form-select.
         FormInputTextComponent,
         DeleteCommessaDialogComponent,
         DeleteCommessaResponseDialogComponent,
-        FormSelectComponent
+        FormSelectComponent,
+        GestioneClienteComponent
     ],
     providers: [
         provideAnimationsAsync(),
@@ -159,7 +161,7 @@ import { FormSelectComponent } from './ui/formComponent/form-select/form-select.
         MatNativeDateModule, 
         MatDatepickerModule,
         MatIconModule,
-        NgxMultipleDatesModule
+        NgxMultipleDatesModule,
     ]
 })
 export class AppModule { }

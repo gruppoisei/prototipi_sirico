@@ -60,6 +60,10 @@ export class PersonaService {
     return this.http.put<any>(`${this.baseUrlP}DisabilitaPersonaById/${personaId}`, {})
   }
 
+  getPersoneSocieta(){
+    return this.http.get<any>(`${this.baseUrlVP}GetPersoneSocieta`)
+  }
+
   getPersonaById(personaId: number) {
     return this.http.get<any>(`${this.baseUrlP}GetPersonaById/${personaId}`)
       .pipe(
