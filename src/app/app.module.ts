@@ -127,7 +127,7 @@ import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/ges
         DeleteCommessaDialogComponent,
         DeleteCommessaResponseDialogComponent,
         FormSelectComponent,
-        GestioneClienteComponent
+        GestioneClienteComponent,
     ],
     providers: [
         provideAnimationsAsync(),
