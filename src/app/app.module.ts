@@ -72,6 +72,8 @@ import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
 import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-input-text.component';
 import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/delete-commessa-dialog.component';
 import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
+import { FormSelectComponent } from './ui/formComponent/form-select/form-select.component';
+import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 
 @NgModule({
     declarations: [
@@ -123,7 +125,9 @@ import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-resp
         DipendentiCommessaComponent,
         FormInputTextComponent,
         DeleteCommessaDialogComponent,
-        DeleteCommessaResponseDialogComponent
+        DeleteCommessaResponseDialogComponent,
+        FormSelectComponent,
+        GestioneClienteComponent
     ],
     providers: [
         provideAnimationsAsync(),

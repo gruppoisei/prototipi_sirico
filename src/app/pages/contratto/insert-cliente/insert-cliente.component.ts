@@ -18,8 +18,9 @@ export class InsertClienteComponent implements OnInit {
   validPartitaIva: boolean = true;
   public myForm:FormGroup  = this.fg.group(
     {
+      listaElementi: new FormControl(Validators.min(1)),
       Ragionesociale:new FormControl(null,[Validators.required]),
-      Partitaiva:new FormControl(null,[]),
+      Partitaiva:new FormControl(null,[Validators.minLength(8)]),
       Sedelegale:new FormControl(null,[]),
       Sedeoperativa: new FormControl(null,[]),
       Patinail:new FormControl(null,[]),
@@ -55,7 +56,6 @@ export class InsertClienteComponent implements OnInit {
       FlagAttiva: true,
     };
   }
-
 
   ngOnInit(): void {
     // this.utenteLoggato = sessionStorage.getItem('SysUser');

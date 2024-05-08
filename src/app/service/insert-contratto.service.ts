@@ -31,6 +31,7 @@ export class InsertContrattoService {
   nomePersonaCronologiaDistacchi?: string | null;
   cognomePersonaCronologiaDistacchi?: string | null;
 
+  //fieldAutoFill!: number;
   fieldAutoFill!: number;
   fieldAutoFill$: BehaviorSubject<any> = new BehaviorSubject<any>(this.fieldAutoFill);
 

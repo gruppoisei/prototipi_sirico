@@ -14,6 +14,9 @@ export class FormInputTextComponent implements ControlValueAccessor {
   @Input()
   dirty:any;
 
+  
+
+  
   @Input()
   titolo=""
   

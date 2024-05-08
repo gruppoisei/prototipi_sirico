@@ -102,7 +102,8 @@ export class DialogCercaPersonaComponent {
           id: persona.anpePersonaid,
           nome: persona.anpeNome,
           cognome: persona.anpeCognome,
-          codiceFiscale: persona.anpeCodicefiscale
+          codiceFiscale: persona.anpeCodicefiscale,
+          partitaIva: persona.anpePartitaiva
         });
         this.closeModal();
       }

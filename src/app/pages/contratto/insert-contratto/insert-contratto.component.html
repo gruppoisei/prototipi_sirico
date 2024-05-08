@@ -27,7 +27,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-full" appearance="fill" floatLabel="auto" *ngIf="hidePartitaIvaField">
                         <mat-label>Partita IVA</mat-label>
-                        <input matInput [(ngModel)]="formData.partitaIva" [disabled]="disablePartitaIvaField"
+                        <input matInput [(ngModel)]="formData.partitaIva" [disabled]="!disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
@@ -48,7 +48,7 @@
                         <input matInput [(ngModel)]="formData.codiDatafinecontratto" name="datafinecontratto"
                             type="date" placeholder="Data fine contratto">
                     </mat-form-field>
-                    <mat-form-field class="w-full" floatLabel="auto" *ngIf="formData.codiDatafinecontratto !== null">
+                    <mat-form-field class="w-full" floatLabel="auto" *ngIf="formData.codiDatafinecontratto !== null && formData.codiDatafinecontratto != '' ">
                         <mat-label>Motivo fine contratto*</mat-label>
                         <mat-select [(ngModel)]="formData.motivid" name="motivofinecontratto"
                             placeholder="Motivo fine contratto">
