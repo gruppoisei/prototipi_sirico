@@ -1,4 +1,4 @@
-import { Component, Injectable, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Injectable, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
@@ -26,6 +26,7 @@ import ValidaPartita from '../../../helpers/validaPartitaIva';
 })
 
 export class InsertContrattoComponent implements OnInit, OnDestroy {
+
   partitaIvaID: number = 3; //non toccarlo
   giorniLavorativiAlMese: number = 21;
   mesiLavorativiAllAnno: number = 12;
@@ -56,6 +57,10 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   tipiMotiviFinecontratto: { motivid: number; motivdesc: string }[] = [];             //
   array_societa: any = [];
   private routeSub!: Subscription;
+
+  selectedFile: File | null = null;
+  selectedFiles: File[] = [];
+  enabled: boolean = true;
 
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
 
@@ -99,7 +104,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
     private dialog: MatDialog,
-    private builder: FormBuilder
+    //private builder: FormBuilder
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnDestroy(): void {
@@ -350,14 +356,20 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     console.log('this.formValidationCheckDates: ' + this.formValidationCheckDates());
     if (this.formValidationCheck() && this.formValidationCheckDates()) {
       //if (true){
+        // 
+        const contrattoObj = this.formData;
+      
       this.inserimentoContrattoService
-        .insertNuovoContratto(this.formData)
+        //.insertNuovoContratto(this.formData, this.selectedFiles)
+        .insertNuovoContratto(contrattoObj, this.selectedFiles)
         .subscribe(
           (response: any) => {
             console.log(response);
             alert(response);
             //this.clearForm();
+            this.reloadGestioneFile()
             this.reset();
+            this.selectedFiles = []
           },
           (error: any) => {
             console.error("Errore durante l'inserimento del contratto:", error);
@@ -507,4 +519,21 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.vecchiamensile = this.costopresuntomese;
     this.vecchiagiornaliera = this.costopresuntogiorno;
   }
+
+
+  receiveFile($event: any) {
+    this.selectedFiles = $event;
+
+    //controllo per estenzione
+    //const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
+    //TODO
+    //if(this.selectedFiles.)
+  }
+
+  reloadGestioneFile() {
+    this.enabled = false;
+    this.changeDetector.detectChanges();
+    this.enabled = true;
+  }
+
 }

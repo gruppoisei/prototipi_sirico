@@ -1,0 +1,22 @@
+::ng-deep.mat-calendar-body-cell.selected > .mat-calendar-body-cell-content
+{
+    background-color: #3aafb7 !important;
+    color: #fff !important;
+}
+::ng-deep.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+{
+    background-color: #3aafb7 !important;
+}
+::ng-deep.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__text-label
+{
+    color: #fff!important;
+}
+::ng-deep.mat-datepicker-toggle-active
+{
+    color: #3aafb7 !important;
+}
+
+::ng-deep.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after 
+{
+    border-bottom-color: #3aafb7 !important;
+}

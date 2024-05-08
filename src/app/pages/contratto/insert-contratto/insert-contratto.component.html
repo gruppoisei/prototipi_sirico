@@ -140,7 +140,7 @@
                                     [required]="formData.codsFlagAttiva == 1">
                             </mat-form-field>
                             <mat-error *ngIf="!valoredistaccoValido">
-                                Valore non valido, insrire un valore compreso tra 0 e 100.
+                                Valore non valido, inserire un valore compreso tra 0 e 100.
                             </mat-error>
                             <mat-form-field class="w-full" floatLabel="auto">
                                 <mat-label>Cliente distacco</mat-label>
@@ -177,7 +177,7 @@
         </div>
 
         <div class="w-1/2">
-            <app-gestione-file></app-gestione-file>
+            <app-gestione-file *ngIf="enabled" (fileEvent)="receiveFile($event)"></app-gestione-file>
         </div>
         <br>
         <div class="flex justify-center padding-10px">

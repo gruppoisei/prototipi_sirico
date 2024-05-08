@@ -161,7 +161,7 @@ import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/ges
         MatNativeDateModule, 
         MatDatepickerModule,
         MatIconModule,
-        NgxMultipleDatesModule
+        NgxMultipleDatesModule,
     ]
 })
 export class AppModule { }
