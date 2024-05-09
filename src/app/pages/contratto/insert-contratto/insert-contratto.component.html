@@ -37,6 +37,9 @@
                             <mat-option *ngFor="let tipo of tipiSocieta" [value]="tipo.societaid">{{ tipo.ragionesociale
                                 }}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="arrayErrori.includes('usocietaPersonaid')">
+                            Inserire un valore per il campo Società.
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="always">
                         <mat-label>Data inizio contratto</mat-label>
