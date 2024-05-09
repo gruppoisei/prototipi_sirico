@@ -71,7 +71,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     codiMonteore: null,
     codiDatainiziocontratto: null,
     codiDatafinecontratto: null,
-    codiSmartworking: false, //null,
+    codiSmartworking: false,
     codiNote: null,
     codiFlagAttiva: 1,
     codsDistaccoid: null,
@@ -187,7 +187,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       codiMonteore: null,
       codiDatainiziocontratto: null,
       codiDatafinecontratto: null,
-      codiSmartworking: false, //null,
+      codiSmartworking: false,
       codiNote: null,
       codiFlagAttiva: 1,
       codsDistaccoid: null,
@@ -338,33 +338,16 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
   inviaForm() {
     this.formData.sysuser = this.utenteLoggato;
-    //
-    //console.log("this.inserimentoContrattoService.fieldAutoFill$.value.id:"); 
-    //console.log(this.inserimentoContrattoService.fieldAutoFill$.value.id);
-    //this.formData.personaId = this.inserimentoContrattoService.fieldAutoFill$.value.id;
-    //console.log("this.formData.personaId:"); 
-    //console.log(this.formData.personaId);
-    //
+    this.formData.codiSmartworking = !!this.formData.codiSmartworking || false;
 
-    // console.log('this.formValidation PRE:');
-    // console.log(this.formValidation);
-    // this.formValidationCheck();
-    // console.log('this.formValidation POST:');
-    // console.log(this.formValidation);
-
-    //this.formValidation = isValidContratto && isValidDistacco && this.formValidation;
-    //console.log('this.formValidationCheck: ' + this.formValidationCheck());
-    //console.log('this.formValidationCheckDates: ' + this.formValidationCheckDates());
     if (this.formValidationCheck() && this.formValidationCheckDates()) {
       const contrattoObj = this.formData;
       this.inserimentoContrattoService
-        //.insertNuovoContratto(this.formData, this.selectedFiles)
         .insertNuovoContratto(contrattoObj, this.selectedFiles)
         .subscribe(
           (response: any) => {
             console.log(response);
             alert(response);
-            //this.clearForm();
             this.reloadGestioneFile()
             this.reset();
             this.selectedFiles = []
@@ -376,6 +359,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         );
     } else {
       console.log('formValidation ha trovato un errore. form = ' + JSON.stringify(this.formData) + "\n\nGli errori trovati sono: " + this.arrayErrori);
+      const erroriCampiTradotti = this.arrayErrori.map(campo => this.getCampoErroriName(campo));
+      alert("\n\n Errore nell'inserimento dati, non sono stati inseriti i seguenti campi: \nnon è stata selezionata un" + erroriCampiTradotti.join('\nnon è stata selezionata un'));
     }
   }
 
@@ -421,11 +406,27 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     return this.valoredistaccoValido;
   }
 
+  getCampoErroriName(campo: string): string {
+    return {
+        personaId: 'a Persona',
+        societaPersonaid: 'a Società',
+        codiDatainiziocontratto: 'a Data inizio contratto',
+        tipoid: " Tipo di contratto",
+        ccnlid: " CCNL",
+        livelloid: " Livello del CCNL",
+        codiRalcompenso: "a RAL",
+        codiMonteore: " Monteore",
+        codiSmartworking: "a opsione per lo smartworking",
+        partitaIva: "a partita Iva, ma è richiesta",
+        
+    }[campo] || campo;
+}
+
   formValidationCheck(): boolean {
     console.log('formValidationCheck() START');
     this.arrayErrori = [];
     const formCompilato = this.formData;
-    const nonVuoto = (value: any) => !!value && value !== undefined && value !== null && value !== '';
+    const nonVuoto = (value: any) => !!value || (value !== undefined && value !== null && value !== '');
 
     const checkErrore = (campo: any, nomeCampo: string) => {
       if (!nonVuoto(campo)) {

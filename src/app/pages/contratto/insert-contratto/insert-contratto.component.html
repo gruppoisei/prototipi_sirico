@@ -30,7 +30,7 @@
                         <input matInput [(ngModel)]="formData.partitaIva" [disabled]="!disablePartitaIvaField"
                             name="AnpePartitaiva" placeholder="Partita IVA">
                     </mat-form-field>
-                    <mat-form-field class="w-full" floatLabel="auto">
+                    <mat-form-field [ngClass]="{'campo-errore': arrayErrori.includes('personaId')}" class="w-full" floatLabel="auto">
                         <mat-label>Società</mat-label>
                         <mat-select [(ngModel)]="formData.societaPersonaid" name="Societa" placeholder="Società"
                             required>
