@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClienteService } from '../../../service/cliente.service';
 import { ricercaCliente } from '../../../dto/request/ricercaCliente';
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
+import { DeleteClienteDialogComponent } from '../../delete-cliente-dialog/delete-cliente-dialog.component';
 
 @Component({
   selector: 'app-gestione-cliente',
@@ -49,11 +50,11 @@ export class GestioneClienteComponent {
     this.ricercaForm.reset();
   }
 
-  /*openDialogDelete(commessaId : number) {
-    this.idCommessa = commessaId
-    this.dialog.open(DeleteCommessaDialogComponent,
+  openDialogDelete(Idcliente : number) {
+    this.idCliente = Idcliente
+    this.dialog.open(DeleteClienteDialogComponent,
       {
-        data: {commessaId: this.idCommessa},
+        data: {Idcliente: this.idCliente},
         width: 'auto',
         height: 'auto'
       })
@@ -61,7 +62,7 @@ export class GestioneClienteComponent {
         {
           this.ricercaFiltrata();
         })
-    }*/
+    }
 
     ricercaFiltrata(){
       const queryParams : ricercaCliente = this.ricercaForm.value;
