@@ -17,9 +17,13 @@ export class InsertContrattoService {
     }), responseType: 'text'
   };
 
+  httpOptionsFormData: Object = {
+    responseType: 'text'
+  };
+
   modalType?: string | null;
 
-  idContratto!: number ;
+  idContratto!: number;
   idContratto$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(this.idContratto);
   isContrattoPassato?: number | null;
   private modalSubject = new BehaviorSubject<boolean>(false);
@@ -27,7 +31,7 @@ export class InsertContrattoService {
   private apiUrl = 'http://localhost:5143/GestioneContratto';
   private clienteDistaccoUrl = 'http://localhost:5143/Cliente';
 
-  idPersonaCronologiaDistacchi?: number | null; 
+  idPersonaCronologiaDistacchi?: number | null;
   nomePersonaCronologiaDistacchi?: string | null;
   cognomePersonaCronologiaDistacchi?: string | null;
 
@@ -66,7 +70,7 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClientiDistacco`);
   }
 
-  getAllClienti() : Observable<any>{
+  getAllClienti(): Observable<any> {
     return this.Http.get<any>(`${this.clienteDistaccoUrl}/GetAllClienti`)
   }
 
@@ -88,34 +92,59 @@ export class InsertContrattoService {
     return this.Http.get(`${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`);
   }
 
-  insertNuovoContratto(nuovoContratto: InserimentoContratto): Observable<InserimentoContratto> {
-    console.log('entrato insertNuovoContratto()');
+  insertNuovoContratto(nuovoContratto: any, fileAllegati: File[]): Observable<InserimentoContratto> {
+
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != -5) {
       console.log('caso put');
-      var body = JSON.stringify(nuovoContratto);
-      console.log('body: ' + body);
-      return this.Http.put<InserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
+
+      let formData = new FormData();
+      Object.keys(nuovoContratto).forEach(key => {
+        if (nuovoContratto[key] == null) {
+          nuovoContratto[key] = ""
+        }
+        formData.append(key, nuovoContratto[key]);
+      });
+      for (let i = 0; i < fileAllegati.length; i++) {
+        formData.append(`fileAllegati`, fileAllegati[i]);
+      }
+
+      console.log('formData: ');
+      console.log(formData);
+      
+      return this.Http.put<any>(`${this.apiUrl}/AggiornaContratto`, formData, this.httpOptionsFormData);
     }
-    else {      
+    else {
       console.log('caso post');
+
       nuovoContratto.codiContrattopersid = 0;
       nuovoContratto.personaId = this.fieldAutoFill$.value.id;
-      var body = JSON.stringify(nuovoContratto);
-      console.log('body: ' + body);
-      return this.Http.post<InserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, body, this.httpOptions);
+
+      let formData = new FormData();
+      Object.keys(nuovoContratto).forEach(key => {
+        if (nuovoContratto[key] == null) {          
+          nuovoContratto[key] = ""
+        }
+        formData.append(key, nuovoContratto[key]);
+      });
+      for (let i = 0; i < fileAllegati.length; i++) {
+        formData.append(`fileAllegati`, fileAllegati[i]);
+      }
+
+      console.log('formData: ');
+      console.log(formData);
+      
+      return this.Http.post<any>(`${this.apiUrl}/SalvaNuovoContratto`, formData, this.httpOptionsFormData); 
     }
   }
 
   deleteContratto(contratto: InserimentoContratto): Observable<InserimentoContratto> {
-    //debugger;
     console.log('entrato deleteContratto()');
-    //console.log('caso delete');
     var body = JSON.stringify(contratto);
     //console.log('body: ' + body);
     return this.Http.put<InserimentoContratto>(`${this.apiUrl}/ChiudiContratto`, body, this.httpOptions);
   }
 
-  getAllContrattiBy(name: string | null, surname: string | null, cf: string | null, society: number | null ): Observable<any> {
+  getAllContrattiBy(name: string | null, surname: string | null, cf: string | null, society: number | null): Observable<any> {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetAllContrattiBy';
     var newUrl = this.createApiURL(name ? name : null, surname, cf, society, stringURL);
     return this.Http.get<any>(`${newUrl}`);

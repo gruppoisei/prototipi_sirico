@@ -11,11 +11,11 @@ export class UtilityCostiPersonaleService {
 
   constructor(private http: HttpClient) { }
 
-  uploadExcels(fileAllegati: File[], utenteLoggato: string | null) : Observable<any>{
+  uploadESalvaExcels(fileAllegati: File[], utenteLoggato: string | null) : Observable<any>{
     let formData = new FormData();
     for (let i = 0; i < fileAllegati.length; i++) {
       formData.append(`fileAllegati`, fileAllegati[i]);
     }
-    return this.http.post<any>(`${this.baseUrl}UploadExcel`, formData)
+    return this.http.post<any>(`${this.baseUrl}uploadESalvaExcels`, formData)
   }
 }

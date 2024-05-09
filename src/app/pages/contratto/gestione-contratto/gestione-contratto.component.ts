@@ -60,7 +60,6 @@ export class GestioneContrattoComponent implements OnInit {
     motivdesc: null,
     tipoid: null,
     tipodesc: null,
-    societaDistaccoid: null,
     societaPersonaid: null,
     societaPersona: null,
     clienteDistaccoid: null,

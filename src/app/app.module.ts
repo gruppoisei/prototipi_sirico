@@ -74,6 +74,8 @@ import { DeleteCommessaDialogComponent } from './pages/delete-commessa-dialog/de
 import { DeleteCommessaResponseDialogComponent } from './ui/delete-commessa-response-dialog/delete-commessa-response-dialog.component';
 import { FormSelectComponent } from './ui/formComponent/form-select/form-select.component';
 import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
+import { DeleteClienteDialogComponent } from './pages/delete-cliente-dialog/delete-cliente-dialog.component';
+import { DeleteClienteResponseDialogComponent } from './ui/delete-cliente-response-dialog/delete-cliente-response-dialog.component';
 
 @NgModule({
     declarations: [
@@ -127,7 +129,9 @@ import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/ges
         DeleteCommessaDialogComponent,
         DeleteCommessaResponseDialogComponent,
         FormSelectComponent,
-        GestioneClienteComponent
+        GestioneClienteComponent,
+        DeleteClienteDialogComponent,
+        DeleteClienteResponseDialogComponent,
     ],
     providers: [
         provideAnimationsAsync(),
