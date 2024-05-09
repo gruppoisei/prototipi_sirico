@@ -47,7 +47,7 @@
 <br>
 <div *ngIf="!output_ricercaFiltrata" class="flex flex-row justify-center text-2xl my-10">Nessun dato disponibile</div>
 <div class="flex flex-row justify-center my-10">
-    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10"> 
+    <div *ngIf="output_ricercaFiltrata" class="flex flex-row justify-center my-10">
         <table class="text-base text-left rtl:text-right table-width">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
@@ -65,10 +65,16 @@
                         <button type="button" name="modifyFieldsRuolo" (click)="modificaRuolo(utente.id)" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
                             hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
                     </td>
-                    <td class="px-6 py-4>">
+                    <td *ngIf="utente.ruoli.length != 0" class="px-6 py-4>">
                         <button type="button" (click)="eliminaUtente(utente.id)"
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
+                    <td *ngIf="utente.ruoli.length == 0" class="px-6 py-4>"></td>
+                    <!-- <td *ngIf="utente.ruoli.length == 0" class="px-6 py-4>">
+                        <button [disabled]="utente.ruoli.length == 0" type="button" (click)="eliminaUtente(utente.id)"
+                            class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                    </td> -->
+
                     <td class="px-6 py-4">{{ utente.nome }}</td>
                     <td class="px-6 py-4">{{ utente.cognome }}</td>
                     <td class="px-6 py-4">{{ utente.username }}</td>

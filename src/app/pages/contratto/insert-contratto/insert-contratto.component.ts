@@ -48,6 +48,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   pannelloEspanso: boolean = false;
   isValidPartitaivaFields: boolean = false; //?
   utenteLoggato: string | null = "";
+  arrayErrori: string[] = [];
 
   tipiSocieta: { societaid: number; ragionesociale: string }[] = [];                  //
   tipiContratto: { tipoid: number; tipodesc: string }[] = [];                         //
@@ -91,7 +92,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     motivdesc: null,
     tipoid: null,
     tipodesc: null,
-    societaDistaccoid: null,
     societaPersonaid: null,
     societaPersona: null,
     clienteDistaccoid: null,
@@ -207,7 +207,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       motivdesc: null,
       tipoid: null,
       tipodesc: null,
-      societaDistaccoid: null,
       societaPersonaid: null,
       societaPersona: null,
       clienteDistaccoid: null,
@@ -352,13 +351,10 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     // console.log(this.formValidation);
 
     //this.formValidation = isValidContratto && isValidDistacco && this.formValidation;
-    console.log('this.formValidationCheck: ' + this.formValidationCheck());
-    console.log('this.formValidationCheckDates: ' + this.formValidationCheckDates());
+    //console.log('this.formValidationCheck: ' + this.formValidationCheck());
+    //console.log('this.formValidationCheckDates: ' + this.formValidationCheckDates());
     if (this.formValidationCheck() && this.formValidationCheckDates()) {
-      //if (true){
-        // 
-        const contrattoObj = this.formData;
-      
+      const contrattoObj = this.formData;
       this.inserimentoContrattoService
         //.insertNuovoContratto(this.formData, this.selectedFiles)
         .insertNuovoContratto(contrattoObj, this.selectedFiles)
@@ -377,9 +373,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
           }
         );
     } else {
-      console.log('formValidation ha trovato un errore. form = ' + JSON.stringify(this.formData));
+      console.log('formValidation ha trovato un errore. form = ' + JSON.stringify(this.formData) + "\n\nGli errori trovati sono: " + this.arrayErrori);
     }
-
   }
 
   async getContrattoByidContratto(idContratto: number) {
@@ -393,8 +388,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       this.formData = response;
       //
       this.formData.codiContrattopersid = response.codiContrattopersid;
-      console.log('this.formData.codiContrattopersid');
-      console.log(this.formData.codiContrattopersid);
+      console.log('this.formData.codiContrattopersid' + this.formData.codiContrattopersid);
       //
       this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
       this.hidePartitaIvaField = this.formData.partitaIva ? true : false;
@@ -417,7 +411,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   valoreDistaccoChangeValidation() {
     if ((this.formData.codsValoredistacco ? (this.formData.codsValoredistacco <= 100) : false) &&
       (this.formData.codsValoredistacco ? (this.formData.codsValoredistacco >= 0) : false)) {
-      console.log("valoredistaccoValido messo a true");
+      //console.log("valoredistaccoValido messo a true");
       this.valoredistaccoValido = true;
     } else {
       this.valoredistaccoValido = false;
@@ -427,37 +421,56 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
   formValidationCheck(): boolean {
     console.log('formValidationCheck() START');
-    //this.formValidationCheckDates();
-
-    // campi con asterisco sono obbligatori
-    // campi vincolati: (i) distacco checkbox vincola 4 campi, (ii) data fine contratto vincola motivazioni fine contratto
-
-
-
+    this.arrayErrori = [];
     const formCompilato = this.formData;
-    const nonVuoto = (value: any) => value !== undefined && value !== null && value !== '';
-    const esiste = (value: any) => !!value;
+    const nonVuoto = (value: any) => !!value && value !== undefined && value !== null && value !== '';
 
-    const isValidDistaccoFields = formCompilato.codsFlagAttiva ?
-      (nonVuoto(formCompilato.codsValoredistacco) &&
-        nonVuoto(formCompilato.clienteDistaccoid) &&
-        nonVuoto(formCompilato.codsDatainiziodistacco) &&
-        (this.valoredistaccoValido ? this.valoredistaccoValido : true)) : true;
-    //this.isValidPartitaivaFields = formCompilato.partitaIva ? ValidaPartita.IVA(formCompilato.partitaIva) : true;
-    const formValidation = esiste(formCompilato.personaId) &&
-      esiste(formCompilato.societaPersonaid) &&
-      nonVuoto(formCompilato.codiDatainiziocontratto) &&
-      esiste(formCompilato.tipoid) &&
-      esiste(formCompilato.ccnlid) &&
-      esiste(formCompilato.livelloid) &&
-      esiste(formCompilato.codiRalcompenso) &&
-      esiste(formCompilato.codiMonteore) &&
-      nonVuoto(formCompilato.codiSmartworking) &&
-      isValidDistaccoFields /*&&
-      this.isValidPartitaivaFields;*/
+    const checkErrore = (campo: any, nomeCampo: string) => {
+      if (!nonVuoto(campo)) {
+          this.arrayErrori.push(nomeCampo);
+          return false; // se è null, undefined o vuoto.
+      }
+      return true; //esiste e non è vuoto
+    };
+
+    const validaPersonaId = checkErrore(formCompilato.personaId, 'personaId');
+    const validaSocietaPersonaid = checkErrore(formCompilato.societaPersonaid, 'societaPersonaid');
+    const validaCodiDatainiziocontratto = checkErrore(formCompilato.codiDatainiziocontratto, 'codiDatainiziocontratto');
+    const validaTipoid = checkErrore(formCompilato.tipoid, 'tipoid');
+    const validaCcnlid = checkErrore(formCompilato.ccnlid, 'ccnlid');
+    const validaLivelloid = checkErrore(formCompilato.livelloid, 'livelloid');
+    const validaCodiRalcompenso = checkErrore(formCompilato.codiRalcompenso, 'codiRalcompenso');
+    const validaCodiMonteore = checkErrore(formCompilato.codiMonteore, 'codiMonteore');
+    const validaCodiSmartworking = checkErrore(formCompilato.codiSmartworking, 'codiSmartworking');
+    const validaPartitaiva = checkErrore(formCompilato.partitaIva, 'partitaIva');
+
+    let validaCodsValoredistacco = true;
+    let validaClienteDistaccoid = true;
+    let validaCodsDatainiziodistacco = true;
+    if (formCompilato.codsFlagAttiva) {
+      validaCodsValoredistacco = checkErrore(formCompilato.codsValoredistacco, 'codsValoredistacco');
+      validaClienteDistaccoid = checkErrore(formCompilato.clienteDistaccoid, 'clienteDistaccoid');
+      validaCodsDatainiziodistacco = checkErrore(formCompilato.codsDatainiziodistacco, 'codsDatainiziodistacco');
+    }
+
+    //this.isValidPartitaivaFields = //formCompilato.partitaIva ? ValidaPartita.IVA(formCompilato.partitaIva) : true;
+    
+    const formValidation = validaPersonaId &&
+    validaSocietaPersonaid &&
+    validaCodiDatainiziocontratto &&
+    validaTipoid &&
+    validaCcnlid &&
+    validaLivelloid &&
+    validaCodiRalcompenso &&
+    validaCodiMonteore &&
+    validaCodiSmartworking &&
+    validaPartitaiva &&
+    validaCodsValoredistacco &&
+    validaClienteDistaccoid &&
+    validaCodsDatainiziodistacco;
+
     console.log("formValidation è passato come : " + formValidation + " da formValidationCheck()")
-
-    //this.formValidationCheckDates();
+    //console.log(" array Errori : " + this.arrayErrori);
     console.log('formValidationCheck() END');
 
     return (formValidation)

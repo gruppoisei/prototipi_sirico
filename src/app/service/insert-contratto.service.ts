@@ -17,6 +17,10 @@ export class InsertContrattoService {
     }), responseType: 'text'
   };
 
+  httpOptionsFormData: Object = {
+    responseType: 'text'
+  };
+
   modalType?: string | null;
 
   idContratto!: number;
@@ -89,47 +93,15 @@ export class InsertContrattoService {
   }
 
   insertNuovoContratto(nuovoContratto: any, fileAllegati: File[]): Observable<InserimentoContratto> {
-    console.log('entrato insertNuovoContratto()');
+
     if (this.idContratto$.value != undefined && this.idContratto$.value != null && this.idContratto$.value != -5) {
       console.log('caso put');
-      var body = JSON.stringify(nuovoContratto);
-      console.log('body: ' + body);
-      return this.Http.put<InserimentoContratto>(`${this.apiUrl}/AggiornaContratto`, body, this.httpOptions);
-    }
-    else {
-
-      console.log('caso post');
-      nuovoContratto.codiContrattopersid = 0;
-      nuovoContratto.personaId = this.fieldAutoFill$.value.id;
-
-      /*
-            let body = new FormData();
-            Object.keys(nuovoContratto).forEach(key => {
-              body.append(key, nuovoContratto[key]);
-            });*/
-
-
-      /*
-            let body = new FormData();
-            Object.keys(nuovoContratto).forEach(key => {
-              body.append(key, nuovoContratto[key]);
-            });
-            body.append('form', JSON.stringify(nuovoContratto));
-      
-            //let body: any = nuovoContratto; //JSON.stringify(nuovoContratto);
-            console.log('body: ');
-            console.log(body);
-      
-            for (let i = 0; i < fileAllegati.length; i++) {
-              console.log('fileAllegati indice ' + i);
-              console.log(fileAllegati[i]);
-              body.append(`fileAllegati`, fileAllegati[i]);
-              
-            }
-      */
 
       let formData = new FormData();
       Object.keys(nuovoContratto).forEach(key => {
+        if (nuovoContratto[key] == null) {
+          nuovoContratto[key] = ""
+        }
         formData.append(key, nuovoContratto[key]);
       });
       for (let i = 0; i < fileAllegati.length; i++) {
@@ -138,19 +110,35 @@ export class InsertContrattoService {
 
       console.log('formData: ');
       console.log(formData);
+      
+      return this.Http.put<any>(`${this.apiUrl}/AggiornaContratto`, formData, this.httpOptionsFormData);
+    }
+    else {
+      console.log('caso post');
 
+      nuovoContratto.codiContrattopersid = 0;
+      nuovoContratto.personaId = this.fieldAutoFill$.value.id;
 
-      //var body = JSON.stringify(nuovoContratto);
-      //console.log('body: ' + body);
-      // return this.Http.post<InserimentoContratto>(`${this.apiUrl}/SalvaNuovoContratto`, formData, this.httpOptions);
-      return this.Http.post<any>(`${this.apiUrl}/SalvaNuovoContratto`, formData, this.httpOptions);
+      let formData = new FormData();
+      Object.keys(nuovoContratto).forEach(key => {
+        if (nuovoContratto[key] == null) {          
+          nuovoContratto[key] = ""
+        }
+        formData.append(key, nuovoContratto[key]);
+      });
+      for (let i = 0; i < fileAllegati.length; i++) {
+        formData.append(`fileAllegati`, fileAllegati[i]);
+      }
+
+      console.log('formData: ');
+      console.log(formData);
+      
+      return this.Http.post<any>(`${this.apiUrl}/SalvaNuovoContratto`, formData, this.httpOptionsFormData); 
     }
   }
 
   deleteContratto(contratto: InserimentoContratto): Observable<InserimentoContratto> {
-    //debugger;
     console.log('entrato deleteContratto()');
-    //console.log('caso delete');
     var body = JSON.stringify(contratto);
     //console.log('body: ' + body);
     return this.Http.put<InserimentoContratto>(`${this.apiUrl}/ChiudiContratto`, body, this.httpOptions);
