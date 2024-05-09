@@ -116,7 +116,7 @@ constructor
         AnpeEmailaziendale: ['', [Validators.required, Validators.email]],
         AnpeEmailpersonale: ['', Validators.email],
         AnpeFkAnsoSocietaid: ['', Validators.required],
-        AnpeSysuser: [this.utenteLoggato]
+        AnpeSysuser: "gia" //[this.utenteLoggato]
       })
        this.defaultValues = this.insertPersona.value
 
@@ -294,6 +294,9 @@ constructor
   {
     if(this.insertPersona.valid)
     {
+      //
+      this.insertPersona.value
+      //
       const personaObj = this.insertPersona.value;
       this.personaService.salvaPersona(personaObj, this.selectedFiles)
       .subscribe(

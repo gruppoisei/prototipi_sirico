@@ -25,7 +25,6 @@ export interface InserimentoContratto {
   motivdesc: any | null;
   tipoid: number | null;
   tipodesc: string | null;
-  societaDistaccoid: number | null;
   societaPersonaid: number | null;
   societaPersona: string | null;
   clienteDistaccoid: number | null;
