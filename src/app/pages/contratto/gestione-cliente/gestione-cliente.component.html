@@ -2,9 +2,9 @@
     <h2>Ricerca Cliente</h2>
 </div>
 <div class = "flex flex-row justify-center my-10">
-    <!--<form [formGroup]="ricercaForm" class="w-3/4">-->
+    <form [formGroup]="ricercaForm" class="w-3/4">
         <div class="flex flex-row justify-end mt-10">
-            <!--<a routerLink="/Segreteria/insert-commessa"><button (click)="" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>-->
+            <a routerLink="/Segreteria/insert-cliente"><button (click)="setTitoloNuovoCliente()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
             <input formControlName="RagioneSociale" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per ragione sociale..." required />
@@ -12,16 +12,16 @@
         </div> 
         <div class="flex flex-row mb-5">
             <label class="flex flex-row justify-end mt-10">
-                <input formControlName="FlagAttivo" type="checkbox" class="sr-only peer">
+                <input formControlName="FlagAttiva" type="checkbox" class="sr-only peer">
                 <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Cliente Attivo</span>
                 <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             </label>
         </div>
-        <!--<div class = "flex flex-row justify-end mt-10">
-            <button type="submit"(click)="" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
-            <button (click)="" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+        <div class = "flex flex-row justify-end mt-10">
+            <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
         </div>
-    </form>-->
+    </form>
 </div>
 
 <div class = "flex justify-center my-10 text-4xl font-bold">
@@ -38,24 +38,26 @@
                     <th scope="col" class="px-6 py-3">Sede Operativa</th>
                     <th scope="col" class="px-6 py-3">Sede Lavoro</th>
                     <th scope="col" class="px-6 py-3">Rappresentante Legale</th>
+                    <th scope="col" class="px-6 py-3">Numero Telefono</th>
+                    <th scope="col" class="px-6 py-3">Indirizzo Pec</th>
                 </tr>
             </thead>
-            <!--<tbody>
-                <tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
+            <tbody>
+                <tr *ngFor="let cliente of datiCliente" class="bg-white border-b">
                     <td class="px-6 py-4 flex gap-3">
-                        <a routerLink="/Segreteria/salva-commessa" (click)="setTitoloModificaCommessa(); getCommessa(commessa.commessaId)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
-                        <button mat-icon (click)="openDialogDelete(commessa.commessaId)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                        <a routerLink="/Segreteria/insert-cliente" (click)="setTitoloModificaCliente(); getCliente(cliente.Idcliente)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
+                        <button mat-icon (click)="openDialogDelete(cliente.Idcliente)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
-                    <td class="px-6 py-4">{{ commessa.commessa }}</td>
-                    <td class="px-6 py-4">{{ commessa.tipoCommessa }}</td>
-                    <td class="px-6 py-4">{{ commessa.societa }}</td>
-                    <td class="px-6 py-4">{{ commessa.clienteDiretto }}</td>
-                    <td class="px-6 py-4">{{ commessa.clienteFinale }}</td>
-                    <td class="px-6 py-4">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
-                    <td class="px-6 py-4">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
-                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(commessa.note)">{{ commessa.note }}</td>
+                    <td class="px-6 py-4">{{ cliente.Ragionesociale }}</td>
+                    <td class="px-6 py-4">{{ cliente.Partitaiva }}</td>
+                    <td class="px-6 py-4">{{ cliente.Sedelegale }}</td>
+                    <td class="px-6 py-4">{{ cliente.Sedeoperativa }}</td>
+                    <td class="px-6 py-4">{{ cliente.Sedelavoro }}</td>
+                    <td class="px-6 py-4">{{ cliente.Rappresentantelegale }}</td>
+                    <td class="px-6 py-4">{{ cliente.Numerotelefono }}</td>
+                    <td class="px-6 py-4">{{ cliente.Indirizzopec }}</td>
                 </tr>
-            </tbody>-->
+            </tbody>
         </table>
     </div>
 
