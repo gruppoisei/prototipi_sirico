@@ -1,18 +1,28 @@
-<div class="bg-slate-200 m-2 p-2 w-fit h-fit" >
+<!-- <div class="bg-slate-200 m-2 p-2 w-fit h-fit"> -->
+<div class="bg-white m-2 p-2 w-fit h-fit">
     <p>{{titolo}}</p>
-    <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value">
+    <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+    focus:border-sky-500 focus:ring-sky-500" type="text" [class.error]="errore != null && dirty != false"
+        [placeholder]="placeholder" (input)="AggiornoValore()" [(ngModel)]="value">
+        
 </div>
+<!-- <div class="bg-slate-200 m-2 p-2 w-fit h-fit">
+    <p>{{titolo}}</p>
+    <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+    focus:border-sky-500 focus:ring-sky-500" type="text" [class.error]="errore != null && dirty != false"
+        [placeholder]="placeholder" (input)="AggiornoValore()" [(ngModel)]="value">
+</div> -->
 
 <div *ngIf="errore != null && errore != undefined ">
 
     <div *ngIf="errore.minlength && dirty != false">
-        <ng-component *ngTemplateOutlet="erroreMinLength; context: { $implicit: errore.minlength }"/>      
+        <ng-component *ngTemplateOutlet="erroreMinLength; context: { $implicit: errore.minlength }" />
     </div>
     <div *ngIf="errore.required">
-        <ng-component [ngTemplateOutlet]="erroreCampoObbligatorio" />      
+        <ng-component [ngTemplateOutlet]="erroreCampoObbligatorio" />
     </div>
     <div *ngIf="errore.email">
-        <ng-component [ngTemplateOutlet]="erroreEmail" />      
+        <ng-component [ngTemplateOutlet]="erroreEmail" />
     </div>
 </div>
 
@@ -20,7 +30,7 @@
 
 
 <ng-template #erroreMinLength let-minleng>
-    
+
     <p class="text-red-400">
         lunghezza minima richiesta {{errore.minlength.actualLength}}/{{errore.minlength.requiredLength}}
     </p>
@@ -28,16 +38,15 @@
 
 
 <ng-template #erroreEmail>
-    
+
     <p class="text-red-400">
         Email non valida
     </p>
 </ng-template>
 
 <ng-template #erroreCampoObbligatorio>
-    
+
     <p class="text-red-400">
         campo obbligatorio
     </p>
 </ng-template>
-

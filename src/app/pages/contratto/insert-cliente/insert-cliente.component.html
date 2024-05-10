@@ -104,129 +104,104 @@
     </div>
 </div> -->
 
-<div class="container mx-auto px-4 py-8">
-    <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2>
-    <div class="flex gap-8">
-        <form [formGroup]="myForm" (ngSubmit)="submitForm()" class="w-full">
 
-            <app-form-select
+
+<div class="flex justify-center my-10 text-4xl font-bold">
+    <h2>Inserimento Cliente</h2>
+</div>
+<!-- <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2> -->
+<div class="container mx-auto flex flex-row justify-center max-w-4xl flex-col my-10">
+    <!-- <div class="flex gap-8"> -->
+    <form class="w-full max-w-3xl" [formGroup]="myForm" class="w-full">
+        <div class="justify-stretch flex flex-wrap ">
+
+            <!-- <app-form-select
                 titolo="listaElementi"
                 [dirty]="this.myForm.get('listaElementi')?.dirty"
                 [errore]="this.myForm.get('listaElementi')?.errors"
-                formControlName="listaElementi"
+                formControlName="listaElementi">
+            </app-form-select> -->
 
-            >
-            </app-form-select>
+            <app-form-input-text placeholder="Ragione Sociale" titolo="Ragione Sociale"
+                [dirty]="this.myForm.get('Ragionesociale')?.dirty" [errore]="this.myForm.get('Ragionesociale')?.errors"
+                formControlName="Ragionesociale">
+            </app-form-input-text>
 
+            <app-form-input-text placeholder="Partita IVA" titolo="Partita IVA"
+                [dirty]="this.myForm.get('Partitaiva')?.dirty" [errore]="this.myForm.get('Partitaiva')?.errors"
+                formControlName="Partitaiva">
+            </app-form-input-text>
 
-            <app-form-input-text
-            placeholder="Ragione Sociale"
-            titolo="Ragione Sociale"
-            
-            [dirty]="this.myForm.get('Ragionesociale')?.dirty"
-            [errore]="this.myForm.get('Ragionesociale')?.errors"
-            formControlName="Ragionesociale"
-             >          
+            <app-form-input-text placeholder="Sede legale" titolo="Sede legale"
+                [dirty]="this.myForm.get('Sedelegale')?.dirty" [errore]="this.myForm.get('Sedelegale')?.errors"
+                formControlName="Sedelegale">
             </app-form-input-text>
-            <app-form-input-text
-            placeholder="Partita IVA"
-            titolo="Partita IVA"
-            [dirty]="this.myForm.get('Partitaiva')?.dirty"
-            [errore]="this.myForm.get('Partitaiva')?.errors"
-            formControlName="Partitaiva"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Sede legale"
-            titolo="Sede legale"
-            [dirty]="this.myForm.get('Sedelegale')?.dirty"
-            [errore]="this.myForm.get('Sedelegale')?.errors"
-            formControlName="Sedelegale"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Sede Operativa"
-            titolo="Sede Operativa"
-            [dirty]="this.myForm.get('Sedeoperativa')?.dirty"
-            [errore]="this.myForm.get('Sedeoperativa')?.errors"
-            formControlName="Sedeoperativa"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Pat INAIL"
-            titolo="Pat INAIL"
-            [dirty]="this.myForm.get('Patinail')?.dirty"
-            [errore]="this.myForm.get('Patinail')?.errors"
-            formControlName="Patinail"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Rappresentate Legale"
-            titolo="Rappresentate Legale"
-            [dirty]="this.myForm.get('Rappresentantelegale')?.dirty"
-            [errore]="this.myForm.get('Rappresentantelegale')?.errors"
-            formControlName="Rappresentantelegale"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Sede Lavoro"
-            titolo="Sede Lavoro"
-            [dirty]="this.myForm.get('Sedelavoro')?.dirty"
-            [errore]="this.myForm.get('Sedelavoro')?.errors"
-            formControlName="Sedelavoro"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Codice ATECO"
-            titolo="Codice ATECO"
-            [dirty]="this.myForm.get('Codiceateco')?.dirty"
-            [errore]="this.myForm.get('Codiceateco')?.errors"
-            formControlName="Codiceateco"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Numero di Telefono"
-            titolo="Numero di Telefono"
-            [dirty]="this.myForm.get('Numerotelefono')?.dirty"
-            [errore]="this.myForm.get('Numerotelefono')?.errors"
-            formControlName="Numerotelefono"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Indirizzo PEC"
-            titolo="Indirizzo PEC"
-            [dirty]="this.myForm.get('Indirizzopec')?.dirty"
-            [errore]="this.myForm.get('Indirizzopec')?.errors"
-            formControlName="Indirizzopec"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Referente reparto amministrativo (nome e cognome)"
-            titolo="Referente reparto amministrativo (nome e cognome)"
-            [dirty]="this.myForm.get('Refamministratore')?.dirty"
-            [errore]="this.myForm.get('Refamministratore')?.errors"
-            formControlName="Refamministratore"
-             >          
-            </app-form-input-text>
-            
-            <app-form-input-text
-            placeholder="Email referente amministrativo"
-            titolo="Email referente amministrativo"
-            [dirty]="this.myForm.get('Emailrefammin')?.dirty"
-            [errore]="this.myForm.get('Emailrefammin')?.errors"
-            formControlName="Emailrefammin"
-             >          
-            </app-form-input-text>
-            <app-form-input-text
-            placeholder="Numero telefono referente amministrativo"
-            titolo="Numero telefono referente amministrativo"
-            [dirty]="this.myForm.get('Telefonorefammin')?.dirty"
-            [errore]="this.myForm.get('Telefonorefammin')?.errors"
-            formControlName="Telefonorefammin"
-             >          
-            </app-form-input-text>
-            
 
-        </form>
-    </div>
-    </div>
+            <app-form-input-text placeholder="Sede Operativa" titolo="Sede Operativa"
+                [dirty]="this.myForm.get('Sedeoperativa')?.dirty" [errore]="this.myForm.get('Sedeoperativa')?.errors"
+                formControlName="Sedeoperativa">
+            </app-form-input-text>
+        </div>
+        <!-- <div class="justify-center flex w-full flex-wrap -mx-3 mb-6"> -->
+        <div class="justify-stretch flex w-full flex-wrap ">
+            <app-form-input-text placeholder="Pat INAIL" titolo="Pat INAIL" [dirty]="this.myForm.get('Patinail')?.dirty"
+                [errore]="this.myForm.get('Patinail')?.errors" formControlName="Patinail">
+            </app-form-input-text>
+
+            <app-form-input-text placeholder="Rappresentate Legale" titolo="Rappresentate Legale"
+                [dirty]="this.myForm.get('Rappresentantelegale')?.dirty"
+                [errore]="this.myForm.get('Rappresentantelegale')?.errors" formControlName="Rappresentantelegale">
+            </app-form-input-text>
+            <app-form-input-text placeholder="Sede Lavoro" titolo="Sede Lavoro"
+                [dirty]="this.myForm.get('Sedelavoro')?.dirty" [errore]="this.myForm.get('Sedelavoro')?.errors"
+                formControlName="Sedelavoro">
+            </app-form-input-text>
+            <app-form-input-text placeholder="Codice ATECO" titolo="Codice ATECO"
+                [dirty]="this.myForm.get('Codiceateco')?.dirty" [errore]="this.myForm.get('Codiceateco')?.errors"
+                formControlName="Codiceateco">
+            </app-form-input-text>
+        </div>
+        <!-- <div class="justify-center flex w-full flex-wrap -mx-3 mb-6"> -->
+        <div class="justify-stretch flex w-full flex-wrap ">
+            <app-form-input-text placeholder="Numero di Telefono" titolo="Numero di Telefono"
+                [dirty]="this.myForm.get('Numerotelefono')?.dirty" [errore]="this.myForm.get('Numerotelefono')?.errors"
+                formControlName="Numerotelefono">
+            </app-form-input-text>
+
+            <app-form-input-text placeholder="Indirizzo PEC" titolo="Indirizzo PEC"
+                [dirty]="this.myForm.get('Indirizzopec')?.dirty" [errore]="this.myForm.get('Indirizzopec')?.errors"
+                formControlName="Indirizzopec">
+            </app-form-input-text>
+
+            <app-form-input-text placeholder="Referente reparto amministrativo (nome e cognome)"
+                titolo="Referente reparto amministrativo (nome e cognome)"
+                [dirty]="this.myForm.get('Refamministratore')?.dirty"
+                [errore]="this.myForm.get('Refamministratore')?.errors" formControlName="Refamministratore">
+            </app-form-input-text>            
+        </div>
+        <!-- <div class="justify-center flex w-full flex-wrap -mx-3 mb-6"> -->
+        <div class="justify-stretch flex w-full flex-wrap">
+            <app-form-input-text placeholder="Email referente amministrativo" titolo="Email referente amministrativo"
+                [dirty]="this.myForm.get('Emailrefammin')?.dirty" [errore]="this.myForm.get('Emailrefammin')?.errors"
+                formControlName="Emailrefammin">
+            </app-form-input-text>
+            <app-form-input-text placeholder="Numero telefono referente amministrativo"
+                titolo="Numero telefono referente amministrativo" [dirty]="this.myForm.get('Telefonorefammin')?.dirty"
+                [errore]="this.myForm.get('Telefonorefammin')?.errors" formControlName="Telefonorefammin">
+            </app-form-input-text>
+        </div>
+
+        <!-- <div class = "w-full flex justify-end mb-10 mt-10"> -->
+        <div class="flex flex-row justify-end mt-20">
+            <button type="submit"
+                class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+                >Salva</button>
+            <button
+                class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+                (click)="clearSearch()">Cancella</button>
+            <button
+                class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
+                (click)="goBack()">Chiudi</button>
+        </div>
+    </form>
+</div>

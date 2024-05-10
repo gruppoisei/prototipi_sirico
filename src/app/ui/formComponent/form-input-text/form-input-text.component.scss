@@ -1,5 +1,7 @@
-.error{
-    border: 1px;
-    border-color: red;
-    background-color: red;
+.error {
+    border: red 1px solid;
+}
+
+.error::placeholder {
+    color: red;
 }
