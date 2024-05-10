@@ -122,7 +122,6 @@ export class GestioneContrattoComponent implements OnInit {
         response.forEach((persona: any) => {
           persona.nomeTroncato = this.troncaNome(persona.nome, 10);
           persona.cognomeTroncato = this.troncaNome(persona.cognome, 10);
-          //console.log(persona.nome, persona.cognome);
           this.dipendentiConContratto = response;
           //this.dipendentiConContratto.push(persona);
         });
