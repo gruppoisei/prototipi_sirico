@@ -198,9 +198,6 @@ export class InsertContrattoService {
     return stringURL;
   }
 
-  saveClienteData(datiCliente: clienteSocieta) {
-    console.log(`invio ${JSON.stringify(datiCliente)} a ${this.apiUrl}/NuovoCliente`);
-    return this.Http.post<any>(`${this.clienteDistaccoUrl}/NuovoCliente`, datiCliente);
-  }
+ 
 
 }

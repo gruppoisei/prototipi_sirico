@@ -1,7 +1,21 @@
-.error {
-    border: red 1px solid;
+// .error {
+//     border: red 1px solid;
+// }
+
+// .error::placeholder {
+//     color: red;
+// }
+
+
+.error{
+    border-color: red;
 }
 
-.error::placeholder {
-    color: red;
+input:focus {
+    outline: none;
+}
+.focus  {
+    border-color: rgb(0, 162, 255);
+// 
+
 }
