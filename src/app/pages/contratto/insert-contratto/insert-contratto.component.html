@@ -92,22 +92,26 @@
                 <div class="w-1/2">
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>RAL</mat-label>
-                        <input matInput (change)="formData.codiRalcompenso ? updateCosts() : null"
-                            [(ngModel)]="formData.codiRalcompenso" type="number" name="RAL" inputmode="numeric"
+                        <input matInput [(ngModel)]="formData.codiRalcompenso" type="number" name="RAL" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
-                            
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Costo presunto mese</mat-label>
-                        <input matInput (change)="updateCosts()" [(ngModel)]="costopresuntomese" type="number"
-                            name="costopresuntomese" inputmode="numeric"
-                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0">
+                        <input matInput [(ngModel)]="costoMensile" type="number"
+                            name="Costo mensile" inputmode="numeric"
+                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo mensile non disponibile">
+                            <mat-error *ngIf="erroreCostoMensile == true">
+                                Non è stato possibile prelevare un dato nello storico dei costi
+                            </mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Costo presunto giorno</mat-label>
-                        <input matInput (change)="updateCosts()" [(ngModel)]="costopresuntogiorno" type="number"
+                        <input matInput [(ngModel)]="costoOrario" type="number"
                             name="0" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
-                            placeholder="Costo presunto giorno">
+                            placeholder="Costo orario non disponibile">
+                            <mat-error *ngIf="erroreCostoOrario == true">
+                                Non è stato possibile prelevare un dato nello storico dei costi
+                            </mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Monteore settimanale</mat-label>
@@ -168,16 +172,17 @@
                                     placeholder="Data fine distacco" [required]="formData.codsFlagAttiva == 1">
                             </mat-form-field>
                         </mat-expansion-panel>
-                        <div class="w-full padding-top" *ngIf="formData.personaId !== null">
+                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && (formData.codiContrattopersid !== null || personaConDistacchi)">
                             <button mat-button type="button"
-                                    [ngStyle]="{'color': personaConDistacchi ? 'inherit' : 'gray', 'font-size': 'smaller'}"
-                                    (click)="openCronologiaDistaccoModal(formData.personaId)">Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}</button>
+                                    [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi}"
+                                    (click)="openCronologiaDistaccoModal(formData.personaId)">
+                                Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="w-1/2">
             <app-gestione-file *ngIf="enabled" (fileEvent)="receiveFile($event)"></app-gestione-file>
         </div>

@@ -17,11 +17,8 @@ export class GestioneContrattoComponent implements OnInit {
 
   output_ricercaFiltrata: any;
 
-  tipiSocieta!: [{ ansoSocietaid: number; ansoRagionesociale: string }];
-  tipiContratto!: [{ cotcTipocontrattoid: number; cotcContratto: string }];
-  tipiCcnl!: [{ coccCcnlid: number; coccDesc: string }];
-  tipiLivello!: [{ coliLivelloid: number; coliLivellocontratto: string }];
-  tipiSocietaDistacco!: [{ ansoSocietaid: number; ansoRagionesociale: string }]
+  tipiSocieta: { societaid: number; ragionesociale: string }[] = [];
+  tipiLivello: { livelloid: number; livelloContratto: string; }[] = [];
   dipendentiConContratto: any[] = [];
   formData: FormGroup;
   utenteLoggato: string | null = '';
@@ -111,6 +108,7 @@ export class GestioneContrattoComponent implements OnInit {
 
   ngOnInit(): void { 
     this.utenteLoggato = sessionStorage.getItem('SysUser');
+    this.getAllSocieta();
   }
 
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
@@ -188,6 +186,18 @@ export class GestioneContrattoComponent implements OnInit {
       console.error("Errore nell'apertura di un contratto:", error);
       return false;
     }
+  }
+
+  getAllSocieta() {
+    this.inserimentoContrattoService.getAllTipoSocieta().subscribe(
+      (response: any) => {
+        //console.log(response);
+        this.tipiSocieta = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di societa:', error);
+      }
+    );
   }
 
   troncaNome(nome: string, lunghezzaMassima: number): string {

@@ -76,7 +76,6 @@ export class InsertContrattoService {
 
   getAllTipitipiMotiviFineContratto(): Observable<any> {
     var res = this.Http.get<any>(`${this.apiUrl}/GetMotiviFineContratto`);
-    console.log("motivi fine contratto = " + JSON.stringify(res));
     return res;
   }
 
@@ -87,10 +86,11 @@ export class InsertContrattoService {
     return this.Http.get<any>(`${newUrl}`)
   }
 
-  getCronologiaDistacco(): Observable<any> {
-    console.log(`faccio chiamata per cronologia distacchi a ${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`)
-    return this.Http.get(`${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`);
-  }
+  getCronologiaDistacco(id?: number | null): Observable<any> {
+    const Url = id ? `${this.apiUrl}/CronologiaDistacco/${id}` : `${this.apiUrl}/CronologiaDistacco/${this.idPersonaCronologiaDistacchi}`;
+    console.log(`faccio chiamata per cronologia distacchi a ${Url}`);
+    return this.Http.get(Url);
+}
 
   insertNuovoContratto(nuovoContratto: any, fileAllegati: File[]): Observable<InserimentoContratto> {
 
