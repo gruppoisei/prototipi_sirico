@@ -15,6 +15,6 @@ export interface clienteSocieta {
     Refamministratore?: string | null,
     Emailrefammin?: string | null,
     Telefonorefammin?: string | null,
-    Sysuser: string,
-    FlagAttiva?: boolean | null,
+    // Sysuser: string,
+    // FlagAttiva?: boolean | null,
 }

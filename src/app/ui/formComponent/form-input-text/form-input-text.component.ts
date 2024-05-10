@@ -9,35 +9,74 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 })
 export class FormInputTextComponent implements ControlValueAccessor {
- 
+  @Input() 
+  callbackOnChange: (args:any ) => void | any = ([]) => {}
+  
+
+  @Input() 
+  callbackOnClick: (args:any ) => void | any = ([]) => {}
+
+  @Input() 
+  callbackOnInput: (args:any ) => void | any = ([]) => {}
 
   @Input()
-  dirty:any;
+  type="text"
 
-  
+  @Input()
+  touched:any
 
-  
   @Input()
   titolo=""
   
   @Input()
-  placeholder?=""
+  placeholder=""
   
   @Input()
   errore:any
+  
+  @Input()
+  required=false
+
 
   value:string = ""
 
   isDisabled?:boolean;
-
-onChange = (value:string) => {}
-onTouch =()=>{}
-
-
-constructor(){}
+  
+  focus=false
 
 
- 
+  constructor(){
+    
+  }
+  
+  onChangeEvent(){
+    this.callbackOnChange([])
+  }
+  onClickEvent(){
+    this.callbackOnClick([])
+  }
+  onInputEvent(){
+    this.callbackOnInput([])
+  }
+  
+  
+  onChange = (value:string) => {}
+  
+
+
+  onTouch =()=>{}
+  
+  setGetFocus()
+  {
+    this.focus=true
+  }
+
+  setLoseFocus()
+  {
+    this.focus = false
+  }
+
+
   writeValue(value: string): void {
     this.value =value
   }
@@ -51,14 +90,17 @@ constructor(){}
     this.isDisabled = isDisabled
   }
 
- Prova()
- {
-  console.log(this.errore)
- }
+
   AggiornoValore()
   {
     this.onChange(this.value);
     this.onTouch();
   }
 
+
+  Prova()
+  {
+    console.log(this.touched)
+    // console.log(this.errore)
+  }
 }

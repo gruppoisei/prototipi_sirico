@@ -1,205 +1,90 @@
-<!-- <div class="container mx-auto px-4 py-8">
-    <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2>
-    <div class="flex gap-8">
-        <form (ngSubmit)="submitForm()" class="w-full">
-            <div class="flex gap-8">
-                <div class="w-1/2">
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Ragione Sociale" [(ngModel)]="clienteSocieta.Ragionesociale"
-                            name="ragioneSociale *" required>
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Partita IVA" [(ngModel)]="clienteSocieta.Partitaiva"
-                            name="partitaIVA *" required>
-                        <mat-error *ngIf="!validPartitaIva">
-                            Inserisci una Partita IVA valida
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Sede Legale" [(ngModel)]="clienteSocieta.Sedelegale"
-                            name="sedeLegale">
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Sede Operativa" [(ngModel)]="clienteSocieta.Sedeoperativa"
-                            name="sedeOperativa">
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Sede di lavoro" [(ngModel)]="clienteSocieta.Sedelavoro"
-                            name="sedeDiLavoro">
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="PAT INAIL" [(ngModel)]="clienteSocieta.Patinail" name="pat Inail *"
-                            required>
-                        <mat-error *ngIf="validatePATINAIL(clienteSocieta.Patinail)">
-                            Inserisci un PAT INAIL valido
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Nominativo del Legale Rappresentante"
-                            [(ngModel)]="clienteSocieta.Rappresentantelegale" name="nominativoLegaleRappresentante">
-                    </mat-form-field>
-
-                </div>
-
-                <div class="w-1/2">
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Codice Ateco" [(ngModel)]="clienteSocieta.Codiceateco"
-                            name="codiceAteco">
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Telefono" [(ngModel)]="clienteSocieta.Numerotelefono"
-                            name="numeroTelefono" title="Inserisci solo numeri">
-                        <mat-error *ngIf="validatePhoneNumber(clienteSocieta.Numerotelefono)">
-                            Inserisci un numero di telefono valido
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Indirizzo PEC" [(ngModel)]="clienteSocieta.Indirizzopec"
-                            name="indirizzoPec">
-                        <mat-error *ngIf="validateEmail(clienteSocieta.indirizzoPec)">
-                            Inserisci un email valida
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Referente reparto amministrativo (nome e cognome)"
-                            [(ngModel)]="clienteSocieta.Refamministratore" name="nomeRefAmmin">
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Email referente amministrativo"
-                            [(ngModel)]="clienteSocieta.Emailrefammin" name="pecRefAmmin">
-                        <mat-error *ngIf="validateEmail(clienteSocieta.Emailrefammin)">
-                            Inserisci un email valida
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="w-full">
-                        <input matInput placeholder="Numero telefono referente amministrativo"
-                            [(ngModel)]="clienteSocieta.Telefonorefammin" pattern="[0-9]*" title="Inserisci solo numeri"
-                            name="numeroRefAmmin">
-                        <mat-error *ngIf="validatePhoneNumber(clienteSocieta.Telefonorefammin)">
-                            Inserisci un numero di telefono valido
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="flex justify-center mt-8">
-                <button mat-button type="submit"
-                    class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-                    [disabled]="!isFormValid()">Salva</button>
-                <button mat-button type="button" (click)="closeInsertCliente()"
-                    class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Annulla</button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
-
-
 <div class="flex justify-center my-10 text-4xl font-bold">
-    <h2>Inserimento Cliente</h2>
+    <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2>
 </div>
-<!-- <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2> -->
-<div class="container mx-auto flex flex-row justify-center max-w-4xl flex-col my-10">
-    <!-- <div class="flex gap-8"> -->
-    <form class="w-full max-w-3xl" [formGroup]="myForm" class="w-full">
-        <div class="justify-stretch flex flex-wrap ">
 
-            <!-- <app-form-select
-                titolo="listaElementi"
-                [dirty]="this.myForm.get('listaElementi')?.dirty"
-                [errore]="this.myForm.get('listaElementi')?.errors"
-                formControlName="listaElementi">
-            </app-form-select> -->
+<div class="container mx-auto flex flex-row justify-center max-w-4xl flex-col my-10">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="w-full grid grid-flow-row-dense grid-cols-4 grid-rows-4">
 
             <app-form-input-text placeholder="Ragione Sociale" titolo="Ragione Sociale"
-                [dirty]="this.myForm.get('Ragionesociale')?.dirty" [errore]="this.myForm.get('Ragionesociale')?.errors"
-                formControlName="Ragionesociale">
+                [touched]="this.myForm.get('Ragionesociale')?.touched" [required]="true"
+                [errore]="this.myForm.get('Ragionesociale')?.errors" formControlName="Ragionesociale">
             </app-form-input-text>
 
             <app-form-input-text placeholder="Partita IVA" titolo="Partita IVA"
-                [dirty]="this.myForm.get('Partitaiva')?.dirty" [errore]="this.myForm.get('Partitaiva')?.errors"
-                formControlName="Partitaiva">
+                [touched]="this.myForm.get('Partitaiva')?.touched" [required]="true"
+                [errore]="this.myForm.get('Partitaiva')?.errors" formControlName="Partitaiva">
             </app-form-input-text>
 
             <app-form-input-text placeholder="Sede legale" titolo="Sede legale"
-                [dirty]="this.myForm.get('Sedelegale')?.dirty" [errore]="this.myForm.get('Sedelegale')?.errors"
+                [touched]="this.myForm.get('Sedelegale')?.touched" [errore]="this.myForm.get('Sedelegale')?.errors"
                 formControlName="Sedelegale">
             </app-form-input-text>
 
             <app-form-input-text placeholder="Sede Operativa" titolo="Sede Operativa"
-                [dirty]="this.myForm.get('Sedeoperativa')?.dirty" [errore]="this.myForm.get('Sedeoperativa')?.errors"
-                formControlName="Sedeoperativa">
+                [touched]="this.myForm.get('Sedeoperativa')?.touched"
+                [errore]="this.myForm.get('Sedeoperativa')?.errors" formControlName="Sedeoperativa">
             </app-form-input-text>
-        </div>
-        <!-- <div class="justify-center flex w-full flex-wrap -mx-3 mb-6"> -->
-        <div class="justify-stretch flex w-full flex-wrap ">
-            <app-form-input-text placeholder="Pat INAIL" titolo="Pat INAIL" [dirty]="this.myForm.get('Patinail')?.dirty"
+
+            <app-form-input-text placeholder="Pat INAIL" titolo="Pat INAIL"
+                [touched]="this.myForm.get('Patinail')?.touched" [required]="true"
                 [errore]="this.myForm.get('Patinail')?.errors" formControlName="Patinail">
             </app-form-input-text>
 
             <app-form-input-text placeholder="Rappresentate Legale" titolo="Rappresentate Legale"
-                [dirty]="this.myForm.get('Rappresentantelegale')?.dirty"
+                [touched]="this.myForm.get('Rappresentantelegale')?.touched"
                 [errore]="this.myForm.get('Rappresentantelegale')?.errors" formControlName="Rappresentantelegale">
             </app-form-input-text>
+
             <app-form-input-text placeholder="Sede Lavoro" titolo="Sede Lavoro"
-                [dirty]="this.myForm.get('Sedelavoro')?.dirty" [errore]="this.myForm.get('Sedelavoro')?.errors"
+                [touched]="this.myForm.get('Sedelavoro')?.touched" [errore]="this.myForm.get('Sedelavoro')?.errors"
                 formControlName="Sedelavoro">
             </app-form-input-text>
+
             <app-form-input-text placeholder="Codice ATECO" titolo="Codice ATECO"
-                [dirty]="this.myForm.get('Codiceateco')?.dirty" [errore]="this.myForm.get('Codiceateco')?.errors"
+                [touched]="this.myForm.get('Codiceateco')?.touched" [errore]="this.myForm.get('Codiceateco')?.errors"
                 formControlName="Codiceateco">
             </app-form-input-text>
-        </div>
-        <!-- <div class="justify-center flex w-full flex-wrap -mx-3 mb-6"> -->
-        <div class="justify-stretch flex w-full flex-wrap ">
+
             <app-form-input-text placeholder="Numero di Telefono" titolo="Numero di Telefono"
-                [dirty]="this.myForm.get('Numerotelefono')?.dirty" [errore]="this.myForm.get('Numerotelefono')?.errors"
-                formControlName="Numerotelefono">
+                [touched]="this.myForm.get('Numerotelefono')?.touched"
+                [errore]="this.myForm.get('Numerotelefono')?.errors" formControlName="Numerotelefono">
             </app-form-input-text>
 
             <app-form-input-text placeholder="Indirizzo PEC" titolo="Indirizzo PEC"
-                [dirty]="this.myForm.get('Indirizzopec')?.dirty" [errore]="this.myForm.get('Indirizzopec')?.errors"
+                [touched]="this.myForm.get('Indirizzopec')?.touched" [errore]="this.myForm.get('Indirizzopec')?.errors"
                 formControlName="Indirizzopec">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Referente reparto amministrativo (nome e cognome)"
-                titolo="Referente reparto amministrativo (nome e cognome)"
-                [dirty]="this.myForm.get('Refamministratore')?.dirty"
-                [errore]="this.myForm.get('Refamministratore')?.errors" formControlName="Refamministratore">
-            </app-form-input-text>            
-        </div>
-        <!-- <div class="justify-center flex w-full flex-wrap -mx-3 mb-6"> -->
-        <div class="justify-stretch flex w-full flex-wrap">
-            <app-form-input-text placeholder="Email referente amministrativo" titolo="Email referente amministrativo"
-                [dirty]="this.myForm.get('Emailrefammin')?.dirty" [errore]="this.myForm.get('Emailrefammin')?.errors"
-                formControlName="Emailrefammin">
-            </app-form-input-text>
-            <app-form-input-text placeholder="Numero telefono referente amministrativo"
-                titolo="Numero telefono referente amministrativo" [dirty]="this.myForm.get('Telefonorefammin')?.dirty"
-                [errore]="this.myForm.get('Telefonorefammin')?.errors" formControlName="Telefonorefammin">
-            </app-form-input-text>
-        </div>
+            <div class="col-span-2">
+                <app-form-input-text placeholder="Referente reparto amministrativo (nome e cognome)"
+                    titolo="Referente reparto amministrativo (nome e cognome)"
+                    [touched]="this.myForm.get('Refamministratore')?.touched"
+                    [errore]="this.myForm.get('Refamministratore')?.errors" formControlName="Refamministratore">
+                </app-form-input-text>
+            </div>
 
-        <!-- <div class = "w-full flex justify-end mb-10 mt-10"> -->
-        <div class="flex flex-row justify-end mt-20">
+            <div class="col-span-2">
+                <app-form-input-text class="col-span-2" placeholder="Email referente amministrativo" type="email"
+                    titolo="Email referente amministrativo" [touched]="this.myForm.get('Emailrefammin')?.touched"
+                    [errore]="this.myForm.get('Emailrefammin')?.errors" formControlName="Emailrefammin">
+                </app-form-input-text>
+            </div>
+            <div class="col-span-2">
+                <app-form-input-text class="col-span-2" placeholder="Numero telefono referente amministrativo"
+                    titolo="Numero telefono referente amministrativo"
+                    [touched]="this.myForm.get('Telefonorefammin')?.touched"
+                    [errore]="this.myForm.get('Telefonorefammin')?.errors" formControlName="Telefonorefammin">
+                </app-form-input-text>
+            </div>
+        </div>
+        <div class="flex flex-row justify-end mb-10 mt-10">
             <button type="submit"
+                class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Salva</button>
+            <button type="button"
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-                >Salva</button>
-            <button
-                class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
-                (click)="clearSearch()">Cancella</button>
-            <button
+                (click)="Reset()">Cancella</button>
+            <button type="button"
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
                 (click)="goBack()">Chiudi</button>
         </div>

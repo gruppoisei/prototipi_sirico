@@ -3,7 +3,7 @@
 <div class="bg-slate-200 m-2 p-2 w-fit h-fit" >
     <p>{{titolo}}</p>
     <!-- <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value"> -->
-    <select [class.error]="errore != null && dirty != false" [(ngModel)]="value" (change)="ProvaValore()">
+    <select [class.error]="errore != null " [(ngModel)]="value" (change)="ProvaValore()">
         <option [value]="0">--scegli elemento--</option>
           <option *ngFor="let elemento of listaElementi" [value]="elemento.id">{{elemento.descrizione}}</option>
 
