@@ -76,6 +76,8 @@ export class GestioneContrattoComponent implements OnInit {
     this.formData = builder.group({
       Nome: ['',Validators.minLength(1)],
       Cognome: ['',Validators.minLength(1)],
+      nomeTroncato: '',
+      cognomeTroncato: '',
       Personaid: null,
       Codicefiscale: '',
       Partitaiva: '',
@@ -118,8 +120,8 @@ export class GestioneContrattoComponent implements OnInit {
       (response: any) => {
         console.log(response);
         response.forEach((persona: any) => {
-          persona.nome = this.troncaNome(persona.nome, 10);
-          persona.cognome = this.troncaNome(persona.cognome, 10);
+          persona.nomeTroncato = this.troncaNome(persona.nome, 10);
+          persona.cognomeTroncato = this.troncaNome(persona.cognome, 10);
           //console.log(persona.nome, persona.cognome);
           this.dipendentiConContratto = response;
           //this.dipendentiConContratto.push(persona);

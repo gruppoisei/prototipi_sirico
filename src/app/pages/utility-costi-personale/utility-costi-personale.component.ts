@@ -34,11 +34,11 @@ export class UtilityCostiPersonaleComponent {
     //if(this.selectedFiles.)
   }
 
-  upload(){
+  salva(){
     if(this.uploadValidation == true)
       {
         //const listaFile = this.selectedFile;
-        this.serviceCostiPersonale.uploadExcels(this.selectedFiles, this.utenteLoggato)
+        this.serviceCostiPersonale.uploadESalvaExcels(this.selectedFiles, this.utenteLoggato)
         .subscribe(
           {
             next:(res) =>

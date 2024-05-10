@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ClienteService } from '../../../service/cliente.service';
+import { ricercaCliente } from '../../../dto/request/ricercaCliente';
+import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
+import { DeleteClienteDialogComponent } from '../../delete-cliente-dialog/delete-cliente-dialog.component';
 
 @Component({
   selector: 'app-gestione-cliente',
@@ -9,36 +13,35 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class GestioneClienteComponent {
   ricercaForm!: FormGroup;
-  constructor(private fb : FormBuilder,/* private clienteService : ClienteService,*/  private dialog : MatDialog){}
-  datiCommessa: any[] = []
-  idCommessa : number | null = null;
+  constructor(private fb : FormBuilder, private clienteService : ClienteService,  private dialog : MatDialog){}
+  datiCliente: any[] = []
+  idCliente : number | null = null;
 
   ngOnInit(): void {
     this.ricercaForm = this.fb.group({
-      CommessaId : [0],
-      Commessa : ['', Validators.required],
-      TipoCommessa : ['', Validators.required],
-      Societa : ['', Validators.required],
-      DataInizio : ['', Validators.required],
-      DataFine : ['', Validators.required],
-      FlagAttivo : [true],
+      RagioneSociale : ['', Validators.required],
+      PartitaIva : ['', Validators.required],
+      SedeLegale : ['', Validators.required],
+      SedeOperativa : ['', Validators.required],
+      SedeLavoro : ['', Validators.required],
+      FlagAttiva : [true],
     })
   }
 
   setTitoloModificaCliente()
     {
-      /*this.clienteService.setTitolo('Modifica cliente')*/
+      this.clienteService.setTitolo('Modifica cliente')
     }
 
   setTitoloNuovoCliente()
     {
-      /*this.clienteService.setTitolo('Inserimento nuovo cliente')*/
+      this.clienteService.setTitolo('Inserimento nuovo cliente')
     }
 
-  getCliente(commessaId: number)
+  getCliente(Idcliente: number)
   {
-    /*this.idCommessa = commessaId;
-    this.clienteService.getClienteById(this.idCommessa)*/
+    this.idCliente = Idcliente;
+    this.clienteService.getClienteById(this.idCliente)
   }
 
 
@@ -47,11 +50,11 @@ export class GestioneClienteComponent {
     this.ricercaForm.reset();
   }
 
-  /*openDialogDelete(commessaId : number) {
-    this.idCommessa = commessaId
-    this.dialog.open(DeleteCommessaDialogComponent,
+  openDialogDelete(Idcliente : number) {
+    this.idCliente = Idcliente
+    this.dialog.open(DeleteClienteDialogComponent,
       {
-        data: {commessaId: this.idCommessa},
+        data: {Idcliente: this.idCliente},
         width: 'auto',
         height: 'auto'
       })
@@ -61,18 +64,33 @@ export class GestioneClienteComponent {
         })
     }
 
-    ricercaFiltrata() {
-      const queryParams : ricercaCommessa = this.ricercaForm.value;
-  
-      this.commessaService.getVistaCommessaFiltrata(queryParams)
+    ricercaFiltrata(){
+      const queryParams : ricercaCliente = this.ricercaForm.value;
+      console.log(queryParams)
+      this.clienteService.getVistaClienteFiltrata(queryParams)
     .subscribe(
       {
         next:(res) => 
         {
           console.log(res)
-          this.datiCommessa = res.map((commessa : any)=>({
-            
+          this.datiCliente = res.map((cliente : any)=>({
+            Idcliente: cliente.idcliente,
+            Ragionesociale: cliente.ragionesociale,
+            Partitaiva: cliente.partitaiva,
+            Sedelegale: cliente.sedelegale, 
+            Sedeoperativa: cliente.sedeoperativa,
+            Patinail: cliente.patinail, 
+            Rappresentantelegale: cliente.rappresentantelegale, 
+            Sedelavoro: cliente.sedelavoro, 
+            Codiceateco: cliente.codiceateco, 
+            Numerotelefono: cliente.numerotelefono,
+            Indirizzopec: cliente.indirizzopec, 
+            Refamministratore: cliente.refamministratore, 
+            Emailrefammin: cliente.emailrefammin, 
+            Telefonorefammin: cliente.telefonorefammin, 
+            FlagAttiva: cliente.flagAttiva, 
           }));
+          console.log(this.datiCliente)
         },
         error:(err) =>
         {
@@ -85,7 +103,5 @@ export class GestioneClienteComponent {
         }
       });
     }
-  }*/
-
 }
 
