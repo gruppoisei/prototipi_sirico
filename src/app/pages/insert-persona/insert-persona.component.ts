@@ -116,7 +116,7 @@ constructor
         AnpeEmailaziendale: ['', [Validators.required, Validators.email]],
         AnpeEmailpersonale: ['', Validators.email],
         AnpeFkAnsoSocietaid: ['', Validators.required],
-        AnpeSysuser: "gia" //[this.utenteLoggato]
+        AnpeSysuser: [this.utenteLoggato]
       })
        this.defaultValues = this.insertPersona.value
 

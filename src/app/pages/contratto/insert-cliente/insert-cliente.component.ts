@@ -13,32 +13,24 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class InsertClienteComponent implements OnInit {
 
-  clienteSocieta: any;
+  myForm !: FormGroup;
+  //clienteSocieta: any;
+  defaultValues : any;
   isPhoneNumberError: boolean = false;
-  validPartitaIva: boolean = true;
-  public myForm:FormGroup  = this.fg.group(
-    {
-      listaElementi: new FormControl(Validators.min(1)),
-      Ragionesociale:new FormControl(null,[Validators.required]),
-      Partitaiva:new FormControl(null,[Validators.minLength(8)]),
-      Sedelegale:new FormControl(null,[]),
-      Sedeoperativa: new FormControl(null,[]),
-      Patinail:new FormControl(null,[]),
-      Rappresentantelegale:new FormControl(null,[]),
-      Sedelavoro:new FormControl(null,[]),
-      Codiceateco:new FormControl(null,[]),
-      Numerotelefono:new FormControl(null,[]),
-      Indirizzopec:new FormControl(null,[]),
-      Refamministratore:new FormControl(null,[]),
-      Emailrefammin:new FormControl(null,[Validators.email]),
-      Telefonorefammin:new FormControl(null,[]),
-      
-    })
+  validPartitaIva: boolean = true;  
+
+  
   // constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
   // utenteLoggato: string | null = "";
 
-  constructor(private _service: InsertContrattoService,private fg:FormBuilder, private router: Router, private location: Location) {
-    this.clienteSocieta = {
+  constructor(
+    private _service: InsertContrattoService,
+    private fb:FormBuilder,
+    private router: Router,
+    private location: Location
+  ) {
+    /*
+    this.myForm = {
       Ragionesociale: null,
       Partitaiva: null,
       Sedelegale: null,
@@ -55,13 +47,51 @@ export class InsertClienteComponent implements OnInit {
       Sysuser: "frontend",
       FlagAttiva: true,
     };
+    */
+    //this.defaultValues = this.myForm;
+    //this.myForm = this.defaultValues;
+    //this.defaultValues2 = this.myForm.value;
+    //this.provaStampa()
   }
 
   ngOnInit(): void {
     // this.utenteLoggato = sessionStorage.getItem('SysUser');
     //this.clearForm();
+
+    this.myForm  = this.fb.group(
+      {
+        listaElementi: new FormControl(Validators.min(1)),
+        Ragionesociale:new FormControl(null,[Validators.required]),
+        Partitaiva:new FormControl(null,[Validators.minLength(8)]),
+        Sedelegale:new FormControl(null,[]),
+        Sedeoperativa: new FormControl(null,[]),
+        Patinail:new FormControl(null,[]),
+        Rappresentantelegale:new FormControl(null,[]),
+        Sedelavoro:new FormControl(null,[]),
+        Codiceateco:new FormControl(null,[]),
+        Numerotelefono:new FormControl(null,[]),
+        Indirizzopec:new FormControl(null,[]),
+        Refamministratore:new FormControl(null,[]),
+        Emailrefammin:new FormControl(null,[Validators.email]),
+        Telefonorefammin:new FormControl(null,[]),
+        
+      })
+      this.defaultValues = this.myForm.value;
+      this.provaStampa();
   }
 
+  provaStampa() {
+    console.log('provaStampa() START');
+    console.log('this.myForm:');
+    console.log(this.myForm);
+    console.log('this.myForm.value:');
+    console.log(this.myForm.value);
+    console.log('this.defaultValues:');
+    console.log(this.defaultValues);
+    console.log('provaStampa() END');
+  }
+
+/*
   clearForm(): void {
     this.clienteSocieta = {
       Ragionesociale: null,
@@ -81,7 +111,9 @@ export class InsertClienteComponent implements OnInit {
       FlagAttiva: true,
     };
   }
+*/
 
+/*
   submitForm() {
     // this.clienteSocieta.sysuser = this.utenteLoggato; 
     if (this.isFormValid()) {
@@ -101,8 +133,8 @@ export class InsertClienteComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    /*se ( ragione sociale non vuota, partita iva non vuota e valida, pat inali non vuoto e valido, e
-      e (email valida o null) e (numero telefono valido o null) e (codice ateco valido o null)) ritorna vero */
+    // se ( ragione sociale non vuota, partita iva non vuota e valida, pat inali non vuoto e valido, e
+    //  e (email valida o null) e (numero telefono valido o null) e (codice ateco valido o null)) ritorna vero 
 
     if ((this.clienteSocieta.Ragionesociale != null) &&
       (this.clienteSocieta.Partitaiva != null && ValidaPartita.IVA(this.clienteSocieta.partitaIVA)) &&
@@ -146,10 +178,21 @@ export class InsertClienteComponent implements OnInit {
     const patInailRegex = /^[A-Za-z]{3}\d{7}$/;
     return patInailRegex.test(patInailCode);
   }
+*/
 
   closeInsertCliente() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
       this.location.back();
     }
+  }
+
+  goBack() : void
+  {
+    this.location.back();
+  }
+
+  clearSearch()
+  {
+    this.myForm.reset(this.defaultValues);
   }
 }
