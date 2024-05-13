@@ -255,11 +255,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     );
   }
 
-  stampastato() {
-    console.log("persona con distacco : " + this.personaConDistacchi);
-    console.log("persona con distacco Aperto : " + this.personaConDistacchiAperti);
-  }
-
   openModalIfLastOptionSelected(event: MatSelectChange) {  //nuovo cliente
     if (event.value === -1) {
       const dialogRef = this.dialog.open(InsertClienteComponent, {
@@ -274,7 +269,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   }
 
   openCronologiaDistaccoModal(personaId: number) {
-    this.stampastato();
     //this.distaccoEsiste(this.formData.personaId)
     //if(this.personaConDistacchiAperti){
       //console.log("personaId: " + personaId);

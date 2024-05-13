@@ -182,8 +182,7 @@
                         </div>
                         <div class="w-full padding-top" *ngIf="formData.personaId !== null && formData.codiContrattopersid !== null && !personaConDistacchi">
                             <button mat-button type="button"
-                                [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi, 'disabled-button': !!personaConDistacchiAperti}"
-                                (click)="stampastato()">
+                                [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi, 'disabled-button': !!personaConDistacchiAperti}">
                                 Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}
                             </button>
                         </div>
