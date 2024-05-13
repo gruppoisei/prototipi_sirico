@@ -1,5 +1,6 @@
 <div class="flex justify-center my-10 text-4xl font-bold">
-    <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2>
+    <!-- <h2 class="text-center text-2xl font-semibold mb-4">Inserimento Cliente</h2> -->
+    <h2 class="text-center text-2xl font-semibold mb-4">{{ titolo }}</h2>
 </div>
 
 <div class="container mx-auto flex flex-row justify-center max-w-4xl flex-col my-10">
@@ -91,10 +92,12 @@
     </form>
 </div>
 
+<!-- <form [formGroup]="provaForm" (ngSubmit)="onSubmitProva()">
 
-<!-- <app-form-select titolo="prova" nomeCampoValore="id" elementoDefault="--valore inizio--" nomeCampoDescrizione="nome"
+<app-form-select titolo="prova" nomeCampoValore="id" elementoDefault="--valore inizio--" nomeCampoDescrizione="nome"
     [listaElementi]="listaIdValore" formControlName="elementoSelect"
     [touched]="this.myForm.get('elementoSelect')?.touched"
-    [errore]="this.myForm.get('elementoSelect')?.errors"></app-form-select> -->
+    [errore]="this.myForm.get('elementoSelect')?.errors"></app-form-select>
 
+</form> -->
 <!-- nomeCampoDescrizione="qualcosa" -->
