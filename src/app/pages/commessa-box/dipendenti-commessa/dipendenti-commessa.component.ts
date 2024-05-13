@@ -23,6 +23,8 @@ export class DipendentiCommessaComponent implements OnInit {
   checkBoxStatus: {[id: number]: boolean} = {};
   listaCommesse: any[] = [];
   formDefaultValue: any;
+  datiDipendentiPaginati: any[] = [];
+  totalPages : number = 0
 
 constructor(private fb : FormBuilder, private personaService : PersonaService, private commessaService : CommessaService, private location : Location){
 }
@@ -36,25 +38,38 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
     })
     this.getPersoneSocieta()
     this.getCommesse()
+    this.caricaDatiPaginati()
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()
-
   }
+
   calcolaIndiciPagina(): {startIndex: number, endIndex: number}{
     const startIndex = (this.paginaCorrente-1)* this.elementiPerPagina;
     let endIndex = startIndex + this.elementiPerPagina -1;
     endIndex = endIndex >= this.datiDipendenti.length ? this.datiDipendenti.length - 1 : endIndex;
     return {startIndex, endIndex}
   }
+
   nextPage(){
     if(this.paginaCorrente < this.getTotalPages()){
-      this.paginaCorrente++
+      this.paginaCorrente++;
+      this.cambiaPagina(this.paginaCorrente); // Emetti l'evento per il cambio di pagina
     }
   }
 
-  prevPage() {
-    if (this.paginaCorrente > 1) {
-      this.paginaCorrente--;
-    }
+  cambiaElementiPerPagina(itemsPerPage: number) {
+    this.elementiPerPagina = itemsPerPage;
+    this.caricaDatiPaginati();
+  }
+
+  cambiaPagina(page: number) {
+    this.paginaCorrente = page;
+    this.caricaDatiPaginati();
+  }
+
+  caricaDatiPaginati() {
+    const startIndex = (this.paginaCorrente - 1) * this.elementiPerPagina;
+    const endIndex = startIndex + this.elementiPerPagina;
+    this.datiDipendentiPaginati = this.datiDipendenti.slice(startIndex, endIndex);
   }
 
   getTotalPages() {
