@@ -72,36 +72,40 @@ export class GestioneClienteComponent {
     this.clienteService.getVistaClienteFiltrata(queryParams)
       .subscribe(
         {
-          next: (res) => {
-            //console.log(res)
-            this.datiCliente = res.map((cliente: any) => ({
-              Idcliente: cliente.idcliente,
-              Ragionesociale: cliente.ragionesociale,
-              Partitaiva: cliente.partitaiva,
-              Sedelegale: cliente.sedelegale,
-              Sedeoperativa: cliente.sedeoperativa,
-              Patinail: cliente.patinail,
-              Rappresentantelegale: cliente.rappresentantelegale,
-              Sedelavoro: cliente.sedelavoro,
-              Codiceateco: cliente.codiceateco,
-              Numerotelefono: cliente.numerotelefono,
-              Indirizzopec: cliente.indirizzopec,
-              Refamministratore: cliente.refamministratore,
-              Emailrefammin: cliente.emailrefammin,
-              Telefonorefammin: cliente.telefonorefammin,
-              FlagAttiva: cliente.flagAttiva,
-            }));
-            console.log(this.datiCliente)
-          },
-          error: (err) => {
-            this.dialog.open(ErrorLoginDialogComponent,
-              {
-                data: { errorMessage: err?.error.message },
-                width: 'auto',
-                height: 'auto'
-              });
-          }
-        });
+          console.log(res)
+          this.datiCliente = res.map((cliente : any)=>({
+            Idcliente: cliente.idcliente,
+            Ragionesociale: cliente.ragionesociale,
+            Partitaiva: cliente.partitaiva,
+            Sedelegale: cliente.sedelegale, 
+            Sedeoperativa: cliente.sedeoperativa,
+            Patinail: cliente.patinail, 
+            Rappresentantelegale: cliente.rappresentantelegale, 
+            Sedelavoro: cliente.sedelavoro, 
+            Codiceateco: cliente.codiceateco, 
+            Numerotelefono: cliente.numerotelefono,
+            Indirizzopec: cliente.indirizzopec, 
+            Refamministratore: cliente.refamministratore, 
+            Emailrefammin: cliente.emailrefammin, 
+            Telefonorefammin: cliente.telefonorefammin, 
+            FlagAttiva: cliente.flagAttiva, 
+          }));
+          console.log(this.datiCliente)
+        },
+        error:(err) =>
+        {
+          this.dialog.open(ErrorLoginDialogComponent,
+            {
+              data: {errorMessage : err?.error.message},
+              width: 'auto',
+              height: 'auto'
+            });
+        }
+      });
+    }
+
+    mostraNotaCompleta(nota: string) {
+      alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
   }
 }
 

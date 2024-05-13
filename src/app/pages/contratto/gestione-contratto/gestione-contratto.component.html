@@ -15,7 +15,7 @@
             <select [(ngModel)]="formDataSearch.ansoSocietaid" class="box" name="Societa" required
                 class="mx-5 w-1/2 p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <option disabled selected>--Seleziona la società--</option>
-                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
+                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.societaid">{{ tipo.ragionesociale }}
                 </option>
             </select>
         </div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,6 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UtilityCostiPersonaleService {
+  httpOptions: Object = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }), responseType: 'text'
+  };
 
   baseUrl = 'http://localhost:5143/CostiMensiliPersonale/';
 
@@ -17,5 +22,11 @@ export class UtilityCostiPersonaleService {
       formData.append(`fileAllegati`, fileAllegati[i]);
     }
     return this.http.post<any>(`${this.baseUrl}uploadESalvaExcels`, formData)
+  }
+
+  
+  GetCostiByMatricolaMeseAnno(IdPersona: number): Observable<any> {
+    var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
+    return this.http.get<any>(`${this.baseUrl}GetCostiPersonaleByMatricolaPersona?personaId=` + IdPersona );
   }
 }
