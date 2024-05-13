@@ -27,6 +27,8 @@ export class InsertClienteComponent {
     }
   )
 
+  titolo: string = "";
+
   nuovoCliente: clienteSocieta | null = null;
 
   public myForm: FormGroup = this.fg.group(
@@ -61,8 +63,10 @@ export class InsertClienteComponent {
     private router: Router
   ) {
 
-
     this.clienteService.idCliente$.value !== undefined ? this.getClienteById() : null;
+
+    this.titolo = this.clienteService.getTitolo();
+
   }
 
   ngOnDestroy(): void {
@@ -109,23 +113,26 @@ export class InsertClienteComponent {
 
   onSubmit() {
     if (!this.myForm.valid) {
-      this.myForm.markAllAsTouched();      
-    } else {      
+      this.myForm.markAllAsTouched();
+    } else {
       this.nuovoCliente = this.myForm.getRawValue();
       //console.log(this.nuovoCliente);
       this.clienteService.saveClienteData(this.nuovoCliente!).subscribe(
         (response) => {
           console.log('Dati inviati con successo al backend:')
-          console.log(response);
-          
-          this.clienteService.idCliente$.next(undefined);
-          this.myForm.reset();
-          this.myForm.markAsUntouched();
+          console.log(response.message);
+          alert(response.message);
+
+          if (response.message == "Inserimento nuovo cliente avvenuto correttamente." || response.message == "Modifica cliente esistente avvenuta correttamente.") {
+            this.clienteService.idCliente$.next(undefined);
+            this.myForm.reset();
+            this.myForm.markAsUntouched();
+          }
         },
         (error) => {
           console.error("Errore nell'invio dei dati al backend:", error);
 
-        }        
+        }
       );
     }
   }
@@ -136,6 +143,13 @@ export class InsertClienteComponent {
       this.router.navigate(['/Segreteria/gestione-cliente']);
     }
   }
+
+  onSubmitProva() {
+    console.log(this.provaForm.value);
+  }
+
+
+
 }
 
 

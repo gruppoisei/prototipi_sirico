@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './gestione-cliente.component.scss'
 })
 export class GestioneClienteComponent {
+
   ricercaForm!: FormGroup;
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
@@ -66,47 +67,71 @@ export class GestioneClienteComponent {
       })
   }
 
-  ricercaFiltrata(){
-    const queryParams : ricercaCliente = this.ricercaForm.value;
+  openDialogRestore(Idcliente: number) {
+    console.log('openDialogRecover() START');
+    //
+    if (confirm ("Il cliente selezionato verrà ripristinato. Continuare?")) {
+      this.clienteService.riattivaClienteById(Idcliente).subscribe(
+        (response: any) => {          
+          console.log(response);
+          this.ricercaFiltrata(); 
+        },
+        (error: any) => {
+          console.error(
+            'Errore durante il caricament delle aziende clienti per il distacco.'
+          );
+        }
+      );
+    }
+    //
+    console.log('openDialogRecover() END');
+  }
+
+  toggleRicerca() {
+    if (this.datiCliente.length != 0) {
+      this.ricercaFiltrata();
+    }
+  }
+
+  ricercaFiltrata() {
+    const queryParams: ricercaCliente = this.ricercaForm.value;
     console.log(queryParams)
     this.clienteService.getVistaClienteFiltrata(queryParams)
-  .subscribe(
-    {
-      next:(res) =>
-      {
-        console.log(res)
-        this.datiCliente = res.map((cliente : any)=>({
-          Idcliente: cliente.idcliente,
-          Ragionesociale: cliente.ragionesociale,
-          Partitaiva: cliente.partitaiva,
-          Sedelegale: cliente.sedelegale,
-          Sedeoperativa: cliente.sedeoperativa,
-          Patinail: cliente.patinail,
-          Rappresentantelegale: cliente.rappresentantelegale,
-          Sedelavoro: cliente.sedelavoro,
-          Codiceateco: cliente.codiceateco,
-          Numerotelefono: cliente.numerotelefono,
-          Indirizzopec: cliente.indirizzopec,
-          Refamministratore: cliente.refamministratore,
-          Emailrefammin: cliente.emailrefammin,
-          Telefonorefammin: cliente.telefonorefammin,
-          FlagAttiva: cliente.flagAttiva,
-        }));
-        console.log(this.datiCliente)
-      },
-      error:(err) =>
-      {
-        this.dialog.open(ErrorLoginDialogComponent,
-          {
-            data: {errorMessage : err?.error.message},
-            width: 'auto',
-            height: 'auto'
-          });
-      }
-    });
+      .subscribe(
+        {
+          next: (res) => {
+            console.log(res)
+            this.datiCliente = res.map((cliente: any) => ({
+              Idcliente: cliente.idcliente,
+              Ragionesociale: cliente.ragionesociale,
+              Partitaiva: cliente.partitaiva,
+              Sedelegale: cliente.sedelegale,
+              Sedeoperativa: cliente.sedeoperativa,
+              Patinail: cliente.patinail,
+              Rappresentantelegale: cliente.rappresentantelegale,
+              Sedelavoro: cliente.sedelavoro,
+              Codiceateco: cliente.codiceateco,
+              Numerotelefono: cliente.numerotelefono,
+              Indirizzopec: cliente.indirizzopec,
+              Refamministratore: cliente.refamministratore,
+              Emailrefammin: cliente.emailrefammin,
+              Telefonorefammin: cliente.telefonorefammin,
+              FlagAttiva: cliente.flagAttiva,
+            }));
+            console.log(this.datiCliente)
+          },
+          error: (err) => {
+            this.dialog.open(ErrorLoginDialogComponent,
+              {
+                data: { errorMessage: err?.error.message },
+                width: 'auto',
+                height: 'auto'
+              });
+          }
+        });
   }
-    mostraNotaCompleta(nota: string) {
-      alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
+  mostraNotaCompleta(nota: string) {
+    alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
   }
 }
 
