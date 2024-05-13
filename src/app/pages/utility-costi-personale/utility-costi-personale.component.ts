@@ -4,6 +4,7 @@ import { extExcel } from '../../enum/estenzioneFile';
 import { UtilityCostiPersonaleService } from '../../service/utility-costi-personale.service';
 import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
 import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-utility-costi-personale',
@@ -17,9 +18,8 @@ export class UtilityCostiPersonaleComponent {
   enabled: boolean =  true;
   uploadValidation: boolean = true;
   utenteLoggato: string | null = null;
-  dialog: any;
 
-  constructor(private http: HttpClient, private serviceCostiPersonale: UtilityCostiPersonaleService) {}
+  constructor(private http: HttpClient, private serviceCostiPersonale: UtilityCostiPersonaleService, private dialog : MatDialog) {}
 
   ngOnInit(): void {
     this.utenteLoggato = sessionStorage.getItem('SysUser');
@@ -29,9 +29,9 @@ export class UtilityCostiPersonaleComponent {
     this.selectedFiles = $event;
 
     //controllo per estenzione
-    const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
+    //const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
     //TODO
-    //if(this.selectedFiles.)
+    //if(this.selectedFiles.???)
   }
 
   salva(){
@@ -73,7 +73,7 @@ export class UtilityCostiPersonaleComponent {
   }
 
 
-  stampa() {
+/*   stampa() {
     this.http.get<any>('URL_DELLA_TUA_API').subscribe((data) => {
       this.stampaLista(data);
     });
@@ -82,5 +82,6 @@ export class UtilityCostiPersonaleComponent {
   stampaLista(lista: any[]) {
     //TODO
     console.log(lista);
-  }
+  } */
+
 }

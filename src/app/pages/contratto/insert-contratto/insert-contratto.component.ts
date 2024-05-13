@@ -51,6 +51,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   utenteLoggato: string | null = "";
   arrayErrori: string[] = [];
   personaConDistacchi: boolean = false;
+  personaConDistacchiAperti: boolean = false;
   erroreCostoOrario: boolean = false;
   erroreCostoMensile: boolean = false;
   meseCorrente: number = 12;
@@ -231,8 +232,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.getAllClienti();
     this.getAllTipitipiMotiviFineContratto();
     this.controllovisibilPartitaIva();
+    this.distaccoEsiste(this.formData.personaId);
     
-
     this.disable_fields = true;
   }
   
@@ -243,8 +244,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.inserimentoContrattoService.getCronologiaDistacco(this.formData.personaId).subscribe(
       (response: any) => {
         console.log(response);
-        this.personaConDistacchi = !!response ? true : false;
-        console.log("persona con distacchi ritorna = " + this.personaConDistacchi);
+        this.personaConDistacchi = response.length > 0;
+        console.log("persona con distacchi ritorna = " + this.personaConDistacchi + " e response è " + JSON.stringify(response));
         //this.personaConDistacchi = response.length > 0 ? true : false;
       },
       (error: any) => {
@@ -252,6 +253,11 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         console.log("errore durante chiamata per cronologia distacco");
       }
     );
+  }
+
+  stampastato() {
+    console.log("persona con distacco : " + this.personaConDistacchi);
+    console.log("persona con distacco Aperto : " + this.personaConDistacchiAperti);
   }
 
   openModalIfLastOptionSelected(event: MatSelectChange) {  //nuovo cliente
@@ -268,15 +274,19 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   }
 
   openCronologiaDistaccoModal(personaId: number) {
-    //console.log("personaId: " + personaId);
-    this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
-    this.inserimentoContrattoService.nomePersonaCronologiaDistacchi = this.formData.nome;
-    this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = this.formData.cognome;
+    this.stampastato();
+    //this.distaccoEsiste(this.formData.personaId)
+    //if(this.personaConDistacchiAperti){
+      //console.log("personaId: " + personaId);
+      this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
+      this.inserimentoContrattoService.nomePersonaCronologiaDistacchi = this.formData.nome;
+      this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = this.formData.cognome;
 
-    const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
-      width: '75%',
-      height: '80%',
-    });
+      const dialogRef = this.dialog.open(CronologiaDistaccoComponent, {
+        width: '75%',
+        height: '80%',
+      });
+    //}
   }
 
   closeForm() {
@@ -506,7 +516,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
       this.loadCosts(this.formData.personaId);
       //console.log("persona con distacchi : " + this.personaConDistacchi);
-      this.personaConDistacchi = !!this.formData.codsDistaccoid ? true : false;
+      this.personaConDistacchiAperti = !!this.formData.codsDistaccoid ? true : false;
+      this.distaccoEsiste(this.formData.personaId);
       //console.log("persona con distacchi : " + this.personaConDistacchi);
       //console.log("response del get contratti by id : " + JSON.stringify(this.formData));
       return true;

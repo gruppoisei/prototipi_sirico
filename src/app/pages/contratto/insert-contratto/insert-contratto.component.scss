@@ -26,8 +26,14 @@
     padding-top: 20px; 
   }
 
-  [disabled] {
+/*   [disabled] {
     background-color: grey;
+} */
+
+.disabled-button {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .blue-button {

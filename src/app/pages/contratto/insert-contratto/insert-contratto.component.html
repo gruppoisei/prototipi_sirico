@@ -173,10 +173,17 @@
                                     placeholder="Data fine distacco" [required]="formData.codsFlagAttiva == 1">
                             </mat-form-field>
                         </mat-expansion-panel>
-                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && (formData.codiContrattopersid !== null || personaConDistacchi)">
+                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && formData.codiContrattopersid !== null && personaConDistacchi">
                             <button mat-button type="button"
-                                    [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi}"
-                                    (click)="openCronologiaDistaccoModal(formData.personaId)">
+                                [ngClass]="{'blue-button': personaConDistacchiAperti, 'gray-button': !personaConDistacchiAperti}"
+                                (click)="openCronologiaDistaccoModal(formData.personaId)">
+                                Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}
+                            </button>
+                        </div>
+                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && formData.codiContrattopersid !== null && !personaConDistacchi">
+                            <button mat-button type="button"
+                                [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi, 'disabled-button': !!personaConDistacchiAperti}"
+                                (click)="stampastato()">
                                 Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}
                             </button>
                         </div>
