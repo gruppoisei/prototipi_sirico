@@ -87,7 +87,13 @@
                     </thead>
                     <tbody class="divide-y divide-gray-300">
                         <tr *ngFor="let dipendenti of datiDipendenti.slice(calcolaIndiciPagina().startIndex, calcolaIndiciPagina().endIndex + 1); let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
-                            <td class="p-3 text-sm text-gray-700"><input type="checkbox" [checked]="checkBoxStatus[dipendenti.anpePersonaid]" [disabled]="checkBoxStatus[dipendenti.anpePersonaid]" (change)="addDipendenteSelezionato(dipendenti)"></td>
+                            <td class="p-3 text-sm text-gray-700">
+                                <button class="text-green-500"
+                                [disabled]="checkBoxStatus[dipendenti.anpePersonaid]"
+                                (click)="addDipendenteSelezionato(dipendenti)">
+                                <mat-icon>add_circle_outline</mat-icon>
+                            </button>
+                            </td>
                             <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeNome}}</td>
                             <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeCognome}}</td>
                             <td class="p-3 text-sm text-gray-700">{{dipendenti.ansoRagionesociale}}</td>

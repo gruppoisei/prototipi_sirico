@@ -103,5 +103,9 @@ export class GestioneClienteComponent {
         }
       });
     }
+
+    mostraNotaCompleta(nota: string) {
+      alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
+  }
 }
 

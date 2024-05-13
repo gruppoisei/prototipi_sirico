@@ -10,8 +10,8 @@
             <input formControlName="RagioneSociale" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per ragione sociale..." required />
             <input formControlName="PartitaIva" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per partita iva..." required />
         </div> 
-        <div class="flex flex-row mb-5">
-            <label class="flex flex-row justify-end mt-10">
+        <div class="flex flex-row justify-end mb-5">
+            <label class="flex flex-row mt-10">
                 <input formControlName="FlagAttiva" type="checkbox" class="sr-only peer">
                 <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Cliente Attivo</span>
                 <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -50,9 +50,9 @@
                     </td>
                     <td class="px-6 py-4">{{ cliente.Ragionesociale }}</td>
                     <td class="px-6 py-4">{{ cliente.Partitaiva }}</td>
-                    <td class="px-6 py-4">{{ cliente.Sedelegale }}</td>
-                    <td class="px-6 py-4">{{ cliente.Sedeoperativa }}</td>
-                    <td class="px-6 py-4">{{ cliente.Sedelavoro }}</td>
+                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedelegale)">{{ cliente.Sedelegale }}</td>
+                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedeoperativa)">{{ cliente.Sedeoperativa }}</td>
+                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedelavoro)">{{ cliente.Sedelavoro }}</td>
                     <td class="px-6 py-4">{{ cliente.Rappresentantelegale }}</td>
                     <td class="px-6 py-4">{{ cliente.Numerotelefono }}</td>
                     <td class="px-6 py-4">{{ cliente.Indirizzopec }}</td>
