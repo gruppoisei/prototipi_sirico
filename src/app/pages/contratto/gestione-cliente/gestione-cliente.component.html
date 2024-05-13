@@ -1,63 +1,83 @@
-<div class = "flex justify-center my-10 text-4xl font-bold">
+<div class="flex justify-center my-10 text-4xl font-bold">
     <h2>Ricerca Cliente</h2>
 </div>
-<div class = "flex flex-row justify-center my-10">
+<div class="flex flex-row justify-center my-10">
     <form [formGroup]="ricercaForm" class="w-3/4">
         <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/Segreteria/insert-cliente"><button (click)="setTitoloNuovoCliente()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
+            <a routerLink="/Segreteria/insert-cliente"><button (click)="setTitoloNuovoCliente()" mat-icon
+                    class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
-            <input formControlName="RagioneSociale" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per ragione sociale..." required />
-            <input formControlName="PartitaIva" type="search" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per partita iva..." required />
-        </div> 
+            <input formControlName="RagioneSociale" type="search"
+                class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per ragione sociale..." required />
+            <input formControlName="PartitaIva" type="search"
+                class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Cerca per partita iva..." required />
+        </div>
         <div class="flex flex-row justify-end mb-5">
             <label class="flex flex-row mt-10">
-                <input formControlName="FlagAttiva" type="checkbox" class="sr-only peer">
+                <input formControlName="FlagAttiva" type="checkbox" class="sr-only peer" (change)="toggleRicerca()">
                 <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Cliente Attivo</span>
-                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <div
+                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
             </label>
         </div>
-        <div class = "flex flex-row justify-end mt-10">
-            <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
-            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+        <div class="flex flex-row justify-end mt-10">
+            <button type="submit" (click)="ricercaFiltrata()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button (click)="clearSearch()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
         </div>
     </form>
 </div>
 
-<div class = "flex justify-center my-10 text-4xl font-bold">
+<div class="flex justify-center my-10 text-4xl font-bold">
     <h2>Elenco Clienti</h2>
 </div>
-    <div class="flex flex-row justify-center">
-        <table class="w-4/5 text-base text-left rtl:text-right my-10">
-            <thead class="text-sm uppercase text-white bg-blue-600">
-                <tr>
-                    <th scope="col" class="px-6 py-3">Azioni</th>
-                    <th scope="col" class="px-6 py-3">Ragione Sociale</th>
-                    <th scope="col" class="px-6 py-3">Partita Iva</th>
-                    <th scope="col" class="px-6 py-3">Sede Legale</th>
-                    <th scope="col" class="px-6 py-3">Sede Operativa</th>
-                    <th scope="col" class="px-6 py-3">Sede Lavoro</th>
-                    <th scope="col" class="px-6 py-3">Rappresentante Legale</th>
-                    <th scope="col" class="px-6 py-3">Numero Telefono</th>
-                    <th scope="col" class="px-6 py-3">Indirizzo Pec</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let cliente of datiCliente" class="bg-white border-b">
-                    <td class="px-6 py-4 flex gap-3">
-                        <a routerLink="/Segreteria/insert-cliente" (click)="setTitoloModificaCliente(); getCliente(cliente.Idcliente)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
-                        <button mat-icon (click)="openDialogDelete(cliente.Idcliente)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
-                    </td>
-                    <td class="px-6 py-4">{{ cliente.Ragionesociale }}</td>
-                    <td class="px-6 py-4">{{ cliente.Partitaiva }}</td>
-                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedelegale)">{{ cliente.Sedelegale }}</td>
-                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedeoperativa)">{{ cliente.Sedeoperativa }}</td>
-                    <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedelavoro)">{{ cliente.Sedelavoro }}</td>
-                    <td class="px-6 py-4">{{ cliente.Rappresentantelegale }}</td>
-                    <td class="px-6 py-4">{{ cliente.Numerotelefono }}</td>
-                    <td class="px-6 py-4">{{ cliente.Indirizzopec }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div *ngIf="datiCliente.length == 0" class="flex flex-row justify-center mt-20 mb-20">Nessun dato disponibile</div>
 
+<div *ngIf="datiCliente.length != 0" class="flex flex-row justify-center mb-10">
+    <table class="w-4/5 text-base text-left rtl:text-right my-10">
+        <thead class="text-sm uppercase text-white bg-blue-600">
+            <tr>
+                <th scope="col" class="px-6 py-3">Azioni</th>
+                <th scope="col" class="px-6 py-3">Ragione Sociale</th>
+                <th scope="col" class="px-6 py-3">Partita Iva</th>
+                <th scope="col" class="px-6 py-3">Sede Legale</th>
+                <th scope="col" class="px-6 py-3">Sede Operativa</th>
+                <th scope="col" class="px-6 py-3">Sede Lavoro</th>
+                <th scope="col" class="px-6 py-3">Rappresentante Legale</th>
+                <th scope="col" class="px-6 py-3">Numero Telefono</th>
+                <th scope="col" class="px-6 py-3">Indirizzo Pec</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cliente of datiCliente" class="bg-white border-b">
+                <td *ngIf="ricercaForm.value.FlagAttiva" class="px-6 py-4 flex gap-3">
+                    <!-- routerLink="/Segreteria/insert-cliente" -->
+                    <a (click)="setTitoloModificaCliente(); getCliente(cliente.Idcliente)"><button mat-icon
+                            class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
+                    <button mat-icon (click)="openDialogDelete(cliente.Idcliente)"
+                        class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                </td>
+                <td *ngIf="!ricercaForm.value.FlagAttiva">
+                    <button mat-icon (click)="openDialogRestore(cliente.Idcliente)"
+                        class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-blue-600 hover:bg-blue-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">restore</button>
+                </td>
+                <td class="px-6 py-4">{{ cliente.Ragionesociale }}</td>
+                <td class="px-6 py-4">{{ cliente.Partitaiva }}</td>
+                <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedelegale)">{{ cliente.Sedelegale
+                    }}</td>
+                <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedeoperativa)">{{
+                    cliente.Sedeoperativa }}</td>
+                <td class="px-6 py-4 nota-cell" (click)="mostraNotaCompleta(cliente.Sedelavoro)">{{ cliente.Sedelavoro
+                    }}</td>
+                <td class="px-6 py-4">{{ cliente.Rappresentantelegale }}</td>
+                <td class="px-6 py-4">{{ cliente.Numerotelefono }}</td>
+                <td class="px-6 py-4">{{ cliente.Indirizzopec }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

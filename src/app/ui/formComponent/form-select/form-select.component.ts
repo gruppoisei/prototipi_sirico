@@ -19,24 +19,32 @@ export class FormSelectComponent implements ControlValueAccessor {
   @Input()
   titolo = ""
 
+  @Input({ required: true })
+  nomeCampoValore!:string
+
+  @Input({ required: true })
+  nomeCampoDescrizione!:string
+
   @Input()
   listaElementi: any[] = [];
 
   @Input()
-  placeholder? = ""
+  elementoDefault="--Seleziona--"
 
   @Input()
   errore: any
 
-  value: string = ""
+  value:string | null = null
 
   isDisabled?: boolean;
 
-  onChange = (value: string) => { }
+  onChange = (value: string | null) => { }
   onTouch = () => { }
 
 
-  constructor() { }
+  constructor() { 
+  
+  }
 
   writeValue(obj: any): void {
     throw new Error('Method not implemented.');
@@ -62,6 +70,7 @@ export class FormSelectComponent implements ControlValueAccessor {
 
   AggiornoValore() {
     this.onChange(this.value);
+     
     this.onTouch();
   }
 
