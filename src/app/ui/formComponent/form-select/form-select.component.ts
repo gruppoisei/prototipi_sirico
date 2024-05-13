@@ -9,8 +9,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class FormSelectComponent implements ControlValueAccessor {
 
+  @Input() 
+  callbackOnChange: (args:any ) => void | any = ([]) => {}
+  
+
   @Input()
-  dirty: any;
+  touched: any;
 
   @Input()
   titolo = ""

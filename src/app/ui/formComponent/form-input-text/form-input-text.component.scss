@@ -1,5 +1,21 @@
+// .error {
+//     border: red 1px solid;
+// }
+
+// .error::placeholder {
+//     color: red;
+// }
+
+
 .error{
-    border: 1px;
     border-color: red;
-    background-color: red;
+}
+
+input:focus {
+    outline: none;
+}
+.focus  {
+    border-color: rgb(0, 162, 255);
+// 
+
 }

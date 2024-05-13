@@ -15,7 +15,7 @@
             <select [(ngModel)]="formDataSearch.ansoSocietaid" class="box" name="Societa" required
                 class="mx-5 w-1/2 p-4 ps-5 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <option disabled selected>--Seleziona la società--</option>
-                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.ansoSocietaid">{{ tipo.ansoRagionesociale }}
+                <option *ngFor="let tipo of tipiSocieta" [value]="tipo.societaid">{{ tipo.ragionesociale }}
                 </option>
             </select>
         </div>
@@ -76,8 +76,8 @@
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
 
-                    <td class="px-6 py-4 truncate">{{ dipendente.nome }}</td>
-                    <td class="px-6 py-4 truncate">{{ dipendente.cognome }}</td>
+                    <td class="px-6 py-4 truncate">{{ dipendente.nomeTroncato }}</td>
+                    <td class="px-6 py-4 truncate">{{ dipendente.cognomeTroncato }}</td>
                     <td class="px-6 py-4">{{ dipendente.societaPersona }}</td>
                     <td *ngIf="dipendente.codiDatainiziocontratto == null" class="px-6 py-4">....</td>
                     <td *ngIf="dipendente.codiDatainiziocontratto != null" class="px-6 py-4">{{ dipendente.codiDatainiziocontratto | date: 'dd-MM-yyyy' }}</td>

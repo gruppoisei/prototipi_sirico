@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { ricercaCliente } from '../dto/request/ricercaCliente';
+import { clienteSocieta } from '../dto/response/nuovoCliente';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ export class ClienteService {
           console.error('Errore durante il recupero dei dati del cliente:', err);
         }
       });
+  }
+
+  saveClienteData(datiCliente: clienteSocieta) {
+    console.log(`invio ${JSON.stringify(datiCliente)} a ${this.baseUrl}NuovoCliente`);
+    return this.http.post<any>(`${this.baseUrl}NuovoCliente`, datiCliente);
   }
   
   disabilitaClienteById(idCliente : number){
