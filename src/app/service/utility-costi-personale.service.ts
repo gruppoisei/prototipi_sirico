@@ -11,11 +11,17 @@ export class UtilityCostiPersonaleService {
 
   constructor(private http: HttpClient) { }
 
-  uploadExcels(fileAllegati: File[], utenteLoggato: string | null) : Observable<any>{
+  uploadESalvaExcels(fileAllegati: File[], utenteLoggato: string | null) : Observable<any>{
     let formData = new FormData();
     for (let i = 0; i < fileAllegati.length; i++) {
       formData.append(`fileAllegati`, fileAllegati[i]);
     }
-    return this.http.post<any>(`${this.baseUrl}UploadExcel`, formData)
+    return this.http.post<any>(`${this.baseUrl}uploadESalvaExcels`, formData)
+  }
+
+  
+  GetCostiByMatricolaMeseAnno(matricola: number, mese: number, anno: number): Observable<any> {
+    var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
+    return this.http.get<any>(`${this.baseUrl}GetCostiPersonaleByMatricolaPersona?matricola=` + matricola + "&mese=" + mese + "&anno=" + anno);
   }
 }

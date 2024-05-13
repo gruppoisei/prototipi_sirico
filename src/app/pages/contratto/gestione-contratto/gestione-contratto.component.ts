@@ -17,11 +17,8 @@ export class GestioneContrattoComponent implements OnInit {
 
   output_ricercaFiltrata: any;
 
-  tipiSocieta!: [{ ansoSocietaid: number; ansoRagionesociale: string }];
-  tipiContratto!: [{ cotcTipocontrattoid: number; cotcContratto: string }];
-  tipiCcnl!: [{ coccCcnlid: number; coccDesc: string }];
-  tipiLivello!: [{ coliLivelloid: number; coliLivellocontratto: string }];
-  tipiSocietaDistacco!: [{ ansoSocietaid: number; ansoRagionesociale: string }]
+  tipiSocieta: { societaid: number; ragionesociale: string }[] = [];
+  tipiLivello: { livelloid: number; livelloContratto: string; }[] = [];
   dipendentiConContratto: any[] = [];
   formData: FormGroup;
   utenteLoggato: string | null = '';
@@ -76,6 +73,8 @@ export class GestioneContrattoComponent implements OnInit {
     this.formData = builder.group({
       Nome: ['',Validators.minLength(1)],
       Cognome: ['',Validators.minLength(1)],
+      nomeTroncato: '',
+      cognomeTroncato: '',
       Personaid: null,
       Codicefiscale: '',
       Partitaiva: '',
@@ -109,6 +108,7 @@ export class GestioneContrattoComponent implements OnInit {
 
   ngOnInit(): void { 
     this.utenteLoggato = sessionStorage.getItem('SysUser');
+    this.getAllSocieta();
   }
 
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
@@ -118,9 +118,8 @@ export class GestioneContrattoComponent implements OnInit {
       (response: any) => {
         console.log(response);
         response.forEach((persona: any) => {
-          persona.nome = this.troncaNome(persona.nome, 10);
-          persona.cognome = this.troncaNome(persona.cognome, 10);
-          //console.log(persona.nome, persona.cognome);
+          persona.nomeTroncato = this.troncaNome(persona.nome, 10);
+          persona.cognomeTroncato = this.troncaNome(persona.cognome, 10);
           this.dipendentiConContratto = response;
           //this.dipendentiConContratto.push(persona);
         });
@@ -187,6 +186,18 @@ export class GestioneContrattoComponent implements OnInit {
       console.error("Errore nell'apertura di un contratto:", error);
       return false;
     }
+  }
+
+  getAllSocieta() {
+    this.inserimentoContrattoService.getAllTipoSocieta().subscribe(
+      (response: any) => {
+        //console.log(response);
+        this.tipiSocieta = response;
+      },
+      (error: any) => {
+        console.error('Errore durante il recupero dei tipi di societa:', error);
+      }
+    );
   }
 
   troncaNome(nome: string, lunghezzaMassima: number): string {

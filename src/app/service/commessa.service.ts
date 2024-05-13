@@ -70,4 +70,9 @@ export class CommessaService {
   clearCommessaSubject(){
     this.commessaSubject.next(null);
   }
+
+  getAllVistaCommesse()
+  {
+    return this.http.get<any>(`${this.baseUrl}GetAllVistaCommesse`)
+  }
 }

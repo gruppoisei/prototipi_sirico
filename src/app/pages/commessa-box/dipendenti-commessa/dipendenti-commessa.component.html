@@ -9,10 +9,11 @@
                 <select formControlName="commessa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                     focus:border-sky-500 focus:ring-sky-500">
                         <option value="" disable selected hidden>Scegli un'opzione</option>
-                        <option [value]="com.commessaId" *ngFor= "let com of listCommesse">
+                        <option [value]="com.commessaId" *ngFor= "let com of listaCommesse">
                             {{com.commessa}}
                         </option>
                     </select>
+                    <small *ngIf="assegnaCommessaForm.controls['commessa'].dirty && assegnaCommessaForm.hasError('required', 'commessa')" class = "text-red-600">Scegliere la commessa da assegnare ai dipendenti</small>
             </div>
 
 <!--             <div class="sm:col-span-2">
@@ -37,7 +38,7 @@
                         <mat-datepicker-toggle matPrefix [for]="pickerRequired"></mat-datepicker-toggle>
                         <mat-datepicker #pickerRequired></mat-datepicker>
                     </mat-form-field>
-                    <pre>{{ this.assegnaCommessaForm.get('dateAssegnate')?.value | json }}</pre>
+                    <small *ngIf="assegnaCommessaForm.controls['dateAssegnate'].dirty && assegnaCommessaForm.hasError('required', 'dateAssegnate')" class = "text-red-600">Inserire le date per i dipendenti</small>
             </div>
             <div class="w-full">
                 <label class="inline-flex mb-2 text-sm font-medium text-gray-900 cursor-pointer">
@@ -47,49 +48,96 @@
                 </label>
             </div>
             <div class="w-full mb-6" *ngIf="this.assegnaCommessaForm.get('FlagOreLavorative')?.value === false">             
-                <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona le ore lavorative giornaliere</label>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Quantitá di ore da lavorare giornalmente</label>
                 <select formControlName="oreGiornaliere" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                 focus:border-sky-500 focus:ring-sky-500">
                   <option [value]="8" disable selected hidden>Scegli un'opzione</option>
-                  <option [value]="7.30">7:30</option>
-                  <option [value]="7">7:00</option>
-                  <option [value]="6.30">6:30</option>
-                  <option [value]="6">6:00</option>
-                  <option [value]="5.30">5:30</option>
-                  <option [value]="5">5:00</option>
-                  <option [value]="4.30">4:30</option>
-                  <option [value]="4">4:00</option>
-                  <option [value]="3.30">3:30</option>
-                  <option [value]="3">3:00</option>
-                  <option [value]="2.30">2:30</option>
-                  <option [value]="2">2:00</option>
-                  <option [value]="1.30">1:30</option>
-                  <option [value]="1">1:00</option>
                   <option [value]="0.30">00:30</option>
+                  <option [value]="1">1:00</option>
+                  <option [value]="1.30">1:30</option>
+                  <option [value]="2">2:00</option>
+                  <option [value]="2.30">2:30</option>
+                  <option [value]="3">3:00</option>
+                  <option [value]="3.30">3:30</option>
+                  <option [value]="4">4:00</option>
+                  <option [value]="4.30">4:30</option>
+                  <option [value]="5">5:00</option>
+                  <option [value]="5.30">5:30</option>
+                  <option [value]="6">6:00</option>
+                  <option [value]="6.30">6:30</option>
+                  <option [value]="7">7:00</option>
+                  <option [value]="7.30">7:30</option>
                 </select>
             </div>
-            
-            <div class="sm:col-span-2">
-                <table class="w-full">
-                        <thead class="bg-gray-100 border-b-2 border-gray-200">
-                            <tr class>
-                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Aggiungi</th>
-                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
-                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
-                                <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Societá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let dipendenti of datiDipendenti; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
-                                <td class="p-3 text-sm text-gray-700"><input type="checkbox"></td>
-                                <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeNome}}</td>
-                                <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeCognome}}</td>
-                                <td class="p-3 text-sm text-gray-700">{{dipendenti.ansoRagionesociale}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </div>
-            
         </div>
     </form>
+</div>
+<div class="px-8 max-w-full lg:py-2">
+    <div class="py-2 px-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div [ngClass]="{'sm:col-span-2': dipendentiSelezionati.length === 0, 'w-full': dipendentiSelezionati.length > 0}">
+            <table class="w-full">
+                    <thead class="bg-gray-100 border-b-2 border-gray-200 rounded-md">
+                        <tr class>
+                            <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Aggiungi</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Societá</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Email aziendale</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-300">
+                        <tr *ngFor="let dipendenti of datiDipendenti.slice(calcolaIndiciPagina().startIndex, calcolaIndiciPagina().endIndex + 1); let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                            <td class="p-3 text-sm text-gray-700"><input type="checkbox" [checked]="checkBoxStatus[dipendenti.anpePersonaid]" [disabled]="checkBoxStatus[dipendenti.anpePersonaid]" (change)="addDipendenteSelezionato(dipendenti)"></td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeNome}}</td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeCognome}}</td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenti.ansoRagionesociale}}</td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeEmailaziendale}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+               <div class="flex justify-center mt-10">
+    <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md mr-2" (click)="prevPage()" [disabled]="paginaCorrente === 1">
+        <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg>
+        Precedente
+    </button>
+    <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md" (click)="nextPage()" [disabled]="paginaCorrente === getTotalPages()">
+        Successiva
+        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+    </button>
+</div>
+
+        </div>
+        <div class="w-full" *ngIf="dipendentiSelezionati.length > 0">
+            <table class="w-full">
+                    <thead class="bg-gray-100 border-b-2 border-gray-200">
+                        <tr class>
+                            <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Rimuovi</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Societá</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Email aziendale</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr *ngFor="let dipendenteSelezionato of dipendentiSelezionati; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                            <td class="p-3 text-sm text-gray-700"><button class = "text-red-500" (click)="removeDipendenteSelezionato(dipendenteSelezionato)"><mat-icon>remove_circle_outline</mat-icon></button></td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeNome}}</td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeCognome}}</td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.ansoRagionesociale}}</td>
+                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeEmailaziendale}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-center mb-10 mt-10 gap-4">
+        <button type="submit" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salva</button>
+        <button (click)="goBack()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancella</button>
+        <button (click)="clearForm()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Chiudi</button>
+        </div>
 </div>

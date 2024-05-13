@@ -1,43 +1,28 @@
-<div class="bg-slate-200 m-2 p-2 w-fit h-fit" >
-    <p>{{titolo}}</p>
-    <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value">
+<div class="bg-white m-2 p-2 h-fit">
+    <p class="mb-2">{{titolo}}<span class="text-xs" *ngIf="required">*</span></p>
+
+    <input #myinput id="eee" [type]="type" class="block w-full px-3 py-2 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
+    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+    invalid:border-pink-500 :text-pink-600 " [class.error]="errore != null && touched != false"
+        [class.focus]="focus && errore == null" (focus)="setGetFocus()" (focusout)="setLoseFocus()"
+        [placeholder]="placeholder" (change)="onChangeEvent()" (input)="AggiornoValore();onInputEvent()"
+        [(ngModel)]="value">
+
+
+    <div class="ml-2 mt-[2px] text-xs text-red-400" *ngIf="errore != null && touched != false  ">
+        <p *ngIf="errore.required ">
+            campo obbligatorio
+        </p>
+        <p *ngIf="errore.passwordStrength ">
+            password non valida
+        </p>
+        <p *ngIf="errore.minlength ">
+            lunghezza minima richiesta {{errore.minlength.actualLength}}/{{errore.minlength.requiredLength}}
+        </p>
+        <p *ngIf="errore.maxlength ">
+            lunghezza massima richiesta {{errore.maxlength.actualLength}}/{{errore.maxlength.requiredLength}}
+        </p>
+        <p *ngIf="errore.email">email non valida</p>
+
+    </div>
 </div>
-
-<div *ngIf="errore != null && errore != undefined ">
-
-    <div *ngIf="errore.minlength && dirty != false">
-        <ng-component *ngTemplateOutlet="erroreMinLength; context: { $implicit: errore.minlength }"/>      
-    </div>
-    <div *ngIf="errore.required">
-        <ng-component [ngTemplateOutlet]="erroreCampoObbligatorio" />      
-    </div>
-    <div *ngIf="errore.email">
-        <ng-component [ngTemplateOutlet]="erroreEmail" />      
-    </div>
-</div>
-
-<!--<button ()="onChangeT()">stampa</button>-->
-
-
-<ng-template #erroreMinLength let-minleng>
-    
-    <p class="text-red-400">
-        lunghezza minima richiesta {{errore.minlength.actualLength}}/{{errore.minlength.requiredLength}}
-    </p>
-</ng-template>
-
-
-<ng-template #erroreEmail>
-    
-    <p class="text-red-400">
-        Email non valida
-    </p>
-</ng-template>
-
-<ng-template #erroreCampoObbligatorio>
-    
-    <p class="text-red-400">
-        campo obbligatorio
-    </p>
-</ng-template>
-
