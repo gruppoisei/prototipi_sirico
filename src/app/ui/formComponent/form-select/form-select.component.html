@@ -1,14 +1,20 @@
-<p>form-select works!</p>
-
-<div class="bg-slate-200 m-2 p-2 w-fit h-fit" >
+<div class=" p-2 m-2" >
     <p>{{titolo}}</p>
     <!-- <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value"> -->
-    <select [class.error]="errore != null " [(ngModel)]="value" (change)="ProvaValore()">
-        <option [value]="0">--scegli elemento--</option>
-          <option *ngFor="let elemento of listaElementi" [value]="elemento.id">{{elemento.descrizione}}</option>
+    <select class="p-2 m-2 bg-white " [class.error]="errore != null "  [(ngModel)]="value" (change)="ProvaValore()">
 
+            <option class="m-20 p-20"  [value]="null">{{elementoDefault}}</option>
+            <option class="m-20 p-20"   *ngFor="let elemento of listaElementi" [value]="elemento[nomeCampoValore]">{{elemento[nomeCampoDescrizione]}}</option>
         </select> 
-</div>
+<!-- </div>
+<div class="bg-slate-200 m-2 p-2 w-fit h-fit" >
+    <p>{{titolo}}</p>
+    <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value">
+    <select [class.error]="errore != null "  [(ngModel)]="value" (change)="ProvaValore()">
+        <option  [value]="null">{{elementoDefault}}</option>
+          <option *ngFor="let elemento of listaElementi" [value]="elemento[nomeCampoValore]">{{elemento[nomeCampoDescrizione]}}</option>
+        </select> 
+</div> -->
 
 <div *ngIf="errore != null && errore != undefined ">
 
