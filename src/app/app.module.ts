@@ -80,6 +80,7 @@ import { PaginationComponent } from './ui/pagination/pagination.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { HandlerFormCustomErrorComponent } from './ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
 import { FormInputNumberComponent } from './ui/formComponent/form-input-number/form-input-number.component';
+import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-textarea.component';
 
 @NgModule({
     declarations: [
@@ -139,6 +140,7 @@ import { FormInputNumberComponent } from './ui/formComponent/form-input-number/f
         PaginationComponent,
         HandlerFormCustomErrorComponent,
         FormInputNumberComponent,
+        FormTextareaComponent,
     ],
     providers: [
         provideAnimationsAsync(),

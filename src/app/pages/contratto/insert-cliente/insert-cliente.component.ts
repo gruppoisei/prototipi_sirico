@@ -25,6 +25,7 @@ export class InsertClienteComponent {
   public provaForm = this.fg.group(
     {
       elementoSelect: new FormControl(null, [Validators.required]),
+      elementoTextArea: new FormControl(null, [Validators.required]),
       elementoNumber: new FormControl(null, [Validators.required, onlyNumbersValidator(), minNumberValidator(10),maxNumberValidator(50)])
     }
   )
