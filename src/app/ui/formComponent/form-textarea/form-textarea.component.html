@@ -1,0 +1,19 @@
+<div class="bg-white m-2 p-2 h-fit">
+    <p class="mb-2">{{titolo}}<span class="text-xs" *ngIf="required">*</span></p>
+
+    <textarea  #myinput id="eee" class="block w-full px-3 py-2 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
+    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+    invalid:border-pink-500 :text-pink-600 " [class.error]="errore != null && touched != false"
+        [class.focus]="(focus && errore == null)|| (touched == false && focus  )" (focus)="setGetFocus()"
+        (focusout)="setLoseFocus()" (change)="onChangeEvent()" (input)="AggiornoValore();onInputEvent()"
+        [(ngModel)]="value" 
+        [rows]="rows"
+        [class.resize]="!resize"
+        >
+    </textarea>
+    
+    <app-handler-form-custom-error [errore]="errore" [touched]="touched">
+    </app-handler-form-custom-error>
+    <button type="button" (click)="test()">prova</button>
+
+</div>

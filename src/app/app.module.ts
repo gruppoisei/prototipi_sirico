@@ -76,6 +76,11 @@ import { FormSelectComponent } from './ui/formComponent/form-select/form-select.
 import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 import { DeleteClienteDialogComponent } from './pages/delete-cliente-dialog/delete-cliente-dialog.component';
 import { DeleteClienteResponseDialogComponent } from './ui/delete-cliente-response-dialog/delete-cliente-response-dialog.component';
+import { PaginationComponent } from './ui/pagination/pagination.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { HandlerFormCustomErrorComponent } from './ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
+import { FormInputNumberComponent } from './ui/formComponent/form-input-number/form-input-number.component';
+import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-textarea.component';
 
 @NgModule({
     declarations: [
@@ -132,6 +137,10 @@ import { DeleteClienteResponseDialogComponent } from './ui/delete-cliente-respon
         GestioneClienteComponent,
         DeleteClienteDialogComponent,
         DeleteClienteResponseDialogComponent,
+        PaginationComponent,
+        HandlerFormCustomErrorComponent,
+        FormInputNumberComponent,
+        FormTextareaComponent,
     ],
     providers: [
         provideAnimationsAsync(),
@@ -166,6 +175,7 @@ import { DeleteClienteResponseDialogComponent } from './ui/delete-cliente-respon
         MatDatepickerModule,
         MatIconModule,
         NgxMultipleDatesModule,
+        MatPaginatorModule
     ]
 })
 export class AppModule { }

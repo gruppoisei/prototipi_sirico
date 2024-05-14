@@ -13,42 +13,54 @@ export class FormSelectComponent implements ControlValueAccessor {
   callbackOnChange: (args:any ) => void | any = ([]) => {}
   
 
+  aaaaaProva2= null
+
   @Input()
   touched: any;
 
   @Input()
   titolo = ""
 
+  @Input({ required: true })
+  nomeCampoValore!:string
+
+  @Input({ required: true })
+  nomeCampoDescrizione!:string
+
   @Input()
   listaElementi: any[] = [];
 
   @Input()
-  placeholder? = ""
+  elementoDefault="--Seleziona--"
+
+  focus=false
 
   @Input()
   errore: any
 
-  value: string = ""
+  value:string|number | null = ""
 
   isDisabled?: boolean;
 
-  onChange = (value: string) => { }
+  onChange = (value: string |number | null) => { }
   onTouch = () => { }
 
 
-  constructor() { }
+  constructor() { 
+  
+  }
 
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+  writeValue(value: any): void {
+    this.value = value
   }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+  registerOnChange(fn:(value:string|number|null) =>void ): void {
+    this.onChange = fn
   }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
+  registerOnTouched(fn: () => void): void {
+    this.onTouch = fn 
   }
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    this.isDisabled = isDisabled
   }
 
 
@@ -56,14 +68,25 @@ export class FormSelectComponent implements ControlValueAccessor {
     console.log(this.errore)
   }
 
-  ProvaValore() {
-    console.log(this.value);
+ 
+  setGetFocus()
+  {
+    this.focus=true
   }
 
+  setLoseFocus()
+  {
+    this.focus = false
+  }
   AggiornoValore() {
     this.onChange(this.value);
     this.onTouch();
   }
 
+  Prova(){
+    console.log(this.errore)
+    console.log(this.touched)
+    console.log(this.value)
+  }
 
 }

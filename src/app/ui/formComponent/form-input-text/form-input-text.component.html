@@ -4,25 +4,15 @@
     <input #myinput id="eee" [type]="type" class="block w-full px-3 py-2 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
     invalid:border-pink-500 :text-pink-600 " [class.error]="errore != null && touched != false"
-        [class.focus]="focus && errore == null" (focus)="setGetFocus()" (focusout)="setLoseFocus()"
+        [class.focus]="(focus && errore == null)|| (touched == false && focus  )" (focus)="setGetFocus()" (focusout)="setLoseFocus()"
         [placeholder]="placeholder" (change)="onChangeEvent()" (input)="AggiornoValore();onInputEvent()"
         [(ngModel)]="value">
 
 
-    <div class="ml-2 mt-[2px] text-xs text-red-400" *ngIf="errore != null && touched != false  ">
-        <p *ngIf="errore.required ">
-            campo obbligatorio
-        </p>
-        <p *ngIf="errore.passwordStrength ">
-            password non valida
-        </p>
-        <p *ngIf="errore.minlength ">
-            lunghezza minima richiesta {{errore.minlength.actualLength}}/{{errore.minlength.requiredLength}}
-        </p>
-        <p *ngIf="errore.maxlength ">
-            lunghezza massima richiesta {{errore.maxlength.actualLength}}/{{errore.maxlength.requiredLength}}
-        </p>
-        <p *ngIf="errore.email">email non valida</p>
+        <app-handler-form-custom-error
+        [errore]="errore"
+        [touched]="touched"
+        >
+        </app-handler-form-custom-error>
 
-    </div>
 </div>

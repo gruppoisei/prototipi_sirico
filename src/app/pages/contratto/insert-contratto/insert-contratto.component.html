@@ -1,6 +1,7 @@
 <div class="page-container">
     <h1 class="flex justify-center my-10 text-4xl font-bold">Gestione dati contratto</h1>
-    <form class="form-container">
+    <form class="form-container" #myForm="ngForm">
+        >
         <div class="d-flex flex-column justify-content-center">
             <div class="flex gap-8">
                 <!-- COLONNA DI SINITRA -->
@@ -172,10 +173,16 @@
                                     placeholder="Data fine distacco" [required]="formData.codsFlagAttiva == 1">
                             </mat-form-field>
                         </mat-expansion-panel>
-                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && (formData.codiContrattopersid !== null || personaConDistacchi)">
+                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && formData.codiContrattopersid !== null && personaConDistacchi">
                             <button mat-button type="button"
-                                    [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi}"
-                                    (click)="openCronologiaDistaccoModal(formData.personaId)">
+                                [ngClass]="{'blue-button': personaConDistacchiAperti, 'gray-button': !personaConDistacchiAperti}"
+                                (click)="openCronologiaDistaccoModal(formData.personaId)">
+                                Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}
+                            </button>
+                        </div>
+                        <div class="w-full padding-top" *ngIf="formData.personaId !== null && formData.codiContrattopersid !== null && !personaConDistacchi">
+                            <button mat-button type="button"
+                                [ngClass]="{'blue-button': personaConDistacchi, 'gray-button': !personaConDistacchi, 'disabled-button': !!personaConDistacchiAperti}">
                                 Cronologia Distacchi di {{ formData.nome }} {{ formData.cognome }}
                             </button>
                         </div>

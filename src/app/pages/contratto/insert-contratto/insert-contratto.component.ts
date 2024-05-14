@@ -33,7 +33,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   giorniLavorativiAlMese: number = 21;
   mesiLavorativiAllAnno: number = 12;
 
-  //formValidation?: boolean | undefined = false;
   disable_fields: any; // canc?
   showMotivazioneFineContratto: boolean = false;
   disablePartitaIvaField: boolean = true;
@@ -45,23 +44,24 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   vecchiagiornaliera?: number | null = null;
   output_ricercaFiltrata: any;
   dipendentiSenzaContratto: utenteSenzaContatto[] | null | undefined;
-  valoredistaccoValido: boolean = true; //controlla se true qui
+  valoredistaccoValido: boolean = true;
   pannelloEspanso: boolean = false;
-  isValidPartitaivaFields: boolean = false; //?
+  isValidPartitaivaFields: boolean = false;
   utenteLoggato: string | null = "";
   arrayErrori: string[] = [];
   personaConDistacchi: boolean = false;
+  personaConDistacchiAperti: boolean = false;
   erroreCostoOrario: boolean = false;
   erroreCostoMensile: boolean = false;
   meseCorrente: number = 12;
   annoCorrente: number = 2050;
 
-  tipiSocieta: { societaid: number; ragionesociale: string }[] = [];                  //
-  tipiContratto: { tipoid: number; tipodesc: string }[] = [];                         //
-  tipiCcnl: { ccnlid: number; descrizioneCCNL: string }[] = [];                       //
-  tipiLivello: { livelloid: number; livelloContratto: string; }[] = [];               //
-  tipiClientiDistacco: { clienteDistaccoid: number; clienteDistacco: string }[] = []; //
-  tipiMotiviFinecontratto: { motivid: number; motivdesc: string }[] = [];             //
+  tipiSocieta: { societaid: number; ragionesociale: string }[] = [];
+  tipiContratto: { tipoid: number; tipodesc: string }[] = [];
+  tipiCcnl: { ccnlid: number; descrizioneCCNL: string }[] = [];
+  tipiLivello: { livelloid: number; livelloContratto: string; }[] = [];
+  tipiClientiDistacco: { clienteDistaccoid: number; clienteDistacco: string }[] = [];
+  tipiMotiviFinecontratto: { motivid: number; motivdesc: string }[] = [];
   array_societa: any = [];
   private routeSub!: Subscription;
 
@@ -71,7 +71,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
   @ViewChild('approvalModal') approvalModal!: TemplateRef<any>;
 
-  formData: InserimentoContratto = {
+   formData: InserimentoContratto = {
     codiContrattopersid: null,
     codiRalcompenso: null,
     codiMonteore: null,
@@ -103,19 +103,52 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     clienteDistaccoid: null,
     clienteDistacco: null,
     sysuser: null
-  }
-
+  } 
+  
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
     private dialog: MatDialog,
-    //private builder: FormBuilder
+    private builder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
     private utilityCostiService: UtilityCostiPersonaleService
   ) {
     this.meseCorrente = new Date().getMonth() + 1;
     this.annoCorrente = new Date().getFullYear();
+    /* this.formData = this.builder.group({
+      codiContrattopersid: [''],
+      codiRalcompenso: ['', Validators.required],
+      codiMonteore: ['', Validators.required],
+      codiDatainiziocontratto: ['', Validators.required],
+      codiDatafinecontratto: [''],
+      codiSmartworking: [false, Validators.required],
+      codiNote: ['', Validators.maxLength(4000)],
+      codiFlagAttiva: [1],
+      codsDistaccoid: [''],
+      codsValoredistacco: [''],
+      codsDatainiziodistacco: [''],
+      codsDatafinedistacco: [''],
+      codsFlagAttiva: [0],
+      nome: ['', Validators.required],
+      cognome: ['', Validators.required],
+      personaId: ['', Validators.required],
+      codiceFiscale: ['', Validators.pattern(/^[A-Za-z]{6}[0-9]{2}[ABCDEHLMPRST][0-9]{2}[A-Za-z]{1}[0-9]{2}+[A-Za-z]{1}$/)],
+      partitaIva: ['', Validators.pattern(/^\d{11}$/)],
+      ccnlid: ['', Validators.required],
+      descrizioneCCNL: [''],
+      livelloid: ['', Validators.required],
+      livelloContratto: [''],
+      motivid: [''],
+      motivdesc: [''],
+      tipoid: ['', Validators.required],
+      tipodesc: [''],
+      societaPersonaid: ['', Validators.required],
+      societaPersona: [''],
+      clienteDistaccoid: [''],
+      clienteDistacco: [''],
+      sysuser: ['']
+    });     */
    }
 
   ngOnDestroy(): void {
@@ -123,10 +156,42 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.reset();
   }
 
-  async ngOnInit() {
+  ngOnInit() {
+   /*  this.formData = this.builder.group({
+      codiContrattopersid: [''],
+      codiRalcompenso: ['', Validators.required],
+      codiMonteore: ['', Validators.required],
+      codiDatainiziocontratto: ['', Validators.required],
+      codiDatafinecontratto: [''],
+      codiSmartworking: [false, Validators.required],
+      codiNote: ['', Validators.maxLength(4000)],
+      codiFlagAttiva: [1],
+      codsDistaccoid: [''],
+      codsValoredistacco: [''],
+      codsDatainiziodistacco: [''],
+      codsDatafinedistacco: [''],
+      codsFlagAttiva: [0],
+      nome: ['', Validators.required],
+      cognome: ['', Validators.required],
+      personaId: ['', Validators.required],
+      codiceFiscale: ['', Validators.pattern(/^[A-Za-z]{6}[0-9]{2}[ABCDEHLMPRST][0-9]{2}[A-Za-z]{1}[0-9]{2}+[A-Za-z]{1}$/)],
+      partitaIva: ['', Validators.pattern(/^\d{11}$/)],
+      ccnlid: ['', Validators.required],
+      descrizioneCCNL: [''],
+      livelloid: ['', Validators.required],
+      livelloContratto: [''],
+      motivid: [''],
+      motivdesc: [''],
+      tipoid: ['', Validators.required],
+      tipodesc: [''],
+      societaPersonaid: ['', Validators.required],
+      societaPersona: [''],
+      clienteDistaccoid: [''],
+      clienteDistacco: [''],
+      sysuser: ['']
+    });     */
     this.reset();
-    await this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
-    await this.distaccoEsiste();
+    this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
     this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
@@ -134,23 +199,19 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.getAllClienti();
     this.getAllTipitipiMotiviFineContratto();
     this.controllovisibilPartitaIva();
-
+    this.distaccoEsiste(this.formData.personaId);
+    
     this.disable_fields = true;
   }
   
-  distaccoEsiste() {
+  distaccoEsiste(idPerosna: number | null) {
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = this.formData.personaId;
-    console.log("persona id per distacco esistente = " + this.formData.personaId);
     this.inserimentoContrattoService.getCronologiaDistacco(this.formData.personaId).subscribe(
       (response: any) => {
-        console.log(response);
-        this.personaConDistacchi = !!response ? true : false;
-        console.log("persona con distacchi ritorna = " + this.personaConDistacchi);
-        //this.personaConDistacchi = response.length > 0 ? true : false;
+        this.personaConDistacchi = response.length > 0;
       },
       (error: any) => {
-        // non fare nulla?
-        console.log("errore durante chiamata per cronologia distacco");
+        //nulla
       }
     );
   }
@@ -169,7 +230,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   }
 
   openCronologiaDistaccoModal(personaId: number) {
-    //console.log("personaId: " + personaId);
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
     this.inserimentoContrattoService.nomePersonaCronologiaDistacchi = this.formData.nome;
     this.inserimentoContrattoService.cognomePersonaCronologiaDistacchi = this.formData.cognome;
@@ -193,16 +253,14 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   clearForm() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.reset();
-      //this.inserimentoContrattoService.idContratto$.next(-5);
       this.inserimentoContrattoService.idContratto$.next(undefined);
-      console.log("form pulita, cambio idcontratto nel service: " + this.inserimentoContrattoService.idContratto$.value)
     } else {
-      console.log('Operazione annullata');
     }
   }
 
   reset() {
-    this.formData = {
+    //this.formData.reset();
+     this.formData = {
       codiContrattopersid: null,
       codiRalcompenso: null,
       codiMonteore: null,
@@ -253,14 +311,10 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   getAllTipoContratto() {
     this.inserimentoContrattoService.getAllTipoContratto().subscribe(
       (response: any) => {
-        //console.log(response);
         this.tipiContratto = response;
       },
       (error: any) => {
-        console.error(
-          'Errore durante il recupero dei tipi di contratto:',
-          error
-        );
+        console.error('Errore durante il recupero dei tipi di contratto:', error);
       }
     );
   }
@@ -268,7 +322,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   getAllTipoCcnl() {
     this.inserimentoContrattoService.getAllTipoCcnl().subscribe(
       (response: any) => {
-        //console.log(response);
         this.tipiCcnl = response;
       },
       (error: any) => {
@@ -280,15 +333,12 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   getAllClienti() {
     this.inserimentoContrattoService.getAllClientiDistacco().subscribe(
       (response: any) => {
-        //console.log(response);
         this.tipiClientiDistacco = response.concat([
           { clienteDistaccoid: -1, clienteDistacco: 'Nuova azienda cliente' },
         ]);
       },
       (error: any) => {
-        console.error(
-          'Errore durante il caricament delle aziende clienti per il distacco.'
-        );
+        console.error('Errore durante il caricament delle aziende clienti per il distacco.');
       }
     );
   }
@@ -299,7 +349,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         .subscribe(
           (data) => {
             this.tipiLivello = data;
-            //console.log('Dati tipi livello:', data);
           },
           (error) => {
             console.error('Errore durante il recupero dei tipi livello:', error);
@@ -312,7 +361,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.inserimentoContrattoService.getAllTipitipiMotiviFineContratto()
       .subscribe(
         (response: any) => {
-          //console.log('response get tipi motivo fine contratto:' + response);
           this.tipiMotiviFinecontratto = response;
         },
         (error: any) => {
@@ -343,17 +391,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       this.formData.cognome = this.inserimentoContrattoService.fieldAutoFill$.value.cognome;
       this.formData.codiceFiscale = this.inserimentoContrattoService.fieldAutoFill$.value.codiceFiscale;
       this.formData.partitaIva = this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva;
-      console.log('this.formData: ');
-      console.log(this.formData);
-      console.log('this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva: ');
-      console.log(this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva);
       this.controllovisibilPartitaIva();
-      this.distaccoEsiste();
-      console.log("distacco Esiste = " + this.personaConDistacchi );
-      /*
-      this.disablePartitaIvaField = this.formData.partitaIva ? ValidaPartita.IVA(this.formData.partitaIva) : true;
-      this.hidePartitaIvaField = this.formData.partitaIva ? true : false;
-      */
+      this.distaccoEsiste(this.formData.personaId);
     });
   }
 
@@ -367,19 +406,16 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         .insertNuovoContratto(contrattoObj, this.selectedFiles)
         .subscribe(
           (response: any) => {
-            console.log(response);
             alert(response);
             this.reloadGestioneFile()
             this.reset();
             this.selectedFiles = []
           },
           (error: any) => {
-            console.error("Errore durante l'inserimento del contratto:", error);
             alert("Errore durante l'inserimento del contratto (errore di frontend)");
           }
         );
     } else {
-      console.log('formValidation ha trovato un errore. form = ' + JSON.stringify(this.formData) + "\n\nGli errori trovati sono: " + this.arrayErrori);
       const erroriCampiTradotti = this.arrayErrori.map(campo => this.getCampoErroriName(campo));
       alert("\n\n Errore nell'inserimento dati, non sono stati inseriti i seguenti campi: \nnon è stata selezionata un" + erroriCampiTradotti.join('\nnon è stata selezionata un'));
     }
@@ -403,7 +439,10 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       this.formData.codsDatafinedistacco = FormattaData.formattaData(response.codsDatafinedistacco);
 
       this.pannelloEspanso = this.formData.codsFlagAttiva ? true : false;
-      this.loadCosts(66, this.meseCorrente, this.annoCorrente);
+
+      this.loadCosts(this.formData.personaId);
+      this.personaConDistacchiAperti = !!this.formData.codsDistaccoid ? true : false;
+      this.distaccoEsiste(this.formData.personaId);
       return true;
     } catch (error) {
       console.error("Errore nell'apertura di un contratto:", error);
@@ -411,25 +450,24 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadCosts(matricola : number, mese : number, anno : number) {
-    this.utilityCostiService.GetCostiByMatricolaMeseAnno(matricola, mese, anno).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.costoOrario = response.costoOrario;
-        this.costoMensile = response.costoMensile;
-        },
-      (error: any) => {
-        this.erroreCostoOrario = true;
-        this.erroreCostoMensile = true;
-        console.error('Errore durante il recupero dei tipi di societa:', error);
-      }
-    );
+  loadCosts(IdPersona : number | null) {
+    if(IdPersona != null) {
+      this.utilityCostiService.GetCostiByMatricolaMeseAnno(IdPersona).subscribe(
+        (response: any) => {
+          this.costoOrario = response.costoOrario;
+          this.costoMensile = response.costoMensile;
+          },
+        (error: any) => {
+          this.erroreCostoOrario = true;
+          this.erroreCostoMensile = true;
+        }
+      );
+    } 
   }
 
   valoreDistaccoChangeValidation() {
     if ((this.formData.codsValoredistacco ? (this.formData.codsValoredistacco <= 100) : false) &&
       (this.formData.codsValoredistacco ? (this.formData.codsValoredistacco >= 0) : false)) {
-      //console.log("valoredistaccoValido messo a true");
       this.valoredistaccoValido = true;
     } else {
       this.valoredistaccoValido = false;
@@ -449,13 +487,10 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         codiMonteore: " Monteore",
         codiSmartworking: "a opsione per lo smartworking",
         partitaIva: "a partita Iva, ma è richiesta",
-        //dataFineContrattoPrecedenteAInizio: " dataFineContrattoPrecedenteAInizio"
-        //date...
     }[campo] || campo;
 }
 
   formValidationCheck(): boolean {
-    //console.log('formValidationCheck() START');
     this.arrayErrori = [];
     const formCompilato = this.formData;
     const nonVuoto = (value: any) => !!value || (value !== undefined && value !== null && value !== '');
@@ -486,16 +521,13 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
     if (endDateContratto && startDateContratto) {
       isValidContrattoDates = endDateContratto >= startDateContratto;
-        console.log("end data contratto >= a start data contratto?" + isValidContrattoDates);
     }
 
     if (this.formData.codsFlagAttiva) {
         if (startDateContratto && startDateDistacco) {
           isValidDistaccoDates = startDateDistacco >= startDateContratto;
-            console.log("start data distacco >= a start data contratto?" + isValidDistaccoDates);
             if (isValidDistaccoDates && endDateDistacco) {
               isValidDistaccoDates = endDateDistacco >= startDateDistacco;
-                console.log("end data distacco >= a start data distacco?" + isValidDistaccoDates);
             }
         }
     }
@@ -529,17 +561,11 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     validaCodsDataFineDistacco &&
     isValidContrattoDates && isValidDistaccoDates;
 
-    console.log("formValidation è passato come : " + formValidation + " da formValidationCheck()")
     return formValidation;
   }
 
   receiveFile($event: any) {
     this.selectedFiles = $event;
-
-    //controllo per estenzione
-    //const existingFileIndex = this.selectedFiles.findIndex(file => file.name === this.selectedFile?.name);
-    //TODO
-    //if(this.selectedFiles.)
   }
 
   reloadGestioneFile() {
@@ -547,5 +573,4 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.changeDetector.detectChanges();
     this.enabled = true;
   }
-
 }

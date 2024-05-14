@@ -29,6 +29,7 @@ import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salv
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
 import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
+import { PaginationComponent } from './ui/pagination/pagination.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,7 @@ const routes: Routes = [
     ],
     //canActivate : [basicUser]
   },
+  {path: 'pagination', component: PaginationComponent},
   {
     path: 'rapportino',
     component: CalendarioComponent,
