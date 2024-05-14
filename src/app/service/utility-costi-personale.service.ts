@@ -25,10 +25,9 @@ export class UtilityCostiPersonaleService {
     return this.http.post<any>(`${this.baseUrl}uploadESalvaExcels?sysuser=${utenteLoggato}`, formData)
     
   }
-
   
   GetCostiByMatricolaMeseAnno(IdPersona: number): Observable<any> {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
-    return this.http.get<any>(`${this.baseUrl}GetCostiPersonaleByMatricolaPersona?personaId=` + IdPersona );
+    return this.http.get<any>(`${this.baseUrl}GetCostiPersonaleByPersonaId?personaId=` + IdPersona );
   }
 }
