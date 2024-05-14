@@ -39,10 +39,11 @@
 <div *ngIf="datiCliente.length == 0" class="flex flex-row justify-center mt-20 mb-20">Nessun dato disponibile</div>
 
 <div *ngIf="datiCliente.length != 0" class="flex flex-row justify-center mb-10">
-    <table class="w-4/5 text-base text-left rtl:text-right my-10">
+    <table class="w-4/5 text-base text-center rtl:text-right my-10">
         <thead class="text-sm uppercase text-white bg-blue-600">
             <tr>
-                <th scope="col" class="px-6 py-3">Azioni</th>
+                <th *ngIf="ricercaForm.value.FlagAttiva" scope="col" class="px-6 py-3">Azioni</th>
+                <th *ngIf="!ricercaForm.value.FlagAttiva" scope="col" class="px-6 py-3">Ripristina</th>
                 <th scope="col" class="px-6 py-3">Ragione Sociale</th>
                 <th scope="col" class="px-6 py-3">Partita Iva</th>
                 <th scope="col" class="px-6 py-3">Sede Legale</th>

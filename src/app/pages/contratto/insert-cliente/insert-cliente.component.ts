@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { clienteSocieta } from '../../../dto/response/nuovoCliente';
 import { ClienteService } from '../../../service/cliente.service';
 import { Router } from '@angular/router';
-import { createNumberValidator } from '../../../ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
+import { maxNumberValidator, minNumberValidator, onlyNumbersValidator } from '../../../ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
 
 @Component({
   selector: 'app-insert-cliente',
@@ -25,7 +25,7 @@ export class InsertClienteComponent {
   public provaForm = this.fg.group(
     {
       elementoSelect: new FormControl(null, [Validators.required]),
-      elementoNumber: new FormControl(null, [Validators.required ])
+      elementoNumber: new FormControl(null, [Validators.required, onlyNumbersValidator(), minNumberValidator(10),maxNumberValidator(50)])
     }
   )
 
@@ -37,18 +37,18 @@ export class InsertClienteComponent {
     {
       idcliente: new FormControl(null, []),
       ragionesociale: new FormControl(null, [Validators.required]),
-      partitaiva: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11), createNumberValidator()]),
+      partitaiva: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11), onlyNumbersValidator()]),
       sedelegale: new FormControl(null, []),
       sedeoperativa: new FormControl(null, []),
-      patinail: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+      patinail: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), onlyNumbersValidator()]),
       rappresentantelegale: new FormControl(null, []),
       sedelavoro: new FormControl(null, []),
       codiceateco: new FormControl(null, [Validators.minLength(10), Validators.maxLength(10)]),
-      numerotelefono: new FormControl(null, []),
+      numerotelefono: new FormControl(null, [onlyNumbersValidator()]),
       indirizzopec: new FormControl(null, [Validators.email]),
       refamministratore: new FormControl(null, []),
       emailrefammin: new FormControl(null, [Validators.email]),
-      telefonorefammin: new FormControl(null, []),
+      telefonorefammin: new FormControl(null, [onlyNumbersValidator()]),
 
       // sysdate: new FormControl(null, []),
       // sysuser: new FormControl(null, []),
@@ -123,11 +123,12 @@ export class InsertClienteComponent {
         (response) => {
           console.log('Dati inviati con successo al backend:')
           console.log(response.message);
-          alert(response.message);
+          alert(response.message);          
 
           if (response.message == "Inserimento nuovo cliente avvenuto correttamente." || response.message == "Modifica cliente esistente avvenuta correttamente.") {
             this.clienteService.idCliente$.next(undefined);
-            this.myForm.reset();
+            this.titolo = "Inserimento cliente";            
+            this.myForm.reset();            
             this.myForm.markAsUntouched();
           }
         },
