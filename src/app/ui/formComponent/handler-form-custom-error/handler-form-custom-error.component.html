@@ -1,0 +1,26 @@
+<div class="ml-2 mt-[2px] text-xs text-red-400" *ngIf="errore != null && touched != false  ">
+    <p *ngIf="errore.required ">
+        campo obbligatorio
+    </p>
+    <p *ngIf="errore.passwordStrength ">
+        password non valida
+    </p>
+    <p *ngIf="errore.minlength ">
+        lunghezza minima richiesta {{errore.minlength.actualLength}}/{{errore.minlength.requiredLength}}
+    </p>
+    <p *ngIf="errore.maxlength ">
+        lunghezza massima richiesta {{errore.maxlength.actualLength}}/{{errore.maxlength.requiredLength}}
+    </p>
+    <p *ngIf="errore.email">
+        email non valida
+    </p>
+    <p *ngIf="errore.onlyNumber">
+        inserire solo numeri</p>
+
+    <p *ngIf="errore.minNumber">
+       valore minimo {{errore.minNumber}}</p>
+       
+    <p *ngIf="errore.maxNumber">
+       valore massimo {{errore.maxNumber}}</p>
+
+</div>

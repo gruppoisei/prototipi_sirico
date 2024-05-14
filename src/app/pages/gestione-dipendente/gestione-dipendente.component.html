@@ -7,19 +7,22 @@
             <a routerLink="/Segreteria/salva-persona"><button (click)="setTitoloNuovaPersona()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
+            <input formControlName="AnpeMatricola" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per matricola..." required />
             <input formControlName = "AnpeNome" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per nome..." required />
             <input formControlName = "AnpeCognome" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per cognome..." required />
-            <input formControlName = "AnpeCodicefiscale" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per codice fiscale..." required />
         </div>
         <div class = "flex flex-row mb-5">
-            <input formControlName = "GecoDeno" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per comune di residenza..." required />
+            <input formControlName = "AnpeCodicefiscale" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per codice fiscale..." required />
             <input formControlName = "AnpeEmailaziendale" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per email aziendale..." required />
             <input formControlName = "AnsoRagionesociale" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per società..." required />
         </div>
-        <div class = "flex flex-row justify-end mt-10">
-            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
-            <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
-        </div>
+            <div class="flex flex-row mb-5 w-1/3">
+                <input formControlName = "GecoDeno" type="search" class="mx-5 w-full p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per comune di residenza..." required />
+            </div>
+            <div class="flex justify-end w-full">
+                <button (click)="clearSearch()" class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+                <button type="submit" (click)="ricercaFiltrata()" class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            </div>
     </form>
 </div>
 
@@ -33,6 +36,7 @@
                     <th scope="col" class="px-6 py-3">Azioni</th>
                     <th scope="col" class="px-6 py-3">Nome</th>
                     <th scope="col" class="px-6 py-3">Cognome</th>
+                    <th scope="col" class="px-6 py-3">Matricola</th>
                     <th scope="col" class="px-6 py-3">Codice Fiscale</th>
                     <th scope="col" class="px-6 py-3">Comune residenza</th>
                     <th scope="col" class="px-6 py-3">E-mail</th>
@@ -47,6 +51,7 @@
                     </td>
                     <td class="px-6 py-4">{{ persona.AnpeNome }}</td>
                     <td class="px-6 py-4">{{ persona.AnpeCognome }}</td>
+                    <td class="px-6 py-4">{{ persona.AnpeMatricola }}</td>
                     <td class="px-6 py-4">{{ persona.AnpeCodicefiscale }}</td>
                     <td class="px-6 py-4">{{ persona.GecoDeno }}</td>
                     <td class="px-6 py-4">{{ persona.AnpeEmailaziendale }}</td>
