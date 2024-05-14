@@ -83,11 +83,13 @@ constructor
 
   ngOnInit(): void 
   {
+    this.utenteLoggato = sessionStorage.getItem('SysUser')
     this.insertPersona = this.fb.group(
       {
         AnpePersonaid: [0],
         AnpeNome: ['', Validators.required],
         AnpeCognome: ['', Validators.required],
+        AnpeMatricola: ['', Validators.required],
         AnpeDatanascita: ['', Validators.required],
         AnpeCodicefiscale: ['', [Validators.required, Validators.pattern('^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$')]],
         AnpePartitaiva: ['', [Validators.pattern('^(IT)?[0-9]{11}$')]],
@@ -155,7 +157,7 @@ constructor
 
   loadListe(): void
   {
-    this.utenteLoggato = sessionStorage.getItem('SysUser')
+
     this.serviceRegione.getRegioni().subscribe(regioni => {
       this.listRegioni = regioni.sort((a,b) => a.gereDeno > b.gereDeno ? 1 :-1);
     });
@@ -208,6 +210,7 @@ constructor
       AnpePersonaid : dipendente.anpePersonaid,
       AnpeNome: dipendente.anpeNome,
       AnpeCognome: dipendente.anpeCognome,
+      AnpeMatricola: dipendente.anpeMatricola,
       AnpeDatanascita: dataNascita,
       AnpeCodicefiscale: dipendente.anpeCodicefiscale,
       AnpePartitaiva: dipendente.anpePartitaiva,
@@ -295,7 +298,7 @@ constructor
     if(this.insertPersona.valid)
     {
       //
-      this.insertPersona.value
+      console.log(this.insertPersona.value);
       //
       const personaObj = this.insertPersona.value;
       this.personaService.salvaPersona(personaObj, this.selectedFiles)
