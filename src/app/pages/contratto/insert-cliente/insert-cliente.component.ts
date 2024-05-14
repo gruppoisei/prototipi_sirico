@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { clienteSocieta } from '../../../dto/response/nuovoCliente';
 import { ClienteService } from '../../../service/cliente.service';
 import { Router } from '@angular/router';
+import { createNumberValidator } from '../../../ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
 
 @Component({
   selector: 'app-insert-cliente',
@@ -23,7 +24,8 @@ export class InsertClienteComponent {
 
   public provaForm = this.fg.group(
     {
-      elementoSelect: new FormControl(null, [Validators.required])
+      elementoSelect: new FormControl(null, [Validators.required]),
+      elementoNumber: new FormControl(null, [Validators.required ])
     }
   )
 
@@ -35,7 +37,7 @@ export class InsertClienteComponent {
     {
       idcliente: new FormControl(null, []),
       ragionesociale: new FormControl(null, [Validators.required]),
-      partitaiva: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11)]),
+      partitaiva: new FormControl(null, [Validators.minLength(11), Validators.maxLength(11), createNumberValidator()]),
       sedelegale: new FormControl(null, []),
       sedeoperativa: new FormControl(null, []),
       patinail: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
@@ -152,23 +154,3 @@ export class InsertClienteComponent {
 
 }
 
-
-export function createPasswordStrengthValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-
-    if (!value) {
-      return null;
-    }
-
-    const hasUpperCase = /[A-Z]+/.test(value);
-
-    const hasLowerCase = /[a-z]+/.test(value);
-
-    const hasNumeric = /[0-9]+/.test(value);
-
-    const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
-
-    return !passwordValid ? { passwordStrength: true } : null;
-  };
-}

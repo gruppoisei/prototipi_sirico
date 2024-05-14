@@ -34,11 +34,11 @@ export class FormSelectComponent implements ControlValueAccessor {
   @Input()
   errore: any
 
-  value:string | null = null
+  value:string|number | null = null
 
   isDisabled?: boolean;
 
-  onChange = (value: string | null) => { }
+  onChange = (value: string |number | null) => { }
   onTouch = () => { }
 
 
@@ -46,17 +46,17 @@ export class FormSelectComponent implements ControlValueAccessor {
   
   }
 
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+  writeValue(value: any): void {
+    this.value = value
   }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+  registerOnChange(fn:(value:string|number|null) =>void ): void {
+    this.onChange = fn
   }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
+  registerOnTouched(fn: () => void): void {
+    this.onTouch = fn 
   }
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    this.isDisabled = isDisabled
   }
 
 
@@ -64,13 +64,10 @@ export class FormSelectComponent implements ControlValueAccessor {
     console.log(this.errore)
   }
 
-  ProvaValore() {
-    console.log(this.value);
-  }
+ 
 
   AggiornoValore() {
     this.onChange(this.value);
-     
     this.onTouch();
   }
 

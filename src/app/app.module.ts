@@ -78,6 +78,8 @@ import { DeleteClienteDialogComponent } from './pages/delete-cliente-dialog/dele
 import { DeleteClienteResponseDialogComponent } from './ui/delete-cliente-response-dialog/delete-cliente-response-dialog.component';
 import { PaginationComponent } from './ui/pagination/pagination.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { HandlerFormCustomErrorComponent } from './ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
+import { FormInputNumberComponent } from './ui/formComponent/form-input-number/form-input-number.component';
 
 @NgModule({
     declarations: [
@@ -135,6 +137,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         DeleteClienteDialogComponent,
         DeleteClienteResponseDialogComponent,
         PaginationComponent,
+        HandlerFormCustomErrorComponent,
+        FormInputNumberComponent,
     ],
     providers: [
         provideAnimationsAsync(),

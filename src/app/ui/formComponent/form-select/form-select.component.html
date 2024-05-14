@@ -1,58 +1,18 @@
 <div class=" p-2 m-2" >
     <p>{{titolo}}</p>
-    <!-- <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value"> -->
-    <select class="p-2 m-2 bg-white " [class.error]="errore != null "  [(ngModel)]="value" (change)="ProvaValore()">
+    <select class="p-2 m-2 bg-white " [class.error]="errore != null "  [(ngModel)]="value" (change)="AggiornoValore()">
 
             <option class="m-20 p-20"  [value]="null">{{elementoDefault}}</option>
             <option class="m-20 p-20"   *ngFor="let elemento of listaElementi" [value]="elemento[nomeCampoValore]">{{elemento[nomeCampoDescrizione]}}</option>
         </select> 
-<!-- </div>
-<div class="bg-slate-200 m-2 p-2 w-fit h-fit" >
-    <p>{{titolo}}</p>
-    <input  type="text" [class.error]="errore != null && dirty != false"  [placeholder]="placeholder"  (input)="AggiornoValore()"  [(ngModel)]="value">
-    <select [class.error]="errore != null "  [(ngModel)]="value" (change)="ProvaValore()">
-        <option  [value]="null">{{elementoDefault}}</option>
-          <option *ngFor="let elemento of listaElementi" [value]="elemento[nomeCampoValore]">{{elemento[nomeCampoDescrizione]}}</option>
-        </select> 
-</div> -->
 
-<div *ngIf="errore != null && errore != undefined ">
+        
+        <app-handler-form-custom-error
+        [errore]="errore"
+        [touched]="touched"
+        >
+        </app-handler-form-custom-error>
 
-    <!-- <div *ngIf="errore.minlength && dirty != false">
-        <ng-component *ngTemplateOutlet="erroreMinLength; context: { $implicit: errore.minlength }"/>      
-    </div> -->
-
-    <div *ngIf="errore.required">
-        <ng-component [ngTemplateOutlet]="erroreCampoObbligatorio" />      
     </div>
 
-    <!-- <div *ngIf="errore.email">
-        <ng-component [ngTemplateOutlet]="erroreEmail" />      
-    </div> -->
-</div>
-
-
-
-
-<!-- <ng-template #erroreMinLength let-minleng>
-    
-    <p class="text-red-400">
-        lunghezza minima richiesta {{errore.minlength.actualLength}}/{{errore.minlength.requiredLength}}
-    </p>
-</ng-template> -->
-
-
-<!-- <ng-template #erroreEmail>
-    
-    <p class="text-red-400">
-        Email non valida
-    </p>
-</ng-template> -->
-
-<ng-template #erroreCampoObbligatorio>
-    
-    <p class="text-red-400">
-        campo obbligatorio
-    </p>
-</ng-template>
 

@@ -8,8 +8,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PaginationComponent {
 
   @Input() totalPages: number = 0; // Numero totale di pagine
-  @Input() itemsPerPageOptions: number[] = [5, 10 , 15]; // Array per definire quanti elementi si vogliono visualizzare in per pagina
-  @Input() itemsPerPage: number = 10; // Numero di elementi per pagina
+  @Input() itemsPerPageOptions: number[] = []; // Array per definire quanti elementi si vogliono visualizzare in per pagina
+  @Input() itemsPerPage: number = 0; // Numero di elementi per pagina
 
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>(); // Evento per cambiare la pagina
@@ -24,14 +24,15 @@ export class PaginationComponent {
   }
 
   goToLastPage(){
-    if(this.currentPage < this.totalPages){
-      this.currentPage = this.totalPages;
+    if(this.currentPage < this.getTotalPages()){
+      this.currentPage = this.getTotalPages();
       this.pageChange.emit(this.currentPage)
+      console.log(this.currentPage)
     }
   }
 
   goToNextPage(){
-    if(this.currentPage < this.totalPages){
+    if(this.currentPage < this.getTotalPages()){
       this.currentPage++
       this.pageChange.emit(this.currentPage)
     }
@@ -42,6 +43,26 @@ export class PaginationComponent {
       this.currentPage--
       this.pageChange.emit(this.currentPage)
     }
+  }
+
+  goToPage(page: number) {
+    if(page !== this.currentPage && page > 0 && page <=this.totalPages){
+      this.currentPage = page;
+      this.pageChange.emit(this.currentPage)
+      }
+  }
+
+  getVisiblePages() : number[] {
+    const visiblePages: number[] = [];
+
+    for(let i = 1; i <= this.getTotalPages(); i++){
+      visiblePages.push(i);
+    }
+    return visiblePages
+  }
+
+  getTotalPages(){
+    return Math.ceil(this.totalPages / this.itemsPerPage)
   }
 
     onItemsPerPageChange(event: any) {
