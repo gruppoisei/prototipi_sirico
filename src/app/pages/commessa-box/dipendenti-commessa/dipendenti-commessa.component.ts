@@ -38,7 +38,6 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
     })
     this.getPersoneSocieta()
     this.getCommesse()
-    this.caricaDatiPaginati()
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()
   }
 
@@ -93,6 +92,8 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
   getPersoneSocieta(){
     this.personaService.getPersoneSocieta().subscribe(res =>{
       this.datiDipendenti = res.sort((a: { ansoRagionesociale: string; },b: { ansoRagionesociale: string; }) => a.ansoRagionesociale > b.ansoRagionesociale ? 1:-1);
+      this.totalPages = this.getTotalPages();
+      this.caricaDatiPaginati()
     })
   }
 

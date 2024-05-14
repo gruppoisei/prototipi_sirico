@@ -110,8 +110,8 @@
             (itemsPerPageChange)="cambiaElementiPerPagina($event)"
             (pageChange)="cambiaPagina($event)">
             </app-pagination>
-
         </div>
+        
         <div class="w-full" *ngIf="dipendentiSelezionati.length > 0">
             <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200">
@@ -133,6 +133,13 @@
                         </tr>
                     </tbody>
                 </table>
+<!--                 <app-pagination
+                [totalPages]="dipendentiSelezionati.length"
+                [itemsPerPageOptions]="[5,10,15]"
+                [itemsPerPage]="elementiPerPagina"
+                (itemsPerPageChange)="cambiaElementiPerPagina($event)"
+                (pageChange)="cambiaPagina($event)">
+                </app-pagination> -->
         </div>
     </div>
     <div class="flex flex-col md:flex-row justify-center mb-10 mt-10 gap-4">
