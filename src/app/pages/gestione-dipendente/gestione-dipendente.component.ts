@@ -24,6 +24,7 @@ export class GestioneDipendenteComponent implements OnInit{
     this.ricercaForm = this.fb.group({
       AnpeNome: [''],
       AnpeCognome: [''],
+      AnpeMatricola: [''],
       AnpeCodicefiscale: [''],
       GecoDeno: [''],
       AnpeEmailaziendale: [''],
@@ -78,6 +79,7 @@ export class GestioneDipendenteComponent implements OnInit{
             AnpePersonaid: persona.anpePersonaid,
             AnpeNome:persona.anpeNome,
             AnpeCognome: persona.anpeCognome,
+            AnpeMatricola: persona.anpeMatricola,
             AnpeCodicefiscale: persona.anpeCodicefiscale,
             GecoDeno: persona.gecoDeno,
             AnpeEmailaziendale: persona.anpeEmailaziendale,

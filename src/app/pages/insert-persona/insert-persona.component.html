@@ -6,14 +6,20 @@
 
 <!--Nome, cognome, data nascita, cf e IVA-->    
   <div class="flex w-full flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+    <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Matricola</label>
+      <input formControlName="AnpeMatricola" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+   focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi matricola...">
+   <small *ngIf="insertPersona.controls['AnpeMatricola'].dirty && insertPersona.hasError('required','AnpeMatricola')" class="text-red-600">Nome obbligatorio</small>
+  </div>
+      <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
           <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
           <input formControlName="AnpeNome" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un nome...">
        <small *ngIf="insertPersona.controls['AnpeNome'].dirty && insertPersona.hasError('required','AnpeNome')" class="text-red-600">Nome obbligatorio</small>
       </div>
       
-      <div div class="w-full md:w-1/2 px-3 mb-6">
+      <div div class="w-full md:w-2/5 px-3 mb-6">
           <label class="block mb-2 text-sm font-medium text-gray-900">Cognome</label>
           <input formControlName="AnpeCognome" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un cognome...">
