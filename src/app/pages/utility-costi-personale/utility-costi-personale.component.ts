@@ -12,7 +12,7 @@ import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialo
 })
 export class UtilityCostiPersonaleComponent {
   selectedFiles: File[] = [];
-  utenteLoggato: string | null = null;
+  utenteLoggato: string = "frontend";
 
   constructor(
     private http: HttpClient,
@@ -21,7 +21,10 @@ export class UtilityCostiPersonaleComponent {
   ) {}
 
   ngOnInit(): void {
-    this.utenteLoggato = sessionStorage.getItem('SysUser');
+    const sysUser = sessionStorage.getItem('SysUser');
+    if (sysUser) {
+      this.utenteLoggato = sysUser;
+    }
   }
 
   receiveFile($event: any): void {
