@@ -88,9 +88,10 @@ export class GestioneClienteComponent {
   }
 
   toggleRicerca() {
-    if (this.datiCliente.length != 0) {
-      this.ricercaFiltrata();
-    }
+    // if (this.datiCliente.length != 0) {
+    //   this.ricercaFiltrata();
+    // }
+    this.ricercaFiltrata();
   }
 
   ricercaFiltrata() {

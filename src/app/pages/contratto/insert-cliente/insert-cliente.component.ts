@@ -128,7 +128,8 @@ export class InsertClienteComponent {
 
           if (response.message == "Inserimento nuovo cliente avvenuto correttamente." || response.message == "Modifica cliente esistente avvenuta correttamente.") {
             this.clienteService.idCliente$.next(undefined);
-            this.titolo = "Inserimento cliente";            
+            this.titolo = "Inserimento cliente";
+            this.nuovoCliente = null;            
             this.myForm.reset();            
             this.myForm.markAsUntouched();
           }
