@@ -13,6 +13,8 @@ export class FormSelectComponent implements ControlValueAccessor {
   callbackOnChange: (args:any ) => void | any = ([]) => {}
   
 
+  aaaaaProva2= null
+
   @Input()
   touched: any;
 
@@ -31,10 +33,12 @@ export class FormSelectComponent implements ControlValueAccessor {
   @Input()
   elementoDefault="--Seleziona--"
 
+  focus=false
+
   @Input()
   errore: any
 
-  value:string|number | null = null
+  value:string|number | null = ""
 
   isDisabled?: boolean;
 
@@ -65,11 +69,24 @@ export class FormSelectComponent implements ControlValueAccessor {
   }
 
  
+  setGetFocus()
+  {
+    this.focus=true
+  }
 
+  setLoseFocus()
+  {
+    this.focus = false
+  }
   AggiornoValore() {
     this.onChange(this.value);
     this.onTouch();
   }
 
+  Prova(){
+    console.log(this.errore)
+    console.log(this.touched)
+    console.log(this.value)
+  }
 
 }

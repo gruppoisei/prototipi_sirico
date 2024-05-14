@@ -70,11 +70,11 @@ export class GestioneClienteComponent {
   openDialogRestore(Idcliente: number) {
     console.log('openDialogRecover() START');
     //
-    if (confirm ("Il cliente selezionato verrà ripristinato. Continuare?")) {
+    if (confirm("Il cliente selezionato verrà ripristinato. Continuare?")) {
       this.clienteService.riattivaClienteById(Idcliente).subscribe(
-        (response: any) => {          
+        (response: any) => {
           console.log(response);
-          this.ricercaFiltrata(); 
+          this.ricercaFiltrata();
         },
         (error: any) => {
           console.error(
@@ -131,7 +131,9 @@ export class GestioneClienteComponent {
         });
   }
   mostraNotaCompleta(nota: string) {
-    alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
+    if (nota != null && nota != undefined) {
+      alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
+    }
   }
 }
 
