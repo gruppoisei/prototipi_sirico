@@ -7,58 +7,58 @@
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="w-full grid grid-flow-row-dense grid-cols-4 grid-rows-4">
 
-            <app-form-input-text placeholder="Ragione Sociale" titolo="Ragione Sociale"
+            <app-form-input-text titolo="Ragione Sociale"
                 [touched]="this.myForm.get('ragionesociale')?.touched" [required]="true"
                 [errore]="this.myForm.get('ragionesociale')?.errors" formControlName="ragionesociale">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Partita IVA" titolo="Partita IVA"
+            <app-form-input-text titolo="Partita IVA"
                 [touched]="this.myForm.get('partitaiva')?.touched" [required]="true"
                 [errore]="this.myForm.get('partitaiva')?.errors" formControlName="partitaiva">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Sede legale" titolo="Sede legale"
+            <app-form-input-text titolo="Sede legale"
                 [touched]="this.myForm.get('sedelegale')?.touched" [errore]="this.myForm.get('sedelegale')?.errors"
                 formControlName="sedelegale">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Sede Operativa" titolo="Sede Operativa"
+            <app-form-input-text titolo="Sede Operativa"
                 [touched]="this.myForm.get('sedeoperativa')?.touched"
                 [errore]="this.myForm.get('sedeoperativa')?.errors" formControlName="sedeoperativa">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Pat INAIL" titolo="Pat INAIL"
+            <app-form-input-text titolo="Pat INAIL"
                 [touched]="this.myForm.get('patinail')?.touched" [required]="true"
                 [errore]="this.myForm.get('patinail')?.errors" formControlName="patinail">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Rappresentate Legale" titolo="Rappresentate Legale"
+            <app-form-input-text titolo="Rappresentate Legale"
                 [touched]="this.myForm.get('rappresentantelegale')?.touched"
                 [errore]="this.myForm.get('rappresentantelegale')?.errors" formControlName="rappresentantelegale">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Sede Lavoro" titolo="Sede Lavoro"
+            <app-form-input-text titolo="Sede Lavoro"
                 [touched]="this.myForm.get('sedelavoro')?.touched" [errore]="this.myForm.get('sedelavoro')?.errors"
                 formControlName="sedelavoro">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Codice ATECO" titolo="Codice ATECO"
+            <app-form-input-text titolo="Codice ATECO"
                 [touched]="this.myForm.get('codiceateco')?.touched" [errore]="this.myForm.get('codiceateco')?.errors"
                 formControlName="codiceateco">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Numero di Telefono" titolo="Numero di Telefono"
+            <app-form-input-text titolo="Numero di Telefono"
                 [touched]="this.myForm.get('numerotelefono')?.touched"
                 [errore]="this.myForm.get('numerotelefono')?.errors" formControlName="numerotelefono">
             </app-form-input-text>
 
-            <app-form-input-text placeholder="Indirizzo PEC" titolo="Indirizzo PEC"
+            <app-form-input-text titolo="Indirizzo PEC"
                 [touched]="this.myForm.get('indirizzopec')?.touched" [errore]="this.myForm.get('indirizzopec')?.errors"
                 formControlName="indirizzopec">
             </app-form-input-text>
 
             <div class="col-span-2">
-                <app-form-input-text placeholder="Referente reparto amministrativo (nome e cognome)"
+                <app-form-input-text 
                     titolo="Referente reparto amministrativo (nome e cognome)"
                     [touched]="this.myForm.get('refamministratore')?.touched"
                     [errore]="this.myForm.get('refamministratore')?.errors" formControlName="refamministratore">
@@ -66,13 +66,13 @@
             </div>
 
             <div class="col-span-2">
-                <app-form-input-text class="col-span-2" placeholder="Email referente amministrativo" type="email"
+                <app-form-input-text class="col-span-2" type="email"
                     titolo="Email referente amministrativo" [touched]="this.myForm.get('emailrefammin')?.touched"
                     [errore]="this.myForm.get('emailrefammin')?.errors" formControlName="emailrefammin">
                 </app-form-input-text>
             </div>
             <div class="col-span-2">
-                <app-form-input-text class="col-span-2" placeholder="Numero telefono referente amministrativo"
+                <app-form-input-text class="col-span-2"
                     titolo="Numero telefono referente amministrativo"
                     [touched]="this.myForm.get('telefonorefammin')?.touched"
                     [errore]="this.myForm.get('telefonorefammin')?.errors" formControlName="telefonorefammin">
