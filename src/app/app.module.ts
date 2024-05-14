@@ -66,7 +66,7 @@ import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salv
 import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
 import { FormInputTextComponent } from './ui/formComponent/form-input-text/form-input-text.component';
@@ -78,6 +78,7 @@ import { DeleteClienteDialogComponent } from './pages/delete-cliente-dialog/dele
 import { DeleteClienteResponseDialogComponent } from './ui/delete-cliente-response-dialog/delete-cliente-response-dialog.component';
 import { PaginationComponent } from './ui/pagination/pagination.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
     declarations: [
@@ -140,7 +141,13 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         provideAnimationsAsync(),
         {
             provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-          }
+          },
+          {
+            provide: DateAdapter,
+            useClass:  MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+          },
+          {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
     ],
     bootstrap: [AppComponent],
     imports: [
@@ -169,7 +176,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         MatDatepickerModule,
         MatIconModule,
         NgxMultipleDatesModule,
-        MatPaginatorModule
+        MatPaginatorModule,
     ]
 })
 export class AppModule { }
