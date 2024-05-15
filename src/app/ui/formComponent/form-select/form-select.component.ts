@@ -13,7 +13,6 @@ export class FormSelectComponent implements ControlValueAccessor {
   callbackOnChange: (args:any ) => void | any = ([]) => {}
   
 
-  aaaaaProva2= null
 
   @Input()
   touched: any;
@@ -38,7 +37,7 @@ export class FormSelectComponent implements ControlValueAccessor {
   @Input()
   errore: any
 
-  value:string|number | null = ""
+  value: string  | number | null = null
 
   isDisabled?: boolean;
 
@@ -47,7 +46,6 @@ export class FormSelectComponent implements ControlValueAccessor {
 
 
   constructor() { 
-  
   }
 
   writeValue(value: any): void {
@@ -83,10 +81,12 @@ export class FormSelectComponent implements ControlValueAccessor {
     this.onTouch();
   }
 
-  Prova(){
-    console.log(this.errore)
-    console.log(this.touched)
+  testErrori(){
+    // console.log(this.errore)
+    // console.log(this.touched)
     console.log(this.value)
+  console.log(this.listaElementi)
+
   }
 
 }

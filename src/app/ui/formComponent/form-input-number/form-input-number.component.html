@@ -1,28 +1,35 @@
 <div class="bg-white m-2 p-2 h-fit">
     <p class="mb-2">{{titolo}}<span class="text-xs" *ngIf="required">*</span></p>
 
-    <div class="flex flex-row">
+    <div class="flex flex-row ">
 
-        <input #myinput id="eee" type="text" class="block w-full  bg-white border-2 rounded-l-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
+        <input #myinput id="eee" type="text" class="block w-full h-9 px-3 py-2 bg-white border-2 rounded-l-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
         disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
         invalid:border-pink-500 :text-pink-600 " [class.error]="errore != null && touched != false"
             [class.focus]="(focus && errore == null)|| (touched == false && focus  )" (focus)="setGetFocus()"
             (focusout)="setLoseFocus()" (change)="onChangeEvent()" (input)="AggiornoValore();onInputEvent()"
             [(ngModel)]="value">
 
-        <div class="flex flex-row w-fit pt-2 border-2  rounded-r-lg">
+        <div class=" border-2 rounded-r-lg w-10 h-9">
             <div>
-                <button type="button" *ngIf="step != 1"
-                    (click)="checkStep(step)"><mat-icon>arrow_drop_up</mat-icon></button>
-            
-                <button type="button" *ngIf="step != 1"
-                    (click)="checkStep(-step)"><mat-icon>arrow_drop_down</mat-icon></button>
+                <mat-icon type="button" class=" hover:cursor-pointer ml-2" *ngIf="step != 1"
+                    (click)="checkStep(step)">arrow_drop_up</mat-icon>
+
+                <!-- <button type="button" class="bg-red-500  " *ngIf="step != 1"
+                    (click)="checkStep(step)"><mat-icon class="">arrow_drop_up</mat-icon></button>  -->
+
+                <mat-icon type="button" class="hover:cursor-pointer ml-2" *ngIf="step != 1"
+                (click)="checkStep(-step)">arrow_drop_down</mat-icon>
+
+                <!-- <button type="button" class="bg-green-500  " *ngIf="step != 1"
+                        (click)="checkStep(-step)"><mat-icon class="" >arrow_drop_down</mat-icon></button> -->
             </div>
         </div>
     </div>
 
     <app-handler-form-custom-error [errore]="errore" [touched]="touched">
     </app-handler-form-custom-error>
-    <button type="button" (click)="test()">prova</button>
+    
+    <button type="button" (click)="testErrori()">TEST ERRORI INPUT NUMBER</button>
 
 </div>

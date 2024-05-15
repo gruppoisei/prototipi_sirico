@@ -5,101 +5,104 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   selector: 'app-form-input-text',
   templateUrl: './form-input-text.component.html',
   styleUrl: './form-input-text.component.scss',
-  providers:[{provide: NG_VALUE_ACCESSOR, multi: true, useExisting: FormInputTextComponent},]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: FormInputTextComponent },]
 
 })
 export class FormInputTextComponent implements ControlValueAccessor {
-  @Input() 
-  callbackOnChange: (args:any ) => void | any = ([]) => {}
-  
+  @Input()
+  callbackOnChange: (args: any) => void | any = ([]) => { }
 
-  @Input() 
-  callbackOnClick: (args:any ) => void | any = ([]) => {}
-
-  @Input() 
-  callbackOnInput: (args:any ) => void | any = ([]) => {}
 
   @Input()
-  type="text"
+  callbackOnClick: (args: any) => void | any = ([]) => { }
 
   @Input()
-  touched:any
+  callbackOnInput: (args: any) => void | any = ([]) => { }
 
   @Input()
-  titolo=""
-  
+  type = "text"
+
+  // @Input()
+  decimal = false
+
   @Input()
-  placeholder=""
-  
+  touched: any
+
   @Input()
-  errore:any
-  
+  titolo = ""
+
   @Input()
-  required=false
+  placeholder = ""
+
+  @Input()
+  errore: any
+
+  @Input()
+  required = false
 
 
-  value:string = ""
+  value: string = ""
 
-  isDisabled?:boolean;
-  
-  focus=false
+  isDisabled?: boolean;
+
+  focus = false
 
 
-  constructor(){
-    
+  constructor() {
+
   }
-  
-  onChangeEvent(){
+
+  onChangeEvent() {
     this.callbackOnChange([])
   }
-  onClickEvent(){
+  onClickEvent() {
     this.callbackOnClick([])
   }
-  onInputEvent(){
+  onInputEvent() {
     this.callbackOnInput([])
   }
-  
-  
-  onChange = (value:string) => {}
-  
 
 
-  onTouch =()=>{}
-  
-  setGetFocus()
-  {
-    this.focus=true
+  onChange = (value: string) => { }
+
+
+
+  onTouch = () => { }
+
+  setGetFocus() {
+    this.focus = true
   }
 
-  setLoseFocus()
-  {
+  setLoseFocus() {
     this.focus = false
   }
 
 
   writeValue(value: string): void {
-    this.value =value
+    this.value = value
   }
-  registerOnChange(fn:(value:string) =>void ): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn
   }
   registerOnTouched(fn: () => void): void {
-    this.onTouch = fn 
+    this.onTouch = fn
   }
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled
   }
 
 
-  AggiornoValore()
-  {
+  AggiornoValore() {
+    if (!this.decimal) {
+      console.log('prova');
+      do { this.value = this.value.substring(1, this.value.length); } while (this.value[0] == '0')
+    }
     this.onChange(this.value);
     this.onTouch();
   }
 
 
-  Prova()
-  {
+  Prova() {
     console.log(this.touched)
     // console.log(this.errore)
   }
