@@ -83,10 +83,10 @@ export class FormSelectComponent implements ControlValueAccessor {
     this.onTouch();
   }
 
-  Prova(){
+  testErrori(){
     console.log(this.errore)
     console.log(this.touched)
-    console.log(this.value)
+    //console.log(this.value)
   }
 
 }

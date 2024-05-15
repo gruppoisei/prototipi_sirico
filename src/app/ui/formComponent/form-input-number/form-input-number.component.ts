@@ -66,7 +66,7 @@ export class FormInputNumberComponent implements ControlValueAccessor {
     }
     if (!trovato) this.value = (Number(this.value) + val).toString()
   }
-  test() {
+  testErrori() {
     console.log(this.errore)
     console.log(this.touched)
   }

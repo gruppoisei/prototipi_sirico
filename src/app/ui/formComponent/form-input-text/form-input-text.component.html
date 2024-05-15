@@ -1,7 +1,7 @@
 <div class="bg-white m-2 p-2 h-fit">
     <p class="mb-2">{{titolo}}<span class="text-xs" *ngIf="required">*</span></p>
 
-    <input #myinput id="eee" [type]="type" class="block w-full px-3 py-2 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
+    <input #myinput id="eee" [type]="type" class="block w-full px-3 py-2 h-9 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
     invalid:border-pink-500 :text-pink-600 " [class.error]="errore != null && touched != false"
         [class.focus]="(focus && errore == null)|| (touched == false && focus  )" (focus)="setGetFocus()" (focusout)="setLoseFocus()"

@@ -1,6 +1,6 @@
 <div class=" p-2 m-2">
-    <p>{{titolo}}</p>
-    <select class="block w-full px-3 py-2 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
+    <p class="mb-2">{{titolo}}</p>
+    <select class="block w-full px-3 py-2 h-9 bg-white border-2 rounded-lg p-2.5 sm:text-sm shadow-sm placeholder-slate-400
     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
     invalid:border-pink-500 :text-pink-600 " [(ngModel)]="value" (change)="AggiornoValore()"
         [class.error]="errore != null && touched != false"
@@ -15,7 +15,6 @@
     <app-handler-form-custom-error [errore]="errore" [touched]="touched">
     </app-handler-form-custom-error>
 
+    <button type="button" (click)="testErrori()">TEST ERRORI SELECT</button>
+
 </div>
-
-
-<button type="button" (click)="Prova()">PROVA</button>

@@ -51,7 +51,7 @@ export class FormTextareaComponent implements ControlValueAccessor {
  
 
 
-test(){
+  testErrori(){
   console.log(this.errore)
   console.log(this.touched)
 }
