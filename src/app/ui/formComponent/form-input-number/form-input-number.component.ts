@@ -44,8 +44,7 @@ export class FormInputNumberComponent implements ControlValueAccessor {
   @Input()
   required = false
 
-
-  value: string | null = (this.minValue != null) ? this.minValue.toString() : "0"
+  value: string | null = null
   isDisabled?: boolean;
 
   focus = false

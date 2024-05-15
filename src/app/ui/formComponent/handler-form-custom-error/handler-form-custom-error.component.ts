@@ -61,7 +61,7 @@ export function minNumberValidator(min:number): ValidatorFn {
     }
 
     if(!Number.isNaN(value)){
-      if(Number(value) <= min) return { minNumber: min }
+      if(Number(value) < min) return { minNumber: min }
     }
      return null
 
@@ -78,7 +78,7 @@ export function maxNumberValidator(max:number): ValidatorFn {
     }
 
     if(!Number.isNaN(value)){
-      if(Number(value) >= max) return { maxNumber: max }
+      if(Number(value) > max) return { maxNumber: max }
     }
      return null
 

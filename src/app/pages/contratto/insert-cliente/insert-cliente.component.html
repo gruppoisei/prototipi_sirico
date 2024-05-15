@@ -84,7 +84,7 @@
 
 <!-- nomeCampoDescrizione="qualcosa" -->
 
-<!-- 
+
 <div class="w-1/3">
 
     <form [formGroup]="provaForm" (ngSubmit)="onSubmitProva()">
@@ -94,9 +94,8 @@
             [callbackOnChange]="onSubmitProva" [touched]="this.provaForm.get('elementoSelect')?.touched"
             [errore]="this.provaForm.get('elementoSelect')?.errors"></app-form-select>
 
-
-        <app-form-input-number titolo="NUMBER" formControlName="elementoNumber"  [minValue]="10"
-            [maxValue]="50" [touched]="this.provaForm.get('elementoNumber')?.touched!"
+        <app-form-input-number titolo="NUMBER" formControlName="elementoNumber" [step]="5" [minValue]="10"
+            [maxValue]="50"  [touched]="this.provaForm.get('elementoNumber')?.touched!"
             [errore]="this.provaForm.get('elementoNumber')?.errors"></app-form-input-number>
 
         <app-form-textarea titolo="TEXTAREA" formControlName="elementoTextArea"
@@ -110,4 +109,4 @@
         <button type="submit">Premi</button>
     </form>
 
-</div> -->
+</div>
