@@ -16,19 +16,19 @@
                     <small *ngIf="assegnaCommessaForm.controls['commessa'].dirty && assegnaCommessaForm.hasError('required', 'commessa')" class = "text-red-600">Scegliere la commessa da assegnare ai dipendenti</small>
             </div>
 
-<!--             <div class="sm:col-span-2">
-                <mat-label class="block mb-2 text-sm font-medium text-gray-900">Tempo di lavoro per la commessa</mat-label>
-                <mat-form-field>
+            <div class="sm:col-span-2">
+                <mat-label class="block mb-2 text-sm font-medium text-gray-900">Durata per la commessa</mat-label>
+                <mat-form-field class="w-full">
                     <mat-date-range-input [rangePicker]="picker" formGroupName = "dateRange">
-                        <input matStartDate placeholder="Inizio" formControlName = "dataInizio">
-                        <input matEndDate placeholder="Fine" formControlName = "dataFine">
+                        <input matStartDate placeholder="Data inizio" formControlName = "dataInizio">
+                        <input matEndDate placeholder="Data fine" formControlName = "dataFine">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
-            </div> -->
+            </div>
 
-            <div class="sm:col-span-2">
+            <!-- <div class="sm:col-span-2">
                     <mat-label class="block mb-2 text-sm font-medium text-gray-900">Scegli delle date da assegnare ai dipendenti</mat-label>
                     <mat-form-field class="w-full">
                         <mat-label>Scegli le date da assegnare</mat-label>
@@ -68,7 +68,7 @@
                   <option [value]="7">7:00</option>
                   <option [value]="7.30">7:30</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </form>
 </div>
@@ -87,7 +87,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-300">
-                        <tr *ngFor="let dipendenti of datiDipendentiPaginati; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                        <tr *ngFor="let dipendenti of _datiDipendenti; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
                             <td class="p-3 text-sm text-gray-700">
                                 <button class="text-green-500"
                                 [disabled]="checkBoxStatus[dipendenti.anpePersonaid]"
@@ -110,8 +110,8 @@
             (itemsPerPageChange)="cambiaElementiPerPagina($event)"
             (pageChange)="cambiaPagina($event)">
             </app-pagination>
-
         </div>
+        
         <div class="w-full" *ngIf="dipendentiSelezionati.length > 0">
             <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200">
@@ -133,11 +133,18 @@
                         </tr>
                     </tbody>
                 </table>
+                <app-pagination
+                [totalPages]="dipendentiSelezionati.length"
+                [itemsPerPageOptions]="[5,10,15]"
+                [itemsPerPage]="_elementiPerPagina"
+                (itemsPerPageChange)="cambiaElementiPerPaginaDipendentiSelezionati($event)"
+                (pageChange)="cambiaPaginaDipendentiSelezionati($event)">
+                </app-pagination>
         </div>
     </div>
     <div class="flex flex-col md:flex-row justify-center mb-10 mt-10 gap-4">
-        <button type="submit" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salva</button>
-        <button (click)="goBack()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancella</button>
-        <button (click)="clearForm()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Chiudi</button>
+        <button type="submit" (click)="salva()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salva</button>
+        <button (click)="clearForm()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancella</button>
+        <button (click)="goBack()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Chiudi</button>
         </div>
 </div>
