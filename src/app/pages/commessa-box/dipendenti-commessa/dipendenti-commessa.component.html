@@ -26,6 +26,7 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
+                <small *ngIf="assegnaCommessaForm.controls['dateRange'].invalid && (assegnaCommessaForm.controls['dateRange'].touched)" class="block mt-1 text-xs text-red-600">Inserisci un intervallo di date valido.</small>
             </div>
 
             <!-- <div class="sm:col-span-2">
@@ -124,7 +125,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
-                        <tr *ngFor="let dipendenteSelezionato of dipendentiSelezionati; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                        <tr *ngFor="let dipendenteSelezionato of _dipendentiSelezionati; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
                             <td class="p-3 text-sm text-gray-700"><button class = "text-red-500" (click)="removeDipendenteSelezionato(dipendenteSelezionato)"><mat-icon>remove_circle_outline</mat-icon></button></td>
                             <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeNome}}</td>
                             <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeCognome}}</td>
@@ -137,14 +138,14 @@
                 [totalPages]="dipendentiSelezionati.length"
                 [itemsPerPageOptions]="[5,10,15]"
                 [itemsPerPage]="_elementiPerPagina"
-                (itemsPerPageChange)="cambiaElementiPerPaginaDipendentiSelezionati($event)"
-                (pageChange)="cambiaPaginaDipendentiSelezionati($event)">
+                (itemsPerPageChange)="_cambiaElementiPerPagina($event)"
+                (pageChange)="_cambiaPagina($event)">
                 </app-pagination>
         </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-center mb-10 mt-10 gap-4">
-        <button type="submit" (click)="salva()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salva</button>
-        <button (click)="clearForm()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancella</button>
-        <button (click)="goBack()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Chiudi</button>
-        </div>
+    <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16 flex flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <button type="submit" (click)="salva()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Salva</button>
+        <button (click)="clearForm()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Cancella</button>
+        <button (click)="goBack()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Chiudi</button>
+    </div>
 </div>

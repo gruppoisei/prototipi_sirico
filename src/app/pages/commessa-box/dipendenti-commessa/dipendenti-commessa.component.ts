@@ -29,7 +29,7 @@ export class DipendentiCommessaComponent implements OnInit {
   _dipendentiSelezionati : any [] = []
   checkBoxStatus: {[id: number]: boolean} = {};
 
-  paginaCorrente: number = 1;
+  currentPage: number = 1;
   elementiPerPagina: number = 10;
   _currentPage: number = 1;
   _elementiPerPagina: number = 10;
@@ -67,10 +67,16 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
     }
 
   nextPage(){
-    if(this.paginaCorrente < this.getTotalPages()){
-      this.paginaCorrente++;
-      this.cambiaPagina(this.paginaCorrente); // Emetti l'evento per il cambio di pagina
+    if(this.currentPage < this.getTotalPages()){
+      this.currentPage++;
+      this.cambiaPagina(this.currentPage); // Emetti l'evento per il cambio di pagina
     }
+  }
+
+  caricaDatiPaginati() {
+    const startIndex = (this.currentPage - 1) * this.elementiPerPagina;
+    const endIndex = startIndex + this.elementiPerPagina;
+    this._datiDipendenti = this.datiDipendenti.slice(startIndex, endIndex);
   }
 
   cambiaElementiPerPagina(itemsPerPage: number) {
@@ -79,36 +85,39 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
   }
 
   cambiaPagina(page: number) {
-    this.paginaCorrente = page;
+    this.currentPage = page;
     this.caricaDatiPaginati();
-  }
-
-  cambiaElementiPerPaginaDipendentiSelezionati(itemsPerPage: number) {
-    this._elementiPerPagina = itemsPerPage;
-    this.caricaDatiPaginati();
-  }
-
-  cambiaPaginaDipendentiSelezionati(page: number) {
-    this._currentPage = page;
-    this.caricaDatiPaginati();
-  }
-
-  caricaDatiPaginati() {
-    const startIndex = (this.paginaCorrente - 1) * this.elementiPerPagina;
-    const endIndex = startIndex + this.elementiPerPagina;
-    this._datiDipendenti = this.datiDipendenti.slice(startIndex, endIndex);
   }
 
   getTotalPages() {
     return Math.ceil(this.datiDipendenti.length / this.elementiPerPagina);
   }
 
-  goBack() {
-    this.location.back();
+  _caricaDatiPaginati(){
+    const startIndex = (this._currentPage -1)* this._elementiPerPagina;
+    const endIndex = startIndex + this._elementiPerPagina;
+    this._dipendentiSelezionati = this.dipendentiSelezionati.slice(startIndex, endIndex)
   }
 
-  clearForm() {
-    this.assegnaCommessaForm.reset(this.formDefaultValue)
+  _nextPage(){
+    if(this._currentPage < this._getTotalPages()){
+      this._currentPage++;
+      this._cambiaPagina(this._currentPage);
+    }
+  }
+
+  _cambiaElementiPerPagina(itemsPerPage: number) {
+    this._elementiPerPagina = itemsPerPage;
+    this._caricaDatiPaginati();
+  }
+
+  _cambiaPagina(page: number) {
+    this._currentPage = page;
+    this._caricaDatiPaginati();
+  }
+
+  _getTotalPages() {
+    return Math.ceil(this.dipendentiSelezionati.length / this._elementiPerPagina);
   }
 
   getCommesse() {
@@ -130,6 +139,7 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
     if (index === -1) {
         this.dipendentiSelezionati.push(dipendente);
         this.checkBoxStatus[dipendente.anpePersonaid] = true;
+        this._caricaDatiPaginati();
     }
   }
 
@@ -138,7 +148,17 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
     if (index !== -1) {
         this.dipendentiSelezionati.splice(index, 1);
         this.checkBoxStatus[dipendenteSelezionato.anpePersonaid] = false;
+        this._caricaDatiPaginati();
     }
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  clearForm() {
+    this.assegnaCommessaForm.reset(this.formDefaultValue)
+    this.dipendentiSelezionati = []
   }
 
 }
