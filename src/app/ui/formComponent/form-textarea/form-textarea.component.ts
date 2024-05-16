@@ -22,8 +22,11 @@ export class FormTextareaComponent implements ControlValueAccessor {
 
 
 
+  // @Input()
+  // touched = false
+  
   @Input()
-  touched = false
+  touched: any;
 
   @Input()
   titolo=""
@@ -52,8 +55,12 @@ export class FormTextareaComponent implements ControlValueAccessor {
 
 
   testErrori(){
+  console.log("this.errore")
   console.log(this.errore)
+  console.log("this.touched")
   console.log(this.touched)
+  console.log("this.focus");
+  console.log(this.focus);
 }
   constructor(){
   }

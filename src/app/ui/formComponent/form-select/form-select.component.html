@@ -7,7 +7,7 @@
         [class.focus]="(focus && errore == null)|| (touched == false && focus  )">
 
         <option class="m-20 p-20" [ngValue]="null">{{elementoDefault}}</option>
-        <option class="m-20 p-20" *ngFor="let elemento of listaElementi" [value]="elemento[nomeCampoValore]">
+        <option class="m-20 p-20" *ngFor="let elemento of listaElementi" [ngValue]='elemento[nomeCampoValore]' >
             {{elemento[nomeCampoDescrizione]}}</option>
     </select>
 
