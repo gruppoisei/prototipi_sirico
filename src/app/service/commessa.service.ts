@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { ricercaCommessa } from '../dto/request/ricercaCommessa';
+import { commessaPersona } from '../dto/request/commessaPersona';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class CommessaService {
   
   salvaCommessa(commessaObj : any) : Observable<any>{
     return this.http.post<any>(`${this.baseUrl}SalvaCommessa`, commessaObj,{withCredentials : true})
+  }
+
+  salvaCommessaPersona(commessaPersona : commessaPersona[]){
+    return this.http.post<any>(`${this.baseUrl}SalvaCommessaPersona`, commessaPersona, {withCredentials:true})
   }
 
   getVistaCommessaFiltrata(queryParams: ricercaCommessa) : Observable<any>

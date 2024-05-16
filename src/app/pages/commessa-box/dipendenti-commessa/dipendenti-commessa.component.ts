@@ -7,6 +7,11 @@ import { Location } from '@angular/common';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import 'moment/locale/it';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { commessaPersona } from '../../../dto/request/commessaPersona';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
+import ValidateForm from '../../../helpers/validateform';
+import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
 
 @Component({
   selector: 'app-dipendenti-commessa',
@@ -21,13 +26,17 @@ export class DipendentiCommessaComponent implements OnInit {
 
   pickerRequired: MatDatepicker<any> | MatCalendar<any> | undefined;
   assegnaCommessaForm!: FormGroup;
-
+  dataInizio : any
+  dataFine : any
+  minDate : any
+  maxDate : any
   listaCommesse: any[] = [];
   datiDipendenti: any[] = [];
   _datiDipendenti: any[] = [];
   dipendentiSelezionati : any[] = [];
   _dipendentiSelezionati : any [] = []
   checkBoxStatus: {[id: number]: boolean} = {};
+  commessaPersona : commessaPersona[] = []
 
   currentPage: number = 1;
   elementiPerPagina: number = 10;
@@ -37,7 +46,7 @@ export class DipendentiCommessaComponent implements OnInit {
   _totalPages : number = 0;
   formDefaultValue: any;
   
-constructor(private fb : FormBuilder, private personaService : PersonaService, private commessaService : CommessaService, private location : Location){
+constructor(private fb : FormBuilder, private personaService : PersonaService, private commessaService : CommessaService, private location : Location, private dialog : MatDialog){
 }
   ngOnInit(): void {
     this.assegnaCommessaForm = this.fb.group({
@@ -53,13 +62,55 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()
   }
 
-  salva() {
-    const dataInizioMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataInizio')?.value;
-    const dataFineMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataFine')?.value;
-    const dataInizioDate: Date = this.convertiMomentInDate(dataInizioMoment);
-    const dataFineDate: Date = this.convertiMomentInDate(dataFineMoment);
-
-    console.log(dataInizioDate, dataFineDate )
+  salvaCommessaPersona() {
+    if(this.assegnaCommessaForm.valid)
+      {
+        const dataInizioMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataInizio')?.value;
+        const dataFineMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataFine')?.value;
+        const dataInizioDate: Date = this.convertiMomentInDate(dataInizioMoment);
+        const dataFineDate: Date = this.convertiMomentInDate(dataFineMoment);
+    
+        this.dataInizio = this.formattingDate(dataInizioDate);
+        this.dataFine = this.formattingDate(dataFineDate);
+        const commessaId = this.assegnaCommessaForm.get('commessa')?.value;
+    
+        for(const personaId of this._dipendentiSelezionati){
+          this.commessaPersona.push({
+            anpePersonaid: personaId.anpePersonaid,
+            commessaId: commessaId,
+            dataInizio: this.dataInizio,
+            dataFine: this.dataFine,
+            flagAttivo: true
+          });
+          this.commessaService.salvaCommessaPersona(this.commessaPersona).subscribe(
+            {
+              next: (res)=>{
+                this.dialog.open(MessageResponseDialogComponent,
+                  {
+                    data :{successMessage : res.message},
+                    width : 'auto',
+                    height : 'auto'
+                  });
+              },
+              error : (err) =>{
+                this.dialog.open(MessageResponseDialogComponent,
+                  {
+                    data : {errorMessage : err?.error.message},
+                    width : 'auto',
+                    height : 'auto'
+                  });
+              }
+            });
+      }
+    }
+    else{
+      ValidateForm.validateAllFormFields(this.assegnaCommessaForm);
+      this.dialog.open(ResponseDialogComponent,
+        {
+          width : 'auto',
+          height : 'auto'
+        });
+      }
     }
 
     convertiMomentInDate(momentObject: moment.Moment): Date {
@@ -123,6 +174,7 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
   getCommesse() {
     this.commessaService.getAllVistaCommesse().subscribe(res => {
       this.listaCommesse = res
+      console.log(this.listaCommesse)
     })
   }
 
@@ -140,6 +192,7 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
         this.dipendentiSelezionati.push(dipendente);
         this.checkBoxStatus[dipendente.anpePersonaid] = true;
         this._caricaDatiPaginati();
+        console.log(this._dipendentiSelezionati)
     }
   }
 
@@ -159,6 +212,40 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
   clearForm() {
     this.assegnaCommessaForm.reset(this.formDefaultValue)
     this.dipendentiSelezionati = []
+  }
+
+  onCommessaChange(commessaId : any){
+    const idCommessa = parseInt(commessaId, 10)
+    const minDate = this.getMinDate(idCommessa);
+    const maxDate = this.getMaxDate(idCommessa);
+    this.minDate = this.formattingDate(minDate)
+    this.maxDate = this.formattingDate(maxDate)
+  }
+
+  getMinDate(idCommessa: any): Date | null{
+    const commessa = this.listaCommesse.find(com => com.commessaId === idCommessa);
+    if(commessa){
+      return new Date(commessa.dataInizio)
+    }
+    return null
+  }
+
+  getMaxDate(idCommessa: any): Date | null{
+    const commessa = this.listaCommesse.find(com => com.commessaId === idCommessa);
+    if(commessa){
+      return new Date(commessa.dataFine);
+    }
+    return null
+  }
+
+  formattingDate(date : Date | null): string{
+    let formattedDate
+
+    const y = date?.getFullYear();
+    const m = ("0" + (date!.getMonth() + 1)).slice(-2);
+    const d = ("0" + date?.getDate()).slice(-2);
+    
+    return formattedDate = `${y}-${m}-${d}`
   }
 
 }

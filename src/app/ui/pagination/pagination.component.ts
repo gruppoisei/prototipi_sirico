@@ -65,12 +65,11 @@ export class PaginationComponent {
     return Math.ceil(this.totalPages / this.itemsPerPage)
   }
 
-    onItemsPerPageChange(event: any) {
-      const value = event.target.value;
-      if (value) {
-        this.itemsPerPage = parseInt(value, 10); // Convertiamo il valore da stringa a numero intero
-        this.itemsPerPageChange.emit(this.itemsPerPage); // Emettiamo l'evento per il cambio del numero di elementi per pagina
-      }  }
-
-
+  onItemsPerPageChange(event: any) {
+    const value = event.target.value;
+    if (value) {
+      this.itemsPerPage = parseInt(value, 10); // Convertiamo il valore da stringa a numero intero
+      this.itemsPerPageChange.emit(this.itemsPerPage); // Emettiamo l'evento per il cambio del numero di elementi per pagina
+      }
+    }
 }
