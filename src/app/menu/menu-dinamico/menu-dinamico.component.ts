@@ -51,8 +51,6 @@ export class MenuDinamicoComponent {
     }
   ]
 
-
-
   async getFunzioniComponenti() {
     this.listaFunzioniComponenti = await firstValueFrom(
       this.amministrazioneRuolo.GetAllFunzioniComponenteByIdRuolo(this.idRuolo)
