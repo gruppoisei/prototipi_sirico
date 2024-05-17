@@ -96,7 +96,7 @@
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
-                        <mat-label>Costo presunto mese</mat-label>
+                        <mat-label>Costo mensile</mat-label>
                         <input matInput [(ngModel)]="costoMensile" type="number"
                             name="Costo mensile" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo mensile non disponibile">
@@ -105,9 +105,9 @@
                             </mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-full" floatLabel="auto">
-                        <mat-label>Costo presunto giorno</mat-label>
+                        <mat-label>Costo orario</mat-label>
                         <input matInput [(ngModel)]="costoOrario" type="number"
-                            name="0" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
+                            name="Costo orario" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
                             placeholder="Costo orario non disponibile">
                             <mat-error *ngIf="erroreCostoOrario == true">
                                 Non è stato possibile prelevare un dato nello storico dei costi
