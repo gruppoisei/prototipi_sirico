@@ -19,7 +19,7 @@
             <div class="sm:col-span-2">
                 <mat-label class="block mb-2 text-sm font-medium text-gray-900">Durata per la commessa</mat-label>
                 <mat-form-field class="w-full">
-                    <mat-date-range-input [min]="minDate" [attr.max]="maxDate ? maxDate : null" [rangePicker]="picker" formGroupName = "dateRange">
+                    <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker" formGroupName = "dateRange">
                         <input matStartDate placeholder="Data inizio" formControlName = "dataInizio">
                         <input matEndDate placeholder="Data fine" formControlName = "dataFine">
                     </mat-date-range-input>

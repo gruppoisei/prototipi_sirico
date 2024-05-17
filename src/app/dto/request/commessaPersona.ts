@@ -1,5 +1,5 @@
 export interface commessaPersona{
-    anpePersonaid : number;
+    personaId : number;
     commessaId : number;
     dataInizio : Date;
     dataFine : Date;

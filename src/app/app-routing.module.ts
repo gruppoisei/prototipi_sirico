@@ -70,9 +70,9 @@ const routes: Routes = [
       { path: 'insert-cliente',component: InsertClienteComponent,},
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
-      {path:'assegna-commessa',component: DipendentiCommessaComponent},
-      {path:'salva-commessa',component: SalvaCommessaComponent},
-      {path:'gestione-cliente',component: GestioneClienteComponent},
+      { path:'assegna-commessa',component: DipendentiCommessaComponent },
+      { path:'salva-commessa',component: SalvaCommessaComponent },
+      { path:'gestione-cliente',component: GestioneClienteComponent },
       // {path:,component:},
     ],
     //canActivate : [basicUser]
