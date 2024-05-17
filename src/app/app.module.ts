@@ -82,6 +82,7 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAda
 import { HandlerFormCustomErrorComponent } from './ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
 import { FormInputNumberComponent } from './ui/formComponent/form-input-number/form-input-number.component';
 import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-textarea.component';
+import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 
 @NgModule({
     declarations: [
@@ -142,6 +143,7 @@ import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-tex
         HandlerFormCustomErrorComponent,
         FormInputNumberComponent,
         FormTextareaComponent,
+        MenuDinamicoComponent,
     ],
     providers: [
         provideAnimationsAsync(),

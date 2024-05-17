@@ -30,6 +30,7 @@ import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
 import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 import { PaginationComponent } from './ui/pagination/pagination.component';
+import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 
 const routes: Routes = [
   {
@@ -69,9 +70,9 @@ const routes: Routes = [
       { path: 'insert-cliente',component: InsertClienteComponent,},
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
-      {path:'assegna-commessa',component: DipendentiCommessaComponent},
-      {path:'salva-commessa',component: SalvaCommessaComponent},
-      {path:'gestione-cliente',component: GestioneClienteComponent},
+      { path:'assegna-commessa',component: DipendentiCommessaComponent },
+      { path:'salva-commessa',component: SalvaCommessaComponent },
+      { path:'gestione-cliente',component: GestioneClienteComponent },
       // {path:,component:},
     ],
     //canActivate : [basicUser]
@@ -98,6 +99,10 @@ const routes: Routes = [
 {
  path: 'richiestaassenzautente',
   component: RichiestaAssenzaUtenteComponent,
+},
+{
+ path: 'menu-dinamico',
+  component: MenuDinamicoComponent,
 },
   // {
   //   path: '',
