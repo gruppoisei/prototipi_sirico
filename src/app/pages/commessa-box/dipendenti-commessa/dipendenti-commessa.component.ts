@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
+import { min } from 'moment';
 
 @Component({
   selector: 'app-dipendenti-commessa',
@@ -74,14 +75,15 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
         this.dataFine = this.formattingDate(dataFineDate);
         const commessaId = this.assegnaCommessaForm.get('commessa')?.value;
     
-        for(const personaId of this._dipendentiSelezionati){
+        for(const persona of this._dipendentiSelezionati){
           this.commessaPersona.push({
-            anpePersonaid: personaId.anpePersonaid,
+            personaId: persona.anpePersonaid,
             commessaId: commessaId,
             dataInizio: this.dataInizio,
             dataFine: this.dataFine,
             flagAttivo: true
           });
+        }
           this.commessaService.salvaCommessaPersona(this.commessaPersona).subscribe(
             {
               next: (res)=>{
@@ -91,6 +93,10 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
                     width : 'auto',
                     height : 'auto'
                   });
+                  this.commessaPersona = [];
+                  this.clearForm();
+                  this._dipendentiSelezionati = []
+                  this.dipendentiSelezionati = []
               },
               error : (err) =>{
                 this.dialog.open(MessageResponseDialogComponent,
@@ -101,7 +107,6 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
                   });
               }
             });
-      }
     }
     else{
       ValidateForm.validateAllFormFields(this.assegnaCommessaForm);
@@ -173,9 +178,7 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
 
   getCommesse() {
     this.commessaService.getAllVistaCommesse().subscribe(res => {
-      this.listaCommesse = res
-      console.log(this.listaCommesse)
-    })
+      this.listaCommesse = res})
   }
 
   getPersoneSocieta(){
@@ -192,7 +195,6 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
         this.dipendentiSelezionati.push(dipendente);
         this.checkBoxStatus[dipendente.anpePersonaid] = true;
         this._caricaDatiPaginati();
-        console.log(this._dipendentiSelezionati)
     }
   }
 
@@ -217,30 +219,33 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
   onCommessaChange(commessaId : any){
     const idCommessa = parseInt(commessaId, 10)
     const minDate = this.getMinDate(idCommessa);
-    const maxDate = this.getMaxDate(idCommessa);
+    const maxDate = this.getMaxDate(idCommessa) !< minDate ? null : this.getMaxDate(idCommessa)
     this.minDate = this.formattingDate(minDate)
     this.maxDate = this.formattingDate(maxDate)
   }
 
-  getMinDate(idCommessa: any): Date | null{
+  getMinDate(idCommessa: any): Date{
     const commessa = this.listaCommesse.find(com => com.commessaId === idCommessa);
+    let dataInizio = new Date()
     if(commessa){
-      return new Date(commessa.dataInizio)
+      dataInizio = new Date(commessa.dataInizio)
     }
-    return null
+    return dataInizio
   }
 
   getMaxDate(idCommessa: any): Date | null{
     const commessa = this.listaCommesse.find(com => com.commessaId === idCommessa);
-    if(commessa){
+    if(commessa.dataFine !== null){
       return new Date(commessa.dataFine);
     }
     return null
   }
 
-  formattingDate(date : Date | null): string{
+  formattingDate(date : Date | null): string | null{
     let formattedDate
-
+    if(date ===  null ){
+      return null
+    }
     const y = date?.getFullYear();
     const m = ("0" + (date!.getMonth() + 1)).slice(-2);
     const d = ("0" + date?.getDate()).slice(-2);
