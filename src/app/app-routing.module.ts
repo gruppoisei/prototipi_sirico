@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
+//import { InsertUtenteComponent } from './pages/insert-utente/insert-utente.component';
 import { LoginComponent } from './pages/login-box/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { InsertPersonaComponent } from './pages/insert-persona/insert-persona.component';
@@ -64,7 +64,7 @@ const routes: Routes = [
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
       { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
-      { path: 'insertutente',component: InsertUtenteComponent,},
+      //{ path: 'insertutente',component: InsertUtenteComponent,},
       { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
       { path: 'insert-ruolo-funzione',component: ProvassComponent, },
       { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
@@ -85,7 +85,7 @@ const routes: Routes = [
     path: 'AmministrazioneApplicativo',
     component: SegreteriaComponent,
     children: [
-      { path: 'insertutente',component: InsertUtenteComponent,},
+      //{ path: 'insertutente',component: InsertUtenteComponent,},
       { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
       { path: 'insert-ruolo-funzione',component: ProvassComponent, },
       { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},

@@ -26,13 +26,16 @@ import { HomepageComponent } from '../../pages/homepage/homepage.component';
 })
 export class MenuDinamicoComponent {
 
-  urlHomePage = "";
+  homePagePath = "";
+
+  limiteVociMenu: number = 0;
 
   // idRuolo: number = 5;
   idRuolo: number = 2009;
 
 
-  // lista originale
+
+  // lista di partenza
   listaFunzioniComponenti: any[] = [];
 
   // liste intermedie
@@ -50,6 +53,9 @@ export class MenuDinamicoComponent {
   listaSupportoOrdinamentoFunzioniAutonome: any[] = []
   // listaSupportoOrdinamentoFunzioniAutonome: { path: string, component: string }[] = []
   listaFunzioniFinaleMenu: any[] = []
+
+  // lista di supporto al caricamento dei componenti
+  listaCaricamentoComponenti: number [] = [];
 
 
   constructor(
@@ -125,7 +131,7 @@ export class MenuDinamicoComponent {
     }
   ]
 
-  
+
   async getFunzioniComponenti() {
     this.listaFunzioniComponenti = await firstValueFrom(
       this.amministrazioneRuolo.GetAllFunzioniComponenteByIdRuolo(this.idRuolo)
@@ -136,6 +142,8 @@ export class MenuDinamicoComponent {
     console.log("this.listaFunzioniComponenti ordinata");
     console.log(this.listaFunzioniComponenti);
 
+    // resetto il contenuto dell'array menu finale
+    this.listaFunzioniFinaleMenu = [];
     // this.router.resetConfig([]);
 
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
@@ -147,7 +155,7 @@ export class MenuDinamicoComponent {
         this.listaFunzioniNonPadre.push(this.listaFunzioniComponenti[i]);
       }
     }
-    
+
     // caso figli senza padre (funzioni autonome)
     for (let i = 0; i < this.listaFunzioniNonPadre.length; i++) {
 
@@ -204,25 +212,25 @@ export class MenuDinamicoComponent {
     }
 
     // ordino l'array
-    for (let n = 0; n < this.listaFunzioniComponenti.length; n++) {
+    for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
-      if (this.listaFunzioniComponenti[n].indicemenu != 0) {
+      if (this.listaFunzioniComponenti[i].indicemenu != 0) {
 
         // ciclo this.listaFunzioniPadreConFigli e verifico se presente;
-        for (let p = 0; p < this.listaFunzioniPadreConFigli.length; p++) {
+        for (let l = 0; l < this.listaFunzioniPadreConFigli.length; l++) {
 
-          if (this.listaFunzioniComponenti[n].aliasComponente == this.listaFunzioniPadreConFigli[p].path) {
-            this.listaFunzioniFinaleMenu.push(this.listaFunzioniPadreConFigli[p]);
+          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniPadreConFigli[l].path) {
+            this.listaFunzioniFinaleMenu.push(this.listaFunzioniPadreConFigli[l]);
             break;
           }
 
         }
 
         // ciclo this.listaFunzioniAutonome e verifico se presente
-        for (let o = 0; o < this.listaFunzioniAutonome.length; o++) {
+        for (let l = 0; l < this.listaFunzioniAutonome.length; l++) {
 
-          if (this.listaFunzioniComponenti[n].aliasComponente == this.listaFunzioniAutonome[o].path) {
-            this.listaFunzioniFinaleMenu.push(this.listaFunzioniAutonome[o]);
+          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
+            this.listaFunzioniFinaleMenu.push(this.listaFunzioniAutonome[l]);
             break;
           }
 
@@ -231,14 +239,14 @@ export class MenuDinamicoComponent {
       }
       else {
 
-        for (let o = 0; o < this.listaFunzioniAutonome.length; o++) {
+        for (let l = 0; l < this.listaFunzioniAutonome.length; l++) {
 
-          if (this.listaFunzioniComponenti[n].aliasComponente == this.listaFunzioniAutonome[o].path) {
+          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
             let newEl = {
-              path: this.listaFunzioniAutonome[o].path,
+              path: this.listaFunzioniAutonome[l].path,
               //component: this.listaFunzioniAutonome[o].component
               //component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniAutonome[o].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-              component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaFunzioniAutonome[o].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+              component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaFunzioniAutonome[l].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
             }
             this.listaSupportoOrdinamentoFunzioniAutonome.push(newEl);
             break;
@@ -250,14 +258,14 @@ export class MenuDinamicoComponent {
 
     }
 
-    // aggiungo le funzioni autonome (indice menu = 0)
-    for (let s = 0; s < this.listaSupportoOrdinamentoFunzioniAutonome.length; s++) {
+    // aggiungo le funzioni autonome (flag voce menu = false, indice menu = 0)
+    for (let i = 0; i < this.listaSupportoOrdinamentoFunzioniAutonome.length; i++) {
 
       let newEl = {
-        path: this.listaSupportoOrdinamentoFunzioniAutonome[s].path,
-        //component: this.listaSupportoOrdinamentoFunzioniAutonome[s].component
-        // component: this.listaComponenti.find(componente => componente.idComponente == this.listaSupportoOrdinamentoFunzioniAutonome[s].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-        component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[s].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+        path: this.listaSupportoOrdinamentoFunzioniAutonome[i].path,
+        //component: this.listaSupportoOrdinamentoFunzioniAutonome[i].component
+        // component: this.listaComponenti.find(componente => componente.idComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+        component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
       }
       this.listaFunzioniFinaleMenu.push(newEl);
 
@@ -265,48 +273,36 @@ export class MenuDinamicoComponent {
 
     // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
     this.listaFunzioniFinaleMenu.unshift({
-      path: this.urlHomePage,
+      path: this.homePagePath,
       component: this.listaComponenti.find(funzione => funzione.idComponente == 0)?.component
     });
 
     console.log("this.listaFunzioniFinaleMenu");
     console.log(this.listaFunzioniFinaleMenu);
 
-    //this.router.resetConfig([this.listaFunzioniFinaleMenu[0]]);    
-    //this.router.resetConfig([this.pp]);
+    this.limiteVociMenu = this.listaFunzioniFinaleMenu.length;
+    console.log("limiteVociMenu");
+    console.log(this.listaFunzioniFinaleMenu.length);
 
+    // creo la nuova route
     this.router.resetConfig(this.listaFunzioniFinaleMenu);
 
     console.log("this.router");
     console.log(this.router);
   }
 
-  // pp: any = { path: "aaa", children: [{ path: "bbb", component: this.listaComponenti[1].component }] }
-
-
-
-
-
-  // prova() {
-  //   let prova = this.listaComponenti.find(componente => componente.idComponente == 5)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-  //   console.log("prova");
-  //   console.log(prova);
-  // }
 
   routerPrint() {
     console.log('router:');
     console.log(this.router);
-    }
+  }
+
+
+
+
+
+
 
 
 }
 
-
-
-// export interface FunzioneAliasComponente {
-//   funzioneId: number;
-//   nomeFunzione: string;
-//   nomeComponente: string;
-//   flagVoceMenu: boolean;
-//   valoreVoceMenu: string;
-// }
