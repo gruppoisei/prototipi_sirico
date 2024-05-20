@@ -14,6 +14,9 @@ import { GestioneDipendenteComponent } from '../../pages/gestione-dipendente/ges
 import { GestioneRuoloComponent } from '../../pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
 import { GestioneRuoloUtenteComponent } from '../../pages/ruolo-utente/gestione-ruolo-utente/gestione-ruolo-utente.component';
 import { UtilityCostiPersonaleComponent } from '../../pages/utility-costi-personale/utility-costi-personale.component';
+import { InsertContrattoComponent } from '../../pages/contratto/insert-contratto/insert-contratto.component';
+import { InsertRuoloUtenteComponent } from '../../pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
+import { InsertPersonaComponent } from '../../pages/insert-persona/insert-persona.component';
 
 @Component({
   selector: 'app-menu-dinamico',
@@ -21,6 +24,7 @@ import { UtilityCostiPersonaleComponent } from '../../pages/utility-costi-person
   styleUrl: './menu-dinamico.component.scss'
 })
 export class MenuDinamicoComponent {
+
 
 
   idRuolo: number = 5;
@@ -99,6 +103,18 @@ export class MenuDinamicoComponent {
     {
       idComponente: 12,
       component: GestioneRuoloUtenteComponent,
+    },
+    {
+      idComponente: 13,
+      component: InsertContrattoComponent,
+    },
+    {
+      idComponente: 14,
+      component: InsertPersonaComponent,
+    },
+    {
+      idComponente: 15,
+      component: InsertRuoloUtenteComponent,
     }
   ]
 
@@ -148,8 +164,8 @@ export class MenuDinamicoComponent {
 
       if (this.listaFunzioniNonPadre[i].menuPadre == 0) {
 
-        console.log("this.listaFunzioniNonPadre[i].idComponente");
-        console.log(this.listaFunzioniNonPadre[i].idComponente);
+        // console.log("this.listaFunzioniNonPadre[i].idComponente");
+        // console.log(this.listaFunzioniNonPadre[i].idComponente);
 
         let newEl = {
           path: this.listaFunzioniNonPadre[i].aliasComponente,
@@ -273,23 +289,30 @@ export class MenuDinamicoComponent {
 
 
     //this.router.resetConfig([this.listaFunzioniFinaleMenu[0]]);
-    this.router.resetConfig([this.pp]);
+    
+    //this.router.resetConfig([this.pp]);
+    this.router.resetConfig(this.listaFunzioniFinaleMenu);
 
     console.log("this.router");
     console.log(this.router);
   }
 
-  pp: any = { path: "aaa", children: [{ path: "bbb", component: this.listaComponenti[1].component }] }
+  // pp: any = { path: "aaa", children: [{ path: "bbb", component: this.listaComponenti[1].component }] }
 
 
 
 
 
-  prova() {
-    let prova = this.listaComponenti.find(componente => componente.idComponente == 5)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-    console.log("prova");
-    console.log(prova);
-  }
+  // prova() {
+  //   let prova = this.listaComponenti.find(componente => componente.idComponente == 5)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+  //   console.log("prova");
+  //   console.log(prova);
+  // }
+
+  routerPrint() {
+    console.log('router:');
+    console.log(this.router);
+    }
 
 
 }

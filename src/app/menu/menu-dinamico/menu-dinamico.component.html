@@ -6,9 +6,10 @@
     <label>ID ruolo: </label> <br>
     <input type="text" class="border-2 border-black" [(ngModel)]="idRuolo"> <br> <br>
     <button type="button" class="border-2 border-black" (click)="getFunzioniComponenti(); ">CLICK</button>
-    <a routerLink="/aaa/bbb"
+    <!-- <a routerLink="/aaa/bbb"
         class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium"
-        routerLinkActive="bg-gray-900">AAA/BBB</a>
+        routerLinkActive="bg-gray-900">AAA/BBB</a> -->
+    <button type="button" (click)="routerPrint()">PRINT</button>
 </div>
 
 <br><br>
@@ -16,7 +17,7 @@
 <div class="hidden sm:ml-6 sm:block">
     <div *ngFor="let funzione of listaFunzioniFinaleMenu" class="flex space-x-4 justify-items-center mt-2">
 
-        <div *ngIf="!funzione['children'] " >
+        <div *ngIf="!funzione['children'] ">
             <a routerLink="{{ '/' + funzione.path }}"
                 class="text-blue-600 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium"
                 routerLinkActive="bg-gray-900">{{ funzione.path }}</a>
@@ -36,6 +37,7 @@
             </ng-template>
 
         </div>
+
 
 
     </div>
