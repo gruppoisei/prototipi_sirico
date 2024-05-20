@@ -82,6 +82,8 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAda
 import { HandlerFormCustomErrorComponent } from './ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
 import { FormInputNumberComponent } from './ui/formComponent/form-input-number/form-input-number.component';
 import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-textarea.component';
+import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
+
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 
 @NgModule({
@@ -143,6 +145,7 @@ import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.compon
         HandlerFormCustomErrorComponent,
         FormInputNumberComponent,
         FormTextareaComponent,
+        GestioneAssegnazioneCommessaComponent,
         MenuDinamicoComponent,
     ],
     providers: [
