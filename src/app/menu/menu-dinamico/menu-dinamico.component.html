@@ -42,37 +42,48 @@
                 </button>
             </div>
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div class="flex flex-shrink-0 items-center">
+                <!-- <div class="flex flex-shrink-0 items-center">
                     <a routerLink=""><img class="w-auto h-auto" src="\assets\SCOD_Logo_Little.png" alt="SCOD 2"></a>
-                </div>
+                </div> -->
                 <div class="hidden sm:ml-6 sm:block">
                     <!-- <div class="flex space-x-4 justify-items-center"> flex justify-center items-center -->
                     <div class="flex justify-center items-center">
 
-                        <div *ngFor="let funzione of listaFunzioniFinaleMenu" class="ml-4">
+                        <div *ngFor="let funzione of listaFunzioniFinaleMenu; index as i" class="ml-4">
 
-                            <div *ngIf="!funzione['children'] ">
-                                <button routerLink="{{ '/' + funzione.path }}"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer"
-                                    routerLinkActive="bg-gray-900">{{ funzione.path }}</button>
+                            <!-- considero il primo elemento il componente HOME -->
+                            <div *ngIf="i == 0">
+                                <div class="flex flex-shrink-0 items-center">
+                                    <a routerLink="{{'/'+urlHomePage}}"><img class="w-auto h-auto" src="\assets\SCOD_Logo_Little.png"
+                                            alt="SCOD 2"></a>
+                                </div>
                             </div>
 
-                            <div *ngIf="funzione['children']">
-                                <button [cdkMenuTriggerFor]="listaFunzioniFinaleMenu"
-                                    class="text-red-600 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">{{
-                                    funzione.path }}</button>
+                            <!-- considero dal secondo elemento gli altri componenti -->
+                            <div *ngIf="i != 0">
+                                <div *ngIf="!funzione['children'] ">
+                                    <button routerLink="{{ '/' + funzione.path }}"
+                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer"
+                                        routerLinkActive="bg-gray-900">{{ funzione.path }}</button>
+                                </div>
 
-                                <ng-template #listaFunzioniFinaleMenu>
-                                    <div class="rounded-md flex flex-col bg-gray-700" cdkMenu>
-                                        <div *ngFor="let child of funzione.children" class="mt-1 mb-1">
-                                            <a routerLink="{{ '/' + funzione.path + '/' + child.path }}" cdkMenuItem
-                                                class=" hover:bg-gray-700 text-gray-300 rounded-md px-4 mx-2 py-1 ">{{
-                                                child.path }}</a>
-                                            <br>
+                                <div *ngIf="funzione['children']">
+                                    <button [cdkMenuTriggerFor]="listaFunzioniFinaleMenu"
+                                        class="text-red-600 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">{{
+                                        funzione.path }}</button>
+
+                                    <ng-template #listaFunzioniFinaleMenu>
+                                        <div class="rounded-md flex flex-col bg-gray-700" cdkMenu>
+                                            <div *ngFor="let child of funzione.children" class="mt-1 mb-1">
+                                                <a routerLink="{{ '/' + funzione.path + '/' + child.path }}" cdkMenuItem
+                                                    class=" hover:bg-gray-700 text-gray-300 rounded-md px-4 mx-2 py-1 ">{{
+                                                    child.path }}</a>
+                                                <br>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ng-template>
+                                    </ng-template>
 
+                                </div>
                             </div>
 
                         </div>

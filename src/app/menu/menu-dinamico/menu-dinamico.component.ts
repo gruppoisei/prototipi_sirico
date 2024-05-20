@@ -17,6 +17,7 @@ import { UtilityCostiPersonaleComponent } from '../../pages/utility-costi-person
 import { InsertContrattoComponent } from '../../pages/contratto/insert-contratto/insert-contratto.component';
 import { InsertRuoloUtenteComponent } from '../../pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 import { InsertPersonaComponent } from '../../pages/insert-persona/insert-persona.component';
+import { HomepageComponent } from '../../pages/homepage/homepage.component';
 
 @Component({
   selector: 'app-menu-dinamico',
@@ -25,6 +26,7 @@ import { InsertPersonaComponent } from '../../pages/insert-persona/insert-person
 })
 export class MenuDinamicoComponent {
 
+  urlHomePage = "";
 
   // idRuolo: number = 5;
   idRuolo: number = 2009;
@@ -57,6 +59,10 @@ export class MenuDinamicoComponent {
   }
 
   listaComponenti = [
+    {
+      idComponente: 0,
+      component: HomepageComponent,
+    },
     {
       idComponente: 1,
       component: CalendarioComponent,
@@ -119,22 +125,7 @@ export class MenuDinamicoComponent {
     }
   ]
 
-  db = [
-    {
-      path: "Segreteria",
-      children: [
-        {
-          path: "Home",
-          component: 0,
-        },
-        {
-          path: "Prodotto",
-          component: 1,
-        },
-      ]
-    }
-  ]
-
+  
   async getFunzioniComponenti() {
     this.listaFunzioniComponenti = await firstValueFrom(
       this.amministrazioneRuolo.GetAllFunzioniComponenteByIdRuolo(this.idRuolo)
@@ -271,6 +262,12 @@ export class MenuDinamicoComponent {
       this.listaFunzioniFinaleMenu.push(newEl);
 
     }
+
+    // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
+    this.listaFunzioniFinaleMenu.unshift({
+      path: this.urlHomePage,
+      component: this.listaComponenti.find(funzione => funzione.idComponente == 0)?.component
+    });
 
     console.log("this.listaFunzioniFinaleMenu");
     console.log(this.listaFunzioniFinaleMenu);
