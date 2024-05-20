@@ -26,8 +26,9 @@ import { InsertPersonaComponent } from '../../pages/insert-persona/insert-person
 export class MenuDinamicoComponent {
 
 
+  // idRuolo: number = 5;
+  idRuolo: number = 2009;
 
-  idRuolo: number = 5;
 
   // lista originale
   listaFunzioniComponenti: any[] = [];
@@ -144,6 +145,8 @@ export class MenuDinamicoComponent {
     console.log("this.listaFunzioniComponenti ordinata");
     console.log(this.listaFunzioniComponenti);
 
+    // this.router.resetConfig([]);
+
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
       if (this.listaFunzioniComponenti[i].menu == true) {
@@ -153,20 +156,11 @@ export class MenuDinamicoComponent {
         this.listaFunzioniNonPadre.push(this.listaFunzioniComponenti[i]);
       }
     }
-
-    // console.log("this.listaFunzioniPadre");
-    // console.log(this.listaFunzioniPadre);
-    // console.log("this.listaFunzioniNonPadre");
-    // console.log(this.listaFunzioniNonPadre);
-
+    
     // caso figli senza padre (funzioni autonome)
     for (let i = 0; i < this.listaFunzioniNonPadre.length; i++) {
 
       if (this.listaFunzioniNonPadre[i].menuPadre == 0) {
-
-        // console.log("this.listaFunzioniNonPadre[i].idComponente");
-        // console.log(this.listaFunzioniNonPadre[i].idComponente);
-
         let newEl = {
           path: this.listaFunzioniNonPadre[i].aliasComponente,
           //component: this.listaFunzioniNonPadre[i].pathDescrizione,
@@ -185,14 +179,12 @@ export class MenuDinamicoComponent {
       for (let l = 0; l < this.listaFunzioniNonPadre.length; l++) {
 
         if (this.listaFunzioniPadre[i].fkFunzioniId == this.listaFunzioniNonPadre[l].menuPadre) {
-
           let newEl = {
             path: this.listaFunzioniNonPadre[l].aliasComponente,
             //component: this.listaFunzioniNonPadre[l].pathDescrizione
             component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[l].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
           }
           this.listaFunzioniChildren.push(newEl);
-
           check = true;
         }
       }
@@ -218,9 +210,6 @@ export class MenuDinamicoComponent {
         check = false;
       }
 
-
-
-
     }
 
     // ordino l'array
@@ -235,6 +224,7 @@ export class MenuDinamicoComponent {
             this.listaFunzioniFinaleMenu.push(this.listaFunzioniPadreConFigli[p]);
             break;
           }
+
         }
 
         // ciclo this.listaFunzioniAutonome e verifico se presente
@@ -246,14 +236,13 @@ export class MenuDinamicoComponent {
           }
 
         }
+
       }
       else {
 
         for (let o = 0; o < this.listaFunzioniAutonome.length; o++) {
 
           if (this.listaFunzioniComponenti[n].aliasComponente == this.listaFunzioniAutonome[o].path) {
-            // console.log("this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente ==  this.listaFunzioniAutonome[o].path).idComponente");
-            // console.log(this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente ==  this.listaFunzioniAutonome[o].path).idComponente);
             let newEl = {
               path: this.listaFunzioniAutonome[o].path,
               //component: this.listaFunzioniAutonome[o].component
@@ -272,8 +261,7 @@ export class MenuDinamicoComponent {
 
     // aggiungo le funzioni autonome (indice menu = 0)
     for (let s = 0; s < this.listaSupportoOrdinamentoFunzioniAutonome.length; s++) {
-// console.log("this.listaSupportoOrdinamentoFunzioniAutonome");
-// console.log(this.listaSupportoOrdinamentoFunzioniAutonome);
+
       let newEl = {
         path: this.listaSupportoOrdinamentoFunzioniAutonome[s].path,
         //component: this.listaSupportoOrdinamentoFunzioniAutonome[s].component
@@ -281,16 +269,15 @@ export class MenuDinamicoComponent {
         component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[s].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
       }
       this.listaFunzioniFinaleMenu.push(newEl);
+
     }
 
     console.log("this.listaFunzioniFinaleMenu");
     console.log(this.listaFunzioniFinaleMenu);
 
-
-
-    //this.router.resetConfig([this.listaFunzioniFinaleMenu[0]]);
-    
+    //this.router.resetConfig([this.listaFunzioniFinaleMenu[0]]);    
     //this.router.resetConfig([this.pp]);
+
     this.router.resetConfig(this.listaFunzioniFinaleMenu);
 
     console.log("this.router");
