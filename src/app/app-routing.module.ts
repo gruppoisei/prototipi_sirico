@@ -31,7 +31,6 @@ import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-com
 import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 import { PaginationComponent } from './ui/pagination/pagination.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
-
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 
 const routes: Routes = [
@@ -40,10 +39,6 @@ const routes: Routes = [
     pathMatch: "full",
     component:HomepageComponent
   },
-  // {
-  //   path: 'nuova-persona',
-  //   component: InsertPersonaComponent,
-  // },
   {
     path: 'Account',
     component:LoginBoxComponent,
@@ -72,10 +67,10 @@ const routes: Routes = [
       { path: 'insert-cliente',component: InsertClienteComponent,},
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
-      {path:'assegna-commessa',component: DipendentiCommessaComponent},
-      {path:'salva-commessa',component: SalvaCommessaComponent},
-      {path:'gestione-cliente',component: GestioneClienteComponent},
-      {path:'gestione-assegnazione-commessa',component: GestioneAssegnazioneCommessaComponent},
+      { path:'assegna-commessa',component: DipendentiCommessaComponent },
+      { path:'salva-commessa',component: SalvaCommessaComponent },
+      { path:'gestione-cliente',component: GestioneClienteComponent },
+      { path:'gestione-assegnazione-commessa',component: GestioneAssegnazioneCommessaComponent },
 
       // {path:,component:},
     ],
@@ -85,7 +80,6 @@ const routes: Routes = [
     path: 'AmministrazioneApplicativo',
     component: SegreteriaComponent,
     children: [
-      //{ path: 'insertutente',component: InsertUtenteComponent,},
       { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
       { path: 'insert-ruolo-funzione',component: ProvassComponent, },
       { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
@@ -114,7 +108,7 @@ const routes: Routes = [
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
       { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
-      { path:'gestione-cliente',component: GestioneClienteComponent },
+      { path: 'gestione-cliente',component: GestioneClienteComponent },
       { path: 'insert-cliente',component: InsertClienteComponent,},
       { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
       // {path:,component:},
@@ -127,19 +121,6 @@ const routes: Routes = [
     component: CalendarioComponent,
     canActivate : [basicUser]
   },
-
-  // {
-  //   path: 'insertutente',
-  //   component: InsertUtenteComponent,
-  // },
-  // {
-  //   path: 'homepage',
-  //   component: HomepageComponent,
-  // },
-  // {
-  //   path: 'richiestaassenzasegreteria',
-  //   component: RichiestaAssenzaSegreteriaComponent,
-  // },
 {
  path: 'richiestaassenzautente',
   component: RichiestaAssenzaUtenteComponent,
@@ -148,48 +129,6 @@ const routes: Routes = [
  path: 'menu-dinamico',
   component: MenuDinamicoComponent,
 },
-  // {
-  //   path: '',
-  //   component: HomepageComponent,
-  // },
-  
-  // {
-  //   path: 'modifica-password',
-  //   component: ModificaPasswordComponent,
-  // },
-  // {
-  //   path: 'gestione-dipendente',
-  //   component: GestioneDipendenteComponent,
-  //   canActivate : [basicUser]
-  // },
-  // {
-  //   path: 'gestione-contratto',
-  //   component: GestioneContrattoComponent,
-  // },
-  // {
-  //   path: 'nuovo-contratto',
-  //   component: InsertContrattoComponent,
-  // },
-  // {
-  //   path: 'gestione-ruolo-funzione',
-  //   component: GestioneRuoloComponent,
-  // },
-  // {
-  //   path: 'insert-ruolo-funzione',
-  //   component: InsertRuoloFunzioneComponent,
-  // },
-  // {
-  //   path: 'gestione-ruolo-utente',
-  //   component: GestioneRuoloUtenteComponent,
-  // },
-  // {
-  //   path: 'insert-ruolo-utente',
-  //   component: InsertRuoloUtenteComponent,
-  // }, 
-  // {
-  //   path: 'insert-cliente',
-  //   component: InsertClienteComponent,
-  // },
 ];
 
 @NgModule({
