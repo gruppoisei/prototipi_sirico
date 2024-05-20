@@ -77,6 +77,46 @@ const routes: Routes = [
     ],
     //canActivate : [basicUser]
   },
+  {
+    path: 'AmministrazioneApplicativo',
+    component: SegreteriaComponent,
+    children: [
+      { path: 'insertutente',component: InsertUtenteComponent,},
+      { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
+      { path: 'insert-ruolo-funzione',component: ProvassComponent, },
+      { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
+      { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
+      // {path:,component:},
+    ],
+    //canActivate : [basicUser]
+  },
+  {
+    path: 'AreaCommerciale',
+    component: SegreteriaComponent,
+    children: [
+      { path: 'gestione-commessa',component: GestioneCommessaComponent,},
+      { path:'assegna-commessa',component: DipendentiCommessaComponent },
+      { path:'salva-commessa',component: SalvaCommessaComponent },
+      // {path:,component:},
+    ],
+    //canActivate : [basicUser]
+  },
+  {
+    path: 'Risorse-umane',
+    component: SegreteriaComponent,
+    children: [
+      { path: 'gestione-dipendente', component: GestioneDipendenteComponent },
+      { path: 'salva-persona',component: InsertPersonaComponent},
+      { path: 'gestione-contratto', component: GestioneContrattoComponent },
+      { path: 'insert-contratto', component: InsertContrattoComponent },
+      { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
+      { path:'gestione-cliente',component: GestioneClienteComponent },
+      { path: 'insert-cliente',component: InsertClienteComponent,},
+      { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
+      // {path:,component:},
+    ],
+    //canActivate : [basicUser]
+  },
   {path: 'pagination', component: PaginationComponent},
   {
     path: 'rapportino',

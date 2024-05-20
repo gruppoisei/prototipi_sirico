@@ -32,33 +32,65 @@
           <div class="flex space-x-4 justify-items-center mt-2">
             <!-- <a routerLink="" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Home</a> -->
             <a routerLink="Account/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Login</a>
-            <a (click)="logout()" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">Logout</a>
+
             <a routerLink="Rapportino" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Rapportino</a>
             <!-- <a routerLink="richiestaassenzautente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Inserisci assenza</a> -->
-            <button [cdkMenuTriggerFor]="segreteria"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Segreteria</button>
+            <!-- <button [cdkMenuTriggerFor]="segreteria"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Segreteria</button>
             <ng-template #segreteria >
             <div  class="rounded-md flex flex-col bg-gray-800 "  cdkMenu>
                 <a routerLink="Segreteria/gestione-dipendente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Dipendente</a>
                 <a routerLink="Segreteria/gestione-commessa" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1 ">Gestione Commessa</a>
                 <a routerLink="Segreteria/assegna-commessa" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1 ">Assegnazione Commesse</a>
                 <a routerLink="Segreteria/gestione-contratto" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestisci Contratto</a>
-                <!-- <a routerLink="Segreteria/insert-contratto" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Nuovo Contratto</a> -->
+                <a routerLink="Segreteria/insert-contratto" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Nuovo Contratto</a> 
                 <a routerLink="Segreteria/gestione-assenze" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Assenze</a>
-                <!-- <a routerLink="Segreteria/insertutente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Nuovo Utente</a> -->
+                <a routerLink="Segreteria/insertutente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Nuovo Utente</a> 
                 <a routerLink="Segreteria/gestione-ruolo-utente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Ruolo Utente</a>
                 <a routerLink="Segreteria/gestione-ruolo-funzione" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Ruolo Funzione</a>
-                <!-- <a routerLink="Segreteria/insert-ruolo-funzione" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Nuovo Ruolo Funzione</a> -->
+                <a routerLink="Segreteria/insert-ruolo-funzione" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Nuovo Ruolo Funzione</a> -->
                 <!-- <a routerLink="Segreteria/insert-ruolo-utente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Assegnazione Ruolo Utente</a> -->
-                <!-- <a routerLink="Segreteria/insert-cliente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300  rounded-md px-2 mx-2 py-1 ">Nuovo Cliente</a> -->
+                <!-- <a routerLink="Segreteria/insert-cliente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300  rounded-md px-2 mx-2 py-1 ">Nuovo Cliente</a>
                 <a routerLink="Segreteria/gestione-cliente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300  rounded-md px-2 mx-2 py-1 ">Gestione Cliente</a>
                 <a routerLink="Segreteria/utility-costi-personale" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300  rounded-md px-2 mx-2  py-1 " >Utility Costi Personale</a>
               </div>
+            </ng-template>  -->
+
+            <button [cdkMenuTriggerFor]="RisorseUmane"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Risorse Umane</button>
+            <ng-template #RisorseUmane >
+            <div  class="rounded-md flex flex-col bg-gray-800 "  cdkMenu>
+                <a routerLink="Risorse-umane/gestione-dipendente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Dipendente</a>
+                <a routerLink="Risorse-umane/gestione-contratto" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Contratto</a>
+                <a routerLink="Risorse-umane/gestione-assenze" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Assenze</a>
+                <a routerLink="Risorse-umane/gestione-cliente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300  rounded-md px-2 mx-2 py-1 ">Gestione Cliente</a>
+                <a routerLink="Risorse-umane/utility-costi-personale" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300  rounded-md px-2 mx-2  py-1 " >Utility Costi Personale</a>
+              </div>
+            </ng-template> 
+
+            <button [cdkMenuTriggerFor]="AreaAmministrativa"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Area Amministrativa</button>
+            <ng-template #AreaAmministrativa >
+            <div  class="rounded-md flex flex-col bg-gray-800 "  cdkMenu>
+              </div>
+            </ng-template> 
+
+            <button [cdkMenuTriggerFor]="AreaCommerciale"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Area Commerciale</button>
+            <ng-template #AreaCommerciale >
+            <div  class="rounded-md flex flex-col bg-gray-800 "  cdkMenu>
+              <a routerLink="AreaCommerciale/gestione-commessa" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1 ">Gestione Commessa</a>
+              <a routerLink="AreaCommerciale/assegna-commessa" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1 ">Assegnazione Commesse</a>
+              </div>
+            </ng-template> 
+
+            <button [cdkMenuTriggerFor]="AmministrazioneApplicativo"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Gestione amministrativa dell'applicativo</button>
+            <ng-template #AmministrazioneApplicativo >
+            <div  class="rounded-md flex flex-col bg-gray-800 "  cdkMenu>
+              <a routerLink="AmministrazioneApplicativo/gestione-ruolo-utente" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Ruolo Utente</a>
+              <a routerLink="AmministrazioneApplicativo/gestione-ruolo-funzione" cdkMenuItem  class=" hover:bg-gray-700 text-gray-300 rounded-md px-2 mx-2 py-1">Gestione Ruolo Funzione</a></div>
             </ng-template> 
             
             <!-- <a routerLink="richiestaassenzasegreteria" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Segreteria per assenza</a>
             <a routerLink="gestione-contratto" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Gestione Contratti</a>
             <a routerLink="gestione-dipendente" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Gestisci dipendente</a> -->
-            <button class="text-red-500 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" (click)="Prova()">prova</button>
+            <!-- <button class="text-red-500 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" (click)="Prova()">prova</button>-->
           </div>
         </div>
       </div>
