@@ -84,6 +84,8 @@ import { FormInputNumberComponent } from './ui/formComponent/form-input-number/f
 import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-textarea.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 
+import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -144,6 +146,7 @@ import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gest
         FormInputNumberComponent,
         FormTextareaComponent,
         GestioneAssegnazioneCommessaComponent,
+        MenuDinamicoComponent,
     ],
     providers: [
         provideAnimationsAsync(),

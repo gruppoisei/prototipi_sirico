@@ -1,12 +1,12 @@
 
 <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-    <h2 class="flex justify-center my-10 text-4xl font-bold">Assegnazione delle commesse</h2>
+    <h2 class="flex justify-center my-10 text-4xl text-center font-bold">Assegnazione delle commesse</h2>
     <hr>
     <form class="my-8" [formGroup]="assegnaCommessaForm">
         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="sm:col-span-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona commessa</label>
-                <select formControlName="commessa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                <select (change)="onCommessaChange(assegnaCommessaForm.get('commessa')?.value)" formControlName="commessa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                     focus:border-sky-500 focus:ring-sky-500">
                         <option value="" disable selected hidden>Scegli un'opzione</option>
                         <option [value]="com.commessaId" *ngFor= "let com of listaCommesse">
@@ -19,13 +19,14 @@
             <div class="sm:col-span-2">
                 <mat-label class="block mb-2 text-sm font-medium text-gray-900">Durata per la commessa</mat-label>
                 <mat-form-field class="w-full">
-                    <mat-date-range-input [rangePicker]="picker" formGroupName = "dateRange">
+                    <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker" formGroupName = "dateRange">
                         <input matStartDate placeholder="Data inizio" formControlName = "dataInizio">
                         <input matEndDate placeholder="Data fine" formControlName = "dataFine">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
+                <small *ngIf="assegnaCommessaForm.controls['dateRange'].invalid && (assegnaCommessaForm.controls['dateRange'].touched)" class="block mt-1 text-xs text-red-600">Inserisci un intervallo di date valido.</small>
             </div>
 
             <!-- <div class="sm:col-span-2">
@@ -74,9 +75,10 @@
 </div>
 
 <div class="px-8 max-w-full lg:py-2">
-    <div class="py-2 px-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
-        <div [ngClass]="{'sm:col-span-2': dipendentiSelezionati.length === 0, 'w-full': dipendentiSelezionati.length > 0}">
-            <table class="w-full">
+    <div class="py-2 px-2 gap-4 sm:grid-cols-2 sm:gap-6 grid grid-cols-1">
+        <div [ngClass]="{'col-span-2': dipendentiSelezionati.length === 0, 'sm:col-span-1': dipendentiSelezionati.length > 0}">
+            <div class="overflow-auto rounded-lg shadow ">
+                <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200 rounded-md">
                         <tr class>
                             <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Aggiungi</th>
@@ -85,24 +87,24 @@
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Societá</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Email aziendale</th>
                         </tr>
-                    </thead>
+                        </thead>
                     <tbody class="divide-y divide-gray-300">
                         <tr *ngFor="let dipendenti of _datiDipendenti; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
                             <td class="p-3 text-sm text-gray-700">
                                 <button class="text-green-500"
                                 [disabled]="checkBoxStatus[dipendenti.anpePersonaid]"
                                 (click)="addDipendenteSelezionato(dipendenti)">
-                                <mat-icon>add_circle_outline</mat-icon>
-                            </button>
+                                    <mat-icon>add_circle_outline</mat-icon>
+                                </button>
                             </td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeNome}}</td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeCognome}}</td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenti.ansoRagionesociale}}</td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenti.anpeEmailaziendale}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenti.anpeNome}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenti.anpeCognome}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenti.ansoRagionesociale}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenti.anpeEmailaziendale}}</td>
                         </tr>
                     </tbody>
                 </table>
-
+            </div>
             <app-pagination
             [totalPages]="datiDipendenti.length"
             [itemsPerPageOptions]="[5,10,15]"
@@ -111,9 +113,11 @@
             (pageChange)="cambiaPagina($event)">
             </app-pagination>
         </div>
-        
-        <div class="w-full" *ngIf="dipendentiSelezionati.length > 0">
-            <table class="w-full">
+       
+
+        <div class="sm:col-span-1 h-min" *ngIf="dipendentiSelezionati.length > 0">
+            <div class="overflow-auto rounded-lg shadow">
+                <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200">
                         <tr class>
                             <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Rimuovi</th>
@@ -124,27 +128,28 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
-                        <tr *ngFor="let dipendenteSelezionato of dipendentiSelezionati; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
-                            <td class="p-3 text-sm text-gray-700"><button class = "text-red-500" (click)="removeDipendenteSelezionato(dipendenteSelezionato)"><mat-icon>remove_circle_outline</mat-icon></button></td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeNome}}</td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeCognome}}</td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.ansoRagionesociale}}</td>
-                            <td class="p-3 text-sm text-gray-700">{{dipendenteSelezionato.anpeEmailaziendale}}</td>
+                        <tr *ngFor="let dipendenteSelezionato of _dipendentiSelezionati; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><button class = "text-red-500" (click)="removeDipendenteSelezionato(dipendenteSelezionato)"><mat-icon>remove_circle_outline</mat-icon></button></td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenteSelezionato.anpeNome}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenteSelezionato.anpeCognome}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenteSelezionato.ansoRagionesociale}}</td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendenteSelezionato.anpeEmailaziendale}}</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
                 <app-pagination
                 [totalPages]="dipendentiSelezionati.length"
                 [itemsPerPageOptions]="[5,10,15]"
                 [itemsPerPage]="_elementiPerPagina"
-                (itemsPerPageChange)="cambiaElementiPerPaginaDipendentiSelezionati($event)"
-                (pageChange)="cambiaPaginaDipendentiSelezionati($event)">
+                (itemsPerPageChange)="_cambiaElementiPerPagina($event)"
+                (pageChange)="_cambiaPagina($event)">
                 </app-pagination>
         </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-center mb-10 mt-10 gap-4">
-        <button type="submit" (click)="salva()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salva</button>
-        <button (click)="clearForm()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancella</button>
-        <button (click)="goBack()" class="w-1/12 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Chiudi</button>
-        </div>
+    <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16 flex flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <button type="submit" (click)="salvaCommessaPersona()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Salva</button>
+        <button (click)="clearForm()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Cancella</button>
+        <button (click)="goBack()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Chiudi</button>
+    </div>
 </div>

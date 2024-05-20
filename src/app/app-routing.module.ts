@@ -32,6 +32,8 @@ import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/ges
 import { PaginationComponent } from './ui/pagination/pagination.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 
+import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
+
 const routes: Routes = [
   {
     path:"",
@@ -74,6 +76,7 @@ const routes: Routes = [
       {path:'salva-commessa',component: SalvaCommessaComponent},
       {path:'gestione-cliente',component: GestioneClienteComponent},
       {path:'gestione-assegnazione-commessa',component: GestioneAssegnazioneCommessaComponent},
+
       // {path:,component:},
     ],
     //canActivate : [basicUser]
@@ -100,6 +103,10 @@ const routes: Routes = [
 {
  path: 'richiestaassenzautente',
   component: RichiestaAssenzaUtenteComponent,
+},
+{
+ path: 'menu-dinamico',
+  component: MenuDinamicoComponent,
 },
   // {
   //   path: '',

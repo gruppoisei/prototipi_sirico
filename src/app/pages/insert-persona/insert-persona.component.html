@@ -1,310 +1,309 @@
-<div class = "flex justify-center my-10 text-4xl font-bold">
-  <h2>{{data}}</h2>
-</div>
-<div class = "flex flex-row justify-center my-10">
-<form class="w-full max-w-3xl" [formGroup]="insertPersona">
+<div class = "py-8 px-4 mx-auto max-w-4xl lg:py-16">
+    <h2 class="flex justify-center my-10 text-4xl font-bold">{{data}}</h2>
+    <hr>
+  <form class="py-8 px-4 mx-auto max-w-4xl lg:py-16" [formGroup]="insertPersona">
 
-<!--Nome, cognome, data nascita, cf e IVA-->    
-  <div class="flex w-full flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Matricola</label>
-      <input formControlName="AnpeMatricola" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-   focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi matricola...">
-   <small *ngIf="insertPersona.controls['AnpeMatricola'].dirty && insertPersona.hasError('required','AnpeMatricola')" class="text-red-600">Nome obbligatorio</small>
-  </div>
-      <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
-          <input formControlName="AnpeNome" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-       focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un nome...">
-       <small *ngIf="insertPersona.controls['AnpeNome'].dirty && insertPersona.hasError('required','AnpeNome')" class="text-red-600">Nome obbligatorio</small>
-      </div>
-      
-      <div div class="w-full md:w-2/5 px-3 mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Cognome</label>
-          <input formControlName="AnpeCognome" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-       focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un cognome...">
-       <small *ngIf="insertPersona.controls['AnpeCognome'].dirty && insertPersona.hasError('required','AnpeCognome')" class="text-red-600">Cognome obbligatorio</small>
-      </div>
-      <div class = "w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Data di nascita</label>
-          <input formControlName="AnpeDatanascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-       focus:border-sky-500 focus:ring-sky-500" type="date">
-       <small *ngIf="insertPersona.controls['AnpeDatanascita'].dirty && insertPersona.hasError('required','AnpeDatanascita')" class="text-red-600">Data di nascita obbligatoria</small>
-      </div>
+  <!--Nome, cognome, data nascita, cf e IVA-->    
+    <div class="flex w-full flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Matricola</label>
+        <input formControlName="AnpeMatricola" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+    focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi matricola...">
+    <small *ngIf="insertPersona.controls['AnpeMatricola'].dirty && insertPersona.hasError('required','AnpeMatricola')" class="text-red-600">Nome obbligatorio</small>
+    </div>
+        <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
+            <input formControlName="AnpeNome" class=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un nome...">
+        <small *ngIf="insertPersona.controls['AnpeNome'].dirty && insertPersona.hasError('required','AnpeNome')" class="text-red-600">Nome obbligatorio</small>
+        </div>
+        
+        <div div class="w-full md:w-2/5 px-3 mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Cognome</label>
+            <input formControlName="AnpeCognome" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi un cognome...">
+        <small *ngIf="insertPersona.controls['AnpeCognome'].dirty && insertPersona.hasError('required','AnpeCognome')" class="text-red-600">Cognome obbligatorio</small>
+        </div>
+        <div class = "w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Data di nascita</label>
+            <input formControlName="AnpeDatanascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="date">
+        <small *ngIf="insertPersona.controls['AnpeDatanascita'].dirty && insertPersona.hasError('required','AnpeDatanascita')" class="text-red-600">Data di nascita obbligatoria</small>
+        </div>
 
-      <div class="w-full md:w-1/3 px-3 mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Codice Fiscale</label>
-          <input formControlName="AnpeCodicefiscale" maxlength="16" class="uppercase bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500"type="text" placeholder="Scrivi il codice fiscale...">
-      <small *ngIf="insertPersona.controls['AnpeCodicefiscale'].dirty && insertPersona.hasError('required','AnpeCodicefiscale')" class="text-red-600">Codice fiscale obbligatorio</small>
-      <small *ngIf="insertPersona.get('AnpeCodicefiscale')?.hasError('pattern')" class="text-red-600">Codice fiscale non valido</small>
+        <div class="w-full md:w-1/3 px-3 mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Codice Fiscale</label>
+            <input formControlName="AnpeCodicefiscale" maxlength="16" class="uppercase bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500"type="text" placeholder="Scrivi il codice fiscale...">
+        <small *ngIf="insertPersona.controls['AnpeCodicefiscale'].dirty && insertPersona.hasError('required','AnpeCodicefiscale')" class="text-red-600">Codice fiscale obbligatorio</small>
+        <small *ngIf="insertPersona.get('AnpeCodicefiscale')?.hasError('pattern')" class="text-red-600">Codice fiscale non valido</small>
+        </div>
+        
+        <div class="w-full md:w-1/3 px-3 mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Partita IVA</label>
+          <input formControlName="AnpePartitaiva" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500" type="text" maxlength="13" placeholder="Scrivi la partita IVA...">
+          <small *ngIf="insertPersona.get('AnpePartitaiva')?.hasError('pattern')" class="text-red-600">La partita IVA non è valida</small>
       </div>
-      
-      <div class="w-full md:w-1/3 px-3 mb-6">
-        <label class="block mb-2 text-sm font-medium text-gray-900">Partita IVA</label>
-        <input formControlName="AnpePartitaiva" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" type="text" maxlength="13" placeholder="Scrivi la partita IVA...">
-         <small *ngIf="insertPersona.get('AnpePartitaiva')?.hasError('pattern')" class="text-red-600">La partita IVA non è valida</small>
     </div>
-  </div>
-  
-  <!--Dati indirizzo di residenza-->
-  <div class="flex w-full flex-nowrap -mx-3 mb-5">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo residenza</label>
-      <input formControlName="AnpeIndirizzoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di residenza...">
-      <small *ngIf="insertPersona.controls['AnpeIndirizzoresidenza'].dirty && insertPersona.hasError('required','AnpeIndirizzoresidenza')" class="text-red-600">Indirizzo di residenza obbligatorio</small>
+    
+    <!--Dati indirizzo di residenza-->
+    <div class="flex w-full flex-nowrap -mx-3 mb-5">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Ind. residenza</label>
+        <input formControlName="AnpeIndirizzoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di residenza...">
+        <small *ngIf="insertPersona.controls['AnpeIndirizzoresidenza'].dirty && insertPersona.hasError('required','AnpeIndirizzoresidenza')" class="text-red-600">Indirizzo di residenza obbligatorio</small>
+      </div>
+      <div class="w-full md:w-1/4 px-3 mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico">Numero civico</label>
+        <input formControlName="AnpeNumerocivicoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="N.Civico">
+        <small *ngIf="insertPersona.controls['AnpeNumerocivicoresidenza'].dirty && insertPersona.hasError('required','AnpeNumerocivicoresidenza')" class="text-red-600">Numero civico obbligatorio</small>
+      </div>
+      <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-res">CAP residenza</label>
+        <input formControlName="AnpeCapresidenza" maxlength="5" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="00100">
+        <small *ngIf="insertPersona.controls['AnpeCapresidenza'].dirty && insertPersona.hasError('required','AnpeCapresidenza')" class="text-red-600">CAP obbligatorio</small>
+        <small *ngIf="insertPersona.get('AnpeCapresidenza')?.hasError('pattern')" class="text-red-600">CAP non valido</small>
+      </div>
     </div>
-    <div class="w-full md:w-1/4 px-3 mb-6">
-      <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-n-civico">Numero civico</label>
-      <input formControlName="AnpeNumerocivicoresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="N.Civico">
-      <small *ngIf="insertPersona.controls['AnpeNumerocivicoresidenza'].dirty && insertPersona.hasError('required','AnpeNumerocivicoresidenza')" class="text-red-600">Numero civico obbligatorio</small>
-    </div>
-    <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
-      <label class="block mb-2 text-sm font-medium text-gray-900" for="grid-cap-res">CAP residenza</label>
-      <input formControlName="AnpeCapresidenza" maxlength="5" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="00100">
-      <small *ngIf="insertPersona.controls['AnpeCapresidenza'].dirty && insertPersona.hasError('required','AnpeCapresidenza')" class="text-red-600">CAP obbligatorio</small>
-      <small *ngIf="insertPersona.get('AnpeCapresidenza')?.hasError('pattern')" class="text-red-600">CAP non valido</small>
-    </div>
-  </div>
 
-<!--Dati anagrafici per il luogo di nascita-->    
-  <div class="flex w-full flex-nowrap -mx-3 mb-10">
+  <!--Dati anagrafici per il luogo di nascita-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Paese nascita</label>
+            <div class="relative">
+              <select formControlName="AnpeFkGepaPaeseidPaesenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500">
+                <option value="" disable selected hidden>Scegli un'opzione</option>
+                <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
+              </select>
+              <small *ngIf="insertPersona.controls['AnpeFkGepaPaeseidPaesenascita'].dirty && insertPersona.hasError('required','AnpeFkGepaPaeseidPaesenascita')" class="text-red-600">Paese obbligatorio</small>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Regione nascita</label>
+            <div class="relative">
+                <select formControlName="RegioneNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+                focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeNascita($event)" >
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
+                </select>
+                <small *ngIf="insertPersona.controls['RegioneNascita'].dirty && insertPersona.hasError('required','RegioneNascita')" class="text-red-600">Regione obbligatoria</small>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Provincia nascita</label>
+            <div class="relative">
+                <select formControlName="ProvinciaNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" (change)="onProvinciaNascitaChage($event)">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvince">{{pro.geprDeno}}</option>
+                </select>
+                <small *ngIf="insertPersona.controls['ProvinciaNascita'].dirty && insertPersona.hasError('required','ProvinciaNascita')" class="text-red-600">Provincia obbligatoria</small>
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Comune nascita</label>
+            <div class="relative">
+                <select formControlName="AnpeFkGecoComuneidComunenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+            focus:border-sky-500 focus:ring-sky-500">
+                    <option value="" disable selected hidden>Scegli un'opzione</option>
+                    <option [value]="com.gecoComuneid" *ngFor="let com of listComuniNascita">{{com.gecoDeno}}</option>
+                </select>
+                <small *ngIf="insertPersona.controls['AnpeFkGecoComuneidComunenascita'].dirty && insertPersona.hasError('required','AnpeFkGecoComuneidComunenascita')" class="text-red-600">Comune obbligatorio</small>
+            </div>
+        </div>
+    </div>
+
+
+  <!--Dati residenza-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Paese residenza</label>
+            <div class="relative">
+              <select formControlName="AnpeFkGepaPaeseidPaeseresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500">
+              <option value="" disable selected hidden>Scegli un'opzione</option>
+                <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
+              </select>
+              <small *ngIf="insertPersona.controls['AnpeFkGepaPaeseidPaeseresidenza'].dirty && insertPersona.hasError('required','AnpeFkGepaPaeseidPaeseresidenza')" class="text-red-600">Paese obbligatorio</small>
+            </div>
+          </div>
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Paese di nascita</label>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Regione residenza</label>
+        <div class="relative">
+          <select formControlName="RegioneResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeResidenza($event)" >
+            <option value="" disable selected hidden>Scegli un'opzione</option>
+            <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniResidenza">{{reg.gereDeno}}</option>
+          </select>
+          <small *ngIf="insertPersona.controls['RegioneResidenza'].dirty && insertPersona.hasError('required','RegioneResidenza')" class="text-red-600">Regione obbligatoria</small>
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Provincia residenza</label>
+        <div class="relative">
+          <select formControlName="ProvinciaResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500" (change)="onChangeProvinciaResidenza($event)">
+          <option value="" disable selected hidden>Scegli un'opzione</option>
+          <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceResidenza">{{pro.geprDeno}}</option>
+          </select>
+          <small *ngIf="insertPersona.controls['ProvinciaResidenza'].dirty && insertPersona.hasError('required','ProvinciaResidenza')" class="text-red-600">Provincia obbligatoria</small>
+        </div>
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Comune residenza</label>
+        <div class="relative">
+          <select formControlName="AnpeFkGecoComuneidComuneresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500">
+            <option value="" disable selected hidden>Scegli un'opzione</option>
+            <option [value]="com.gecoComuneid" *ngFor="let com of listComuniResidenza">{{com.gecoDeno}}</option>
+          </select>
+          <small *ngIf="insertPersona.controls['AnpeFkGecoComuneidComuneresidenza'].dirty && insertPersona.hasError('required','AnpeFkGecoComuneidComuneresidenza')" class="text-red-600">Comune obbligatorio</small>
+        </div>
+      </div>
+    </div>
+
+
+  <!--Checkbox per mostrare i campi del domicilio-->
+    <div class = "flex w-full flex-nowrap mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900" for="showDomicilio">Domicilio diverso dalla residenza?</label>
+      <input type="checkbox" [checked]="showDomicilio" (change)="onCheckboxChange($event)" class = "cursor-pointer ml-6 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:outline-none focus:ring-blue-500">
+    </div>
+
+  <!--Dati domicilio-->
+    <div *ngIf="showDomicilio" class="flex w-full flex-nowrap -mx-3 mb-10">
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Paese domicilio</label>
           <div class="relative">
-            <select formControlName="AnpeFkGepaPaeseidPaesenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-             focus:border-sky-500 focus:ring-sky-500">
+            <select formControlName="AnpeFkGepaPaeseidPaesedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+            focus:border-sky-500 focus:ring-sky-500">
               <option value="" disable selected hidden>Scegli un'opzione</option>
               <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
             </select>
-            <small *ngIf="insertPersona.controls['AnpeFkGepaPaeseidPaesenascita'].dirty && insertPersona.hasError('required','AnpeFkGepaPaeseidPaesenascita')" class="text-red-600">Paese obbligatorio</small>
-          </div>
-      </div>
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Regione di nascita</label>
-          <div class="relative">
-              <select formControlName="RegioneNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-              focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeNascita($event)" >
-                  <option value="" disable selected hidden>Scegli un'opzione</option>
-                  <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioni">{{reg.gereDeno}}</option>
-              </select>
-              <small *ngIf="insertPersona.controls['RegioneNascita'].dirty && insertPersona.hasError('required','RegioneNascita')" class="text-red-600">Regione obbligatoria</small>
-          </div>
-      </div>
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Provincia di nascita</label>
-          <div class="relative">
-              <select formControlName="ProvinciaNascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500" (change)="onProvinciaNascitaChage($event)">
-                  <option value="" disable selected hidden>Scegli un'opzione</option>
-                  <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvince">{{pro.geprDeno}}</option>
-              </select>
-              <small *ngIf="insertPersona.controls['ProvinciaNascita'].dirty && insertPersona.hasError('required','ProvinciaNascita')" class="text-red-600">Provincia obbligatoria</small>
-          </div>
-      </div>
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Comune di nascita</label>
-          <div class="relative">
-              <select formControlName="AnpeFkGecoComuneidComunenascita" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-          focus:border-sky-500 focus:ring-sky-500">
-                  <option value="" disable selected hidden>Scegli un'opzione</option>
-                  <option [value]="com.gecoComuneid" *ngFor="let com of listComuniNascita">{{com.gecoDeno}}</option>
-              </select>
-              <small *ngIf="insertPersona.controls['AnpeFkGecoComuneidComunenascita'].dirty && insertPersona.hasError('required','AnpeFkGecoComuneidComunenascita')" class="text-red-600">Comune obbligatorio</small>
-          </div>
-      </div>
-  </div>
-
-
-<!--Dati residenza-->    
-  <div class="flex w-full flex-nowrap -mx-3 mb-10">
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Paese di residenza</label>
-          <div class="relative">
-            <select formControlName="AnpeFkGepaPaeseidPaeseresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-             focus:border-sky-500 focus:ring-sky-500">
-             <option value="" disable selected hidden>Scegli un'opzione</option>
-              <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
-            </select>
-            <small *ngIf="insertPersona.controls['AnpeFkGepaPaeseidPaeseresidenza'].dirty && insertPersona.hasError('required','AnpeFkGepaPaeseidPaeseresidenza')" class="text-red-600">Paese obbligatorio</small>
           </div>
         </div>
     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Regione di residenza</label>
+      <label class="block mb-2 text-sm font-medium text-gray-900">Regione domicilio</label>
       <div class="relative">
-        <select formControlName="RegioneResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeResidenza($event)" >
+        <select formControlName="RegioneDomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeDomicilio($event)">
           <option value="" disable selected hidden>Scegli un'opzione</option>
-          <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniResidenza">{{reg.gereDeno}}</option>
+          <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniDomicilio">{{reg.gereDeno}}</option>
         </select>
-        <small *ngIf="insertPersona.controls['RegioneResidenza'].dirty && insertPersona.hasError('required','RegioneResidenza')" class="text-red-600">Regione obbligatoria</small>
       </div>
     </div>
     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Provincia residenza</label>
+      <label class="block mb-2 text-sm font-medium text-gray-900">Provincia domicilio</label>
       <div class="relative">
-        <select formControlName="ProvinciaResidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" (change)="onChangeProvinciaResidenza($event)">
-         <option value="" disable selected hidden>Scegli un'opzione</option>
-         <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceResidenza">{{pro.geprDeno}}</option>
-        </select>
-        <small *ngIf="insertPersona.controls['ProvinciaResidenza'].dirty && insertPersona.hasError('required','ProvinciaResidenza')" class="text-red-600">Provincia obbligatoria</small>
-      </div>
-    </div>
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Comune residenza</label>
-      <div class="relative">
-        <select formControlName="AnpeFkGecoComuneidComuneresidenza" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500">
-          <option value="" disable selected hidden>Scegli un'opzione</option>
-          <option [value]="com.gecoComuneid" *ngFor="let com of listComuniResidenza">{{com.gecoDeno}}</option>
-        </select>
-        <small *ngIf="insertPersona.controls['AnpeFkGecoComuneidComuneresidenza'].dirty && insertPersona.hasError('required','AnpeFkGecoComuneidComuneresidenza')" class="text-red-600">Comune obbligatorio</small>
-      </div>
-    </div>
-  </div>
-
-
-<!--Checkbox per mostrare i campi del domicilio-->
-  <div class = "flex w-full flex-nowrap mb-5">
-    <label class="block mb-2 text-sm font-medium text-gray-900" for="showDomicilio">Domicilio diverso dalla residenza?</label>
-    <input type="checkbox" [checked]="showDomicilio" (change)="onCheckboxChange($event)" class = "cursor-pointer ml-6 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:outline-none focus:ring-blue-500">
-  </div>
-
-<!--Dati domicilio-->
-  <div *ngIf="showDomicilio" class="flex w-full flex-nowrap -mx-3 mb-10">
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block mb-2 text-sm font-medium text-gray-900">Paese di domicilio</label>
-        <div class="relative">
-          <select formControlName="AnpeFkGepaPaeseidPaesedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-          focus:border-sky-500 focus:ring-sky-500">
-            <option value="" disable selected hidden>Scegli un'opzione</option>
-            <option [value]="pae.gepaPaeseid" *ngFor="let pae of listPaese">{{pae.gepaDenominazione}}</option>
-          </select>
-        </div>
-      </div>
-  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-    <label class="block mb-2 text-sm font-medium text-gray-900">Regione di domicilio</label>
-    <div class="relative">
-      <select formControlName="RegioneDomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" (change)="onRegionChangeDomicilio($event)">
+        <select formControlName="ProvinciaDomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500" (change)="onChangeProvinciaDomicilio($event)">
         <option value="" disable selected hidden>Scegli un'opzione</option>
-        <option [value]="reg.gereRegioneid" *ngFor= "let reg of listRegioniDomicilio">{{reg.gereDeno}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-    <label class="block mb-2 text-sm font-medium text-gray-900">Provincia domicilio</label>
-    <div class="relative">
-      <select formControlName="ProvinciaDomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500" (change)="onChangeProvinciaDomicilio($event)">
-      <option value="" disable selected hidden>Scegli un'opzione</option>
-      <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceDomicilio">{{pro.geprDeno}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-    <label class="block mb-2 text-sm font-medium text-gray-900">Comune domicilio</label>
-    <div class="relative">
-      <select formControlName="AnpeFkGecoComuneidComunedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-      focus:border-sky-500 focus:ring-sky-500">
-      <option value="" disable selected hidden>Scegli un'opzione</option>
-      <option [value]="com.gecoComuneid" *ngFor="let com of listComuniDomicilio">{{com.gecoDeno}}</option>
-      </select>
-    </div>
-  </div>
-  </div>
-
-<!--Dati indirizzo di domicilio-->      
-  <div *ngIf="showDomicilio" class="flex w-full flex-nowrap -mx-3 mb-5">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Indirizzo domicilio</label>
-            <input formControlName="AnpeIndirizzodomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di domicilio...">
-          </div>
-          <div class="w-full md:w-1/4 px-3 mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Numero domicilio</label>
-            <input formControlName="AnpeNumerocivicodomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="N.Civico">
-          </div>
-          <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label class="block mb-2 text-sm font-medium text-gray-900">CAP domicilio</label>
-              <input maxlength="5" formControlName="AnpeCapdomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="00100">
-            <small *ngIf="insertPersona.get('AnpeCapdomicilio')?.hasError('pattern')" class="text-red-600">CAP non valido</small>
-          </div>
-  </div>
-
-<!--Numeri di telefono-->    
-  <div class="flex w-full flex-nowrap -mx-3 mb-10">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block mb-2 text-sm font-medium text-gray-900">N.telefono 1</label>
-              <input formControlName="AnpeNtelefono1" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500"  type="text" placeholder="Scrivi il numero di telefono...">
-            <small *ngIf="insertPersona.controls['AnpeNtelefono1'].dirty && insertPersona.hasError('required','AnpeNtelefono1')" class="text-red-600">Numero di telefono obbligatorio</small>
-            <small *ngIf="insertPersona.get('AnpeNtelefono1')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
-          </div>
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block mb-2 text-sm font-medium text-gray-900" >N.telefono 2</label>
-              <input formControlName="AnpeNtelefono2" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi il numero di telefono...">
-            <small *ngIf="insertPersona.get('AnpeNtelefono2')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
-          </div>
-  </div>
-
-<!--Data visita medica-->    
-  <div class="flex w-full flex-nowrap -mx-3 mb-10">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block mb-2 text-sm font-medium text-gray-900">Data idoneità medica</label>
-              <input formControlName="AnpeDataidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-            focus:border-sky-500 focus:ring-sky-500" type="date" [min]="minVisita" [max]="maxVisita">
-         </div>
-         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Data scadenza idoneità medica</label>
-          <input formControlName="AnpeDatascadenzaidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-        focus:border-sky-500 focus:ring-sky-500" type="date" [min]="minDateScadenza" [max]="maxDateScadenza">
-     </div>
-  </div>
-
-<!--Email e società-->
-  <div class="flex w-full flex-nowrap -mx-3 mb-6 mt-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Email aziendale</label>
-          <input formControlName="AnpeEmailaziendale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" type="email" placeholder="Scrivi l'email aziendale...">
-         <small *ngIf="insertPersona.controls['AnpeEmailaziendale'].dirty && insertPersona.hasError('required','AnpeEmailaziendale')" class="text-red-600">Email aziendale obbligatoria</small>
-         <small *ngIf="insertPersona.controls['AnpeEmailaziendale'].hasError('email')" class="text-red-600">Email non valida</small>
+        <option [value]="pro.geprProvinciaid" *ngFor="let pro of listProvinceDomicilio">{{pro.geprDeno}}</option>
+        </select>
       </div>
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Email personale</label>
-          <input formControlName="AnpeEmailpersonale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-         focus:border-sky-500 focus:ring-sky-500" type="email" placeholder="Scrivi l'email personale...">
-         <small *ngIf="insertPersona.controls['AnpeEmailpersonale'].hasError('email')" class="text-red-600">Email non valida</small>
+    </div>
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Comune domicilio</label>
+      <div class="relative">
+        <select formControlName="AnpeFkGecoComuneidComunedomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+        focus:border-sky-500 focus:ring-sky-500">
+        <option value="" disable selected hidden>Scegli un'opzione</option>
+        <option [value]="com.gecoComuneid" *ngFor="let com of listComuniDomicilio">{{com.gecoDeno}}</option>
+        </select>
       </div>
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Società</label>
-          <select formControlName="AnpeFkAnsoSocietaid" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-           focus:border-sky-500 focus:ring-sky-500">
-           <option value="" disable selected hidden>Scegli un'opzione</option>
-           <option [value]="soc.societaid" *ngFor= "let soc of listSocieta">
-                {{soc.ragionesociale}}
-            </option>
-          </select>
-          <small *ngIf="insertPersona.controls['AnpeFkAnsoSocietaid'].dirty && insertPersona.hasError('required','AnpeFkAnsoSocietaid')" class="text-red-600">Società obbligatoria</small>
+    </div>
+    </div>
+
+  <!--Dati indirizzo di domicilio-->      
+    <div *ngIf="showDomicilio" class="flex w-full flex-nowrap -mx-3 mb-5">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Ind. domicilio</label>
+              <input formControlName="AnpeIndirizzodomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi l'indirizzo di domicilio...">
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Numero civico</label>
+              <input formControlName="AnpeNumerocivicodomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="N.Civico">
+            </div>
+            <div class = "w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block mb-2 text-sm font-medium text-gray-900">CAP domicilio</label>
+                <input maxlength="5" formControlName="AnpeCapdomicilio" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="00100">
+              <small *ngIf="insertPersona.get('AnpeCapdomicilio')?.hasError('pattern')" class="text-red-600">CAP non valido</small>
+            </div>
+    </div>
+
+  <!--Numeri di telefono-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block mb-2 text-sm font-medium text-gray-900">N.telefono 1</label>
+                <input formControlName="AnpeNtelefono1" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500"  type="text" placeholder="Scrivi il numero di telefono...">
+              <small *ngIf="insertPersona.controls['AnpeNtelefono1'].dirty && insertPersona.hasError('required','AnpeNtelefono1')" class="text-red-600">Numero di telefono obbligatorio</small>
+              <small *ngIf="insertPersona.get('AnpeNtelefono1')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block mb-2 text-sm font-medium text-gray-900" >N.telefono 2</label>
+                <input formControlName="AnpeNtelefono2" maxlength="10" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" type="text" placeholder="Scrivi il numero di telefono...">
+              <small *ngIf="insertPersona.get('AnpeNtelefono2')?.hasError('pattern')" class="text-red-600">Numero di telefono non valido</small>
+            </div>
+    </div>
+
+  <!--Data visita medica-->    
+    <div class="flex w-full flex-nowrap -mx-3 mb-10">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Data inizio validitá visita medica</label>
+                <input formControlName="AnpeDataidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+              focus:border-sky-500 focus:ring-sky-500" type="date" [min]="minVisita" [max]="maxVisita">
+          </div>
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Data scadenza validitá visita medica</label>
+            <input formControlName="AnpeDatascadenzaidoneitamedica" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500" type="date" [min]="minDateScadenza" [max]="maxDateScadenza">
+      </div>
+    </div>
+
+  <!--Email e società-->
+    <div class="flex w-full flex-nowrap -mx-3 mb-6 mt-6">
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Email aziendale</label>
+            <input formControlName="AnpeEmailaziendale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500" type="email" placeholder="Scrivi l'email aziendale...">
+          <small *ngIf="insertPersona.controls['AnpeEmailaziendale'].dirty && insertPersona.hasError('required','AnpeEmailaziendale')" class="text-red-600">Email aziendale obbligatoria</small>
+          <small *ngIf="insertPersona.controls['AnpeEmailaziendale'].hasError('email')" class="text-red-600">Email non valida</small>
         </div>
-  </div>
-  
-  <app-gestione-file *ngIf="enabled" (fileEvent)="receiveFile($event)"></app-gestione-file>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Email personale</label>
+            <input formControlName="AnpeEmailpersonale" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+          focus:border-sky-500 focus:ring-sky-500" type="email" placeholder="Scrivi l'email personale...">
+          <small *ngIf="insertPersona.controls['AnpeEmailpersonale'].hasError('email')" class="text-red-600">Email non valida</small>
+        </div>
+        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Società di appartenenza</label>
+            <select formControlName="AnpeFkAnsoSocietaid" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
+            focus:border-sky-500 focus:ring-sky-500">
+            <option value="" disable selected hidden>Scegli un'opzione</option>
+            <option [value]="soc.societaid" *ngFor= "let soc of listSocieta">
+                  {{soc.ragionesociale}}
+              </option>
+            </select>
+            <small *ngIf="insertPersona.controls['AnpeFkAnsoSocietaid'].dirty && insertPersona.hasError('required','AnpeFkAnsoSocietaid')" class="text-red-600">Società obbligatoria</small>
+          </div>
+    </div>
+    
+    <app-gestione-file *ngIf="enabled" (fileEvent)="receiveFile($event)"></app-gestione-file>
 
-<!--Bottoni-->
-  <div class = "w-full flex justify-between mb-10 mt-10">
-    <button type="submit" (click)="salvaPersona()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
-    <button (click)="clearSearch()" class=" w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
-    <button (click)="goBack()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
+  <!--Bottoni-->
+    <div class = "w-full flex justify-between mb-10 mt-10">
+      <button type="submit" (click)="salvaPersona()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
+      <button (click)="clearSearch()" class=" w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
+      <button (click)="goBack()" class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
+    </div>
+  </form>
   </div>
-</form>
-</div>
