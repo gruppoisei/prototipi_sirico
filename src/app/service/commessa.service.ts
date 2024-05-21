@@ -80,4 +80,9 @@ export class CommessaService {
   {
     return this.http.get<any>(`${this.baseUrl}GetAllVistaCommesse`)
   }
+
+  getAllCommesse()
+  {
+    return this.http.get<any>(`${this.baseUrl}GetAllCommesse`)
+  }
 }
