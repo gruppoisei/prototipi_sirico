@@ -20,9 +20,9 @@ export class GestioneClienteComponent {
 
   // EREDITARE
   currentAlias: string = "";
+  finalPath: string = "";
   componenteAssociato: any = "";
-  componenteMappato: any = "";
-
+  
   listaComponenti = [{ idComponente: 17, component: InsertClienteComponent }]
   //
 
@@ -62,27 +62,26 @@ export class GestioneClienteComponent {
   
   async caricaComponenteAssociato() {
 
-    // console.log("this.router.url")
-    // console.log(this.router.url)
+    console.log("this.router.url")
+    console.log(this.router.url)
 
     this.currentAlias = this.router.url.replaceAll('%20',' ');
 
-    // console.log("this.currentAlias")
-    // console.log(this.currentAlias)
-
-    this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
+    console.log("this.currentAlias")
+    console.log(this.currentAlias)
     
-    // console.log("this.componenteAssociato:");
-    // console.log(this.componenteAssociato);
+    var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
 
-    this.componenteMappato = {
-      // path: this.currentAlias.slice(1) + '/' + this.componenteAssociato.aliasComponente, // modificare il path, inserire il vero path non l'alias!!!!!
-      path: this.componenteAssociato.pathDescrizione, // modificare il path, inserire il vero path non l'alias!!!!!
-      component: this.listaComponenti.find(componente => componente.idComponente == this.componenteAssociato.idComponente)!.component
-    }
+    // this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
+    this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
+    
+    console.log("this.componenteAssociato:");
+    console.log(this.componenteAssociato);
 
-    // console.log("this.componenteMappato");
-    // console.log(this.componenteMappato);
+    this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
+    
+    console.log("this.finalPath");
+    console.log(this.finalPath);
     
   }
 

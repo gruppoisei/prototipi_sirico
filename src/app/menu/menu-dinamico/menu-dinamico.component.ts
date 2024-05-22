@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AmministrazioneRuoloService } from '../../service/amministrazione-ruolo.service';
 import { firstValueFrom } from 'rxjs';
-import { Funzione } from '../../pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
+import { Funzione, ProvassComponent } from '../../pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { Router } from '@angular/router';
 import { CalendarioComponent } from '../../pages/rapportino/calendario/calendario.component';
 import { RichiestaAssenzaSegreteriaComponent } from '../../pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
@@ -32,7 +32,7 @@ export class MenuDinamicoComponent {
   limiteVociMenu: number = 0;
 
   // idRuolo: number = 5;
-  idRuolo: number = 2009;
+  idRuolo: number = 2010;
 
 
 
@@ -118,7 +118,7 @@ export class MenuDinamicoComponent {
     },
     {
       idComponente: 12,
-      component: GestioneRuoloUtenteComponent,
+      component: ProvassComponent,
     },
     {
       idComponente: 13,
@@ -151,7 +151,7 @@ export class MenuDinamicoComponent {
 
     // resetto il contenuto dell'array menu finale
     this.listaFunzioniFinaleMenu = [];
-    
+
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
       // verifico se hanno una funzionalita associata
@@ -162,9 +162,7 @@ export class MenuDinamicoComponent {
           funzionalitaAssociata: this.listaFunzioniComponenti[i].funzionalitaAssociata
         });
       }
-      //console.log(this.componentiAssociati);
-      //console.log(this.pathPadreEFunzionalitaAssociata);
-
+      
       // verifico se appartengono alla voce di menu o no
       if (this.listaFunzioniComponenti[i].menu == true) {
         this.listaFunzioniPadre.push(this.listaFunzioniComponenti[i]);
@@ -254,12 +252,33 @@ export class MenuDinamicoComponent {
       //this.listaCaricamentoComponentiAssociati.push(response);
       this.listaCaricamentoComponentiAssociati.push(response);
     }
-    // console.log("this.listaCaricamentoComponentiAssociati");
-    // console.log(this.listaCaricamentoComponentiAssociati);
-    
+
+    console.log("this.listaCaricamentoComponentiAssociati");
+    console.log(this.listaCaricamentoComponentiAssociati);
+
+    // verifico se i componenti associati sono associati a una voce di sottomenu e in quel caso mappo il padre
+
+    console.log("this.listaFunzioniFinaleMenu");
+    console.log(this.listaFunzioniFinaleMenu);
+
     // inserisco i componenti associati alla fine della lista funzioni finale menu
     for (let i = 0; i < this.listaCaricamentoComponentiAssociati.length; i++) {
+      
+      for (let l = 0; l < this.listaFunzioniFinaleMenu.length; l++)
+      
+        if (this.listaFunzioniFinaleMenu[l]['children']) {
 
+          for (let j = 0; j < this.listaFunzioniFinaleMenu[l].children.length; j++) {
+            
+            if (this.listaFunzioniFinaleMenu[l].children[j].path == this.listaCaricamentoComponentiAssociati[i].pathDescrizione.split('/')[0]) {
+                            
+              this.listaCaricamentoComponentiAssociati[i].pathDescrizione = this.listaFunzioniFinaleMenu[l].path+'/'+this.listaCaricamentoComponentiAssociati[i].pathDescrizione
+            }
+
+          }          
+        }
+
+      
       let newEl = {
         path: this.listaCaricamentoComponentiAssociati[i].pathDescrizione,
         component: this.listaComponenti.find(componente => componente.idComponente == this.listaCaricamentoComponentiAssociati[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
