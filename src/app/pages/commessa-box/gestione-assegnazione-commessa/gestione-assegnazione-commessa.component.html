@@ -25,11 +25,11 @@
         <div class="flex flex-row mb-5">   
             <div class="flex flex-col flex-1">
                 <label for="DataInizio" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Inizio</label>
-                <input formControlName="DataInizio" type="date" id="DataInizio" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data inizio..." required />
+                <input formControlName="dataInizio" type="date" id="dataInizio" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data inizio..." required />
             </div>
             <div class="flex flex-col flex-1">
-                <label for="DataFine" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Fine</label>
-                <input formControlName="DataFine" type="date" [min]="minDataScadenza" id="DataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
+                <label for="dataFine" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Fine</label>
+                <input formControlName="dataFine" type="date" [min]="minDataScadenza" id="dataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
             </div>
             <label class="flex flex-row justify-end pt-10 cursor-pointer">
                 <input formControlName="flagAttivo" type="checkbox" class="sr-only peer">

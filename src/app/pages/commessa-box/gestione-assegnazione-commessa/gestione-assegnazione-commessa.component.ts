@@ -33,10 +33,10 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
       flagAttivo : [true],
     })
     this.formDefaultValue = this.ricercaForm.getRawValue()
-    this.ricercaForm.get('DataInizio')?.valueChanges.subscribe(value => {
+    this.ricercaForm.get('dataInizio')?.valueChanges.subscribe(value => {
       if(value)
         {
-          this.ricercaForm.get('DataFine')?.enable();
+          this.ricercaForm.get('dataFine')?.enable();
           const selectDate = new Date(value);
           this.minDataScadenza = selectDate.toISOString().split('T')[0]
         }
