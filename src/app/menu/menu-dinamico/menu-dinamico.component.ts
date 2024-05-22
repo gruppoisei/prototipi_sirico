@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AmministrazioneRuoloService } from '../../service/amministrazione-ruolo.service';
 import { firstValueFrom } from 'rxjs';
 import { Funzione } from '../../pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
@@ -18,6 +18,7 @@ import { InsertContrattoComponent } from '../../pages/contratto/insert-contratto
 import { InsertRuoloUtenteComponent } from '../../pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
 import { InsertPersonaComponent } from '../../pages/insert-persona/insert-persona.component';
 import { HomepageComponent } from '../../pages/homepage/homepage.component';
+import { InsertClienteComponent } from '../../pages/contratto/insert-cliente/insert-cliente.component';
 
 @Component({
   selector: 'app-menu-dinamico',
@@ -54,8 +55,9 @@ export class MenuDinamicoComponent {
   // listaSupportoOrdinamentoFunzioniAutonome: { path: string, component: string }[] = []
   listaFunzioniFinaleMenu: any[] = []
 
-  // lista di supporto al caricamento dei componenti
-  listaCaricamentoComponenti: number [] = [];
+  // lista di supporto al caricamento dei componenti associati, quelli non raggiungibili direttamente ma vincolati ad altri
+  componentiAssociati: number[] = [];
+  listaCaricamentoComponentiAssociati: any[] = [];
 
 
   constructor(
@@ -128,6 +130,10 @@ export class MenuDinamicoComponent {
     {
       idComponente: 15,
       component: InsertRuoloUtenteComponent,
+    },
+    {
+      idComponente: 17,
+      component: InsertClienteComponent,
     }
   ]
 
@@ -148,6 +154,12 @@ export class MenuDinamicoComponent {
 
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
+      // verifico se hanno una funzionalita associata
+      if (this.listaFunzioniComponenti[i].funzionalitaAssociata != null) {
+        this.componentiAssociati.push(this.listaFunzioniComponenti[i].funzionalitaAssociata);
+      }
+
+      // verifico se appartengono alla voce di menu o no
       if (this.listaFunzioniComponenti[i].menu == true) {
         this.listaFunzioniPadre.push(this.listaFunzioniComponenti[i]);
       }
@@ -212,6 +224,61 @@ export class MenuDinamicoComponent {
     }
 
     // ordino l'array
+    this.sortArray();
+
+    // aggiungo le funzioni autonome (flag voce menu = false, indice menu = 0)
+    for (let i = 0; i < this.listaSupportoOrdinamentoFunzioniAutonome.length; i++) {
+
+      let newEl = {
+        path: this.listaSupportoOrdinamentoFunzioniAutonome[i].path,
+        //component: this.listaSupportoOrdinamentoFunzioniAutonome[i].component
+        // component: this.listaComponenti.find(componente => componente.idComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+        component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+      }
+      this.listaFunzioniFinaleMenu.push(newEl);
+
+    }
+
+    // limito la stampa delle voci di menu escludendo i componenti associati
+    // e tenendo conto del componente aggiuntivo home, impostato dopo di default (length + 1)
+    this.limiteVociMenu = this.listaFunzioniFinaleMenu.length + 1;
+
+    // recupero componenti associati
+    for (let i = 0; i < this.componentiAssociati.length; i++) {
+
+      const response = await this.amministrazioneRuolo.getComponenteByFunzionalitaAssociata(this.componentiAssociati[i]).toPromise();
+      this.listaCaricamentoComponentiAssociati.push(response);
+    }
+    
+    // inserisco i componenti associati alla fine della lista funzioni finale menu
+    for (let i = 0; i < this.listaCaricamentoComponentiAssociati.length; i++) {
+
+      let newEl = {
+        path: this.listaCaricamentoComponentiAssociati[i].pathDescrizione,
+        component: this.listaComponenti.find(componente => componente.idComponente == this.listaCaricamentoComponentiAssociati[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+      }
+      this.listaFunzioniFinaleMenu.push(newEl);
+    }
+
+    // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
+    this.listaFunzioniFinaleMenu.unshift({
+      path: this.homePagePath,
+      component: this.listaComponenti.find(funzione => funzione.idComponente == 0)?.component
+    });
+
+    console.log("this.listaFunzioniFinaleMenu");
+    console.log(this.listaFunzioniFinaleMenu);
+
+    // creo la nuova route
+    this.router.resetConfig(this.listaFunzioniFinaleMenu);
+
+    console.log("this.router");
+    console.log(this.router);
+  }
+
+
+  sortArray() {
+
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
       if (this.listaFunzioniComponenti[i].indicemenu != 0) {
@@ -258,37 +325,6 @@ export class MenuDinamicoComponent {
 
     }
 
-    // aggiungo le funzioni autonome (flag voce menu = false, indice menu = 0)
-    for (let i = 0; i < this.listaSupportoOrdinamentoFunzioniAutonome.length; i++) {
-
-      let newEl = {
-        path: this.listaSupportoOrdinamentoFunzioniAutonome[i].path,
-        //component: this.listaSupportoOrdinamentoFunzioniAutonome[i].component
-        // component: this.listaComponenti.find(componente => componente.idComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-        component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-      }
-      this.listaFunzioniFinaleMenu.push(newEl);
-
-    }
-
-    // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
-    this.listaFunzioniFinaleMenu.unshift({
-      path: this.homePagePath,
-      component: this.listaComponenti.find(funzione => funzione.idComponente == 0)?.component
-    });
-
-    console.log("this.listaFunzioniFinaleMenu");
-    console.log(this.listaFunzioniFinaleMenu);
-
-    this.limiteVociMenu = this.listaFunzioniFinaleMenu.length;
-    console.log("limiteVociMenu");
-    console.log(this.listaFunzioniFinaleMenu.length);
-
-    // creo la nuova route
-    this.router.resetConfig(this.listaFunzioniFinaleMenu);
-
-    console.log("this.router");
-    console.log(this.router);
   }
 
 
