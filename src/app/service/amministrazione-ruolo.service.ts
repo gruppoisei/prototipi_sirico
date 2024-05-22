@@ -47,8 +47,8 @@ export class AmministrazioneRuoloService {
   }
 
   getAliasComponenteAssociatoByPath(path: string) {
-    console.log("path");
-    console.log(path);    
+    // console.log("path");
+    // console.log(path);    
     return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetAliasComponenteAssociatoByPath?path=' + path, this.httpOptionsNoResponseType);
    }
   // FINE METODI MENU DINAMICO

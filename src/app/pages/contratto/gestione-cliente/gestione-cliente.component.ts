@@ -8,6 +8,7 @@ import { DeleteClienteDialogComponent } from '../../delete-cliente-dialog/delete
 import { Router } from '@angular/router';
 import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
 import { InsertClienteComponent } from '../insert-cliente/insert-cliente.component';
+import { MenuDinamicoComponent } from '../../../menu/menu-dinamico/menu-dinamico.component';
 
 
 @Component({
@@ -17,11 +18,11 @@ import { InsertClienteComponent } from '../insert-cliente/insert-cliente.compone
 })
 export class GestioneClienteComponent {
 
+  // EREDITARE
   currentAlias: string = "";
   componenteAssociato: any = "";
   componenteMappato: any = "";
 
-  // SPOSTARE
   listaComponenti = [{ idComponente: 17, component: InsertClienteComponent }]
   //
 
@@ -55,36 +56,24 @@ export class GestioneClienteComponent {
 
     //
 
-
     //
   }
 
-  caricaComponenteAssociato() {
-    console.log("this.router.url")
-    console.log(this.router.url)
+  
+  async caricaComponenteAssociato() {
+
+    // console.log("this.router.url")
+    // console.log(this.router.url)
 
     this.currentAlias = this.router.url.replaceAll('%20',' ');
 
-    // if (this.router.url.includes('/')) {
-    //   // this.currentAlias = this.currentAlias.replace('/','');
-    //   this.currentAlias = this.currentAlias.slice(1);
-    // }
-    
-    //     // if (this.router.url.includes('%20')) {
-    //     //   this.currentAlias = this.currentAlias.replaceAll('%20', ' ');
-    //     // }
-    
-    console.log("this.currentAlias")
-    console.log(this.currentAlias)
+    // console.log("this.currentAlias")
+    // console.log(this.currentAlias)
 
-    this.getComponenteAssociato();
-
-  }
-
-  async getComponenteAssociato() {
     this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
-    console.log("this.componenteAssociato:");
-    console.log(this.componenteAssociato);
+    
+    // console.log("this.componenteAssociato:");
+    // console.log(this.componenteAssociato);
 
     this.componenteMappato = {
       // path: this.currentAlias.slice(1) + '/' + this.componenteAssociato.aliasComponente, // modificare il path, inserire il vero path non l'alias!!!!!
@@ -92,36 +81,11 @@ export class GestioneClienteComponent {
       component: this.listaComponenti.find(componente => componente.idComponente == this.componenteAssociato.idComponente)!.component
     }
 
-    console.log("this.componenteMappato");
-    console.log(this.componenteMappato);
+    // console.log("this.componenteMappato");
+    // console.log(this.componenteMappato);
     
   }
 
-  // getComponenteAssociato() {
-  //   .subscribe(
-  //     (response: any) => {
-  //       this.componenteAssociato = response;
-  //       console.log("this.componenteAssociato:");
-  //       console.log(this.componenteAssociato);
-  //       console.log("this.componenteAssociato.aliasComponente:");
-  //       console.log(this.componenteAssociato.aliasComponente);
-  //     });
-  // }
-
-
-  /*
-    async getComponenteAssociato() {
-      // recupero componente qui
-      this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.currentAlias).toPromise();
-    
-      console.log("this.componenteAssociato");
-      console.log(this.componenteAssociato);
-    }
-  */
-  testPrint() {
-    console.log("this.listaFunzioniFinaleMenu");
-    // console.log(this.menuDinamico.listaFunzioniFinaleMenu);
-  }
 
   setTitoloModificaCliente() {
     this.clienteService.setTitolo('Modifica cliente')
