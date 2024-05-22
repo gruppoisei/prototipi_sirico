@@ -4,7 +4,7 @@ import {MatCalendar, MatDatepicker, MatDatepickerInputEvent, MatDatepickerIntl} 
 import { PersonaService } from '../../../service/persona.service';
 import { CommessaService } from '../../../service/commessa.service';
 import { Location } from '@angular/common';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MAT_DATE_LOCALE } from '@angular/material/core';
 import 'moment/locale/it';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { commessaPersona } from '../../../dto/request/commessaPersona';
@@ -58,6 +58,7 @@ constructor(private fb : FormBuilder, private personaService : PersonaService, p
      /*  FlagOreLavorative : [true],
       oreGiornaliere : [8], */
     })
+
     this.getPersoneSocieta()
     this.getCommesse()
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()

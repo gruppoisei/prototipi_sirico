@@ -1,5 +1,5 @@
 <div class = "flex justify-center my-10 text-4xl font-bold">
-    <h2>Ricerca Commessa</h2>
+    <h2>Gestione delle commesse assegnate</h2>
 </div>
 <div class = "flex flex-row justify-center my-10">
     <form [formGroup]="ricercaForm" class="w-3/4">
@@ -71,7 +71,7 @@
                     <td class="p-3">{{ commessa.ragioneSocialeClienteF }}</td>
                     <td class="p-3">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
                     <td class="p-3">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
-                    <td *ngIf="commessa.isDipendente !== false" class="p-3 text-center"><button class="text-black align-middle"><mat-icon>more_horiz</mat-icon></button></td>
+                    <td *ngIf="commessa.isDipendente !== false" class="p-3 text-center"><button class="text-black align-middle" (click)="getListaDipendentiAssegnati(commessa.commessaId)"><mat-icon>more_horiz</mat-icon></button></td>
                 </tr>
             </tbody>
         </table>
