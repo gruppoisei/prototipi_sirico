@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SocietaService } from '../../../service/societa.service';
 import { CommessaService } from '../../../service/commessa.service';
+import { ricercaCommessaPersona } from '../../../dto/request/ricercaCommessaPersona';
+import FormattaData from '../../../helpers/formattaData';
+import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
 
 @Component({
   selector: 'app-gestione-assegnazione-commessa',
@@ -24,11 +27,11 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
   ngOnInit(): void {
     this.loadData()
     this.ricercaForm = this.fb.group({
-      CommessaId : [0],
-      idCommessa : ['', Validators.required],
-      idSocieta : ['', Validators.required],
-      DataInizio : ['', Validators.required],
-      DataFine : ['', Validators.required],
+      commessaId : [],
+      ansoRagionesociale : [''],
+      dataInizio : [''],
+      dataFine : [''],
+      flagAttivo : true,
     })
     this.formDefaultValue = this.ricercaForm.getRawValue()
     this.ricercaForm.get('DataInizio')?.valueChanges.subscribe(value => {
@@ -79,29 +82,18 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
         {
           this.ricercaFiltrata();
         })
-    }
+    }*/
 
     ricercaFiltrata() {
-      const queryParams : ricercaCommessa = this.ricercaForm.value;
+      const queryParams : ricercaCommessaPersona = this.ricercaForm.value;
   
-      this.commessaService.getVistaCommessaFiltrata(queryParams)
+      this.commessaService.getVistaCommessaPersonaFiltrata(queryParams)
     .subscribe(
       {
         next:(res) => 
         {
           console.log(res)
-          this.datiCommessa = res.map((commessa : any)=>({
-            commessaId: commessa.commessaId,
-            commessa: commessa.commessa,
-            tipoCommessa: commessa.tipoCommessa,
-            societa: commessa.societa,
-            clienteDiretto: commessa.clienteDiretto,
-            clienteFinale: commessa.clienteFinale,
-            dataInizio: FormattaData.formattaData(commessa.dataInizio),
-            dataFine: FormattaData.formattaData(commessa.dataFine),
-            note: commessa.note,
-            flagAttivo: commessa.flagAttivo,
-          }));
+          this.datiCommessa = res
         },
         error:(err) =>
         {
@@ -113,7 +105,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
             });
         }
       });
-    }*/
+    }
 
 
 }

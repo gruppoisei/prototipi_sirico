@@ -36,6 +36,12 @@ export class CommessaService {
     const params = this.creaHttpParams(queryParams)
     return this.http.get<any>(this.baseUrl + 'GetCommessaFiltro', {params: params})
   }
+
+  getVistaCommessaPersonaFiltrata(queryParams: ricercaCommessa) : Observable<any>
+  {
+    const params = this.creaHttpParams(queryParams)
+    return this.http.get<any>(this.baseUrl + 'GetCommessaFiltroConAssegnazioni', {params: params})
+  }
   
   private creaHttpParams(parametri: { [x: string]: any; hasOwnProperty: (arg0: string) => any; }):HttpParams
   {
