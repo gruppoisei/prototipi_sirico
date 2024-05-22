@@ -163,7 +163,7 @@ export class MenuDinamicoComponent {
         });
       }
       //console.log(this.componentiAssociati);
-      console.log(this.pathPadreEFunzionalitaAssociata);
+      //console.log(this.pathPadreEFunzionalitaAssociata);
 
       // verifico se appartengono alla voce di menu o no
       if (this.listaFunzioniComponenti[i].menu == true) {
@@ -254,8 +254,8 @@ export class MenuDinamicoComponent {
       //this.listaCaricamentoComponentiAssociati.push(response);
       this.listaCaricamentoComponentiAssociati.push(response);
     }
-    console.log("this.listaCaricamentoComponentiAssociati");
-    console.log(this.listaCaricamentoComponentiAssociati);
+    // console.log("this.listaCaricamentoComponentiAssociati");
+    // console.log(this.listaCaricamentoComponentiAssociati);
     
     // inserisco i componenti associati alla fine della lista funzioni finale menu
     for (let i = 0; i < this.listaCaricamentoComponentiAssociati.length; i++) {
