@@ -31,7 +31,7 @@
                 <label for="DataFine" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Fine</label>
                 <input formControlName="DataFine" type="date" [min]="minDataScadenza" id="DataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
             </div>
-            <label class="flex flex-row justify-end pt-16 cursor-pointer">
+            <label class="flex flex-row justify-end pt-10 cursor-pointer">
                 <input formControlName="flagAttivo" type="checkbox" class="sr-only peer">
                 <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Commessa Attiva</span>
                 <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -48,15 +48,16 @@
     <h2>Elenco Commesse</h2>
 </div>
     <div class="flex flex-row justify-center">
-        <table class="w-4/5 text-base text-left rtl:text-right my-10">
+        <table class="w-4/5 text-base text-left my-10">
             <thead class="text-sm uppercase text-white bg-blue-600">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Commessa</th>
-                    <th scope="col" class="px-6 py-3">Società</th>
-                    <th scope="col" class="px-6 py-3">Cliente Diretto</th>
-                    <th scope="col" class="px-6 py-3">Cliente Finale</th>
-                    <th scope="col" class="px-6 py-3">Data Inizio</th>
-                    <th scope="col" class="px-6 py-3">Data Fine</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Commessa</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Società</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cliente Diretto</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cliente Finale</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Data Inizio</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Data Fine</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-center">Vedi Dipendenti</th>
             </thead>
             <tbody>
                 <tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
@@ -64,12 +65,13 @@
                         <a routerLink="/Segreteria/salva-commessa" (click)="setTitoloModificaCommessa(); getCommessa(commessa.commessaId)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
                         <button mat-icon (click)="openDialogDelete(commessa.commessaId)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>-->
-                    <td class="px-6 py-4">{{ commessa.descCommessa }}</td>
-                    <td class="px-6 py-4">{{ commessa.ansoRagionesociale }}</td>
-                    <td class="px-6 py-4">{{ commessa.ragioneSocialeClienteD }}</td>
-                    <td class="px-6 py-4">{{ commessa.ragioneSocialeClienteF }}</td>
-                    <td class="px-6 py-4">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
-                    <td class="px-6 py-4">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
+                    <td class="p-3">{{ commessa.descCommessa }}</td>
+                    <td class="p-3">{{ commessa.ansoRagionesociale }}</td>
+                    <td class="p-3">{{ commessa.ragioneSocialeClienteD }}</td>
+                    <td class="p-3">{{ commessa.ragioneSocialeClienteF }}</td>
+                    <td class="p-3">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
+                    <td class="p-3">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
+                    <td *ngIf="commessa.isDipendente !== false" class="p-3 text-center"><button class="text-black align-middle"><mat-icon>more_horiz</mat-icon></button></td>
                 </tr>
             </tbody>
         </table>
