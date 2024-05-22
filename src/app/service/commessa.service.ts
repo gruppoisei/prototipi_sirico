@@ -22,6 +22,18 @@ export class CommessaService {
   getTiolo(){
     return this.titolo.getValue();
   }
+
+  getVistaPersoneCommessabyId(commessaId : number) : Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}GetPersoneByCommessaId/${commessaId}`)
+  }
+
+  getCommessaPersoneByIds(ids: number[]): Observable<commessaPersona[]>
+  {
+    let params = new HttpParams();
+    params = params.append('ids', ids.join(','));
+
+    return this.http.get<commessaPersona[]>(`${this.baseUrl}GetCommessaPersoneByIds`, {params})
+  }
   
   salvaCommessa(commessaObj : any) : Observable<any>{
     return this.http.post<any>(`${this.baseUrl}SalvaCommessa`, commessaObj,{withCredentials : true})

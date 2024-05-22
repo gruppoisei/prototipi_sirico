@@ -85,6 +85,7 @@ import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-tex
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
+import { DipendentiAssegnatiDialogComponent } from './pages/commessa-box/dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
 
 @NgModule({
     declarations: [
@@ -147,6 +148,7 @@ import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.compon
         FormTextareaComponent,
         GestioneAssegnazioneCommessaComponent,
         MenuDinamicoComponent,
+        DipendentiAssegnatiDialogComponent,
     ],
     providers: [
         provideAnimationsAsync(),

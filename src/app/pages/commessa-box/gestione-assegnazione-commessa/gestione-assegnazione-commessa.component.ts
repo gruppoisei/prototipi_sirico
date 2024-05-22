@@ -5,6 +5,7 @@ import { SocietaService } from '../../../service/societa.service';
 import { CommessaService } from '../../../service/commessa.service';
 import { ricercaCommessaPersona } from '../../../dto/request/ricercaCommessaPersona';
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
+import { DipendentiAssegnatiDialogComponent } from '../dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
 
 @Component({
   selector: 'app-gestione-assegnazione-commessa',
@@ -46,6 +47,19 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
   loadData(){
     this.societaService.getAllSocieta().subscribe(societa => this.listSocieta = societa);
     this.commessaService.getAllCommesse().subscribe(Commessa => this.listCommessa = Commessa)
+  }
+
+  getListaDipendentiAssegnati(commessaId: number) {
+    this.commessaService.getVistaPersoneCommessabyId(commessaId).subscribe({
+      next:(res) =>{
+        this.dialog.open(DipendentiAssegnatiDialogComponent,
+        {
+          data: res,
+          width: 'auto',
+          height: 'auto'
+        });
+      }
+    });
   }
 
   /*setTitoloModificaCommessa()
@@ -91,7 +105,6 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
       {
         next:(res) => 
         {
-          console.log(res)
           this.datiCommessa = res
         },
         error:(err) =>
