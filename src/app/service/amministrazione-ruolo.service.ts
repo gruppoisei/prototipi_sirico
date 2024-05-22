@@ -23,6 +23,12 @@ export class AmministrazioneRuoloService {
     }), responseType: 'text'
   };
 
+  httpOptionsNoResponseType: Object = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  };
+
   private apiUrl = 'http://localhost:5143/AmministrazioneRuolo';
 
   getRuoloId() {
@@ -31,10 +37,21 @@ export class AmministrazioneRuoloService {
   GetAllInfoFunzioneRuoloById(ruoloId: number) {
     return this.Http.get<any>(`${this.apiUrl}/GetAllInfoFunzioniRuoloById?ruoloId=` + ruoloId)
   }
-
+  // INIZIO METODI MENU DINAMICO
   GetAllFunzioniComponenteByIdRuolo(ruoloId: number) {
     return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetPathEAliasComponenteByRuoloId?RuoloId=' + ruoloId)
   }
+
+  getComponenteByFunzionalitaAssociata(funzionalitaAssociata: number) {
+    return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetComponenteByFunzionalitaAssociata?funzionalitaAssociata=' + funzionalitaAssociata)
+  }
+
+  getAliasComponenteAssociatoByPath(path: string) {
+    console.log("path");
+    console.log(path);    
+    return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetAliasComponenteAssociatoByPath?path=' + path, this.httpOptionsNoResponseType);
+   }
+  // FINE METODI MENU DINAMICO
 
   getFunzioni(): Observable<any> {
     return this.Http.get<any>(`${this.apiUrl}/GetFunzione`);
