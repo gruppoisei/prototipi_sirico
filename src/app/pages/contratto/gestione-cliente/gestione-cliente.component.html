@@ -1,15 +1,11 @@
 <div class="flex justify-center my-10 text-4xl font-bold">
     <h2>Ricerca Cliente</h2>
-    <br>
-    <button (click)="testPrint()">TEST</button>
-    <br>
 </div>
 <div class="flex flex-row justify-center my-10">
     <form [formGroup]="ricercaForm" class="w-3/4">
         <div class="flex flex-row justify-end mt-10">
             <!-- <a routerLink="/Segreteria/insert-cliente"> -->
-            <!-- <a routerLink="{{componenteMappato.path}}"> -->
-            <a routerLink="/Creazione Cliente">
+            <a routerLink="{{componenteMappato.path}}">
                 <button (click)="setTitoloNuovoCliente()" mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>

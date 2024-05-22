@@ -56,7 +56,8 @@ export class MenuDinamicoComponent {
   listaFunzioniFinaleMenu: any[] = []
 
   // lista di supporto al caricamento dei componenti associati, quelli non raggiungibili direttamente ma vincolati ad altri
-  componentiAssociati: number[] = [];
+  //componentiAssociati: number[] = [];
+  pathPadreEFunzionalitaAssociata: { pathPadre: string, funzionalitaAssociata: number }[] = [];
   listaCaricamentoComponentiAssociati: any[] = [];
 
 
@@ -150,14 +151,19 @@ export class MenuDinamicoComponent {
 
     // resetto il contenuto dell'array menu finale
     this.listaFunzioniFinaleMenu = [];
-    // this.router.resetConfig([]);
-
+    
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
       // verifico se hanno una funzionalita associata
       if (this.listaFunzioniComponenti[i].funzionalitaAssociata != null) {
-        this.componentiAssociati.push(this.listaFunzioniComponenti[i].funzionalitaAssociata);
+        //this.componentiAssociati.push(this.listaFunzioniComponenti[i].funzionalitaAssociata);
+        this.pathPadreEFunzionalitaAssociata.push({
+          pathPadre: this.listaFunzioniComponenti[i].aliasComponente,
+          funzionalitaAssociata: this.listaFunzioniComponenti[i].funzionalitaAssociata
+        });
       }
+      //console.log(this.componentiAssociati);
+      console.log(this.pathPadreEFunzionalitaAssociata);
 
       // verifico se appartengono alla voce di menu o no
       if (this.listaFunzioniComponenti[i].menu == true) {
@@ -174,7 +180,6 @@ export class MenuDinamicoComponent {
       if (this.listaFunzioniNonPadre[i].menuPadre == 0) {
         let newEl = {
           path: this.listaFunzioniNonPadre[i].aliasComponente,
-          //component: this.listaFunzioniNonPadre[i].pathDescrizione,
           component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
         }
         this.listaFunzioniAutonome.push(newEl)
@@ -192,7 +197,6 @@ export class MenuDinamicoComponent {
         if (this.listaFunzioniPadre[i].fkFunzioniId == this.listaFunzioniNonPadre[l].menuPadre) {
           let newEl = {
             path: this.listaFunzioniNonPadre[l].aliasComponente,
-            //component: this.listaFunzioniNonPadre[l].pathDescrizione
             component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[l].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
           }
           this.listaFunzioniChildren.push(newEl);
@@ -214,7 +218,6 @@ export class MenuDinamicoComponent {
       else if (check == false) {
         let newEl = {
           path: this.listaFunzioniPadre[i].aliasComponente,
-          //component: this.listaFunzioniComponenti[i].pathDescrizione
           component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniPadre[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
         }
         this.listaFunzioniAutonome.push(newEl)
@@ -231,8 +234,6 @@ export class MenuDinamicoComponent {
 
       let newEl = {
         path: this.listaSupportoOrdinamentoFunzioniAutonome[i].path,
-        //component: this.listaSupportoOrdinamentoFunzioniAutonome[i].component
-        // component: this.listaComponenti.find(componente => componente.idComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
         component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
       }
       this.listaFunzioniFinaleMenu.push(newEl);
@@ -244,11 +245,17 @@ export class MenuDinamicoComponent {
     this.limiteVociMenu = this.listaFunzioniFinaleMenu.length + 1;
 
     // recupero componenti associati
-    for (let i = 0; i < this.componentiAssociati.length; i++) {
+    // for (let i = 0; i < this.componentiAssociati.length; i++) {
+    for (let i = 0; i < this.pathPadreEFunzionalitaAssociata.length; i++) {
 
-      const response = await this.amministrazioneRuolo.getComponenteByFunzionalitaAssociata(this.componentiAssociati[i]).toPromise();
+      //const response = await this.amministrazioneRuolo.getComponenteByFunzionalitaAssociata(this.componentiAssociati[i]).toPromise();
+      var response = await this.amministrazioneRuolo.getComponenteByFunzionalitaAssociata(this.pathPadreEFunzionalitaAssociata[i].funzionalitaAssociata).toPromise();
+      response.pathDescrizione = this.pathPadreEFunzionalitaAssociata[i].pathPadre + '/' + response.pathDescrizione
+      //this.listaCaricamentoComponentiAssociati.push(response);
       this.listaCaricamentoComponentiAssociati.push(response);
     }
+    console.log("this.listaCaricamentoComponentiAssociati");
+    console.log(this.listaCaricamentoComponentiAssociati);
     
     // inserisco i componenti associati alla fine della lista funzioni finale menu
     for (let i = 0; i < this.listaCaricamentoComponentiAssociati.length; i++) {
@@ -311,8 +318,6 @@ export class MenuDinamicoComponent {
           if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
             let newEl = {
               path: this.listaFunzioniAutonome[l].path,
-              //component: this.listaFunzioniAutonome[o].component
-              //component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniAutonome[o].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
               component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaFunzioniAutonome[l].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
             }
             this.listaSupportoOrdinamentoFunzioniAutonome.push(newEl);
@@ -332,11 +337,6 @@ export class MenuDinamicoComponent {
     console.log('router:');
     console.log(this.router);
   }
-
-
-
-
-
 
 
 
