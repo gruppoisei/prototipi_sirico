@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { SocietaService } from '../../../service/societa.service';
 import { CommessaService } from '../../../service/commessa.service';
 import { ricercaCommessaPersona } from '../../../dto/request/ricercaCommessaPersona';
-import FormattaData from '../../../helpers/formattaData';
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
 
 @Component({
@@ -27,11 +26,11 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
   ngOnInit(): void {
     this.loadData()
     this.ricercaForm = this.fb.group({
-      commessaId : [],
-      ansoRagionesociale : [''],
+      commessaId : [0],
+      ansoRagionesociale : [null],
       dataInizio : [''],
       dataFine : [''],
-      flagAttivo : true,
+      flagAttivo : [true],
     })
     this.formDefaultValue = this.ricercaForm.getRawValue()
     this.ricercaForm.get('dataInizio')?.valueChanges.subscribe(value => {
@@ -67,7 +66,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
 
     clearSearch()
   {
-    this.ricercaForm.reset();
+    this.ricercaForm.reset(this.formDefaultValue);
   }
 
   /*openDialogDelete(commessaId : number) {
