@@ -24,7 +24,7 @@ import { UtilityCostiPersonaleService } from '../../../service/utility-costi-per
   selector: 'app-insert-contratto',
   templateUrl: './insert-contratto.component.html',
   styleUrl: './insert-contratto.component.scss',
-  providers: [GestioneContrattoComponent],
+  //providers: [GestioneContrattoComponent],
 })
 
 export class InsertContrattoComponent implements OnInit, OnDestroy {

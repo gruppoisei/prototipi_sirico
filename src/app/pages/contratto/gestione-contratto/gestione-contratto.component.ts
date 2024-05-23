@@ -6,6 +6,8 @@ import { InsertContrattoService } from '../../../service/insert-contratto.servic
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-distacco.component';
 import { InserimentoContratto } from '../../../dto/response/inserimentoContratto';
+import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
+import { InsertContrattoComponent } from '../insert-contratto/insert-contratto.component';
 
 @Component({
   selector: 'app-gestione-contratto',
@@ -14,6 +16,15 @@ import { InserimentoContratto } from '../../../dto/response/inserimentoContratto
 })
 
 export class GestioneContrattoComponent implements OnInit {
+
+  // EREDITARE
+  currentAlias: string = "";
+  finalPath: string = "";
+  componenteAssociato: any = "";
+  componenteMappato: any = "";
+
+  listaComponenti = [{ idComponente: 13, component: InsertContrattoComponent }]
+  //
 
   output_ricercaFiltrata: any;
 
@@ -67,6 +78,9 @@ export class GestioneContrattoComponent implements OnInit {
   constructor(
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
+    // SPOSTARE
+    private amministrazioneRuoloService: AmministrazioneRuoloService,
+    //
     private dialog: MatDialog,
     private builder: FormBuilder
   ) { 
@@ -104,11 +118,47 @@ export class GestioneContrattoComponent implements OnInit {
       motivazioneid: null,
       motivazionedesc: null,
     }); 
+    
   }
 
   ngOnInit(): void { 
     this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllSocieta();
+    
+    this.caricaComponenteAssociato();
+  }
+
+  async caricaComponenteAssociato() {
+
+    console.log("this.router.url")
+    console.log(this.router.url)
+
+    this.currentAlias = this.router.url.replaceAll('%20',' ');
+    // 
+    var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+
+    console.log("this.currentAlias")
+    console.log(this.currentAlias)
+
+    this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
+    
+    console.log("this.componenteAssociato:");
+    console.log(this.componenteAssociato);
+
+    this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
+    
+    console.log("finalPath");
+    console.log(this.finalPath);
+    /*
+    this.componenteMappato = {
+      // path: this.currentAlias.slice(1) + '/' + this.componenteAssociato.aliasComponente, // modificare il path, inserire il vero path non l'alias!!!!!
+      path: this.componenteAssociato.pathDescrizione, // modificare il path, inserire il vero path non l'alias!!!!!
+      component: this.listaComponenti.find(componente => componente.idComponente == this.componenteAssociato.idComponente)!.component
+    }
+
+    console.log("this.componenteMappato");
+    console.log(this.componenteMappato.path);
+    */
   }
 
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
