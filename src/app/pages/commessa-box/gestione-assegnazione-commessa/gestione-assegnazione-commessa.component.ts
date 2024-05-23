@@ -6,6 +6,7 @@ import { CommessaService } from '../../../service/commessa.service';
 import { ricercaCommessaPersona } from '../../../dto/request/ricercaCommessaPersona';
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
 import { DipendentiAssegnatiDialogComponent } from '../dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
+import { DeleteCommessaDialogComponent } from '../../delete-commessa-dialog/delete-commessa-dialog.component';
 
 @Component({
   selector: 'app-gestione-assegnazione-commessa',
@@ -50,7 +51,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
   }
 
   getListaDipendentiAssegnati(commessaId: number) {
-    this.commessaService.getVistaPersoneCommessabyId(commessaId).subscribe({
+    this.commessaService.getVistaPersoneCommessaById(commessaId).subscribe({
       next:(res) =>{
         this.dialog.open(DipendentiAssegnatiDialogComponent,
         {
@@ -62,7 +63,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
     });
   }
 
-  /*setTitoloModificaCommessa()
+  setTitoloModificaCommessa()
     {
       this.commessaService.setTitolo('Modifica commessa')
     }
@@ -71,11 +72,11 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
   {
     this.idCommessa = commessaId;
     this.commessaService.getCommessaById(this.idCommessa)
-  }*/
+  }
 
   setTitoloNuovaCommessa()
   {
-    /*this.commessaService.setTitolo('Inserimento nuova commessa')*/
+    this.commessaService.setTitolo('Inserimento nuova commessa')
   }
 
     clearSearch()
@@ -83,7 +84,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
     this.ricercaForm.reset(this.formDefaultValue);
   }
 
-  /*openDialogDelete(commessaId : number) {
+  openDialogDelete(commessaId : number) {
     this.idCommessa = commessaId
     this.dialog.open(DeleteCommessaDialogComponent,
       {
@@ -95,7 +96,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
         {
           this.ricercaFiltrata();
         })
-    }*/
+    }
 
     ricercaFiltrata() {
       const queryParams : ricercaCommessaPersona = this.ricercaForm.value;

@@ -9,10 +9,15 @@ import { commessaPersona } from '../dto/request/commessaPersona';
 })
 export class CommessaService {
 
-  private titolo : BehaviorSubject<string> = new BehaviorSubject<string>('')
+  private titolo : BehaviorSubject<string> = new BehaviorSubject<string>('');
   private commessaSubject = new BehaviorSubject<any>(null);
+  private commperSubject = new BehaviorSubject<any>(null);
+  private _commperSubject = new BehaviorSubject<any>(null);
   commessa$ = this.commessaSubject.asObservable();
-  baseUrl = 'http://localhost:5143/Commessa/'
+  commper$ = this.commperSubject.asObservable();
+  _commper$ = this._commperSubject.asObservable();
+  baseUrl = 'http://localhost:5143/Commessa/';
+
   constructor(private http : HttpClient) { }
 
   setTitolo(titolo : string){
@@ -23,16 +28,46 @@ export class CommessaService {
     return this.titolo.getValue();
   }
 
-  getVistaPersoneCommessabyId(commessaId : number) : Observable<any>{
+  getVistaPersoneCommessaById(commessaId : number) : Observable<any>{
     return this.http.get<any>(`${this.baseUrl}GetPersoneByCommessaId/${commessaId}`)
   }
 
-  getCommessaPersoneByIds(ids: number[]): Observable<commessaPersona[]>
-  {
+  getCommessaPersonaById(commperId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}GetCommessaPersonaById/${commperId}`)
+      .pipe(
+        retry(3)
+      );
+  }
+  fetchCommessaPersonaById(commperId: number) {
+    this.getCommessaPersonaById(commperId).subscribe({
+      next: (res) => {
+        this.commperSubject.next(res);
+      },
+      error: (err) => {
+        console.error('Errore durante il recupero dei dati della persona:', err);
+      }
+    });
+  }
+
+  getCommessaPersoneByIds(ids: number[]): Observable<commessaPersona[]> {
     let params = new HttpParams();
     params = params.append('ids', ids.join(','));
+  
+    return this.http.get<commessaPersona[]>(`${this.baseUrl}GetCommessaPersoneByIds`, { params })
+      .pipe(
+        retry(3)
+      );
+  }
 
-    return this.http.get<commessaPersona[]>(`${this.baseUrl}GetCommessaPersoneByIds`, {params})
+  fetchCommessaPersoneByIds(ids: number[]) {
+    this.getCommessaPersoneByIds(ids).subscribe({
+      next: (res) => {
+        this._commperSubject.next(res);
+      },
+      error: (err) => {
+        console.error('Error fetching commessa persone:', err);
+      }
+    });
   }
   
   salvaCommessa(commessaObj : any) : Observable<any>{
@@ -84,6 +119,10 @@ export class CommessaService {
   
   disabilitaCommessaById(idCommessa : number){
     return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaById/${idCommessa}`,{})
+  }
+
+  disabilitaCommPerById(id: number){
+    return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaPersonaById/${id}`,{})
   }
 
   getAllTipoCommesse() : Observable<any>{
