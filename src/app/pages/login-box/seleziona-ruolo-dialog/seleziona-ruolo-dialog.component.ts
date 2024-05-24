@@ -27,7 +27,7 @@ export class SelezionaRuoloDialogComponent {
                     username:res.body.username,
                     idRuolo:res.body.idRuolo
                   }
-                  this.router.navigate([""]);
+                  this.router.navigate(["/Home"]);
                 }
               }
         )

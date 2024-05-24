@@ -58,13 +58,12 @@ export class LoginComponent implements OnInit {
               break;
             case statoAccesso.scadutoMFA:
               this.router.navigate(['Account/validatore-mfa']);
-
               this.auth.utenteId = res.body;
               break;
             case statoAccesso.utenteLoggato:
               this.auth.utente = res.body
               sessionStorage.setItem('SysUser', res.body.utenteLoggato.username)
-              this.router.navigate(['']);
+              this.router.navigate(['/Home']);
               break;
             case statoAccesso.credenzialiValide:
               this.auth.utenteId = res.body.userId;
@@ -72,7 +71,9 @@ export class LoginComponent implements OnInit {
               this.dialog.open(SelezionaRuoloDialogComponent, {
                 width: 'auto',
                 height: 'auto',
-              });
+              }).afterClosed().subscribe(()=>{
+                this.router.navigate(['/Home'])
+              });;
               sessionStorage.setItem('SysUser',res.body.username)
               break;
           }

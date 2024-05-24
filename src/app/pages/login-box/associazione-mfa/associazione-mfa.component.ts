@@ -24,7 +24,7 @@ export class AssociazioneMFAComponent {
            this.auth.utente = res.body
            console.log(this.auth.utente)
  
-          this.router.navigate([""])
+          this.router.navigate(["/Home"])
          }
          //se errore redirect al login
          else{

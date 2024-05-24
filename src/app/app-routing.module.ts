@@ -35,9 +35,14 @@ import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.compon
 
 const routes: Routes = [
   {
-    path:"",
+    path:'',
+    redirectTo: 'Account/login',
     pathMatch: "full",
-    component:HomepageComponent
+  },
+  {
+    path:'Home',
+    pathMatch: "full",
+    component: HomepageComponent,
   },
   {
     path: 'Account',

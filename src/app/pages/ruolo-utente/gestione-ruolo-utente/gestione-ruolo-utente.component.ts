@@ -53,7 +53,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['']);
+    this.router.navigate(['/Home']);
   }
 
   modificaRuolo(id: number) {

@@ -31,7 +31,7 @@ export class ValidatoreMFAComponent {
         switch (res.status) {
           case statoAccesso.utenteLoggato:
             this.auth.utente = res.body;
-            this.router.navigate(['']);
+            this.router.navigate(['/Home']);
             break;
           case statoAccesso.credenzialiValide:
             this.auth.utenteId = res.body.userId;
