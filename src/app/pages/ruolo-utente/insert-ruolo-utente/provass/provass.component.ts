@@ -87,13 +87,13 @@ export class ProvassComponent implements OnDestroy {
               funzione = this.AggiornaListaMenu(funzione);
               break;
             case FlagFunzione.lettura:
-              funzione.flagLettura = !funzione.flagLettura;
+              funzione.flagLettura = !funzione.flagLettura;              
               break;
             case FlagFunzione.creazione:
               funzione.flagCreazione = !funzione.flagCreazione;
               break;
             case FlagFunzione.modifica:
-              funzione.flagModifica = !funzione.flagModifica;
+              funzione.flagModifica = !funzione.flagModifica;              
               break;
             case FlagFunzione.cancellazione:
               funzione.flagCancellazione = !funzione.flagCancellazione;
@@ -104,7 +104,7 @@ export class ProvassComponent implements OnDestroy {
         }
         return funzione;
       });
-    this.SortListaFunzioni()
+    //this.SortListaFunzioni()
 
   }
 
@@ -216,17 +216,19 @@ export class ProvassComponent implements OnDestroy {
     //console.log(this.ruoloDaAggiungere)
   }
 
-  SortListaFunzioni() {
-    let i = 0
-    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a, b) => {
-      i = i++
-      //console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
-      if (b.indiceMenu == 0) return -1
-      if (a.indiceMenu == 0) return 1
-      if (a.indiceMenu < b.indiceMenu) return -1
-      return 1
-    })    
-  }
+  /*
+    SortListaFunzioni() {
+      let i = 0
+      this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a, b) => {
+        i = i++
+        //console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
+        if (b.indiceMenu == 0) return -1
+        if (a.indiceMenu == 0) return 1
+        if (a.indiceMenu < b.indiceMenu) return -1
+        return 1
+      })    
+    }*/
+
   CancellaLista() {
     this.listaMenuPadre = []
     this.ruoloDaAggiungere.listaFunzioni = []
@@ -254,7 +256,7 @@ export class ProvassComponent implements OnDestroy {
         this.listaMenuPadre.push(funzione);
       }
     });
-    this.SortListaFunzioni()
+    //this.SortListaFunzioni()
   }
 
   CloseForm() {
