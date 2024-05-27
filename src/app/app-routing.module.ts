@@ -24,7 +24,6 @@ import { basicUser, notLogged } from './guard/auth.guard';
 import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo-dialog/seleziona-ruolo-dialog.component';
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
-import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-funzione/provass/provass.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
@@ -83,10 +82,6 @@ export const listaComponenti = [
     component: DipendentiCommessaComponent,
   },
   {
-    idComponente: 12,
-    component: ProvassComponent,
-  },
-  {
     idComponente: 13,
     component: InsertContrattoComponent,
   },
@@ -137,7 +132,7 @@ const routes: Routes = [
       { path: 'gestione-assenze', component: RichiestaAssenzaSegreteriaComponent },
       //{ path: 'insertutente',component: InsertUtenteComponent,},
       { path: 'gestione-ruolo-funzione', component: GestioneRuoloComponent, },
-      { path: 'insert-ruolo-funzione', component: ProvassComponent, },
+      { path: 'insert-ruolo-funzione', component: InsertRuoloFunzioneComponent, },
       { path: 'gestione-ruolo-utente', component: GestioneRuoloUtenteComponent, },
       { path: 'insert-ruolo-utente', component: InsertRuoloUtenteComponent, },
       { path: 'insert-cliente', component: InsertClienteComponent, },
@@ -157,7 +152,7 @@ const routes: Routes = [
     component: SegreteriaComponent,
     children: [
       { path: 'gestione-ruolo-funzione', component: GestioneRuoloComponent, },
-      { path: 'insert-ruolo-funzione', component: ProvassComponent, },
+      { path: 'insert-ruolo-funzione', component: InsertRuoloFunzioneComponent, },
       { path: 'gestione-ruolo-utente', component: GestioneRuoloUtenteComponent, },
       { path: 'insert-ruolo-utente', component: InsertRuoloUtenteComponent, },
       // {path:,component:},

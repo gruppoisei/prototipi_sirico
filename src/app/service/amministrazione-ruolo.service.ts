@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { Ruolo } from '../pages/ruolo-utente/insert-ruolo-funzione/provass/provass.component';
+import { Ruolo } from '../pages/ruolo-utente/insert-ruolo-funzione/insert-ruolo-funzione.component';
 
 @Injectable({
   providedIn: 'root'
