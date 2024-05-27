@@ -1,14 +1,11 @@
-<div>
+<!-- <div>
     <label>ID ruolo: </label> <br>
     <input type="text" class="border-2 border-black" [(ngModel)]="idRuolo"> <br> <br>
-    <button type="button" class="border-2 border-black" (click)="getFunzioniComponenti(); ">CLICK</button>
-    <!-- <a routerLink="/aaa/bbb"
-        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium"
-        routerLinkActive="bg-gray-900">AAA/BBB</a> -->
-    <button type="button" (click)="routerPrint()">PRINT</button>
+    <button type="button" class="border-2 border-black" (click)="getFunzioniComponenti(2012); ">CLICK</button> 
+     
 </div>
 
-<br><br>
+<br><br> -->
 
 <nav class="bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -48,18 +45,26 @@
                 <div class="hidden sm:ml-6 sm:block">
                     <!-- <div class="flex space-x-4 justify-items-center"> flex justify-center items-center -->
                     <div class="flex justify-center items-center">
+                        <!-- <a routerLink="Account/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Login</a> -->
 
-                        <div *ngFor="let funzione of listaFunzioniFinaleMenu; index as i" class="ml-4">
-                            
-                            <div *ngIf="i < limiteVociMenu">
+                        <div class="flex flex-shrink-0 items-center">
+                            <a routerLink="{{'/'+menuDinamico.homePagePath}}"><img class="w-auto h-auto"
+                                    src="\assets\SCOD_Logo_Little.png" alt="SCOD 2"></a>
+                        </div>
+                        
+                        <div *ngFor="let funzione of menuDinamico.listaFunzioniFinaleMenu; index as i" class="ml-4">
+                            <!-- <a class="text-white">{{menuDinamico.limiteVociMenu}}</a> 
+                             -->
+
+                            <div *ngIf="i < menuDinamico.limiteVociMenu">
 
                                 <!-- considero il primo elemento il componente HOME -->
-                                <div *ngIf="i == 0">
+                                <!-- <div *ngIf="i == 0">
                                     <div class="flex flex-shrink-0 items-center">
-                                        <a routerLink="{{'/'+homePagePath}}"><img class="w-auto h-auto"
+                                        <a routerLink="{{'/'+menuDinamico.homePagePath}}"><img class="w-auto h-auto"
                                                 src="\assets\SCOD_Logo_Little.png" alt="SCOD 2"></a>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- considero dal secondo elemento gli altri componenti -->
                                 <div *ngIf="i != 0">
@@ -90,6 +95,10 @@
                                 </div>
                             </div>
 
+                        </div>
+                        <div *ngIf="menuDinamico.limiteVociMenu != 0 && menuDinamico.limiteVociMenu != null && menuDinamico.limiteVociMenu != undefined && menuDinamico.limiteVociMenu != '' ">
+                            <a (click)="logout()"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">Logout</a>
                         </div>
                     </div>
                 </div>

@@ -1,274 +1,306 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy } from '@angular/core';
 import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
-import { ruoloFunzione } from '../../../dto/request/inserimentoNuovoRuolo';
-
+import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
+import { ChangeDetectorRef, NgZone } from '@angular/core';
 
 @Component({
-  selector: 'app-insert-ruolo-funzione',
+  selector: 'app-provass',
   templateUrl: './insert-ruolo-funzione.component.html',
-  styleUrl: './insert-ruolo-funzione.component.scss'
+  styleUrl: './insert-ruolo-funzione.component.scss',
 })
-export class InsertRuoloFunzioneComponent implements OnInit {
-  
-  ruoloId:any = null
-  allFunzioni!: [{ syapIdfunzione: number; syapDescrizione: string }];
-  //funzioneVoceDiMenu!: { syapIdfunzione: number; syapDescrizione: string };
-  //allFunzioniVociDiMenu!: [{ syapIdfunzione: number; syapDescrizione: string }];
-  funzioneVoceDiMenu = {
-    syapIdfunzione: 0,
-    syapDescrizione: ""
-  };
-  
-  allFunzioniVociDiMenu = [{
-    syapIdfunzione: 0,
-    syapDescrizione: ""
-  }]
-
-  objectRuoloFunzione: ruoloFunzione = {
-    nomeRuolo: "",
-    syapIdfunzione: 0,
-    syapDescrizione: "",
-    flagLettura: false,
-    flagVoceDiMenu: false,
-    flagCreazione: false,
-    flagModifica: false,
-    flagCancellazione: false,
-    ordinamento: 0,
-    menuPadre: 0
-  }
-
-  formData = {
-    nomeRuolo: "",
-    syapIdfunzione: 0,
-    syapDescrizione: "",
-    flagLettura: false,
-    flagVoceDiMenu: false,
-    flagCreazione: false,
-    flagModifica: false,
-    flagCancellazione: false,
-    ordinamento: 0,
-    menuPadre: 0
-  }
-
-  arrayObjectRuoloFunzioni: ruoloFunzione[] = [];
-  //arrayObjectRuoloFunzioni: any[] = [];  
-
-  ruolo: string = "";
-  idFunzione: number = Number.parseInt("");
-  idFunzioneStart: number = Number.parseInt("");
-  descrizioneFunzione: string = "";
-  menuPadre: number = Number.parseInt("");
- 
+export class InsertRuoloFunzioneComponent implements OnDestroy {
+  ruoloId: any = null;
+  ruoloNome: string = "";
+  nuovaFunzione = 0;
+  listaFunzioniDisponibili: Funzione[] = [];
+  listaOriginale: Funzione[] = [];
+  AllFunzioni: Funzione[] = [];
+  // nuovoMenuPadre = 0; // 
+  listaMenuPadre: Funzione[] = [];
+  ruoloDaAggiungere: Ruolo = { nomeRuolo: '', listaFunzioni: <any>[] };
 
   constructor(
+    private amministrazioneRuolo: AmministrazioneRuoloService,
     private router: Router,
-    private amministrazioneRuolo: AmministrazioneRuoloService
-  ) { 
-    this.ruoloId = amministrazioneRuolo.ruoloId
-
-    if(this.ruoloId != null){
-      amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
-      .subscribe((res:any) => {
-
-      })
-    }
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {
+    this.ruoloId = this.amministrazioneRuolo.ruoloId;
+    this.Start();
   }
 
-  ngOnInit(): void {
-    this.getAllFunzioni();
-    //this.idFunzione = 1;        
-    console.log(this.funzioneVoceDiMenu);
-    //TODO: prendi informazioni del ruolo passato nel servizio come ruoloId
-    console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value + " : " + this.loadRuoliById(this.amministrazioneRuolo.ruoloId$.value));
-    // if (this.amministrazioneRuolo.ruoloId$.value != undefined && this.amministrazioneRuolo.ruoloId$.value != 0) {
-    //   console.log("qui: " + this.amministrazioneRuolo.ruoloId$.value);
-    //   //this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
-    // }
-    // console.log("qui 2: " + this.amministrazioneRuolo.ruoloId$.value);
+  async Start() {
+    this.AllFunzioni = await firstValueFrom(
+      this.amministrazioneRuolo.getFunzioni()
+    );
 
-    // if (this.ruoloIdPassato) {
-    //   console.log("carico ruolo: " + this.ruoloIdPassato + this.loadRuoliById(this.ruoloIdPassato));
-    //   this.loadRuoliById(this.ruoloIdPassato);
-    // }
-    if (this.ruoloId != undefined && this.ruoloId != 0) {
-       console.log("qui: " + this.ruoloId + " : " + this.loadRuoliById(this.ruoloId));
-       this.loadRuoliById(this.ruoloId);
-       //this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value);
-    }
+    if (this.ruoloId != null) {
+
+      await this.ReimpostaLista();
+      //console.log(this.ruoloDaAggiungere);
+      this.ruoloNome = this.ruoloDaAggiungere.nomeRuolo;
+      console.log(this.ruoloDaAggiungere)
+    } else this.listaFunzioniDisponibili = this.AllFunzioni;
+
   }
 
-  loadRuoliById(id: number) {
-    this.amministrazioneRuolo.getRuoliById(id).subscribe(
-      (response: any) => {
-        this.arrayObjectRuoloFunzioni = response;
-        console.log(this.arrayObjectRuoloFunzioni);
-      },
-      (error: any) => {
-        console.error('Errore durante il recupero dei ruoli:', error);
-      }
+  AggiungiFunzione() {
+    if (this.nuovaFunzione != 0) {
+      this.ruoloDaAggiungere.listaFunzioni.push(
+        this.AllFunzioni.find(
+          (funzione) => funzione.funzioneId == this.nuovaFunzione
+        )!
+      );
+      this.listaFunzioniDisponibili = this.listaFunzioniDisponibili.filter(
+        (funzione: Funzione) => funzione.funzioneId != this.nuovaFunzione
+      );
+    }
+    this.nuovaFunzione = 0; // azzero per evitare multiple aggiunte dello stesso ruolo
+  }
+
+  RimuoviFunzione(funzioneId: number) {
+    this.ruoloDaAggiungere.listaFunzioni =
+      this.ruoloDaAggiungere.listaFunzioni.filter(
+        (funzione: Funzione) => funzione.funzioneId != funzioneId
+      );
+    this.listaFunzioniDisponibili.push(
+      this.AllFunzioni.find((funzione) => funzione.funzioneId == funzioneId)!
+    );
+    this.listaFunzioniDisponibili.sort((a, b) =>
+      a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase()
+        ? 1
+        : -1
+    );
+    this.listaMenuPadre = this.listaMenuPadre.filter(
+      (funzione) => funzione.funzioneId != funzioneId
     );
   }
 
-  getAllFunzioni() {
-    this.amministrazioneRuolo.getFunzioni().subscribe(
-      (response: any) => {
-        console.log(response);
-        this.allFunzioni = response;
-        this.idFunzioneStart = this.allFunzioni[0].syapIdfunzione;
-        this.idFunzione = this.idFunzioneStart;
-      },
-      (error: any) => {
-        console.error('Errore durante il recupero delle funzioni:', error);
-      }
-    );
-  }
-
-  addFunzioneToRuolo() {
-    if (!Number.isNaN(this.idFunzione)) {
-      var index = 0;
-      for (let i = 0; i < this.allFunzioni.length; i++) {
-        if (this.idFunzione == this.allFunzioni[i].syapIdfunzione) {
-          this.descrizioneFunzione = this.allFunzioni[i].syapDescrizione;
-          index = i;
-          break;
-        }
-      }
-
-      this.allFunzioni.splice(index, 1);
-      //console.log(sliced);
-      this.arrayObjectRuoloFunzioni.push(this.creaNuovoRuoloFunzione());
-      //this.arrayObjectRuoloFunzioniSliced.push(sliced);
-
-      if (this.allFunzioni.length > 0) {
-        this.idFunzione = this.allFunzioni[0].syapIdfunzione;
-      }
-      else {
-        this.idFunzione = Number.parseInt("");
-      }
-      console.log(this.allFunzioni);
-    }
-    else {
-      // do nothing
-    }
-
-  }
-
-  checkVoceDiMenu() {
-    /*
-    // preparo l'array vuoto che riempirò con le funzioni che hanno voce di menù flaggato
-    this.allFunzioniVociDiMenu = [];
-    // preparo il primo elemento nell'array come elemento vuoto
-    // (caso funzione che: non è voce di menù && non è sottovoce perché è voce interna di un'altra pagina)
-    this.allFunzioniVociDiMenu.push(this.creaFunzioneVoceDiMenu(0, "Nessuna"));
-    */
-    for (let i = 0; i < this.arrayObjectRuoloFunzioni.length; i++) {
-      if (this.arrayObjectRuoloFunzioni[i].flagVoceDiMenu == true) {
-        this.funzioneVoceDiMenu.syapIdfunzione = this.arrayObjectRuoloFunzioni[i].syapIdfunzione;
-        this.funzioneVoceDiMenu.syapDescrizione = this.arrayObjectRuoloFunzioni[i].syapDescrizione;
-
-        // this.allFunzioniVociDiMenu.push(this.creaFunzioneVoceDiMenu(i));
-        this.allFunzioniVociDiMenu.push(
-          this.creaFunzioneVoceDiMenu(
-            this.arrayObjectRuoloFunzioni[i].syapIdfunzione, this.arrayObjectRuoloFunzioni[i].syapDescrizione)
-        );
-        // ordino l'array;
-        this.allFunzioniVociDiMenu.sort((a, b) => a.syapDescrizione.toLocaleUpperCase() > b.syapDescrizione.toLocaleUpperCase() ? 1 : -1);
-        // preparo l'array vuoto che riempirò con le funzioni che hanno voce di menù flaggato
-        this.allFunzioniVociDiMenu = [];
-        // preparo il primo elemento nell'array come elemento vuoto
-        // (caso funzione che: non è voce di menù && non è sottovoce perché è voce interna di un'altra pagina)
-        // da testare: se non funziona cancellare qui e scommentare sopra
-        this.allFunzioniVociDiMenu.push(this.creaFunzioneVoceDiMenu(0, "Nessuna"));
-        console.log(this.allFunzioniVociDiMenu);
-      }
-    }
-  }
-
-  creaFunzioneVoceDiMenu(id: number, description: string) {
-    return {
-      syapIdfunzione: id,
-      syapDescrizione: description
-    }
-  }
-
-  creaNuovoRuoloFunzione(): ruoloFunzione {
-    return {
-      nomeRuolo: "",
-      syapIdfunzione: this.idFunzione,
-      syapDescrizione: this.descrizioneFunzione,
-      flagLettura: false,
-      flagVoceDiMenu: false,
-      flagCreazione: false,
-      flagModifica: false,
-      flagCancellazione: false,
-      ordinamento: this.arrayObjectRuoloFunzioni.length,
-      menuPadre: 0
-    };
-  }
-
-  deleteFunzione(element: any, index: number) {
-    console.log('delete funzione START');
-    // rimuovo l'elemento da arrayObjectRuoloFunzioni
-    var splicedId = this.arrayObjectRuoloFunzioni[index].syapIdfunzione
-    this.arrayObjectRuoloFunzioni.splice(index, 1);
-    // verifico se l'elemento era presente in "menù padre" e se presente lo rimuovo
-    for (let i = 0; i < this.allFunzioniVociDiMenu.length; i++) {
-      if (this.allFunzioniVociDiMenu[i].syapIdfunzione == splicedId) {
-        this.allFunzioniVociDiMenu.splice(i, 1);
-        break;
-      }
-    }
-    // inserisco l'elemento sopra rimosso into allFunzioni
-    this.allFunzioni.splice(0, 0, element);
-    this.idFunzioneStart = this.allFunzioni[0].syapIdfunzione;  // ???
-    console.log(this.allFunzioni);
-    // sort dell'array allFunzioni
-    this.allFunzioni.sort((a, b) => a.syapDescrizione.toLocaleUpperCase() > b.syapDescrizione.toLocaleUpperCase() ? 1 : -1);
-    console.log(this.allFunzioni);
-    console.log('delete funzione END');
-  }
-
-  addRuolo() {
-    console.log('addRuolo() START');
-    console.log('NOME RUOLO:');
-    console.log(this.ruolo);
-    console.log('FUNZIONI ASSOCIATE:');
-    console.log(this.arrayObjectRuoloFunzioni);
-    // codice da testare
-    // fill del campo nomeRuolo con ruolo per ogni oggetto dell'array
-    /*
-      for(let i=0; i<this.arrayObjectRuoloFunzioni; i++) {
-        this.arrayObjectRuoloFunzioni[i].nomeRuolo = this.ruolo;
-      }
-    */
-/*
-    this.amministrazioneRuolo.insertNuovoRuolo(this.arrayObjectRuoloFunzioni).subscribe(
-      (response: any) => {
-        console.log(response);
-        alert(response);
-        //this.clearForm();
-      },
-      (error: any) => {
-        console.error("Errore durante l'inserimento del nuovo contratto:", error);
-        alert("Errore durante l'inserimento del nuovo contratto");
-      }
-    );
-*/
-    console.log('addRuolo() END');
-  }
-
-  clearSearch() {
-    this.ruolo = "";
-    this.idFunzione = Number.parseInt("");
-    //this.formData.funzione = "";
-  }
-
-  closeForm() {
-    if (confirm('La pagina verrà chiusa e i dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['Segreteria/gestione-ruolo-funzione']);
-  }
+  AggiornaCampo(funzioneId: number, tipoCampo: number) {
+    this.ngZone.run(() => {
+        this.ruoloDaAggiungere.listaFunzioni =
+            this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+                if (funzione.funzioneId == funzioneId) {
+                    switch (tipoCampo) {
+                        case FlagFunzione.voceMenu:
+                            funzione = this.AggiornaListaMenu(funzione);
+                            break;
+                        case FlagFunzione.lettura:
+                            funzione.flagLettura = !funzione.flagLettura;
+                            if (!funzione.flagLettura && funzione.flagModifica) {
+                                funzione.flagModifica = false;
+                            }
+                            break;
+                        case FlagFunzione.creazione:
+                            funzione.flagCreazione = !funzione.flagCreazione;
+                            break;
+                        case FlagFunzione.modifica:
+                            funzione.flagModifica = !funzione.flagModifica;
+                            if (funzione.flagModifica) {
+                                funzione.flagLettura = true;
+                            }
+                            break;
+                        case FlagFunzione.cancellazione:
+                            funzione.flagCancellazione = !funzione.flagCancellazione;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                return funzione;
+            });
+        this.cdr.detectChanges();
+    });
 }
 
 
 
+
+  AggiornaIndiciMenu(id: number, valore: number) {
+
+    this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.map(funzione => {
+      if (funzione.indiceMenu == valore && funzione.funzioneId != id) {
+        for (let i = this.ruoloDaAggiungere.listaFunzioni.length; i > 0; i--) {
+          if (this.ruoloDaAggiungere.listaFunzioni.find(funz => funz.indiceMenu == i) == undefined) {
+            funzione.indiceMenu = i
+          }
+        }
+      }
+      return funzione
+    })
+  }
+
+
+  AggiornaListaMenu(funzione: Funzione) {
+    funzione.flagVoceMenu = !funzione.flagVoceMenu;
+    if (funzione.flagVoceMenu) {
+      funzione.indiceMenu = this.listaMenuPadre.length + 1
+      this.AggiornaIndiciMenu(funzione.funzioneId!, funzione.indiceMenu)
+      funzione.menuPadre = 0
+      this.listaMenuPadre.push(this.ruoloDaAggiungere.listaFunzioni.find((funzioneP: Funzione) => funzioneP.funzioneId == funzione.funzioneId)!)
+      this.listaMenuPadre.sort((a, b) => a.nomeFunzione.toLocaleUpperCase() > b.nomeFunzione.toLocaleUpperCase() ? 1 : -1);
+    }
+    else {
+      funzione.indiceMenu = 0
+      this.listaMenuPadre = this.listaMenuPadre.filter(funzioneP => funzioneP.funzioneId != funzione.funzioneId)
+      this.ruoloDaAggiungere.listaFunzioni.map((funzioneP: Funzione) => {
+        if (funzioneP.funzioneId == funzione.funzioneId) funzione.menuPadre = 0
+        this.AggiornaIndiciMenu(funzione.funzioneId!, this.listaMenuPadre.length + 1)
+      })
+
+    }
+    return funzione;
+  }
+
+
+  async InserisciNuovoRuolo() {
+    if (this.ruoloDaAggiungere.nomeRuolo == null || this.ruoloDaAggiungere.nomeRuolo == undefined || this.ruoloDaAggiungere.nomeRuolo == "") {
+      alert('Inserire un nome ruolo!');
+    }
+    else if (this.ruoloDaAggiungere.listaFunzioni.length == 0) {
+      alert('Inserire almeno una funzione da associare al ruolo');
+    }
+    else {
+      //console.log(this.ruoloDaAggiungere)
+      let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere));
+      alert(res.message);
+
+      if (res.message == "Ruolo salvato con successo!") {
+        this.router.navigate(["/Segreteria/gestione-ruolo-funzione"]);
+      }
+    }
+  }
+
+  async AggiornaFunzioniRuolo() {
+    if (this.ruoloDaAggiungere.nomeRuolo == "" || this.ruoloDaAggiungere.nomeRuolo == null || this.ruoloDaAggiungere.nomeRuolo == undefined) {
+      alert('Inserire un nome ruolo!');
+    }
+    else if (this.ruoloDaAggiungere.listaFunzioni.length == 0) {
+      alert('Aggiungere almeno una funzione da associare al ruolo!');
+    }
+    else {
+      let same = true;
+      if (
+        this.ruoloDaAggiungere.listaFunzioni.length != this.listaOriginale.length
+      ) {
+        same = false;
+      }
+      else if (this.ruoloNome != this.ruoloDaAggiungere.nomeRuolo) {
+        same = false;
+      } else {
+        for (var i = 0; i < this.listaOriginale.length; i++) {
+          if (same == false) {
+            break;
+          }
+          let findFunzione = this.ruoloDaAggiungere.listaFunzioni.find(
+            (funz) => funz.funzioneId == this.listaOriginale[i].funzioneId
+          );
+          if (findFunzione == undefined) {
+            same = false;
+          } else {
+
+            if (
+              JSON.stringify(findFunzione) != JSON.stringify(this.listaOriginale[i])
+            ) {
+              same = false;
+            }
+          }
+        }
+      }
+
+      if (same) alert('Nessuna modifica riscontrata')
+      else {
+
+        let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere));
+        //console.log('res.message:');
+        //console.log(res.message);
+        alert(res.message);
+
+        if (res.message == "Ruolo salvato con successo!") {
+          this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+        }
+      }
+    }
+    //console.log(this.ruoloDaAggiungere)
+  }
+
+  /*
+    SortListaFunzioni() {
+      let i = 0
+      this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a, b) => {
+        i = i++
+        //console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
+        if (b.indiceMenu == 0) return -1
+        if (a.indiceMenu == 0) return 1
+        if (a.indiceMenu < b.indiceMenu) return -1
+        return 1
+      })    
+    }*/
+
+  CancellaLista() {
+    this.listaMenuPadre = []
+    this.ruoloDaAggiungere.listaFunzioni = []
+    this.listaFunzioniDisponibili = this.AllFunzioni
+    this.listaMenuPadre = []
+  }
+
+  async ReimpostaLista() {
+    this.ruoloDaAggiungere = await firstValueFrom(
+      this.amministrazioneRuolo.GetAllInfoFunzioneRuoloById(this.ruoloId)
+    );
+    this.ruoloDaAggiungere.ruoloId = this.ruoloId;
+    let strings = JSON.stringify(this.ruoloDaAggiungere.listaFunzioni)
+    this.listaOriginale = JSON.parse(strings)
+
+
+    this.listaFunzioniDisponibili = this.AllFunzioni.filter(
+      (funzione: Funzione) =>
+        !this.ruoloDaAggiungere.listaFunzioni.some(
+          (f: any) => f.funzioneId == funzione.funzioneId
+        )
+    );
+    this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+      if (funzione.flagVoceMenu) {
+        this.listaMenuPadre.push(funzione);
+      }
+    });
+    //this.SortListaFunzioni()
+  }
+
+  CloseForm() {
+    this.router.navigate(['/Home']);
+  }
+
+  ngOnDestroy(): void {
+    this.amministrazioneRuolo.ruoloId = undefined;
+  }
+
+}
+
+export interface Ruolo {
+  ruoloId?: number;
+  nomeRuolo: string;
+  listaFunzioni: Funzione[];
+}
+export interface Funzione {
+  funzioneId?: number;
+  nomeFunzione: string;
+  flagLettura: boolean;
+  flagCancellazione: boolean;
+  flagVoceMenu: boolean;
+  flagModifica: boolean;
+  flagCreazione: boolean;
+  indiceMenu: number;
+  menuPadre: number;
+/*   menuPadre: number | null;
+ */}
+export enum FlagFunzione {
+  voceMenu,
+  lettura,
+  creazione,
+  modifica,
+  cancellazione,
+  ordinamentoMenu,
+  MenuPadre,
+}

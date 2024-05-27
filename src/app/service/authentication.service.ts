@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, firstValueFrom, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, firstValueFrom, map, tap, throwError } from 'rxjs';
 import { ruoloUtente } from '../guard/auth.guard';
 
 @Injectable({
@@ -73,8 +73,7 @@ export class AuthenticationService {
   ValidateToken(): Observable<number> {
     return this.http.get<any>('http://localhost:5143/Login/VerificaToken', this.httpOptions).pipe(
       map((res) => {
-        if (res.status == 200) {
-          console.log(res.body)
+        if (res.status == 200) {          
           this.utente = res.body;
           const ruolo = Number(this.utente?.idRuolo);
           return ruolo;

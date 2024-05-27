@@ -5,3 +5,7 @@
     text-overflow: ellipsis;
     cursor: pointer; /* Cambia il cursore quando si passa sopra per indicare che il testo è interattivo */
 }
+
+[disabled] {
+    background-color: grey;
+}

@@ -8,6 +8,8 @@ import { CronologiaDistaccoComponent } from '../cronologia-distacco/cronologia-d
 import { InserimentoContratto } from '../../../dto/response/inserimentoContratto';
 import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
 import { InsertContrattoComponent } from '../insert-contratto/insert-contratto.component';
+import { AppComponent } from '../../../app.component';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-gestione-contratto',
@@ -19,11 +21,11 @@ export class GestioneContrattoComponent implements OnInit {
 
   // EREDITARE
   currentAlias: string = "";
-  finalPath: string = "";
+  finalPath: any;
   componenteAssociato: any = "";
   componenteMappato: any = "";
 
-  listaComponenti = [{ idComponente: 13, component: InsertContrattoComponent }]
+  //listaComponenti = [{ idComponente: 13, component: InsertContrattoComponent }]
   //
 
   output_ricercaFiltrata: any;
@@ -78,15 +80,13 @@ export class GestioneContrattoComponent implements OnInit {
   constructor(
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
-    // SPOSTARE
-    private amministrazioneRuoloService: AmministrazioneRuoloService,
-    //
+    private menuDinamico: MenuDinamicoService,
     private dialog: MatDialog,
     private builder: FormBuilder
-  ) { 
+  ) {
     this.formData = builder.group({
-      Nome: ['',Validators.minLength(1)],
-      Cognome: ['',Validators.minLength(1)],
+      Nome: ['', Validators.minLength(1)],
+      Cognome: ['', Validators.minLength(1)],
       nomeTroncato: '',
       cognomeTroncato: '',
       Personaid: null,
@@ -117,50 +117,24 @@ export class GestioneContrattoComponent implements OnInit {
       Contrattopersid: null,
       motivazioneid: null,
       motivazionedesc: null,
-    }); 
-    
+    });
+
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllSocieta();
-    
-    this.caricaComponenteAssociato();
+
+    this.menuDinamico.caricaComponenteAssociato().then((data) => {
+      this.finalPath = data;
+      console.log("this.finalPath");
+      console.log(this.finalPath);
+    })
+      .catch((ex) => {
+        console.log(ex);
+      });
   }
-
-  async caricaComponenteAssociato() {
-
-    console.log("this.router.url")
-    console.log(this.router.url)
-
-    this.currentAlias = this.router.url.replaceAll('%20',' ');
-    // 
-    var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
-
-    console.log("this.currentAlias")
-    console.log(this.currentAlias)
-
-    this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
-    
-    console.log("this.componenteAssociato:");
-    console.log(this.componenteAssociato);
-
-    this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
-    
-    console.log("finalPath");
-    console.log(this.finalPath);
-    /*
-    this.componenteMappato = {
-      // path: this.currentAlias.slice(1) + '/' + this.componenteAssociato.aliasComponente, // modificare il path, inserire il vero path non l'alias!!!!!
-      path: this.componenteAssociato.pathDescrizione, // modificare il path, inserire il vero path non l'alias!!!!!
-      component: this.listaComponenti.find(componente => componente.idComponente == this.componenteAssociato.idComponente)!.component
-    }
-
-    console.log("this.componenteMappato");
-    console.log(this.componenteMappato.path);
-    */
-  }
-
+  
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
 
     this.inserimentoContrattoService.getAllContrattiBy(name, surname, cf, society).subscribe(
@@ -186,13 +160,12 @@ export class GestioneContrattoComponent implements OnInit {
 
   async deleteContract(idContratto: number) {
     await this.getContrattoByidContratto(idContratto);
-    const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(this.formDataContrattoCancellare.ccnlid).toPromise();      
+    const livelli = await this.inserimentoContrattoService.getAllTipoLivelloByCCNL(this.formDataContrattoCancellare.ccnlid).toPromise();
     this.tipiLivello = livelli;
     this.formDataContrattoCancellare.sysuser = this.utenteLoggato;
     this.formDataContrattoCancellare.codiFlagAttiva = 0;
     this.formDataContrattoCancellare.codsFlagAttiva = 0;
 
-    //debugger;
     this.inserimentoContrattoService.deleteContratto(this.formDataContrattoCancellare).subscribe(
       (response: any) => {
         alert(response);
@@ -200,13 +173,13 @@ export class GestioneContrattoComponent implements OnInit {
       },
       (error: any) => {
         alert("Errore durante la chiusura del contratto (errore di frontend)");
-      }); 
+      });
   }
 
   async getContrattoByidContratto(idContratto: number) {
     try {
       this.inserimentoContrattoService.idContratto$.next(idContratto);
-      const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();  
+      const response = await this.inserimentoContrattoService.getContrattiById(idContratto).toPromise();
       this.formDataContrattoCancellare = response;
       this.formData = response
       this.formDataContrattoCancellare.codiContrattopersid = response.codiContrattopersid;
@@ -267,6 +240,6 @@ export class GestioneContrattoComponent implements OnInit {
 
   closeForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['']);
+      this.router.navigate(['/Home']);
   }
 }
