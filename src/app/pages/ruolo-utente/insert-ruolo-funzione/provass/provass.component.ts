@@ -83,17 +83,18 @@ export class ProvassComponent implements OnDestroy {
         if (funzione.funzioneId == funzioneId) {
           switch (tipoCampo) {
             case FlagFunzione.voceMenu:
-
               funzione = this.AggiornaListaMenu(funzione);
               break;
             case FlagFunzione.lettura:
-              funzione.flagLettura = !funzione.flagLettura;              
+              funzione.flagLettura = !funzione.flagLettura;
+              funzione.flagLettura == false ? funzione.flagModifica = false : null;         
               break;
             case FlagFunzione.creazione:
               funzione.flagCreazione = !funzione.flagCreazione;
               break;
             case FlagFunzione.modifica:
-              funzione.flagModifica = !funzione.flagModifica;              
+              funzione.flagModifica = !funzione.flagModifica;
+              funzione.flagModifica == true ? funzione.flagLettura = true : null;
               break;
             case FlagFunzione.cancellazione:
               funzione.flagCancellazione = !funzione.flagCancellazione;

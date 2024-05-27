@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InsertUtenteService, PersoneEntity } from '../../../service/insert-utente.service';
 import { Router } from '@angular/router';
 import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
-import { ProvassComponent } from '../insert-ruolo-utente/provass/provass.component';
+import { ProvassComponent } from '../insert-ruolo-funzione/provass/provass.component';
 import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
