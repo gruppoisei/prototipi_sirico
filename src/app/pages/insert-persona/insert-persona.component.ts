@@ -67,7 +67,7 @@ constructor
 {
   const router = inject(Router)
 
-  this.data = this.personaService.getTiolo();
+  this.data = this.personaService.getTitolo();
   if(this.data === '')
     {
       router.navigate(['/Segreteria/gestione-dipendente'])

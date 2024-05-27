@@ -70,7 +70,7 @@ const routes: Routes = [
       { path:'assegna-commessa',component: DipendentiCommessaComponent },
       { path:'salva-commessa',component: SalvaCommessaComponent },
       { path:'gestione-cliente',component: GestioneClienteComponent },
-      { path:'gestione-assegnazione-commessa',component: GestioneAssegnazioneCommessaComponent },
+      
 
       // {path:,component:},
     ],
@@ -95,6 +95,7 @@ const routes: Routes = [
       { path: 'gestione-commessa',component: GestioneCommessaComponent,},
       { path:'assegna-commessa',component: DipendentiCommessaComponent },
       { path:'salva-commessa',component: SalvaCommessaComponent },
+      { path:'gestione-assegnazione-commessa',component: GestioneAssegnazioneCommessaComponent },
       // {path:,component:},
     ],
     //canActivate : [basicUser]

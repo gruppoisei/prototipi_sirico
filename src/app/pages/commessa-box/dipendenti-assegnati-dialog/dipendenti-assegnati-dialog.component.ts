@@ -15,6 +15,7 @@ export class DipendentiAssegnatiDialogComponent {
   listDipendenti: any [] = [];
   checkboxStates: boolean[] = [];
   masterCheckbox: boolean = false;
+  isAnySelected: boolean = false;
   selectedDipendenti: number[] = [];
 
 constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog)
@@ -37,6 +38,7 @@ disableButton(index: any, commessapersonaId:number):void {
           this.selectedDipendenti.splice(indice,1)
         }
     }
+    this.isAnySelected = this.selectedDipendenti.length > 0;
   }
 
   toggleAllCheckboxes(event: any): void{
@@ -45,6 +47,7 @@ disableButton(index: any, commessapersonaId:number):void {
 
     if(this.masterCheckbox){
       this.selectedDipendenti = this.listDipendenti.map(d => d.id);
+      this.isAnySelected = true
     }
     else{
       this.selectedDipendenti = [];
@@ -52,7 +55,7 @@ disableButton(index: any, commessapersonaId:number):void {
   }
 
   modificaSelezionato(id: any): void{
-    
+    this.commessaService.fetchCommessaPersonaById(id)
   }
 
   eliminaSelezionato(id: any, commessaId: number): void{

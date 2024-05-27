@@ -21,7 +21,7 @@ export class PersonaService {
     this.titolo.next(titolo);
   }
 
-  getTiolo() {
+  getTitolo() {
     return this.titolo.getValue();
   }
 

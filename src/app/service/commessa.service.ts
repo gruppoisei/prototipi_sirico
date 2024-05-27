@@ -125,12 +125,30 @@ export class CommessaService {
     return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaPersonaById/${id}`,{})
   }
 
+  
+  getCommessaPersonaSocietaById(id: number)
+  {
+    return this.http.get<any>(`${this.baseUrl}GetCommessaPersonaSocietaById/${id}`)
+  }
+
+  getCommessaPersoneSocietaByIds(ids : number[])
+  {
+    let params = new HttpParams();
+    params = params.append('ids', ids.join(','));
+    return this.http.get<any>(`${this.baseUrl}GetCommessaPersoneSocietaByIds`, {params})
+  }
+
   getAllTipoCommesse() : Observable<any>{
     return this.http.get<any>(`${this.baseUrl}GetAllTipoCommessa`)
   }
 
   clearCommessaSubject(){
     this.commessaSubject.next(null);
+  }
+
+  clearCommessaPersona() {
+    this.commperSubject.next(null);
+    this._commperSubject.next(null);
   }
 
   getAllVistaCommesse()
@@ -142,4 +160,5 @@ export class CommessaService {
   {
     return this.http.get<any>(`${this.baseUrl}GetAllCommesse`)
   }
+
 }
