@@ -7,8 +7,7 @@ import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-
 import { DeleteClienteDialogComponent } from '../../delete-cliente-dialog/delete-cliente-dialog.component';
 import { Router } from '@angular/router';
 import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
-import { InsertClienteComponent } from '../insert-cliente/insert-cliente.component';
-import { MenuDinamicoComponent } from '../../../menu/menu-dinamico/menu-dinamico.component';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 
 @Component({
@@ -22,8 +21,11 @@ export class GestioneClienteComponent {
   currentAlias: string = "";
   finalPath: string = "";
   componenteAssociato: any = "";
-  
-  listaComponenti = [{ idComponente: 17, component: InsertClienteComponent }]
+
+  listaFunzioni: any[] = [];
+  funzione: any;
+
+  //listaComponenti = [{ idComponente: 17, component: InsertClienteComponent }]
   //
 
 
@@ -31,9 +33,7 @@ export class GestioneClienteComponent {
 
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
-    // SPOSTARE
-    private amministrazioneRuoloService: AmministrazioneRuoloService,
-    //
+    public menuDinamico: MenuDinamicoService,
     private dialog: MatDialog,
     private router: Router
   ) { }
@@ -52,38 +52,74 @@ export class GestioneClienteComponent {
       FlagAttiva: [true],
     })
 
-    this.caricaComponenteAssociato();
+    // this.finalPath = this.menuDinamico.getPathMenu();
 
-    //
+    this.menuDinamico.caricaComponenteAssociato().then((data) => {
+      this.finalPath = data;
+      console.log("this.finalPath gestione cliente");
+      console.log(this.finalPath);
+    })
+      .catch((ex) => {
+        console.log(ex);
+      });
 
-    //
-  }
+    // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
+    // console.log(this.menuDinamico.listaRuoloFunzioni.listaFunzioni);
 
-  
-  async caricaComponenteAssociato() {
+    this.listaFunzioni = this.menuDinamico.listaRuoloFunzioni.listaFunzioni;
 
-    console.log("this.router.url")
-    console.log(this.router.url)
+    // console.log("this.router.url")
+    // console.log(this.router.url)
 
-    this.currentAlias = this.router.url.replaceAll('%20',' ');
+    this.currentAlias = this.router.url.replaceAll('%20', ' ');
 
-    console.log("this.currentAlias")
-    console.log(this.currentAlias)
-    
+    // console.log("this.currentAlias")
+    // console.log(this.currentAlias)
+
     var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
 
-    // this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
-    this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
-    
-    console.log("this.componenteAssociato:");
-    console.log(this.componenteAssociato);
+    for (let i = 0; i < this.listaFunzioni.length; i++) {
+      // console.log(this.listaFunzioni[i]);
+      if (this.listaFunzioni[i].nomeFunzione == lastAlias) {
+        this.funzione = this.listaFunzioni[i];        
+        break;
+      }
 
-    this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
-    
-    console.log("this.finalPath");
-    console.log(this.finalPath);
-    
+    }
+
+    // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
+    // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
+
+    // console.log("funzione.flagCreazione")
+    // console.log(this.funzione.flagCreazione)
   }
+
+
+
+  // async caricaComponenteAssociato() {
+
+  //   console.log("this.router.url")
+  //   console.log(this.router.url)
+
+  //   this.currentAlias = this.router.url.replaceAll('%20',' ');
+
+  //   console.log("this.currentAlias")
+  //   console.log(this.currentAlias)
+
+  //   var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+
+  //   // this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
+  //   this.componenteAssociato = await this.menuDinamico.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
+
+  //   console.log("this.componenteAssociato:");
+  //   console.log(this.componenteAssociato);
+
+  //   this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
+
+  //   console.log("this.finalPath");
+  //   console.log(this.finalPath);
+
+  // }
 
 
   setTitoloModificaCliente() {

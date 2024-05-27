@@ -33,44 +33,121 @@ import { PaginationComponent } from './ui/pagination/pagination.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 
+export const listaComponenti = [
+  {
+    idComponente: 0,
+    component: HomepageComponent,
+  },
+  {
+    idComponente: 1,
+    component: CalendarioComponent,
+  },
+  {
+    idComponente: 2,
+    component: RichiestaAssenzaUtenteComponent,
+  },
+  {
+    idComponente: 3,
+    component: GestioneContrattoComponent,
+  },
+  {
+    idComponente: 4,
+    component: GestioneRuoloComponent,
+  },
+  {
+    idComponente: 5,
+    component: GestioneDipendenteComponent,
+  },
+  {
+    idComponente: 6,
+    component: GestioneClienteComponent,
+  },
+  {
+    idComponente: 7,
+    component: GestioneRuoloUtenteComponent,
+  },
+  {
+    idComponente: 8,
+    component: RichiestaAssenzaSegreteriaComponent,
+  },
+  {
+    idComponente: 9,
+    component: UtilityCostiPersonaleComponent,
+  },
+  {
+    idComponente: 10,
+    component: SalvaCommessaComponent,
+  },
+  {
+    idComponente: 11,
+    component: DipendentiCommessaComponent,
+  },
+  {
+    idComponente: 12,
+    component: ProvassComponent,
+  },
+  {
+    idComponente: 13,
+    component: InsertContrattoComponent,
+  },
+  {
+    idComponente: 14,
+    component: InsertPersonaComponent,
+  },
+  {
+    idComponente: 15,
+    component: InsertRuoloUtenteComponent,
+  },
+  {
+    idComponente: 17,
+    component: InsertClienteComponent,
+  }
+]
+
 const routes: Routes = [
   {
-    path:"",
+    path: '',
+    redirectTo: '/Account/login',
     pathMatch: "full",
-    component:HomepageComponent
+    // component: LoginComponent
+  },
+  {
+    path: 'Home',
+    pathMatch: "full",
+    component: HomepageComponent
   },
   {
     path: 'Account',
-    component:LoginBoxComponent,
+    component: LoginBoxComponent,
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'associazione-mfa', component: AssociazioneMFAComponent },
       { path: 'validatore-mfa', component: ValidatoreMFAComponent },
       { path: 'reset-password', component: ModificaPasswordComponent },
     ],
-    canActivate : [notLogged]
+    canActivate: [notLogged]
   },
   {
     path: 'Segreteria',
     component: SegreteriaComponent,
     children: [
       { path: 'gestione-dipendente', component: GestioneDipendenteComponent },
-      { path: 'salva-persona',component: InsertPersonaComponent},
+      { path: 'salva-persona', component: InsertPersonaComponent },
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
-      { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
+      { path: 'gestione-assenze', component: RichiestaAssenzaSegreteriaComponent },
       //{ path: 'insertutente',component: InsertUtenteComponent,},
-      { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
-      { path: 'insert-ruolo-funzione',component: ProvassComponent, },
-      { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
-      { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
-      { path: 'insert-cliente',component: InsertClienteComponent,},
-      { path: 'gestione-commessa',component: GestioneCommessaComponent,},
-      { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
-      { path:'assegna-commessa',component: DipendentiCommessaComponent },
-      { path:'salva-commessa',component: SalvaCommessaComponent },
-      { path:'gestione-cliente',component: GestioneClienteComponent },
-      { path:'gestione-assegnazione-commessa',component: GestioneAssegnazioneCommessaComponent },
+      { path: 'gestione-ruolo-funzione', component: GestioneRuoloComponent, },
+      { path: 'insert-ruolo-funzione', component: ProvassComponent, },
+      { path: 'gestione-ruolo-utente', component: GestioneRuoloUtenteComponent, },
+      { path: 'insert-ruolo-utente', component: InsertRuoloUtenteComponent, },
+      { path: 'insert-cliente', component: InsertClienteComponent, },
+      { path: 'gestione-commessa', component: GestioneCommessaComponent, },
+      { path: 'utility-costi-personale', component: UtilityCostiPersonaleComponent, },
+      { path: 'assegna-commessa', component: DipendentiCommessaComponent },
+      { path: 'salva-commessa', component: SalvaCommessaComponent },
+      { path: 'gestione-cliente', component: GestioneClienteComponent },
+      { path: 'gestione-assegnazione-commessa', component: GestioneAssegnazioneCommessaComponent },
 
       // {path:,component:},
     ],
@@ -80,10 +157,10 @@ const routes: Routes = [
     path: 'AmministrazioneApplicativo',
     component: SegreteriaComponent,
     children: [
-      { path: 'gestione-ruolo-funzione',component: GestioneRuoloComponent,},
-      { path: 'insert-ruolo-funzione',component: ProvassComponent, },
-      { path: 'gestione-ruolo-utente',component: GestioneRuoloUtenteComponent,},
-      { path: 'insert-ruolo-utente',component: InsertRuoloUtenteComponent,},
+      { path: 'gestione-ruolo-funzione', component: GestioneRuoloComponent, },
+      { path: 'insert-ruolo-funzione', component: ProvassComponent, },
+      { path: 'gestione-ruolo-utente', component: GestioneRuoloUtenteComponent, },
+      { path: 'insert-ruolo-utente', component: InsertRuoloUtenteComponent, },
       // {path:,component:},
     ],
     //canActivate : [basicUser]
@@ -92,9 +169,9 @@ const routes: Routes = [
     path: 'AreaCommerciale',
     component: SegreteriaComponent,
     children: [
-      { path: 'gestione-commessa',component: GestioneCommessaComponent,},
-      { path:'assegna-commessa',component: DipendentiCommessaComponent },
-      { path:'salva-commessa',component: SalvaCommessaComponent },
+      { path: 'gestione-commessa', component: GestioneCommessaComponent, },
+      { path: 'assegna-commessa', component: DipendentiCommessaComponent },
+      { path: 'salva-commessa', component: SalvaCommessaComponent },
       // {path:,component:},
     ],
     //canActivate : [basicUser]
@@ -104,35 +181,40 @@ const routes: Routes = [
     component: SegreteriaComponent,
     children: [
       { path: 'gestione-dipendente', component: GestioneDipendenteComponent },
-      { path: 'salva-persona',component: InsertPersonaComponent},
+      { path: 'salva-persona', component: InsertPersonaComponent },
       { path: 'gestione-contratto', component: GestioneContrattoComponent },
       { path: 'insert-contratto', component: InsertContrattoComponent },
-      { path: 'gestione-assenze',component: RichiestaAssenzaSegreteriaComponent},
-      { path: 'gestione-cliente',component: GestioneClienteComponent },
-      { path: 'insert-cliente',component: InsertClienteComponent,},
-      { path: 'utility-costi-personale',component: UtilityCostiPersonaleComponent, },
+      { path: 'gestione-assenze', component: RichiestaAssenzaSegreteriaComponent },
+      { path: 'gestione-cliente', component: GestioneClienteComponent },
+      { path: 'insert-cliente', component: InsertClienteComponent, },
+      { path: 'utility-costi-personale', component: UtilityCostiPersonaleComponent, },
       // {path:,component:},
     ],
     //canActivate : [basicUser]
   },
-  {path: 'pagination', component: PaginationComponent},
+  { path: 'pagination', component: PaginationComponent },
   {
     path: 'rapportino',
     component: CalendarioComponent,
-    canActivate : [basicUser]
+    canActivate: [basicUser]
   },
-{
- path: 'richiestaassenzautente',
-  component: RichiestaAssenzaUtenteComponent,
-},
-{
- path: 'menu-dinamico',
-  component: MenuDinamicoComponent,
-},
+  {
+    path: 'richiestaassenzautente',
+    component: RichiestaAssenzaUtenteComponent,
+  },
+  {
+    path: 'menu-dinamico',
+    component: MenuDinamicoComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+
+  //prova: string = "prova";
+}
+
+
