@@ -7,12 +7,14 @@
                 <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200">
                         <tr>
-                            <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left"></th>
+                            <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">
+                                <input type="checkbox" [(ngModel)]="masterCheckbox" (change)="toggleAllCheckboxes($event)">
+                            </th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Data inizio</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Data fine</th>
-                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Modifica</th>
+                            <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Azioni</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -22,10 +24,19 @@
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendente.anpeCognome}}</td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendente.dataInizio | date: 'dd/MM/yyyy'}}</td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{dipendente.dataFine | date: 'dd/MM/yyyy'}}</td>
-                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><button class="text-green-600 hover:text-green-700"
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap space-x-2">
+                                <button class="text-green-600 hover:text-green-700"
                                 [disabled]="checkboxStates[i]"
                                 [ngClass]="{'text-green-700 cursor-not-allowed': checkboxStates[i]}"
-                                ><mat-icon>edit</mat-icon></button></td>
+                                (click)="modificaSelezionato(dipendente.id)">
+                                    <mat-icon>edit</mat-icon></button>
+                                <button class="text-red-600 hover:text-red-700"
+                                [disabled]="checkboxStates[i]"
+                                [ngClass]="{'text-red-700 cursor-not-allowed': checkboxStates[i]}"
+                                (click)="eliminaSelezionato(dipendente.id, dipendente.commessaId)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -34,6 +45,7 @@
     </div>
     <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16 flex flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4">
         <button type="submit" (click)="modificaSelezionati()" class="w-2/4 sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Modifica selezionati</button>
+        <button type="submit" (click)="eliminaSelezionati()" class="w-2/4 sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Elimina selezionati</button>
         <button  mat-dialog-close class="w-2/4 sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Chiudi</button>
     </div>
-</div>z
+</div>

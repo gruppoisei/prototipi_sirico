@@ -107,14 +107,13 @@ export const listaComponenti = [
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/Account/login',
+    redirectTo: 'Account/login',
     pathMatch: "full",
-    // component: LoginComponent
   },
   {
     path: 'Home',
     pathMatch: "full",
-    component: HomepageComponent
+    component: HomepageComponent,
   },
   {
     path: 'Account',

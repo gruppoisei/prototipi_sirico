@@ -86,6 +86,7 @@ import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gest
 
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 import { DipendentiAssegnatiDialogComponent } from './pages/commessa-box/dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
+import { DeleteCommperbyidDialogComponent } from './pages/commessa-box/delete-commperbyid-dialog/delete-commperbyid-dialog.component';
 
 @NgModule({
     declarations: [
@@ -149,6 +150,7 @@ import { DipendentiAssegnatiDialogComponent } from './pages/commessa-box/dipende
         GestioneAssegnazioneCommessaComponent,
         MenuDinamicoComponent,
         DipendentiAssegnatiDialogComponent,
+        DeleteCommperbyidDialogComponent,
     ],
     providers: [
         provideAnimationsAsync(),

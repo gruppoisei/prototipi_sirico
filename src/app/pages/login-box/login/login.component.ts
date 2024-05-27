@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthenticationService,
     private router: Router,
     private fb: FormBuilder,
-    
+
   ) { }
 
 
@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
               this.dialog.open(SelezionaRuoloDialogComponent, {
                 width: 'auto',
                 height: 'auto',
+
               }).afterClosed().subscribe(() => {
                 this.router.navigate(['/Home'])
               });

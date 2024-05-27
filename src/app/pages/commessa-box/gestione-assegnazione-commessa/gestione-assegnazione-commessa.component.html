@@ -57,21 +57,21 @@
                     <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cliente Finale</th>
                     <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Data Inizio</th>
                     <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Data Fine</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Elimina</th>
                     <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-center">Vedi Dipendenti</th>
             </thead>
             <tbody>
                 <tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
-                    <!--<td class="px-6 py-4 flex gap-3">
-                        <a routerLink="/Segreteria/salva-commessa" (click)="setTitoloModificaCommessa(); getCommessa(commessa.commessaId)"><button mat-icon class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>
-                        <button mat-icon (click)="openDialogDelete(commessa.commessaId)" class = "material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
-                    </td>-->
                     <td class="p-3">{{ commessa.descCommessa }}</td>
                     <td class="p-3">{{ commessa.ansoRagionesociale }}</td>
                     <td class="p-3">{{ commessa.ragioneSocialeClienteD }}</td>
                     <td class="p-3">{{ commessa.ragioneSocialeClienteF }}</td>
                     <td class="p-3">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
                     <td class="p-3">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
-                    <td *ngIf="commessa.isDipendente !== false" class="p-3 text-center"><button class="text-black align-middle" (click)="getListaDipendentiAssegnati(commessa.commessaId)"><mat-icon>more_horiz</mat-icon></button></td>
+                    <td class="px-6 py-4 flex gap-3">
+                        <button (click)="openDialogDelete(commessa.commessaId)" class = "text-red-600 hover:text-red-700"><mat-icon>delete</mat-icon></button>
+                    </td>
+                    <td *ngIf="commessa.isDipendente === true" class="p-3 text-center"><button class="text-black hover:text-gray-700 align-middle" (click)="getListaDipendentiAssegnati(commessa.commessaId)"><mat-icon>more_horiz</mat-icon></button></td>
                 </tr>
             </tbody>
         </table>

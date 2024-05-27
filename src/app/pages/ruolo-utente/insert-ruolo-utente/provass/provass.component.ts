@@ -258,7 +258,7 @@ export class ProvassComponent implements OnDestroy {
   }
 
   CloseForm() {
-    this.router.navigate(['']);
+    this.router.navigate(['/Home']);
   }
 
   ngOnDestroy(): void {

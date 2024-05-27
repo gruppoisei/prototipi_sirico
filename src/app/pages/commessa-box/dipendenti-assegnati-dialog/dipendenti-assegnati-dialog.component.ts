@@ -1,7 +1,9 @@
 import { identifierName } from '@angular/compiler';
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CommessaService } from '../../../service/commessa.service';
+import { DeleteCommperbyidDialogComponent } from '../delete-commperbyid-dialog/delete-commperbyid-dialog.component';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-dipendenti-assegnati-dialog',
@@ -12,13 +14,13 @@ export class DipendentiAssegnatiDialogComponent {
 
   listDipendenti: any [] = [];
   checkboxStates: boolean[] = [];
+  masterCheckbox: boolean = false;
   selectedDipendenti: number[] = [];
 
-constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService)
+constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog)
 {
   this.listDipendenti = listVistaPersoneCommessa;
   this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
-  console.log(this.listDipendenti)
 }
 
 disableButton(index: any, commessapersonaId:number):void {
@@ -37,13 +39,50 @@ disableButton(index: any, commessapersonaId:number):void {
     }
   }
 
-  modificaSelezionati() {
-    this.commessaService.getCommessaPersoneByIds(this.selectedDipendenti).subscribe(
+  toggleAllCheckboxes(event: any): void{
+    this.masterCheckbox = event.target.checked;
+    this.checkboxStates = this.checkboxStates.map(() => this.masterCheckbox);
+
+    if(this.masterCheckbox){
+      this.selectedDipendenti = this.listDipendenti.map(d => d.id);
+    }
+    else{
+      this.selectedDipendenti = [];
+    }
+  }
+
+  modificaSelezionato(id: any): void{
+    
+  }
+
+  eliminaSelezionato(id: any, commessaId: number): void{
+    this.dialog.open(DeleteCommperbyidDialogComponent,
       {
-        next: (res) =>
-          {
-            console.log(res)
-          }
-      });
+        data: {id: id},
+        width: 'auto',
+        height: 'auto'
+      }).afterClosed().subscribe(()=>
+        {
+          this.aggiornalistaDipendenti(commessaId);
+        })
+      
+  }
+
+  eliminaSelezionati(): void {
+    
+  }
+
+  modificaSelezionati(): void {
+    this.commessaService.fetchCommessaPersoneByIds(this.selectedDipendenti)
+    }
+
+  aggiornalistaDipendenti(commessaid:number):void{
+    this.commessaService.getVistaPersoneCommessaById(commessaid).subscribe((data)=>
+      {
+        this.listDipendenti = data;
+        this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
+        this.selectedDipendenti = [];
+        this.masterCheckbox = false;
+      })
     }
 }
