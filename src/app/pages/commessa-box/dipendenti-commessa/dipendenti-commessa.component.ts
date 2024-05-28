@@ -26,6 +26,7 @@ import { distinctUntilChanged } from 'rxjs';
 })
 export class DipendentiCommessaComponent implements OnInit, OnDestroy {
 
+
   pickerRequired: MatDatepicker<any> | MatCalendar<any> | undefined;
   assegnaCommessaForm!: FormGroup;
   commper : boolean = false
@@ -74,6 +75,7 @@ ngOnDestroy(): void {
     ).subscribe({
       next: (commper) => {
         if (commper) {
+          this.commessaPersona.push(commper);
           this.commper = true;
           this.listaPersone = []
           this.commessaService.getCommessaPersonaSocietaById(commper.id).subscribe({
@@ -90,6 +92,7 @@ ngOnDestroy(): void {
 
     this.commessaService._commper$.subscribe((_commper)=>{
       if(_commper){
+        this.commessaPersona.push(_commper);
         this._commper = true;
         this.listaPersone = [];
         const ids = _commper.map((commper: any)=> commper.id);
@@ -106,29 +109,39 @@ ngOnDestroy(): void {
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()
   }
 
+  modificaCommessaPersona(){
+    console.log(this.commessaPersona, this.listaPersone)
+    if(this.listaPersone !== null && this.commessaPersona !== null){
+      this.listaPersone.forEach(persona =>{
+        const commper = this.commessaPersona.find(cp => cp.personaId ===  persona.personaId);
+        if(commper){
+          commper.dataInizio = persona.dataInizio ? this.convertiStringInDate(persona.dataInizio) : commper.dataInizio;
+          commper.dataFine = persona.dataFine ? this.convertiStringInDate(persona.dataFine) : commper.dataFine;
+        }
+      })
+      this.commessaService.modificaCommessaPersona(this.commessaPersona).subscribe({
+        next: (res) =>{
+          this.dialog.open(MessageResponseDialogComponent,
+            {
+              data: {successMessage : res.message},
+              width : 'auto',
+              height : 'auto'
+            });
+            this.resetDate()
+        }, 
+        error : (err) =>{
+          this.dialog.open(MessageResponseDialogComponent,
+            {
+              data :{successMessage : err.message},
+              width : 'auto',
+              height : 'auto'
+            });
+        }
+      });
+    }
+  }
+
   salvaCommessaPersona() {
-      if(this.listaPersone !== null){
-        debugger
-        this.commessaService.salvaCommessaPersona(this.listaPersone).subscribe({
-          next: (res) =>{
-            this.dialog.open(MessageResponseDialogComponent,
-              {
-                data: {successMessage : res.message},
-                width : 'auto',
-                height : 'auto'
-              });
-          }, 
-          error : (err) =>{
-            this.dialog.open(MessageResponseDialogComponent,
-              {
-                data :{successMessage : err.message},
-                width : 'auto',
-                height : 'auto'
-              });
-          }
-        });
-      }
-      else{
         if(this.assegnaCommessaForm.valid){
             const dataInizioMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataInizio')?.value;
             const dataFineMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataFine')?.value;
@@ -179,10 +192,23 @@ ngOnDestroy(): void {
               width : 'auto',
               height : 'auto'
             });
-          }
       }
     }
 
+  updateDate(event: Event, persona: any, field: string) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    if (field === 'dataInizio') {
+      persona.dataInizio = this.convertiStringInDate(value);
+      } else if (field === 'dataFine') {
+          persona.dataFine = this.convertiStringInDate(value);
+      }
+  }
+  
+  convertiStringInDate(dateString: string): Date {
+      return new Date(dateString);
+  }
+  
     convertiMomentInDate(momentObject: moment.Moment): Date {
       return momentObject.toDate();
     }
@@ -272,15 +298,6 @@ ngOnDestroy(): void {
     }
   }
 
-  goBack() {
-    this.location.back();
-  }
-
-  clearForm() {
-    this.assegnaCommessaForm.reset(this.formDefaultValue)
-    this.dipendentiSelezionati = []
-  }
-
   onCommessaChange(commessaId : any){
     const idCommessa = parseInt(commessaId, 10)
     const minDate = this.getMinDate(idCommessa);
@@ -318,10 +335,7 @@ ngOnDestroy(): void {
     this.startDate[id] = input.value;
   }
 
-  resetDate(){
-    this.listaPersone = JSON.parse(JSON.stringify(this._listaPersone))
-    this.startDate = {};
-  }
+  
 
   formattingDate(date: Date | null | string): string | null {
     if (!date) {
@@ -337,5 +351,19 @@ ngOnDestroy(): void {
     const d = ("0" + date.getDate()).slice(-2);
   
     return `${y}-${m}-${d}`;
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  clearForm() {
+    this.assegnaCommessaForm.reset(this.formDefaultValue)
+    this.dipendentiSelezionati = []
+  }
+  
+  resetDate(){
+    this.listaPersone = JSON.parse(JSON.stringify(this._listaPersone))
+    this.startDate = {};
   }
 }

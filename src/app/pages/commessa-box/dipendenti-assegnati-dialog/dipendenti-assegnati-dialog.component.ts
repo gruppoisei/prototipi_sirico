@@ -1,9 +1,10 @@
-import { identifierName } from '@angular/compiler';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CommessaService } from '../../../service/commessa.service';
 import { DeleteCommperbyidDialogComponent } from '../delete-commperbyid-dialog/delete-commperbyid-dialog.component';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DeleteCommperbyidsDialogComponent } from '../delete-commperbyids-dialog/delete-commperbyids-dialog.component';
+import { vistaPersoneCommessa } from '../../../dto/request/vistaPersoneCommessa';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dipendenti-assegnati-dialog',
@@ -12,7 +13,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class DipendentiAssegnatiDialogComponent {
 
-  listDipendenti: any [] = [];
+  listDipendenti: vistaPersoneCommessa [] = [];
   checkboxStates: boolean[] = [];
   masterCheckbox: boolean = false;
   isAnySelected: boolean = false;
@@ -51,6 +52,7 @@ disableButton(index: any, commessapersonaId:number):void {
     }
     else{
       this.selectedDipendenti = [];
+      this.isAnySelected = false;
     }
   }
 
@@ -67,25 +69,33 @@ disableButton(index: any, commessapersonaId:number):void {
       }).afterClosed().subscribe(()=>
         {
           this.aggiornalistaDipendenti(commessaId);
-        })
-      
+        });
   }
 
-  eliminaSelezionati(): void {
-    
+  eliminaSelezionati(commessaId: number | undefined): void {
+    this.dialog.open(DeleteCommperbyidsDialogComponent,
+      {
+        data: {ids: this.selectedDipendenti},
+        width: 'auto',
+        height: 'auto'
+      }).afterClosed().subscribe(()=> {
+        this.aggiornalistaDipendenti(commessaId)
+      });
   }
 
   modificaSelezionati(): void {
     this.commessaService.fetchCommessaPersoneByIds(this.selectedDipendenti)
     }
 
-  aggiornalistaDipendenti(commessaid:number):void{
-    this.commessaService.getVistaPersoneCommessaById(commessaid).subscribe((data)=>
-      {
-        this.listDipendenti = data;
-        this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
-        this.selectedDipendenti = [];
-        this.masterCheckbox = false;
-      })
+  aggiornalistaDipendenti(commessaid:number | undefined):void{
+    if(commessaid !== undefined){
+      this.commessaService.getVistaPersoneCommessaById(commessaid).subscribe((data)=>
+        {
+          this.listDipendenti = data;
+          this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
+          this.selectedDipendenti = [];
+          this.masterCheckbox = false;
+        })
+    }
     }
 }

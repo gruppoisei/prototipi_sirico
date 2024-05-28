@@ -78,6 +78,10 @@ export class CommessaService {
     return this.http.post<any>(`${this.baseUrl}SalvaCommessaPersona`, commessaPersona, {withCredentials:true})
   }
 
+  modificaCommessaPersona(commessaPersona : commessaPersona[]){
+    return this.http.post<any>(`${this.baseUrl}ModificaCommessaPersona`,commessaPersona)
+  }
+
   getVistaCommessaFiltrata(queryParams: ricercaCommessa) : Observable<any>
   {
     const params = this.creaHttpParams(queryParams)
@@ -123,6 +127,12 @@ export class CommessaService {
 
   disabilitaCommPerById(id: number){
     return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaPersonaById/${id}`,{})
+  }
+
+  disabilitaCommPerByIds(ids:number[]){
+    let params = new HttpParams();
+    params = params.append('ids', ids.join(','));
+    return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaPersoneByIds`, null ,{params})
   }
 
   
