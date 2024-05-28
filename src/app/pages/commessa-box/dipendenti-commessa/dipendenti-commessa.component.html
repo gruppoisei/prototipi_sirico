@@ -2,7 +2,7 @@
 <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
     <h2 class="flex justify-center my-10 text-4xl text-center font-bold">Assegnazione delle commesse</h2>
     <hr>
-    <form class="my-8" [formGroup]="assegnaCommessaForm">
+    <form class="my-8" [formGroup]="assegnaCommessaForm" *ngIf="!commper && !_commper">
         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="sm:col-span-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona commessa</label>
@@ -28,59 +28,17 @@
                 </mat-form-field>
                 <small *ngIf="assegnaCommessaForm.controls['dateRange'].invalid && (assegnaCommessaForm.controls['dateRange'].touched)" class="block mt-1 text-xs text-red-600">Inserisci un intervallo di date valido.</small>
             </div>
-
-            <!-- <div class="sm:col-span-2">
-                    <mat-label class="block mb-2 text-sm font-medium text-gray-900">Scegli delle date da assegnare ai dipendenti</mat-label>
-                    <mat-form-field class="w-full">
-                        <mat-label>Scegli le date da assegnare</mat-label>
-                        <ngx-multiple-dates [matDatepicker]="pickerRequired" placeholder="Scegli le date da assegnare"
-                                            name="dateAssegnate" formControlName="dateAssegnate">
-                        </ngx-multiple-dates>
-                        <mat-datepicker-toggle matPrefix [for]="pickerRequired"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerRequired></mat-datepicker>
-                    </mat-form-field>
-                    <small *ngIf="assegnaCommessaForm.controls['dateAssegnate'].dirty && assegnaCommessaForm.hasError('required', 'dateAssegnate')" class = "text-red-600">Inserire le date per i dipendenti</small>
-            </div>
-            <div class="w-full">
-                <label class="inline-flex mb-2 text-sm font-medium text-gray-900 cursor-pointer">
-                    <input formControlName="FlagOreLavorative" type="checkbox" class="sr-only peer">
-                    <div class="relative w-11 h-6 peer-focus:ring-blue-600 rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                    <span class="ms-3 text-sm font-medium text-gray-900">Intera giornata lavorativa?</span>
-                </label>
-            </div>
-            <div class="w-full mb-6" *ngIf="this.assegnaCommessaForm.get('FlagOreLavorative')?.value === false">             
-                <label class="block mb-2 text-sm font-medium text-gray-900">Quantitá di ore da lavorare giornalmente</label>
-                <select formControlName="oreGiornaliere" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
-                focus:border-sky-500 focus:ring-sky-500">
-                  <option [value]="8" disable selected hidden>Scegli un'opzione</option>
-                  <option [value]="0.30">00:30</option>
-                  <option [value]="1">1:00</option>
-                  <option [value]="1.30">1:30</option>
-                  <option [value]="2">2:00</option>
-                  <option [value]="2.30">2:30</option>
-                  <option [value]="3">3:00</option>
-                  <option [value]="3.30">3:30</option>
-                  <option [value]="4">4:00</option>
-                  <option [value]="4.30">4:30</option>
-                  <option [value]="5">5:00</option>
-                  <option [value]="5.30">5:30</option>
-                  <option [value]="6">6:00</option>
-                  <option [value]="6.30">6:30</option>
-                  <option [value]="7">7:00</option>
-                  <option [value]="7.30">7:30</option>
-                </select>
-            </div> -->
         </div>
     </form>
 </div>
 
-<div class="px-8 max-w-full lg:py-2">
+<div class="px-8 max-w-full lg:py-2" *ngIf="!commper && !_commper">
     <div class="py-2 px-2 gap-4 sm:grid-cols-2 sm:gap-6 grid grid-cols-1">
         <div [ngClass]="{'col-span-2': dipendentiSelezionati.length === 0, 'sm:col-span-1': dipendentiSelezionati.length > 0}">
             <div class="overflow-auto rounded-lg shadow ">
                 <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200 rounded-md">
-                        <tr class>
+                        <tr>
                             <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Aggiungi</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
@@ -119,7 +77,7 @@
             <div class="overflow-auto rounded-lg shadow">
                 <table class="w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200">
-                        <tr class>
+                        <tr>
                             <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Rimuovi</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
                             <th scope="col" class="w-80 p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
@@ -148,8 +106,57 @@
         </div>
     </div>
     <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16 flex flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-        <button type="submit" (click)="salvaCommessaPersona()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Salva</button>
-        <button (click)="clearForm()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Cancella</button>
-        <button (click)="goBack()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Chiudi</button>
+        <button type="submit" (click)="salvaCommessaPersona()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Salva</button>
+        <button (click)="clearForm()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Cancella</button>
+        <button (click)="goBack()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Chiudi</button>
     </div>
 </div>
+
+<div class="px-8 max-w-full lg:py-2 flex justify-center">
+    <div class="max-w-4xl w-full" *ngIf="commper || _commper">
+        <div class="py-2 px-2 gap-4 sm:grid-cols-2 sm:gap-6 grid grid-cols-1">
+            <div class="col-span-2">
+                <div class="overflow-auto rounded-lg shadow">
+                    <table class="w-full">
+                        <thead class="bg-gray-100 border-b-2 border-gray-200 rounded-md">
+                            <tr>
+                                <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Commessa</th>
+                                <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
+                                <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Cognome</th>
+                                <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Societá</th>
+                                <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Data Inizio</th>
+                                <th scope="col" class="w-36 p-3 text-sm font-semibold tracking-wide text-left">Data Fine</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-300">
+                            <tr *ngFor="let cps of listaPersone; let i = index" [ngClass]="{'bg-white': i % 2 === 0, 'bg-gray-100': i % 2 !== 0}" class="border-b">
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{cps.descCommessa}}</td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{cps.anpeNome}}</td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{cps.anpeCognome}}</td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{cps.ansoRagionesociale}}</td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><input type="date" class="bg-transparent"
+                                    [value]="formattingDate(cps.dataInizio)"
+                                    [min]="minDate"
+                                    [max]="maxDate"
+                                    (focus)="setMinMaxDate(cps.commessaId)"
+                                    (change)="updateEndDateMin($event, cps.id)">
+                                </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><input type="date" class="bg-transparent"
+                                    [value]="formattingDate(cps.dataFine)"
+                                    [max]="maxDate"
+                                    [min]="startDate[cps.id] || minDate"
+                                    (focus)="setMinMaxDate(cps.commessaId)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16 flex flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <button (click)="salvaCommessaPersona()" type="submit" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Salva</button>
+            <button (click)="resetDate()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Cancella</button>
+            <button (click)="goBack()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Chiudi</button>
+        </div>
+    </div>
+</div>
+

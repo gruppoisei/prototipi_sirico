@@ -21,7 +21,7 @@ export class PersonaService {
     this.titolo.next(titolo);
   }
 
-  getTiolo() {
+  getTitolo() {
     return this.titolo.getValue();
   }
 
@@ -33,22 +33,7 @@ export class PersonaService {
     for (let i = 0; i < fileAllegati.length; i++) {
       formData.append(`fileAllegati`, fileAllegati[i]);
     }
-
-    console.log('formData: ');
-    console.log(formData);
-
     return this.http.post<any>(`${this.baseUrlP}SalvaPersona`, formData)
-  }
-
-  private creaHttpParams(parametri: ricercaDipendente): HttpParams {
-    let httpParams = new HttpParams();
-
-    for (const key in parametri) {
-      if (parametri.hasOwnProperty(key) && parametri[key] !== null && parametri[key] !== undefined) {
-        httpParams = httpParams.set(key, String(parametri[key]));
-      }
-    }
-    return httpParams
   }
 
   getVistaPersoneFiltrata(queryParams: ricercaDipendente): Observable<any> {
@@ -78,6 +63,17 @@ export class PersonaService {
             console.error('Errore durante il recupero dei dati della persona:', err);
           }
         });
+  }
+
+  private creaHttpParams(parametri: ricercaDipendente): HttpParams {
+    let httpParams = new HttpParams();
+
+    for (const key in parametri) {
+      if (parametri.hasOwnProperty(key) && parametri[key] !== null && parametri[key] !== undefined) {
+        httpParams = httpParams.set(key, String(parametri[key]));
+      }
+    }
+    return httpParams
   }
 
   clearDipendente() {

@@ -1,1 +1,79 @@
-<p>gestione-assegnazione-commessa works!</p>
+<div class = "flex justify-center my-10 text-4xl font-bold">
+    <h2>Gestione delle commesse assegnate</h2>
+</div>
+<div class = "flex flex-row justify-center my-10">
+    <form [formGroup]="ricercaForm" class="w-3/4">
+        <div class="flex flex-row justify-end mt-10">
+            <!--<a routerLink="/Segreteria/salva-commessa"><button (click)="setTitoloNuovaCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>-->
+        </div>
+        <div class="flex flex-row mb-5">
+            <!-- Dropdown per Commessa -->
+            <select formControlName="commessaId" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                <option value="0" disable selected hidden>Scegli una commessa</option>
+                    <option [value]="Comm.commessaId" *ngFor="let Comm of listCommessa">
+                        {{Comm.descCommessa}}
+                    </option>
+            </select>
+            <!-- Dropdown per Società -->
+            <select formControlName="ansoRagionesociale" class="flex-1 mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                <option value="null" disable selected hidden>Scegli una società</option>
+                    <option [value]="soc.ragionesociale" *ngFor= "let soc of listSocieta">
+                        {{soc.ragionesociale}}
+                    </option>
+            </select>
+        </div> 
+        <div class="flex flex-row mb-5">   
+            <div class="flex flex-col flex-1">
+                <label for="DataInizio" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Inizio</label>
+                <input formControlName="dataInizio" type="date" id="dataInizio" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data inizio..." required />
+            </div>
+            <div class="flex flex-col flex-1">
+                <label for="dataFine" class="mx-5 ps-10 text-base text-gray-900  font-bold">Data Fine</label>
+                <input formControlName="dataFine" type="date" [min]="minDataScadenza" id="dataFine" class="mx-5 p-4 ps-10 text-base text-gray-900 border-b-2 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cerca per data fine..." required />
+            </div>
+            <label class="flex flex-row justify-end pt-10 cursor-pointer">
+                <input formControlName="flagAttivo" type="checkbox" class="sr-only peer">
+                <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Commessa Attiva</span>
+                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            </label>
+        </div>
+        <div class = "flex flex-row justify-end mt-10">
+            <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+        </div>
+    </form>
+</div>
+
+<div class = "flex justify-center my-10 text-4xl font-bold">
+    <h2>Elenco Commesse</h2>
+</div>
+    <div class="flex flex-row justify-center">
+        <table class="w-4/5 text-base text-left my-10">
+            <thead class="text-sm uppercase text-white bg-blue-600">
+                <tr>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Commessa</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Società</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cliente Diretto</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Cliente Finale</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Data Inizio</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Data Fine</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-left">Elimina</th>
+                    <th scope="col" class="p-3 text-sm font-semibold tracking-wide text-center">Vedi Dipendenti</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let commessa of datiCommessa" class="bg-white border-b">
+                    <td class="p-3">{{ commessa.descCommessa }}</td>
+                    <td class="p-3">{{ commessa.ansoRagionesociale }}</td>
+                    <td class="p-3">{{ commessa.ragioneSocialeClienteD }}</td>
+                    <td class="p-3">{{ commessa.ragioneSocialeClienteF }}</td>
+                    <td class="p-3">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
+                    <td class="p-3">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
+                    <td class="px-6 py-4 flex gap-3">
+                        <button (click)="openDialogDelete(commessa.commessaId)" class = "text-red-600 hover:text-red-700"><mat-icon>delete</mat-icon></button>
+                    </td>
+                    <td *ngIf="commessa.isDipendente === true" class="p-3 text-center"><button class="text-black hover:text-gray-700 align-middle" (click)="getListaDipendentiAssegnati(commessa.commessaId)"><mat-icon>more_horiz</mat-icon></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+

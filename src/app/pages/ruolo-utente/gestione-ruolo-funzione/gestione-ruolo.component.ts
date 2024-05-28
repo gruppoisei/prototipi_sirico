@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { InsertUtenteService, PersoneEntity } from '../../../service/insert-utente.service';
 import { Router } from '@angular/router';
 import { AmministrazioneRuoloService } from '../../../service/amministrazione-ruolo.service';
+import { InsertRuoloFunzioneComponent } from '../insert-ruolo-funzione/insert-ruolo-funzione.component';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-gestione-ruolo',
@@ -9,16 +11,55 @@ import { AmministrazioneRuoloService } from '../../../service/amministrazione-ru
   styleUrls: ['./gestione-ruolo.component.scss']
 })
 export class GestioneRuoloComponent implements OnInit {
+
+// EREDITARE
+currentAlias: string = "";
+finalPath: string = "";
+componenteAssociato: any = "";
+componenteMappato: any = "";
+
+//listaComponenti = [{ idComponente: 12, component: ProvassComponent }]
+//
+
   formData: any = { nome: '' };
   output_ricercaFiltrata: boolean = false;
   ruoli: any[] = [];
 
 
-  constructor(private ruoliService: InsertUtenteService, private amministrazioneRuoli: AmministrazioneRuoloService, private router: Router) { }
+  constructor(private ruoliService: InsertUtenteService,
+    private amministrazioneRuoli: AmministrazioneRuoloService,
+    private menuDinamico: MenuDinamicoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.clearSearch();
+    this.menuDinamico.caricaComponenteAssociato();
   }
+
+  // async caricaComponenteAssociato() {
+
+  //   console.log("this.router.url")
+  //   console.log(this.router.url)
+
+  //   this.currentAlias = this.router.url.replaceAll('%20',' ');
+
+  //   console.log("this.currentAlias")
+  //   console.log(this.currentAlias)
+    
+  //   var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+
+  //   // this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
+  //   this.componenteAssociato = await this.menuDinamico.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
+    
+  //   console.log("this.componenteAssociato:");
+  //   console.log(this.componenteAssociato);
+
+  //   this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
+    
+  //   console.log("this.finalPath");
+  //   console.log(this.finalPath);    
+  // }
+
 
   caricaRuoli() {
     this.ruoliService.GetRuoli(this.formData.nome).subscribe(
@@ -75,7 +116,7 @@ export class GestioneRuoloComponent implements OnInit {
 
   closeForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
-      this.router.navigate(['']);
+      this.router.navigate(['/Home']);
     }    
   }
 }

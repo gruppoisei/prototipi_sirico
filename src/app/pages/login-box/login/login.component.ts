@@ -3,7 +3,7 @@ import {
   AuthenticationService,
   statoAccesso,
 } from '../../../service/authentication.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
@@ -24,8 +24,10 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog,
     private auth: AuthenticationService,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+
+  ) { }
+
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -34,12 +36,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
+
   doLogin() {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe({
         next: (res) => {
           this.auth.status = res.status;
-
           switch (this.auth.status) {
             case statoAccesso.accessoNegato:
               this.dialog.open(ErrorLoginDialogComponent, {
@@ -58,22 +61,27 @@ export class LoginComponent implements OnInit {
               break;
             case statoAccesso.scadutoMFA:
               this.router.navigate(['Account/validatore-mfa']);
-
               this.auth.utenteId = res.body;
               break;
+            // accesso con unico ruolo
             case statoAccesso.utenteLoggato:
               this.auth.utente = res.body
+              console.log("this.auth.utente : ", this.auth.utente);
               sessionStorage.setItem('SysUser', res.body.utenteLoggato.username)
-              this.router.navigate(['']);
+              this.router.navigate(['/Home']);
               break;
+            // accesso per più ruoli
             case statoAccesso.credenzialiValide:
               this.auth.utenteId = res.body.userId;
               this.auth.listaRuoliUtente = res.body.listaRuoli;
               this.dialog.open(SelezionaRuoloDialogComponent, {
                 width: 'auto',
                 height: 'auto',
+
+              }).afterClosed().subscribe(() => {
+                this.router.navigate(['/Home'])
               });
-              sessionStorage.setItem('SysUser',res.body.username)
+              sessionStorage.setItem('SysUser', res.body.username)
               break;
           }
         },

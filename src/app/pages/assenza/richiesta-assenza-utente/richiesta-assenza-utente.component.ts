@@ -107,7 +107,7 @@ export class RichiestaAssenzaUtenteComponent {
   
   chiudiForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-    this.router.navigate(['']);
+    this.router.navigate(['/Home']);
   }
  
   eliminaRichiesta() {

@@ -63,7 +63,6 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
 import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/errore-allegato-dialog.component';
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
-import { ProvassComponent } from './pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
@@ -85,6 +84,8 @@ import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-tex
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
+import { DipendentiAssegnatiDialogComponent } from './pages/commessa-box/dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
+import { DeleteCommperbyidDialogComponent } from './pages/commessa-box/delete-commperbyid-dialog/delete-commperbyid-dialog.component';
 
 @NgModule({
     declarations: [
@@ -131,7 +132,6 @@ import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.compon
         ErroreAllegatoDialogComponent,
         GestioneCommessaComponent,
         SalvaCommessaComponent,
-        ProvassComponent,
         UtilityCostiPersonaleComponent,
         DipendentiCommessaComponent,
         FormInputTextComponent,
@@ -147,6 +147,8 @@ import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.compon
         FormTextareaComponent,
         GestioneAssegnazioneCommessaComponent,
         MenuDinamicoComponent,
+        DipendentiAssegnatiDialogComponent,
+        DeleteCommperbyidDialogComponent,
     ],
     providers: [
         provideAnimationsAsync(),

@@ -1,308 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { AmministrazioneRuoloService } from '../../service/amministrazione-ruolo.service';
-import { firstValueFrom } from 'rxjs';
-import { Funzione } from '../../pages/ruolo-utente/insert-ruolo-utente/provass/provass.component';
 import { Router } from '@angular/router';
-import { CalendarioComponent } from '../../pages/rapportino/calendario/calendario.component';
-import { RichiestaAssenzaSegreteriaComponent } from '../../pages/assenza/richiesta-assenza-segreteria/richiesta-assenza-segreteria.component';
-import { RichiestaAssenzaUtenteComponent } from '../../pages/assenza/richiesta-assenza-utente/richiesta-assenza-utente.component';
-import { DipendentiCommessaComponent } from '../../pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
-import { SalvaCommessaComponent } from '../../pages/commessa-box/salva-commessa/salva-commessa.component';
-import { GestioneClienteComponent } from '../../pages/contratto/gestione-cliente/gestione-cliente.component';
-import { GestioneContrattoComponent } from '../../pages/contratto/gestione-contratto/gestione-contratto.component';
-import { GestioneDipendenteComponent } from '../../pages/gestione-dipendente/gestione-dipendente.component';
-import { GestioneRuoloComponent } from '../../pages/ruolo-utente/gestione-ruolo-funzione/gestione-ruolo.component';
-import { GestioneRuoloUtenteComponent } from '../../pages/ruolo-utente/gestione-ruolo-utente/gestione-ruolo-utente.component';
-import { UtilityCostiPersonaleComponent } from '../../pages/utility-costi-personale/utility-costi-personale.component';
-import { InsertContrattoComponent } from '../../pages/contratto/insert-contratto/insert-contratto.component';
-import { InsertRuoloUtenteComponent } from '../../pages/ruolo-utente/insert-ruolo-utente/insert-ruolo-utente.component';
-import { InsertPersonaComponent } from '../../pages/insert-persona/insert-persona.component';
-import { HomepageComponent } from '../../pages/homepage/homepage.component';
+
+import { AuthenticationService } from '../../service/authentication.service';
+import { MenuDinamicoService } from '../../service/menu-dinamico.service';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-menu-dinamico',
   templateUrl: './menu-dinamico.component.html',
-  styleUrl: './menu-dinamico.component.scss'
+  styleUrl: './menu-dinamico.component.scss',
+
 })
-export class MenuDinamicoComponent {
 
-  homePagePath = "";
-
-  limiteVociMenu: number = 0;
-
-  // idRuolo: number = 5;
-  idRuolo: number = 2009;
-
-
-
-  // lista di partenza
-  listaFunzioniComponenti: any[] = [];
-
-  // liste intermedie
-  listaFunzioniPadre: any[] = [];
-  listaFunzioniNonPadre: any[] = [];
-  // listaFunzioniChildren: { path: string, component: string }[] = []
-  listaFunzioniChildren: any[] = []
-
-  // liste finali distinte
-  listaFunzioniAutonome: any[] = []
-  //listaFunzioniAutonome: { path: string, component: string }[] = []
-  listaFunzioniPadreConFigli: { path: string, children: { path: string, component: string }[] }[] = []
-
-  // lista finale
-  listaSupportoOrdinamentoFunzioniAutonome: any[] = []
-  // listaSupportoOrdinamentoFunzioniAutonome: { path: string, component: string }[] = []
-  listaFunzioniFinaleMenu: any[] = []
-
-  // lista di supporto al caricamento dei componenti
-  listaCaricamentoComponenti: number [] = [];
-
-
+export class MenuDinamicoComponent implements OnInit {
+  
   constructor(
-    private amministrazioneRuolo: AmministrazioneRuoloService, private router: Router
-  ) {
+    private amministrazioneRuolo: AmministrazioneRuoloService,
+    private router: Router,
+    private auth: AuthenticationService,
+    public menuDinamico: MenuDinamicoService
 
+  ) {}
+
+  ngOnInit(): void {
+  
   }
 
-  listaComponenti = [
-    {
-      idComponente: 0,
-      component: HomepageComponent,
-    },
-    {
-      idComponente: 1,
-      component: CalendarioComponent,
-    },
-    {
-      idComponente: 2,
-      component: RichiestaAssenzaUtenteComponent,
-    },
-    {
-      idComponente: 3,
-      component: GestioneContrattoComponent,
-    },
-    {
-      idComponente: 4,
-      component: GestioneRuoloComponent,
-    },
-    {
-      idComponente: 5,
-      component: GestioneDipendenteComponent,
-    },
-    {
-      idComponente: 6,
-      component: GestioneClienteComponent,
-    },
-    {
-      idComponente: 7,
-      component: GestioneRuoloUtenteComponent,
-    },
-    {
-      idComponente: 8,
-      component: RichiestaAssenzaSegreteriaComponent,
-    },
-    {
-      idComponente: 9,
-      component: UtilityCostiPersonaleComponent,
-    },
-    {
-      idComponente: 10,
-      component: SalvaCommessaComponent,
-    },
-    {
-      idComponente: 11,
-      component: DipendentiCommessaComponent,
-    },
-    {
-      idComponente: 12,
-      component: GestioneRuoloUtenteComponent,
-    },
-    {
-      idComponente: 13,
-      component: InsertContrattoComponent,
-    },
-    {
-      idComponente: 14,
-      component: InsertPersonaComponent,
-    },
-    {
-      idComponente: 15,
-      component: InsertRuoloUtenteComponent,
-    }
-  ]
+  
+  logout() {
+    console.log('logout')
+    this.auth.logout().subscribe({
 
+      next : () =>{
+          this.router.navigate([''])
+        },
 
-  async getFunzioniComponenti() {
-    this.listaFunzioniComponenti = await firstValueFrom(
-      this.amministrazioneRuolo.GetAllFunzioniComponenteByIdRuolo(this.idRuolo)
-    );
-
-    this.listaFunzioniComponenti.sort((a, b) => a.indicemenu > b.indicemenu ? 1 : -1);
-
-    console.log("this.listaFunzioniComponenti ordinata");
-    console.log(this.listaFunzioniComponenti);
-
-    // resetto il contenuto dell'array menu finale
-    this.listaFunzioniFinaleMenu = [];
-    // this.router.resetConfig([]);
-
-    for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
-
-      if (this.listaFunzioniComponenti[i].menu == true) {
-        this.listaFunzioniPadre.push(this.listaFunzioniComponenti[i]);
-      }
-      else if (this.listaFunzioniComponenti[i].menu == false) {
-        this.listaFunzioniNonPadre.push(this.listaFunzioniComponenti[i]);
-      }
-    }
-
-    // caso figli senza padre (funzioni autonome)
-    for (let i = 0; i < this.listaFunzioniNonPadre.length; i++) {
-
-      if (this.listaFunzioniNonPadre[i].menuPadre == 0) {
-        let newEl = {
-          path: this.listaFunzioniNonPadre[i].aliasComponente,
-          //component: this.listaFunzioniNonPadre[i].pathDescrizione,
-          component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-        }
-        this.listaFunzioniAutonome.push(newEl)
-      }
-
-    }
-
-    // caso padre con figli o padre senza figli
-    for (let i = 0; i < this.listaFunzioniPadre.length; i++) {
-
-      var check = false;
-
-      for (let l = 0; l < this.listaFunzioniNonPadre.length; l++) {
-
-        if (this.listaFunzioniPadre[i].fkFunzioniId == this.listaFunzioniNonPadre[l].menuPadre) {
-          let newEl = {
-            path: this.listaFunzioniNonPadre[l].aliasComponente,
-            //component: this.listaFunzioniNonPadre[l].pathDescrizione
-            component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[l].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-          }
-          this.listaFunzioniChildren.push(newEl);
-          check = true;
-        }
-      }
-
-      // caso padre con figli
-      if (check == true) {
-        this.listaFunzioniPadreConFigli.push({
-          path: this.listaFunzioniPadre[i].aliasComponente,
-          children: this.listaFunzioniChildren
-        })
-        check = false;
-        this.listaFunzioniChildren = []
-      }
-
-      // caso padre senza figli (funzione autonoma)
-      else if (check == false) {
-        let newEl = {
-          path: this.listaFunzioniPadre[i].aliasComponente,
-          //component: this.listaFunzioniComponenti[i].pathDescrizione
-          component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniPadre[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-        }
-        this.listaFunzioniAutonome.push(newEl)
-        check = false;
-      }
-
-    }
-
-    // ordino l'array
-    for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
-
-      if (this.listaFunzioniComponenti[i].indicemenu != 0) {
-
-        // ciclo this.listaFunzioniPadreConFigli e verifico se presente;
-        for (let l = 0; l < this.listaFunzioniPadreConFigli.length; l++) {
-
-          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniPadreConFigli[l].path) {
-            this.listaFunzioniFinaleMenu.push(this.listaFunzioniPadreConFigli[l]);
-            break;
-          }
+      error : (err) =>{
 
         }
-
-        // ciclo this.listaFunzioniAutonome e verifico se presente
-        for (let l = 0; l < this.listaFunzioniAutonome.length; l++) {
-
-          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
-            this.listaFunzioniFinaleMenu.push(this.listaFunzioniAutonome[l]);
-            break;
-          }
-
-        }
-
-      }
-      else {
-
-        for (let l = 0; l < this.listaFunzioniAutonome.length; l++) {
-
-          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
-            let newEl = {
-              path: this.listaFunzioniAutonome[l].path,
-              //component: this.listaFunzioniAutonome[o].component
-              //component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniAutonome[o].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-              component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaFunzioniAutonome[l].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-            }
-            this.listaSupportoOrdinamentoFunzioniAutonome.push(newEl);
-            break;
-          }
-
-        }
-
-      }
-
-    }
-
-    // aggiungo le funzioni autonome (flag voce menu = false, indice menu = 0)
-    for (let i = 0; i < this.listaSupportoOrdinamentoFunzioniAutonome.length; i++) {
-
-      let newEl = {
-        path: this.listaSupportoOrdinamentoFunzioniAutonome[i].path,
-        //component: this.listaSupportoOrdinamentoFunzioniAutonome[i].component
-        // component: this.listaComponenti.find(componente => componente.idComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-        component: this.listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
-      }
-      this.listaFunzioniFinaleMenu.push(newEl);
-
-    }
-
-    // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
-    this.listaFunzioniFinaleMenu.unshift({
-      path: this.homePagePath,
-      component: this.listaComponenti.find(funzione => funzione.idComponente == 0)?.component
-    });
-
-    console.log("this.listaFunzioniFinaleMenu");
-    console.log(this.listaFunzioniFinaleMenu);
-
-    this.limiteVociMenu = this.listaFunzioniFinaleMenu.length;
-    console.log("limiteVociMenu");
-    console.log(this.listaFunzioniFinaleMenu.length);
-
-    // creo la nuova route
-    this.router.resetConfig(this.listaFunzioniFinaleMenu);
-
-    console.log("this.router");
-    console.log(this.router);
+    })
   }
 
-
-  routerPrint() {
-    console.log('router:');
-    console.log(this.router);
-  }
-
-
-
-
-
-
-
+  
 
 }
-
