@@ -24,7 +24,7 @@ export class CommessaService {
     this.titolo.next(titolo);
   }
 
-  getTiolo(){
+  getTitolo(){
     return this.titolo.getValue();
   }
 

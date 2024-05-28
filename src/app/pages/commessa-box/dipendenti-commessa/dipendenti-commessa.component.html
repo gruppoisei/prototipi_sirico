@@ -1,6 +1,6 @@
 
 <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-    <h2 class="flex justify-center my-10 text-4xl text-center font-bold">Assegnazione delle commesse</h2>
+    <h2 class="flex justify-center my-10 text-4xl text-center font-bold">{{titolo}}</h2>
     <hr>
     <form class="my-8" [formGroup]="assegnaCommessaForm" *ngIf="!commper && !_commper">
         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -163,4 +163,3 @@
         </div>
     </div>
 </div>
-

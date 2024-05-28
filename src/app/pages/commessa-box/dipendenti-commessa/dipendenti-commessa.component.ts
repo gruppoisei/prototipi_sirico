@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatCalendar, MatDatepicker} from '@angular/material/datepicker';
 import { PersonaService } from '../../../service/persona.service';
@@ -12,8 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
-import { min } from 'moment';
 import { distinctUntilChanged } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dipendenti-commessa',
@@ -26,7 +26,7 @@ import { distinctUntilChanged } from 'rxjs';
 })
 export class DipendentiCommessaComponent implements OnInit, OnDestroy {
 
-
+  titolo: string;
   pickerRequired: MatDatepicker<any> | MatCalendar<any> | undefined;
   assegnaCommessaForm!: FormGroup;
   commper : boolean = false
@@ -44,7 +44,6 @@ export class DipendentiCommessaComponent implements OnInit, OnDestroy {
   commessaPersona : commessaPersona[] = []
   _commessaPersona : commessaPersona[] = []
   listaPersone : any[] = []
-  _listaPersone : any[] = []
 
   currentPage: number = 1;
   elementiPerPagina: number = 10;
@@ -54,9 +53,22 @@ export class DipendentiCommessaComponent implements OnInit, OnDestroy {
   _totalPages : number = 0;
   formDefaultValue: any;
   startDate:{[key: number]: string | null} = {};
+
   
-constructor(private fb : FormBuilder, private personaService : PersonaService, private commessaService : CommessaService, private location : Location, private dialog : MatDialog){
-}
+constructor
+(
+  private fb : FormBuilder, private personaService : PersonaService,
+  private commessaService : CommessaService, private location : Location,
+  private dialog : MatDialog
+)
+  {
+    const router = inject(Router)
+    this.titolo = this.commessaService.getTitolo();
+    if(this.titolo === '')
+      {
+        router.navigate(['/Segreteria/gestione-assegnazione-commessa'])
+      }
+  }
   
 ngOnDestroy(): void {
   this.commessaService.clearCommessaPersona();
@@ -75,14 +87,13 @@ ngOnDestroy(): void {
     ).subscribe({
       next: (commper) => {
         if (commper) {
-          this.commessaPersona.push(commper);
+          this.commessaPersona.push(commper)
           this.commper = true;
           this.listaPersone = []
           this.commessaService.getCommessaPersonaSocietaById(commper.id).subscribe({
             next: (res) => {
-              if (!this.listaPersone.some(persona => persona.id === res.id)) { // Controlla i duplicati
+              if (!this.listaPersone.some(persona => persona.id === res.id)){
                 this.listaPersone.push(res);
-                this._listaPersone = this.listaPersone
               }
             }
           });
@@ -92,13 +103,12 @@ ngOnDestroy(): void {
 
     this.commessaService._commper$.subscribe((_commper)=>{
       if(_commper){
-        this.commessaPersona.push(_commper);
+        this.commessaPersona = _commper,
         this._commper = true;
         this.listaPersone = [];
         const ids = _commper.map((commper: any)=> commper.id);
         this.commessaService.getCommessaPersoneSocietaByIds(ids).subscribe(res => {
           this.listaPersone = res;
-          this._listaPersone = this.listaPersone;
         })
         
       }
@@ -110,7 +120,6 @@ ngOnDestroy(): void {
   }
 
   modificaCommessaPersona(){
-    console.log(this.commessaPersona, this.listaPersone)
     if(this.listaPersone !== null && this.commessaPersona !== null){
       this.listaPersone.forEach(persona =>{
         const commper = this.commessaPersona.find(cp => cp.personaId ===  persona.personaId);
@@ -363,7 +372,13 @@ ngOnDestroy(): void {
   }
   
   resetDate(){
-    this.listaPersone = JSON.parse(JSON.stringify(this._listaPersone))
+    this.listaPersone.forEach((item) => {
+      const commper = this.commessaPersona.find(cp => cp.personaId === item.personaId);
+      if (commper){
+        item.dataInizio = commper.dataInizio;
+        item.dataFine = commper.dataFine;
+      }
+    })
     this.startDate = {};
   }
 }

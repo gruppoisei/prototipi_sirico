@@ -63,20 +63,12 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
     });
   }
 
-  setTitoloModificaCommessa()
-    {
-      this.commessaService.setTitolo('Modifica commessa')
-    }
+
 
   getCommessa(commessaId: number)
   {
     this.idCommessa = commessaId;
     this.commessaService.getCommessaById(this.idCommessa)
-  }
-
-  setTitoloNuovaCommessa()
-  {
-    this.commessaService.setTitolo('Inserimento nuova commessa')
   }
 
     clearSearch()
@@ -120,5 +112,9 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
       });
     }
 
+    setTitoloNuovaAssegnazioneCommessa()
+    {
+      this.commessaService.setTitolo('Assegnazione delle commesse')
+    }
 
 }

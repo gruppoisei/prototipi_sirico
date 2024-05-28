@@ -73,6 +73,7 @@ disableButton(index: any, commessapersonaId:number):void {
   }
 
   eliminaSelezionati(commessaId: number | undefined): void {
+    console.log(this.listDipendenti)
     this.dialog.open(DeleteCommperbyidsDialogComponent,
       {
         data: {ids: this.selectedDipendenti},
@@ -97,5 +98,10 @@ disableButton(index: any, commessapersonaId:number):void {
           this.masterCheckbox = false;
         })
     }
+    }
+
+    setTitoloModificaAssegnazioneCommessa()
+    {
+      this.commessaService.setTitolo('Modifica date commessa assegnata')
     }
 }
