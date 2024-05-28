@@ -16,7 +16,6 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
   listaFunzioniDisponibili: Funzione[] = [];
   listaOriginale: Funzione[] = [];
   AllFunzioni: Funzione[] = [];
-  // nuovoMenuPadre = 0; // 
   listaMenuPadre: Funzione[] = [];
   ruoloDaAggiungere: Ruolo = { nomeRuolo: '', listaFunzioni: <any>[] };
 
@@ -38,7 +37,6 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
     if (this.ruoloId != null) {
 
       await this.ReimpostaLista();
-      //console.log(this.ruoloDaAggiungere);
       this.ruoloNome = this.ruoloDaAggiungere.nomeRuolo;
       console.log(this.ruoloDaAggiungere)
     } else this.listaFunzioniDisponibili = this.AllFunzioni;
@@ -112,10 +110,7 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
             });
         this.cdr.detectChanges();
     });
-}
-
-
-
+  }
 
   AggiornaIndiciMenu(id: number, valore: number) {
 
@@ -130,7 +125,6 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
       return funzione
     })
   }
-
 
   AggiornaListaMenu(funzione: Funzione) {
     funzione.flagVoceMenu = !funzione.flagVoceMenu;
@@ -213,8 +207,6 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
       else {
 
         let res = await firstValueFrom(this.amministrazioneRuolo.InserisciAggiornaRuolo(this.ruoloDaAggiungere));
-        //console.log('res.message:');
-        //console.log(res.message);
         alert(res.message);
 
         if (res.message == "Ruolo salvato con successo!") {
@@ -222,21 +214,7 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
         }
       }
     }
-    //console.log(this.ruoloDaAggiungere)
   }
-
-  /*
-    SortListaFunzioni() {
-      let i = 0
-      this.ruoloDaAggiungere.listaFunzioni = this.ruoloDaAggiungere.listaFunzioni.sort((a, b) => {
-        i = i++
-        //console.log("prova " + i + "  " + a.nomeFunzione + "  " + a.indiceMenu + b.nomeFunzione + "  " + b.indiceMenu)
-        if (b.indiceMenu == 0) return -1
-        if (a.indiceMenu == 0) return 1
-        if (a.indiceMenu < b.indiceMenu) return -1
-        return 1
-      })    
-    }*/
 
   CancellaLista() {
     this.listaMenuPadre = []
@@ -253,7 +231,6 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
     let strings = JSON.stringify(this.ruoloDaAggiungere.listaFunzioni)
     this.listaOriginale = JSON.parse(strings)
 
-
     this.listaFunzioniDisponibili = this.AllFunzioni.filter(
       (funzione: Funzione) =>
         !this.ruoloDaAggiungere.listaFunzioni.some(
@@ -265,7 +242,6 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
         this.listaMenuPadre.push(funzione);
       }
     });
-    //this.SortListaFunzioni()
   }
 
   CloseForm() {
@@ -293,8 +269,8 @@ export interface Funzione {
   flagCreazione: boolean;
   indiceMenu: number;
   menuPadre: number;
-/*   menuPadre: number | null;
- */}
+}
+
 export enum FlagFunzione {
   voceMenu,
   lettura,
