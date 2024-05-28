@@ -93,10 +93,10 @@ export class FormInputTextComponent implements ControlValueAccessor {
 
 
   AggiornoValore() {
-    if (!this.decimal) {
+/*     if (!this.decimal) {
       console.log('prova');
       do { this.value = this.value.substring(1, this.value.length); } while (this.value[0] == '0')
-    }
+    } */
     this.onChange(this.value);
     this.onTouch();
   }
