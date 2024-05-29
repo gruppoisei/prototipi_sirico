@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CommessaService } from '../../../service/commessa.service';
 import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
 

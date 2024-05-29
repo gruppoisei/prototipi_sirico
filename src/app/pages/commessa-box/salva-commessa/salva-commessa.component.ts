@@ -36,7 +36,7 @@ export class SalvaCommessaComponent implements OnInit, OnDestroy{
     private societaService : SocietaService, private clientiService : InsertContrattoService){
     const router = inject(Router)
 
-    this.titolo = this.commessaService.getTiolo();
+    this.titolo = this.commessaService.getTitolo();
     if(this.titolo === ''){
       router.navigate(['/gestione-commessa']) 
       }
