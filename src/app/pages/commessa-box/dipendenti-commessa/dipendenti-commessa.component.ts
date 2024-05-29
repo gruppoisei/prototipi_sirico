@@ -14,6 +14,7 @@ import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
 import { distinctUntilChanged } from 'rxjs';
 import { Router } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-dipendenti-commessa',
@@ -152,10 +153,11 @@ ngOnDestroy(): void {
 
   salvaCommessaPersona() {
         if(this.assegnaCommessaForm.valid){
+          debugger
             const dataInizioMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataInizio')?.value;
             const dataFineMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataFine')?.value;
-            const dataInizioDate: Date = this.convertiMomentInDate(dataInizioMoment);
-            const dataFineDate: Date = this.convertiMomentInDate(dataFineMoment);
+            const dataInizioDate: Date | null = this.convertiMomentInDate(dataInizioMoment);
+            const dataFineDate: Date | null = this.convertiMomentInDate(dataFineMoment);
         
             this.dataInizio = this.formattingDate(dataInizioDate);
             this.dataFine = this.formattingDate(dataFineDate);
@@ -195,6 +197,7 @@ ngOnDestroy(): void {
                 });
         }
         else{
+          this.assegnaCommessaForm.markAllAsTouched();
           ValidateForm.validateAllFormFields(this.assegnaCommessaForm);
           this.dialog.open(ResponseDialogComponent,
             {
@@ -218,9 +221,21 @@ ngOnDestroy(): void {
       return new Date(dateString);
   }
   
-    convertiMomentInDate(momentObject: moment.Moment): Date {
-      return momentObject.toDate();
+convertiMomentInDate(momentObject: moment.Moment | string): Date | null {
+  if (typeof momentObject === 'string') {
+    if (momentObject.trim() === '') {
+      return null;
     }
+    const date = moment(momentObject);
+    return date.isValid() ? date.toDate() : null;
+  }
+  
+  if (moment.isMoment(momentObject)) {
+    return momentObject.toDate();
+  }
+  
+  return null;
+}
 
   nextPage(){
     if(this.currentPage < this.getTotalPages()){

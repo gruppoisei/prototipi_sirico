@@ -5,7 +5,7 @@
     <form class="my-8" [formGroup]="assegnaCommessaForm" *ngIf="!commper && !_commper">
         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="sm:col-span-2">
-                <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona commessa</label>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Seleziona commessa*</label>
                 <select (change)="onCommessaChange(assegnaCommessaForm.get('commessa')?.value)" formControlName="commessa" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none
                     focus:border-sky-500 focus:ring-sky-500">
                         <option value="" disable selected hidden>Scegli un'opzione</option>
@@ -17,7 +17,7 @@
             </div>
 
             <div class="sm:col-span-2">
-                <mat-label class="block mb-2 text-sm font-medium text-gray-900">Durata per la commessa</mat-label>
+                <mat-label class="block mb-2 text-sm font-medium text-gray-900">Durata per la commessa*</mat-label>
                 <mat-form-field class="w-full">
                     <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker" formGroupName = "dateRange">
                         <input matStartDate placeholder="Data inizio" formControlName = "dataInizio">
