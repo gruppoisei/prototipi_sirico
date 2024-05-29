@@ -32,7 +32,8 @@ import { PaginationComponent } from './ui/pagination/pagination.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 
-export const listaComponenti = [
+// si riferisce alla tabella FUNZIONE_COMPONENTE
+export const listaFunzioneComponente = [
   {
     idComponente: 0,
     component: HomepageComponent,
@@ -41,10 +42,10 @@ export const listaComponenti = [
     idComponente: 1,
     component: CalendarioComponent,
   },
-  {
-    idComponente: 2,
-    component: RichiestaAssenzaUtenteComponent,
-  },
+  // {
+  //   idComponente: 2,
+  //   component: RichiestaAssenzaUtenteComponent,
+  // },
   {
     idComponente: 3,
     component: GestioneContrattoComponent,
@@ -64,16 +65,16 @@ export const listaComponenti = [
   {
     idComponente: 7,
     component: GestioneRuoloUtenteComponent,
-  },
+  },  
   {
     idComponente: 8,
-    component: RichiestaAssenzaSegreteriaComponent,
-  },
-  {
-    idComponente: 9,
     component: UtilityCostiPersonaleComponent,
   },
   {
+    idComponente: 9,
+    component: GestioneCommessaComponent,
+  },
+  /*{
     idComponente: 10,
     component: SalvaCommessaComponent,
   },
@@ -96,7 +97,32 @@ export const listaComponenti = [
   {
     idComponente: 17,
     component: InsertClienteComponent,
-  }
+  }*/
+]
+
+// si riferisce alla tabella ALIAS_COMPONENTE : mappa i "componenti associati",
+// quei componenti non raggiungibili direttamente dal menu, ma raggiungibili solo da un altro componente
+export const listaAliasComponente = [  
+  {
+    idComponente: 6,
+    component: InsertClienteComponent,
+  },
+  {
+    idComponente: 3,
+    component: InsertContrattoComponent,
+  },
+  {
+    idComponente: 4,
+    component: InsertRuoloFunzioneComponent,
+  },
+  {
+    idComponente: 5,
+    component: InsertPersonaComponent,
+  },
+  {
+    idComponente: 7,
+    component: InsertRuoloUtenteComponent,
+  },
 ]
 
 const routes: Routes = [

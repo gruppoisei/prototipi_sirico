@@ -28,7 +28,7 @@ export class SelezionaRuoloDialogComponent {
             console.log("idRuolo");
             console.log(res.body.idRuolo);
             this.menuDinamico.getFunzioniComponenti(res.body.idRuolo);
-            // this.router.navigate([""]);
+            this.router.navigate([""]);
           }
         }
       )

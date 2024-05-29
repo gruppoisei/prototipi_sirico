@@ -54,6 +54,7 @@ export class GestioneClienteComponent {
 
     // this.finalPath = this.menuDinamico.getPathMenu();
 
+    /*
     this.menuDinamico.caricaComponenteAssociato().then((data) => {
       this.finalPath = data;
       console.log("this.finalPath gestione cliente");
@@ -62,6 +63,7 @@ export class GestioneClienteComponent {
       .catch((ex) => {
         console.log(ex);
       });
+*/
 
     // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
     // console.log(this.menuDinamico.listaRuoloFunzioni.listaFunzioni);
@@ -81,7 +83,7 @@ export class GestioneClienteComponent {
     for (let i = 0; i < this.listaFunzioni.length; i++) {
       // console.log(this.listaFunzioni[i]);
       if (this.listaFunzioni[i].nomeFunzione == lastAlias) {
-        this.funzione = this.listaFunzioni[i];        
+        this.funzione = this.listaFunzioni[i];
         break;
       }
 

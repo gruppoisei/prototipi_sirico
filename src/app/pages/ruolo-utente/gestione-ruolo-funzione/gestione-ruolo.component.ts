@@ -33,7 +33,7 @@ componenteMappato: any = "";
 
   ngOnInit(): void {
     this.clearSearch();
-    this.menuDinamico.caricaComponenteAssociato();
+    //this.menuDinamico.caricaComponenteAssociato();
   }
 
   // async caricaComponenteAssociato() {

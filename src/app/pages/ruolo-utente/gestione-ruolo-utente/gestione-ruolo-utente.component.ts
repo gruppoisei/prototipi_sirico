@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { InsertUtenteService } from '../../../service/insert-utente.service';
 import { NuovoUtenteRequest } from '../../../dto/request/nuovoUtenteRuolo';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-gestione-ruolo-utente',
@@ -11,13 +12,19 @@ import { NuovoUtenteRequest } from '../../../dto/request/nuovoUtenteRuolo';
 })
 export class GestioneRuoloUtenteComponent implements OnInit {
 
+  finalPath: any;
+
   formData: any = {};
   output_ricercaFiltrata: any;
   utenti: any;
   ruoli: { syruIdruolosys: number, syruDescruolosys: string }[] = [];
   risultati: any;
 
-  constructor(private router: Router, private http: HttpClient, private ruoliservice: InsertUtenteService) {
+  constructor(private router: Router,
+    private http: HttpClient,
+    private ruoliservice: InsertUtenteService,
+    public menuDinamicoService: MenuDinamicoService
+  ) {
     this.clearSearch();
   }
 
@@ -40,6 +47,39 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   ngOnInit(): void {
     this.clearSearch();
     this.caricaRuoli();
+
+    this.loadComponentAssociato();
+  }
+
+  loadComponentAssociato() {
+    console.log("this.router.url")
+    console.log(this.router.url)
+
+    const currentAlias = this.router.url.replaceAll('%20', ' ');
+
+    console.log("this.currentAlias")
+    console.log(currentAlias)
+
+    var lastAlias = currentAlias.substring(currentAlias.lastIndexOf("/") + 1, currentAlias.length);
+    
+    console.log("lastAlias");
+    console.log(lastAlias);
+
+    // ciclo listafunzionifinale nei children per vedere se matcho;
+    for (let i = this.menuDinamicoService.limiteVociMenu; i < this.menuDinamicoService.listaFunzioniFinaleMenu.length; i++) {
+
+      if (this.menuDinamicoService.listaFunzioniFinaleMenu[i].path.includes(lastAlias)) {
+        console.log(this.menuDinamicoService.listaFunzioniFinaleMenu[i]);
+        this.finalPath = this.menuDinamicoService.listaFunzioniFinaleMenu[i].path
+      }
+
+    }
+
+
+    //this.finalPath = ???
+
+    console.log("this.finalPath");
+    console.log(this.finalPath);
   }
 
   caricaRuoli() {

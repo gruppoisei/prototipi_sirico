@@ -124,7 +124,7 @@ export class GestioneContrattoComponent implements OnInit {
   ngOnInit(): void {
     this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllSocieta();
-
+/*
     this.menuDinamico.caricaComponenteAssociato().then((data) => {
       this.finalPath = data;
       console.log("this.finalPath");
@@ -132,7 +132,7 @@ export class GestioneContrattoComponent implements OnInit {
     })
       .catch((ex) => {
         console.log(ex);
-      });
+      });*/
   }
   
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
