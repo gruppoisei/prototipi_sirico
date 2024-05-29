@@ -12,8 +12,6 @@ import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 })
 export class GestioneRuoloUtenteComponent implements OnInit {
 
-  finalPath: any;
-
   formData: any = {};
   output_ricercaFiltrata: any;
   utenti: any;
@@ -48,39 +46,39 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     this.clearSearch();
     this.caricaRuoli();
 
-    this.loadComponentAssociato();
+    this.menuDinamicoService.loadComponentAssociato();
   }
 
-  loadComponentAssociato() {
-    console.log("this.router.url")
-    console.log(this.router.url)
+  // loadComponentAssociato() {
+  //   console.log("this.router.url")
+  //   console.log(this.router.url)
 
-    const currentAlias = this.router.url.replaceAll('%20', ' ');
+  //   const currentAlias = this.router.url.replaceAll('%20', ' ');
 
-    console.log("this.currentAlias")
-    console.log(currentAlias)
+  //   console.log("this.currentAlias")
+  //   console.log(currentAlias)
 
-    var lastAlias = currentAlias.substring(currentAlias.lastIndexOf("/") + 1, currentAlias.length);
+  //   var lastAlias = currentAlias.substring(currentAlias.lastIndexOf("/") + 1, currentAlias.length);
     
-    console.log("lastAlias");
-    console.log(lastAlias);
+  //   console.log("lastAlias");
+  //   console.log(lastAlias);
 
-    // ciclo listafunzionifinale nei children per vedere se matcho;
-    for (let i = this.menuDinamicoService.limiteVociMenu; i < this.menuDinamicoService.listaFunzioniFinaleMenu.length; i++) {
+  //   // ciclo listafunzionifinale nei children per vedere se matcho;
+  //   for (let i = this.menuDinamicoService.limiteVociMenu; i < this.menuDinamicoService.listaFunzioniFinaleMenu.length; i++) {
 
-      if (this.menuDinamicoService.listaFunzioniFinaleMenu[i].path.includes(lastAlias)) {
-        console.log(this.menuDinamicoService.listaFunzioniFinaleMenu[i]);
-        this.finalPath = this.menuDinamicoService.listaFunzioniFinaleMenu[i].path
-      }
+  //     if (this.menuDinamicoService.listaFunzioniFinaleMenu[i].path.includes(lastAlias)) {
+  //       console.log(this.menuDinamicoService.listaFunzioniFinaleMenu[i]);
+  //       this.finalPath = this.menuDinamicoService.listaFunzioniFinaleMenu[i].path
+  //     }
 
-    }
+  //   }
 
 
-    //this.finalPath = ???
+  //   //this.finalPath = ???
 
-    console.log("this.finalPath");
-    console.log(this.finalPath);
-  }
+  //   console.log("this.finalPath");
+  //   console.log(this.finalPath);
+  // }
 
   caricaRuoli() {
     this.ruoliservice.GetRuoli().subscribe((res) => this.ruoli = res);

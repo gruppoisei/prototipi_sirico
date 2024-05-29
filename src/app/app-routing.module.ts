@@ -123,6 +123,10 @@ export const listaAliasComponente = [
     idComponente: 7,
     component: InsertRuoloUtenteComponent,
   },
+  {
+    idComponente: 9,
+    component: SalvaCommessaComponent,
+  },
 ]
 
 const routes: Routes = [

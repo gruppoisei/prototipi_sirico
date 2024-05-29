@@ -6,6 +6,7 @@ import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-
 import { ricercaCommessa } from '../../../dto/request/ricercaCommessa';
 import FormattaData from '../../../helpers/formattaData';
 import { DeleteCommessaDialogComponent } from '../../delete-commessa-dialog/delete-commessa-dialog.component';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-gestione-commessa',
@@ -18,7 +19,7 @@ export class GestioneCommessaComponent implements OnInit{
   isDisabled: boolean = true;
   formDefaultValue : any;
   minDataScadenza ?: string
-  constructor(private fb : FormBuilder, private commessaService : CommessaService,  private dialog : MatDialog){}
+  constructor(private fb : FormBuilder, private commessaService : CommessaService,  private dialog : MatDialog, public menuDinamicoService: MenuDinamicoService){}
   datiCommessa: any[] = []
   idCommessa : number | null = null;
 
@@ -41,6 +42,7 @@ export class GestioneCommessaComponent implements OnInit{
           this.minDataScadenza = selectDate.toISOString().split('T')[0]
         }
     });
+    this.menuDinamicoService.loadComponentAssociato();
   }
 
   setTitoloModificaCommessa()

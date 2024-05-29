@@ -330,11 +330,36 @@ export class MenuDinamicoService {
   }
 
 
-  routerPrint() {
-    console.log('router:');
-    console.log(this.router);
-  }
+  loadComponentAssociato() {
+    console.log("this.router.url")
+    console.log(this.router.url)
 
+    const currentAlias = this.router.url.replaceAll('%20', ' ');
+
+    console.log("this.currentAlias")
+    console.log(currentAlias)
+
+    var lastAlias = currentAlias.substring(currentAlias.lastIndexOf("/") + 1, currentAlias.length);
+    
+    console.log("lastAlias");
+    console.log(lastAlias);
+
+    // ciclo listafunzionifinale nei children per vedere se matcho;
+    for (let i = this.limiteVociMenu; i < this.listaFunzioniFinaleMenu.length; i++) {
+
+      if (this.listaFunzioniFinaleMenu[i].path.includes(lastAlias)) {
+        console.log(this.listaFunzioniFinaleMenu[i]);
+        this.finalPath = this.listaFunzioniFinaleMenu[i].path
+      }
+
+    }
+
+
+    //this.finalPath = ???
+
+    console.log("this.finalPath");
+    console.log(this.finalPath);
+  }
   // getPathMenu(): string {
   //   this.caricaComponenteAssociato().then((data) => {
   //     this.finalPath = data;
