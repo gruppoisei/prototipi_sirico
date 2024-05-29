@@ -20,10 +20,10 @@ import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 export class GestioneContrattoComponent implements OnInit {
 
   // EREDITARE
-  currentAlias: string = "";
-  finalPath: any;
-  componenteAssociato: any = "";
-  componenteMappato: any = "";
+  //currentAlias: string = "";
+  //finalPath: any;
+  //componenteAssociato: any = "";
+  //componenteMappato: any = "";
 
   //listaComponenti = [{ idComponente: 13, component: InsertContrattoComponent }]
   //
@@ -80,7 +80,7 @@ export class GestioneContrattoComponent implements OnInit {
   constructor(
     private router: Router,
     private inserimentoContrattoService: InsertContrattoService,
-    private menuDinamico: MenuDinamicoService,
+    public menuDinamicoService: MenuDinamicoService,
     private dialog: MatDialog,
     private builder: FormBuilder
   ) {
@@ -123,8 +123,9 @@ export class GestioneContrattoComponent implements OnInit {
 
   ngOnInit(): void {
     this.utenteLoggato = sessionStorage.getItem('SysUser');
-    this.getAllSocieta();
-
+    this.getAllSocieta();    
+    this.menuDinamicoService.loadComponentAssociato();
+/*
     this.menuDinamico.caricaComponenteAssociato().then((data) => {
       this.finalPath = data;
       console.log("this.finalPath");
@@ -132,7 +133,7 @@ export class GestioneContrattoComponent implements OnInit {
     })
       .catch((ex) => {
         console.log(ex);
-      });
+      });*/
   }
   
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
