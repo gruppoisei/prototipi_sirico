@@ -1,12 +1,13 @@
-<!--<div class="container">-->
-    <div class="container">
+<div class="container">
     <div class="text-center">
         <h1 class="flex justify-center my-10 text-4xl font-bold">Carica dati costi mensili personale</h1>
         <app-gestione-file (fileEvent)="receiveFile($event)" class="justify-content-center"></app-gestione-file>
         <button type="button" (click)="salva()"
             class="w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
-        <div class="line"></div>
+        <div class="line my-5" (mouseenter)="showDetails = true" (mouseleave)="showDetails = false">
+        <h2 *ngIf="dati">
+            Ultimi dati presenti in sistema sono del {{dati.mese}}/{{dati.anno}} (espandi)</h2>
+            <h2 *ngIf="showDetails">sono presenti {{dati.numeroPersone}} record in totale per il mese in questione.</h2>
+        </div>
     </div>
-    </div>
-
-<!--</div>-->
+</div>

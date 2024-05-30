@@ -30,4 +30,8 @@ export class UtilityCostiPersonaleService {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
     return this.http.get<any>(`${this.baseUrl}GetCostiPersonaleByPersonaId?personaId=` + IdPersona );
   }
+
+  getDati(){
+    return this.http.get<any>(`${this.baseUrl}GetDataUltimoRecordCosti`);
+  }
 }
