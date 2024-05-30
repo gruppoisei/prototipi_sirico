@@ -12,14 +12,14 @@ import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 })
 export class GestioneRuoloComponent implements OnInit {
 
-// EREDITARE
-currentAlias: string = "";
-finalPath: string = "";
-componenteAssociato: any = "";
-componenteMappato: any = "";
+  // EREDITARE
+  currentAlias: string = "";
+  finalPath: string = "";
+  componenteAssociato: any = "";
+  componenteMappato: any = "";
 
-//listaComponenti = [{ idComponente: 12, component: ProvassComponent }]
-//
+  //listaComponenti = [{ idComponente: 12, component: ProvassComponent }]
+  //
 
   formData: any = { nome: '' };
   output_ricercaFiltrata: boolean = false;
@@ -46,17 +46,17 @@ componenteMappato: any = "";
 
   //   console.log("this.currentAlias")
   //   console.log(this.currentAlias)
-    
+
   //   var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
 
   //   // this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
   //   this.componenteAssociato = await this.menuDinamico.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
-    
+
   //   console.log("this.componenteAssociato:");
   //   console.log(this.componenteAssociato);
 
   //   this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
-    
+
   //   console.log("this.finalPath");
   //   console.log(this.finalPath);    
   // }
@@ -95,15 +95,15 @@ componenteMappato: any = "";
       }
     );
   }
-  
+
   deleteRuolo(id: number) {
     if (confirm('Sei sicuro di voler eliminare questo ruolo?')) {
       this.amministrazioneRuoli.eliminaRuolo(id).subscribe((res) => {
-        console.log(res);        
+        console.log(res);
         alert(res.message);
         if (res.message == 'Eliminazione avvenuta con successo!') {
           this.ruoli = this.ruoli.filter(ruolo => ruolo.syruIdruolosys !== id);
-        this.output_ricercaFiltrata = this.ruoli.length > 0;
+          this.output_ricercaFiltrata = this.ruoli.length > 0;
         }
       });
     }
@@ -112,13 +112,11 @@ componenteMappato: any = "";
   modificaRuolo(id: number) {
     this.amministrazioneRuoli.ruoloId$.next(id);
     this.amministrazioneRuoli.ruoloId = id
-    this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-funzione']);    
-    // this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
+    // this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-funzione']);    
+    this.router.navigate(['/' + this.menuDinamicoService.finalPath]);
   }
 
   closeForm() {
-    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
-      this.router.navigate(['/Home']);
-    }    
+    this.router.navigate([""]);
   }
 }

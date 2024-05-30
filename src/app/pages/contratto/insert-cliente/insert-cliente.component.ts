@@ -27,7 +27,7 @@ export class InsertClienteComponent {
     {
       elementoSelect: new FormControl(null, [Validators.required]),
       elementoTextArea: new FormControl(null, [Validators.required]),
-      elementoNumber: new FormControl(null, [Validators.required, onlyNumbersValidator(), minNumberValidator(10),maxNumberValidator(50)])
+      elementoNumber: new FormControl(null, [Validators.required, onlyNumbersValidator(), minNumberValidator(10), maxNumberValidator(50)])
     }
   )
 
@@ -129,13 +129,13 @@ export class InsertClienteComponent {
         (response) => {
           console.log('Dati inviati con successo al backend:')
           console.log(response.message);
-          alert(response.message);          
+          alert(response.message);
 
           if (response.message == "Inserimento nuovo cliente avvenuto correttamente." || response.message == "Modifica cliente esistente avvenuta correttamente.") {
             this.clienteService.idCliente$.next(undefined);
             this.titolo = "Inserimento cliente";
-            this.nuovoCliente = null;            
-            this.myForm.reset();            
+            this.nuovoCliente = null;
+            this.myForm.reset();
             this.myForm.markAsUntouched();
           }
         },
@@ -150,7 +150,8 @@ export class InsertClienteComponent {
   goBack(): void {
     if (confirm("La pagina verrà chiusa e i dati modificati andranno persi. Si desidera procedere?")) {
       //this.location.back();
-      this.router.navigate(['/Segreteria/gestione-cliente']);
+      // this.router.navigate(['/Segreteria/gestione-cliente']);
+      this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
     }
   }
 

@@ -80,38 +80,44 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
 
   AggiornaCampo(funzioneId: number, tipoCampo: number) {
     this.ngZone.run(() => {
-        this.ruoloDaAggiungere.listaFunzioni =
-            this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
-                if (funzione.funzioneId == funzioneId) {
-                    switch (tipoCampo) {
-                        case FlagFunzione.voceMenu:
-                            funzione = this.AggiornaListaMenu(funzione);
-                            break;
-                        case FlagFunzione.lettura:
-                            funzione.flagLettura = !funzione.flagLettura;
-                            if (!funzione.flagLettura && funzione.flagModifica) {
-                                funzione.flagModifica = false;
-                            }
-                            break;
-                        case FlagFunzione.creazione:
-                            funzione.flagCreazione = !funzione.flagCreazione;
-                            break;
-                        case FlagFunzione.modifica:
-                            funzione.flagModifica = !funzione.flagModifica;
-                            if (funzione.flagModifica) {
-                                funzione.flagLettura = true;
-                            }
-                            break;
-                        case FlagFunzione.cancellazione:
-                            funzione.flagCancellazione = !funzione.flagCancellazione;
-                            break;
-                        default:
-                            break;
-                    }
+      this.ruoloDaAggiungere.listaFunzioni =
+        this.ruoloDaAggiungere.listaFunzioni.map((funzione: Funzione) => {
+          if (funzione.funzioneId == funzioneId) {
+            switch (tipoCampo) {
+              case FlagFunzione.voceMenu:
+                funzione = this.AggiornaListaMenu(funzione);
+                if (funzione.flagVoceMenu == true) {
+                  funzione.flagLettura = false;
+                  funzione.flagModifica = false;
+                  funzione.flagCreazione = false;
+                  funzione.flagCancellazione = false;
                 }
-                return funzione;
-            });
-        this.cdr.detectChanges();
+                break;
+              case FlagFunzione.lettura:
+                funzione.flagLettura = !funzione.flagLettura;
+                if (!funzione.flagLettura && funzione.flagModifica) {
+                  funzione.flagModifica = false;
+                }
+                break;
+              case FlagFunzione.creazione:
+                funzione.flagCreazione = !funzione.flagCreazione;
+                break;
+              case FlagFunzione.modifica:
+                funzione.flagModifica = !funzione.flagModifica;
+                if (funzione.flagModifica) {
+                  funzione.flagLettura = true;
+                }
+                break;
+              case FlagFunzione.cancellazione:
+                funzione.flagCancellazione = !funzione.flagCancellazione;
+                break;
+              default:
+                break;
+            }
+          }
+          return funzione;
+        });
+      this.cdr.detectChanges();
     });
   }
 
@@ -164,7 +170,7 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
       alert(res.message);
 
       if (res.message == "Ruolo salvato con successo!") {
-        this.router.navigate(["/Segreteria/gestione-ruolo-funzione"]);
+        this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
       }
     }
   }
@@ -213,7 +219,8 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
         alert(res.message);
 
         if (res.message == "Ruolo salvato con successo!") {
-          this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+          // this.router.navigate(['/Segreteria/gestione-ruolo-funzione']);
+          this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
         }
       }
     }
@@ -248,7 +255,10 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
   }
 
   CloseForm() {
-    this.router.navigate(['/Home']);
+    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?')) {
+      // this.router.navigate(['/Home']);
+      this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
+    }
   }
 
   ngOnDestroy(): void {

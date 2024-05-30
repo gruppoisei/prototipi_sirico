@@ -92,14 +92,16 @@ export class GestioneRuoloUtenteComponent implements OnInit {
   }
 
   closeForm() {
-    this.router.navigate(['/Home']);
+    // this.router.navigate(['/Home']);
+    this.router.navigate([""]);
   }
 
   modificaRuolo(id: number) {
     this.ruoliservice.utenteId$.next(id);
     this.ruoliservice.utenteId = id
     // Cambiare ^ e testare
-    this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-utente']);
+    // this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-utente']);
+    this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
   }
 
   eliminaUtente(Id: number) {

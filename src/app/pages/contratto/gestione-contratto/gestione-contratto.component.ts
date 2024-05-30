@@ -247,7 +247,8 @@ export class GestioneContrattoComponent implements OnInit {
   }
 
   closeForm() {
-    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['/Home']);
+    // if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
+    // this.router.navigate(['/Home']);
+    this.router.navigate([""]);
   }
 }
