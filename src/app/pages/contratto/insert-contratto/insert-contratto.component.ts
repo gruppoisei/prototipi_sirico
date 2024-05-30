@@ -19,6 +19,7 @@ import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-c
 import ValidaPartita from '../../../helpers/validaPartitaIva';
 import { UtilityCostiPersonaleComponent } from '../../utility-costi-personale/utility-costi-personale.component';
 import { UtilityCostiPersonaleService } from '../../../service/utility-costi-personale.service';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-insert-contratto',
@@ -53,8 +54,12 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   personaConDistacchiAperti: boolean = false;
   erroreCostoOrario: boolean = false;
   erroreCostoMensile: boolean = false;
+  showCostiDetails: boolean = false;
+  costoAnno: string | null = null;
+  costoMese: string | null = null;
   meseCorrente: number = 12;
   annoCorrente: number = 2050;
+  mostraCosti: boolean = false;
 
   tipiSocieta: { societaid: number; ragionesociale: string }[] = [];
   tipiContratto: { tipoid: number; tipodesc: string }[] = [];
@@ -112,7 +117,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private builder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
-    private utilityCostiService: UtilityCostiPersonaleService
+    private utilityCostiService: UtilityCostiPersonaleService,
+    public menuDinamicoService: MenuDinamicoService
   ) {
     this.meseCorrente = new Date().getMonth() + 1;
     this.annoCorrente = new Date().getFullYear();
@@ -192,6 +198,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     });     */
     this.reset();
     this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
+    this.mostraCosti = this.inserimentoContrattoService.idContratto$.value !== undefined ? true : false;
     this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
@@ -202,6 +209,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.distaccoEsiste(this.formData.personaId);
     
     this.disable_fields = true;
+
+    this.menuDinamicoService.getPermissionFlag();
   }
   
   distaccoEsiste(idPerosna: number | null) {
@@ -456,6 +465,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         (response: any) => {
           this.costoOrario = response.costoOrario;
           this.costoMensile = response.costoMensile;
+          this.costoMese = response.mese;
+          this.costoAnno = response.anno;
           },
         (error: any) => {
           this.erroreCostoOrario = true;

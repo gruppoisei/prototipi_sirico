@@ -5,8 +5,9 @@
 <div class="flex flex-row justify-center my-10">
     <form (ngSubmit)="ricercaFiltrata()">
         <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/Segreteria/insert-ruolo-funzione">
-                <button mat-icon
+            <!-- <a routerLink="/Segreteria/insert-ruolo-funzione"> -->
+            <a routerLink="{{'/'+menuDinamicoService.finalPath}}">
+                <button [disabled]="!menuDinamicoService.funzione.flagCreazione" mat-icon
                     class="material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
@@ -39,11 +40,11 @@
             <tbody>
                 <tr *ngFor="let ruolo of ruoli" class="bg-white border-b">
                     <td class="px-6 py-4">
-                        <button type="button" name="modifyFieldsRuolo" (click)="modificaRuolo(ruolo.syruIdruolosys)"
+                        <button [disabled]="!menuDinamicoService.funzione.flagLettura" type="button" name="modifyFieldsRuolo" (click)="modificaRuolo(ruolo.syruIdruolosys)"
                             class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
                     </td>
                     <td class="px-6 py-4">
-                        <button type="button" name="modifyFieldsRuolo" (click)="deleteRuolo(ruolo.syruIdruolosys)"
+                        <button [disabled]="!menuDinamicoService.funzione.flagCancellazione" type="button" name="modifyFieldsRuolo" (click)="deleteRuolo(ruolo.syruIdruolosys)"
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
                     </td>
                     <td class="px-6 py-4">{{ ruolo.syruDescruolosys }}</td>

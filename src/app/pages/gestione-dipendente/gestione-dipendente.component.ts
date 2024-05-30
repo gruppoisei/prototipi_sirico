@@ -5,6 +5,7 @@ import { PersonaService } from '../../service/persona.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-login-dialog.component';
 import { DeleteDipendenteDialogComponent } from '../delete-dipendente-dialog/delete-dipendente-dialog.component';
+import { MenuDinamicoService } from '../../service/menu-dinamico.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { DeleteDipendenteDialogComponent } from '../delete-dipendente-dialog/del
 export class GestioneDipendenteComponent implements OnInit{
 
   ricercaForm!: FormGroup;
-  constructor(private fb : FormBuilder, private personaService : PersonaService, private dialog : MatDialog){}
+  constructor(private fb : FormBuilder, private personaService : PersonaService, private dialog : MatDialog, public menuDinamicoService: MenuDinamicoService){}
   datiPersona: any[] = []
   idPersona : number | null = null;
   
@@ -30,6 +31,8 @@ export class GestioneDipendenteComponent implements OnInit{
       AnpeEmailaziendale: [''],
       AnsoRagionesociale: ['']
     })
+    this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
     setTitoloModificaDipendente()
     {

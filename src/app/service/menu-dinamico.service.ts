@@ -17,7 +17,10 @@ export class MenuDinamicoService {
     })
   };
 
+  // permessi e flag
   listaRuoloFunzioni: any;
+  // funzione: any;
+  funzione = { flagLettura: true, flagCreazione: true, flagModifica: true, flagCancellazione: true };
 
   homePagePath = "";
 
@@ -48,8 +51,8 @@ export class MenuDinamicoService {
   listaFunzioniFinaleMenu: any[] = ['']
 
   // lista di supporto al caricamento dei componenti associati, quelli non raggiungibili direttamente ma vincolati ad altri
-  pathPadreEFunzionalitaAssociata: { pathPadre: string, funzionalitaAssociata: number }[] = [];
-  listaCaricamentoComponentiAssociati: any[] = [];
+  // pathPadreEFunzionalitaAssociata: { pathPadre: string, funzionalitaAssociata: number }[] = [];
+  // listaCaricamentoComponentiAssociati: any[] = [];
 
 
   constructor(
@@ -68,7 +71,6 @@ export class MenuDinamicoService {
     // console.log(auth.utente);
     console.log(this.auth.utente?.idRuolo);
     //this.changeDetectorRef.detectChanges();
-
 
     this.getFunzioniComponenti(this.auth.utente!.idRuolo);
   }
@@ -137,7 +139,7 @@ export class MenuDinamicoService {
 
     // caso padre con o senza figli
     for (let i = 0; i < this.listaFunzioniPadre.length; i++) {
-      
+
       var check = false;
 
       for (let l = 0; l < this.listaFunzioniNonPadre.length; l++) {
@@ -240,7 +242,7 @@ export class MenuDinamicoService {
                   // console.log(this.listaFunzioniComponenti[i].fkFunzioniId);
 
                   let newEl = {
-                    path: this.listaFunzioniFinaleMenu[l].children[m].path + '/' + this.listaFunzioniComponenti[i].aliasAssociato,
+                    path: this.listaFunzioniFinaleMenu[l].path + '/' + this.listaFunzioniFinaleMenu[l].children[m].path + '/' + this.listaFunzioniComponenti[i].aliasAssociato,
                     // component: listaAliasComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.pathDescrizione == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
                     component: listaAliasComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti[i].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
                   }
@@ -273,6 +275,7 @@ export class MenuDinamicoService {
 
     console.log("this.router");
     console.log(this.router);
+
 
   }
 
@@ -336,30 +339,102 @@ export class MenuDinamicoService {
 
     const currentAlias = this.router.url.replaceAll('%20', ' ');
 
-    console.log("this.currentAlias")
-    console.log(currentAlias)
+    // console.log("this.currentAlias")
+    // console.log(currentAlias)
 
     var lastAlias = currentAlias.substring(currentAlias.lastIndexOf("/") + 1, currentAlias.length);
-    
-    console.log("lastAlias");
-    console.log(lastAlias);
+
+    // console.log("lastAlias");
+    // console.log(lastAlias);
 
     // ciclo listafunzionifinale nei children per vedere se matcho;
     for (let i = this.limiteVociMenu; i < this.listaFunzioniFinaleMenu.length; i++) {
 
       if (this.listaFunzioniFinaleMenu[i].path.includes(lastAlias)) {
-        console.log(this.listaFunzioniFinaleMenu[i]);
+        // console.log(this.listaFunzioniFinaleMenu[i]);
         this.finalPath = this.listaFunzioniFinaleMenu[i].path
       }
 
     }
 
-
-    //this.finalPath = ???
-
     console.log("this.finalPath");
     console.log(this.finalPath);
   }
+
+  async loadFlagsAssociate() {
+
+    // console.log("this.auth.utente!.idRuolo");
+    // console.log(this.auth.utente!.idRuolo);
+
+    this.listaRuoloFunzioni = await this.GetAllInfoFunzioneRuoloById(this.auth.utente!.idRuolo).toPromise()
+
+    // console.log("this.listaRuoloFunzioni");
+    // console.log(this.listaRuoloFunzioni);
+
+    // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
+    // console.log(this.listaRuoloFunzioni.listaFunzioni);
+
+
+    // console.log("this.router.url")
+    // console.log(this.router.url)
+
+    // this.currentAlias = this.router.url.replaceAll('%20', ' ');
+
+    // console.log("this.currentAlias")
+    // console.log(this.currentAlias)
+
+    // var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+
+    // for (let i = 0; i < this.listaRuoloFunzioni.listaFunzioni.length; i++) {
+    //   // console.log(this.listaFunzioni[i]);
+    //   if (this.listaRuoloFunzioni.listaFunzioni[i].nomeFunzione == lastAlias) {
+    //     this.funzione = this.listaRuoloFunzioni.listaFunzioni[i];
+    //     break;
+    //   }
+
+    // }
+
+    // // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
+    // // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
+
+    // console.log("funzione.flagCreazione")
+    // console.log(this.funzione.flagCreazione)    
+  }
+
+  getPermissionFlag() {
+
+    console.log("this.auth.utente!.idRuolo");
+    console.log(this.auth.utente!.idRuolo);
+    
+    console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
+    console.log(this.listaRuoloFunzioni.listaFunzioni);
+
+    console.log("this.router.url")
+    console.log(this.router.url)
+
+    this.currentAlias = this.router.url.replaceAll('%20', ' ');
+
+    console.log("this.currentAlias")
+    console.log(this.currentAlias)
+
+    var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+
+    for (let i = 0; i < this.listaRuoloFunzioni.listaFunzioni.length; i++) {
+      
+      if (this.listaRuoloFunzioni.listaFunzioni[i].nomeFunzione == lastAlias) {
+        this.funzione = this.listaRuoloFunzioni.listaFunzioni[i];
+        break;
+      }
+
+    }
+   
+    console.log("this.funzione");
+    console.log(this.funzione);
+
+    console.log("funzione.flagCreazione")
+    console.log(this.funzione.flagCreazione)
+  }
+
   // getPathMenu(): string {
   //   this.caricaComponenteAssociato().then((data) => {
   //     this.finalPath = data;
@@ -372,28 +447,6 @@ export class MenuDinamicoService {
   //     });
   //   return this.finalPath;
   // }
-
-  /*
-    async caricaComponenteAssociato(): Promise<string> {
-  
-      console.log("this.router.url")
-      console.log(this.router.url)
-  
-      this.currentAlias = this.router.url.replaceAll('%20', ' ');
-  
-      console.log("this.currentAlias")
-      console.log(this.currentAlias)
-  
-      var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
-  
-      this.componenteAssociato = await this.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
-  
-      console.log("this.componenteAssociato:");
-      console.log(this.componenteAssociato);
-  
-      return this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
-    }
-  */
 
 
 
@@ -409,11 +462,11 @@ export class MenuDinamicoService {
     getAliasComponenteAssociatoByPath(path: string) {
       return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetAliasComponenteAssociatoByPath?path=' + path, this.httpOptionsNoResponseType);
     }
-  
-    GetAllInfoFunzioneRuoloById(ruoloId: number) {
-      return this.Http.get<any>(`http://localhost:5143/AmministrazioneRuolo/GetAllInfoFunzioniRuoloById?ruoloId=` + ruoloId)
-    }
-    */
+  */
+  GetAllInfoFunzioneRuoloById(ruoloId: number) {
+    return this.Http.get<any>(`http://localhost:5143/AmministrazioneRuolo/GetAllInfoFunzioniRuoloById?ruoloId=` + ruoloId)
+  }
+
   GetPathEComponenteByRuoloId(ruoloId: number) {
     return this.Http.get<any>(`http://localhost:5143/AliasComponenti/GetPathEComponenteByRuoloId?ruoloId=` + ruoloId)
   }

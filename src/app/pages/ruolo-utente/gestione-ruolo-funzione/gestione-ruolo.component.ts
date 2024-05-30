@@ -28,12 +28,13 @@ componenteMappato: any = "";
 
   constructor(private ruoliService: InsertUtenteService,
     private amministrazioneRuoli: AmministrazioneRuoloService,
-    private menuDinamico: MenuDinamicoService,
+    public menuDinamicoService: MenuDinamicoService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.clearSearch();
-    //this.menuDinamico.caricaComponenteAssociato();
+    this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   // async caricaComponenteAssociato() {
@@ -111,7 +112,8 @@ componenteMappato: any = "";
   modificaRuolo(id: number) {
     this.amministrazioneRuoli.ruoloId$.next(id);
     this.amministrazioneRuoli.ruoloId = id
-    this.router.navigate(['/Segreteria/insert-ruolo-funzione']);
+    this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-funzione']);    
+    // this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
   }
 
   closeForm() {

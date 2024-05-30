@@ -1,34 +1,34 @@
 .mat-input-element:disabled,
 .mat-input-element[disabled] {
-    color: rgba(0, 0, 0, 0.54);
-    background-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 .fields-container {
-    display: flex;
-    flex-direction: column;
-    padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
 }
 
 .page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-  
-  .form-container {
-    width: 60%;
-  }
-  
-  .padding-top {
-    padding-top: 20px; 
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
 
-/*   [disabled] {
-    background-color: grey;
-} */
+.form-container {
+  width: 60%;
+}
+
+.padding-top {
+  padding-top: 20px;
+}
+
+[disabled] {
+  background-color: grey;
+}
 
 .disabled-button {
   cursor: not-allowed;
@@ -48,4 +48,12 @@
 
 .campo-errore {
   border-color: red;
+}
+
+.hover-info {
+  color: #888888;
+}
+
+.mat-form-field:hover .hover-info {
+  display: inline;
 }

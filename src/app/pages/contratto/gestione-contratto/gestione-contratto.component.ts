@@ -123,19 +123,26 @@ export class GestioneContrattoComponent implements OnInit {
 
   ngOnInit(): void {
     this.utenteLoggato = sessionStorage.getItem('SysUser');
-    this.getAllSocieta();    
+    this.getAllSocieta();
+
     this.menuDinamicoService.loadComponentAssociato();
-/*
-    this.menuDinamico.caricaComponenteAssociato().then((data) => {
-      this.finalPath = data;
-      console.log("this.finalPath");
-      console.log(this.finalPath);
-    })
-      .catch((ex) => {
-        console.log(ex);
-      });*/
+
+    // fill listaRuoloFunzioni nell'homepage.component, chiamato subito dopo il login
+    // console.log(this.menuDinamicoService.listaRuoloFunzioni);
+    this.menuDinamicoService.getPermissionFlag();
+    // console.log(this.menuDinamicoService.funzione);
+
+    /*
+        this.menuDinamico.caricaComponenteAssociato().then((data) => {
+          this.finalPath = data;
+          console.log("this.finalPath");
+          console.log(this.finalPath);
+        })
+          .catch((ex) => {
+            console.log(ex);
+          });*/
   }
-  
+
   ricercaFiltrata(name: string | null, surname: string | null, cf: string | null, society: number | null) {
 
     this.inserimentoContrattoService.getAllContrattiBy(name, surname, cf, society).subscribe(

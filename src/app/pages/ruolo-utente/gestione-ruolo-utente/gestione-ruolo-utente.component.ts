@@ -47,6 +47,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     this.caricaRuoli();
 
     this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   // loadComponentAssociato() {
@@ -98,7 +99,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     this.ruoliservice.utenteId$.next(id);
     this.ruoliservice.utenteId = id
     // Cambiare ^ e testare
-    this.router.navigate(['/Segreteria/insert-ruolo-utente']);
+    this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-utente']);
   }
 
   eliminaUtente(Id: number) {

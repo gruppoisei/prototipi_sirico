@@ -3,6 +3,7 @@ import { AmministrazioneRuoloService } from '../../../service/amministrazione-ru
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef, NgZone } from '@angular/core';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-provass',
@@ -23,9 +24,11 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
     private amministrazioneRuolo: AmministrazioneRuoloService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    public menuDinamicoService: MenuDinamicoService
   ) {
     this.ruoloId = this.amministrazioneRuolo.ruoloId;
+    this.menuDinamicoService.getPermissionFlag();
     this.Start();
   }
 
