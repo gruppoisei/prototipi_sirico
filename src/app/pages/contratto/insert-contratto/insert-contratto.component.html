@@ -95,24 +95,34 @@
                         <input matInput [(ngModel)]="formData.codiRalcompenso" type="number" name="RAL" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
                     </mat-form-field>
-                    <mat-form-field class="w-full" floatLabel="auto">
-                        <mat-label>Costo mensile</mat-label>
+                    <mat-form-field *ngIf="mostraCosti" class="w-full" floatLabel="auto" (mouseenter)="showCostiDetails = true" (mouseleave)="showCostiDetails = false">
+                        <mat-label>
+                            Costo mensile
+                            <span class="hover-info" *ngIf="showCostiDetails">(costi relativi al mese {{ costoMese }}/{{ costoAnno }})</span>
+                        </mat-label>
                         <input matInput [(ngModel)]="costoMensile" type="number"
-                            name="Costo mensile" inputmode="numeric"
-                            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="Costo mensile non disponibile">
-                            <mat-error *ngIf="erroreCostoMensile == true">
-                                Non è stato possibile prelevare un dato nello storico dei costi
-                            </mat-error>
+                               name="Costo mensile" inputmode="numeric"
+                               oninput="this.value = this.value.replace(/\D+/g, '')" 
+                               placeholder="Costo mensile non disponibile">
+                        <mat-error *ngIf="erroreCostoMensile">
+                            Non è stato possibile prelevare un dato nello storico dei costi
+                        </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="w-full" floatLabel="auto">
-                        <mat-label>Costo orario</mat-label>
+                    
+                    <mat-form-field *ngIf="mostraCosti" class="w-full" floatLabel="auto" (mouseenter)="showCostiDetails = true" (mouseleave)="showCostiDetails = false">
+                        <mat-label>
+                            Costo orario
+                            <span class="hover-info" *ngIf="showCostiDetails">(costi relativi al mese {{ costoMese }}/{{ costoAnno }})</span>
+                        </mat-label>
                         <input matInput [(ngModel)]="costoOrario" type="number"
-                            name="Costo orario" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')"
-                            placeholder="Costo orario non disponibile">
-                            <mat-error *ngIf="erroreCostoOrario == true">
-                                Non è stato possibile prelevare un dato nello storico dei costi
-                            </mat-error>
+                               name="Costo orario" inputmode="numeric"
+                               oninput="this.value = this.value.replace(/\D+/g, '')" 
+                               placeholder="Costo orario non disponibile">
+                        <mat-error *ngIf="erroreCostoOrario">
+                            Non è stato possibile prelevare un dato nello storico dei costi
+                        </mat-error>
                     </mat-form-field>
+                    
                     <mat-form-field class="w-full" floatLabel="auto">
                         <mat-label>Monteore settimanale</mat-label>
                         <input matInput [(ngModel)]="formData.codiMonteore" type="number" name="Monteore"
