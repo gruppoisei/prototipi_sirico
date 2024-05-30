@@ -204,7 +204,7 @@
         </div>
         <br>
         <div class="flex justify-center padding-10px">
-            <button 
+            <button [disabled]="!menuDinamicoService.funzione.flagModifica"
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center"
                 type="button" (click)="inviaForm()">Salva</button>
             <button

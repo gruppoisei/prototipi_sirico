@@ -4,6 +4,7 @@ import { InsertUtenteService } from '../../../service/insert-utente.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-cerca-persona.component';
 import { Router } from '@angular/router';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-insert-ruolo-utente',
@@ -37,7 +38,8 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
   constructor(
     private utenteService: InsertUtenteService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public menuDinamicoService: MenuDinamicoService
   ) {
     this.utenteId = utenteService.utenteId;
     console.log('this.personaSelezionata.username:');
@@ -81,6 +83,8 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
     } else {
       this.listaRuoliDisponibili = this.AllRuoli;
     }
+
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   ngOnDestroy(): void {

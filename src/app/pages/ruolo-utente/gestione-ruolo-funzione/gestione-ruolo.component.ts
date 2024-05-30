@@ -112,7 +112,8 @@ componenteMappato: any = "";
   modificaRuolo(id: number) {
     this.amministrazioneRuoli.ruoloId$.next(id);
     this.amministrazioneRuoli.ruoloId = id
-    this.router.navigate(['/Segreteria/insert-ruolo-funzione']);
+    this.router.navigate(['/AmministrazioneApplicativo/insert-ruolo-funzione']);    
+    // this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
   }
 
   closeForm() {

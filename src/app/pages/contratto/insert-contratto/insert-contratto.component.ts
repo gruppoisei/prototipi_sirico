@@ -19,6 +19,7 @@ import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-c
 import ValidaPartita from '../../../helpers/validaPartitaIva';
 import { UtilityCostiPersonaleComponent } from '../../utility-costi-personale/utility-costi-personale.component';
 import { UtilityCostiPersonaleService } from '../../../service/utility-costi-personale.service';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-insert-contratto',
@@ -116,7 +117,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private builder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
-    private utilityCostiService: UtilityCostiPersonaleService
+    private utilityCostiService: UtilityCostiPersonaleService,
+    public menuDinamicoService: MenuDinamicoService
   ) {
     this.meseCorrente = new Date().getMonth() + 1;
     this.annoCorrente = new Date().getFullYear();
@@ -207,6 +209,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.distaccoEsiste(this.formData.personaId);
     
     this.disable_fields = true;
+
+    this.menuDinamicoService.getPermissionFlag();
   }
   
   distaccoEsiste(idPerosna: number | null) {
