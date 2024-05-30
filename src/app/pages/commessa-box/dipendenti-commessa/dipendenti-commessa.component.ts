@@ -359,7 +359,14 @@ convertiMomentInDate(momentObject: moment.Moment | string): Date | null {
     this.startDate[id] = input.value;
   }
 
-  
+  isDataInizioMaggioreDiDataFine():boolean{
+    for(const cps of this.listaPersone){
+      if(cps.dataInizio > cps.dataFine){
+        return true;
+      }
+    }
+    return false;
+  }
 
   formattingDate(date: Date | null | string): string | null {
     if (!date) {
