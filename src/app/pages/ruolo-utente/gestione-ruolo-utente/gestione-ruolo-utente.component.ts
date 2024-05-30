@@ -47,6 +47,7 @@ export class GestioneRuoloUtenteComponent implements OnInit {
     this.caricaRuoli();
 
     this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   // loadComponentAssociato() {

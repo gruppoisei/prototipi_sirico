@@ -32,6 +32,7 @@ export class GestioneDipendenteComponent implements OnInit{
       AnsoRagionesociale: ['']
     })
     this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
     setTitoloModificaDipendente()
     {

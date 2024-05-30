@@ -64,41 +64,13 @@ export class GestioneClienteComponent {
         console.log(ex);
       });
 */
-// // DA METTERE IN UNA FUNZIONE DEL SERVICE OVVIAMENTE
-
-//     // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
-//     // console.log(this.menuDinamico.listaRuoloFunzioni.listaFunzioni);
-
-//     this.listaFunzioni = this.menuDinamicoService.listaRuoloFunzioni.listaFunzioni;
-
-//     // console.log("this.router.url")
-//     // console.log(this.router.url)
-
-//     this.currentAlias = this.router.url.replaceAll('%20', ' ');
-
-//     // console.log("this.currentAlias")
-//     // console.log(this.currentAlias)
-
-//     var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
-
-//     for (let i = 0; i < this.listaFunzioni.length; i++) {
-//       // console.log(this.listaFunzioni[i]);
-//       if (this.listaFunzioni[i].nomeFunzione == lastAlias) {
-//         this.funzione = this.listaFunzioni[i];
-//         break;
-//       }
-
-//     }
-
-//     // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
-//     // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
-
-//     // console.log("funzione.flagCreazione")
-//     // console.log(this.funzione.flagCreazione)
-// //
 
     this.menuDinamicoService.loadComponentAssociato();
-    this.menuDinamicoService.loadFlagsAssociate();
+
+    // fill listaRuoloFunzioni nell'homepage.component, chiamato subito dopo il login
+    // console.log(this.menuDinamicoService.listaRuoloFunzioni);
+    this.menuDinamicoService.getPermissionFlag();  
+    // console.log(this.menuDinamicoService.funzione);
   }
 
   

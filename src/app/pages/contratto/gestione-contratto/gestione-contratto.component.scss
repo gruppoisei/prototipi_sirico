@@ -112,6 +112,10 @@ button[type="submit"] {
     }
 }
 
+[disabled] {
+    background-color: grey;
+}
+
 /*
 .buttons {
     display: inline-block;

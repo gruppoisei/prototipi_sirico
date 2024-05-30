@@ -34,6 +34,7 @@ componenteMappato: any = "";
   ngOnInit(): void {
     this.clearSearch();
     this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   // async caricaComponenteAssociato() {
