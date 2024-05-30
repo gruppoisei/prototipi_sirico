@@ -19,8 +19,8 @@ export class MenuDinamicoService {
 
   // permessi e flag
   listaRuoloFunzioni: any;
-  funzione: any;
-  // funzione = { flagLettura: true, flagCreazione: true, flagModifica: true, flagCancellazione: true };
+  // funzione: any;
+  funzione = { flagLettura: true, flagCreazione: true, flagModifica: true, flagCancellazione: true };
 
   homePagePath = "";
 
