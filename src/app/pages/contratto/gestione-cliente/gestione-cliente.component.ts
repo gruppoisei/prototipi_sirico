@@ -86,7 +86,7 @@ export class GestioneClienteComponent {
     // this.idCliente = Idcliente;
     // this.clienteService.getClienteById(this.idCliente)
     this.clienteService.idCliente$.next(Idcliente);
-    this.router.navigate(['/Segreteria/insert-cliente']);
+    this.router.navigate(['/Risorse-umane/insert-cliente']);
   }
 
 

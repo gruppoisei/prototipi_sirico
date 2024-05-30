@@ -14,6 +14,7 @@ import { PersonaService } from '../../service/persona.service';
 import { DocumentiService } from '../../service/documenti.service';
 import FormattaData from '../../helpers/formattaData';
 import { Router } from '@angular/router';
+import { MenuDinamicoService } from '../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-insert-persona',
@@ -61,7 +62,8 @@ constructor
   private serviceRegione: RegioneService, private servicePaese: PaesiService,
   private serviceSocieta:SocietaService,private serviceProvince: ProvinceService,
   private serviceComune:ComuniService, private serviceDocumenti: DocumentiService,
-  private changeDetector: ChangeDetectorRef
+  private changeDetector: ChangeDetectorRef,
+  public menuDinamicoService: MenuDinamicoService
 )
 
 {
@@ -153,6 +155,8 @@ constructor
       });
       
       this.loadListe()
+
+      this.menuDinamicoService.getPermissionFlag();
   }
 
   loadListe(): void

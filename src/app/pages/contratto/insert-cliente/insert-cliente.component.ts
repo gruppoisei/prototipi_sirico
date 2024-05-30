@@ -5,6 +5,7 @@ import { clienteSocieta } from '../../../dto/response/nuovoCliente';
 import { ClienteService } from '../../../service/cliente.service';
 import { Router } from '@angular/router';
 import { maxNumberValidator, minNumberValidator, onlyNumbersValidator } from '../../../ui/formComponent/handler-form-custom-error/handler-form-custom-error.component';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-insert-cliente',
@@ -63,13 +64,16 @@ export class InsertClienteComponent {
     private fg: FormBuilder,
     private location: Location,
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    public menuDinamicoService: MenuDinamicoService
   ) {
 
 
     this.clienteService.idCliente$.value !== undefined ? this.getClienteById() : null;
 
     this.titolo = this.clienteService.getTitolo();
+
+    this.menuDinamicoService.getPermissionFlag();
 
   }
 

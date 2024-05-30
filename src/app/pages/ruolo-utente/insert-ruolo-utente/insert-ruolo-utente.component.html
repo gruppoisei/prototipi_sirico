@@ -122,14 +122,14 @@
   </div>
 
   <div class="flex flex-row justify-end w-5/6 mt-20">
-    <button [disabled]="listaRuoliAssegnati.length == 0 || 
+    <button [disabled]="!menuDinamicoService.funzione.flagModifica || listaRuoliAssegnati.length == 0 || 
     (personaSelezionata.anpeCodicefiscale == null || personaSelezionata.anpeNome == null || personaSelezionata.anpeCognome == null) ||
     (utenteDaAggiungere.username == '' || utenteDaAggiungere.username == null) " *ngIf="utenteId == null"
       (click)="InserisciNuovoUtente()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Crea Utente
     </button>
-    <button *ngIf="utenteId != null" (click)="AggiornaRuoliUtente()"
+    <button [disabled]="!menuDinamicoService.funzione.flagModifica" *ngIf="utenteId != null" (click)="AggiornaRuoliUtente()"
       class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
       Aggiorna Ruoli
     </button>
