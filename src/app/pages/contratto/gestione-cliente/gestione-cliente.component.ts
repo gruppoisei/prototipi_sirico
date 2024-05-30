@@ -33,7 +33,7 @@ export class GestioneClienteComponent {
 
   constructor(private fb: FormBuilder,
     private clienteService: ClienteService,
-    public menuDinamico: MenuDinamicoService,
+    public menuDinamicoService: MenuDinamicoService,
     private dialog: MatDialog,
     private router: Router
   ) { }
@@ -54,6 +54,7 @@ export class GestioneClienteComponent {
 
     // this.finalPath = this.menuDinamico.getPathMenu();
 
+    /*
     this.menuDinamico.caricaComponenteAssociato().then((data) => {
       this.finalPath = data;
       console.log("this.finalPath gestione cliente");
@@ -62,66 +63,45 @@ export class GestioneClienteComponent {
       .catch((ex) => {
         console.log(ex);
       });
+*/
+// // DA METTERE IN UNA FUNZIONE DEL SERVICE OVVIAMENTE
 
-    // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
-    // console.log(this.menuDinamico.listaRuoloFunzioni.listaFunzioni);
+//     // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
+//     // console.log(this.menuDinamico.listaRuoloFunzioni.listaFunzioni);
 
-    this.listaFunzioni = this.menuDinamico.listaRuoloFunzioni.listaFunzioni;
+//     this.listaFunzioni = this.menuDinamicoService.listaRuoloFunzioni.listaFunzioni;
 
-    // console.log("this.router.url")
-    // console.log(this.router.url)
+//     // console.log("this.router.url")
+//     // console.log(this.router.url)
 
-    this.currentAlias = this.router.url.replaceAll('%20', ' ');
+//     this.currentAlias = this.router.url.replaceAll('%20', ' ');
 
-    // console.log("this.currentAlias")
-    // console.log(this.currentAlias)
+//     // console.log("this.currentAlias")
+//     // console.log(this.currentAlias)
 
-    var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+//     var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
 
-    for (let i = 0; i < this.listaFunzioni.length; i++) {
-      // console.log(this.listaFunzioni[i]);
-      if (this.listaFunzioni[i].nomeFunzione == lastAlias) {
-        this.funzione = this.listaFunzioni[i];        
-        break;
-      }
+//     for (let i = 0; i < this.listaFunzioni.length; i++) {
+//       // console.log(this.listaFunzioni[i]);
+//       if (this.listaFunzioni[i].nomeFunzione == lastAlias) {
+//         this.funzione = this.listaFunzioni[i];
+//         break;
+//       }
 
-    }
+//     }
 
-    // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
-    // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
+//     // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
+//     // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
 
-    // console.log("funzione.flagCreazione")
-    // console.log(this.funzione.flagCreazione)
+//     // console.log("funzione.flagCreazione")
+//     // console.log(this.funzione.flagCreazione)
+// //
+
+    this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.loadFlagsAssociate();
   }
 
-
-
-  // async caricaComponenteAssociato() {
-
-  //   console.log("this.router.url")
-  //   console.log(this.router.url)
-
-  //   this.currentAlias = this.router.url.replaceAll('%20',' ');
-
-  //   console.log("this.currentAlias")
-  //   console.log(this.currentAlias)
-
-  //   var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
-
-  //   // this.componenteAssociato = await this.amministrazioneRuoloService.getAliasComponenteAssociatoByPath(this.router.url.slice(1)).toPromise();
-  //   this.componenteAssociato = await this.menuDinamico.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
-
-  //   console.log("this.componenteAssociato:");
-  //   console.log(this.componenteAssociato);
-
-  //   this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
-
-  //   console.log("this.finalPath");
-  //   console.log(this.finalPath);
-
-  // }
-
-
+  
   setTitoloModificaCliente() {
     this.clienteService.setTitolo('Modifica cliente')
   }

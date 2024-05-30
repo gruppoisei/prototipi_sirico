@@ -1,7 +1,7 @@
 import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
-import { AppRoutingModule, listaComponenti } from '../app-routing.module';
+import { AppRoutingModule, listaFunzioneComponente, listaAliasComponente } from '../app-routing.module';
 import { AuthenticationService } from '../service/authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -17,7 +17,9 @@ export class MenuDinamicoService {
     })
   };
 
+  // permessi e flag
   listaRuoloFunzioni: any;
+  funzione: any;
 
   homePagePath = "";
 
@@ -33,26 +35,23 @@ export class MenuDinamicoService {
   // lista di partenza
   listaFunzioniComponenti: any[] = [];
 
+
   // liste intermedie
   listaFunzioniPadre: any[] = [];
   listaFunzioniNonPadre: any[] = [];
-  // listaFunzioniChildren: { path: string, component: string }[] = []
   listaFunzioniChildren: any[] = []
 
   // liste finali distinte
   listaFunzioniAutonome: any[] = []
-  //listaFunzioniAutonome: { path: string, component: string }[] = []
   listaFunzioniPadreConFigli: { path: string, children: { path: string, component: string }[] }[] = []
 
   // lista finale
   listaSupportoOrdinamentoFunzioniAutonome: any[] = []
-  // listaSupportoOrdinamentoFunzioniAutonome: { path: string, component: string }[] = []
   listaFunzioniFinaleMenu: any[] = ['']
 
   // lista di supporto al caricamento dei componenti associati, quelli non raggiungibili direttamente ma vincolati ad altri
-  //componentiAssociati: number[] = [];
-  pathPadreEFunzionalitaAssociata: { pathPadre: string, funzionalitaAssociata: number }[] = [];
-  listaCaricamentoComponentiAssociati: any[] = [];
+  // pathPadreEFunzionalitaAssociata: { pathPadre: string, funzionalitaAssociata: number }[] = [];
+  // listaCaricamentoComponentiAssociati: any[] = [];
 
 
   constructor(
@@ -72,8 +71,9 @@ export class MenuDinamicoService {
     console.log(this.auth.utente?.idRuolo);
     //this.changeDetectorRef.detectChanges();
 
-
     this.getFunzioniComponenti(this.auth.utente!.idRuolo);
+
+
   }
 
 
@@ -92,22 +92,12 @@ export class MenuDinamicoService {
   }
 
   async getFunzioniComponenti(idRuolo: number) {
-    console.log("idRuolo in getFunzioniComponenti()");
-    console.log(idRuolo);
+    // console.log("idRuolo in getFunzioniComponenti()");
+    // console.log(idRuolo);
 
-    this.GetAllInfoFunzioneRuoloById(idRuolo).subscribe((response) => {
-      this.listaRuoloFunzioni = response
-        // console.log("this.listaRuoloFunzioni")
-        // console.log(this.listaRuoloFunzioni)
-    });
+    this.listaFunzioniComponenti = await this.GetPathEComponenteByRuoloId(idRuolo).toPromise();
 
-
-
-    this.listaFunzioniComponenti = await firstValueFrom(
-      // this.amministrazioneRuolo.GetAllFunzioniComponenteByIdRuolo(this.idRuolo)
-      this.GetAllFunzioniComponenteByIdRuolo(idRuolo)
-    );
-
+    // ordino la lista ricevuta secondo l'indice menu
     this.listaFunzioniComponenti.sort((a, b) => a.indicemenu > b.indicemenu ? 1 : -1);
 
     console.log("this.listaFunzioniComponenti ordinata");
@@ -115,19 +105,11 @@ export class MenuDinamicoService {
 
     // resetto il contenuto dell'array menu finale
     this.listaFunzioniFinaleMenu = [];
+    this.listaFunzioniChildren = [];
 
     for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
-      // verifico se hanno una funzionalita associata
-      if (this.listaFunzioniComponenti[i].funzionalitaAssociata != null) {
-
-        this.pathPadreEFunzionalitaAssociata.push({
-          pathPadre: this.listaFunzioniComponenti[i].aliasComponente,
-          funzionalitaAssociata: this.listaFunzioniComponenti[i].funzionalitaAssociata
-        });
-      }
-
-      // verifico se appartengono alla voce di menu o no
+      // verifico se appartengono alla voce di menu o no (menu = padre)
       if (this.listaFunzioniComponenti[i].menu == true) {
         this.listaFunzioniPadre.push(this.listaFunzioniComponenti[i]);
       }
@@ -136,20 +118,27 @@ export class MenuDinamicoService {
       }
     }
 
+    // console.log("this.listaFunzioniPadre");
+    // console.log(this.listaFunzioniPadre);
+    // console.log("this.listaFunzioniNonPadre");
+    // console.log(this.listaFunzioniNonPadre);
+
     // caso figli senza padre (funzioni autonome)
     for (let i = 0; i < this.listaFunzioniNonPadre.length; i++) {
 
       if (this.listaFunzioniNonPadre[i].menuPadre == 0) {
         let newEl = {
-          path: this.listaFunzioniNonPadre[i].aliasComponente,
-          component: listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+          path: this.listaFunzioniNonPadre[i].pathDescrizione,
+          component: listaFunzioneComponente.find(componente => componente.idComponente == this.listaFunzioniNonPadre[i].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
         }
         this.listaFunzioniAutonome.push(newEl)
       }
-
     }
 
-    // caso padre con figli o padre senza figli
+    // console.log("this.listaFunzioniAutonome");
+    // console.log(this.listaFunzioniAutonome);
+
+    // caso padre con o senza figli
     for (let i = 0; i < this.listaFunzioniPadre.length; i++) {
 
       var check = false;
@@ -158,18 +147,23 @@ export class MenuDinamicoService {
 
         if (this.listaFunzioniPadre[i].fkFunzioniId == this.listaFunzioniNonPadre[l].menuPadre) {
           let newEl = {
-            path: this.listaFunzioniNonPadre[l].aliasComponente,
-            component: listaComponenti.find(componente => componente.idComponente == this.listaFunzioniNonPadre[l].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+            path: /*this.listaFunzioniPadre[i].pathDescrizione + '/' +*/ this.listaFunzioniNonPadre[l].pathDescrizione,
+            component: listaFunzioneComponente.find(componente => componente.idComponente == this.listaFunzioniNonPadre[l].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
           }
           this.listaFunzioniChildren.push(newEl);
           check = true;
         }
       }
 
+      // console.log("this.listaFunzioniChildren | i");
+      // console.log(this.listaFunzioniChildren, ' | ', i);
+
       // caso padre con figli
       if (check == true) {
+        this.listaFunzioniChildren.sort((a, b) => a.path > b.indicemenu ? 1 : -1);
+
         this.listaFunzioniPadreConFigli.push({
-          path: this.listaFunzioniPadre[i].aliasComponente,
+          path: this.listaFunzioniPadre[i].pathDescrizione,
           children: this.listaFunzioniChildren
         })
         check = false;
@@ -179,8 +173,8 @@ export class MenuDinamicoService {
       // caso padre senza figli (funzione autonoma)
       else if (check == false) {
         let newEl = {
-          path: this.listaFunzioniPadre[i].aliasComponente,
-          component: listaComponenti.find(componente => componente.idComponente == this.listaFunzioniPadre[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+          path: this.listaFunzioniPadre[i].pathDescrizione,
+          component: listaFunzioneComponente.find(componente => componente.idComponente == this.listaFunzioniPadre[i].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
         }
         this.listaFunzioniAutonome.push(newEl)
         check = false;
@@ -188,73 +182,90 @@ export class MenuDinamicoService {
 
     }
 
-    // ordino l'array
+    // console.log("this.listaFunzioniPadreConFigli");
+    // console.log(this.listaFunzioniPadreConFigli);
+
+    // console.log("this.listaFunzioniAutonome");
+    // console.log(this.listaFunzioniAutonome);
+
+    // ordino l'array delle voci di menu; alla fine pusho le funzioni autonome
     this.sortArray();
+
+    // console.log("this.listaSupportoOrdinamentoFunzioniAutonome");
+    // console.log(this.listaSupportoOrdinamentoFunzioniAutonome);
 
     // aggiungo le funzioni autonome (flag voce menu = false, indice menu = 0)
     for (let i = 0; i < this.listaSupportoOrdinamentoFunzioniAutonome.length; i++) {
 
       let newEl = {
         path: this.listaSupportoOrdinamentoFunzioniAutonome[i].path,
-        component: listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+        component: listaFunzioneComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.pathDescrizione == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
       }
       this.listaFunzioniFinaleMenu.push(newEl);
-
     }
 
     // limito la stampa delle voci di menu escludendo i componenti associati
     // e tenendo conto del componente aggiuntivo home, impostato dopo di default (length + 1)
     this.limiteVociMenu = this.listaFunzioniFinaleMenu.length + 1;
-    console.log(this.limiteVociMenu);
-    console.log(this.limiteVociMenu);
+    // console.log("this.limiteVociMenu");
+    // console.log(this.limiteVociMenu);
 
-    // recupero componenti associati
-    // for (let i = 0; i < this.componentiAssociati.length; i++) {
-    for (let i = 0; i < this.pathPadreEFunzionalitaAssociata.length; i++) {
+    // recupero e mappo i componenti associati
+    for (let i = 0; i < this.listaFunzioniComponenti.length; i++) {
 
-      //const response = await this.amministrazioneRuolo.getComponenteByFunzionalitaAssociata(this.componentiAssociati[i]).toPromise();
-      var response = await this.getComponenteByFunzionalitaAssociata(this.pathPadreEFunzionalitaAssociata[i].funzionalitaAssociata).toPromise();
-      response.pathDescrizione = this.pathPadreEFunzionalitaAssociata[i].pathPadre + '/' + response.pathDescrizione
-      //this.listaCaricamentoComponentiAssociati.push(response);
-      this.listaCaricamentoComponentiAssociati.push(response);
-    }
+      const check = false;
 
-    console.log("this.listaCaricamentoComponentiAssociati");
-    console.log(this.listaCaricamentoComponentiAssociati);
+      if (this.listaFunzioniComponenti[i].aliasAssociato != null && this.listaFunzioniComponenti[i].componenteAliasAssociato != null) {
 
-    // console.log("this.listaFunzioniFinaleMenu");
-    // console.log(this.listaFunzioniFinaleMenu);
+        for (let l = 0; l < this.listaFunzioniFinaleMenu.length; l++) {
 
-    // inserisco i componenti associati alla fine della lista funzioni finale menu
-    for (let i = 0; i < this.listaCaricamentoComponentiAssociati.length; i++) {
+          // pusho nell'array finale i path collegati direttamente alla voce di menu
+          if (this.listaFunzioniFinaleMenu[l].path == this.listaFunzioniComponenti[i].pathDescrizione) {
 
-      for (let l = 0; l < this.listaFunzioniFinaleMenu.length; l++)
+            let newEl = {
+              path: this.listaFunzioniFinaleMenu[l].path + '/' + this.listaFunzioniComponenti[i].aliasAssociato,
+              // component: listaAliasComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.pathDescrizione == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+              component: listaAliasComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti[i].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+            }
+            this.listaFunzioniFinaleMenu.push(newEl);
+          }
 
-        if (this.listaFunzioniFinaleMenu[l]['children']) {
+          // pusho nell'array finale i path collegati a un children di una delle voci di menu
+          else {
 
-          for (let j = 0; j < this.listaFunzioniFinaleMenu[l].children.length; j++) {
+            if (this.listaFunzioniFinaleMenu[l]['children']) {
 
-            if (this.listaFunzioniFinaleMenu[l].children[j].path == this.listaCaricamentoComponentiAssociati[i].pathDescrizione.split('/')[0]) {
+              for (let m = 0; m < this.listaFunzioniFinaleMenu[l].children.length; m++) {
 
-              this.listaCaricamentoComponentiAssociati[i].pathDescrizione = this.listaFunzioniFinaleMenu[l].path + '/' + this.listaCaricamentoComponentiAssociati[i].pathDescrizione
+                if (this.listaFunzioniFinaleMenu[l].children[m].path == this.listaFunzioniComponenti[i].pathDescrizione) {
+
+                  // console.log("this.listaFunzioniComponenti[i].fkFunzioniId");
+                  // console.log(this.listaFunzioniComponenti[i].fkFunzioniId);
+
+                  let newEl = {
+                    path: this.listaFunzioniFinaleMenu[l].children[m].path + '/' + this.listaFunzioniComponenti[i].aliasAssociato,
+                    // component: listaAliasComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.pathDescrizione == this.listaSupportoOrdinamentoFunzioniAutonome[i].path).fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+                    component: listaAliasComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti[i].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+                  }
+                  this.listaFunzioniFinaleMenu.push(newEl);
+                }
+
+              }
             }
 
           }
+
+
+
         }
-
-
-      let newEl = {
-        path: this.listaCaricamentoComponentiAssociati[i].pathDescrizione,
-        component: listaComponenti.find(componente => componente.idComponente == this.listaCaricamentoComponentiAssociati[i].idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
       }
-      this.listaFunzioniFinaleMenu.push(newEl);
+
     }
-    console.log("this.homePagePath")
-    console.log(this.homePagePath)
+
     // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
     this.listaFunzioniFinaleMenu.unshift({
       path: this.homePagePath,
-      component: listaComponenti.find(funzione => funzione.idComponente == 0)?.component
+      component: listaFunzioneComponente.find(funzione => funzione.idComponente == 0)?.component
     });
 
     console.log("this.listaFunzioniFinaleMenu");
@@ -263,10 +274,10 @@ export class MenuDinamicoService {
     // creo la nuova route
     this.router.resetConfig(this.listaFunzioniFinaleMenu);
 
-
-
     console.log("this.router");
     console.log(this.router);
+
+
   }
 
 
@@ -279,7 +290,7 @@ export class MenuDinamicoService {
         // ciclo this.listaFunzioniPadreConFigli e verifico se presente;
         for (let l = 0; l < this.listaFunzioniPadreConFigli.length; l++) {
 
-          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniPadreConFigli[l].path) {
+          if (this.listaFunzioniComponenti[i].pathDescrizione == this.listaFunzioniPadreConFigli[l].path) {
             this.listaFunzioniFinaleMenu.push(this.listaFunzioniPadreConFigli[l]);
             break;
           }
@@ -289,7 +300,7 @@ export class MenuDinamicoService {
         // ciclo this.listaFunzioniAutonome e verifico se presente
         for (let l = 0; l < this.listaFunzioniAutonome.length; l++) {
 
-          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
+          if (this.listaFunzioniComponenti[i].pathDescrizione == this.listaFunzioniAutonome[l].path) {
             this.listaFunzioniFinaleMenu.push(this.listaFunzioniAutonome[l]);
             break;
           }
@@ -297,14 +308,15 @@ export class MenuDinamicoService {
         }
 
       }
+
       else {
 
         for (let l = 0; l < this.listaFunzioniAutonome.length; l++) {
 
-          if (this.listaFunzioniComponenti[i].aliasComponente == this.listaFunzioniAutonome[l].path) {
+          if (this.listaFunzioniComponenti[i].pathDescrizione == this.listaFunzioniAutonome[l].path) {
             let newEl = {
               path: this.listaFunzioniAutonome[l].path,
-              component: listaComponenti.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.aliasComponente == this.listaFunzioniAutonome[l].path).idComponente)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
+              component: listaFunzioneComponente.find(componente => componente.idComponente == this.listaFunzioniComponenti.find(funzione => funzione.pathDescrizione == this.listaFunzioniAutonome[l].path).fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
             }
             this.listaSupportoOrdinamentoFunzioniAutonome.push(newEl);
             break;
@@ -314,15 +326,82 @@ export class MenuDinamicoService {
 
       }
 
+
     }
 
+
+
   }
 
 
-  routerPrint() {
-    console.log('router:');
-    console.log(this.router);
+  loadComponentAssociato() {
+    console.log("this.router.url")
+    console.log(this.router.url)
+
+    const currentAlias = this.router.url.replaceAll('%20', ' ');
+
+    console.log("this.currentAlias")
+    console.log(currentAlias)
+
+    var lastAlias = currentAlias.substring(currentAlias.lastIndexOf("/") + 1, currentAlias.length);
+
+    console.log("lastAlias");
+    console.log(lastAlias);
+
+    // ciclo listafunzionifinale nei children per vedere se matcho;
+    for (let i = this.limiteVociMenu; i < this.listaFunzioniFinaleMenu.length; i++) {
+
+      if (this.listaFunzioniFinaleMenu[i].path.includes(lastAlias)) {
+        console.log(this.listaFunzioniFinaleMenu[i]);
+        this.finalPath = this.listaFunzioniFinaleMenu[i].path
+      }
+
+    }
+
+    console.log("this.finalPath");
+    console.log(this.finalPath);
   }
+
+  async loadFlagsAssociate() {
+
+    console.log("this.auth.utente!.idRuolo");
+    console.log(this.auth.utente!.idRuolo);
+
+    this.listaRuoloFunzioni = await this.GetAllInfoFunzioneRuoloById(this.auth.utente!.idRuolo).toPromise()
+
+    
+        console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
+        console.log(this.listaRuoloFunzioni.listaFunzioni);
+
+
+        console.log("this.router.url")
+        console.log(this.router.url)
+
+        this.currentAlias = this.router.url.replaceAll('%20', ' ');
+
+        console.log("this.currentAlias")
+        console.log(this.currentAlias)
+
+        var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
+
+        for (let i = 0; i < this.listaRuoloFunzioni.listaFunzioni.length; i++) {
+          // console.log(this.listaFunzioni[i]);
+          if (this.listaRuoloFunzioni.listaFunzioni[i].nomeFunzione == lastAlias) {
+            this.funzione = this.listaRuoloFunzioni.listaFunzioni[i];
+            break;
+          }
+
+        }
+
+        // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
+        // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
+
+        console.log("funzione.flagCreazione")
+        console.log(this.funzione.flagCreazione)
+    //
+  }
+
+
 
   // getPathMenu(): string {
   //   this.caricaComponenteAssociato().then((data) => {
@@ -338,40 +417,28 @@ export class MenuDinamicoService {
   // }
 
 
-  async caricaComponenteAssociato(): Promise<string> {
 
-    console.log("this.router.url")
-    console.log(this.router.url)
-
-    this.currentAlias = this.router.url.replaceAll('%20', ' ');
-
-    console.log("this.currentAlias")
-    console.log(this.currentAlias)
-
-    var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
-
-    this.componenteAssociato = await this.getAliasComponenteAssociatoByPath(lastAlias).toPromise();
-
-    console.log("this.componenteAssociato:");
-    console.log(this.componenteAssociato);
-
-    return this.finalPath = this.currentAlias + '/' + this.componenteAssociato.pathDescrizione;
-  }
-
-  GetAllFunzioniComponenteByIdRuolo(ruoloId: number) {
-    return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetPathEAliasComponenteByRuoloId?RuoloId=' + ruoloId)
-  }
-
-  getComponenteByFunzionalitaAssociata(funzionalitaAssociata: number) {
-    return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetComponenteByFunzionalitaAssociata?funzionalitaAssociata=' + funzionalitaAssociata)
-  }
-
-  getAliasComponenteAssociatoByPath(path: string) {
-    return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetAliasComponenteAssociatoByPath?path=' + path, this.httpOptionsNoResponseType);
-  }
-
+  /*
+    GetAllFunzioniComponenteByIdRuolo(ruoloId: number) {
+      return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetPathEAliasComponenteByRuoloId?RuoloId=' + ruoloId)
+    }
+  
+    getComponenteByFunzionalitaAssociata(funzionalitaAssociata: number) {
+      return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetComponenteByFunzionalitaAssociata?funzionalitaAssociata=' + funzionalitaAssociata)
+    }
+  
+    getAliasComponenteAssociatoByPath(path: string) {
+      return this.Http.get<any>('http://localhost:5143/AliasComponenti/GetAliasComponenteAssociatoByPath?path=' + path, this.httpOptionsNoResponseType);
+    }
+  */
   GetAllInfoFunzioneRuoloById(ruoloId: number) {
     return this.Http.get<any>(`http://localhost:5143/AmministrazioneRuolo/GetAllInfoFunzioniRuoloById?ruoloId=` + ruoloId)
   }
+
+  GetPathEComponenteByRuoloId(ruoloId: number) {
+    return this.Http.get<any>(`http://localhost:5143/AliasComponenti/GetPathEComponenteByRuoloId?ruoloId=` + ruoloId)
+  }
+
+
 
 }

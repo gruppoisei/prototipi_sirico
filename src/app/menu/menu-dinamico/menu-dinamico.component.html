@@ -47,11 +47,15 @@
                     <div class="flex justify-center items-center">
                         <!-- <a routerLink="Account/login" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium" routerLinkActive ="bg-gray-900">Login</a> -->
 
-                        <div class="flex flex-shrink-0 items-center">
+                        <!-- <div class="flex flex-shrink-0 items-center">
                             <a routerLink="{{'/'+menuDinamico.homePagePath}}"><img class="w-auto h-auto"
                                     src="\assets\SCOD_Logo_Little.png" alt="SCOD 2"></a>
-                        </div>
-                        
+                        </div> -->
+
+                        <a (click)="logout()"
+                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">Logout</a>
+
+
                         <div *ngFor="let funzione of menuDinamico.listaFunzioniFinaleMenu; index as i" class="ml-4">
                             <!-- <a class="text-white">{{menuDinamico.limiteVociMenu}}</a> 
                              -->
@@ -59,19 +63,22 @@
                             <div *ngIf="i < menuDinamico.limiteVociMenu">
 
                                 <!-- considero il primo elemento il componente HOME -->
-                                <!-- <div *ngIf="i == 0">
+                                <div *ngIf="i == 0">
                                     <div class="flex flex-shrink-0 items-center">
                                         <a routerLink="{{'/'+menuDinamico.homePagePath}}"><img class="w-auto h-auto"
                                                 src="\assets\SCOD_Logo_Little.png" alt="SCOD 2"></a>
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <!-- considero dal secondo elemento gli altri componenti -->
                                 <div *ngIf="i != 0">
                                     <div *ngIf="!funzione['children'] ">
-                                        <button routerLink="{{ '/' + funzione.path }}"
+                                        <button routerLink="{{'/'+funzione.path }}"
                                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer"
-                                            routerLinkActive="bg-gray-900">{{ funzione.path }}</button>
+                                            routerLinkActive="bg-gray-900">
+                                            <!-- {{ funzione.path.split('/')[0] }} -->
+                                            {{ funzione.path }}
+                                        </button>
                                     </div>
 
                                     <div *ngIf="funzione['children']">
@@ -84,8 +91,10 @@
                                                 <div *ngFor="let child of funzione.children" class="mt-1 mb-1">
                                                     <a routerLink="{{ '/' + funzione.path + '/' + child.path }}"
                                                         cdkMenuItem
-                                                        class=" hover:bg-gray-700 text-gray-300 rounded-md px-4 mx-2 py-1 ">{{
-                                                        child.path }}</a>
+                                                        class=" hover:bg-gray-700 text-gray-300 rounded-md px-4 mx-2 py-1 ">
+                                                        <!-- {{ child.path.split('/')[1] }} -->
+                                                        {{ child.path }}
+                                                    </a>
                                                     <br>
                                                 </div>
                                             </div>
@@ -96,10 +105,11 @@
                             </div>
 
                         </div>
-                        <div *ngIf="menuDinamico.limiteVociMenu != 0 && menuDinamico.limiteVociMenu != null && menuDinamico.limiteVociMenu != undefined && menuDinamico.limiteVociMenu != '' ">
+                        <div
+                            *ngIf="menuDinamico.limiteVociMenu != 0 && menuDinamico.limiteVociMenu != null && menuDinamico.limiteVociMenu != undefined && menuDinamico.limiteVociMenu != '' ">
                             <a (click)="logout()"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 text-sm font-medium cursor-pointer">Logout</a>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>

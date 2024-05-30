@@ -28,12 +28,12 @@ componenteMappato: any = "";
 
   constructor(private ruoliService: InsertUtenteService,
     private amministrazioneRuoli: AmministrazioneRuoloService,
-    private menuDinamico: MenuDinamicoService,
+    public menuDinamicoService: MenuDinamicoService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.clearSearch();
-    this.menuDinamico.caricaComponenteAssociato();
+    this.menuDinamicoService.loadComponentAssociato();
   }
 
   // async caricaComponenteAssociato() {

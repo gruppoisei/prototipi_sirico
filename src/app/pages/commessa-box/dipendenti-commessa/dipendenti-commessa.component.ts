@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatCalendar, MatDatepicker} from '@angular/material/datepicker';
 import { PersonaService } from '../../../service/persona.service';
@@ -12,8 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
 import ValidateForm from '../../../helpers/validateform';
 import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
-import { min } from 'moment';
 import { distinctUntilChanged } from 'rxjs';
+import { Router } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-dipendenti-commessa',
@@ -26,6 +27,7 @@ import { distinctUntilChanged } from 'rxjs';
 })
 export class DipendentiCommessaComponent implements OnInit, OnDestroy {
 
+  titolo: string;
   pickerRequired: MatDatepicker<any> | MatCalendar<any> | undefined;
   assegnaCommessaForm!: FormGroup;
   commper : boolean = false
@@ -43,7 +45,6 @@ export class DipendentiCommessaComponent implements OnInit, OnDestroy {
   commessaPersona : commessaPersona[] = []
   _commessaPersona : commessaPersona[] = []
   listaPersone : any[] = []
-  _listaPersone : any[] = []
 
   currentPage: number = 1;
   elementiPerPagina: number = 10;
@@ -53,9 +54,22 @@ export class DipendentiCommessaComponent implements OnInit, OnDestroy {
   _totalPages : number = 0;
   formDefaultValue: any;
   startDate:{[key: number]: string | null} = {};
+
   
-constructor(private fb : FormBuilder, private personaService : PersonaService, private commessaService : CommessaService, private location : Location, private dialog : MatDialog){
-}
+constructor
+(
+  private fb : FormBuilder, private personaService : PersonaService,
+  private commessaService : CommessaService, private location : Location,
+  private dialog : MatDialog
+)
+  {
+    const router = inject(Router)
+    this.titolo = this.commessaService.getTitolo();
+    if(this.titolo === '')
+      {
+        router.navigate(['/Segreteria/gestione-assegnazione-commessa'])
+      }
+  }
   
 ngOnDestroy(): void {
   this.commessaService.clearCommessaPersona();
@@ -74,13 +88,13 @@ ngOnDestroy(): void {
     ).subscribe({
       next: (commper) => {
         if (commper) {
+          this.commessaPersona.push(commper)
           this.commper = true;
           this.listaPersone = []
           this.commessaService.getCommessaPersonaSocietaById(commper.id).subscribe({
             next: (res) => {
-              if (!this.listaPersone.some(persona => persona.id === res.id)) { // Controlla i duplicati
+              if (!this.listaPersone.some(persona => persona.id === res.id)){
                 this.listaPersone.push(res);
-                this._listaPersone = this.listaPersone
               }
             }
           });
@@ -90,12 +104,12 @@ ngOnDestroy(): void {
 
     this.commessaService._commper$.subscribe((_commper)=>{
       if(_commper){
+        this.commessaPersona = _commper,
         this._commper = true;
         this.listaPersone = [];
         const ids = _commper.map((commper: any)=> commper.id);
         this.commessaService.getCommessaPersoneSocietaByIds(ids).subscribe(res => {
           this.listaPersone = res;
-          this._listaPersone = this.listaPersone;
         })
         
       }
@@ -106,34 +120,44 @@ ngOnDestroy(): void {
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()
   }
 
+  modificaCommessaPersona(){
+    if(this.listaPersone !== null && this.commessaPersona !== null){
+      this.listaPersone.forEach(persona =>{
+        const commper = this.commessaPersona.find(cp => cp.personaId ===  persona.personaId);
+        if(commper){
+          commper.dataInizio = persona.dataInizio ? this.convertiStringInDate(persona.dataInizio) : commper.dataInizio;
+          commper.dataFine = persona.dataFine ? this.convertiStringInDate(persona.dataFine) : commper.dataFine;
+        }
+      })
+      this.commessaService.modificaCommessaPersona(this.commessaPersona).subscribe({
+        next: (res) =>{
+          this.dialog.open(MessageResponseDialogComponent,
+            {
+              data: {successMessage : res.message},
+              width : 'auto',
+              height : 'auto'
+            });
+            this.resetDate()
+        }, 
+        error : (err) =>{
+          this.dialog.open(MessageResponseDialogComponent,
+            {
+              data :{successMessage : err.message},
+              width : 'auto',
+              height : 'auto'
+            });
+        }
+      });
+    }
+  }
+
   salvaCommessaPersona() {
-      if(this.listaPersone !== null){
-        debugger
-        this.commessaService.salvaCommessaPersona(this.listaPersone).subscribe({
-          next: (res) =>{
-            this.dialog.open(MessageResponseDialogComponent,
-              {
-                data: {successMessage : res.message},
-                width : 'auto',
-                height : 'auto'
-              });
-          }, 
-          error : (err) =>{
-            this.dialog.open(MessageResponseDialogComponent,
-              {
-                data :{successMessage : err.message},
-                width : 'auto',
-                height : 'auto'
-              });
-          }
-        });
-      }
-      else{
         if(this.assegnaCommessaForm.valid){
+          debugger
             const dataInizioMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataInizio')?.value;
             const dataFineMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataFine')?.value;
-            const dataInizioDate: Date = this.convertiMomentInDate(dataInizioMoment);
-            const dataFineDate: Date = this.convertiMomentInDate(dataFineMoment);
+            const dataInizioDate: Date | null = this.convertiMomentInDate(dataInizioMoment);
+            const dataFineDate: Date | null = this.convertiMomentInDate(dataFineMoment);
         
             this.dataInizio = this.formattingDate(dataInizioDate);
             this.dataFine = this.formattingDate(dataFineDate);
@@ -173,19 +197,45 @@ ngOnDestroy(): void {
                 });
         }
         else{
+          this.assegnaCommessaForm.markAllAsTouched();
           ValidateForm.validateAllFormFields(this.assegnaCommessaForm);
           this.dialog.open(ResponseDialogComponent,
             {
               width : 'auto',
               height : 'auto'
             });
-          }
       }
     }
 
-    convertiMomentInDate(momentObject: moment.Moment): Date {
-      return momentObject.toDate();
+  updateDate(event: Event, persona: any, field: string) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    if (field === 'dataInizio') {
+      persona.dataInizio = this.convertiStringInDate(value);
+      } else if (field === 'dataFine') {
+          persona.dataFine = this.convertiStringInDate(value);
+      }
+  }
+  
+  convertiStringInDate(dateString: string): Date {
+      return new Date(dateString);
+  }
+  
+convertiMomentInDate(momentObject: moment.Moment | string): Date | null {
+  if (typeof momentObject === 'string') {
+    if (momentObject.trim() === '') {
+      return null;
     }
+    const date = moment(momentObject);
+    return date.isValid() ? date.toDate() : null;
+  }
+  
+  if (moment.isMoment(momentObject)) {
+    return momentObject.toDate();
+  }
+  
+  return null;
+}
 
   nextPage(){
     if(this.currentPage < this.getTotalPages()){
@@ -272,15 +322,6 @@ ngOnDestroy(): void {
     }
   }
 
-  goBack() {
-    this.location.back();
-  }
-
-  clearForm() {
-    this.assegnaCommessaForm.reset(this.formDefaultValue)
-    this.dipendentiSelezionati = []
-  }
-
   onCommessaChange(commessaId : any){
     const idCommessa = parseInt(commessaId, 10)
     const minDate = this.getMinDate(idCommessa);
@@ -318,10 +359,7 @@ ngOnDestroy(): void {
     this.startDate[id] = input.value;
   }
 
-  resetDate(){
-    this.listaPersone = JSON.parse(JSON.stringify(this._listaPersone))
-    this.startDate = {};
-  }
+  
 
   formattingDate(date: Date | null | string): string | null {
     if (!date) {
@@ -337,5 +375,25 @@ ngOnDestroy(): void {
     const d = ("0" + date.getDate()).slice(-2);
   
     return `${y}-${m}-${d}`;
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  clearForm() {
+    this.assegnaCommessaForm.reset(this.formDefaultValue)
+    this.dipendentiSelezionati = []
+  }
+  
+  resetDate(){
+    this.listaPersone.forEach((item) => {
+      const commper = this.commessaPersona.find(cp => cp.personaId === item.personaId);
+      if (commper){
+        item.dataInizio = commper.dataInizio;
+        item.dataFine = commper.dataFine;
+      }
+    })
+    this.startDate = {};
   }
 }
