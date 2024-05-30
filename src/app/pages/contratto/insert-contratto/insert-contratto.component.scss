@@ -49,3 +49,11 @@
 .campo-errore {
   border-color: red;
 }
+
+.hover-info {
+  color: #888888;
+}
+
+.mat-form-field:hover .hover-info {
+  display: inline;
+}

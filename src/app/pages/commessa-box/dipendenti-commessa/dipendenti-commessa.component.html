@@ -141,6 +141,8 @@
                                     (focus)="setMinMaxDate(cps.commessaId)"
                                     (change)="updateEndDateMin($event, cps.id)"
                                     (change)="updateDate($event, cps, 'dataInizio')">
+                                    <br *ngIf="isDataInizioMaggioreDiDataFine()">
+                                    <small *ngIf="isDataInizioMaggioreDiDataFine()" class="text-red-600">La data di inizio non può essere successiva alla data di fine.</small>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <input type="date" class="bg-transparent"
@@ -149,6 +151,8 @@
                                     [min]="startDate[cps.id] || minDate"
                                     (focus)="setMinMaxDate(cps.commessaId)"
                                     (change)="updateDate($event, cps, 'dataFine')">
+                                    <br *ngIf="isDataInizioMaggioreDiDataFine()">
+                                    <small *ngIf="isDataInizioMaggioreDiDataFine()" class="text-red-600">La data di fine non può essere precedente alla data di inizio.</small>
                                 </td>
                             </tr>
                         </tbody>
@@ -157,7 +161,10 @@
             </div>
         </div>
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16 flex flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <button (click)="modificaCommessaPersona()" type="submit" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Salva</button>
+            <button (click)="modificaCommessaPersona()"
+            [disabled]="isDataInizioMaggioreDiDataFine()"
+            [ngClass]="{'bg-green-700 cursor-not-allowed': isDataInizioMaggioreDiDataFine(), 'bg-green-600 hover:bg-green-700': !isDataInizioMaggioreDiDataFine()}"
+            type="submit" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Salva</button>
             <button (click)="resetDate()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Cancella</button>
             <button (click)="goBack()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Chiudi</button>
         </div>

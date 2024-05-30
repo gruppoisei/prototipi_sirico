@@ -54,8 +54,12 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   personaConDistacchiAperti: boolean = false;
   erroreCostoOrario: boolean = false;
   erroreCostoMensile: boolean = false;
+  showCostiDetails: boolean = false;
+  costoAnno: string | null = null;
+  costoMese: string | null = null;
   meseCorrente: number = 12;
   annoCorrente: number = 2050;
+  mostraCosti: boolean = false;
 
   tipiSocieta: { societaid: number; ragionesociale: string }[] = [];
   tipiContratto: { tipoid: number; tipodesc: string }[] = [];
@@ -194,6 +198,7 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     });     */
     this.reset();
     this.inserimentoContrattoService.idContratto$.value !== undefined ? this.getContrattoByidContratto(this.inserimentoContrattoService.idContratto$.value) : null;
+    this.mostraCosti = this.inserimentoContrattoService.idContratto$.value !== undefined ? true : false;
     this.utenteLoggato = sessionStorage.getItem('SysUser');
     this.getAllTipoSocieta();
     this.getAllTipoContratto();
@@ -460,6 +465,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
         (response: any) => {
           this.costoOrario = response.costoOrario;
           this.costoMensile = response.costoMensile;
+          this.costoMese = response.mese;
+          this.costoAnno = response.anno;
           },
         (error: any) => {
           this.erroreCostoOrario = true;
