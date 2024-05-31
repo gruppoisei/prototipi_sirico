@@ -17,7 +17,7 @@ import { Observable, of, tap } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-cerca-persona.component';
 import ValidaPartita from '../../../helpers/validaPartitaIva';
-import { UtilityCostiPersonaleComponent } from '../../utility-costi-personale/utility-costi-personale.component';
+import { UtilityCostiPersonaleComponent } from '../../costi-box/utility-costi-personale/utility-costi-personale.component';
 import { UtilityCostiPersonaleService } from '../../../service/utility-costi-personale.service';
 import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 

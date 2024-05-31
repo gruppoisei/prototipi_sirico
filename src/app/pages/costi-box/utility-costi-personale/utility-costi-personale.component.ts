@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { UtilityCostiPersonaleService } from '../../service/utility-costi-personale.service';
-import { MessageResponseDialogComponent } from '../../ui/message-response-dialog/message-response-dialog.component';
-import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialog/response-dialog.component';
+import { UtilityCostiPersonaleService } from '../../../service/utility-costi-personale.service';
+import { MessageResponseDialogComponent } from '../../../ui/message-response-dialog/message-response-dialog.component';
+import { ResponseDialogComponent } from '../../../ui/response-dialog/response-dialog/response-dialog.component';
 
 @Component({
   selector: 'app-utility-costi-personale',
