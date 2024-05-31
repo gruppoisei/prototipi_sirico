@@ -37,6 +37,13 @@ export class InsertRuoloFunzioneComponent implements OnDestroy {
       this.amministrazioneRuolo.getFunzioni()
     );
 
+    // DA COMPLETARE: IMPLEMENTAZIONE CONTROLLATA DELLE FUNZIONI SENZA COMPONENTE ASSOCIATO (VOCE MENU OBBLIGATORIA)
+    console.log("this.AllFunzioni");
+    console.log(this.AllFunzioni);
+    // per ogni funzione verifico se ha un componente associato (bool true/false)
+    // se il bool è false setto la sua flagVoceMenu uguale a true
+    // e [disabled]="true" per tutti gli altri campi relativi a quella funzione
+
     if (this.ruoloId != null) {
 
       await this.ReimpostaLista();

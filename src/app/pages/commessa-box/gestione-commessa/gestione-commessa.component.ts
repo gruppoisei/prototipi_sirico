@@ -7,6 +7,7 @@ import { ricercaCommessa } from '../../../dto/request/ricercaCommessa';
 import FormattaData from '../../../helpers/formattaData';
 import { DeleteCommessaDialogComponent } from '../../delete-commessa-dialog/delete-commessa-dialog.component';
 import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestione-commessa',
@@ -19,7 +20,7 @@ export class GestioneCommessaComponent implements OnInit{
   isDisabled: boolean = true;
   formDefaultValue : any;
   minDataScadenza ?: string
-  constructor(private fb : FormBuilder, private commessaService : CommessaService,  private dialog : MatDialog, public menuDinamicoService: MenuDinamicoService){}
+  constructor(private fb : FormBuilder, private commessaService : CommessaService,  private dialog : MatDialog, public menuDinamicoService: MenuDinamicoService, private router: Router){}
   datiCommessa: any[] = []
   idCommessa : number | null = null;
 
@@ -42,7 +43,9 @@ export class GestioneCommessaComponent implements OnInit{
           this.minDataScadenza = selectDate.toISOString().split('T')[0]
         }
     });
+
     this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag(); 
   }
 
   setTitoloModificaCommessa()
@@ -54,6 +57,7 @@ export class GestioneCommessaComponent implements OnInit{
   {
     this.idCommessa = commessaId;
     this.commessaService.getCommessaById(this.idCommessa)
+    this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
   }
 
   setTitoloNuovaCommessa()
@@ -116,6 +120,10 @@ export class GestioneCommessaComponent implements OnInit{
 
     mostraNotaCompleta(nota: string) {
       alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
+  }
+
+  close() {
+    this.router.navigate([""]);
   }
 
 }

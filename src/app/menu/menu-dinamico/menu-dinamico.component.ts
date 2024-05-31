@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../service/authentication.service';
 import { MenuDinamicoService } from '../../service/menu-dinamico.service';
+import { LoginComponent } from '../../pages/login-box/login/login.component';
+import { AppRoutingModule } from '../../app-routing.module';
 
 @Injectable({
   providedIn: 'root'
@@ -17,34 +19,39 @@ import { MenuDinamicoService } from '../../service/menu-dinamico.service';
 })
 
 export class MenuDinamicoComponent implements OnInit {
-  
+
   constructor(
     private amministrazioneRuolo: AmministrazioneRuoloService,
     private router: Router,
     private auth: AuthenticationService,
-    public menuDinamico: MenuDinamicoService
+    public menuDinamicoService: MenuDinamicoService,
+    private appRoutingModule: AppRoutingModule
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-  
+
   }
 
-  
+
   logout() {
     console.log('logout')
     this.auth.logout().subscribe({
 
-      next : () =>{
-          this.router.navigate([''])
-        },
+      next: () => {
+        const zero = 0;
+        sessionStorage.setItem("idRuoloRoute", zero.toString());
+        this.menuDinamicoService.loadRoute();
+        // this.router.resetConfig([{ path: 'Account/login', component: LoginComponent}]);
+        // this.router.navigate(['/Account/login'])
+      },
 
-      error : (err) =>{
+      error: (err) => {
 
-        }
+      }
     })
   }
 
-  
+
 
 }

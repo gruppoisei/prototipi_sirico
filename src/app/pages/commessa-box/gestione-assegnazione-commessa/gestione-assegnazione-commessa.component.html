@@ -4,7 +4,8 @@
 <div class = "flex flex-row justify-center my-10">
     <form [formGroup]="ricercaForm" class="w-3/4">
         <div class="flex flex-row justify-end mt-10">
-            <a routerLink="/AreaCommerciale/assegna-commessa"><button (click)="setTitoloNuovaAssegnazioneCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
+            <!-- <a routerLink="/AreaCommerciale/assegna-commessa"><button (click)="setTitoloNuovaAssegnazioneCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a> -->
+            <a routerLink="{{'/'+menuDinamicoService.finalPath}}"><button [disabled]="!menuDinamicoService.funzione.flagCreazione" (click)="setTitoloNuovaAssegnazioneCommessa()" mat-icon class = "material-icons w-fit text-base text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2">add</button></a>
         </div>
         <div class="flex flex-row mb-5">
             <!-- Dropdown per Commessa -->
@@ -40,6 +41,7 @@
         <div class = "flex flex-row justify-end mt-10">
             <button type="submit"(click)="ricercaFiltrata()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
             <button (click)="clearSearch()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            <button (click)="close()" class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
         </div>
     </form>
 </div>
@@ -69,9 +71,11 @@
                     <td class="p-3">{{ commessa.dataInizio | date:'dd/MM/yyyy'}}</td>
                     <td class="p-3">{{ commessa.dataFine | date:'dd/MM/yyyy'}}</td>
                     <td class="px-6 py-4 flex gap-3">
-                        <button (click)="openDialogDelete(commessa.commessaId)" class = "text-red-600 hover:text-red-700"><mat-icon>delete</mat-icon></button>
+                        <button [disabled]="!menuDinamicoService.funzione.flagCancellazione" (click)="openDialogDelete(commessa.commessaId)" class = "text-red-600 hover:text-red-700"><mat-icon>delete</mat-icon></button>
                     </td>
-                    <td *ngIf="commessa.isDipendente === true" class="p-3 text-center"><button class="text-black hover:text-gray-700 align-middle" (click)="getListaDipendentiAssegnati(commessa.commessaId)"><mat-icon>more_horiz</mat-icon></button></td>
+                    <td *ngIf="commessa.isDipendente === true" class="p-3 text-center">
+                        <button [disabled]="!menuDinamicoService.funzione.flagLettura" class="text-black hover:text-gray-700 align-middle" (click)="getListaDipendentiAssegnati(commessa.commessaId)"><mat-icon>more_horiz</mat-icon></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
