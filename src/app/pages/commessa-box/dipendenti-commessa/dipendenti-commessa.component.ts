@@ -60,14 +60,13 @@ constructor
 (
   private fb : FormBuilder, private personaService : PersonaService,
   private commessaService : CommessaService, private location : Location,
-  private dialog : MatDialog
+  private dialog : MatDialog, private router : Router
 )
   {
-    const router = inject(Router)
     this.titolo = this.commessaService.getTitolo();
     if(this.titolo === '')
       {
-        router.navigate(['/Segreteria/gestione-assegnazione-commessa'])
+        this.router.navigate(['/Segreteria/gestione-assegnazione-commessa'])
       }
   }
   
