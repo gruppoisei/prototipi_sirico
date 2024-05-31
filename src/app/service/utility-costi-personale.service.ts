@@ -30,4 +30,38 @@ export class UtilityCostiPersonaleService {
     var stringURL = 'http://localhost:5143/GestioneContratto/GetContrattiById';
     return this.http.get<any>(`${this.baseUrl}GetCostiPersonaleByPersonaId?personaId=` + IdPersona );
   }
+
+  getDati(){
+    return this.http.get<any>(`${this.baseUrl}GetDataUltimoRecordCosti`);
+  }
+
+  getRapporti(params: any): Observable<any[]> {
+    //build url
+    let url = `${this.baseUrl}GetCostiFiltered`;
+    let queryParams = [];
+
+    if (params.anno) {
+      queryParams.push(`anno=${params.anno}`);
+    }
+    if (params.mese) {
+      queryParams.push(`mese=${params.mese}`);
+    }
+    if (params.idAzienda) {
+      queryParams.push(`idAzienda=${params.idAzienda}`);
+    }
+    if (params.matricolePersone && params.matricolePersone.length > 0) {
+      params.matricolePersone.forEach((matricola: string) => {
+        queryParams.push(`matricolePersone=${matricola}`);
+      });
+    }
+    if (params.idCommessa) {
+      queryParams.push(`idCommessa=${params.idCommessa}`);
+    }
+
+    if (queryParams.length > 0) {
+      url += '?' + queryParams.join('&');
+    }
+    //console.log(url);
+    return this.http.get<any[]>(url);
+  }
 }
