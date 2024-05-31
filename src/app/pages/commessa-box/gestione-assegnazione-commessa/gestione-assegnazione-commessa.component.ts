@@ -63,8 +63,6 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
     });
   }
 
-
-
   getCommessa(commessaId: number)
   {
     this.idCommessa = commessaId;

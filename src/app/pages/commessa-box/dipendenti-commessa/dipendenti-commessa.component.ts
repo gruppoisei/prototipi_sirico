@@ -152,7 +152,6 @@ ngOnDestroy(): void {
 
   salvaCommessaPersona() {
         if(this.assegnaCommessaForm.valid){
-          debugger
             const dataInizioMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataInizio')?.value;
             const dataFineMoment: moment.Moment = this.assegnaCommessaForm.get('dateRange.dataFine')?.value;
             const dataInizioDate: Date | null = this.convertiMomentInDate(dataInizioMoment);
@@ -192,6 +191,7 @@ ngOnDestroy(): void {
                         width : 'auto',
                         height : 'auto'
                       });
+                      this.commessaPersona = [];
                   }
                 });
         }

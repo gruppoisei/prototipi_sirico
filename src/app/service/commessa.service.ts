@@ -126,13 +126,13 @@ export class CommessaService {
   }
 
   disabilitaCommPerById(id: number){
-    return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaPersonaById/${id}`,{})
+    return this.http.delete<any>(`${this.baseUrl}EliminaCommessaPersonaById/${id}`,{})
   }
 
   disabilitaCommPerByIds(ids:number[]){
     let params = new HttpParams();
     params = params.append('ids', ids.join(','));
-    return this.http.put<any>(`${this.baseUrl}DisabilitaCommessaPersoneByIds`, null ,{params})
+    return this.http.delete<any>(`${this.baseUrl}EliminaCommessaPersoneByIds`,{params})
   }
 
   

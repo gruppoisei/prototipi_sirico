@@ -5,6 +5,9 @@ import { DeleteCommperbyidDialogComponent } from '../delete-commperbyid-dialog/d
 import { DeleteCommperbyidsDialogComponent } from '../delete-commperbyids-dialog/delete-commperbyids-dialog.component';
 import { vistaPersoneCommessa } from '../../../dto/request/vistaPersoneCommessa';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { DialogRef } from '@angular/cdk/dialog';
+import { Observable, of, tap } from 'rxjs';
+import { commessaPersona } from '../../../dto/request/commessaPersona';
 
 @Component({
   selector: 'app-dipendenti-assegnati-dialog',
@@ -19,7 +22,7 @@ export class DipendentiAssegnatiDialogComponent {
   isAnySelected: boolean = false;
   selectedDipendenti: number[] = [];
 
-constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog)
+constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog, private dialogRef: DialogRef<DipendentiAssegnatiDialogComponent>)
 {
   this.listDipendenti = listVistaPersoneCommessa;
   this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
@@ -61,6 +64,7 @@ disableButton(index: any, commessapersonaId:number):void {
   }
 
   eliminaSelezionato(id: any, commessaId: number): void{
+    console.log(this.listDipendenti)
     this.dialog.open(DeleteCommperbyidDialogComponent,
       {
         data: {id: id},
@@ -68,19 +72,28 @@ disableButton(index: any, commessapersonaId:number):void {
         height: 'auto'
       }).afterClosed().subscribe(()=>
         {
-          this.aggiornalistaDipendenti(commessaId);
+          this.aggiornaListaDipendenti(commessaId).subscribe((data)=>
+          {
+            this.listDipendenti = data;
+          })
+          this.dialogRef.close();
+          this.dialog.open(DipendentiAssegnatiDialogComponent,
+            {
+              data: this.listDipendenti,
+              width: 'auto',
+              height: 'auto'
+            });
         });
   }
 
-  eliminaSelezionati(commessaId: number | undefined): void {
-    console.log(this.listDipendenti)
+  eliminaSelezionati(): void {
     this.dialog.open(DeleteCommperbyidsDialogComponent,
       {
         data: {ids: this.selectedDipendenti},
         width: 'auto',
         height: 'auto'
       }).afterClosed().subscribe(()=> {
-        this.aggiornalistaDipendenti(commessaId)
+        this.dialog.open
       });
   }
 
@@ -88,17 +101,21 @@ disableButton(index: any, commessapersonaId:number):void {
     this.commessaService.fetchCommessaPersoneByIds(this.selectedDipendenti)
     }
 
-  aggiornalistaDipendenti(commessaid:number | undefined):void{
-    if(commessaid !== undefined){
-      this.commessaService.getVistaPersoneCommessaById(commessaid).subscribe((data)=>
-        {
-          this.listDipendenti = data;
+  aggiornaListaDipendenti(commessaId: number | undefined): Observable<vistaPersoneCommessa[]> {
+    if (commessaId !== undefined) {
+      return this.commessaService.getVistaPersoneCommessaById(commessaId).pipe(
+        tap((data) => {
           this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
           this.selectedDipendenti = [];
           this.masterCheckbox = false;
+          this.isAnySelected = false;
+          return data;
         })
+      );
+    } else {
+      return of();
     }
-    }
+  }
 
     setTitoloModificaAssegnazioneCommessa()
     {
