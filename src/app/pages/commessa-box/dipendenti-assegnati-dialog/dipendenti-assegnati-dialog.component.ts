@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CommessaService } from '../../../service/commessa.service';
 import { DeleteCommperbyidDialogComponent } from '../delete-commperbyid-dialog/delete-commperbyid-dialog.component';
 import { DeleteCommperbyidsDialogComponent } from '../delete-commperbyids-dialog/delete-commperbyids-dialog.component';
@@ -23,7 +23,7 @@ export class DipendentiAssegnatiDialogComponent {
   isAnySelected: boolean = false;
   selectedDipendenti: number[] = [];
 
-constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog)
+constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog, private dialogRef: MatDialogRef<DipendentiAssegnatiDialogComponent>, private menuDinamicoService: MenuDinamicoService)
 {
   this.listDipendenti = listVistaPersoneCommessa;
   this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
