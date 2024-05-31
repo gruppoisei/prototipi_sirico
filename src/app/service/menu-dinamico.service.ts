@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { AppRoutingModule, listaFunzioneComponente, listaAliasComponente } from '../app-routing.module';
 import { AuthenticationService } from '../service/authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HomepageComponent } from '../pages/homepage/homepage.component';
+import { LoginBoxComponent } from '../pages/login-box/login-box/login-box.component';
+import { notLogged } from '../guard/auth.guard';
+import { AssociazioneMFAComponent } from '../pages/login-box/associazione-mfa/associazione-mfa.component';
+import { LoginComponent } from '../pages/login-box/login/login.component';
+import { ValidatoreMFAComponent } from '../pages/login-box/validatore-mfa/validatore-mfa.component';
+import { ModificaPasswordComponent } from '../pages/modifica-password/modifica-password.component';
 
 
 @Injectable({
@@ -19,8 +26,8 @@ export class MenuDinamicoService {
 
   // permessi e flag
   listaRuoloFunzioni: any;
-  // funzione: any;
-  funzione = { flagLettura: true, flagCreazione: true, flagModifica: true, flagCancellazione: true };
+  funzione: any;
+  // funzione = { flagLettura: true, flagCreazione: true, flagModifica: true, flagCancellazione: true };
 
   homePagePath = "";
 
@@ -33,9 +40,9 @@ export class MenuDinamicoService {
   componenteAssociato: any = "";
   componenteMappato: any = "";
 
+
   // lista di partenza
   listaFunzioniComponenti: any[] = [];
-
 
   // liste intermedie
   listaFunzioniPadre: any[] = [];
@@ -171,6 +178,7 @@ export class MenuDinamicoService {
 
       // caso padre senza figli (funzione autonoma)
       else if (check == false) {
+        console.log(this.listaFunzioniPadre[i].pathDescrizione);
         let newEl = {
           path: this.listaFunzioniPadre[i].pathDescrizione,
           component: listaFunzioneComponente.find(componente => componente.idComponente == this.listaFunzioniPadre[i].fkFunzioniId)!.component //this.listaFunzioniNonPadre[i].pathDescrizione
@@ -204,8 +212,8 @@ export class MenuDinamicoService {
     }
 
     // limito la stampa delle voci di menu escludendo i componenti associati
-    // e tenendo conto del componente aggiuntivo home, impostato dopo di default (length + 1)
-    this.limiteVociMenu = this.listaFunzioniFinaleMenu.length + 1;
+    // e tenendo conto del componente aggiuntivo home, impostato dopo di default (length + 1) NON PIU
+    this.limiteVociMenu = this.listaFunzioniFinaleMenu.length /*+ 1*/;
     // console.log("this.limiteVociMenu");
     // console.log(this.limiteVociMenu);
 
@@ -262,7 +270,13 @@ export class MenuDinamicoService {
     }
 
     // inserisco il componente HOME come primo elemento della lista per il logo del menù come voce di default
-    this.listaFunzioniFinaleMenu.unshift({
+    // this.listaFunzioniFinaleMenu.unshift({
+    //   path: this.homePagePath,
+    //   component: listaFunzioneComponente.find(funzione => funzione.idComponente == 0)?.component
+    // });
+
+    // aggiungo la mappatura del componente home
+    this.listaFunzioniFinaleMenu.push({
       path: this.homePagePath,
       component: listaFunzioneComponente.find(funzione => funzione.idComponente == 0)?.component
     });
@@ -272,6 +286,10 @@ export class MenuDinamicoService {
 
     // creo la nuova route
     this.router.resetConfig(this.listaFunzioniFinaleMenu);
+
+    // salvo nella sessionStorage l'idRuolo per riconfigurare la route dopo il refresh della pagina corrente
+    // sessionStorage.setItem("menuRoute", JSON.stringify(this.listaFunzioniFinaleMenu));
+    sessionStorage.setItem("idRuoloRoute", idRuolo.toString());
 
     console.log("this.router");
     console.log(this.router);
@@ -362,50 +380,22 @@ export class MenuDinamicoService {
   }
 
   async loadFlagsAssociate() {
+    try {
+      if (this.auth.utente!.idRuolo != undefined && this.auth.utente!.idRuolo != null) {
+        this.listaRuoloFunzioni = await this.GetAllInfoFunzioneRuoloById(this.auth.utente!.idRuolo).toPromise();
+      }
+    }
+    catch {
+      console.log('catch');
+    }
 
-    // console.log("this.auth.utente!.idRuolo");
-    // console.log(this.auth.utente!.idRuolo);
-
-    this.listaRuoloFunzioni = await this.GetAllInfoFunzioneRuoloById(this.auth.utente!.idRuolo).toPromise()
-
-    // console.log("this.listaRuoloFunzioni");
-    // console.log(this.listaRuoloFunzioni);
-
-    // console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
-    // console.log(this.listaRuoloFunzioni.listaFunzioni);
-
-
-    // console.log("this.router.url")
-    // console.log(this.router.url)
-
-    // this.currentAlias = this.router.url.replaceAll('%20', ' ');
-
-    // console.log("this.currentAlias")
-    // console.log(this.currentAlias)
-
-    // var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
-
-    // for (let i = 0; i < this.listaRuoloFunzioni.listaFunzioni.length; i++) {
-    //   // console.log(this.listaFunzioni[i]);
-    //   if (this.listaRuoloFunzioni.listaFunzioni[i].nomeFunzione == lastAlias) {
-    //     this.funzione = this.listaRuoloFunzioni.listaFunzioni[i];
-    //     break;
-    //   }
-
-    // }
-
-    // // this.funzione = this.menuDinamico.listaRuoloFunzioni.find((f: { nomeFunzione: string; }) => f.nomeFunzione == lastAlias)
-    // // this.funzione = this.menuDinamico.listaRuoloFunzioni.find(f => f.listaFunzioni.nomeFunzione == lastAlias)
-
-    // console.log("funzione.flagCreazione")
-    // console.log(this.funzione.flagCreazione)    
   }
 
   getPermissionFlag() {
 
     console.log("this.auth.utente!.idRuolo");
     console.log(this.auth.utente!.idRuolo);
-    
+
     console.log("this.menuDinamico.listaRuoloFunzioni.listaFunzioni gestione cliente");
     console.log(this.listaRuoloFunzioni.listaFunzioni);
 
@@ -420,19 +410,87 @@ export class MenuDinamicoService {
     var lastAlias = this.currentAlias.substring(this.currentAlias.lastIndexOf("/") + 1, this.currentAlias.length);
 
     for (let i = 0; i < this.listaRuoloFunzioni.listaFunzioni.length; i++) {
-      
+
       if (this.listaRuoloFunzioni.listaFunzioni[i].nomeFunzione == lastAlias) {
         this.funzione = this.listaRuoloFunzioni.listaFunzioni[i];
         break;
       }
 
     }
-   
+
     console.log("this.funzione");
     console.log(this.funzione);
 
     console.log("funzione.flagCreazione")
     console.log(this.funzione.flagCreazione)
+  }
+
+
+ 
+
+  async loadRoute() { 
+
+ 
+    console.log('loadRoute() START');
+
+    const id = sessionStorage.getItem("idRuoloRoute");
+
+    if (id != undefined && id != null) {
+
+      // caso logout: distruggo la route e il menu
+      if (Number.parseInt(id) == 0) {
+
+        console.log("idRuoloRoute:", id);
+
+        this.router.resetConfig([
+          {
+            path: '',
+            redirectTo: 'Account/login',
+            pathMatch: "full",
+          },
+          {
+            path: 'Home',
+            pathMatch: "full",
+            component: HomepageComponent,
+          },
+          {
+            path: 'Account',
+            component: LoginBoxComponent,
+            children: [
+              { path: 'login', component: LoginComponent },
+              { path: 'associazione-mfa', component: AssociazioneMFAComponent },
+              { path: 'validatore-mfa', component: ValidatoreMFAComponent },
+              { path: 'reset-password', component: ModificaPasswordComponent },
+            ],
+            canActivate: [notLogged]
+          },
+        ])
+
+        this.listaFunzioniComponenti = [];
+        this.listaFunzioniPadre = [];
+        this.listaFunzioniNonPadre = [];
+        this.listaFunzioniChildren = [];
+        this.listaFunzioniAutonome = [];
+        this.listaFunzioniPadreConFigli = [];
+        this.listaSupportoOrdinamentoFunzioniAutonome = [];
+        this.listaFunzioniFinaleMenu = [];
+
+        this.router.navigate([""]);
+        // this.router.navigate(['/Account/login']);
+        return false;
+      }
+      // caso comune: refresh pagina recuperando poi la route tramite l'id ruolo
+      else {
+        console.log("idRuoloRoute:", id);
+        await this.getFunzioniComponenti(Number.parseInt(id));
+        return true;
+      }      
+    }
+
+    console.log(this.router);
+    console.log('loadRoute() END'); 
+    return false;
+    // return 0;  
   }
 
   // getPathMenu(): string {

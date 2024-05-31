@@ -15,6 +15,7 @@ import { ResponseDialogComponent } from '../../../ui/response-dialog/response-di
 import { distinctUntilChanged } from 'rxjs';
 import { Router } from '@angular/router';
 import moment from 'moment';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-dipendenti-commessa',
@@ -60,9 +61,12 @@ constructor
 (
   private fb : FormBuilder, private personaService : PersonaService,
   private commessaService : CommessaService, private location : Location,
-  private dialog : MatDialog, private router : Router
+
+  private dialog : MatDialog, private router: Router, public menuDinamicoService: MenuDinamicoService
 )
   {
+    //const router = inject(Router)
+
     this.titolo = this.commessaService.getTitolo();
     if(this.titolo === '')
       {
@@ -117,6 +121,8 @@ ngOnDestroy(): void {
     this.getPersoneSocieta()
     this.getCommesse()
     this.formDefaultValue = this.assegnaCommessaForm.getRawValue()
+
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   modificaCommessaPersona(){
@@ -384,7 +390,8 @@ convertiMomentInDate(momentObject: moment.Moment | string): Date | null {
   }
 
   goBack() {
-    this.location.back();
+    // this.location.back();
+    this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
   }
 
   clearForm() {

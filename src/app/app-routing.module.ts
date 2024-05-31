@@ -86,12 +86,12 @@ export const listaFunzioneComponente = [
   {
     idComponente: 13,
     component: InsertContrattoComponent,
-  },
+  },*/
   {
     idComponente: 14,
-    component: InsertPersonaComponent,
+    component: GestioneAssegnazioneCommessaComponent,
   },
-  {
+  /*{
     idComponente: 15,
     component: InsertRuoloUtenteComponent,
   },
@@ -128,6 +128,10 @@ export const listaAliasComponente = [
     idComponente: 9,
     component: SalvaCommessaComponent,
   },
+  {
+    idComponente: 14,
+    component: DipendentiCommessaComponent,
+  },
 ]
 
 const routes: Routes = [
@@ -139,13 +143,13 @@ const routes: Routes = [
   {
     path: 'Home',
     pathMatch: "full",
-    component: HomepageComponent,
+    component: /*LoginComponent*/ HomepageComponent,
   },
   {
     path: 'Account',
     component: LoginBoxComponent,
     children: [
-      { path: 'login', component: LoginComponent },
+      { path: 'login', component: /*HomepageComponent*/ LoginComponent },
       { path: 'associazione-mfa', component: AssociazioneMFAComponent },
       { path: 'validatore-mfa', component: ValidatoreMFAComponent },
       { path: 'reset-password', component: ModificaPasswordComponent },
@@ -240,8 +244,6 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {
-
-  //prova: string = "prova";
 }
 
 

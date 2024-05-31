@@ -5,6 +5,7 @@ import { DeleteCommperbyidDialogComponent } from '../delete-commperbyid-dialog/d
 import { DeleteCommperbyidsDialogComponent } from '../delete-commperbyids-dialog/delete-commperbyids-dialog.component';
 import { vistaPersoneCommessa } from '../../../dto/request/vistaPersoneCommessa';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-dipendenti-assegnati-dialog',
@@ -19,10 +20,12 @@ export class DipendentiAssegnatiDialogComponent {
   isAnySelected: boolean = false;
   selectedDipendenti: number[] = [];
 
-constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog)
+constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog, public menuDinamicoService: MenuDinamicoService)
 {
   this.listDipendenti = listVistaPersoneCommessa;
   this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
+
+  this.menuDinamicoService.getPermissionFlag();
 }
 
 disableButton(index: any, commessapersonaId:number):void {
