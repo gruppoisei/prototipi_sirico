@@ -180,7 +180,7 @@ export class GestioneClienteComponent {
   }
 
   close() {
-    this.router.navigate([""]);
+    this.router.navigate(["Home"]);
   }
 }
 

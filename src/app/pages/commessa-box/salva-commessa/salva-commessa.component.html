@@ -81,7 +81,7 @@
               </label>
         </div>
         <div class="w-full flex flex-col md:flex-row justify-between mb-10 mt-10">
-            <button type="submit" (click)="salvaCommessa()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
+            <button [disabled]="!menuDinamicoService.funzione.flagModifica" type="submit" (click)="salvaCommessa()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salva</button>
             <button (click)="clearForm()" class="w-full md:w-1/4 mb-2 md:mb-0 md:mr-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancella</button>
             <button (click)="goBack()" class="w-full md:w-1/4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Chiudi</button>
         </div>

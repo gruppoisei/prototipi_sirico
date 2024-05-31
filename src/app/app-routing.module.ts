@@ -25,12 +25,13 @@ import { SelezionaRuoloDialogComponent } from './pages/login-box/seleziona-ruolo
 import { LoginBoxComponent } from './pages/login-box/login-box/login-box.component';
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
-import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
+import { UtilityCostiPersonaleComponent } from './pages/costi-box/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
 import { GestioneClienteComponent } from './pages/contratto/gestione-cliente/gestione-cliente.component';
 import { PaginationComponent } from './ui/pagination/pagination.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
+import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-costi-personale/rapporto-costi-personale.component';
 
 // si riferisce alla tabella FUNZIONE_COMPONENTE
 export const listaFunzioneComponente = [
@@ -85,12 +86,12 @@ export const listaFunzioneComponente = [
   {
     idComponente: 13,
     component: InsertContrattoComponent,
-  },
+  },*/
   {
     idComponente: 14,
-    component: InsertPersonaComponent,
+    component: GestioneAssegnazioneCommessaComponent,
   },
-  {
+  /*{
     idComponente: 15,
     component: InsertRuoloUtenteComponent,
   },
@@ -127,6 +128,10 @@ export const listaAliasComponente = [
     idComponente: 9,
     component: SalvaCommessaComponent,
   },
+  {
+    idComponente: 14,
+    component: DipendentiCommessaComponent,
+  },
 ]
 
 const routes: Routes = [
@@ -138,13 +143,13 @@ const routes: Routes = [
   {
     path: 'Home',
     pathMatch: "full",
-    component: HomepageComponent,
+    component: /*LoginComponent*/ HomepageComponent,
   },
   {
     path: 'Account',
     component: LoginBoxComponent,
     children: [
-      { path: 'login', component: LoginComponent },
+      { path: 'login', component: /*HomepageComponent*/ LoginComponent },
       { path: 'associazione-mfa', component: AssociazioneMFAComponent },
       { path: 'validatore-mfa', component: ValidatoreMFAComponent },
       { path: 'reset-password', component: ModificaPasswordComponent },
@@ -213,6 +218,7 @@ const routes: Routes = [
       { path: 'gestione-cliente', component: GestioneClienteComponent },
       { path: 'insert-cliente', component: InsertClienteComponent, },
       { path: 'utility-costi-personale', component: UtilityCostiPersonaleComponent, },
+      { path: 'rapporto-costi-personale', component: RapportoCostiPersonaleComponent}
       // {path:,component:},
     ],
     //canActivate : [basicUser]
@@ -238,8 +244,6 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {
-
-  //prova: string = "prova";
 }
 
 

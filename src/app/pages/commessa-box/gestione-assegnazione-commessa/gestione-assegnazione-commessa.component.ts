@@ -7,6 +7,8 @@ import { ricercaCommessaPersona } from '../../../dto/request/ricercaCommessaPers
 import { ErrorLoginDialogComponent } from '../../../ui/error-login-dialog/error-login-dialog.component';
 import { DipendentiAssegnatiDialogComponent } from '../dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
 import { DeleteCommessaDialogComponent } from '../../delete-commessa-dialog/delete-commessa-dialog.component';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestione-assegnazione-commessa',
@@ -19,7 +21,7 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
   isDisabled: boolean = true;
   formDefaultValue : any;
   minDataScadenza ?: string
-  constructor(private fb : FormBuilder, private commessaService : CommessaService, private societaService : SocietaService,  private dialog : MatDialog){}
+  constructor(private fb : FormBuilder, private commessaService : CommessaService, private societaService : SocietaService,  private dialog : MatDialog, private router: Router, public menuDinamicoService: MenuDinamicoService){}
   datiCommessa: any[] = []
   idCommessa : number | null = null;
   listSocieta: any
@@ -43,6 +45,8 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
           this.minDataScadenza = selectDate.toISOString().split('T')[0]
         }
     });
+    this.menuDinamicoService.loadComponentAssociato();
+    this.menuDinamicoService.getPermissionFlag();
   }
 
   loadData(){
@@ -113,6 +117,10 @@ export class GestioneAssegnazioneCommessaComponent implements OnInit{
     setTitoloNuovaAssegnazioneCommessa()
     {
       this.commessaService.setTitolo('Assegnazione delle commesse')
+    }
+
+    close() {
+      this.router.navigate([""]);
     }
 
 }

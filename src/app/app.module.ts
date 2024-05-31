@@ -63,7 +63,7 @@ import { GestioneFileComponent } from './pages/gestione-file/gestione-file.compo
 import { ErroreAllegatoDialogComponent } from './ui/errore-allegato-dialog/errore-allegato-dialog.component';
 import { GestioneCommessaComponent } from './pages/commessa-box/gestione-commessa/gestione-commessa.component';
 import { SalvaCommessaComponent } from './pages/commessa-box/salva-commessa/salva-commessa.component';
-import { UtilityCostiPersonaleComponent } from './pages/utility-costi-personale/utility-costi-personale.component';
+import { UtilityCostiPersonaleComponent } from './pages/costi-box/utility-costi-personale/utility-costi-personale.component';
 import { DipendentiCommessaComponent } from './pages/commessa-box/dipendenti-commessa/dipendenti-commessa.component';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -82,11 +82,11 @@ import { HandlerFormCustomErrorComponent } from './ui/formComponent/handler-form
 import { FormInputNumberComponent } from './ui/formComponent/form-input-number/form-input-number.component';
 import { FormTextareaComponent } from './ui/formComponent/form-textarea/form-textarea.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
-
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 import { DipendentiAssegnatiDialogComponent } from './pages/commessa-box/dipendenti-assegnati-dialog/dipendenti-assegnati-dialog.component';
 import { DeleteCommperbyidDialogComponent } from './pages/commessa-box/delete-commperbyid-dialog/delete-commperbyid-dialog.component';
 import { DeleteCommperbyidsDialogComponent } from './pages/commessa-box/delete-commperbyids-dialog/delete-commperbyids-dialog.component';
+import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-costi-personale/rapporto-costi-personale.component';
 
 @NgModule({
     declarations: [
@@ -151,6 +151,7 @@ import { DeleteCommperbyidsDialogComponent } from './pages/commessa-box/delete-c
         DipendentiAssegnatiDialogComponent,
         DeleteCommperbyidDialogComponent,
         DeleteCommperbyidsDialogComponent,
+        RapportoCostiPersonaleComponent,
     ],
     providers: [
         provideAnimationsAsync(),

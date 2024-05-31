@@ -95,10 +95,10 @@
                         <input matInput [(ngModel)]="formData.codiRalcompenso" type="number" name="RAL" inputmode="numeric"
                             oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="0" required>
                     </mat-form-field>
-                    <mat-form-field *ngIf="mostraCosti" class="w-full" floatLabel="auto" (mouseenter)="showCostiDetails = true" (mouseleave)="showCostiDetails = false">
+                    <mat-form-field *ngIf="mostraCosti" class="w-full" floatLabel="auto">
                         <mat-label>
                             Costo mensile
-                            <span class="hover-info" *ngIf="showCostiDetails">(costi relativi al mese {{ costoMese }}/{{ costoAnno }})</span>
+                            <span class="hover-info">(costi relativi al mese {{ costoMese }}/{{ costoAnno }})</span>
                         </mat-label>
                         <input matInput [(ngModel)]="costoMensile" type="number"
                                name="Costo mensile" inputmode="numeric"
@@ -109,10 +109,10 @@
                         </mat-error>
                     </mat-form-field>
                     
-                    <mat-form-field *ngIf="mostraCosti" class="w-full" floatLabel="auto" (mouseenter)="showCostiDetails = true" (mouseleave)="showCostiDetails = false">
+                    <mat-form-field *ngIf="mostraCosti" class="w-full" floatLabel="auto">
                         <mat-label>
                             Costo orario
-                            <span class="hover-info" *ngIf="showCostiDetails">(costi relativi al mese {{ costoMese }}/{{ costoAnno }})</span>
+                            <span class="hover-info">(costi relativi al mese {{ costoMese }}/{{ costoAnno }})</span>
                         </mat-label>
                         <input matInput [(ngModel)]="costoOrario" type="number"
                                name="Costo orario" inputmode="numeric"

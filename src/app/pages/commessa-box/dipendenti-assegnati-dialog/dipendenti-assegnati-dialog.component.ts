@@ -8,6 +8,7 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Observable, of, tap } from 'rxjs';
 import { commessaPersona } from '../../../dto/request/commessaPersona';
+import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
 @Component({
   selector: 'app-dipendenti-assegnati-dialog',
@@ -22,10 +23,12 @@ export class DipendentiAssegnatiDialogComponent {
   isAnySelected: boolean = false;
   selectedDipendenti: number[] = [];
 
-constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog, private dialogRef: DialogRef<DipendentiAssegnatiDialogComponent>)
+constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog)
 {
   this.listDipendenti = listVistaPersoneCommessa;
   this.checkboxStates = new Array(this.listDipendenti.length).fill(false);
+
+  this.menuDinamicoService.getPermissionFlag();
 }
 
 disableButton(index: any, commessapersonaId:number):void {

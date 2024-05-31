@@ -17,7 +17,7 @@ import { Observable, of, tap } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { DialogCercaPersonaComponent } from '../../dialog-cerca-persona/dialog-cerca-persona.component';
 import ValidaPartita from '../../../helpers/validaPartitaIva';
-import { UtilityCostiPersonaleComponent } from '../../utility-costi-personale/utility-costi-personale.component';
+import { UtilityCostiPersonaleComponent } from '../../costi-box/utility-costi-personale/utility-costi-personale.component';
 import { UtilityCostiPersonaleService } from '../../../service/utility-costi-personale.service';
 import { MenuDinamicoService } from '../../../service/menu-dinamico.service';
 
@@ -54,11 +54,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
   personaConDistacchiAperti: boolean = false;
   erroreCostoOrario: boolean = false;
   erroreCostoMensile: boolean = false;
-  showCostiDetails: boolean = false;
   costoAnno: string | null = null;
   costoMese: string | null = null;
-  meseCorrente: number = 12;
-  annoCorrente: number = 2050;
   mostraCosti: boolean = false;
 
   tipiSocieta: { societaid: number; ragionesociale: string }[] = [];
@@ -120,8 +117,6 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     private utilityCostiService: UtilityCostiPersonaleService,
     public menuDinamicoService: MenuDinamicoService
   ) {
-    this.meseCorrente = new Date().getMonth() + 1;
-    this.annoCorrente = new Date().getFullYear();
     /* this.formData = this.builder.group({
       codiContrattopersid: [''],
       codiRalcompenso: ['', Validators.required],
