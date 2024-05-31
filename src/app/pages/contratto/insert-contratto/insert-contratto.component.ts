@@ -251,7 +251,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
   closeForm() {
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['Segreteria/gestione-contratto']);
+      // this.router.navigate(['Segreteria/gestione-contratto']);
+      this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
   }
 
   dataFineContrattoSelezionata() {

@@ -70,7 +70,7 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
             this.utenteDaAggiungere.listaRuoliId.push(ruolo.idRuolo);
             this.listaOriginale.push(ruolo.idRuolo)
           }
-        );
+          );
 
           this.listaRuoliAssegnati = res.listaRuoli;
           this.listaRuoliDisponibili = this.AllRuoli.filter(
@@ -138,10 +138,10 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
         .subscribe((res) => {
           console.log('res: ');
           console.log(res);
-         alert(res.message);
-         if (res.message == "Inserimento ruolo avvenuto con successo!") {
-          this.resetForm();
-         }
+          alert(res.message);
+          if (res.message == "Inserimento ruolo avvenuto con successo!") {
+            this.resetForm();
+          }
         });
     }
   }
@@ -227,6 +227,9 @@ export class InsertRuoloUtenteComponent implements OnDestroy {
   closeForm() {
     console.log('closeForm()');
     if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['Segreteria/gestione-ruolo-utente']);
+      // this.router.navigate(['Segreteria/gestione-ruolo-utente']);
+      this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
   }
+
+
 }

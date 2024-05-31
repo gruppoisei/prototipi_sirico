@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilityCostiPersonaleService } from '../../service/utility-costi-personale.service';
@@ -10,9 +10,11 @@ import { ResponseDialogComponent } from '../../ui/response-dialog/response-dialo
   templateUrl: './utility-costi-personale.component.html',
   styleUrls: ['./utility-costi-personale.component.scss'],
 })
-export class UtilityCostiPersonaleComponent {
+export class UtilityCostiPersonaleComponent implements OnInit {
   selectedFiles: File[] = [];
   utenteLoggato: string = "frontend";
+  dati: any;
+  showDetails: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -25,6 +27,13 @@ export class UtilityCostiPersonaleComponent {
     if (sysUser) {
       this.utenteLoggato = sysUser;
     }
+    this.getDati();
+  }
+
+  getDati(): void {
+    this.serviceCostiPersonale.getDati().subscribe(response => {
+      this.dati = response;
+    });
   }
 
   receiveFile($event: any): void {

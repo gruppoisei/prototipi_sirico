@@ -42,6 +42,8 @@
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
             <button (click)="clearSearch()"
                 class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            <button (click)="close()"
+                class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
         </div>
     </form>
 </div>
@@ -68,7 +70,8 @@
         <tbody>
             <tr *ngFor="let persona of datiPersona" class="bg-white border-b">
                 <td class="px-6 py-4 flex gap-3">
-                    <a routerLink="/Segreteria/salva-persona"
+                    <!-- <a routerLink="/Segreteria/salva-persona" -->
+                    <a 
                         (click)="setTitoloModificaDipendente(); getDipendente(persona.AnpePersonaid)">
                         <button [disabled]="!menuDinamicoService.funzione.flagLettura" mat-icon
                             class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600 hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button></a>

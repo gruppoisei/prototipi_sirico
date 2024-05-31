@@ -86,7 +86,9 @@ export class GestioneClienteComponent {
     // this.idCliente = Idcliente;
     // this.clienteService.getClienteById(this.idCliente)
     this.clienteService.idCliente$.next(Idcliente);
-    this.router.navigate(['/Risorse-umane/insert-cliente']);
+    // this.router.navigate(['/Risorse-umane/insert-cliente']);
+    this.router.navigate(['/' + this.menuDinamicoService.finalPath]);
+
   }
 
 
@@ -175,6 +177,10 @@ export class GestioneClienteComponent {
     if (nota != null && nota != undefined) {
       alert(nota); // Puoi sostituire questo con qualsiasi altra logica per mostrare il testo completo, come un modale
     }
+  }
+
+  close() {
+    this.router.navigate([""]);
   }
 }
 

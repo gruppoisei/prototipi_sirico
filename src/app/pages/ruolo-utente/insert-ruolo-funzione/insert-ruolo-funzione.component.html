@@ -67,22 +67,22 @@
               </td>
           
               <td class="px-6 py-4">
-                  <input type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
+                  <input [disabled]="funzione.flagVoceMenu" type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
                       [checked]="funzione.flagLettura" (change)="AggiornaCampo(funzione.funzioneId!, 1)">
               </td>
           
               <td class="px-6 py-4">
-                  <input type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
+                  <input [disabled]="funzione.flagVoceMenu" type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
                       [checked]="funzione.flagCreazione" (change)="AggiornaCampo(funzione.funzioneId!, 2)">
               </td>
           
               <td class="px-6 py-4">
-                  <input type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
+                  <input [disabled]="funzione.flagVoceMenu" type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
                       [checked]="funzione.flagModifica" (change)="AggiornaCampo(funzione.funzioneId!, 3)">
               </td>
           
               <td class="px-6 py-4">
-                  <input type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
+                  <input [disabled]="funzione.flagVoceMenu" type="checkbox" class="px-6 py-4 m-5 rounded-full w-4 h-4"
                       [checked]="funzione.flagCancellazione" (change)="AggiornaCampo(funzione.funzioneId!, 4)">
               </td>
           

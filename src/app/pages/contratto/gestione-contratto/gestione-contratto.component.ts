@@ -163,7 +163,8 @@ export class GestioneContrattoComponent implements OnInit {
 
   modifyContract(idContratto: any) {
     this.inserimentoContrattoService.idContratto$.next(idContratto);
-    this.router.navigate(['/Segreteria/insert-contratto']);
+    // this.router.navigate(['/Segreteria/insert-contratto']);
+    this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
   }
 
   async deleteContract(idContratto: number) {
@@ -247,7 +248,7 @@ export class GestioneContrattoComponent implements OnInit {
   }
 
   closeForm() {
-    if (confirm('La pagina verrà chiusa, qualora ci sono dati inseriti verranno cancellati. Si desidera procedere?'))
-      this.router.navigate(['/Home']);
+    // this.router.navigate(['/Home']);
+    this.router.navigate([""]);
   }
 }

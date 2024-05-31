@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorLoginDialogComponent } from '../../ui/error-login-dialog/error-login-dialog.component';
 import { DeleteDipendenteDialogComponent } from '../delete-dipendente-dialog/delete-dipendente-dialog.component';
 import { MenuDinamicoService } from '../../service/menu-dinamico.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,13 +15,13 @@ import { MenuDinamicoService } from '../../service/menu-dinamico.service';
   styleUrl: './gestione-dipendente.component.scss'
 })
 
-export class GestioneDipendenteComponent implements OnInit{
+export class GestioneDipendenteComponent implements OnInit {
 
   ricercaForm!: FormGroup;
-  constructor(private fb : FormBuilder, private personaService : PersonaService, private dialog : MatDialog, public menuDinamicoService: MenuDinamicoService){}
+  constructor(private fb: FormBuilder, private personaService: PersonaService, private dialog: MatDialog, public menuDinamicoService: MenuDinamicoService, private router: Router) { }
   datiPersona: any[] = []
-  idPersona : number | null = null;
-  
+  idPersona: number | null = null;
+
   ngOnInit(): void {
     this.ricercaForm = this.fb.group({
       AnpeNome: [''],
@@ -34,70 +35,70 @@ export class GestioneDipendenteComponent implements OnInit{
     this.menuDinamicoService.loadComponentAssociato();
     this.menuDinamicoService.getPermissionFlag();
   }
-    setTitoloModificaDipendente()
-    {
-      this.personaService.setTitolo('Modifica dipendente')
-    }
+  setTitoloModificaDipendente() {
+    this.personaService.setTitolo('Modifica dipendente')
+  }
 
-    setTitoloNuovaPersona()
-    {
-      this.personaService.setTitolo('Inserimento nuovo dipendente')
-    }
+  setTitoloNuovaPersona() {
+    this.personaService.setTitolo('Inserimento nuovo dipendente')
+  }
 
-  getDipendente(personaId: number)
-    {
-      this.idPersona = personaId;
-      this.personaService.getPersonaById(this.idPersona)
-    }
+  getDipendente(personaId: number) {
+    this.idPersona = personaId;
+    this.personaService.getPersonaById(this.idPersona);
+    this.router.navigate(['/'+this.menuDinamicoService.finalPath]);
+  }
 
-  openDialogDelete(personaId : number) {
+  openDialogDelete(personaId: number) {
     this.idPersona = personaId
     this.dialog.open(DeleteDipendenteDialogComponent,
       {
-        data: {personaId: this.idPersona},
+        data: { personaId: this.idPersona },
         width: 'auto',
         height: 'auto'
       })
-      .afterClosed().subscribe(() =>
-        {
-          this.ricercaFiltrata();
-        })
-    }
-  
-  clearSearch()
-  {
+      .afterClosed().subscribe(() => {
+        this.ricercaFiltrata();
+      })
+  }
+
+  clearSearch() {
     this.ricercaForm.reset();
   }
-      
-  ricercaFiltrata()
-  {
-    const queryParams : ricercaDipendente = this.ricercaForm.value;
+
+  ricercaFiltrata() {
+    const queryParams: ricercaDipendente = this.ricercaForm.value;
 
     this.personaService.getVistaPersoneFiltrata(queryParams)
-    .subscribe(
-      {
-        next:(res) => 
+      .subscribe(
         {
-          this.datiPersona = res.map((persona : any)=>({
-            AnpePersonaid: persona.anpePersonaid,
-            AnpeNome:persona.anpeNome,
-            AnpeCognome: persona.anpeCognome,
-            AnpeMatricola: persona.anpeMatricola,
-            AnpeCodicefiscale: persona.anpeCodicefiscale,
-            GecoDeno: persona.gecoDeno,
-            AnpeEmailaziendale: persona.anpeEmailaziendale,
-            AnsoRagionesociale: persona.ansoRagionesociale,
-          }));
-        },
-        error:(err) =>
-        {
-          this.dialog.open(ErrorLoginDialogComponent,
-            {
-              data: {errorMessage : err?.error.message},
-              width: 'auto',
-              height: 'auto'
-            });
-        }
-      });
+          next: (res) => {
+            this.datiPersona = res.map((persona: any) => ({
+              AnpePersonaid: persona.anpePersonaid,
+              AnpeNome: persona.anpeNome,
+              AnpeCognome: persona.anpeCognome,
+              AnpeMatricola: persona.anpeMatricola,
+              AnpeCodicefiscale: persona.anpeCodicefiscale,
+              GecoDeno: persona.gecoDeno,
+              AnpeEmailaziendale: persona.anpeEmailaziendale,
+              AnsoRagionesociale: persona.ansoRagionesociale,
+            }));
+          },
+          error: (err) => {
+            this.dialog.open(ErrorLoginDialogComponent,
+              {
+                data: { errorMessage: err?.error.message },
+                width: 'auto',
+                height: 'auto'
+              });
+          }
+        });
   }
+
+  close() {
+    this.router.navigate([""]);
+  }
+
+
+
 }
