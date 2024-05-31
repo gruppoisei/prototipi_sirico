@@ -120,6 +120,6 @@ export class RapportoCostiPersonaleComponent implements OnInit {
   }
 
   close() {
-    this.router.navigate([""]);
+    this.router.navigate(["Home"]);
   }
 }
