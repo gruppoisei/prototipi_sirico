@@ -14,7 +14,6 @@ export class UtilityCostiPersonaleComponent implements OnInit {
   selectedFiles: File[] = [];
   utenteLoggato: string = "frontend";
   dati: any;
-  showDetails: boolean = false;
 
   constructor(
     private http: HttpClient,
