@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilityCostiPersonaleService } from '../../../service/utility-costi-personale.service';
 import { InsertContrattoService } from '../../../service/insert-contratto.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rapporto-costi-personale',
@@ -19,10 +20,12 @@ export class RapportoCostiPersonaleComponent implements OnInit {
   totalPages = 0;
   currentPage = 1;
 
+
   constructor(
     private fb: FormBuilder,
     private rapportoCostiService: UtilityCostiPersonaleService,
-    private societaService: InsertContrattoService
+    private societaService: InsertContrattoService,
+    private router: Router
   ) {
     this.rapportoCostiForm = this.fb.group({
       anno: ['', [this.numericValidator(), Validators.min(2000), Validators.max(new Date().getFullYear())]],
@@ -114,5 +117,9 @@ export class RapportoCostiPersonaleComponent implements OnInit {
     const start = (this.currentPage - 1) * this.elementiPerPagina;
     const end = start + this.elementiPerPagina;
     return this.rapporti.slice(start, end);
+  }
+
+  close() {
+    this.router.navigate([""]);
   }
 }

@@ -37,9 +37,13 @@
                 <input type="text" formControlName="cognome" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-sky-500 focus:ring-sky-500">
             </div>
         </div>
-        <div class="py-8 flex justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <button type="button" (click)="cercaRapporti()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Cerca</button>
-            <button type="button" (click)="clearForm()" class="w-full sm:flex-1 px-5 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-1 focus:outline-none focus:ring-black rounded-lg text-center">Cancella</button>
+        <div class="flex flex-row justify-end mt-10">
+            <button type="submit" (click)="cercaRapporti()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cerca</button>
+            <button (click)="clearForm()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Cancella</button>
+            <button (click)="close()"
+                class=" w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">Chiudi</button>
         </div>
     </form>
 </div>
