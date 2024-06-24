@@ -120,10 +120,10 @@ export class GestioneRuoloUtenteComponent implements OnInit {
       }
     );
   }
-
+/*
   onCercaButtonClick() {
     console.log('Cerca button clicked!');
     console.log('FormData:', this.formData);
   }
-
+*/
 }

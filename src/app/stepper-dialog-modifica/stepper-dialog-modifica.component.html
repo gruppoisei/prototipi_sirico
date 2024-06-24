@@ -1,0 +1,51 @@
+<!-- TITOLO -->
+<div class="font-bold text-2xl flex justify-center m-10">{{ titolo }}</div>
+
+<!-- CAMPO DA MODIFICARE -->
+<div class="grid grid-flow-col justify-stretch m-50">
+
+    <mat-form-field class="ml-24 mt-10 mr-14 max-h-20">
+        <mat-label>Aspetti da valutare</mat-label>
+        <input matInput formControlName="nomeAspetto" value="{{ aspettoDaModificare?.nomeAspetto }}" [disabled]="true">
+    </mat-form-field>
+
+    <!--  CASO CRITICITA -->
+    <mat-form-field *ngIf="titolo == 'Criticita'" class="mr-24 mt-10 ml-14 mb-14 ">
+        <mat-label>{{ titolo }}</mat-label>
+        <!-- padding y -->
+        <!-- <textarea matInput maxlength="65535" type="text" rows="7" formControlName="descrizioneCriticita" required></textarea> -->
+        <textarea matInput maxlength="65535" type="text" rows="7" [(ngModel)]="descrizione"
+            value="{{ aspettoDaModificare?.descrizioneCriticita }}" required></textarea>
+    </mat-form-field>
+
+    <!--  CASO SUGGERIMENTO -->
+    <mat-form-field *ngIf="titolo == 'Suggerimento'" class="mr-10 mt-10 ml-10 mb-14 ">
+        <mat-label>Criticita</mat-label>
+        <!-- padding y -->
+        <!-- <textarea matInput maxlength="65535" type="text" rows="7" formControlName="descrizioneCriticita" required></textarea> -->
+        <textarea disabled matInput maxlength="65535" type="text" rows="7"
+            value="{{ aspettoDaModificare?.descrizioneCriticita }}" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="titolo == 'Suggerimento'" class="mr-24 mt-10 ml-14 mb-14 ">
+        <mat-label>{{ titolo }}</mat-label>
+        <!-- padding y -->
+        <!-- <textarea matInput maxlength="65535" type="text" rows="7" formControlName="descrizioneSuggerimento"></textarea> -->
+        <textarea matInput maxlength="65535" type="text" rows="7" 
+        value="{{ aspettoDaModificare?.descrizioneSuggerimento }}" [(ngModel)]="descrizione"></textarea>
+    </mat-form-field>
+
+</div>
+
+<!-- BOTTONI -->
+<div class="flex flex-row justify-end mb-5">
+    <button (click)="closeDialogStepperModifica()"
+        class="w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Chiudi</button>
+    <button *ngIf="titolo == 'Criticita'" (click)="confirmDialogStepperModifica()" [disabled]="descrizione == ''"
+        class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Conferma</button>
+    <button *ngIf="titolo == 'Suggerimento'" (click)="confirmDialogStepperModifica()"
+        class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Conferma</button>
+</div>

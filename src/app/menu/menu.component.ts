@@ -25,9 +25,9 @@ export class MenuComponent {
     })
     }
 
-  Prova()
-  {
-    console.log(this.auth.utente)
-  }
+  // Prova()
+  // {
+  //   console.log(this.auth.utente)
+  // }
 
 }

@@ -32,6 +32,7 @@ import { PaginationComponent } from './ui/pagination/pagination.component';
 import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gestione-assegnazione-commessa/gestione-assegnazione-commessa.component';
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-costi-personale/rapporto-costi-personale.component';
+import { StepperProvaComponent } from './stepper-prova/stepper-prova.component';
 
 // si riferisce alla tabella FUNZIONE_COMPONENTE
 export const listaFunzioneComponente = [
@@ -137,9 +138,13 @@ export const listaAliasComponente = [
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'Account/login',
-    pathMatch: "full",
+    component: StepperProvaComponent,
   },
+  // {
+  //   path: '',
+  //   redirectTo: 'Account/login',
+  //   pathMatch: "full",
+  // },
   {
     path: 'Home',
     pathMatch: "full",

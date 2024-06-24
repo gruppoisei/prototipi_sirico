@@ -1,0 +1,233 @@
+<!-- <form [formGroup]="myForm"> -->
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Dati generali</ng-template>
+      <div class="grid grid-flow-col justify-stretch">
+        <mat-form-field class="m-10">
+          <mat-label>Settore/Materia</mat-label>
+          <mat-select (selectionChange)="formatIdToNameStep1()" formControlName="settoreMateria" required>
+            <mat-option *ngFor="let settore of settoreMateria"
+              [value]="settore.idSettore">{{settore.nomeSettore}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="m-10">
+          <mat-label>Area/Prodotto</mat-label>
+          <mat-select (selectionChange)="formatIdToNameStep1()" formControlName="areaProdotto" required>
+            <mat-option *ngFor="let area of areaProdotto" [value]="area.idArea">{{area.nomeArea}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="m-10">
+          <mat-label>Sede</mat-label>
+          <mat-select (selectionChange)="formatIdToNameStep1()" formControlName="sede" required>
+            <mat-option *ngFor="let sede of sedi" [value]="sede.idSede">{{sede.nomeSede}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-row justify-end mt-5">
+        <button
+          class="w-auto border-2 border-black text-black text-base bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Salva in bozza</button>
+        <button matStepperNext
+          class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup" label="Criticità">
+    <form [formGroup]="secondFormGroup">
+      <div class="grid grid-flow-col justify-stretch m-50">
+        <mat-form-field class="m-40 max-h-20">
+          <mat-label>Aspetti da valutare</mat-label>
+          <!-- <input matInput placeholder="Ex. 1 Main St, New York, NY" formControlName="secondCtrl" required> -->
+          <mat-select formControlName="step2Aspetti" required>
+            <mat-option *ngFor="let aspetti of aspettiDaValutare"
+              [value]="aspetti.idAspetto">{{aspetti.nomeAspetto}}</mat-option>
+            <mat-option (click)="dialogStepperCreazioneAspetto()">Altro</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mt-20 ml-20 mb-0 mr-40">
+          <mat-label>Criticità</mat-label>
+          <!-- padding y -->
+          <textarea matInput maxlength="65535" type="text" rows="7" formControlName="step2Criticita"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-row justify-center m-5">
+        <button (click)="aggiungiAspettoCriticita()"
+          [disabled]="secondFormGroup.value.step2Aspetti == '' || secondFormGroup.value.step2Criticita == '' || secondFormGroup.value.step2Aspetti == null || secondFormGroup.value.step2Criticita == null"
+          class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Aggiungi</button>
+      </div>
+
+      <div *ngIf="listaAspettiAggiunti.length != 0" class="flex flex-row justify-center m-10 text-2xl font-bold">Aspetti
+        aggiunti</div>
+      <div *ngIf="listaAspettiAggiunti.length != 0" class="flex flex-row justify-center mt-5">
+        <table class="text-base text-left rtl:text-right">
+          <thead class="text-sm uppercase text-white bg-blue-600">
+            <tr>
+              <th scope="col" class="px-6 py-3">MODIFICA</th>
+              <th scope="col" class="px-6 py-3">RIMUOVI</th>
+              <th scope="col" class="px-6 py-3">NOME ASPETTO</th>
+              <th scope="col" class="px-6 py-3">CRITICITA'</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let aspettiAggiunti of listaAspettiAggiunti">
+              <td class="px-6 py-4>">
+                <button type="button" (click)="modifica(aspettiAggiunti,'Criticita')" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
+                    hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
+              </td>
+              <td class="px-6 py-4>">
+                <button type="button" (click)="rimuoviAspettoAggiunto(aspettiAggiunti.idAspetto)"
+                  class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+              </td>
+              <td class="px-6 py-4 truncate">{{ aspettiAggiunti.nomeAspetto }}</td>
+              <td class="px-6 py-4 truncate nota-cell"
+                (click)="mostraNotaCompleta(aspettiAggiunti.descrizioneCriticita)">
+                {{ aspettiAggiunti.descrizioneCriticita.substring(0, 25) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex flex-row justify-end mt-10">
+        <button matStepperPrevious
+          class="w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Indietro</button>
+        <button
+          class="w-auto border-2 border-black text-black text-base bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Salva in bozza</button>
+        <button matStepperNext
+          class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup" label="Soluzioni e Suggerimenti">
+    <form [formGroup]="thirdFormGroup">
+      <div *ngIf="listaAspettiAggiunti.length != 0" class="flex flex-row justify-center m-10 text-2xl font-bold">
+        Aspetti aggiunti</div>
+      <div *ngIf="listaAspettiAggiunti.length != 0" class="flex flex-row justify-center mt-5">
+        <table class="text-base text-left rtl:text-right">
+          <thead class="text-sm uppercase text-white bg-blue-600">
+            <tr>
+              <!-- <th scope="col" class="px-6 py-3">RIMUOVI</th> -->
+              <th scope="col" class="px-6 py-3">MODIFICA</th>
+              <th scope="col" class="px-6 py-3">NOME ASPETTO</th>
+              <th scope="col" class="px-6 py-3">CRITICITA'</th>
+              <th scope="col" class="px-6 py-3">SUGGERIMENTO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let aspettiSuggerimenti of listaAspettiSuggerimenti"> -->
+            <tr *ngFor="let listaAspetti of listaAspettiAggiunti">
+
+              <td class="px-6 py-4>">
+                <button type="button" (click)="modifica(listaAspetti,'Suggerimento')" class="material-icons material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-green-600
+                    hover:bg-green-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">create</button>
+              </td>
+              <td class="px-6 py-4 truncate">{{ listaAspetti.nomeAspetto }}</td>
+              <!-- <td class="px-6 py-4 truncate">{{ listaAspetti.descrizioneCriticita }}</td> -->
+              <td class="px-6 py-4 truncate nota-cell" (click)="mostraNotaCompleta(listaAspetti.descrizioneCriticita)">
+                {{ listaAspetti.descrizioneCriticita.substring(0, 25) }}</td>
+              <!-- <td class="px-6 py-4 truncate">{{ listaAspetti.descrizioneSuggerimento }}</td> -->
+              <td class="px-6 py-4 truncate nota-cell"
+                (click)="mostraNotaCompleta(listaAspetti.descrizioneSuggerimento)">
+                {{ listaAspetti.descrizioneSuggerimento.substring(0, 25) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex flex-row justify-end mt-10">
+        <button matStepperPrevious
+          class="w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Indietro</button>
+        <button
+          class="w-auto border-2 border-black text-black text-base bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Salva in bozza</button>
+        <button matStepperNext
+          class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+          Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Riepilogo</ng-template>
+    <div class="flex flex-row justify-center m-16 text-xl font-bold"
+      *ngIf="firstFormGroup.value.settoreMateria == '' || firstFormGroup.value.areaProdotto == '' || firstFormGroup.value.sede == '' ">
+      <a class="mt-auto mb-auto">Dati generali incompleti</a>
+      <button (click)="moveToStep(1)"
+        class="w-auto border-2 border-black text-black text-base bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        COMPLETA</button>
+    </div>
+
+    <div
+      *ngIf="firstFormGroup.value.settoreMateria != '' && firstFormGroup.value.areaProdotto != '' && firstFormGroup.value.sede != '' "
+      class="flex flex-row justify-center text-xl font-bold mt-16 mb-10">
+      Settore/Materia: {{ nomeSettoreMateria }}
+      Area/Prodotto: {{ nomeAreaProdotto }}
+      Sede: {{ nomeSede }}
+    </div>
+
+    <div *ngIf="listaAspettiAggiunti.length != 0" class="flex flex-row justify-center m-10 text-2xl font-bold">
+      Aspetti aggiunti
+    </div>
+    <div *ngIf="listaAspettiAggiunti.length == 0" class="flex flex-row justify-center m-16 text-xl font-bold">
+      <a class="mt-auto mb-auto">Aspetti aggiunti incompleti</a>
+      <button (click)="moveToStep(2)"
+        class="flex flex-row w-auto border-2 border-black text-black text-base bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        COMPLETA</button>
+    </div>
+    <div *ngIf="listaAspettiAggiunti.length != 0" class="flex flex-row justify-center mt-5">
+      <table class="text-base text-left rtl:text-right">
+        <thead class="text-sm uppercase text-white bg-blue-600">
+          <tr>
+            <!-- <th scope="col" class="px-6 py-3">RIMUOVI</th> -->
+            <th scope="col" class="px-6 py-3">NOME ASPETTO</th>
+            <th scope="col" class="px-6 py-3">DESCRIZIONE CRITICITA'</th>
+            <th scope="col" class="px-6 py-3">SUGGERIMENTO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let listaAspetti of listaAspettiAggiunti">
+            <!-- <td class="px-6 py-4>">
+                  <button type="button"
+                    (click)="rimuoviAspettoAggiunto(aspettiSuggerimenti.idAspetto)"
+                    class="material-icons w-auto h-auto text-base border-2 shadow-md text-black bg-red-600 hover:bg-red-700 focus:ring-4 rounded-2xl px-5 py-2.5 text-center">delete</button>
+                </td> -->
+            <td class="px-6 py-4 truncate">{{ listaAspetti.nomeAspetto }}</td>
+            <!-- <td class="px-6 py-4 truncate">{{ listaAspetti.descrizioneCriticita }}</td> -->
+            <td class="px-6 py-4 truncate nota-cell" (click)="mostraNotaCompleta(listaAspetti.descrizioneCriticita)">
+              {{ listaAspetti.descrizioneCriticita.substring(0, 50) }}</td>
+            <!-- <td class="px-6 py-4 truncate">{{ listaAspetti.descrizioneSuggerimento }}</td> -->
+            <td class="px-6 py-4 truncate nota-cell" (click)="mostraNotaCompleta(listaAspetti.descrizioneSuggerimento)">
+              {{ listaAspetti.descrizioneSuggerimento.substring(0, 25) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- </div> -->
+    <div class="flex flex-row justify-end mt-10">
+      <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+      <button matStepperPrevious
+        class="w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Indietro</button>
+      <button
+        class="w-auto border-2 border-black text-black text-base bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Salva in bozza</button>
+      <button
+        class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Salva</button>
+      <button
+        class="w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        Invia</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+<!-- </form> -->

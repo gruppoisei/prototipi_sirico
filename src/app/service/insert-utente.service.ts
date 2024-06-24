@@ -34,7 +34,7 @@ export class InsertUtenteService {
       'http://localhost:5112/Persone/GetPersoneById/' + id
     );
   }
-
+/*
   // INSERIMENTO PERSONA
   addPersona(persona: PersoneEntity): Observable<PersoneEntity> {
     if (persona.datanascita == null || persona.datanascita == '') {
@@ -51,7 +51,7 @@ export class InsertUtenteService {
       this.httpOptions
     );
   }
-
+*/
   // GET ALL PERSONE
   GetAll(): Observable<PersoneEntity> {
     return this.Http.get<PersoneEntity>(

@@ -23,7 +23,7 @@ export class DipendentiAssegnatiDialogComponent {
   isAnySelected: boolean = false;
   selectedDipendenti: number[] = [];
 
-constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog, private dialogRef: MatDialogRef<DipendentiAssegnatiDialogComponent>, private menuDinamicoService: MenuDinamicoService)
+constructor(@Inject(MAT_DIALOG_DATA) public listVistaPersoneCommessa: any, private commessaService: CommessaService, private dialog: MatDialog, private dialogRef: MatDialogRef<DipendentiAssegnatiDialogComponent>, public menuDinamicoService: MenuDinamicoService)
 {
   this.listDipendenti = listVistaPersoneCommessa;
   this.checkboxStates = new Array(this.listDipendenti.length).fill(false);

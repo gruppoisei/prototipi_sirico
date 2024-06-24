@@ -87,6 +87,10 @@ import { DipendentiAssegnatiDialogComponent } from './pages/commessa-box/dipende
 import { DeleteCommperbyidDialogComponent } from './pages/commessa-box/delete-commperbyid-dialog/delete-commperbyid-dialog.component';
 import { DeleteCommperbyidsDialogComponent } from './pages/commessa-box/delete-commperbyids-dialog/delete-commperbyids-dialog.component';
 import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-costi-personale/rapporto-costi-personale.component';
+import { StepperProvaComponent } from './stepper-prova/stepper-prova.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { StepperDialogModificaComponent } from './stepper-dialog-modifica/stepper-dialog-modifica.component';
+import { StepperDialogCreazioneAspettoComponent } from './stepper-dialog-creazione-aspetto/stepper-dialog-creazione-aspetto.component';
 
 @NgModule({
     declarations: [
@@ -152,6 +156,9 @@ import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-cost
         DeleteCommperbyidDialogComponent,
         DeleteCommperbyidsDialogComponent,
         RapportoCostiPersonaleComponent,
+        StepperProvaComponent,
+        StepperDialogModificaComponent,
+        StepperDialogCreazioneAspettoComponent,
     ],
     providers: [
         provideAnimationsAsync(),
@@ -176,6 +183,9 @@ import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-cost
         BrowserAnimationsModule,
         MatBadgeModule,
         MatButtonModule,
+        //
+        MatStepperModule,
+        //
         MatDialogModule,
         MatSlideToggleModule,
         MatFormFieldModule,

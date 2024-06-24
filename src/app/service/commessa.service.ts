@@ -38,6 +38,7 @@ export class CommessaService {
         retry(3)
       );
   }
+
   fetchCommessaPersonaById(commperId: number) {
     this.getCommessaPersonaById(commperId).subscribe({
       next: (res) => {
@@ -134,7 +135,6 @@ export class CommessaService {
     params = params.append('ids', ids.join(','));
     return this.http.delete<any>(`${this.baseUrl}EliminaCommessaPersoneByIds`,{params})
   }
-
   
   getCommessaPersonaSocietaById(id: number)
   {

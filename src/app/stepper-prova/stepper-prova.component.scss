@@ -1,0 +1,23 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+textarea {
+  resize: none;
+}
+
+[disabled] {
+  background-color: grey;
+}
+
+.nota-cell {
+  max-width: 225px; /* Imposta la larghezza massima desiderata */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer; /* Cambia il cursore quando si passa sopra per indicare che il testo è interattivo */
+}

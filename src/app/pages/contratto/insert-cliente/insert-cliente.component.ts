@@ -154,11 +154,11 @@ export class InsertClienteComponent {
       this.router.navigate(['/' + this.menuDinamicoService.finalPath.substring(0, this.menuDinamicoService.finalPath.lastIndexOf("/") + 1)]);
     }
   }
-
+/*
   onSubmitProva() {
     console.log(this.provaForm.value);
   }
-
+*/
 
 
 }

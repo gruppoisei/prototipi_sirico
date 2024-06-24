@@ -201,14 +201,16 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     this.getAllClienti();
     this.getAllTipitipiMotiviFineContratto();
     this.controllovisibilPartitaIva();
-    this.distaccoEsiste(this.formData.personaId);
+    // this.distaccoEsiste(this.formData.personaId);
+    this.distaccoEsiste();
     
     this.disable_fields = true;
 
     this.menuDinamicoService.getPermissionFlag();
   }
   
-  distaccoEsiste(idPerosna: number | null) {
+  // distaccoEsiste(idPerosna: number | null) {
+  distaccoEsiste() {
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = this.formData.personaId;
     this.inserimentoContrattoService.getCronologiaDistacco(this.formData.personaId).subscribe(
       (response: any) => {
@@ -229,9 +231,9 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeModalNuovoClietne() {
-    const dialogRef = this.dialog.closeAll();
-  }
+  // closeModalNuovoClietne() {
+  //   const dialogRef = this.dialog.closeAll();
+  // }
 
   openCronologiaDistaccoModal(personaId: number) {
     this.inserimentoContrattoService.idPersonaCronologiaDistacchi = personaId;
@@ -397,7 +399,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
       this.formData.codiceFiscale = this.inserimentoContrattoService.fieldAutoFill$.value.codiceFiscale;
       this.formData.partitaIva = this.inserimentoContrattoService.fieldAutoFill$.value.partitaIva;
       this.controllovisibilPartitaIva();
-      this.distaccoEsiste(this.formData.personaId);
+      // this.distaccoEsiste(this.formData.personaId);
+      this.distaccoEsiste();
     });
   }
 
@@ -447,7 +450,8 @@ export class InsertContrattoComponent implements OnInit, OnDestroy {
 
       this.loadCosts(this.formData.personaId);
       this.personaConDistacchiAperti = !!this.formData.codsDistaccoid ? true : false;
-      this.distaccoEsiste(this.formData.personaId);
+      // this.distaccoEsiste(this.formData.personaId);
+      this.distaccoEsiste();
       return true;
     } catch (error) {
       console.error("Errore nell'apertura di un contratto:", error);

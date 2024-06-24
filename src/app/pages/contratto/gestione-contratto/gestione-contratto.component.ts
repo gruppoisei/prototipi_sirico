@@ -227,9 +227,9 @@ export class GestioneContrattoComponent implements OnInit {
     });
   }
 
-  reset() {
-    this.formData.reset();
-  }
+  // reset() {
+  //   this.formData.reset();
+  // }
 
   resetSearch() {
     this.formDataSearch = {
@@ -243,7 +243,7 @@ export class GestioneContrattoComponent implements OnInit {
   clearSearch() {
     if (confirm('I campi verranno resettati. Si desidera procedere?')) {
       this.resetSearch();
-      this.reset();
+      // this.reset();
     }
   }
 
