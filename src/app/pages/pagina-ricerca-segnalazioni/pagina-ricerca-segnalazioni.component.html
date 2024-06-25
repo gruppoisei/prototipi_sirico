@@ -1,0 +1,116 @@
+<div class="flex flex-row justify-between items-center w-3/4 mx-auto my-10">
+  <h2 class="text-4xl font-bold"><mat-icon>filter_list</mat-icon>Filtri ricerca</h2>
+  <button type="submit" class="flex items-center w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg px-5 py-2.5 text-center">
+    <mat-icon class="mr-2">arrow_downward</mat-icon>
+    Genera Excel
+  </button>
+</div>
+
+<div class="flex flex-row justify-center my-10">
+  <form class="w-3/4">
+    <div class="flex flex-row mb-5 relative">
+      <div class="relative w-full mx-5">
+        <div class="relative z-0">
+          <select id="floating_select" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let st of this.settoreMateria" [value]="st.id">{{st.nome}}</option>
+          </select>
+
+          <label for="floating_select" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Settore/Materia</label>
+        </div>
+      </div>
+
+      <div class="relative w-full ">
+        <div class="relative z-0">
+          <select id="floating_select" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let ap of this.areaProdotto" [value]="ap.id">{{ap.nome}}</option>
+          </select>
+
+          <label for="floating_select" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Area/Prodotto</label>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Data Inserimento Input -->
+    <div class="flex flex-row mb-5 relative">
+      <div class="relative z-0 w-full mx-5">
+        <input type="date" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="floating_standard" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Data Inserimento</label>
+    </div>
+
+      <!-- Sede Select -->
+      <div class="relative w-full ">
+        <div class="relative z-0">
+          <select id="floating_select" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let sd of this.sede" [value]="sd.id">{{sd.nome}}</option>
+          </select>
+
+          <label for="floating_select" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Sede</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aspetti Select -->
+    <div class="flex flex-row mb-5 mx-5 relative">
+      <div class="relative w-2/4">
+        <div class="relative z-0">
+          <select id="floating_select" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+            <option value="" disabled selected hidden></option>
+            <option *ngFor="let asp of this.aspetti" [value]="asp.id">{{asp.nome}}</option>
+          </select>
+
+          <label for="floating_select" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Aspetti</label>
+        </div>
+      </div>
+      <div class="relative w-2/4">
+        <label class="flex flex-row justify-end mt-5 my-10">
+          <input type="checkbox" class="sr-only peer">
+          <span class="ms-3 text-sm font-medium text-gray-900 mr-2">Da risolvere</span>
+          <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+        </label>
+      </div>
+      <!-- Checkbox -->
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-end w-full">
+      <button type="submit" class="flex items-center w-auto text-white text-base bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        <mat-icon class="mr-2">search</mat-icon>
+        Cerca
+      </button>
+      <button type="button" class= "flex items-center w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        <mat-icon class="mr-2">refresh</mat-icon>
+        Annulla</button>
+    </div>
+  </form>
+</div>
+
+<div class="flex flex-row justify-center">
+  <table class="w-4/5 text-base text-left rtl:text-right my-10">
+      <thead class="text-sm uppercase text-white bg-blue-600">
+          <tr>
+              <th scope="col" class="px-6 py-3">Data Invio</th>
+              <th scope="col" class="px-6 py-3">Data Risoluzione</th>
+              <th scope="col" class="px-6 py-3">Settore/Materia</th>
+              <th scope="col" class="px-6 py-3">Area/Prodotto</th>
+              <th scope="col" class="px-6 py-3">Stato</th>
+              <th scope="col" class="px-6 py-3">Sede</th>
+          </tr>
+      </thead>
+      <tbody class="cursor-pointer">
+        <tr *ngFor="let record of records" [ngClass]="{'bg-yellow-500': record.stato === 'Da risolvere', 'bg-white': record.stato !== 'Da risolvere', 'border-b': true}"
+        (click)="record.stato === 'Da risolvere' ? handleRowClick(record) : null">
+          <td class="px-6 py-4">{{ record.dataInvio }}</td>
+          <td class="px-6 py-4">{{ record.dataRisoluzione }}</td>
+          <td class="px-6 py-4">{{ record.settoreMateria }}</td>
+          <td class="px-6 py-4">{{ record.areaProdotto }}</td>
+          <td class="px-6 py-4">{{ record.stato }}</td>
+          <td class="px-6 py-4">{{ record.sede }}</td>
+        </tr>
+      </tbody>
+  </table>
+</div>

@@ -1,0 +1,35 @@
+<div class="flex flex-row justify-center w-3/4 mx-auto my-10">
+  <h2 class="text-4xl font-bold">Risolvi Aspetto</h2>
+</div>
+
+<div class="flex flex-row justify-center my-10">
+  <form class="w-3/4">
+    <div class="flex flex-row mb-5 relative">
+      <div class="relative w-full mx-5">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Scegli un aspetto</label>
+        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <option [value]="data.idAspetto">{{ data.nomeAspetto }}</option>
+          <option *ngFor="let asp of aspetti" [value]="asp.idAspetto">{{asp.nomeAspetto}}</option>
+        </select>
+      </div>
+      <div class="relative w-full mx-5">
+        <label for="criticita" class="block mb-2 text-sm font-medium text-gray-900">Criticitá</label>
+        <textarea id="criticita" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descrivi la criticitá...">{{ data.descrizioneCriticita }}</textarea>
+      </div>
+      <div class="relative w-full mx-5">
+        <label for="suggerimenti" class="block mb-2 text-sm font-medium text-gray-900">Suggerimenti</label>
+        <textarea id="suggerimenti" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descrivi i suggerimenti...">{{ data.descrizioneSuggerimento }}</textarea>
+      </div>
+    </div>
+    <div class="flex justify-center w-full">
+      <button mat-dialog-close type="button" class= "flex items-center w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        <mat-icon class="mr-2">refresh</mat-icon>
+        Indietro
+      </button>
+      <button mat-dialog-close type="submit" class="flex items-center w-auto text-white text-base bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+        <mat-icon class="mr-2">create</mat-icon>
+        Modifica
+      </button>
+    </div>
+  </form>
+</div>

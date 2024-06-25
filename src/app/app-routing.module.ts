@@ -33,6 +33,8 @@ import { GestioneAssegnazioneCommessaComponent } from './pages/commessa-box/gest
 import { MenuDinamicoComponent } from './menu/menu-dinamico/menu-dinamico.component';
 import { RapportoCostiPersonaleComponent } from './pages/costi-box/rapporto-costi-personale/rapporto-costi-personale.component';
 import { StepperProvaComponent } from './stepper-prova/stepper-prova.component';
+import { PaginaRicercaSegnalazioniComponent } from './pages/pagina-ricerca-segnalazioni/pagina-ricerca-segnalazioni.component';
+import { PaginaRisolviAspettoComponent } from './pages/pagina-risolvi-aspetto/pagina-risolvi-aspetto.component';
 
 // si riferisce alla tabella FUNZIONE_COMPONENTE
 export const listaFunzioneComponente = [
@@ -145,6 +147,14 @@ const routes: Routes = [
   //   redirectTo: 'Account/login',
   //   pathMatch: "full",
   // },
+  {
+    path: 'sirico-ricerca',
+    component: PaginaRicercaSegnalazioniComponent
+  },
+  {
+    path: 'sirico-risolvi-aspetti',
+    component: PaginaRisolviAspettoComponent
+  },
   {
     path: 'Home',
     pathMatch: "full",

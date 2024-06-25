@@ -1,0 +1,38 @@
+<div class="flex justify-center my-10 text-4xl font-bold">
+  <h2>Risolvi Aspetti</h2>
+</div>
+<div class="flex flex-row justify-center my-10">
+<table class="text-base text-left rtl:text-right">
+  <thead class="text-sm uppercase text-white bg-blue-600">
+    <tr>
+      <th scope="col" class="px-6 py-3">NOME ASPETTO</th>
+      <th scope="col" class="px-6 py-3">CRITICITÀ</th>
+      <th scope="col" class="px-6 py-3">SUGGERIMENTO</th>
+      <th scope="col" class="px-6 py-3">Elimina</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let la of aspetti" [ngClass]="{'bg-yellow-500 cursor-pointer': la.idAspetto === 9}"
+    (dblclick)="la.idAspetto === 9 ? handleSpecialClick(la) : null"
+    (click)="la.idAspetto !== 9 ? null : $event.stopPropagation()">
+  <td class="px-6 py-4 truncate">{{ la.nomeAspetto }}</td>
+  <td class="px-6 py-4 truncate" (click)="mostraTesto(la.descrizioneCriticita, la.idAspetto)">{{( la.descrizioneCriticita.length > 10)? ( la.descrizioneCriticita | slice:0:8)+ '...':( la.descrizioneCriticita )}}</td>
+  <td class="px-6 py-4 truncate" (click)="mostraTesto(la.descrizioneSuggerimento, la.idAspetto)">{{( la.descrizioneSuggerimento.length > 10)? ( la.descrizioneSuggerimento | slice:0:8)+ '...':( la.descrizioneSuggerimento )}}</td>
+  <td class="px-6 py-4 truncate">
+    <button class="text-red-600 hover:text-red-700" (click)="eliminaAspetto(la, $event)"><mat-icon>delete_forever</mat-icon></button>
+  </td>
+</tr>
+  </tbody>
+</table>
+</div>
+
+<div class="flex justify-center w-full my-10">
+  <button type="button" (click)="goBack()" class= "flex items-center w-auto text-white text-base bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+    <mat-icon class="mr-2">refresh</mat-icon>
+    Indietro</button>
+    <button type="submit" class="flex items-center w-auto text-white text-base bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg mx-5 px-5 py-2.5 text-center">
+    <mat-icon class="mr-2">check</mat-icon>
+      Risolvi
+    </button>
+</div>
