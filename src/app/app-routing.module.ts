@@ -140,13 +140,21 @@ export const listaAliasComponente = [
 const routes: Routes = [
   {
     path: '',
-    component: StepperProvaComponent,
+    component: PaginaRicercaSegnalazioniComponent,
+  },
+  {
+    path: 'ricerca',
+    component: PaginaRicercaSegnalazioniComponent,
   },
   // {
   //   path: '',
   //   redirectTo: 'Account/login',
   //   pathMatch: "full",
   // },
+  {
+    path: 'stepper',
+    component: StepperProvaComponent
+  },
   {
     path: 'sirico-ricerca',
     component: PaginaRicercaSegnalazioniComponent

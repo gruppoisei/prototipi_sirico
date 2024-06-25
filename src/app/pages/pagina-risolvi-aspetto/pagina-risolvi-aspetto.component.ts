@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalRisolviComponent } from '../../modale-risolvi-aspetto-nuovo/modal-risolvi/modal-risolvi.component';
-import { ModaleTestiAspettiComponent } from '../../modale-testi/modale-testi-aspetti/modale-testi-aspetti.component';
+import { ModalRisolviComponent } from '../modal-risolvi/modal-risolvi.component';
+import { ModaleTestiAspettiComponent } from '../modale-testi-aspetti/modale-testi-aspetti.component';
 
 
 @Component({

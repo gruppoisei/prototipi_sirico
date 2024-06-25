@@ -91,6 +91,10 @@ import { StepperProvaComponent } from './stepper-prova/stepper-prova.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { StepperDialogModificaComponent } from './stepper-dialog-modifica/stepper-dialog-modifica.component';
 import { StepperDialogCreazioneAspettoComponent } from './stepper-dialog-creazione-aspetto/stepper-dialog-creazione-aspetto.component';
+import { PaginaRicercaSegnalazioniComponent } from './pages/pagina-ricerca-segnalazioni/pagina-ricerca-segnalazioni.component';
+import { PaginaRisolviAspettoComponent } from './pages/pagina-risolvi-aspetto/pagina-risolvi-aspetto.component';
+import { ModaleTestiAspettiComponent } from './pages/modale-testi-aspetti/modale-testi-aspetti.component';
+import { ModalRisolviComponent } from './pages/modal-risolvi/modal-risolvi.component';
 
 @NgModule({
     declarations: [
@@ -159,6 +163,10 @@ import { StepperDialogCreazioneAspettoComponent } from './stepper-dialog-creazio
         StepperProvaComponent,
         StepperDialogModificaComponent,
         StepperDialogCreazioneAspettoComponent,
+        PaginaRicercaSegnalazioniComponent,
+        PaginaRisolviAspettoComponent,
+        ModalRisolviComponent,
+        ModaleTestiAspettiComponent
     ],
     providers: [
         provideAnimationsAsync(),
